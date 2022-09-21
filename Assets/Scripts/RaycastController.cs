@@ -88,6 +88,7 @@ public class RaycastController : MonoBehaviour
 
     private void Start()
     {
+        SpaceRays();
         _playerInput.onActionTriggered += ResolveActions;
     }
 
@@ -109,7 +110,6 @@ public class RaycastController : MonoBehaviour
     private void SpaceRays()
     {
         Bounds bounds = _boxCollider.bounds;
-        bounds.Expand(_skinWidth * -2);
 
         _xAxisRayCount = Mathf.Clamp(_xAxisRayCount, 2, int.MaxValue);
         _zAxisRayCount = Mathf.Clamp(_zAxisRayCount, 2, int.MaxValue);
@@ -144,20 +144,22 @@ public class RaycastController : MonoBehaviour
     private void UpdateRaycastOrigins()
     {
         Bounds bounds = _boxCollider.bounds;
-        bounds.Expand(_skinWidth * -2f);
+        Bounds internalBounds = bounds;
+        internalBounds.Expand(_skinWidth * -2f);
 
-        _raycastOrigins.x.negative = new Vector3(bounds.min.x, bounds.min.y, bounds.min.z);
-        _raycastOrigins.x.positive = new Vector3(bounds.max.x, bounds.min.y, bounds.min.z);
-        _raycastOrigins.z.negative = new Vector3(bounds.min.x, bounds.min.y, bounds.min.z);
-        _raycastOrigins.z.positive = new Vector3(bounds.min.x, bounds.max.y, bounds.max.z);
-        _raycastOrigins.y.negative = new Vector3(bounds.min.x, bounds.min.y, bounds.min.z);
-        _raycastOrigins.y.positive = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
+        _raycastOrigins.x.negative = new Vector3(internalBounds.min.x, bounds.min.y, bounds.min.z);
+        _raycastOrigins.x.positive = new Vector3(internalBounds.max.x, bounds.min.y, bounds.min.z);
+        _raycastOrigins.z.negative = new Vector3(bounds.min.x, bounds.min.y, internalBounds.min.z);
+        _raycastOrigins.z.positive = new Vector3(bounds.min.x, bounds.min.y, internalBounds.max.z);
+        _raycastOrigins.y.negative = new Vector3(bounds.min.x, internalBounds.min.y, bounds.min.z);
+        _raycastOrigins.y.positive = new Vector3(bounds.min.x, internalBounds.max.y, bounds.min.z);
     }
 
     private void CalculateCollisions(ref Vector3 velocity, ref CollisionInfo.Axis collisionAxis, Axis axis)
     {
         float axisVelocity;
-        float rayOffset;
+        float iOffset = 0f;
+        float jOffset = 0f;
         float rayCount;
         float raySpacing;
         RaycastOrigins.Axis originAxis;
@@ -169,7 +171,6 @@ public class RaycastController : MonoBehaviour
         {
             case Axis.x:
                 axisVelocity = velocity.x;
-                rayOffset = 0f;
                 rayCount = _xAxisRayCount;
                 raySpacing = _xAxisRaySpacing;
                 originAxis = _raycastOrigins.x;
@@ -180,7 +181,7 @@ public class RaycastController : MonoBehaviour
                 break;
             case Axis.z:
                 axisVelocity = velocity.z;
-                rayOffset = velocity.x;
+                jOffset = velocity.x;
                 rayCount = _zAxisRayCount;
                 raySpacing = _zAxisRaySpacing;
                 originAxis = _raycastOrigins.z;
@@ -191,7 +192,8 @@ public class RaycastController : MonoBehaviour
                 break;
             case Axis.y:
                 axisVelocity = velocity.y;
-                rayOffset = velocity.x + velocity.z;
+                iOffset = velocity.z;
+                jOffset = velocity.x;
                 rayCount = _yAxisRayCount;
                 raySpacing = _yAxisRaySpacing;
                 originAxis = _raycastOrigins.y;
@@ -204,6 +206,8 @@ public class RaycastController : MonoBehaviour
                 throw new System.Exception("Invalid axis provided.");
         }
 
+        Debug.Log(rayCount);
+
         float axisDirection = Mathf.Sign(axisVelocity);
         float rayLength = Mathf.Abs(axisVelocity) + _skinWidth;
 
@@ -212,7 +216,7 @@ public class RaycastController : MonoBehaviour
             for (int j = 0; j < rayCount; j++)
             {
                 Vector3 rayOrigin = axisDirection == -1 ? originAxis.negative : originAxis.positive;
-                rayOrigin += iDirection * (_xAxisRaySpacing * i + rayOffset) + jDirection * (_xAxisRaySpacing * j + rayOffset);
+                rayOrigin += iDirection * (raySpacing * i + iOffset) + jDirection * (raySpacing * j + jOffset);
 
                 if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit hit, rayLength, _collisionMask))
                 {
