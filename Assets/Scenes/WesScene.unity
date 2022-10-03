@@ -609,7 +609,7 @@ GameObject:
   - component: {fileID: 1060094437}
   - component: {fileID: 1060094438}
   - component: {fileID: 1060094439}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,15 +740,16 @@ MonoBehaviour:
   _maxJumpHeight: 5
   _minJumpHeight: 2
   _timeToJumpApex: 0.5
+  _dashForce: 11.843137
+  _dashDistance: 4
+  _dashDuration: 0.5
+  _dashToZero: 1
+  _dashCooldownDuration: 0
+  _dashEasing: 0
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2048
   _drawDebugRays: 0
-  _dashForce: 10
-  _dashDuration: 0.25
-  _accelerationTimeAirborne: 0.2
-  _accelerationTimeGrounded: 0
-  _decelerationTimeDashing: 1
 --- !u!114 &1060094437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,7 +951,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405929420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.94, y: 0, z: 0}
+  m_LocalPosition: {x: 10.94, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 5, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []

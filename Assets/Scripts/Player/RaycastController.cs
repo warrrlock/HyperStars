@@ -4,27 +4,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using WesleyDavies;
-using static RaycastController;
 
 [RequireComponent(typeof(Character))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(InputManager))]
 public class RaycastController : MonoBehaviour
 {
-    [Tooltip("How fast should the character move sideways (in m/s)?")]
+    [Header("Movement")]
+    [Tooltip("How fast should the character move sideways (in units/sec)?")]
     [SerializeField] private float _moveSpeed;
-    [Tooltip("How high should the character jump on longest button press?")]
+
+    [Header("Jump")]
+    [Tooltip("How high (in units) should the character jump on longest button press?")]
     [SerializeField] private float _maxJumpHeight;
-    [Tooltip("How high should the character jump on shortest button press?")]
+    [Tooltip("How high (in units) should the character jump on shortest button press?")]
     [SerializeField] private float _minJumpHeight;
-    [Tooltip("How long should the character jump?")]
+    [Tooltip("How long should the character jump (in sec)?")]
     [SerializeField] private float _timeToJumpApex;
+
+    [Header("Dash")]
+    [SerializeField] private float _dashForce;
+    [SerializeField] private float _dashDistance;
+    [SerializeField] private float _dashDuration;
+    [SerializeField] private bool _dashToZero;
+    //[SerializeField] private float _movementDisableDuration;
+    [SerializeField] private float _dashCooldownDuration;
+    [SerializeField] private DashEasing _dashEasing;
+
+    [Header("Collisions")]
     [Tooltip("What layer(s) should collisions be checked on?")]
     [SerializeField] private LayerMask _collisionMask;
+    [Tooltip("How many rays should be shot out horizontally?")]
+    private int _xAxisRayCount = 3;
+    [Tooltip("How many rays should be shot out forward?")]
+    private int _zAxisRayCount = 3;
+    [Tooltip("How many rays should be shot out vertically?")]
+    private int _yAxisRayCount = 3;
     [Tooltip("Should debug rays be drawn?")]
     [SerializeField] private bool _drawDebugRays;
-    [SerializeField] private float _dashForce;
-    [SerializeField] private float _dashDuration;
+
+    public enum DashEasing { Linear, Quadratic, Cubic }
 
     private Character _character;
     private BoxCollider _boxCollider;
@@ -32,18 +51,14 @@ public class RaycastController : MonoBehaviour
     private InputManager _inputManager;
 
     private Vector3 _velocity;
+    private Vector3 _unforcedVelocity;
     private float _maxJumpVelocity;
     private float _minJumpVelocity;
     private float _gravity;
-    [Tooltip("How many rays should be shot out horizontally?")]
-    private int _xAxisRayCount = 3;
-    [Tooltip("How many rays should be shot out forward?")]
-    private int _zAxisRayCount = 3;
-    [Tooltip("How many rays should be shot out vertically?")]
-    private int _yAxisRayCount = 3;
-    private float _xAxisRaySpacing;
-    private float _yAxisRaySpacing;
-    private float _zAxisRaySpacing;
+    private Vector2 _xAxisRaySpacing;
+    private Vector2 _yAxisRaySpacing;
+    private Vector2 _zAxisRaySpacing;
+    private Vector3 _forceVelocity;
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
@@ -55,11 +70,11 @@ public class RaycastController : MonoBehaviour
 
     private readonly float _skinWidth = 0.1f;
 
-    [SerializeField] private float _accelerationTimeAirborne = .2f;
-    [SerializeField] private float _accelerationTimeGrounded = .1f;
-    [SerializeField] private float _decelerationTimeDashing = .1f;
+    private float _accelerationTimeAirborne = .2f;
+    private float _accelerationTimeGrounded = .1f;
     private Vector2 _horizontalVelocitySmoothing;
     private Vector2 _horizontalTargetVelocity;
+    private Vector3 _cachedVelocity;
 
     private struct RaycastOrigins
     {
@@ -107,22 +122,89 @@ public class RaycastController : MonoBehaviour
         _gravity = (2 * _maxJumpHeight) / Mathf.Pow(_timeToJumpApex, 2);
         _maxJumpVelocity = Mathf.Abs(_gravity) * _timeToJumpApex;
         _minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(_gravity) * _minJumpHeight);
+
+
+
+        //Easing function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
+        //float fiveTotal = 0f;
+        //for (float i = 0; i < 10; i++)
+        //{
+        //    float number = function.Ease(4, 0, i / 10);
+        //    Debug.Log(number);
+        //    fiveTotal += number;
+        //}
+        //Debug.Log(fiveTotal);
+
+        //float tenTotal = 0f;
+        //for (float i = 0; i < 10; i++)
+        //{
+        //    float number = function.Ease(5, 0, i / 10);
+        //    Debug.Log(number);
+        //    tenTotal += number;
+        //}
+        //Debug.Log(tenTotal);
+
+        switch (_dashEasing)
+        {
+            case DashEasing.Linear:
+                _dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
+                break;
+            case DashEasing.Quadratic:
+                //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f + (Time.fixedDeltaTime / 2f));
+                //_dashForce = ((_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f)) - 4f * Time.fixedDeltaTime;
+                //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f) * (1f - Time.fixedDeltaTime / 2f) + Time.fixedDeltaTime / 4f;
+                //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f);
+                //_dashForce = _dashDistance - _dashDuration;
+
+
+                //float a = _dashDistance * Time.fixedDeltaTime / Mathf.Pow(_dashDuration / Time.fixedDeltaTime, 2f);
+                //float c = (a * Mathf.Pow(_dashDuration / Time.fixedDeltaTime, 2f) + _dashDistance * Time.fixedDeltaTime - a) / (_dashDuration / Time.fixedDeltaTime + 1f);
+                //float b = _dashDistance * Time.fixedDeltaTime - a - c;
+                //_dashForce = _dashDistance * Time.fixedDeltaTime - _dashDuration / Time.fixedDeltaTime * b + c;
+
+                //Debug.Log(a + ", " + b + ", " + c);
+
+                ////float a = _dashDistance * Time.fixedDeltaTime / Mathf.Pow(_dashDuration / Time.fixedDeltaTime, 2f);
+                //float a = 0.2f;
+                ////float c = (a * Mathf.Pow(_dashDuration / Time.fixedDeltaTime, 2f) + _dashDuration / Time.fixedDeltaTime * _dashDistance * Time.fixedDeltaTime - _dashDuration / Time.fixedDeltaTime * a) / (_dashDuration / Time.fixedDeltaTime - 1f);
+                //float c = ((a * _dashDuration / Time.fixedDeltaTime + _dashDistance * Time.fixedDeltaTime - a) / (_dashDuration / Time.fixedDeltaTime - 1f)) * _dashDuration / Time.fixedDeltaTime;
+                //float b = _dashDistance - a - c;
+                //_dashForce = _dashDistance * Time.fixedDeltaTime - _dashDuration / Time.fixedDeltaTime * b - c;
+
+                //Debug.Log(a + ", " + b + ", " + c);
+
+                //float a = _dashDistance / Mathf.Pow(_dashDuration, 2f);
+                //float c = (a * Mathf.Pow(_dashDuration, 2f) + _dashDuration * _dashDistance - _dashDuration * a) / (_dashDuration - 1f);
+                //float b = _dashDistance - a - c;
+                //_dashForce = _dashDistance - _dashDuration * b + c;
+
+                //Debug.Log(a + ", " + b + ", " + c);
+
+                _dashForce = (_dashDistance * 3f) / (_dashDuration * _dashDuration * Time.fixedDeltaTime * Time.fixedDeltaTime + 1f);
+
+                break;
+            case DashEasing.Cubic:
+                _dashForce = (_dashDistance * 4f) / (_dashDuration * Time.fixedDeltaTime + 1f);
+                break;
+        }
     }
 
     private void FixedUpdate()
     {
         float accelerationTime = _collisionData.y.isNegativeHit ? _accelerationTimeGrounded : _accelerationTimeAirborne;
-        if (_inputManager.Actions["Dash"].isBeingPerformed)
-        {
-            accelerationTime = _decelerationTimeDashing;
-        }
-        _velocity.x = Mathf.SmoothDamp(_velocity.x, _horizontalTargetVelocity.x, ref _horizontalVelocitySmoothing.x, accelerationTime);
-        _velocity.z = Mathf.SmoothDamp(_velocity.z, _horizontalTargetVelocity.y, ref _horizontalVelocitySmoothing.y, accelerationTime);
-        _velocity.y -= _gravity * Time.fixedDeltaTime;
+
+        _horizontalTargetVelocity += new Vector2(_forceVelocity.x, _forceVelocity.z);
+        //_velocity += _forceVelocity;
+
+        //_velocity.x = Mathf.SmoothDamp(_velocity.x, _horizontalTargetVelocity.x, ref _horizontalVelocitySmoothing.x, accelerationTime);
+        //_velocity.z = Mathf.SmoothDamp(_velocity.z, _horizontalTargetVelocity.y, ref _horizontalVelocitySmoothing.y, accelerationTime);
+        _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
+        _velocity = _unforcedVelocity + _forceVelocity;
+        //_velocity += _forceVelocity;
         Move(_velocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
-            _velocity.y = 0f;
+            _unforcedVelocity.y = 0f;
         }
     }
 
@@ -165,9 +247,12 @@ public class RaycastController : MonoBehaviour
         _zAxisRayCount = Mathf.Clamp(_zAxisRayCount, 2, int.MaxValue);
         _yAxisRayCount = Mathf.Clamp(_yAxisRayCount, 2, int.MaxValue);
 
-        _xAxisRaySpacing = bounds.size.y / (_xAxisRayCount - 1);
-        _zAxisRaySpacing = bounds.size.z / (_zAxisRayCount - 1);
-        _yAxisRaySpacing = bounds.size.x / (_yAxisRayCount - 1);
+        _xAxisRaySpacing.x = bounds.size.z / (_xAxisRayCount - 1);
+        _xAxisRaySpacing.y = bounds.size.y / (_xAxisRayCount - 1);
+        _zAxisRaySpacing.x = bounds.size.x / (_zAxisRayCount - 1);
+        _zAxisRaySpacing.y = bounds.size.y / (_zAxisRayCount - 1);
+        _yAxisRaySpacing.x = bounds.size.x / (_yAxisRayCount - 1);
+        _yAxisRaySpacing.y = bounds.size.z / (_yAxisRayCount - 1);
     }
 
     private void Move(Vector3 velocity)
@@ -218,7 +303,7 @@ public class RaycastController : MonoBehaviour
         float iOffset = 0f;
         float jOffset = 0f;
         float rayCount;
-        float raySpacing;
+        Vector2 raySpacing;
         RaycastOrigins.Axis originAxis;
         Vector3 iDirection;
         Vector3 jDirection;
@@ -285,7 +370,7 @@ public class RaycastController : MonoBehaviour
             for (int j = 0; j < rayCount; j++)
             {
                 Vector3 rayOrigin = axisDirection == -1f ? originAxis.negative : originAxis.positive;
-                rayOrigin += iDirection * (raySpacing * i + iOffset) + jDirection * (raySpacing * j + jOffset);
+                rayOrigin += iDirection * (raySpacing.y * i + iOffset) + jDirection * (raySpacing.x * j + jOffset);
 
                 if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit hit, rayLength, _collisionMask))
                 {
@@ -317,23 +402,35 @@ public class RaycastController : MonoBehaviour
 
     private void StartMoving(InputManager.Action action)
     {
-        _horizontalTargetVelocity = action.inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+        //_horizontalTargetVelocity = action.inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+        Vector2 inputVector = action.inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+        _unforcedVelocity.x = inputVector.x;
+        _unforcedVelocity.z = inputVector.y;
     }
 
     private void StopMoving(InputManager.Action action)
     {
-        _horizontalTargetVelocity = Vector2.zero;
+        //_horizontalTargetVelocity = Vector2.zero;
+        _unforcedVelocity = Vector3.zero;
     }
 
     private void Dash(InputManager.Action action)
     {
+        //TODO: end the dash if player hits an obstacle
         if (_inputManager.Actions["Move"].isBeingPerformed)
         {
-            StartCoroutine(ApplyForce(_inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized, _dashForce, _dashDuration, _inputManager.Actions["Move"]));
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
+            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, inputVector.y), _dashForce, _dashDuration));
+            StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
+            if (_dashToZero)
+            {
+                _unforcedVelocity = Vector2.zero;
+            }
         }
         else
         {
-            StartCoroutine(ApplyForce(_character.FacingDirection == Character.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _inputManager.Actions["Move"]));
+            StartCoroutine(ApplyForce(_character.FacingDirection == Character.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration));
+            StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
         }
     }
 
@@ -341,42 +438,71 @@ public class RaycastController : MonoBehaviour
     {
         if (_collisionData.y.isNegativeHit)
         {
-            _velocity.y = _maxJumpVelocity;
+            //_velocity.y = _maxJumpVelocity;
+            _unforcedVelocity.y = _maxJumpVelocity;
+            StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Move"]));
         }
     }
 
     private void StopJumping(InputManager.Action action)
     {
-        if (_velocity.y > _minJumpVelocity)
+        if (_unforcedVelocity.y > _minJumpVelocity)
         {
-            _velocity.y = _minJumpVelocity;
+            //_velocity.y = _minJumpVelocity;
+            _unforcedVelocity.y = _minJumpVelocity;
         }
     }
 
-    private IEnumerator ApplyForce(Vector3 direction, float magnitude, float timeUntilActionsEnabled, params InputManager.Action[] actionsToDisable)
+    private IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration)
     {
-        foreach(InputManager.Action action in actionsToDisable)
-        {
-            action.disabledCount++;
-        }
         //direction.Normalize();
-        Vector3 force = direction * magnitude;
-        _horizontalTargetVelocity = direction * _moveSpeed;
-        _velocity.x = force.x;
-        _velocity.y = force.y;
-        _velocity.z = force.z;
+        //Vector3 force = direction * magnitude;
+        //_forceVelocity += force;
+        //_horizontalTargetVelocity = new Vector2(force.x, force.z);
+        //_velocity.x = force.x;
+        //_velocity.y = force.y;
+        //_velocity.z = force.z;
+        //_horizontalTargetVelocity = direction * _moveSpeed;
         //_horizontalTargetVelocity.x = force.x;
         //_horizontalTargetVelocity.y = force.z;
-        yield return new WaitForSeconds(timeUntilActionsEnabled);
-
-        foreach (InputManager.Action action in actionsToDisable)
+        float timer = 0f;
+        while (timer < duration)
         {
-            action.disabledCount--;
+            float forceMagnitude = 0f;
+            Easing function;
+
+            switch (_dashEasing)
+            {
+                case DashEasing.Linear:
+                    forceMagnitude = Mathf.Lerp(magnitude, 0f, timer / duration);
+                    break;
+                case DashEasing.Quadratic:
+                    function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
+                    forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
+                    break;
+                case DashEasing.Cubic:
+                    function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+                    forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
+                    break;
+            }
+
+            Vector3 force = direction * forceMagnitude;
+            _forceVelocity += force;
+            yield return new WaitForFixedUpdate();
+            _forceVelocity -= force;
+            timer += Time.fixedDeltaTime;
         }
+
         if (!_inputManager.Actions["Move"].isBeingPerformed)
         {
-            _horizontalTargetVelocity = Vector2.zero;
+            //_horizontalTargetVelocity = Vector2.zero;
+            _unforcedVelocity = Vector2.zero;
         }
+        else
+        {
+            _unforcedVelocity = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+        }
+        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
     }
 }
