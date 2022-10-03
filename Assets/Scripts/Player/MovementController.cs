@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using WesleyDavies;
+using static InputManager;
 
-[RequireComponent(typeof(Character))]
+[RequireComponent(typeof(Fighter))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(InputManager))]
-public class RaycastController : MonoBehaviour
+public class MovementController : MonoBehaviour
 {
     [Header("Movement")]
     [Tooltip("How fast should the character move sideways (in units/sec)?")]
@@ -45,7 +46,7 @@ public class RaycastController : MonoBehaviour
 
     public enum DashEasing { Linear, Quadratic, Cubic }
 
-    private Character _character;
+    private Fighter _fighter;
     private BoxCollider _boxCollider;
     private PlayerInput _playerInput;
     private InputManager _inputManager;
@@ -215,7 +216,7 @@ public class RaycastController : MonoBehaviour
 
     private void AssignComponents()
     {
-        _character = GetComponent<Character>();
+        _fighter = GetComponent<Fighter>();
         _playerInput = GetComponent<PlayerInput>();
         _boxCollider = GetComponent<BoxCollider>();
         _inputManager = GetComponent<InputManager>();
@@ -353,13 +354,13 @@ public class RaycastController : MonoBehaviour
 
         if (axis == Axis.x)
         {
-            if (axisDirection == -1f && _character.FacingDirection == Character.Direction.Right)
+            if (axisDirection == -1f && _fighter.FacingDirection == Fighter.Direction.Right)
             {
-                _character.FlipCharacter(Character.Direction.Left);
+                _fighter.FlipCharacter(Fighter.Direction.Left);
             }
-            if (axisDirection == 1f && _character.FacingDirection == Character.Direction.Left)
+            if (axisDirection == 1f && _fighter.FacingDirection == Fighter.Direction.Left)
             {
-                _character.FlipCharacter(Character.Direction.Right);
+                _fighter.FlipCharacter(Fighter.Direction.Right);
             }
         }
 
@@ -424,12 +425,12 @@ public class RaycastController : MonoBehaviour
             StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
             if (_dashToZero)
             {
-                _unforcedVelocity = Vector2.zero;
+                _unforcedVelocity = Vector3.zero;
             }
         }
         else
         {
-            StartCoroutine(ApplyForce(_character.FacingDirection == Character.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration));
+            StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration));
             StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
         }
     }
@@ -453,7 +454,7 @@ public class RaycastController : MonoBehaviour
         }
     }
 
-    private IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration)
+    public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration)
     {
         //direction.Normalize();
         //Vector3 force = direction * magnitude;
@@ -496,11 +497,13 @@ public class RaycastController : MonoBehaviour
         if (!_inputManager.Actions["Move"].isBeingPerformed)
         {
             //_horizontalTargetVelocity = Vector2.zero;
-            _unforcedVelocity = Vector2.zero;
+            _unforcedVelocity = Vector3.zero;
         }
         else
         {
-            _unforcedVelocity = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+            _unforcedVelocity.x = inputVector.x;
+            _unforcedVelocity.z = inputVector.y;
         }
         StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
