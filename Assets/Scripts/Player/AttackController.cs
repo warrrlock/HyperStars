@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(InputManager))]
-[RequireComponent(typeof(RaycastController))]
+[RequireComponent(typeof(MovementController))]
 public class AttackController : MonoBehaviour
 {
     private InputManager _inputManager;
-    private RaycastController _controller;
+    private MovementController _movementController;
 
     //public class Attack
     //{
@@ -50,7 +50,7 @@ public class AttackController : MonoBehaviour
     private void AssignComponents()
     {
         _inputManager = GetComponent<InputManager>();
-        _controller = GetComponent<RaycastController>();
+        _movementController = GetComponent<MovementController>();
     }
 
     private void SubscribeActions()
@@ -67,7 +67,7 @@ public class AttackController : MonoBehaviour
 
     private void ExecuteNormal(InputManager.Action action)
     {
-        if (_controller.CollisionData.y.isNegativeHit)
+        if (_movementController.CollisionData.y.isNegativeHit)
         {
             //execute grounded neutral
         }
@@ -79,7 +79,7 @@ public class AttackController : MonoBehaviour
 
     private void ExecuteSpecial(InputManager.Action action)
     {
-        if (_controller.CollisionData.y.isNegativeHit)
+        if (_movementController.CollisionData.y.isNegativeHit)
         {
             //execute grounded special
         }

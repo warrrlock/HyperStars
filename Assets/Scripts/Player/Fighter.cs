@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(RaycastController))]
+[RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(AttackController))]
-public class Character : MonoBehaviour
+public class Fighter : MonoBehaviour
 {
     public enum Direction { Left, Right }
     public Direction FacingDirection { get; private set; }
