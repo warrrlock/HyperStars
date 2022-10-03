@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using WesleyDavies;
-using static InputManager;
 
 [RequireComponent(typeof(Fighter))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(InputManager))]
 public class MovementController : MonoBehaviour
 {
+    public enum ForceEasing { Linear, Quadratic, Cubic }
+
     [Header("Movement")]
     [Tooltip("How fast should the character move sideways (in units/sec)?")]
     [SerializeField] private float _moveSpeed;
@@ -30,7 +31,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private bool _dashToZero;
     //[SerializeField] private float _movementDisableDuration;
     [SerializeField] private float _dashCooldownDuration;
-    [SerializeField] private DashEasing _dashEasing;
+    [SerializeField] private ForceEasing _dashEasing;
 
     [Header("Collisions")]
     [Tooltip("What layer(s) should collisions be checked on?")]
@@ -43,8 +44,6 @@ public class MovementController : MonoBehaviour
     private int _yAxisRayCount = 3;
     [Tooltip("Should debug rays be drawn?")]
     [SerializeField] private bool _drawDebugRays;
-
-    public enum DashEasing { Linear, Quadratic, Cubic }
 
     private Fighter _fighter;
     private BoxCollider _boxCollider;
@@ -147,10 +146,10 @@ public class MovementController : MonoBehaviour
 
         switch (_dashEasing)
         {
-            case DashEasing.Linear:
+            case ForceEasing.Linear:
                 _dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
                 break;
-            case DashEasing.Quadratic:
+            case ForceEasing.Quadratic:
                 //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f + (Time.fixedDeltaTime / 2f));
                 //_dashForce = ((_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f)) - 4f * Time.fixedDeltaTime;
                 //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f) * (1f - Time.fixedDeltaTime / 2f) + Time.fixedDeltaTime / 4f;
@@ -184,7 +183,7 @@ public class MovementController : MonoBehaviour
                 _dashForce = (_dashDistance * 3f) / (_dashDuration * _dashDuration * Time.fixedDeltaTime * Time.fixedDeltaTime + 1f);
 
                 break;
-            case DashEasing.Cubic:
+            case ForceEasing.Cubic:
                 _dashForce = (_dashDistance * 4f) / (_dashDuration * Time.fixedDeltaTime + 1f);
                 break;
         }
@@ -454,7 +453,7 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration)
+    public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
     {
         //direction.Normalize();
         //Vector3 force = direction * magnitude;
@@ -472,16 +471,16 @@ public class MovementController : MonoBehaviour
             float forceMagnitude = 0f;
             Easing function;
 
-            switch (_dashEasing)
+            switch (easingFunction)
             {
-                case DashEasing.Linear:
+                case ForceEasing.Linear:
                     forceMagnitude = Mathf.Lerp(magnitude, 0f, timer / duration);
                     break;
-                case DashEasing.Quadratic:
+                case ForceEasing.Quadratic:
                     function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
                     forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
                     break;
-                case DashEasing.Cubic:
+                case ForceEasing.Cubic:
                     function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
                     forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
                     break;
