@@ -420,7 +420,7 @@ public class MovementController : MonoBehaviour
         if (_inputManager.Actions["Move"].isBeingPerformed)
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
-            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, inputVector.y), _dashForce, _dashDuration));
+            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, inputVector.y), _dashForce, _dashDuration, _dashEasing));
             StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
             if (_dashToZero)
             {
@@ -429,7 +429,7 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration));
+            StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
             StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
         }
     }
