@@ -3,34 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(InputManager))]
 [RequireComponent(typeof(RaycastController))]
 public class AttackController : MonoBehaviour
 {
-    public class Attack
-    {
-        public readonly Attack nextNormal;
-        public readonly Attack nextSpecial;
-    }
-
-    public class NormalMash : Attack
-    {
-        public readonly NormalMash nextMash;
-    }
-
-    public class Combo
-    {
-        public readonly Attack[] precedingAttacks;
-        public readonly Attack followingAttack;
-        [Tooltip("How much time can be taken between the last attack executing and this input being pressed?")]
-        public readonly float maxAttackDelay;
-    }
-
-    private PlayerInput _playerInput;
+    private InputManager _inputManager;
     private RaycastController _controller;
 
-    private Attack _currentAttack;
-    private Attack _queuedAttack;
+    //public class Attack
+    //{
+    //    public readonly Attack nextNormal;
+    //    public readonly Attack nextSpecial;
+    //}
+
+    //public class NormalMash : Attack
+    //{
+    //    public readonly NormalMash nextMash;
+    //}
+
+    //public class Combo
+    //{
+    //    public readonly Attack[] precedingAttacks;
+    //    public readonly Attack followingAttack;
+    //    [Tooltip("How much time can be taken between the last attack executing and this input being pressed?")]
+    //    public readonly float maxAttackDelay;
+    //}
+
+    //private Attack _currentAttack;
+    //private Attack _queuedAttack;
 
     private void Awake()
     {
@@ -39,56 +39,53 @@ public class AttackController : MonoBehaviour
 
     private void Start()
     {
-        _playerInput.onActionTriggered += ResolveActions;
-    }
-
-    private void Update()
-    {
-        
+        SubscribeActions();
     }
 
     private void OnDestroy()
     {
-        _playerInput.onActionTriggered -= ResolveActions;
+        UnsubscribeActions();
     }
 
     private void AssignComponents()
     {
-        _playerInput = GetComponent<PlayerInput>();
+        _inputManager = GetComponent<InputManager>();
         _controller = GetComponent<RaycastController>();
     }
 
-    private void ResolveActions(InputAction.CallbackContext context)
+    private void SubscribeActions()
     {
-        if (context.action == _playerInput.actions["Normal"])
+        _inputManager.Actions["Normal"].perform += ExecuteNormal;
+        _inputManager.Actions["Special"].perform += ExecuteSpecial;
+    }
+
+    private void UnsubscribeActions()
+    {
+        _inputManager.Actions["Normal"].perform -= ExecuteNormal;
+        _inputManager.Actions["Special"].perform -= ExecuteSpecial;
+    }
+
+    private void ExecuteNormal(InputManager.Action action)
+    {
+        if (_controller.CollisionData.y.isNegativeHit)
         {
-            if (context.action.WasPerformedThisFrame())
-            {
-                if (_controller.CollisionData.y.isNegativeHit)
-                {
-                    //execute grounded neutral
-                }
-                else
-                {
-                    //execute aerial neutral
-                }
-            }
+            //execute grounded neutral
         }
-
-        if (context.action == _playerInput.actions["Special"])
+        else
         {
-            if (context.action.WasPerformedThisFrame())
-            {
-
-            }
+            //execute aerial neutral
         }
+    }
 
-        if (context.action == _playerInput.actions["Side Special"])
+    private void ExecuteSpecial(InputManager.Action action)
+    {
+        if (_controller.CollisionData.y.isNegativeHit)
         {
-            if (context.action.WasPerformedThisFrame())
-            {
-
-            }
+            //execute grounded special
+        }
+        else
+        {
+            //execute aerial special
         }
     }
 }
