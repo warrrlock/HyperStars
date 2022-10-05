@@ -119,7 +119,7 @@ public class InputManager : MonoBehaviour
                 //action.isBeingInput = false;
                 if (action.disabledCount == 0)
                 {
-                    action.stop?.Invoke(action);
+                    StartCoroutine(Stop(action));
                 }
                 else if (action.disabledCount > 0)
                 {
@@ -154,7 +154,7 @@ public class InputManager : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator Disable(Func<bool> thing, params Action[] actionsToDisable)
+    public IEnumerator Disable(Func<bool> enableCondition, params Action[] actionsToDisable)
     {
         foreach (InputManager.Action action in actionsToDisable)
         {
@@ -162,7 +162,7 @@ public class InputManager : MonoBehaviour
         }
         yield return null;
         yield return new WaitForFixedUpdate();
-        yield return new WaitUntil(thing);
+        yield return new WaitUntil(enableCondition);
 
         foreach (InputManager.Action action in actionsToDisable)
         {
@@ -185,6 +185,20 @@ public class InputManager : MonoBehaviour
         action.isStopQueued = true;
         yield return new WaitUntil(() => action.disabledCount == 0);
         action.isStopQueued = false;
+        action.stop?.Invoke(action);
+        yield break;
+    }
+
+    /// <summary>
+    /// This prevents a bug where sometimes the gamepad registers the control stick as performed and released in the same frame and thus keeps moving in the last performed direction without stopping.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <returns></returns>
+    private IEnumerator Stop(Action action)
+    {
+        yield return null;
+        yield return null;
+        yield return null;
         action.stop?.Invoke(action);
         yield break;
     }

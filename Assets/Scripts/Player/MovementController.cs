@@ -147,7 +147,8 @@ public class MovementController : MonoBehaviour
         switch (_dashEasing)
         {
             case ForceEasing.Linear:
-                _dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
+                //_dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
+                _dashForce = (_dashDistance * 2f) / (_dashDuration + Time.fixedDeltaTime);
                 break;
             case ForceEasing.Quadratic:
                 //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f + (Time.fixedDeltaTime / 2f));
@@ -411,7 +412,9 @@ public class MovementController : MonoBehaviour
     private void StopMoving(InputManager.Action action)
     {
         //_horizontalTargetVelocity = Vector2.zero;
-        _unforcedVelocity = Vector3.zero;
+        //_unforcedVelocity = Vector3.zero;
+        _unforcedVelocity.x = 0f;
+        _unforcedVelocity.z = 0f;
     }
 
     private void Dash(InputManager.Action action)
@@ -424,7 +427,8 @@ public class MovementController : MonoBehaviour
             StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
             if (_dashToZero)
             {
-                _unforcedVelocity = Vector3.zero;
+                _unforcedVelocity.x = 0f;
+                _unforcedVelocity.z = 0f;
             }
         }
         else
@@ -496,7 +500,8 @@ public class MovementController : MonoBehaviour
         if (!_inputManager.Actions["Move"].isBeingPerformed)
         {
             //_horizontalTargetVelocity = Vector2.zero;
-            _unforcedVelocity = Vector3.zero;
+            _unforcedVelocity.x = 0f;
+            _unforcedVelocity.z = 0f;
         }
         else
         {
