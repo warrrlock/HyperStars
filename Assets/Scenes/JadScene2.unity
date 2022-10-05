@@ -1393,6 +1393,7 @@ GameObject:
   - component: {fileID: 1591441843}
   - component: {fileID: 1591441841}
   - component: {fileID: 1591441845}
+  - component: {fileID: 1591441846}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1550,15 +1551,16 @@ MonoBehaviour:
   _maxJumpHeight: 5
   _minJumpHeight: 2
   _timeToJumpApex: 0.5
+  _dashForce: 10
+  _dashDistance: 2
+  _dashDuration: 0.25
+  _dashToZero: 0
+  _dashCooldownDuration: 0
+  _dashEasing: 0
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2048
   _drawDebugRays: 0
-  _dashForce: 10
-  _dashDuration: 0.25
-  _accelerationTimeAirborne: 0.2
-  _accelerationTimeGrounded: 0
-  _decelerationTimeDashing: 1
 --- !u!65 &1591441842
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1608,7 +1610,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2acacd9414cc545ecbb21276537cf7c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialState: {fileID: 11400000, guid: 3eff4d727269f459495877ca48fa0dcf, type: 2}
+  _initialState: {fileID: 11400000, guid: 3eff4d727269f459495877ca48fa0dcf, type: 2}
+--- !u!114 &1591441846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591441829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2d24d8ce6b8544f88cd3b62187cb268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  list:
+  - name: pushbox
+    collider: {fileID: 1591441842}
 --- !u!1 &1710573240
 GameObject:
   m_ObjectHideFlags: 0
