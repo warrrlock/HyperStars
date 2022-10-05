@@ -8,16 +8,16 @@ namespace FiniteStateMachine
     public class State: BaseState
     {
         // ========== variables ========== //
-        [SerializeField] private List<StateAction> actions = new List<StateAction>();
-        [SerializeField] private List<Transition> transitions = new List<Transition>();
+        [SerializeField] private List<StateAction> _actions = new List<StateAction>();
+        [SerializeField] private List<Transition> _transitions = new List<Transition>();
         
         
         // ==========  methods ========== //
         public override void Execute(BaseStateMachine stateMachine, string inputName){
-            foreach(StateAction action in actions){
+            foreach(StateAction action in _actions){
                 action.Execute(stateMachine);
             }
-            foreach (Transition transition in transitions)
+            foreach (Transition transition in _transitions)
             {
                 transition.Execute(stateMachine, inputName);
             }
