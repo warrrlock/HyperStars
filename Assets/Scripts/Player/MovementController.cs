@@ -412,8 +412,9 @@ public class MovementController : MonoBehaviour
     private void StopMoving(InputManager.Action action)
     {
         //_horizontalTargetVelocity = Vector2.zero;
-        _unforcedVelocity = Vector3.zero;
-        Debug.Log("penis");
+        //_unforcedVelocity = Vector3.zero;
+        _unforcedVelocity.x = 0f;
+        _unforcedVelocity.z = 0f;
     }
 
     private void Dash(InputManager.Action action)
@@ -426,7 +427,8 @@ public class MovementController : MonoBehaviour
             StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
             if (_dashToZero)
             {
-                _unforcedVelocity = Vector3.zero;
+                _unforcedVelocity.x = 0f;
+                _unforcedVelocity.z = 0f;
             }
         }
         else
@@ -498,7 +500,8 @@ public class MovementController : MonoBehaviour
         if (!_inputManager.Actions["Move"].isBeingPerformed)
         {
             //_horizontalTargetVelocity = Vector2.zero;
-            _unforcedVelocity = Vector3.zero;
+            _unforcedVelocity.x = 0f;
+            _unforcedVelocity.z = 0f;
         }
         else
         {
