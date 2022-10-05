@@ -29,7 +29,6 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _dashDistance;
     [SerializeField] private float _dashDuration;
     [SerializeField] private bool _dashToZero;
-    //[SerializeField] private float _movementDisableDuration;
     [SerializeField] private float _dashCooldownDuration;
     [SerializeField] private ForceEasing _dashEasing;
 
@@ -423,8 +422,7 @@ public class MovementController : MonoBehaviour
         if (_inputManager.Actions["Move"].isBeingPerformed)
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
-            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, inputVector.y), _dashForce, _dashDuration, _dashEasing));
-            StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
+            StartCoroutine(ApplyForce(new Vector3(_unforcedVelocity.x, 0f, _unforcedVelocity.z), _dashForce, _dashDuration, _dashEasing));
             if (_dashToZero)
             {
                 _unforcedVelocity.x = 0f;
@@ -434,8 +432,8 @@ public class MovementController : MonoBehaviour
         else
         {
             StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
-            StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
         }
+        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
     }
 
     private void Jump(InputManager.Action action)
@@ -459,7 +457,7 @@ public class MovementController : MonoBehaviour
 
     public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
     {
-        //direction.Normalize();
+        direction.Normalize();
         //Vector3 force = direction * magnitude;
         //_forceVelocity += force;
         //_horizontalTargetVelocity = new Vector2(force.x, force.z);
