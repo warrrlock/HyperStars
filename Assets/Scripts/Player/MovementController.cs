@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using WesleyDavies;
 
-[RequireComponent(typeof(Character))]
+[RequireComponent(typeof(Fighter))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(InputManager))]
-public class RaycastController : MonoBehaviour
+public class MovementController : MonoBehaviour
 {
+    public enum ForceEasing { Linear, Quadratic, Cubic }
+
     [Header("Movement")]
     [Tooltip("How fast should the character move sideways (in units/sec)?")]
     [SerializeField] private float _moveSpeed;
@@ -29,7 +31,7 @@ public class RaycastController : MonoBehaviour
     [SerializeField] private bool _dashToZero;
     //[SerializeField] private float _movementDisableDuration;
     [SerializeField] private float _dashCooldownDuration;
-    [SerializeField] private DashEasing _dashEasing;
+    [SerializeField] private ForceEasing _dashEasing;
 
     [Header("Collisions")]
     [Tooltip("What layer(s) should collisions be checked on?")]
@@ -43,9 +45,7 @@ public class RaycastController : MonoBehaviour
     [Tooltip("Should debug rays be drawn?")]
     [SerializeField] private bool _drawDebugRays;
 
-    public enum DashEasing { Linear, Quadratic, Cubic }
-
-    private Character _character;
+    private Fighter _fighter;
     private BoxCollider _boxCollider;
     private PlayerInput _playerInput;
     private InputManager _inputManager;
@@ -146,10 +146,10 @@ public class RaycastController : MonoBehaviour
 
         switch (_dashEasing)
         {
-            case DashEasing.Linear:
+            case ForceEasing.Linear:
                 _dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
                 break;
-            case DashEasing.Quadratic:
+            case ForceEasing.Quadratic:
                 //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f + (Time.fixedDeltaTime / 2f));
                 //_dashForce = ((_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f)) - 4f * Time.fixedDeltaTime;
                 //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f) * (1f - Time.fixedDeltaTime / 2f) + Time.fixedDeltaTime / 4f;
@@ -183,7 +183,7 @@ public class RaycastController : MonoBehaviour
                 _dashForce = (_dashDistance * 3f) / (_dashDuration * _dashDuration * Time.fixedDeltaTime * Time.fixedDeltaTime + 1f);
 
                 break;
-            case DashEasing.Cubic:
+            case ForceEasing.Cubic:
                 _dashForce = (_dashDistance * 4f) / (_dashDuration * Time.fixedDeltaTime + 1f);
                 break;
         }
@@ -215,7 +215,7 @@ public class RaycastController : MonoBehaviour
 
     private void AssignComponents()
     {
-        _character = GetComponent<Character>();
+        _fighter = GetComponent<Fighter>();
         _playerInput = GetComponent<PlayerInput>();
         _boxCollider = GetComponent<BoxCollider>();
         _inputManager = GetComponent<InputManager>();
@@ -353,13 +353,13 @@ public class RaycastController : MonoBehaviour
 
         if (axis == Axis.x)
         {
-            if (axisDirection == -1f && _character.FacingDirection == Character.Direction.Right)
+            if (axisDirection == -1f && _fighter.FacingDirection == Fighter.Direction.Right)
             {
-                _character.FlipCharacter(Character.Direction.Left);
+                _fighter.FlipCharacter(Fighter.Direction.Left);
             }
-            if (axisDirection == 1f && _character.FacingDirection == Character.Direction.Left)
+            if (axisDirection == 1f && _fighter.FacingDirection == Fighter.Direction.Left)
             {
-                _character.FlipCharacter(Character.Direction.Right);
+                _fighter.FlipCharacter(Fighter.Direction.Right);
             }
         }
 
@@ -420,16 +420,16 @@ public class RaycastController : MonoBehaviour
         if (_inputManager.Actions["Move"].isBeingPerformed)
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
-            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, inputVector.y), _dashForce, _dashDuration));
+            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, inputVector.y), _dashForce, _dashDuration, _dashEasing));
             StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
             if (_dashToZero)
             {
-                _unforcedVelocity = Vector2.zero;
+                _unforcedVelocity = Vector3.zero;
             }
         }
         else
         {
-            StartCoroutine(ApplyForce(_character.FacingDirection == Character.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration));
+            StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
             StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
         }
     }
@@ -453,7 +453,7 @@ public class RaycastController : MonoBehaviour
         }
     }
 
-    private IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration)
+    public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
     {
         //direction.Normalize();
         //Vector3 force = direction * magnitude;
@@ -471,16 +471,16 @@ public class RaycastController : MonoBehaviour
             float forceMagnitude = 0f;
             Easing function;
 
-            switch (_dashEasing)
+            switch (easingFunction)
             {
-                case DashEasing.Linear:
+                case ForceEasing.Linear:
                     forceMagnitude = Mathf.Lerp(magnitude, 0f, timer / duration);
                     break;
-                case DashEasing.Quadratic:
+                case ForceEasing.Quadratic:
                     function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
                     forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
                     break;
-                case DashEasing.Cubic:
+                case ForceEasing.Cubic:
                     function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
                     forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
                     break;
@@ -496,11 +496,13 @@ public class RaycastController : MonoBehaviour
         if (!_inputManager.Actions["Move"].isBeingPerformed)
         {
             //_horizontalTargetVelocity = Vector2.zero;
-            _unforcedVelocity = Vector2.zero;
+            _unforcedVelocity = Vector3.zero;
         }
         else
         {
-            _unforcedVelocity = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+            _unforcedVelocity.x = inputVector.x;
+            _unforcedVelocity.z = inputVector.y;
         }
         StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
