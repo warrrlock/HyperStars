@@ -147,7 +147,8 @@ public class MovementController : MonoBehaviour
         switch (_dashEasing)
         {
             case ForceEasing.Linear:
-                _dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
+                //_dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
+                _dashForce = (_dashDistance * 2f) / (_dashDuration + Time.fixedDeltaTime);
                 break;
             case ForceEasing.Quadratic:
                 //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f + (Time.fixedDeltaTime / 2f));
@@ -412,6 +413,7 @@ public class MovementController : MonoBehaviour
     {
         //_horizontalTargetVelocity = Vector2.zero;
         _unforcedVelocity = Vector3.zero;
+        Debug.Log("penis");
     }
 
     private void Dash(InputManager.Action action)
