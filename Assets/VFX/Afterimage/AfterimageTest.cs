@@ -5,8 +5,8 @@ using UnityEngine.VFX;
 
 public class AfterimageTest : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _particleSystem;
-    private Renderer particleRenderer;
+    // [SerializeField] private ParticleSystem _particleSystem;
+    // private Renderer particleRenderer;
     
     [SerializeField] private VisualEffect _visualEffect;
     
@@ -17,7 +17,7 @@ public class AfterimageTest : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        particleRenderer = _particleSystem.GetComponent<Renderer>();
+        // particleRenderer = _particleSystem.GetComponent<Renderer>();
     }
     
     void LateUpdate()
@@ -29,7 +29,7 @@ public class AfterimageTest : MonoBehaviour
         else
         {
             _visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
-            particleRenderer.material.mainTexture = _spriteRenderer.sprite.texture;
+            // particleRenderer.material.mainTexture = _spriteRenderer.sprite.texture;
             delayTimer = 1;
         }
     }
