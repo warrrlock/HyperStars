@@ -1,0 +1,436 @@
+Using pre-set license
+Built from '2021.3/staging' branch; Version is '2021.3.10f1 (1c7d0df0160b) revision 1867021'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19044) 64bit Core' Language: 'en' Physical Memory: 15776 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2021.3.10f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker4
+-projectPath
+C:/Users/johne/Documents/GitHub Repos/HyperStars/HyperStars
+-logFile
+Logs/AssetImportWorker4.log
+-srvPort
+58021
+Successfully changed project path to: C:/Users/johne/Documents/GitHub Repos/HyperStars/HyperStars
+C:/Users/johne/Documents/GitHub Repos/HyperStars/HyperStars
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Refreshing native plugins compatible for Editor in 134.70 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.3.10f1 (1c7d0df0160b)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.10f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/johne/Documents/GitHub Repos/HyperStars/HyperStars/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 3070 Laptop GPU (ID=0x249d)
+    Vendor:   NVIDIA
+    VRAM:     8044 MB
+    Driver:   31.0.15.1659
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.10f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.10f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.10f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56084
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.10f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.012082 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 102.27 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.861 seconds
+Domain Reload Profiling:
+	ReloadAssembly (862ms)
+		BeginReloadAssembly (123ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (608ms)
+			LoadAssemblies (122ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (126ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (27ms)
+			SetupLoadedEditorAssemblies (390ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (11ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (102ms)
+				BeforeProcessingInitializeOnLoad (2ms)
+				ProcessInitializeOnLoadAttributes (219ms)
+				ProcessInitializeOnLoadMethodAttributes (55ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.014826 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 99.72 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+DisplayProgressbar: Populating Wwise Picker
+Mono: successfully reloaded assembly
+- Completed reload, in  2.029 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2030ms)
+		BeginReloadAssembly (137ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (8ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (24ms)
+		EndReloadAssembly (1749ms)
+			LoadAssemblies (164ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (317ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (93ms)
+			SetupLoadedEditorAssemblies (1113ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (8ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (100ms)
+				BeforeProcessingInitializeOnLoad (142ms)
+				ProcessInitializeOnLoadAttributes (707ms)
+				ProcessInitializeOnLoadMethodAttributes (146ms)
+				AfterProcessingInitializeOnLoad (10ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.08 seconds
+Refreshing native plugins compatible for Editor in 1.42 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5233 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 93 unused Assets / (1.4 MB). Loaded Objects now: 5650.
+Memory consumption went from 218.7 MB to 217.3 MB.
+Total: 5.432400 ms (FindLiveObjects: 0.389900 ms CreateObjectMapping: 0.166800 ms MarkObjects: 4.441500 ms  DeleteObjects: 0.432900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 155105.855973 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo15.png
+  artifactKey: Guid(2d55344bcde9a584fb8e92185183fa48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo15.png using Guid(2d55344bcde9a584fb8e92185183fa48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '651fb6b45463cdfcb6788a5e2603f44a') in 1.687561 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo40.png
+  artifactKey: Guid(0c98fd4660aae4544a6c0e9d92db06c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo40.png using Guid(0c98fd4660aae4544a6c0e9d92db06c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b925ba6601ea34dda7cb7e39f06344b2') in 1.406459 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo14.png
+  artifactKey: Guid(aea40d02d3b8e3f4c895a7b9f297961c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo14.png using Guid(aea40d02d3b8e3f4c895a7b9f297961c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06b34c64453b4ff72c4a501eaf6284fb') in 1.501779 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo47.png
+  artifactKey: Guid(9ae4babf0bd1f324ea692361693fd66f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo47.png using Guid(9ae4babf0bd1f324ea692361693fd66f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cfccdb978eae9ab4be30a4f67fa2ad5') in 1.552351 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000047 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo46.png
+  artifactKey: Guid(d73ea4c7d26179d4898b426bedf82378) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo46.png using Guid(d73ea4c7d26179d4898b426bedf82378) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6126d786ca3184ad5ec5a0c41100b2a') in 1.308064 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo9.png
+  artifactKey: Guid(54b512704bc85914ba9be4a70283da00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo9.png using Guid(54b512704bc85914ba9be4a70283da00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06bd08790354278aa6e8103129e1fca3') in 1.754917 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo17.png
+  artifactKey: Guid(2fd02040b44d9a646a21bf913a9cb600) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo17.png using Guid(2fd02040b44d9a646a21bf913a9cb600) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac619f13b13784ead9557c0c929ebffa') in 1.472033 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo45.png
+  artifactKey: Guid(f77846d9e5b9f0447a26f9de26c9bef0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo45.png using Guid(f77846d9e5b9f0447a26f9de26c9bef0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '525b713c3930db077a6879fcb4eb9ae4') in 1.255386 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo11.png
+  artifactKey: Guid(44d6feab86d8a8d4f8a4386c282d0077) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo11.png using Guid(44d6feab86d8a8d4f8a4386c282d0077) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '51a2f6fce901c7e9b4d4ebb142c752d2') in 1.295147 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo25.png
+  artifactKey: Guid(4fb216d11b6de164d8f9ff9411703863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo25.png using Guid(4fb216d11b6de164d8f9ff9411703863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75bc7db506d7c20af5189e157552af94') in 1.388883 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo2.png
+  artifactKey: Guid(e40e15dd41df12c4b857bff354e6419e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo2.png using Guid(e40e15dd41df12c4b857bff354e6419e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac6c8810b4b5afd750e6d6055882fe71') in 1.575130 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo33.png
+  artifactKey: Guid(3a73115beee29ff4282f9cfe2375b30d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo33.png using Guid(3a73115beee29ff4282f9cfe2375b30d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2db67276c7691a42159e6097a958f6c3') in 1.375178 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000047 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo56.png
+  artifactKey: Guid(97837d86efd260847be60240f1fb7b60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo56.png using Guid(97837d86efd260847be60240f1fb7b60) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93855622cff045e0f8af7f65804faf21') in 1.460566 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo49.png
+  artifactKey: Guid(868f3faec8f37f14e9b38fb84984156f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo49.png using Guid(868f3faec8f37f14e9b38fb84984156f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b17aa9de5704eff65e4d54adea030ed') in 1.259937 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000061 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo29.png
+  artifactKey: Guid(c07f9606a01d080439d9391c9bee766a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo29.png using Guid(c07f9606a01d080439d9391c9bee766a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '392c9be8c909cfd646575de733bdabe7') in 1.509365 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo27.png
+  artifactKey: Guid(3b2b035190b117846b1a437807ad9448) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo27.png using Guid(3b2b035190b117846b1a437807ad9448) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a9fe4914d97d4478433d31b13302616') in 1.261724 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo41.png
+  artifactKey: Guid(4c5dc5d65f98cad4daa15909fb9809b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo41.png using Guid(4c5dc5d65f98cad4daa15909fb9809b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9bde3bab44176edb62444f46f6b2660c') in 1.288182 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 47.869277 seconds.
+  path: Assets/Scenes/Animation Import.unity
+  artifactKey: Guid(d8b047afd5102384c998cb4c4709c906) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Animation Import.unity using Guid(d8b047afd5102384c998cb4c4709c906) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1c690755febd281ddbf2d57c530b6cb') in 0.005931 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 13.227850 seconds.
+  path: Assets/Scenes/Animation Import.unity
+  artifactKey: Guid(d8b047afd5102384c998cb4c4709c906) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Animation Import.unity using Guid(d8b047afd5102384c998cb4c4709c906) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20601b9ba015028d671b9cfe1616ce42') in 0.003268 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 64.615516 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo1.controller
+  artifactKey: Guid(d7bada7f69d254e46888abf328e2390d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo1.controller using Guid(d7bada7f69d254e46888abf328e2390d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8bef7b8732910d9c077a9fe76cfc24c') in 0.010980 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.847533 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/LisaAnimControl.controller
+  artifactKey: Guid(d7bada7f69d254e46888abf328e2390d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/LisaAnimControl.controller using Guid(d7bada7f69d254e46888abf328e2390d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd6d727e3ba025705a010671762852b8') in 0.006527 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 8.104978 seconds.
+  path: Assets/Characters/Dummy
+  artifactKey: Guid(c3a36ecb34592994ead149ea58d5f06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/Dummy using Guid(c3a36ecb34592994ead149ea58d5f06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67f9b5f869e1630ecd7f25cad3733768') in 0.005739 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 196.084372 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo0.png
+  artifactKey: Guid(6b557d28d8f8c474c94ad14be4c17db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo0.png using Guid(6b557d28d8f8c474c94ad14be4c17db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '609673736cd26863a514573608dbc38c') in 1.281711 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo3.png
+  artifactKey: Guid(50ceb3665e7f61e4d994811832555873) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo3.png using Guid(50ceb3665e7f61e4d994811832555873) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd7437e482dfad98d6a110f85c2958af') in 1.266098 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo9.png
+  artifactKey: Guid(54b512704bc85914ba9be4a70283da00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo9.png using Guid(54b512704bc85914ba9be4a70283da00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90dc80ada5d8f21298321695abf91a24') in 1.228558 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo15.png
+  artifactKey: Guid(2d55344bcde9a584fb8e92185183fa48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo15.png using Guid(2d55344bcde9a584fb8e92185183fa48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a75c999a95ba6fcc4bd6f5ca4c9a0a27') in 1.237920 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo17.png
+  artifactKey: Guid(2fd02040b44d9a646a21bf913a9cb600) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo17.png using Guid(2fd02040b44d9a646a21bf913a9cb600) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee4d7988a2413b2dc8f9446bc3e5d13e') in 1.336695 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo4.png
+  artifactKey: Guid(6bfd5b5c002d8d74886c3ce0c4ce7b6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo4.png using Guid(6bfd5b5c002d8d74886c3ce0c4ce7b6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46efbef0d3e77812f30b0fab43d8b2be') in 1.347727 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000089 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo7.png
+  artifactKey: Guid(1c03d89caa7c4be4db6c5430613c838a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo7.png using Guid(1c03d89caa7c4be4db6c5430613c838a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb278b9829f04721469df1db8223dece') in 1.336665 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000098 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo24.png
+  artifactKey: Guid(395ec6e3727e4b342922cb2d21130eb2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo24.png using Guid(395ec6e3727e4b342922cb2d21130eb2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7eed7eaf5066b93289b62a9421c86034') in 1.544172 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000107 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo10.png
+  artifactKey: Guid(a099e4375ff09194a86946a6006606fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo10.png using Guid(a099e4375ff09194a86946a6006606fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28ab8006972a06775ce71e3738d7effd') in 1.440261 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1297.904046 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo25.png
+  artifactKey: Guid(4fb216d11b6de164d8f9ff9411703863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo25.png using Guid(4fb216d11b6de164d8f9ff9411703863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d453213c1b548c24a8d337f461ff9d0') in 1.622204 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo28.png
+  artifactKey: Guid(42aac7ae3d79dcf469483339bb5e929a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo28.png using Guid(42aac7ae3d79dcf469483339bb5e929a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '836c5de912b4f918cd70caa392756b6c') in 1.308503 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo27.png
+  artifactKey: Guid(3b2b035190b117846b1a437807ad9448) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo27.png using Guid(3b2b035190b117846b1a437807ad9448) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4fc1aa9a11b17fee103126bf029a557f') in 1.213128 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.727838 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo30.png
+  artifactKey: Guid(dba362c987c99e54d9da76d313b413b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo30.png using Guid(dba362c987c99e54d9da76d313b413b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '498b10a39236bf513140c711cba4e9dc') in 1.728354 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo33.png
+  artifactKey: Guid(3a73115beee29ff4282f9cfe2375b30d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo33.png using Guid(3a73115beee29ff4282f9cfe2375b30d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5fb783042c1b3228645b02248e597e9b') in 1.422447 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 97.555681 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo35.png
+  artifactKey: Guid(63adebee151665043b846f2f68415e56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo35.png using Guid(63adebee151665043b846f2f68415e56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed56f89d4944e3081715804b37038edd') in 1.451980 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo44.png
+  artifactKey: Guid(9789e3db599e3164d8283cbb118b7e7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo44.png using Guid(9789e3db599e3164d8283cbb118b7e7f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4eeb248265ac0b820dcb8a7887fe93e') in 1.320965 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo50.png
+  artifactKey: Guid(ddaa1aa7c4d2b0642a0f3082bed48dac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo50.png using Guid(ddaa1aa7c4d2b0642a0f3082bed48dac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2cc733575909cb9a90b23d9ee55971a') in 1.305589 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo12.controller
+  artifactKey: Guid(614525906ed175c41aecf9621337c3b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo12.controller using Guid(614525906ed175c41aecf9621337c3b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eee54f6431751b49e11754586b85da3d') in 0.005017 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo43.png
+  artifactKey: Guid(f9a899c629d9dc140a5ff67eb393ce13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo43.png using Guid(f9a899c629d9dc140a5ff67eb393ce13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbd5a98b5ef92e69a77dd969b6cfd449') in 1.217096 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.635674 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo37.png
+  artifactKey: Guid(f03a2a620d1deb449b4cb9366adef33d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo37.png using Guid(f03a2a620d1deb449b4cb9366adef33d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07a36d6e6ebeae978ffdc7599989e9e7') in 1.771718 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo57.png
+  artifactKey: Guid(aa8315bab0594b7449f06ee9d84f3f42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo57.png using Guid(aa8315bab0594b7449f06ee9d84f3f42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c47d7c1558db419b71adc36cde7db1ad') in 1.406790 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo49.png
+  artifactKey: Guid(868f3faec8f37f14e9b38fb84984156f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo49.png using Guid(868f3faec8f37f14e9b38fb84984156f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbaf7f2dbdfc76ff4b9909726bb8a27b') in 1.298545 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo42.png
+  artifactKey: Guid(0cf855f927d52a84f89772a5a2332bd2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Characters/N_Lisa/NormalAttacks/GroundCombo/lisa_normal_combo42.png using Guid(0cf855f927d52a84f89772a5a2332bd2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '678686b668097188a828cd2a00d9a767') in 1.625223 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
