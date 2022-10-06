@@ -33,7 +33,7 @@ namespace FiniteStateMachine {
             
             foreach (AnimationClip clip in AnimatorComponent.runtimeAnimatorController.animationClips)
             {
-                //if (clip.name == "nlisa_idle") continue;
+                if (clip.name == "lisa_ground_idle") continue;
                 // AnimationEvent animationStartEvent = new AnimationEvent
                 // {
                 //     time = 0,
@@ -142,6 +142,7 @@ namespace FiniteStateMachine {
             {
                 CurrentState = _initialState;
                 temp.HandleExit();
+                CurrentState.Execute(this, "");
             }
                 
         }
