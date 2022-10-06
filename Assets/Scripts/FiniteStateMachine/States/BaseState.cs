@@ -12,8 +12,6 @@ namespace FiniteStateMachine
         }
         public virtual void DisableCombo(){}
         public virtual void EnableCombo(){}
-        
-        public virtual void HandleExit(){}
         public virtual void ResetVariables(){}
     }
 }

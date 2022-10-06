@@ -8,7 +8,6 @@ namespace FiniteStateMachine
     public class ComboState: BaseState
     {
         [SerializeField] private string _animationName;
-        //[SerializeField] private string _animationParameter;
         [SerializeField] private List<Transition> _transitions = new List<Transition>();
         [Tooltip("If you would like the animation to start with the combo option as true. Otherwise, set to false.")]
         [SerializeField] private bool _defaultCombo = true;
@@ -21,9 +20,9 @@ namespace FiniteStateMachine
         // ==========  methods ========== //
         public void OnEnable()
         {
-            // Debug.Log(this.name + " enabled");
             ResetVariables();
         }
+        
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
             if (!_executed)
@@ -31,7 +30,6 @@ namespace FiniteStateMachine
                 Debug.Log(this.name);
                 _executed = true;
                 _combo = _defaultCombo;
-                //stateMachine.AnimatorComponent.SetTrigger(animationParameter);
                 stateMachine.AnimatorComponent.Play(_animationName);
             }
             
@@ -58,13 +56,9 @@ namespace FiniteStateMachine
         
         public override void ResetVariables()
         {
+            // Debug.Log("resetting");
             _executed = false;
             _combo = _defaultCombo;
-        }
-        
-        public override void HandleExit()
-        {
-            ResetVariables();
         }
     }
 }

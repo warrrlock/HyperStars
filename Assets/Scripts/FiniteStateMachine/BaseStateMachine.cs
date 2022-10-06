@@ -24,7 +24,8 @@ namespace FiniteStateMachine {
         public Animator AnimatorComponent { get; private set; }
         public AttackInfo AttackInformation => CurrentState.GetAttackInfo();
 
-        
+        private bool _rejectInput;
+
         private void Awake()
         {
             CurrentState = _initialState;
@@ -57,7 +58,8 @@ namespace FiniteStateMachine {
                 entry.Value.perform += Invoke;
             }
         }
-        //utils
+        
+        //methods
         public new T GetComponent<T>() where T: Component 
         {
             if (_cachedComponents.ContainsKey(typeof(T)))
@@ -71,9 +73,10 @@ namespace FiniteStateMachine {
             return component;
         }
         
-        private void Invoke(InputManager.Action action) 
+        private void Invoke(InputManager.Action action)
         {
-            // Debug.Log("invoked " + action.inputAction.name + " with current State: " + CurrentState.name);
+            if (_rejectInput) return;
+            Debug.Log("invoked " + action.inputAction.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.inputAction.name);
         }
         
@@ -81,17 +84,6 @@ namespace FiniteStateMachine {
         {
             // Debug.Log("queueing state " + state.name);
             if (_queuedState == null) _queuedState = state;
-        }
-
-        public void TrySetStateInitial()
-        {
-            if (_queuedState != null) CurrentState = _initialState;
-        }
-        
-        public void ForceSetStateInitial()
-        {
-            CurrentState = _initialState;
-            _queuedState = null;
         }
         
         /// <summary>
@@ -103,12 +95,19 @@ namespace FiniteStateMachine {
         {
             // Debug.Log("executing queued state");
             if (!_queuedState) return;
+            // Debug.Log("going to execute "+ _queuedState.name);
             
-            // Debug.Log("want to execute "+ _queuedState.name);
+            //race condition D:
+            //reject input here
+            _rejectInput = true;
+            
             CurrentState.ResetVariables();
-            
             CurrentState = _queuedState;
             _queuedState = null;
+           
+            _rejectInput = false;
+            //allow input here
+            
             CurrentState.Execute(this, "");
         }
         
@@ -122,11 +121,28 @@ namespace FiniteStateMachine {
         {
             CurrentState.EnableCombo();
         }
+        
+        private void TrySetQueueInitial()
+        {
+            if (_queuedState == null) _queuedState = _initialState;
+        }
+
+        private void TrySetStateInitial()
+        {
+            if (_queuedState != null) CurrentState = _initialState;
+        }
+        
+        private void ForceSetStateInitial()
+        {
+            CurrentState = _initialState;
+            _queuedState = null;
+        }
 
         private void AnimationEnterHandler()
         {
             // Debug.Log("entering anim");
         }
+        
         /// <summary>
         /// Invoked at the end of an animation. Automatically added to each animation,
         /// and either executes a queued State, or sets the State back to the initial State.
@@ -134,17 +150,8 @@ namespace FiniteStateMachine {
         private void AnimationExitHandler()
         {
             // Debug.Log("exiting anim");
-            BaseState temp = CurrentState;
-            
-            if (_queuedState) 
-                ExecuteQueuedState();
-            else
-            {
-                CurrentState = _initialState;
-                temp.HandleExit();
-                CurrentState.Execute(this, "");
-            }
-                
+            TrySetQueueInitial();
+            ExecuteQueuedState();   
         }
     }
 }
