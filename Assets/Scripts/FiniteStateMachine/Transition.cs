@@ -38,7 +38,7 @@ namespace FiniteStateMachine
         {
             if (action != null) action();
             bool decision = _inputActionName.Equals(inputName, StringComparison.OrdinalIgnoreCase);
-            // Debug.Log("checking " + inputName +" equals " + inputActionName);
+            // Debug.Log("checking " + inputName +" equals " + _inputActionName);
             if (decision)
             {
                 if (!(_trueState is RemainInState))
