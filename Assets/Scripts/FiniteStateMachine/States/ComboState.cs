@@ -21,16 +21,17 @@ namespace FiniteStateMachine
         public void OnEnable()
         {
             ResetVariables();
+            _transitions.RemoveAll(t => !t);
         }
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
             if (!_executed)
             {
-                Debug.Log(this.name);
+                //Debug.Log(this.name);
                 _executed = true;
                 _combo = _defaultCombo;
-                stateMachine.AnimatorComponent.Play(_animationName);
+                stateMachine.AnimatorComponent.Play(_animationName, -1, 0);
             }
             
             foreach (Transition transition in _transitions)
@@ -53,10 +54,14 @@ namespace FiniteStateMachine
         {
             _combo = true;
         }
-        
-        public override void ResetVariables()
+
+        public override void HandleExit(BaseStateMachine stateMachine)
         {
-            // Debug.Log("resetting");
+            ResetVariables();
+        }
+
+        private void ResetVariables()
+        {
             _executed = false;
             _combo = _defaultCombo;
         }

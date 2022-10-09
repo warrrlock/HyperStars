@@ -7,9 +7,9 @@ using UnityEngine.Events;
 [Serializable]
 public class AttackInfo
 {
-    public float _knockbackDuration;
-    public float _knockbackMagnitude;
-    public float _hitStunDuration;
+    public float knockbackDuration;
+    public float knockbackMagnitude;
+    public float hitStunDuration;
 }
 
 namespace FiniteStateMachine {
@@ -19,33 +19,38 @@ namespace FiniteStateMachine {
         [SerializeField] private BaseState _initialState; 
         private BaseState CurrentState {get; set;}
         private BaseState _queuedState;
+        private bool _rejectInput;
+        
+        public Animator AnimatorComponent { get; private set; }
+        [Tooltip("Clips that should not have a end event automatically added. " +
+                 "The end event resets variables of the current state, then returns the player to the initial state." +
+                 "\n\n****Add all looping animations.")]
+        [SerializeField] private List<AnimationClip> _noEndEventClips;
         
         private Dictionary<Type, Component> _cachedComponents;
-        public Animator AnimatorComponent { get; private set; }
         public AttackInfo AttackInformation => CurrentState.GetAttackInfo();
-
-        private bool _rejectInput;
-
+        
         private void Awake()
         {
             CurrentState = _initialState;
             _cachedComponents = new Dictionary<Type, Component>();
             AnimatorComponent = GetComponent<Animator>();
             
+            
             foreach (AnimationClip clip in AnimatorComponent.runtimeAnimatorController.animationClips)
             {
-                if (clip.name == "lisa_ground_idle") continue;
+                if (_noEndEventClips.Contains(clip)) continue;
                 // AnimationEvent animationStartEvent = new AnimationEvent
                 // {
                 //     time = 0,
-                //     functionName = "AnimationEnterHandler"
+                //     functionName = "HandleAnimationEnter"
                 // };
                 // clip.AddEvent(animationStartEvent);
 
                 AnimationEvent animationEndEvent = new AnimationEvent
                 {
                     time = clip.length,
-                    functionName = "AnimationExitHandler"
+                    functionName = "HandleAnimationExit"
                 };
                 clip.AddEvent(animationEndEvent);
             }
@@ -56,7 +61,9 @@ namespace FiniteStateMachine {
             foreach (KeyValuePair<string, InputManager.Action> entry in FindObjectOfType<InputManager>().Actions)
             {
                 entry.Value.perform += Invoke;
+                entry.Value.stop += Stop;
             }
+            CurrentState.Execute(this, "");
         }
         
         //methods
@@ -79,6 +86,11 @@ namespace FiniteStateMachine {
             Debug.Log("invoked " + action.inputAction.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.inputAction.name);
         }
+
+        private void Stop(InputManager.Action action)
+        {
+            CurrentState.Stop(this, action.inputAction.name);
+        }
         
         public void QueueState(BaseState state)
         {
@@ -95,13 +107,13 @@ namespace FiniteStateMachine {
         {
             // Debug.Log("executing queued state");
             if (!_queuedState) return;
-            // Debug.Log("going to execute "+ _queuedState.name);
+            //Debug.Log("going to execute "+ _queuedState.name);
             
             //race condition D:
             //reject input here
             _rejectInput = true;
             
-            CurrentState.ResetVariables();
+            CurrentState.HandleExit(this);
             CurrentState = _queuedState;
             _queuedState = null;
            
@@ -124,7 +136,7 @@ namespace FiniteStateMachine {
         
         private void TrySetQueueInitial()
         {
-            if (_queuedState == null) _queuedState = _initialState;
+            if (!_queuedState) _queuedState = _initialState;
         }
 
         private void TrySetStateInitial()
@@ -138,7 +150,7 @@ namespace FiniteStateMachine {
             _queuedState = null;
         }
 
-        private void AnimationEnterHandler()
+        private void HandleAnimationEnter()
         {
             // Debug.Log("entering anim");
         }
@@ -147,9 +159,9 @@ namespace FiniteStateMachine {
         /// Invoked at the end of an animation. Automatically added to each animation,
         /// and either executes a queued State, or sets the State back to the initial State.
         /// </summary>
-        private void AnimationExitHandler()
+        public void HandleAnimationExit()
         {
-            // Debug.Log("exiting anim");
+            //Debug.Log("exiting anim");
             TrySetQueueInitial();
             ExecuteQueuedState();   
         }
