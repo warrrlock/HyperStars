@@ -26,6 +26,14 @@ namespace FiniteStateMachine
         private BaseState _customFalseState;
 
         // ReSharper disable Unity.PerformanceAnalysis
+        /// <summary>
+        /// Queues the next state (true state if successful combo and false otherwise),
+        /// which will be executed upon end of animation, or as indicated in animation.
+        /// </summary>
+        /// <param name="stateMachine">state machine</param>
+        /// <param name="inputName">name of input action from player</param>
+        /// <param name="canCombo">whether or not the combo is successful.</param>
+        /// <param name="action">action to perform at start</param>
         public void Execute (BaseStateMachine stateMachine, string inputName, bool canCombo, Action action = null)
         {
             if (action != null) action();
@@ -40,21 +48,22 @@ namespace FiniteStateMachine
                         return;
                     }
                     stateMachine.QueueState(_trueState);
-                    stateMachine.ExecuteQueuedState();
                 }
                 else
                 {
-                    if (!(_customFalseState) || _customFalseState is RemainInState)
-                    {
+                    if ((_customFalseState))
                         stateMachine.QueueState(_customFalseState);
-                        stateMachine.ExecuteQueuedState();
-                    }
-                    stateMachine.QueueState(_customFalseState);
                 }
             }
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
+        /// <summary>
+        /// Executes the true state.
+        /// </summary>
+        /// <param name="stateMachine">the state machine.</param>
+        /// <param name="inputName">name of input action from player.</param>
+        /// <param name="action">action to perform at start, default none.</param>
         public void Execute (BaseStateMachine stateMachine, string inputName, Action action = null)
         {
             if (action != null) action();
@@ -70,7 +79,7 @@ namespace FiniteStateMachine
                 stateMachine.QueueState(_trueState);
                 stateMachine.ExecuteQueuedState();
             }
-            else if (!(_customFalseState) || _customFalseState is RemainInState)
+            else if ((_customFalseState) || _customFalseState is RemainInState)
             {
                 stateMachine.QueueState(_customFalseState);
                 stateMachine.ExecuteQueuedState();
