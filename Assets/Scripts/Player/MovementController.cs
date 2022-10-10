@@ -468,26 +468,24 @@ public class MovementController : MonoBehaviour
         //_horizontalTargetVelocity.x = force.x;
         //_horizontalTargetVelocity.y = force.z;
         float timer = 0f;
+        Easing function;
+        switch (easingFunction)
+        {
+            case ForceEasing.Linear:
+                function = Easing.CreateEasingFunc(Easing.Funcs.Linear);
+                break;
+            case ForceEasing.Quadratic:
+                function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
+                break;
+            case ForceEasing.Cubic:
+                function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+                break;
+            default:
+                throw new System.Exception("Invalid easing function provided.");
+        }
         while (timer < duration)
         {
-            float forceMagnitude = 0f;
-            Easing function;
-
-            switch (easingFunction)
-            {
-                case ForceEasing.Linear:
-                    forceMagnitude = Mathf.Lerp(magnitude, 0f, timer / duration);
-                    break;
-                case ForceEasing.Quadratic:
-                    function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
-                    forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
-                    break;
-                case ForceEasing.Cubic:
-                    function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
-                    forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
-                    break;
-            }
-
+            float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
             Vector3 force = direction * forceMagnitude;
             _forceVelocity += force;
             yield return new WaitForFixedUpdate();
@@ -507,6 +505,7 @@ public class MovementController : MonoBehaviour
             _unforcedVelocity.x = inputVector.x;
             _unforcedVelocity.z = inputVector.y;
         }
+        //TODO: only do this when dashing
         StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
     }
