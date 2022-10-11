@@ -23,6 +23,8 @@ public class Fighter : MonoBehaviour
 
     private void Start()
     {
+        Services.Fighters.Add(this);
+
         //TODO: change this because not all characters will start off facing right
         FacingDirection = Direction.Right;
     }
