@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class Services
 {
+    public static FightersManager FightersManager;
 }

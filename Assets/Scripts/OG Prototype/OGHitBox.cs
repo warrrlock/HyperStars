@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitBox : MonoBehaviour
+public class OGHitBox : MonoBehaviour
 {
     public ComboCharacter character;
     public Controller charCtrl;

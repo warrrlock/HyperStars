@@ -4,5 +4,12 @@ using UnityEngine;
 
 public class FightersManager : MonoBehaviour
 {
+    public int hurtboxLayer;
+
     private Fighter[] _fighters;
+
+    private void Awake()
+    {
+        Services.FightersManager = this;
+    }
 }
