@@ -29,7 +29,6 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _dashDistance;
     [SerializeField] private float _dashDuration;
     [SerializeField] private bool _dashToZero;
-    //[SerializeField] private float _movementDisableDuration;
     [SerializeField] private float _dashCooldownDuration;
     [SerializeField] private ForceEasing _dashEasing;
 
@@ -423,8 +422,7 @@ public class MovementController : MonoBehaviour
         if (_inputManager.Actions["Move"].isBeingPerformed)
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
-            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, inputVector.y), _dashForce, _dashDuration, _dashEasing));
-            StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
+            StartCoroutine(ApplyForce(new Vector3(_unforcedVelocity.x, 0f, _unforcedVelocity.z), _dashForce, _dashDuration, _dashEasing));
             if (_dashToZero)
             {
                 _unforcedVelocity.x = 0f;
@@ -434,8 +432,9 @@ public class MovementController : MonoBehaviour
         else
         {
             StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
-            StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
         }
+        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
+        StartCoroutine(Dash(action, _dashDuration));
     }
 
     private void Jump(InputManager.Action action)
@@ -457,9 +456,17 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    private IEnumerator Dash(InputManager.Action action, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        _inputManager.Actions["Dash"].finish?.Invoke(action);
+        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
+        yield break;
+    }
+
     public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
     {
-        //direction.Normalize();
+        direction.Normalize();
         //Vector3 force = direction * magnitude;
         //_forceVelocity += force;
         //_horizontalTargetVelocity = new Vector2(force.x, force.z);
@@ -470,26 +477,24 @@ public class MovementController : MonoBehaviour
         //_horizontalTargetVelocity.x = force.x;
         //_horizontalTargetVelocity.y = force.z;
         float timer = 0f;
+        Easing function;
+        switch (easingFunction)
+        {
+            case ForceEasing.Linear:
+                function = Easing.CreateEasingFunc(Easing.Funcs.Linear);
+                break;
+            case ForceEasing.Quadratic:
+                function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
+                break;
+            case ForceEasing.Cubic:
+                function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+                break;
+            default:
+                throw new System.Exception("Invalid easing function provided.");
+        }
         while (timer < duration)
         {
-            float forceMagnitude = 0f;
-            Easing function;
-
-            switch (easingFunction)
-            {
-                case ForceEasing.Linear:
-                    forceMagnitude = Mathf.Lerp(magnitude, 0f, timer / duration);
-                    break;
-                case ForceEasing.Quadratic:
-                    function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
-                    forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
-                    break;
-                case ForceEasing.Cubic:
-                    function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
-                    forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
-                    break;
-            }
-
+            float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
             Vector3 force = direction * forceMagnitude;
             _forceVelocity += force;
             yield return new WaitForFixedUpdate();
@@ -509,7 +514,6 @@ public class MovementController : MonoBehaviour
             _unforcedVelocity.x = inputVector.x;
             _unforcedVelocity.z = inputVector.y;
         }
-        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
     }
 }

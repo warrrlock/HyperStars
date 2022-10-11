@@ -8,8 +8,10 @@ using UnityEngine.Events;
 public class AttackInfo
 {
     public float knockbackDuration;
-    public float knockbackMagnitude;
+    public float knockbackDistance;
     public float hitStunDuration;
+    public float damage;
+    public Vector3 knockBackAngle;
 }
 
 namespace FiniteStateMachine {
@@ -17,7 +19,7 @@ namespace FiniteStateMachine {
     public class BaseStateMachine : MonoBehaviour 
     {
         [SerializeField] private BaseState _initialState; 
-        private BaseState CurrentState {get; set;}
+        public BaseState CurrentState {get; private set;}
         private BaseState _queuedState;
         private bool _rejectInput;
         
