@@ -15,5 +15,6 @@ public class FighterHealth : MonoBehaviour
     public void ApplyDamage(float damagePoints)
     {
         _hitPoints -= damagePoints;
+        Debug.Log("Fighter lost " + damagePoints + " hit points.");
     }
 }
