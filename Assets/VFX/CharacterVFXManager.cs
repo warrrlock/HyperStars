@@ -28,6 +28,7 @@ public class CharacterVFXManager : MonoBehaviour
     }
     void VFXSubscribeEvents() {
         _inputManager.Actions["Dash"].perform += AfterImage;
+        _inputManager.Actions["Dash"].finish += StopVFX;
     }
 
     void VFXSwitches() {
