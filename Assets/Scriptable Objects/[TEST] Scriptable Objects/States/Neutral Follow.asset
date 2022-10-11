@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Neutral Follow
   m_EditorClassIdentifier: 
-  animationName: Attack 2
-  animationParameter: Attack2
-  transitions:
+  _animationName: Attack 2
+  _animationParameter: 
+  _transitions:
   - {fileID: 11400000, guid: ca11d86c99be24921aa894a52ddcb137, type: 2}
-  defaultCombo: 0
+  _defaultCombo: 0
+  _attackInfo:
+    knockbackDuration: 0
+    knockbackMagnitude: 0
+    hitStunDuration: 0

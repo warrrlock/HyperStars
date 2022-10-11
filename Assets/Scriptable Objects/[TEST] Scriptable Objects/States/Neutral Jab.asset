@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Neutral Jab
   m_EditorClassIdentifier: 
-  animationName: Attack 1
-  animationParameter: Attack1
-  transitions:
+  _animationName: Attack 1
+  _transitions:
   - {fileID: 11400000, guid: 4cab9cfec59344b499e53ad6f7f24cf9, type: 2}
-  defaultCombo: 0
+  _defaultCombo: 0
+  _attackInfo:
+    _knockbackDuration: 0
+    _knockbackMagnitude: 0
+    _hitStunDuration: 0
