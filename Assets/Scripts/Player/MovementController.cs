@@ -434,6 +434,7 @@ public class MovementController : MonoBehaviour
             StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
         }
         StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
+        StartCoroutine(Dash(action, _dashDuration));
     }
 
     private void Jump(InputManager.Action action)
@@ -453,6 +454,14 @@ public class MovementController : MonoBehaviour
             //_velocity.y = _minJumpVelocity;
             _unforcedVelocity.y = _minJumpVelocity;
         }
+    }
+
+    private IEnumerator Dash(InputManager.Action action, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        _inputManager.Actions["Dash"].finish?.Invoke(action);
+        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
+        yield break;
     }
 
     public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
@@ -505,8 +514,6 @@ public class MovementController : MonoBehaviour
             _unforcedVelocity.x = inputVector.x;
             _unforcedVelocity.z = inputVector.y;
         }
-        //TODO: only do this when dashing
-        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
     }
 }

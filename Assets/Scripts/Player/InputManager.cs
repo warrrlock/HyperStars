@@ -20,6 +20,8 @@ public class InputManager : MonoBehaviour
         public Perform perform;
         public delegate void Stop(Action action);
         public Stop stop;
+        public delegate void Finish(Action action);
+        public Finish finish;
         //public bool isBeingInput;
         public bool isPerformQueued;
         public bool isStopQueued;
