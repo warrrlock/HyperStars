@@ -4,16 +4,16 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 
-//[Serializable]
-//public class AttackInfo
-//{
-//    public float knockbackDuration;
-//    public float knockbackDistance;
-//    public float hitStunDuration;
-//    public float damage;
-//    public Vector3 knockBackAngle;
-//    public bool causesWallBounce;
-//}
+[Serializable]
+public class AttackInfo
+{
+    public float knockbackDuration;
+    public float knockbackDistance;
+    public float hitStunDuration;
+    public float damage;
+    public Vector3 knockBackAngle;
+    public bool causesWallBounce;
+}
 
 namespace FiniteStateMachine {
     [RequireComponent(typeof(Animator))] 

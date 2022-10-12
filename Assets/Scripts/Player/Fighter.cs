@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MovementController))]
-[RequireComponent(typeof(AttackInfo))]
 [RequireComponent(typeof(FighterHealth))]
 [RequireComponent(typeof(InputManager))]
 public class Fighter : MonoBehaviour
@@ -13,7 +12,6 @@ public class Fighter : MonoBehaviour
 
     public PlayerInputState CurrentState { get; private set; }
     public MovementController MovementController { get; private set; }
-    public AttackInfo AttackInfo { get; private set; }
     public FighterHealth FighterHealth { get; private set; }
     public InputManager InputManager { get; private set; }
 
@@ -33,7 +31,6 @@ public class Fighter : MonoBehaviour
     private void AssignComponents()
     {
         MovementController = GetComponent<MovementController>();
-        AttackInfo = GetComponent<AttackInfo>();
         FighterHealth = GetComponent<FighterHealth>();
         InputManager = GetComponent<InputManager>();
     }
