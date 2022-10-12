@@ -20,6 +20,8 @@ public class InputManager : MonoBehaviour
         public Perform perform;
         public delegate void Stop(Action action);
         public Stop stop;
+        public delegate void Finish(Action action);
+        public Finish finish;
         //public bool isBeingInput;
         public bool isPerformQueued;
         public bool isStopQueued;
@@ -119,7 +121,15 @@ public class InputManager : MonoBehaviour
                 //action.isBeingInput = false;
                 if (action.disabledCount == 0)
                 {
-                    StartCoroutine(Stop(action));
+                    //TODO: either find a better solution to this or change based off gamepad or keyboard because now on keyboard if you input move right after letting go you'll stop
+                    if (_playerInput.currentControlScheme == "Gamepad")
+                    {
+                        StartCoroutine(Stop(action));
+                    }
+                    else
+                    {
+                        action.stop?.Invoke(action);
+                    }
                 }
                 else if (action.disabledCount > 0)
                 {
@@ -196,10 +206,13 @@ public class InputManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Stop(Action action)
     {
+        bool isAwaitingStop = true;
+        StartCoroutine(Disable(() => isAwaitingStop == false, Actions["Move"]));
         yield return null;
         yield return null;
         yield return null;
         action.stop?.Invoke(action);
+        isAwaitingStop = false;
         yield break;
     }
 }

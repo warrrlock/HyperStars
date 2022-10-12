@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hitbox : MonoBehaviour
+public class OGHitbox : MonoBehaviour
 {
     public Vector2 boxSize = new Vector2(10, 10);
 

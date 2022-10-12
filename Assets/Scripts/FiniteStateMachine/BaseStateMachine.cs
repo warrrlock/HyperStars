@@ -8,8 +8,11 @@ using UnityEngine.Events;
 public class AttackInfo
 {
     public float knockbackDuration;
-    public float knockbackMagnitude;
+    public float knockbackDistance;
     public float hitStunDuration;
+    public float damage;
+    public Vector3 knockBackAngle;
+    public bool causesWallBounce;
 }
 
 namespace FiniteStateMachine {
@@ -17,7 +20,7 @@ namespace FiniteStateMachine {
     public class BaseStateMachine : MonoBehaviour 
     {
         [SerializeField] private BaseState _initialState; 
-        private BaseState CurrentState {get; set;}
+        public BaseState CurrentState {get; private set;}
         private BaseState _queuedState;
         private bool _rejectInput;
         
@@ -58,7 +61,8 @@ namespace FiniteStateMachine {
 
         private void Start()
         {
-            foreach (KeyValuePair<string, InputManager.Action> entry in FindObjectOfType<InputManager>().Actions)
+            Fighter fighter = GetComponent<Fighter>();
+            foreach (KeyValuePair<string, InputManager.Action> entry in fighter.InputManager.Actions)
             {
                 entry.Value.perform += Invoke;
                 entry.Value.stop += Stop;
