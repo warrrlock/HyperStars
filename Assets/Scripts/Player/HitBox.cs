@@ -7,11 +7,23 @@ public class HitBox : MonoBehaviour
 {
     private BaseStateMachine _baseStateMachine;
     private Fighter _fighter;
+    private Collider _collider;
+    private Collider[] _colliders;
 
     private void Awake()
     {
         _baseStateMachine = GetComponentInParent<BaseStateMachine>();
         _fighter = GetComponentInParent<Fighter>();
+        _collider = GetComponent<Collider>();
+        _colliders = _fighter.GetComponentsInChildren<Collider>();
+    }
+
+    private void Start()
+    {
+        foreach(Collider collider in _colliders)
+        {
+            Physics.IgnoreCollision(_collider, collider);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
