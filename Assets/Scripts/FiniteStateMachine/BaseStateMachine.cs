@@ -12,6 +12,7 @@ public class AttackInfo
     public float hitStunDuration;
     public float damage;
     public Vector3 knockBackAngle;
+    public bool causesWallBounce;
 }
 
 namespace FiniteStateMachine {
@@ -60,7 +61,8 @@ namespace FiniteStateMachine {
 
         private void Start()
         {
-            foreach (KeyValuePair<string, InputManager.Action> entry in FindObjectOfType<InputManager>().Actions)
+            Fighter fighter = GetComponent<Fighter>();
+            foreach (KeyValuePair<string, InputManager.Action> entry in fighter.InputManager.Actions)
             {
                 entry.Value.perform += Invoke;
                 entry.Value.stop += Stop;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class HurtState : MeleeBaseState
+public class OGHurtState : MeleeBaseState
 {
     public override void OnEnter(StateMachine _stateMachine)
     {

@@ -21,18 +21,22 @@ public class HitBox : MonoBehaviour
         //{
         //    return;
         //}
-        if (!other.GetComponent<Fighter>())
+        if (other.gameObject.layer != 7)
         {
             return;
         }
         AttackInfo attackInfo = _baseStateMachine.CurrentState.GetAttackInfo();
 
-        Fighter hitFighter = other.GetComponent<Fighter>();
+        Fighter hitFighter = other.GetComponentInParent<Fighter>();
         hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
         Vector3 forceAngle = attackInfo.knockBackAngle;
         forceAngle.x = _fighter.FacingDirection == Fighter.Direction.Right ? attackInfo.knockBackAngle.x : -attackInfo.knockBackAngle.x;
         float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
         StartCoroutine(hitFighter.MovementController.ApplyForce(forceAngle, forceMagnitude, attackInfo.knockbackDuration));
         StartCoroutine(hitFighter.InputManager.Disable(attackInfo.hitStunDuration, hitFighter.InputManager.Actions["Move"]));
+        if (attackInfo.causesWallBounce)
+        {
+            StartCoroutine(hitFighter.MovementController.EnableWallBounce());
+        }
     }
 }
