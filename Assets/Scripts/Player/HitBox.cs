@@ -36,7 +36,7 @@ public class HitBox : MonoBehaviour
         {
             return;
         }
-        AttackInfo attackInfo = _baseStateMachine.CurrentState.GetAttackInfo();
+        AttackInfo attackInfo = _fighter.AttackInfo;
 
         Fighter hitFighter = other.GetComponentInParent<Fighter>();
         hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
