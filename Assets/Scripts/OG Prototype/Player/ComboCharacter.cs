@@ -71,7 +71,7 @@ public class ComboCharacter : MonoBehaviour
 
     public void TakeDamage()
     {
-        meleeStateMachine.SetNextState(new HurtState());
+        meleeStateMachine.SetNextState(new OGHurtState());
         Debug.Log(this.name + "take dmg");
     }
 }
