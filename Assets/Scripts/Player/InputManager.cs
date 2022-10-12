@@ -122,7 +122,14 @@ public class InputManager : MonoBehaviour
                 if (action.disabledCount == 0)
                 {
                     //TODO: either find a better solution to this or change based off gamepad or keyboard because now on keyboard if you input move right after letting go you'll stop
-                    StartCoroutine(Stop(action));
+                    if (_playerInput.currentControlScheme == "Gamepad")
+                    {
+                        StartCoroutine(Stop(action));
+                    }
+                    else
+                    {
+                        action.stop?.Invoke(action);
+                    }
                 }
                 else if (action.disabledCount > 0)
                 {
