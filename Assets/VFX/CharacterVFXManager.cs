@@ -50,7 +50,7 @@ public class CharacterVFXManager : MonoBehaviour
         _visualEffect.SendEvent("IsDashing");
     }
     
-    void Start()
+    void Awake()
     {
         VFXAssignComponents();
         VFXSubscribeEvents();
