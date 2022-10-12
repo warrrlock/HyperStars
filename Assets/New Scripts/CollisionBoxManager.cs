@@ -22,7 +22,7 @@ public class CollisionBoxManager: MonoBehaviour
             {
                 child.gameObject.layer = gameObject.layer;
                 Collider c = child.gameObject.GetComponent<Collider>();
-                if (c) c.isTrigger = false;
+                if (c) c.isTrigger = true;
             }
         }
     }
