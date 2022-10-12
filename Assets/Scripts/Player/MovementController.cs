@@ -29,7 +29,6 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _dashDistance;
     [SerializeField] private float _dashDuration;
     [SerializeField] private bool _dashToZero;
-    //[SerializeField] private float _movementDisableDuration;
     [SerializeField] private float _dashCooldownDuration;
     [SerializeField] private ForceEasing _dashEasing;
 
@@ -59,6 +58,7 @@ public class MovementController : MonoBehaviour
     private Vector2 _yAxisRaySpacing;
     private Vector2 _zAxisRaySpacing;
     private Vector3 _forceVelocity;
+    private bool _isWallBounceable = false;
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
@@ -70,8 +70,8 @@ public class MovementController : MonoBehaviour
 
     private readonly float _skinWidth = 0.1f;
 
-    private float _accelerationTimeAirborne = .2f;
-    private float _accelerationTimeGrounded = .1f;
+    //private float _accelerationTimeAirborne = .2f;
+    //private float _accelerationTimeGrounded = .1f;
     private Vector2 _horizontalVelocitySmoothing;
     private Vector2 _horizontalTargetVelocity;
     private Vector3 _cachedVelocity;
@@ -192,7 +192,7 @@ public class MovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float accelerationTime = _collisionData.y.isNegativeHit ? _accelerationTimeGrounded : _accelerationTimeAirborne;
+        //float accelerationTime = _collisionData.y.isNegativeHit ? _accelerationTimeGrounded : _accelerationTimeAirborne;
 
         _horizontalTargetVelocity += new Vector2(_forceVelocity.x, _forceVelocity.z);
         //_velocity += _forceVelocity;
@@ -403,7 +403,6 @@ public class MovementController : MonoBehaviour
 
     private void StartMoving(InputManager.Action action)
     {
-        //_horizontalTargetVelocity = action.inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
         Vector2 inputVector = action.inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
         _unforcedVelocity.z = inputVector.y;
@@ -411,8 +410,6 @@ public class MovementController : MonoBehaviour
 
     private void StopMoving(InputManager.Action action)
     {
-        //_horizontalTargetVelocity = Vector2.zero;
-        //_unforcedVelocity = Vector3.zero;
         _unforcedVelocity.x = 0f;
         _unforcedVelocity.z = 0f;
     }
@@ -423,8 +420,7 @@ public class MovementController : MonoBehaviour
         if (_inputManager.Actions["Move"].isBeingPerformed)
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
-            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, inputVector.y), _dashForce, _dashDuration, _dashEasing));
-            StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
+            StartCoroutine(ApplyForce(new Vector3(_unforcedVelocity.x, 0f, _unforcedVelocity.z), _dashForce, _dashDuration, _dashEasing));
             if (_dashToZero)
             {
                 _unforcedVelocity.x = 0f;
@@ -434,15 +430,15 @@ public class MovementController : MonoBehaviour
         else
         {
             StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
-            StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
         }
+        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
+        StartCoroutine(Dash(action, _dashDuration));
     }
 
     private void Jump(InputManager.Action action)
     {
         if (_collisionData.y.isNegativeHit)
         {
-            //_velocity.y = _maxJumpVelocity;
             _unforcedVelocity.y = _maxJumpVelocity;
             StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Move"]));
         }
@@ -452,44 +448,60 @@ public class MovementController : MonoBehaviour
     {
         if (_unforcedVelocity.y > _minJumpVelocity)
         {
-            //_velocity.y = _minJumpVelocity;
             _unforcedVelocity.y = _minJumpVelocity;
         }
     }
 
+    private IEnumerator Dash(InputManager.Action action, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        _inputManager.Actions["Dash"].finish?.Invoke(action);
+        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
+        yield break;
+    }
+
+    public IEnumerator EnableWallBounce()
+    {
+        _isWallBounceable = true;
+        yield return new WaitUntil(() => _forceVelocity == Vector3.zero);
+
+        _isWallBounceable = false;
+        yield break;
+    }
+
     public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
     {
-        //direction.Normalize();
-        //Vector3 force = direction * magnitude;
-        //_forceVelocity += force;
-        //_horizontalTargetVelocity = new Vector2(force.x, force.z);
-        //_velocity.x = force.x;
-        //_velocity.y = force.y;
-        //_velocity.z = force.z;
-        //_horizontalTargetVelocity = direction * _moveSpeed;
-        //_horizontalTargetVelocity.x = force.x;
-        //_horizontalTargetVelocity.y = force.z;
+        direction.Normalize();
         float timer = 0f;
+        Easing function;
+        switch (easingFunction)
+        {
+            case ForceEasing.Linear:
+                function = Easing.CreateEasingFunc(Easing.Funcs.Linear);
+                break;
+            case ForceEasing.Quadratic:
+                function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
+                break;
+            case ForceEasing.Cubic:
+                function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+                break;
+            default:
+                throw new System.Exception("Invalid easing function provided.");
+        }
         while (timer < duration)
         {
-            float forceMagnitude = 0f;
-            Easing function;
-
-            switch (easingFunction)
+            if (_isWallBounceable)
             {
-                case ForceEasing.Linear:
-                    forceMagnitude = Mathf.Lerp(magnitude, 0f, timer / duration);
-                    break;
-                case ForceEasing.Quadratic:
-                    function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
-                    forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
-                    break;
-                case ForceEasing.Cubic:
-                    function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
-                    forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
-                    break;
+                if (_collisionData.x.isNegativeHit || _collisionData.x.isPositiveHit)
+                {
+                    direction.x *= -1f;
+                }
+                if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
+                {
+                    direction.z *= -1f;
+                }
             }
-
+            float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
             Vector3 force = direction * forceMagnitude;
             _forceVelocity += force;
             yield return new WaitForFixedUpdate();
@@ -499,7 +511,6 @@ public class MovementController : MonoBehaviour
 
         if (!_inputManager.Actions["Move"].isBeingPerformed)
         {
-            //_horizontalTargetVelocity = Vector2.zero;
             _unforcedVelocity.x = 0f;
             _unforcedVelocity.z = 0f;
         }
@@ -509,7 +520,6 @@ public class MovementController : MonoBehaviour
             _unforcedVelocity.x = inputVector.x;
             _unforcedVelocity.z = inputVector.y;
         }
-        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
     }
 }

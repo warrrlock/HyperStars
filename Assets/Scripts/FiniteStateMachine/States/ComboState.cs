@@ -33,7 +33,7 @@ namespace FiniteStateMachine
                 _combo = _defaultCombo;
                 stateMachine.AnimatorComponent.Play(_animationName, -1, 0);
             }
-            
+
             foreach (Transition transition in _transitions)
             {
                 transition.Execute(stateMachine, inputName, _combo);
