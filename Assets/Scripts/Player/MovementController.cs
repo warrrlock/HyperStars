@@ -12,6 +12,9 @@ public class MovementController : MonoBehaviour
 {
     public enum ForceEasing { Linear, Quadratic, Cubic }
 
+    public float pushDistance;
+    public Vector3 pushDirection;
+
     [Header("Movement")]
     [Tooltip("How fast should the character move sideways (in units/sec)?")]
     [SerializeField] private float _moveSpeed;
@@ -412,6 +415,13 @@ public class MovementController : MonoBehaviour
     {
         _unforcedVelocity.x = 0f;
         _unforcedVelocity.z = 0f;
+    }
+
+    public void Push(float duration)
+    {
+        float magnitude = (pushDistance * 2f) / (duration + Time.fixedDeltaTime);
+        Vector3 direction = _fighter.FacingDirection == Fighter.Direction.Right ? pushDirection : new Vector3(-pushDirection.x, pushDirection.y, pushDirection.z);
+        StartCoroutine(ApplyForce(direction, magnitude, duration));
     }
 
     private void Dash(InputManager.Action action)
