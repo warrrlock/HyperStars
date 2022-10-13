@@ -16,6 +16,9 @@ MonoBehaviour:
   _transitions: []
   _defaultCombo: 0
   _attackInfo:
-    _knockbackDuration: 0
-    _knockbackMagnitude: 0
-    _hitStunDuration: 0
+    knockbackDuration: 0.7
+    knockbackDistance: 8
+    hitStunDuration: 1
+    damage: 10
+    knockBackAngle: {x: 5, y: 10, z: 0}
+    causesWallBounce: 1
