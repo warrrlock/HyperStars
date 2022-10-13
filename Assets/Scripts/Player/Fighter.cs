@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MovementController))]
-[RequireComponent(typeof(AttackController))]
 [RequireComponent(typeof(FighterHealth))]
 [RequireComponent(typeof(InputManager))]
 public class Fighter : MonoBehaviour
