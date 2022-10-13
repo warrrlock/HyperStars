@@ -19,8 +19,11 @@ public class CollisionBoxManager: MonoBehaviour
             if (transform.childCount == children) return;
             children = transform.childCount;
             foreach (Transform child in transform)
+            {
                 child.gameObject.layer = gameObject.layer;
-            
+                Collider c = child.gameObject.GetComponent<Collider>();
+                if (c) c.isTrigger = true;
+            }
         }
     }
 }
