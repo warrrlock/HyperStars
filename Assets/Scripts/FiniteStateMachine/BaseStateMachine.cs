@@ -24,6 +24,11 @@ namespace FiniteStateMachine {
         private BaseState _queuedState;
         private bool _rejectInput;
         
+        private int _currentAnimation;
+
+        private MovementController _movementController;
+        public bool CanCombo { get; private set; }
+
         public Animator AnimatorComponent { get; private set; }
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
@@ -37,18 +42,13 @@ namespace FiniteStateMachine {
         {
             CurrentState = _initialState;
             _cachedComponents = new Dictionary<Type, Component>();
+            _movementController = GetComponent<MovementController>();
             AnimatorComponent = GetComponent<Animator>();
             
             
             foreach (AnimationClip clip in AnimatorComponent.runtimeAnimatorController.animationClips)
             {
                 if (_noEndEventClips.Contains(clip)) continue;
-                // AnimationEvent animationStartEvent = new AnimationEvent
-                // {
-                //     time = 0,
-                //     functionName = "HandleAnimationEnter"
-                // };
-                // clip.AddEvent(animationStartEvent);
 
                 AnimationEvent animationEndEvent = new AnimationEvent
                 {
@@ -87,13 +87,23 @@ namespace FiniteStateMachine {
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput) return;
-            Debug.Log("invoked " + action.inputAction.name + " with current State: " + CurrentState.name);
+            Debug.Log(this.name + " invoked " + action.inputAction.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.inputAction.name);
         }
 
         private void Stop(InputManager.Action action)
         {
             CurrentState.Stop(this, action.inputAction.name);
+        }
+
+        public void PlayAnimation(int animationState, bool defaultCombo = false)
+        {
+            if (_currentAnimation == animationState) return;
+            // _movementController.StopMoving(null); //need to stop for duration of animation
+            //Debug.Log(this.name);
+            _currentAnimation = animationState;
+            CanCombo = defaultCombo;
+            AnimatorComponent.Play(animationState, -1, 0);
         }
         
         public void QueueState(BaseState state)
@@ -113,29 +123,26 @@ namespace FiniteStateMachine {
             if (!_queuedState) return;
             //Debug.Log("going to execute "+ _queuedState.name);
             
-            //race condition D:
-            //reject input here
             _rejectInput = true;
             
-            CurrentState.HandleExit(this);
+            HandleStateExit();
             CurrentState = _queuedState;
             _queuedState = null;
            
             _rejectInput = false;
-            //allow input here
-            
+
             CurrentState.Execute(this, "");
         }
         
         //ANIMATION USE
         public void DisableCombo()
         {
-            CurrentState.DisableCombo();
+            CanCombo = false;
         }
         
         public void EnableCombo()
         {
-            CurrentState.EnableCombo();
+            CanCombo = true;
         }
         
         private void TrySetQueueInitial()
@@ -154,20 +161,20 @@ namespace FiniteStateMachine {
             _queuedState = null;
         }
 
-        private void HandleAnimationEnter()
-        {
-            // Debug.Log("entering anim");
-        }
-        
         /// <summary>
         /// Invoked at the end of an animation. Automatically added to each animation,
         /// and either executes a queued State, or sets the State back to the initial State.
         /// </summary>
         public void HandleAnimationExit()
         {
-            //Debug.Log("exiting anim");
+            //Debug.Log(this.name + " exiting anim");
             TrySetQueueInitial();
             ExecuteQueuedState();   
+        }
+
+        private void HandleStateExit()
+        {
+            _currentAnimation = 0;
         }
     }
 }
