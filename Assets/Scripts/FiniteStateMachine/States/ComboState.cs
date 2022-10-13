@@ -13,57 +13,27 @@ namespace FiniteStateMachine
         [SerializeField] private bool _defaultCombo = true;
         
         [SerializeField] private AttackInfo _attackInfo;
-        
-        private bool _combo;
-        private bool _executed;
-        
+
+        private int _animationHash;
+
         // ==========  methods ========== //
-        public void OnEnable()
+        private void OnEnable()
         {
-            ResetVariables();
+            _animationHash = Animator.StringToHash(_animationName);
             _transitions.RemoveAll(t => !t);
         }
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
-            if (!_executed)
-            {
-                //Debug.Log(this.name);
-                _executed = true;
-                _combo = _defaultCombo;
-                stateMachine.AnimatorComponent.Play(_animationName, -1, 0);
-            }
-
+            stateMachine.PlayAnimation(_animationHash, _defaultCombo);
+            
             foreach (Transition transition in _transitions)
-            {
-                transition.Execute(stateMachine, inputName, _combo);
-            }
+                transition.Execute(stateMachine, inputName, stateMachine.CanCombo);
         }
 
         public override AttackInfo GetAttackInfo()
         {
             return _attackInfo;
-        }
-
-        public override void DisableCombo()
-        {
-            _combo = false;
-        }
-        
-        public override void EnableCombo()
-        {
-            _combo = true;
-        }
-
-        public override void HandleExit(BaseStateMachine stateMachine)
-        {
-            ResetVariables();
-        }
-
-        private void ResetVariables()
-        {
-            _executed = false;
-            _combo = _defaultCombo;
         }
     }
 }
