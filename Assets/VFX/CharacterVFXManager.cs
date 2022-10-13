@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
 public enum vfxAssets {AfterImage, };
 
+[RequireComponent(typeof(InputManager))]
 public class CharacterVFXManager : MonoBehaviour
 {
     [SerializeField] private VisualEffect _visualEffect;
@@ -47,15 +49,20 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void AfterImage(InputManager.Action action) {
-        _visualEffect.SendEvent("IsDashing");
+        _visualEffect.SendEvent("OnDash");
     }
     
     void Awake()
     {
         VFXAssignComponents();
-        VFXSubscribeEvents();
+
 
         _visualEffect.visualEffectAsset = _vfxGraphs[((int)vfxAssets.AfterImage)];
+    }
+
+    private void Start()
+    {
+        VFXSubscribeEvents();
     }
 
     void Update() {
