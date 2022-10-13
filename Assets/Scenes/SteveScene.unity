@@ -1089,6 +1089,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67c87b8b008b4189ba90c08baf03a1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pushDistance: 0
+  pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 6.5
   _maxJumpHeight: 3.4
   _minJumpHeight: 3.4
@@ -1319,7 +1321,7 @@ MonoBehaviour:
   comboEvents:
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: f5b4d23b7262d184f9ec06949b880be4, type: 2}
+    WwiseObjectReference: {fileID: 0}
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: f3e0abc7eb2d4a04185ebf824991398d, type: 2}
@@ -1339,6 +1341,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: comboEvents.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: comboEvents.Array.data[0].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: aec2e9b1d4296ec4481091e1c270c8e6, type: 2}
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: comboEvents.Array.data[1].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ba0707c8147c33489eb2b1b5cad4bf6, type: 2}
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: comboEvents.Array.data[2].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: f3e0abc7eb2d4a04185ebf824991398d, type: 2}
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: comboEvents.Array.data[3].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: c8f4b8e821466c24588c2c5f586ceb83, type: 2}
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: comboEvents.Array.data[4].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: cdf9fae6581f20746beb48575219139d, type: 2}
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: comboEvents.Array.data[5].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e8a22f6be90e6640ac5ce6488342c0b, type: 2}
     - target: {fileID: 5751411094747650480, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_IsActive
       value: 0
