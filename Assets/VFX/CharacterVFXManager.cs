@@ -55,9 +55,14 @@ public class CharacterVFXManager : MonoBehaviour
     void Awake()
     {
         VFXAssignComponents();
-        VFXSubscribeEvents();
+
 
         _visualEffect.visualEffectAsset = _vfxGraphs[((int)vfxAssets.AfterImage)];
+    }
+
+    private void Start()
+    {
+        VFXSubscribeEvents();
     }
 
     void Update() {
