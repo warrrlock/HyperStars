@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
-  m_Name: Neutral Finish
+  m_Name: '[test]Neutral Jab'
   m_EditorClassIdentifier: 
-  _animationName: Attack 3
-  _animationParameter: 
-  _transitions: []
+  _animationName: Attack 1
+  _transitions:
+  - {fileID: 11400000, guid: 4cab9cfec59344b499e53ad6f7f24cf9, type: 2}
   _defaultCombo: 0
   _attackInfo:
-    knockbackDuration: 0
-    knockbackMagnitude: 0
+    knockbackDuration: 0.5
+    knockbackDistance: 10
     hitStunDuration: 0
+    damage: 5
+    knockBackAngle: {x: 1, y: 1, z: 0}
+    causesWallBounce: 1
