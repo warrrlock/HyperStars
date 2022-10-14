@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b2b3c4c74b394c2aa6ea240028f2bff, type: 3}
-  m_Name: Moving
+  m_Script: {fileID: 11500000, guid: d3fc4577b3aa347a0bd835490040baa4, type: 3}
+  m_Name: '[test]Walking'
   m_EditorClassIdentifier: 
-  _actions:
-  - {fileID: 11400000, guid: 7951a4b3e8ef54150bfd9b48aa3db022, type: 2}
-  _transitions: []
+  _inputActionName: Move
+  _trueState: {fileID: 11400000, guid: 22523fd9866774b4589fa8efbaee32a2, type: 2}
+  _falseState: {fileID: 11400000, guid: 07595ea11e0a5431fb0fc64a8a63588d, type: 2}
