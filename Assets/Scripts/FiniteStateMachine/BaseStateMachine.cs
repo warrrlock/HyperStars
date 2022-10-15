@@ -19,32 +19,35 @@ public class AttackInfo
 
 namespace FiniteStateMachine {
     [RequireComponent(typeof(Animator))] 
+    [RequireComponent(typeof(Fighter))] 
     public class BaseStateMachine : MonoBehaviour 
     {
-        [SerializeField] private BaseState _initialState; 
-        public BaseState CurrentState {get; private set;}
-        private BaseState _queuedState;
-        private bool _rejectInput;
         
-        private int _currentAnimation = -1;
-
-        private MovementController _movementController;
+        public BaseState CurrentState {get; private set;}
         public bool CanCombo { get; private set; }
-
         public Animator AnimatorComponent { get; private set; }
+        public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
+        
+        [SerializeField] private BaseState _initialState;
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
                  "\n\n****Add all looping animations.")]
         [SerializeField] private List<AnimationClip> _noEndEventClips;
-        
+
+        private BaseState _queuedState;
+        private bool _rejectInput;
+        private int _currentAnimation = -1;
+        private bool _isAttacking;
+
+        private Fighter _fighter;
         private Dictionary<Type, Component> _cachedComponents;
-        public AttackInfo AttackInformation => CurrentState.GetAttackInfo();
+
         
         private void Awake()
         {
             CurrentState = _initialState;
             _cachedComponents = new Dictionary<Type, Component>();
-            _movementController = GetComponent<MovementController>();
+            _fighter = GetComponent<Fighter>();
             AnimatorComponent = GetComponent<Animator>();
             
             
@@ -99,14 +102,15 @@ namespace FiniteStateMachine {
             CurrentState.Stop(this, action.inputAction.name);
         }
 
-        public void PlayAnimation(int animationState, bool defaultCombo = false)
+        public bool PlayAnimation(int animationState, bool defaultCombo = false)
         {
-            if (_currentAnimation == animationState) return;
-            // _movementController.StopMoving(null); //need to stop for duration of animation
+            if (_currentAnimation == animationState) return false;
             //Debug.Log(this.name);
             _currentAnimation = animationState;
             CanCombo = defaultCombo;
             AnimatorComponent.Play(animationState, -1, 0);
+            
+            return true;
         }
         
         public void QueueState(BaseState state)
@@ -124,8 +128,7 @@ namespace FiniteStateMachine {
         {
             // Debug.Log("executing queued state");
             if (!_queuedState) return;
-            Debug.Log("going to execute "+ _queuedState.name);
-            
+            //Debug.Log("going to execute "+ _queuedState.name);
             _rejectInput = true;
             
             HandleStateExit();
@@ -135,6 +138,21 @@ namespace FiniteStateMachine {
             _rejectInput = false;
 
             CurrentState.Execute(this, "");
+        }
+        
+        /// <summary>
+        /// Invoked at the end of an animation. Automatically added to each animation,
+        /// and either executes a queued State, or sets the State back to the initial State.
+        /// </summary>
+        public void HandleAnimationExit()
+        {
+            // Debug.Log(this.name + " exiting anim " + animationHash);
+            TrySetQueueInitial();
+            ExecuteQueuedState();
+            if (_isAttacking)
+            {
+                DisableAttackStop();
+            }
         }
         
         //ANIMATION USE
@@ -153,31 +171,24 @@ namespace FiniteStateMachine {
             if (!_queuedState && CurrentState != _initialState) _queuedState = _initialState;
         }
 
-        private void TrySetStateInitial()
-        {
-            if (_queuedState != null) CurrentState = _initialState;
-        }
-        
-        private void ForceSetStateInitial()
-        {
-            CurrentState = _initialState;
-            _queuedState = null;
-        }
-
-        /// <summary>
-        /// Invoked at the end of an animation. Automatically added to each animation,
-        /// and either executes a queued State, or sets the State back to the initial State.
-        /// </summary>
-        public void HandleAnimationExit()
-        {
-            // Debug.Log(this.name + " exiting anim " + animationHash);
-            TrySetQueueInitial();
-            ExecuteQueuedState();   
-        }
-
         private void HandleStateExit()
         {
             _currentAnimation = -1;
+        }
+
+        public void EnableAttackStop()
+        {
+            if (_isAttacking) return;
+            _isAttacking = true;
+            _fighter.MovementController.EnableAttackStop();
+        }
+        
+        private void DisableAttackStop()
+        {
+            if (!_isAttacking) return;
+            _isAttacking = false;
+            _fighter.MovementController.DisableAttackStop();
+            //need some way to return to walk state upon exit, if player is still holding onto move input
         }
     }
 }
