@@ -17,7 +17,7 @@ namespace FiniteStateMachine
         private int _animationHash;
 
         // ==========  methods ========== //
-        private void OnEnable()
+        private void OnValidate()
         {
             _animationHash = Animator.StringToHash(_animationName);
             _transitions.RemoveAll(t => !t);
