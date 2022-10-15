@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
 public enum vfxAssets {AfterImage, };
 
+[RequireComponent(typeof(InputManager))]
 public class CharacterVFXManager : MonoBehaviour
 {
     [SerializeField] private VisualEffect _visualEffect;
-
     [SerializeField] private VisualEffectAsset[] _vfxGraphs;
+    private Fighter _fighter;
 
     //
     private SpriteRenderer _spriteRenderer;
@@ -25,6 +27,7 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXAssignComponents() {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _inputManager = GetComponent<InputManager>();
+        _fighter = GetComponent<Fighter>();
     }
     void VFXSubscribeEvents() {
         _inputManager.Actions["Dash"].perform += AfterImage;
@@ -47,15 +50,20 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void AfterImage(InputManager.Action action) {
-        _visualEffect.SendEvent("IsDashing");
+        _visualEffect.SendEvent("OnDash");
     }
     
     void Awake()
     {
         VFXAssignComponents();
-        VFXSubscribeEvents();
+
 
         _visualEffect.visualEffectAsset = _vfxGraphs[((int)vfxAssets.AfterImage)];
+    }
+
+    private void Start()
+    {
+        VFXSubscribeEvents();
     }
 
     void Update() {
@@ -77,5 +85,7 @@ public class CharacterVFXManager : MonoBehaviour
             _visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
             delayTimer = delayTime;
         }
+        
+        _visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 }

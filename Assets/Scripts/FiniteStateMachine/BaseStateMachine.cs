@@ -14,6 +14,7 @@ public class AttackInfo
     public float damage;
     public Vector3 knockBackAngle;
     public bool causesWallBounce;
+    public float hitStopDuration;
 }
 
 namespace FiniteStateMachine {
