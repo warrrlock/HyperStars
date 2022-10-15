@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +14,7 @@ public class AttackInfo
     public float damage;
     public Vector3 knockBackAngle;
     public bool causesWallBounce;
+    public float hitStopDuration;
 }
 
 namespace FiniteStateMachine {
@@ -24,7 +26,7 @@ namespace FiniteStateMachine {
         private BaseState _queuedState;
         private bool _rejectInput;
         
-        private int _currentAnimation;
+        private int _currentAnimation = -1;
 
         private MovementController _movementController;
         public bool CanCombo { get; private set; }
@@ -48,7 +50,8 @@ namespace FiniteStateMachine {
             
             foreach (AnimationClip clip in AnimatorComponent.runtimeAnimatorController.animationClips)
             {
-                if (_noEndEventClips.Contains(clip)) continue;
+                if (_noEndEventClips.Contains(clip) ||
+                    (clip.events.Count(c => c.functionName == "HandleAnimationExit") > 0)) continue;
 
                 AnimationEvent animationEndEvent = new AnimationEvent
                 {
@@ -121,7 +124,7 @@ namespace FiniteStateMachine {
         {
             // Debug.Log("executing queued state");
             if (!_queuedState) return;
-            //Debug.Log("going to execute "+ _queuedState.name);
+            Debug.Log("going to execute "+ _queuedState.name);
             
             _rejectInput = true;
             
@@ -147,7 +150,7 @@ namespace FiniteStateMachine {
         
         private void TrySetQueueInitial()
         {
-            if (!_queuedState) _queuedState = _initialState;
+            if (!_queuedState && CurrentState != _initialState) _queuedState = _initialState;
         }
 
         private void TrySetStateInitial()
@@ -167,14 +170,14 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
-            //Debug.Log(this.name + " exiting anim");
+            // Debug.Log(this.name + " exiting anim " + animationHash);
             TrySetQueueInitial();
             ExecuteQueuedState();   
         }
 
         private void HandleStateExit()
         {
-            _currentAnimation = 0;
+            _currentAnimation = -1;
         }
     }
 }

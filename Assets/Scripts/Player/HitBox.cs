@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FiniteStateMachine;
+using WesleyDavies.UnityFunctions;
 
 public class HitBox : MonoBehaviour
 {
@@ -50,5 +51,6 @@ public class HitBox : MonoBehaviour
         {
             StartCoroutine(hitFighter.MovementController.EnableWallBounce());
         }
+        StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
     }
 }
