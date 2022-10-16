@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 [Serializable]
@@ -25,7 +26,8 @@ namespace FiniteStateMachine {
         public BaseState CurrentState {get; private set;}
         public bool CanCombo { get; private set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
-        
+
+        [SerializeField] private TextMeshProUGUI _stateInfoText;
         [SerializeField] private BaseState _initialState;
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
@@ -41,10 +43,10 @@ namespace FiniteStateMachine {
         private Animator _animator;
         private Dictionary<Type, Component> _cachedComponents;
 
-        
         private void Awake()
         {
             CurrentState = _initialState;
+            UpdateStateInfoText();
             _cachedComponents = new Dictionary<Type, Component>();
             _fighter = GetComponent<Fighter>();
             _animator = GetComponent<Animator>();
@@ -139,6 +141,7 @@ namespace FiniteStateMachine {
             
             HandleStateExit();
             CurrentState = _queuedState;
+            UpdateStateInfoText();
             _queuedState = null;
            
             _rejectInput = false;
@@ -208,6 +211,12 @@ namespace FiniteStateMachine {
             yield return new WaitUntil(() => _fighter.MovementController.CollisionData.y.isNegativeHit);
             //when out of air, return to idle
             HandleAnimationExit();
+        }
+
+        private void UpdateStateInfoText()
+        {
+            if (!_stateInfoText) return;
+            _stateInfoText.text = "State: " + CurrentState.name;
         }
     }
 }
