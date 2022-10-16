@@ -63,6 +63,8 @@ public class MovementController : MonoBehaviour
     private Vector3 _forceVelocity;
     private bool _isWallBounceable = false;
 
+    private bool _isAttacking;
+
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
     {
@@ -531,5 +533,23 @@ public class MovementController : MonoBehaviour
             _unforcedVelocity.z = inputVector.y;
         }
         yield break;
+    }
+    
+    public void EnableAttackStop()
+    {
+        _isAttacking = true;
+        _inputManager.StopMove();
+        InputManager.Action[] actions =
+        {
+            _inputManager.Actions["Move"], 
+            _inputManager.Actions["Dash"],
+            _inputManager.Actions["Jump"]
+        };
+        StartCoroutine(_inputManager.Disable(() => _isAttacking == false, actions));
+    }
+    
+    public void DisableAttackStop()
+    {
+        _isAttacking = false;
     }
 }

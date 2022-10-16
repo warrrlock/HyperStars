@@ -17,7 +17,7 @@ namespace FiniteStateMachine
         private int _animationHash;
 
         // ==========  methods ========== //
-        private void OnEnable()
+        private void OnValidate()
         {
             _animationHash = Animator.StringToHash(_animationName);
             _transitions.RemoveAll(t => !t);
@@ -25,8 +25,9 @@ namespace FiniteStateMachine
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
-            stateMachine.PlayAnimation(_animationHash, _defaultCombo);
-            
+            if (stateMachine.PlayAnimation(_animationHash, _defaultCombo))
+                stateMachine.EnableAttackStop();
+
             foreach (Transition transition in _transitions)
                 transition.Execute(stateMachine, inputName, stateMachine.CanCombo);
         }
