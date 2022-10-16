@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using WesleyDavies;
+using WesleyDavies.UnityFunctions;
 
 [RequireComponent(typeof(Fighter))]
 [RequireComponent(typeof(BoxCollider))]
@@ -61,7 +62,12 @@ public class MovementController : MonoBehaviour
     private Vector2 _yAxisRaySpacing;
     private Vector2 _zAxisRaySpacing;
     private Vector3 _forceVelocity;
+
     private bool _isWallBounceable = false;
+    private float _wallBounceDistance;
+    private float _wallBounceDuration;
+    private Vector3 _wallBounceDirection;
+    private float _wallBounceHitStopDuration;
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
@@ -197,7 +203,7 @@ public class MovementController : MonoBehaviour
     {
         //float accelerationTime = _collisionData.y.isNegativeHit ? _accelerationTimeGrounded : _accelerationTimeAirborne;
 
-        _horizontalTargetVelocity += new Vector2(_forceVelocity.x, _forceVelocity.z);
+        //_horizontalTargetVelocity += new Vector2(_forceVelocity.x, _forceVelocity.z);
         //_velocity += _forceVelocity;
 
         //_velocity.x = Mathf.SmoothDamp(_velocity.x, _horizontalTargetVelocity.x, ref _horizontalVelocitySmoothing.x, accelerationTime);
@@ -208,13 +214,114 @@ public class MovementController : MonoBehaviour
         Move(_velocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
-            _unforcedVelocity.y = 0f;
+            ResetVelocityY();
         }
     }
 
     private void OnDestroy()
     {
         UnsubscribeActions();
+    }
+
+    public void ResetVelocityY()
+    {
+        _unforcedVelocity.y = 0f;
+    }
+
+    public IEnumerator EnableWallBounce(float distance, float duration, Vector3 direction, float hitStopDuration)
+    {
+        _wallBounceDistance = distance;
+        _wallBounceDuration = duration;
+        _wallBounceDirection = direction;
+        _wallBounceHitStopDuration = hitStopDuration;
+        _isWallBounceable = true;
+        yield return new WaitUntil(() => _forceVelocity == Vector3.zero);
+
+        _isWallBounceable = false;
+        yield break;
+    }
+
+    private IEnumerator WallBounce(Vector3 direction, float magnitude, float duration)
+    {
+        yield return null;
+
+        StartCoroutine(Juice.FreezeTime(_wallBounceHitStopDuration));
+        _isWallBounceable = false; //TODO: instead, stop EnableWallBounce coroutine
+        StartCoroutine(ApplyForce(direction, magnitude, duration));
+        yield break;
+    }
+
+    public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
+    {
+        direction.Normalize();
+        float timer = 0f;
+        Easing function;
+        switch (easingFunction)
+        {
+            case ForceEasing.Linear:
+                function = Easing.CreateEasingFunc(Easing.Funcs.Linear);
+                break;
+            case ForceEasing.Quadratic:
+                function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
+                break;
+            case ForceEasing.Cubic:
+                function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+                break;
+            default:
+                throw new System.Exception("Invalid easing function provided.");
+        }
+        //yield return null;
+        while (timer < duration)
+        {
+            if (_isWallBounceable)
+            {
+                if (_collisionData.x.isNegativeHit || _collisionData.x.isPositiveHit)
+                {
+                    Debug.Log("penis");
+                    ResetVelocityY();
+                    if (_wallBounceDistance != 0f)
+                    {
+                        Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _wallBounceDirection : new Vector3(-_wallBounceDirection.x, _wallBounceDirection.y, _wallBounceDirection.z);
+                        float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
+                        StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
+                        yield break;
+                    }
+                    direction.x *= -1f;
+                }
+                if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
+                {
+                    ResetVelocityY();
+                    if (_wallBounceDistance != 0f)
+                    {
+                        Vector3 bounceDirection = Mathf.Sign(direction.z) == 1f ? _wallBounceDirection : new Vector3(_wallBounceDirection.x, _wallBounceDirection.y, -_wallBounceDirection.z);
+                        float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
+                        StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
+                        yield break;
+                    }
+                    direction.z *= -1f;
+                }
+            }
+            float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
+            Vector3 force = direction * forceMagnitude;
+            _forceVelocity += force;
+            yield return new WaitForFixedUpdate();
+
+            _forceVelocity -= force;
+            timer += Time.fixedDeltaTime;
+        }
+
+        if (!_inputManager.Actions["Move"].isBeingPerformed)
+        {
+            _unforcedVelocity.x = 0f;
+            _unforcedVelocity.z = 0f;
+        }
+        else
+        {
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+            _unforcedVelocity.x = inputVector.x;
+            _unforcedVelocity.z = inputVector.y;
+        }
+        yield break;
     }
 
     private void AssignComponents()
@@ -467,69 +574,6 @@ public class MovementController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         _inputManager.Actions["Dash"].finish?.Invoke(action);
         StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
-        yield break;
-    }
-
-    public IEnumerator EnableWallBounce()
-    {
-        _isWallBounceable = true;
-        yield return new WaitUntil(() => _forceVelocity == Vector3.zero);
-
-        _isWallBounceable = false;
-        yield break;
-    }
-
-    public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
-    {
-        direction.Normalize();
-        float timer = 0f;
-        Easing function;
-        switch (easingFunction)
-        {
-            case ForceEasing.Linear:
-                function = Easing.CreateEasingFunc(Easing.Funcs.Linear);
-                break;
-            case ForceEasing.Quadratic:
-                function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
-                break;
-            case ForceEasing.Cubic:
-                function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
-                break;
-            default:
-                throw new System.Exception("Invalid easing function provided.");
-        }
-        while (timer < duration)
-        {
-            if (_isWallBounceable)
-            {
-                if (_collisionData.x.isNegativeHit || _collisionData.x.isPositiveHit)
-                {
-                    direction.x *= -1f;
-                }
-                if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
-                {
-                    direction.z *= -1f;
-                }
-            }
-            float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
-            Vector3 force = direction * forceMagnitude;
-            _forceVelocity += force;
-            yield return new WaitForFixedUpdate();
-            _forceVelocity -= force;
-            timer += Time.fixedDeltaTime;
-        }
-
-        if (!_inputManager.Actions["Move"].isBeingPerformed)
-        {
-            _unforcedVelocity.x = 0f;
-            _unforcedVelocity.z = 0f;
-        }
-        else
-        {
-            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
-            _unforcedVelocity.x = inputVector.x;
-            _unforcedVelocity.z = inputVector.y;
-        }
         yield break;
     }
 }

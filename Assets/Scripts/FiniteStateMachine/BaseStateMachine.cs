@@ -14,6 +14,12 @@ public class AttackInfo
     public Vector3 knockBackAngle;
     public bool causesWallBounce;
     public float hitStopDuration;
+    public float wallBounceDuration;
+    [Tooltip("Leave this at 0 if wall bounce should not create a new force.")]
+    public float wallBounceDistance;
+    [Tooltip("Assume the hit fighter collides with the wall while going right.")]
+    public Vector3 wallBounceDirection;
+    public float wallBounceHitStopDuration;
 }
 
 namespace FiniteStateMachine {
