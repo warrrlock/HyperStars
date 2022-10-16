@@ -67,12 +67,8 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void Update() {
-        // VFXSwitches();
-    }
-    
-    void LateUpdate()
-    {
         SpriteUpdate();
+        // VFXSwitches();
     }
 
     void SpriteUpdate() {
