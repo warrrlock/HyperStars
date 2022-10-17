@@ -1,9 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MovementController))]
-[RequireComponent(typeof(AttackController))]
 [RequireComponent(typeof(FighterHealth))]
 [RequireComponent(typeof(InputManager))]
 public class Fighter : MonoBehaviour
@@ -16,6 +16,8 @@ public class Fighter : MonoBehaviour
     public FighterHealth FighterHealth { get; private set; }
     public InputManager InputManager { get; private set; }
 
+    public Action<Fighter, Fighter, Vector3> onAttackHit;
+    
     private void Awake()
     {
         AssignComponents();

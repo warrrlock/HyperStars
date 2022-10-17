@@ -20,6 +20,6 @@ public class FighterHealth : MonoBehaviour
     {
         _hitPoints -= damagePoints;
         //Debug.Log("Fighter lost " + damagePoints + " hit points.");
-        _textBox.text = "Health: " + _hitPoints;
+        if (_textBox) _textBox.text = "Health: " + _hitPoints;
     }
 }

@@ -15,8 +15,17 @@ MonoBehaviour:
   _animationName: Jab
   _transitions:
   - {fileID: 11400000, guid: 0edd14fd83b75c9419092aa2699ea4e3, type: 2}
+  - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
   _defaultCombo: 0
   _attackInfo:
-    _knockbackDuration: 0
-    _knockbackMagnitude: 0
-    _hitStunDuration: 0
+    knockbackDuration: 0.2
+    knockbackDistance: 0.6
+    hitStunDuration: 0.3
+    damage: 10
+    knockBackAngle: {x: 0, y: 1, z: 0}
+    causesWallBounce: 0
+    hitStopDuration: 0.05
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0

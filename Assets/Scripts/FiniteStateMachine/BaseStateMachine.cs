@@ -1,8 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
+using System.Linq;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 [Serializable]
 public class AttackInfo
@@ -13,42 +14,54 @@ public class AttackInfo
     public float damage;
     public Vector3 knockBackAngle;
     public bool causesWallBounce;
+    public float hitStopDuration;
+    public float wallBounceDuration;
+    [Tooltip("Leave this at 0 if wall bounce should not create a new force.")]
+    public float wallBounceDistance;
+    [Tooltip("Assume the hit fighter collides with the wall while going right.")]
+    public Vector3 wallBounceDirection;
+    public float wallBounceHitStopDuration;
 }
 
 namespace FiniteStateMachine {
     [RequireComponent(typeof(Animator))] 
+    [RequireComponent(typeof(Fighter))] 
     public class BaseStateMachine : MonoBehaviour 
     {
-        [SerializeField] private BaseState _initialState; 
-        public BaseState CurrentState {get; private set;}
-        private BaseState _queuedState;
-        private bool _rejectInput;
         
-        public Animator AnimatorComponent { get; private set; }
+        public BaseState CurrentState {get; private set;}
+        public bool CanCombo { get; private set; }
+        public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
+
+        [SerializeField] private TextMeshProUGUI _stateInfoText;
+        [SerializeField] private BaseState _initialState;
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
                  "\n\n****Add all looping animations.")]
         [SerializeField] private List<AnimationClip> _noEndEventClips;
-        
+
+        private BaseState _queuedState;
+        private bool _rejectInput;
+        private int _currentAnimation = -1;
+        private bool _isAttacking;
+
+        private Fighter _fighter;
+        private Animator _animator;
         private Dictionary<Type, Component> _cachedComponents;
-        public AttackInfo AttackInformation => CurrentState.GetAttackInfo();
-        
+
         private void Awake()
         {
             CurrentState = _initialState;
+            UpdateStateInfoText();
             _cachedComponents = new Dictionary<Type, Component>();
-            AnimatorComponent = GetComponent<Animator>();
+            _fighter = GetComponent<Fighter>();
+            _animator = GetComponent<Animator>();
             
             
-            foreach (AnimationClip clip in AnimatorComponent.runtimeAnimatorController.animationClips)
+            foreach (AnimationClip clip in _animator.runtimeAnimatorController.animationClips)
             {
-                if (_noEndEventClips.Contains(clip)) continue;
-                // AnimationEvent animationStartEvent = new AnimationEvent
-                // {
-                //     time = 0,
-                //     functionName = "HandleAnimationEnter"
-                // };
-                // clip.AddEvent(animationStartEvent);
+                if (_noEndEventClips.Contains(clip) ||
+                    (clip.events.Count(c => c.functionName == "HandleAnimationExit") > 0)) continue;
 
                 AnimationEvent animationEndEvent = new AnimationEvent
                 {
@@ -61,15 +74,22 @@ namespace FiniteStateMachine {
 
         private void Start()
         {
-            Fighter fighter = GetComponent<Fighter>();
-            foreach (KeyValuePair<string, InputManager.Action> entry in fighter.InputManager.Actions)
-            {
+            foreach (KeyValuePair<string, InputManager.Action> entry in _fighter.InputManager.Actions)
                 entry.Value.perform += Invoke;
-                entry.Value.stop += Stop;
-            }
+            _fighter.InputManager.Actions["Dash"].finish += Stop;
+            _fighter.InputManager.Actions["Move"].stop += Stop;
+
             CurrentState.Execute(this, "");
         }
-        
+
+        private void OnDestroy()
+        {
+            foreach (KeyValuePair<string, InputManager.Action> entry in _fighter.InputManager.Actions)
+                entry.Value.perform -= Invoke;
+            _fighter.InputManager.Actions["Dash"].finish -= Stop;
+            _fighter.InputManager.Actions["Move"].stop -= Stop;
+        }
+
         //methods
         public new T GetComponent<T>() where T: Component 
         {
@@ -87,13 +107,24 @@ namespace FiniteStateMachine {
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput) return;
-            Debug.Log("invoked " + action.inputAction.name + " with current State: " + CurrentState.name);
+            Debug.Log(this.name + " invoked " + action.inputAction.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.inputAction.name);
         }
 
         private void Stop(InputManager.Action action)
         {
             CurrentState.Stop(this, action.inputAction.name);
+        }
+
+        public bool PlayAnimation(int animationState, bool defaultCombo = false)
+        {
+            if (_currentAnimation == animationState) return false;
+            //Debug.Log(this.name);
+            _currentAnimation = animationState;
+            CanCombo = defaultCombo;
+            _animator.Play(animationState, -1, 0);
+            
+            return true;
         }
         
         public void QueueState(BaseState state)
@@ -111,52 +142,17 @@ namespace FiniteStateMachine {
         {
             // Debug.Log("executing queued state");
             if (!_queuedState) return;
-            //Debug.Log("going to execute "+ _queuedState.name);
-            
-            //race condition D:
-            //reject input here
+            // Debug.Log("going to execute "+ _queuedState.name);
             _rejectInput = true;
             
-            CurrentState.HandleExit(this);
+            HandleStateExit();
             CurrentState = _queuedState;
+            UpdateStateInfoText();
             _queuedState = null;
            
             _rejectInput = false;
-            //allow input here
-            
+
             CurrentState.Execute(this, "");
-        }
-        
-        //ANIMATION USE
-        public void DisableCombo()
-        {
-            CurrentState.DisableCombo();
-        }
-        
-        public void EnableCombo()
-        {
-            CurrentState.EnableCombo();
-        }
-        
-        private void TrySetQueueInitial()
-        {
-            if (!_queuedState) _queuedState = _initialState;
-        }
-
-        private void TrySetStateInitial()
-        {
-            if (_queuedState != null) CurrentState = _initialState;
-        }
-        
-        private void ForceSetStateInitial()
-        {
-            CurrentState = _initialState;
-            _queuedState = null;
-        }
-
-        private void HandleAnimationEnter()
-        {
-            // Debug.Log("entering anim");
         }
         
         /// <summary>
@@ -165,9 +161,68 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
-            //Debug.Log("exiting anim");
+            // Debug.Log(this.name + " exiting anim " + callee);
             TrySetQueueInitial();
-            ExecuteQueuedState();   
+            ExecuteQueuedState();
+            if (_isAttacking)
+            {
+                DisableAttackStop();
+            }
+        }
+
+        //ANIMATION USE
+        public void DisableCombo()
+        {
+            CanCombo = false;
+        }
+        
+        public void EnableCombo()
+        {
+            CanCombo = true;
+        }
+        
+        private void TrySetQueueInitial()
+        {
+            if (!_queuedState && CurrentState != _initialState) _queuedState = _initialState;
+        }
+
+        private void HandleStateExit()
+        {
+            _currentAnimation = -1;
+        }
+
+        public void EnableAttackStop()
+        {
+            if (_isAttacking) return;
+            _isAttacking = true;
+            _fighter.MovementController.EnableAttackStop();
+        }
+        
+        private void DisableAttackStop()
+        {
+            if (!_isAttacking) return;
+            _isAttacking = false;
+            _fighter.MovementController.DisableAttackStop();
+            //need some way to return to walk state upon exit, if player is still holding onto move input
+        }
+        
+        public void StartInAir()
+        {
+            StartCoroutine(HandleExitInAir());
+        }
+
+        private IEnumerator HandleExitInAir()
+        {
+            yield return new WaitForFixedUpdate();
+            yield return new WaitUntil(() => _fighter.MovementController.CollisionData.y.isNegativeHit);
+            //when out of air, return to idle
+            HandleAnimationExit();
+        }
+
+        private void UpdateStateInfoText()
+        {
+            if (!_stateInfoText) return;
+            _stateInfoText.text = "State: " + CurrentState.name;
         }
     }
 }

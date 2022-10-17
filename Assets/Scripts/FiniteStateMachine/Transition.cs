@@ -79,7 +79,7 @@ namespace FiniteStateMachine
                 stateMachine.QueueState(_trueState);
                 stateMachine.ExecuteQueuedState();
             }
-            else if ((_customFalseState) || _customFalseState is RemainInState)
+            else if (_customFalseState)
             {
                 stateMachine.QueueState(_customFalseState);
                 stateMachine.ExecuteQueuedState();
@@ -98,7 +98,7 @@ namespace FiniteStateMachine
                 if (transition._falseState == FalseState.CustomFalseState)
                 {
                     EditorGUILayout.Space();EditorGUILayout.Space();
-                    transition._customFalseState = EditorGUILayout.ObjectField("custom false state", transition._customFalseState, 
+                    transition._customFalseState = EditorGUILayout.ObjectField("Custom False State", transition._customFalseState, 
                         typeof(BaseState), false) as BaseState;
                 }
                 

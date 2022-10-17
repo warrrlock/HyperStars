@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FiniteStateMachine
@@ -6,18 +7,26 @@ namespace FiniteStateMachine
     public class AnimationAction: StateAction
     {
         [SerializeField] private string _animationName;
-        // [SerializeField] private string _animationParameter;
+
+        private int _animationHash;
+
+        private void OnValidate()
+        {
+            _animationHash = Animator.StringToHash(_animationName);
+        }
+
         public override void Execute(BaseStateMachine stateMachine)
         {
-            stateMachine.AnimatorComponent.Play(_animationName, -1, 0.0f);
+            stateMachine.PlayAnimation(_animationHash);
         }
 
         public override void Stop(BaseStateMachine stateMachine)
         {
-            if (stateMachine.AnimatorComponent.GetCurrentAnimatorStateInfo(0).loop)
-            {
-                stateMachine.HandleAnimationExit();
-            }
+            stateMachine.HandleAnimationExit();
+            // if (stateMachine.AnimatorComponent.GetCurrentAnimatorStateInfo(0).loop)
+            // {
+            //     stateMachine.HandleAnimationExit();
+            // }
         }
     }
 }
