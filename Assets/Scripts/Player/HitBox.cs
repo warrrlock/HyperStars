@@ -51,9 +51,10 @@ public class HitBox : MonoBehaviour
         float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
         StartCoroutine(hitFighter.MovementController.ApplyForce(forceAngle, forceMagnitude, attackInfo.knockbackDuration));
         StartCoroutine(hitFighter.InputManager.Disable(attackInfo.hitStunDuration, hitFighter.InputManager.Actions["Move"]));
+        hitFighter.MovementController.ResetVelocityY();
         if (attackInfo.causesWallBounce)
         {
-            StartCoroutine(hitFighter.MovementController.EnableWallBounce());
+            StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
         }
         StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
     }
