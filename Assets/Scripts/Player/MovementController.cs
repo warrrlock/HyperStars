@@ -69,6 +69,8 @@ public class MovementController : MonoBehaviour
     private Vector3 _wallBounceDirection;
     private float _wallBounceHitStopDuration;
 
+    private bool _isAttacking;
+
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
     {
@@ -575,5 +577,23 @@ public class MovementController : MonoBehaviour
         _inputManager.Actions["Dash"].finish?.Invoke(action);
         StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
+    }
+    
+    public void EnableAttackStop()
+    {
+        _isAttacking = true;
+        _inputManager.StopMove();
+        InputManager.Action[] actions =
+        {
+            _inputManager.Actions["Move"], 
+            _inputManager.Actions["Dash"],
+            _inputManager.Actions["Jump"]
+        };
+        StartCoroutine(_inputManager.Disable(() => _isAttacking == false, actions));
+    }
+    
+    public void DisableAttackStop()
+    {
+        _isAttacking = false;
     }
 }

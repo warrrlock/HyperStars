@@ -38,10 +38,14 @@ public class HitBox : MonoBehaviour
         {
             return;
         }
+
+        Vector3 hitPoint = other.ClosestPoint(transform.position);
         AttackInfo attackInfo = _baseStateMachine.CurrentState.GetAttackInfo();
 
         Fighter hitFighter = other.GetComponentInParent<Fighter>();
+        _fighter.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
         hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
+        
         Vector3 forceAngle = attackInfo.knockBackAngle;
         forceAngle.x = _fighter.FacingDirection == Fighter.Direction.Right ? attackInfo.knockBackAngle.x : -attackInfo.knockBackAngle.x;
         float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
