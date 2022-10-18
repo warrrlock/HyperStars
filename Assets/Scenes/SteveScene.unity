@@ -1782,6 +1782,11 @@ MonoBehaviour:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 5e8a22f6be90e6640ac5ce6488342c0b, type: 2}
+  comboVoicelineEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  movementEvents: []
 --- !u!1001 &2050966792
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1789,6 +1794,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: footsteps.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 5249f756f2bc83e4eb3e1becb99c829a, type: 2}
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: comboVoicelineEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: comboVoicelineEvents.Array.data[0].WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 67bcff3f47f4bc64b98c5cf55f513fb6, type: 2}
     - target: {fileID: 5751411094747650480, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_IsActive
       value: 0
