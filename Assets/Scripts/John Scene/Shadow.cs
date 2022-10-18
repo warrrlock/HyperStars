@@ -5,6 +5,8 @@ using UnityEngine;
 public class Shadow : MonoBehaviour
 {
     public Transform shadowSprite;
+    public Vector3 shadowSpritePosition;
+    public float yPos = -3.75f;
 
     // Start is called before the first frame update
     void Start()
@@ -15,8 +17,8 @@ public class Shadow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 shadowSpritePosition = shadowSprite.transform.position;
-        shadowSpritePosition.y = -3.75f;
+        shadowSpritePosition = shadowSprite.transform.position;
+        shadowSpritePosition.y = yPos;
         shadowSprite.transform.position = shadowSpritePosition;
 
     }
