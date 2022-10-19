@@ -56,6 +56,7 @@ public class HitBox : MonoBehaviour
         {
             StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
         }
+        StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
         StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
     }
 }
