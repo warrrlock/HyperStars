@@ -17,7 +17,7 @@ namespace FiniteStateMachine
 
         public override void Execute(BaseStateMachine stateMachine)
         {
-            stateMachine.PlayAnimation(_animationHash);
+            stateMachine.PlayAnimation(_animationName);
         }
 
         public override void Stop(BaseStateMachine stateMachine)

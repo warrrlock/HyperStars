@@ -1505,6 +1505,7 @@ GameObject:
   - component: {fileID: 2049878708}
   - component: {fileID: 2049878709}
   - component: {fileID: 2049878710}
+  - component: {fileID: 2049878711}
   m_Layer: 0
   m_Name: Lisa_old
   m_TagString: Untagged
@@ -1787,6 +1788,22 @@ MonoBehaviour:
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 0}
   movementEvents: []
+--- !u!114 &2049878711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049878697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18f565fd70774b79be28f414bb16f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _idleName: 
+  _dazeName: 
+  _launchName: 
+  _landName: 
 --- !u!1001 &2050966792
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1794,6 +1811,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: movementEvents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3013315635892402694, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: footsteps.WwiseObjectReference
       value: 
@@ -1953,7 +1974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2133713984
 RectTransform:
   m_ObjectHideFlags: 0
