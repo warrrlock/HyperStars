@@ -45,6 +45,18 @@ public class HitBox : MonoBehaviour
         Fighter hitFighter = other.GetComponentInParent<Fighter>();
         _fighter.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
         hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
+
+
+
+        if (attackInfo.knockBackAngle.y > 0f)
+        {
+            StartCoroutine(hitFighter.HurtAnimator.PlayLaunch());
+        }
+        else
+        {
+            StartCoroutine(hitFighter.HurtAnimator.PlayDaze());
+        }
+
         
         Vector3 forceAngle = attackInfo.knockBackAngle;
         forceAngle.x = _fighter.FacingDirection == Fighter.Direction.Right ? attackInfo.knockBackAngle.x : -attackInfo.knockBackAngle.x;
@@ -56,6 +68,7 @@ public class HitBox : MonoBehaviour
         {
             StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
         }
+        StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
         StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
     }
 }

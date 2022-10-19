@@ -13,7 +13,7 @@ public class FighterHealth : MonoBehaviour
     private void Start()
     {
         _hitPoints = _maxHitPoints;
-        _textBox.text = "Health: " + _hitPoints;
+        if (_textBox) _textBox.text = "Health: " + _hitPoints;
     }
 
     public void ApplyDamage(float damagePoints)
