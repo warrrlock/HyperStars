@@ -43,7 +43,7 @@ namespace FiniteStateMachine {
 
         private BaseState _queuedState;
         private bool _rejectInput;
-        private int _currentAnimation = -1;
+        private string _currentAnimation;
         private bool _isAttacking;
 
         private Fighter _fighter;
@@ -52,7 +52,7 @@ namespace FiniteStateMachine {
 
         private void Awake()
         {
-            CurrentState = _initialState;
+            //CurrentState = _initialState;
             UpdateStateInfoText();
             _cachedComponents = new Dictionary<Type, Component>();
             _fighter = GetComponent<Fighter>();
@@ -80,6 +80,7 @@ namespace FiniteStateMachine {
             _fighter.InputManager.Actions["Dash"].finish += Stop;
             _fighter.InputManager.Actions["Move"].stop += Stop;
 
+            CurrentState = _initialState;
             CurrentState.Execute(this, "");
         }
 
@@ -108,16 +109,18 @@ namespace FiniteStateMachine {
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput) return;
-            Debug.Log(this.name + " invoked " + action.inputAction.name + " with current State: " + CurrentState.name);
-            CurrentState.Execute(this, action.inputAction.name);
+            Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
+            CurrentState.Execute(this, action.name);
         }
 
         private void Stop(InputManager.Action action)
         {
-            CurrentState.Stop(this, action.inputAction.name);
+            //Debug.Log(action.inputAction.name);
+            Debug.Log(this);
+            CurrentState.Stop(this, action.name);
         }
 
-        public bool PlayAnimation(int animationState, bool defaultCombo = false)
+        public bool PlayAnimation(string animationState, bool defaultCombo = false)
         {
             if (_currentAnimation == animationState) return false;
             //Debug.Log(this.name);
@@ -189,7 +192,7 @@ namespace FiniteStateMachine {
 
         private void HandleStateExit()
         {
-            _currentAnimation = -1;
+            _currentAnimation = "";
         }
 
         public void EnableAttackStop()
