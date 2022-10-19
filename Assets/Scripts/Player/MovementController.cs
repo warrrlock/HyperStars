@@ -69,6 +69,8 @@ public class MovementController : MonoBehaviour
     private Vector3 _wallBounceDirection;
     private float _wallBounceHitStopDuration;
 
+    private bool _isGravityApplied = true;
+
     private bool _isAttacking;
 
     private RaycastOrigins _raycastOrigins;
@@ -210,7 +212,11 @@ public class MovementController : MonoBehaviour
 
         //_velocity.x = Mathf.SmoothDamp(_velocity.x, _horizontalTargetVelocity.x, ref _horizontalVelocitySmoothing.x, accelerationTime);
         //_velocity.z = Mathf.SmoothDamp(_velocity.z, _horizontalTargetVelocity.y, ref _horizontalVelocitySmoothing.y, accelerationTime);
-        _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
+
+        if (_isGravityApplied)
+        {
+            _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
+        }
         _velocity = _unforcedVelocity + _forceVelocity;
         //_velocity += _forceVelocity;
         Move(_velocity * Time.fixedDeltaTime);
@@ -228,6 +234,7 @@ public class MovementController : MonoBehaviour
     public void ResetVelocityY()
     {
         _unforcedVelocity.y = 0f;
+        //TODO: kill all the player's force when they land
     }
 
     public IEnumerator EnableWallBounce(float distance, float duration, Vector3 direction, float hitStopDuration)
@@ -240,6 +247,15 @@ public class MovementController : MonoBehaviour
         yield return new WaitUntil(() => _forceVelocity == Vector3.zero);
 
         _isWallBounceable = false;
+        yield break;
+    }
+
+    public IEnumerator DisableGravity(float duration)
+    {
+        _isGravityApplied = false;
+        yield return new WaitForSeconds(duration);
+
+        _isGravityApplied = true;
         yield break;
     }
 
