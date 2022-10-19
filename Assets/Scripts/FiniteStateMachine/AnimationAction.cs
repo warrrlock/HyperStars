@@ -10,7 +10,7 @@ namespace FiniteStateMachine
 
         private int _animationHash;
 
-        private void OnEnable()
+        private void OnValidate()
         {
             _animationHash = Animator.StringToHash(_animationName);
         }
@@ -22,10 +22,11 @@ namespace FiniteStateMachine
 
         public override void Stop(BaseStateMachine stateMachine)
         {
-            if (stateMachine.AnimatorComponent.GetCurrentAnimatorStateInfo(0).loop)
-            {
-                stateMachine.HandleAnimationExit();
-            }
+            stateMachine.HandleAnimationExit();
+            // if (stateMachine.AnimatorComponent.GetCurrentAnimatorStateInfo(0).loop)
+            // {
+            //     stateMachine.HandleAnimationExit();
+            // }
         }
     }
 }

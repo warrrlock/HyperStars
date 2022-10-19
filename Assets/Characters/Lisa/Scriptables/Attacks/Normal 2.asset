@@ -15,11 +15,13 @@ MonoBehaviour:
   _animationName: Normal 2
   _transitions:
   - {fileID: 11400000, guid: a4a87363bb4c4074c9af3f0b9aded6d8, type: 2}
+  - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
   _defaultCombo: 0
   _attackInfo:
-    knockbackDuration: 1
-    knockbackDistance: 10
-    hitStunDuration: 0
+    knockbackDuration: 0.3
+    knockbackDistance: 1
+    hitStunDuration: 1
     damage: 10
-    knockBackAngle: {x: 10, y: 10, z: 0}
-    causesWallBounce: 1
+    knockBackAngle: {x: 5, y: 0, z: 0}
+    causesWallBounce: 0
+    hitStopDuration: 0.05

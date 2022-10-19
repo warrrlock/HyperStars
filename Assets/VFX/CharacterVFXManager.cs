@@ -10,8 +10,8 @@ public enum vfxAssets {AfterImage, };
 public class CharacterVFXManager : MonoBehaviour
 {
     [SerializeField] private VisualEffect _visualEffect;
-
     [SerializeField] private VisualEffectAsset[] _vfxGraphs;
+    private Fighter _fighter;
 
     //
     private SpriteRenderer _spriteRenderer;
@@ -27,6 +27,7 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXAssignComponents() {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _inputManager = GetComponent<InputManager>();
+        _fighter = GetComponent<Fighter>();
     }
     void VFXSubscribeEvents() {
         _inputManager.Actions["Dash"].perform += AfterImage;
@@ -66,12 +67,8 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void Update() {
-        // VFXSwitches();
-    }
-    
-    void LateUpdate()
-    {
         SpriteUpdate();
+        // VFXSwitches();
     }
 
     void SpriteUpdate() {
@@ -84,5 +81,7 @@ public class CharacterVFXManager : MonoBehaviour
             _visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
             delayTimer = delayTime;
         }
+        
+        _visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 }

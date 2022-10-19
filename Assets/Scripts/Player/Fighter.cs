@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class Fighter : MonoBehaviour
     public FighterHealth FighterHealth { get; private set; }
     public InputManager InputManager { get; private set; }
 
+    public Action<Fighter, Fighter, Vector3> onAttackHit;
+    
     private void Awake()
     {
         AssignComponents();
