@@ -21,6 +21,7 @@ public class AttackInfo
     [Tooltip("Assume the hit fighter collides with the wall while going right.")]
     public Vector3 wallBounceDirection;
     public float wallBounceHitStopDuration;
+    public float hangTime;
 }
 
 namespace FiniteStateMachine {
