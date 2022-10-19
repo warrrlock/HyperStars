@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class HurtState : MonoBehaviour
 {
-    protected Func<bool> _exitCondition;
+    //protected Func<bool> _exitCondition;
 }

@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadowSprite: {fileID: 5751411094747650481}
+  shadowSpritePosition: {x: 0, y: 0, z: 0}
+  yPos: -3.75
 --- !u!1 &5751411094791522315
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +168,7 @@ GameObject:
   - component: {fileID: 5751411094791523318}
   - component: {fileID: 5437623320969005760}
   - component: {fileID: 3013315635892402694}
+  - component: {fileID: 4663626311462973836}
   m_Layer: 0
   m_Name: Lisa
   m_TagString: Untagged
@@ -439,21 +442,22 @@ MonoBehaviour:
     WwiseObjectReference: {fileID: 11400000, guid: 45d168dc771bb764d83db932c56dede1, type: 2}
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: f336feb7a787b934bbb31870404082b3, type: 2}
-  comboVoicelineEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 67bcff3f47f4bc64b98c5cf55f513fb6, type: 2}
-  movementEvents:
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 5249f756f2bc83e4eb3e1becb99c829a, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7bb8d388140c4994f868fb55755d00c8, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: c1b4891ddd9e3ae44bfe4448f9c4ce0c, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 5e8a22f6be90e6640ac5ce6488342c0b, type: 2}
+--- !u!114 &4663626311462973836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5751411094791522315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18f565fd70774b79be28f414bb16f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _idleName: Idle
+  _dazeName: lisa_standinghurt
+  _launchName: lisa_launch
 --- !u!1 &5751411094795848295
 GameObject:
   m_ObjectHideFlags: 0
