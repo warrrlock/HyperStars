@@ -70,7 +70,6 @@ public class MovementController : MonoBehaviour
     private float _wallBounceHitStopDuration;
 
     private bool _isAttacking;
-
     private bool _isGravityApplied = true;
 
     private RaycastOrigins _raycastOrigins;

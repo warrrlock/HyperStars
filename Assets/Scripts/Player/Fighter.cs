@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(FighterHealth))]
 [RequireComponent(typeof(InputManager))]
+[RequireComponent(typeof(HurtAnimator))]
 public class Fighter : MonoBehaviour
 {
     public enum Direction { Left, Right }
@@ -15,6 +16,7 @@ public class Fighter : MonoBehaviour
     public MovementController MovementController { get; private set; }
     public FighterHealth FighterHealth { get; private set; }
     public InputManager InputManager { get; private set; }
+    public HurtAnimator HurtAnimator { get; private set; }
 
     public Action<Fighter, Fighter, Vector3> onAttackHit;
     
@@ -36,6 +38,7 @@ public class Fighter : MonoBehaviour
         MovementController = GetComponent<MovementController>();
         FighterHealth = GetComponent<FighterHealth>();
         InputManager = GetComponent<InputManager>();
+        HurtAnimator = GetComponent<HurtAnimator>();
     }
 
     public void FlipCharacter(Direction newDirection)
