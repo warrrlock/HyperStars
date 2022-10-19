@@ -44,6 +44,11 @@ public class HitBox : MonoBehaviour
 
         Fighter hitFighter = other.GetComponentInParent<Fighter>();
         _fighter.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
+
+        if (_baseStateMachine.CurrentState == null)
+        {
+            return;
+        }
         hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
 
 
