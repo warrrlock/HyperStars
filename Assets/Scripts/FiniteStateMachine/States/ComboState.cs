@@ -26,7 +26,7 @@ namespace FiniteStateMachine
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
-            if (stateMachine.PlayAnimation(_animationName, _defaultCombo))
+            if (stateMachine.PlayAnimation(_animationHash, _defaultCombo))
                 stateMachine.EnableAttackStop();
 
             foreach (Transition transition in _transitions)

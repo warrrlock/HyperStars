@@ -43,7 +43,7 @@ namespace FiniteStateMachine {
 
         private BaseState _queuedState;
         private bool _rejectInput;
-        private string _currentAnimation;
+        private int _currentAnimation;
         private bool _isAttacking;
 
         private Fighter _fighter;
@@ -109,18 +109,18 @@ namespace FiniteStateMachine {
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput) return;
-            Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
+            // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.name);
         }
 
         private void Stop(InputManager.Action action)
         {
             //Debug.Log(action.inputAction.name);
-            Debug.Log(this);
+            // Debug.Log(this);
             CurrentState.Stop(this, action.name);
         }
 
-        public bool PlayAnimation(string animationState, bool defaultCombo = false)
+        public bool PlayAnimation(int animationState, bool defaultCombo = false)
         {
             if (_currentAnimation == animationState) return false;
             //Debug.Log(this.name);
@@ -192,7 +192,7 @@ namespace FiniteStateMachine {
 
         private void HandleStateExit()
         {
-            _currentAnimation = "";
+            _currentAnimation = -1;
         }
 
         public void EnableAttackStop()
