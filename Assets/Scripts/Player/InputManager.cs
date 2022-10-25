@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-// using UnityEditor.Search;
+//using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour
 
     public class Action
     {
+        public string name;
         public int disabledCount;
         public bool isBeingPerformed;
         public delegate void Perform(Action action);
@@ -29,8 +30,10 @@ public class InputManager : MonoBehaviour
         public IEnumerator queueStop;
         public InputAction inputAction;
 
-        public Action()
+        public Action(string nam)
         {
+            name = nam;
+
             perform += IsPerformed;
             stop += IsntPerformed;
         }
@@ -80,7 +83,7 @@ public class InputManager : MonoBehaviour
     {
         foreach(InputAction action in _playerInput.actions)
         {
-            Actions.Add(action.name, new Action());
+            Actions.Add(action.name, new Action(action.name));
         }
     }
 

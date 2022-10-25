@@ -21,12 +21,12 @@ namespace FiniteStateMachine
         private void OnValidate()
         {
             _animationHash = Animator.StringToHash(_animationName);
-            _transitions.RemoveAll(t => !t);
+            //_transitions.RemoveAll(t => !t);
         }
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
-            if (stateMachine.PlayAnimation(_animationHash, _defaultCombo))
+            if (stateMachine.PlayAnimation(_animationName, _defaultCombo))
                 stateMachine.EnableAttackStop();
 
             foreach (Transition transition in _transitions)
