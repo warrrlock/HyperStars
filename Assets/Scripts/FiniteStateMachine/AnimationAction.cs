@@ -8,7 +8,8 @@ namespace FiniteStateMachine
     {
         [SerializeField] private string _animationName;
 
-        private int _animationHash;
+        [HideInInspector]
+        [SerializeField] private int _animationHash;
 
         private void OnValidate()
         {

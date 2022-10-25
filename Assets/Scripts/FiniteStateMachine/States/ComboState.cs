@@ -14,7 +14,8 @@ namespace FiniteStateMachine
         
         [SerializeField] private AttackInfo _attackInfo;
 
-        private int _animationHash;
+        [HideInInspector]
+        [SerializeField] private int _animationHash;
 
         // ==========  methods ========== //
         private void OnValidate()

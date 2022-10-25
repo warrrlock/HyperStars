@@ -7,8 +7,10 @@ using UnityEngine;
 public class InAirState : BaseState
 {
     [SerializeField] private string _animationName;
-    private int _animationHash;
     [SerializeField] private List<Transition> _transitions = new List<Transition>();
+    
+    [HideInInspector]
+    [SerializeField] private int _animationHash;
     
     private void OnValidate()
     {
