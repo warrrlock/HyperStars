@@ -59,7 +59,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Normal 2
+  m_Name: LightAtk2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -130,6 +130,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-2550784847779656785
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Parry
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 43de825a5a8065c448b46d108ef88151, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1107 &-893788935994944259
 AnimatorStateMachine:
   serializedVersion: 6
@@ -177,13 +203,16 @@ AnimatorStateMachine:
     m_Position: {x: 430, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8838262121375358165}
-    m_Position: {x: 535, y: 545, z: 0}
+    m_Position: {x: 430, y: 550, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1711085683423970274}
-    m_Position: {x: 570, y: 610, z: 0}
+    m_Position: {x: 430, y: 600, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5157594517142361800}
     m_Position: {x: 430, y: 450, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -2550784847779656785}
+    m_Position: {x: 430, y: 650, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -223,7 +252,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Normal 3
+  m_Name: LightAtk3
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -249,7 +278,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Normal 5
+  m_Name: MediumAtk2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -353,7 +382,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jab
+  m_Name: LightAtk1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -457,7 +486,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Normal 4
+  m_Name: MediumAtk1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
