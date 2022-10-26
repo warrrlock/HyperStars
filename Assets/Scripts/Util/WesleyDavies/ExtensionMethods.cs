@@ -8,6 +8,41 @@ namespace WesleyDavies
 {
     public static class ExtensionMethods
     {
+        #region Float
+
+        /// <summary>
+        /// Converts an angle in radians to degrees.
+        /// </summary>
+        /// <param name="radians">The angle in radians to convert.</param>
+        /// <returns>The given angle in degrees.</returns>
+        public static float ToDegrees(this float radians)
+        {
+            return radians * 180f / Mathf.PI;
+        }
+
+        /// <summary>
+        /// Converts an angle in degrees to radians.
+        /// </summary>
+        /// <param name="degrees">The angle in degrees to convert.</param>
+        /// <returns>The given angle in radians.</returns>
+        public static float ToRadians(this float degrees)
+        {
+            return degrees * Mathf.PI / 180f;
+        }
+
+        public static Vector2 ToDirection(this float angle, bool isRadians = true)
+        {
+            if (!isRadians)
+            {
+                angle = angle.ToRadians();
+            }
+            Vector2 direction;
+            direction.x = Mathf.Cos(angle);
+            direction.y = Mathf.Sin(angle);
+            return direction;
+        }
+        #endregion
+
         #region Type
         /// <summary>
         /// Checks if an object's type matches or inherits from a specified type.
@@ -407,6 +442,39 @@ namespace WesleyDavies
         public static int PickRandomIndex<T>(this List<T> deck)
         {
             return Random.Range(0, deck.Count);
+        }
+        #endregion
+
+        #region Vector2
+        /// <summary>
+        /// Converts Polar Coordinates to Cartesian Coordinates.
+        /// </summary>
+        /// <param name="polarCoords">The polar coordinates to convert. X must be theta and y must be r.</param>
+        /// <param name="convertFromDegrees">Is theta in degrees?</param>
+        /// <returns>The given coordinates in Cartesian form.</returns>
+        public static Vector2 ToCartesian(this Vector2 polarCoords, bool convertFromDegrees = false)
+        {
+            float theta = convertFromDegrees ? polarCoords.x.ToRadians() : polarCoords.x;
+            float r = polarCoords.y;
+            Vector2 cartesianCoords;
+            cartesianCoords.x = r * Mathf.Cos(theta);
+            cartesianCoords.y = r * Mathf.Sin(theta);
+            return cartesianCoords;
+        }
+
+        /// <summary>
+        /// Converts Cartesian Coordinates to Polar Coordinates.
+        /// </summary>
+        /// <param name="cartesianCoords">The cartesian coordinates to convert.</param>
+        /// <returns>The given coordinates in Polar form. X is theta and y is r.</returns>
+        public static Vector2 ToPolar(this Vector2 cartesianCoords)
+        {
+            float x = cartesianCoords.x;
+            float y = cartesianCoords.y;
+            Vector2 polarCoords;
+            polarCoords.x = Mathf.Atan2(y, x);
+            polarCoords.y = Mathf.Sqrt(Mathf.Pow(x, 2f) + Mathf.Pow(y, 2f));
+            return polarCoords;
         }
         #endregion
 
