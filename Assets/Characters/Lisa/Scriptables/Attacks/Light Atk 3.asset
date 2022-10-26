@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
-  m_Name: Normal 3
+  m_Name: Light Atk 3
   m_EditorClassIdentifier: 
-  _animationName: Normal 3
+  _animationName: LightAtk3
   _transitions:
-  - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
+  - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
   _defaultCombo: 0
   _attackInfo:
-    knockbackDuration: 0
-    knockbackDistance: 0
+    knockbackDuration: 1
+    knockbackDistance: 5
     hitStunDuration: 0
     damage: 0
-    knockBackAngle: {x: 0, y: 0, z: 0}
-    causesWallBounce: 0
+    knockBackAngle: {x: 0, y: 1, z: 0}
+    causesWallBounce: 1
     hitStopDuration: 0.1
-    wallBounceDuration: 0
-    wallBounceDistance: 0
+    wallBounceDuration: 2
+    wallBounceDistance: 5
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
+    hangTime: 0

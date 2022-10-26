@@ -69,9 +69,9 @@ public class MovementController : MonoBehaviour
     private Vector3 _wallBounceDirection;
     private float _wallBounceHitStopDuration;
 
-    private bool _isGravityApplied = true;
-
     private bool _isAttacking;
+
+    private bool _isGravityApplied = true;
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
