@@ -360,7 +360,7 @@ public class MovementController : MonoBehaviour
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
             _unforcedVelocity.x = inputVector.x;
-            _unforcedVelocity.z = inputVector.y;
+            //_unforcedVelocity.z = inputVector.y;
         }
         yield break;
     }
@@ -556,7 +556,7 @@ public class MovementController : MonoBehaviour
     {
         Vector2 inputVector = action.inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
-        _unforcedVelocity.z = inputVector.y;
+        //_unforcedVelocity.z = inputVector.y;
     }
 
     private void StopMoving(InputManager.Action action)

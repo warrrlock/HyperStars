@@ -7,6 +7,8 @@ using UnityEngine;
 public class AttackInfo
 {
     public float knockbackDuration;
+    public float knockbackDistance;
+    public Vector3 knockbackDirection;
     public float hitStunDuration;
     public float damage;
     public bool causesWallBounce;

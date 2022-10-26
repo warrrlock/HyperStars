@@ -39,11 +39,14 @@ public class FavorManager : MonoBehaviour
     {
         value = playerId == 0 ? value : -value;
         value *= _favorMultiplier;
-        if (Mathf.Abs(_favor + value) > _maxFavor)
+        if (Mathf.Abs(_favor) == _maxFavor)
         {
-            //player wins
-            Debug.Log("Player " + playerId + " wins.");
-            SceneReloader.Instance.ReloadScene();
+            if (Mathf.Abs(_favor + value) > _maxFavor)
+            {
+                //player wins
+                Debug.Log("Player " + playerId + " wins.");
+                SceneReloader.Instance.ReloadScene();
+            }
         }
         if (Mathf.Abs(_favor + value) < _favor)
         {
