@@ -252,7 +252,7 @@ namespace FiniteStateMachine {
         private IEnumerator HandleWaitToMove(int nextAnimation)
         {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
-            yield return new WaitUntil(() => _fighter.InputManager.Actions["Move"].disabledCount == 0);
+            yield return new WaitUntil(() => Fighter.InputManager.Actions["Move"].disabledCount == 0);
             HandleAnimationExit();
         }
 

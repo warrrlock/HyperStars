@@ -45,32 +45,23 @@ public class HitBox : MonoBehaviour
             return;
         }
 
+        AttackInfo attackInfo = _baseStateMachine.AttackInfo;
         Vector3 hitPoint = other.ClosestPoint(transform.position);
-        Fighter hitFighter = other.GetComponentInParent<Fighter>(); //TODO: don't use GetComponent()
-        if (!hitFighter.canBeHurt)
+        Fighter hitFighter = _fighter.OpposingFighter;
+        
+        if (!hitFighter.canBeHurt || attackInfo == null)
         {
             return;
         }
 
         _fighter.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
-
-        AttackInfo attackInfo = _baseStateMachine.AttackInfo;
-        if (attackInfo == null)
-            return;
+        
         //hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
 
         hitFighter.canBeHurt = false;
-        if (attackInfo.knockbackForce.x > 0f && attackInfo.knockbackForce.x < 180f)
-        {
-            StartCoroutine(hitFighter.HurtAnimator.PlayLaunch());
-        }
-        else
-        {
-            StartCoroutine(hitFighter.HurtAnimator.PlayDaze());
-        }
 
-        
-        StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(attackInfo.knockBackAngle.y > 0f
+        StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
+            attackInfo.knockbackForce.x is > 0f and < 180f
             ? KeyHurtStatePair.HurtStateName.KnockBack
             : KeyHurtStatePair.HurtStateName.HitStun));
         
@@ -88,7 +79,7 @@ public class HitBox : MonoBehaviour
             StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
         }
         StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
-        Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
+        Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
 
         StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
     }

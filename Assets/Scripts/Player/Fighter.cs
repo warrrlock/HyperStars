@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(FighterHealth))]
 [RequireComponent(typeof(InputManager))]
-[RequireComponent(typeof(HurtAnimator))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(BaseStateMachine))]
 public class Fighter : MonoBehaviour
