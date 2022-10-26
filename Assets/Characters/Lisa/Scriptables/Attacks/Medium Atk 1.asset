@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
+  m_Name: Medium Atk 1
+  m_EditorClassIdentifier: 
+  _animationName: MediumAtk1
+  _transitions:
+  - {fileID: 11400000, guid: a11940838089ac0439b5700a71e8775a, type: 2}
+  - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
+  _defaultCombo: 0
+  _attackInfo:
+    knockbackDuration: 0.5
+    knockbackDistance: 2
+    knockbackDirection: {x: 10, y: 10, z: 0}
+    hitStunDuration: 0
+    damage: 10
+    causesWallBounce: 0
+    hitStopDuration: 0.1
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 0
+    knockbackForce: {x: 0, y: 0}

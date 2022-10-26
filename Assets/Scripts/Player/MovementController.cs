@@ -212,12 +212,27 @@ public class MovementController : MonoBehaviour
         //_velocity.x = Mathf.SmoothDamp(_velocity.x, _horizontalTargetVelocity.x, ref _horizontalVelocitySmoothing.x, accelerationTime);
         //_velocity.z = Mathf.SmoothDamp(_velocity.z, _horizontalTargetVelocity.y, ref _horizontalVelocitySmoothing.y, accelerationTime);
 
+        switch (_fighter.FacingDirection)
+        {
+            case Fighter.Direction.Left:
+                if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+                {
+                    _fighter.FlipCharacter(Fighter.Direction.Right);
+                }
+                break;
+            case Fighter.Direction.Right:
+                if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
+                {
+                    _fighter.FlipCharacter(Fighter.Direction.Left);
+                }
+                break;
+        }
+
         if (_isGravityApplied)
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
         }
         _velocity = _unforcedVelocity + _forceVelocity;
-        //_velocity += _forceVelocity;
         Move(_velocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
@@ -228,6 +243,7 @@ public class MovementController : MonoBehaviour
     private void OnDestroy()
     {
         UnsubscribeActions();
+        StopAllCoroutines();
     }
 
     public void ResetVelocityY()
@@ -253,6 +269,15 @@ public class MovementController : MonoBehaviour
     {
         _isGravityApplied = false;
         yield return new WaitForSeconds(duration);
+
+        _isGravityApplied = true;
+        yield break;
+    }
+
+    public IEnumerator DisableGravity(Func<bool> enableCondition)
+    {
+        _isGravityApplied = false;
+        yield return new WaitUntil(enableCondition);
 
         _isGravityApplied = true;
         yield break;
@@ -287,14 +312,12 @@ public class MovementController : MonoBehaviour
             default:
                 throw new System.Exception("Invalid easing function provided.");
         }
-        //yield return null;
         while (timer < duration)
         {
             if (_isWallBounceable)
             {
                 if (_collisionData.x.isNegativeHit || _collisionData.x.isPositiveHit)
                 {
-                    Debug.Log("penis");
                     ResetVelocityY();
                     if (_wallBounceDistance != 0f)
                     {
@@ -336,7 +359,7 @@ public class MovementController : MonoBehaviour
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
             _unforcedVelocity.x = inputVector.x;
-            _unforcedVelocity.z = inputVector.y;
+            //_unforcedVelocity.z = inputVector.y;
         }
         yield break;
     }
@@ -479,17 +502,17 @@ public class MovementController : MonoBehaviour
 
         float axisDirection = Mathf.Sign(axisVelocity);
 
-        if (axis == Axis.x)
-        {
-            if (axisDirection == -1f && _fighter.FacingDirection == Fighter.Direction.Right)
-            {
-                _fighter.FlipCharacter(Fighter.Direction.Left);
-            }
-            if (axisDirection == 1f && _fighter.FacingDirection == Fighter.Direction.Left)
-            {
-                _fighter.FlipCharacter(Fighter.Direction.Right);
-            }
-        }
+        //if (axis == Axis.x)
+        //{
+        //    if (axisDirection == -1f && _fighter.FacingDirection == Fighter.Direction.Right)
+        //    {
+        //        _fighter.FlipCharacter(Fighter.Direction.Left);
+        //    }
+        //    if (axisDirection == 1f && _fighter.FacingDirection == Fighter.Direction.Left)
+        //    {
+        //        _fighter.FlipCharacter(Fighter.Direction.Right);
+        //    }
+        //}
 
         float rayLength = Mathf.Abs(axisVelocity) + _skinWidth;
 
@@ -532,7 +555,7 @@ public class MovementController : MonoBehaviour
     {
         Vector2 inputVector = action.inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
-        _unforcedVelocity.z = inputVector.y;
+        //_unforcedVelocity.z = inputVector.y;
     }
 
     private void StopMoving(InputManager.Action action)
@@ -564,6 +587,11 @@ public class MovementController : MonoBehaviour
         else
         {
             StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
+        }
+        if (!CollisionData.y.isNegativeHit)
+        {
+            StartCoroutine(DisableGravity(_dashDuration));
+            ResetVelocityY();
         }
         StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
         StartCoroutine(Dash(action, _dashDuration));

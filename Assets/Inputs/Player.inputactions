@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Normal",
+                    "name": "Light",
                     "type": "Button",
                     "id": "22b51a3b-cf5f-48a9-a7d7-b0f16f04620b",
                     "expectedControlType": "Button",
@@ -51,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Special",
+                    "name": "Medium",
                     "type": "Button",
                     "id": "e7518fe1-f81a-4a55-8457-8324be2135be",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Special",
+                    "type": "Button",
+                    "id": "1ba64023-94db-4f71-8da7-d05860a48aae",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -78,12 +87,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "New action",
+                    "name": "Reload Scene",
                     "type": "Button",
                     "id": "108bd6a8-7e0a-4b68-b586-6764607821b6",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "MultiTap(tapTime=0.2,tapDelay=0.75,tapCount=5,pressPoint=0.5)",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -172,7 +181,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Normal",
+                    "action": "Light",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -183,7 +192,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Normal",
+                    "action": "Light",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -194,7 +203,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Special",
+                    "action": "Medium",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -205,7 +214,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Special",
+                    "action": "Medium",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -223,7 +232,7 @@
                 {
                     "name": "",
                     "id": "4528c63c-e49f-43e2-8ddb-25390a44b05b",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -355,18 +364,29 @@
                 {
                     "name": "",
                     "id": "4a42a061-6e6c-40f9-b65a-32e6f36056a2",
-                    "path": "",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Reload Scene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3be0a5d3-d85a-448b-b19c-866da0c999bb",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Reload Scene",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "d36a10c6-5a6a-43ac-9172-457c7a7c9625",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -377,11 +397,33 @@
                 {
                     "name": "",
                     "id": "a9aaee5c-0e01-4792-a137-a354b9c3b91d",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b99e3e53-092e-4629-a307-151a60718160",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7497097-fbf8-435b-b91e-b9e40e2e172a",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Special",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

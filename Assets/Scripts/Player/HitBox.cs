@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FiniteStateMachine;
+using WesleyDavies;
 using WesleyDavies.UnityFunctions;
 
 public class HitBox : MonoBehaviour
@@ -27,6 +28,11 @@ public class HitBox : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // Debug.Log(other.name);
@@ -40,23 +46,41 @@ public class HitBox : MonoBehaviour
         }
 
         Vector3 hitPoint = other.ClosestPoint(transform.position);
-        
-        Fighter hitFighter = other.GetComponentInParent<Fighter>();
+        Fighter hitFighter = other.GetComponentInParent<Fighter>(); //TODO: don't use GetComponent()
+        if (!hitFighter.canBeHurt)
+        {
+            return;
+        }
+
         _fighter.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
 
         AttackInfo attackInfo = _baseStateMachine.AttackInfo;
         if (attackInfo == null)
             return;
+        //hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
+
+        hitFighter.canBeHurt = false;
+        if (attackInfo.knockbackForce.x > 0f && attackInfo.knockbackForce.x < 180f)
+        {
+            StartCoroutine(hitFighter.HurtAnimator.PlayLaunch());
+        }
+        else
+        {
+            StartCoroutine(hitFighter.HurtAnimator.PlayDaze());
+        }
+
         
-        hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
         StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(attackInfo.knockBackAngle.y > 0f
             ? KeyHurtStatePair.HurtStateName.KnockBack
             : KeyHurtStatePair.HurtStateName.HitStun));
         
-        Vector3 forceAngle = attackInfo.knockBackAngle;
-        forceAngle.x = _fighter.FacingDirection == Fighter.Direction.Right ? attackInfo.knockBackAngle.x : -attackInfo.knockBackAngle.x;
+        //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
+        //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
-        StartCoroutine(hitFighter.MovementController.ApplyForce(forceAngle, forceMagnitude, attackInfo.knockbackDuration));
+        Vector3 forceDirection = attackInfo.knockbackDirection;
+        forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
+        StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration));
+        //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, attackInfo.knockbackForce.y, attackInfo.knockbackDuration));
         StartCoroutine(hitFighter.InputManager.Disable(attackInfo.hitStunDuration, hitFighter.InputManager.Actions["Move"]));
         hitFighter.MovementController.ResetVelocityY();
         if (attackInfo.causesWallBounce)
@@ -64,6 +88,8 @@ public class HitBox : MonoBehaviour
             StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
         }
         StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
+        Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
+
         StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
     }
 }

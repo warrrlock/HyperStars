@@ -7,24 +7,6 @@ using TMPro;
 using UnityEngine;
 
 [Serializable]
-public class AttackInfo
-{
-    public float knockbackDuration;
-    public float knockbackDistance;
-    public float hitStunDuration;
-    public float damage;
-    public Vector3 knockBackAngle;
-    public bool causesWallBounce;
-    public float hitStopDuration;
-    public float wallBounceDuration;
-    [Tooltip("Leave this at 0 if wall bounce should not create a new force.")]
-    public float wallBounceDistance;
-    [Tooltip("Assume the hit fighter collides with the wall while going right.")]
-    public Vector3 wallBounceDirection;
-    public float wallBounceHitStopDuration;
-    public float hangTime;
-}
-[Serializable]
 public class KeyHurtStatePair
 {
     public enum HurtStateName
@@ -61,7 +43,7 @@ namespace FiniteStateMachine {
         private int _currentAnimation;
         private bool _isAttacking;
 
-        private Fighter _fighter;
+        public Fighter Fighter { get; private set; }
         private Animator _animator;
         private Dictionary<Type, Component> _cachedComponents;
 
@@ -69,7 +51,7 @@ namespace FiniteStateMachine {
         {
             //CurrentState = _initialState;
             _cachedComponents = new Dictionary<Type, Component>();
-            _fighter = GetComponent<Fighter>();
+            Fighter = GetComponent<Fighter>();
             _animator = GetComponent<Animator>();
 
             _hurtStates = new Dictionary<KeyHurtStatePair.HurtStateName, HurtState>();
@@ -95,10 +77,10 @@ namespace FiniteStateMachine {
 
         private void Start()
         {
-            foreach (KeyValuePair<string, InputManager.Action> entry in _fighter.InputManager.Actions)
+            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform += Invoke;
-            _fighter.InputManager.Actions["Dash"].finish += Stop;
-            _fighter.InputManager.Actions["Move"].stop += Stop;
+            Fighter.InputManager.Actions["Dash"].finish += Stop;
+            Fighter.InputManager.Actions["Move"].stop += Stop;
 
             CurrentState = _initialState;
             CurrentState.Execute(this, "");
@@ -107,10 +89,11 @@ namespace FiniteStateMachine {
 
         private void OnDestroy()
         {
-            foreach (KeyValuePair<string, InputManager.Action> entry in _fighter.InputManager.Actions)
+            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform -= Invoke;
-            _fighter.InputManager.Actions["Dash"].finish -= Stop;
-            _fighter.InputManager.Actions["Move"].stop -= Stop;
+            Fighter.InputManager.Actions["Dash"].finish -= Stop;
+            Fighter.InputManager.Actions["Move"].stop -= Stop;
+            StopAllCoroutines();
         }
 
         //methods
@@ -235,14 +218,14 @@ namespace FiniteStateMachine {
         {
             if (_isAttacking) return;
             _isAttacking = true;
-            _fighter.MovementController.EnableAttackStop();
+            Fighter.MovementController.EnableAttackStop();
         }
         
         private void DisableAttackStop()
         {
             if (!_isAttacking) return;
             _isAttacking = false;
-            _fighter.MovementController.DisableAttackStop();
+            Fighter.MovementController.DisableAttackStop();
             //need some way to return to walk state upon exit, if player is still holding onto move input
         }
         
@@ -254,7 +237,7 @@ namespace FiniteStateMachine {
         private IEnumerator HandleExitInAir(Action onGroundAction)
         {
             yield return new WaitForFixedUpdate();
-            yield return new WaitUntil(() => _fighter.MovementController.CollisionData.y.isNegativeHit);
+            yield return new WaitUntil(() => Fighter.MovementController.CollisionData.y.isNegativeHit);
             //when out of air, return to idle
             onGroundAction ??= HandleAnimationExit;
             onGroundAction();

@@ -13,7 +13,7 @@ namespace WesleyDavies
         public static class Juice
         {
             [Tooltip("The original time scale before it was frozen.")]
-            private static float _originalTimeScale;
+            private static float _originalTimeScale = 1f;
 
             public static IEnumerator ShakeScreen(Camera camera, float magnitude, float speed, float duration, params Axis[] axes)
             {
