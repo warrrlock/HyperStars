@@ -13,7 +13,6 @@ public class HitBox : MonoBehaviour
 
     private void Awake()
     {
-        _baseStateMachine = GetComponentInParent<BaseStateMachine>();
         _fighter = GetComponentInParent<Fighter>();
         _collider = GetComponent<Collider>();
         _colliders = _fighter.GetComponentsInChildren<Collider>();
@@ -21,6 +20,7 @@ public class HitBox : MonoBehaviour
 
     private void Start()
     {
+        _baseStateMachine = _fighter.BaseStateMachine;
         foreach(Collider collider in _colliders)
         {
             Physics.IgnoreCollision(_collider, collider);
@@ -29,7 +29,7 @@ public class HitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
+        // Debug.Log(other.name);
         //if (other.gameObject.layer != Services.FightersManager.hurtboxLayer)
         //{
         //    return;
@@ -40,28 +40,18 @@ public class HitBox : MonoBehaviour
         }
 
         Vector3 hitPoint = other.ClosestPoint(transform.position);
-        AttackInfo attackInfo = _baseStateMachine.CurrentState.GetAttackInfo();
-
+        
         Fighter hitFighter = other.GetComponentInParent<Fighter>();
         _fighter.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
 
-        if (_baseStateMachine.CurrentState == null)
-        {
+        AttackInfo attackInfo = _baseStateMachine.AttackInfo;
+        if (attackInfo == null)
             return;
-        }
+        
         hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
-
-
-
-        if (attackInfo.knockBackAngle.y > 0f)
-        {
-            StartCoroutine(hitFighter.HurtAnimator.PlayLaunch());
-        }
-        else
-        {
-            StartCoroutine(hitFighter.HurtAnimator.PlayDaze());
-        }
-
+        StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(attackInfo.knockBackAngle.y > 0f
+            ? KeyHurtStatePair.HurtStateName.KnockBack
+            : KeyHurtStatePair.HurtStateName.HitStun));
         
         Vector3 forceAngle = attackInfo.knockBackAngle;
         forceAngle.x = _fighter.FacingDirection == Fighter.Direction.Right ? attackInfo.knockBackAngle.x : -attackInfo.knockBackAngle.x;

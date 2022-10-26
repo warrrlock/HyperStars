@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FiniteStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(InputManager))]
 [RequireComponent(typeof(HurtAnimator))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(BaseStateMachine))]
 public class Fighter : MonoBehaviour
 {
     public enum Direction { Left, Right }
@@ -20,7 +22,8 @@ public class Fighter : MonoBehaviour
     public InputManager InputManager { get; private set; }
     public HurtAnimator HurtAnimator { get; private set; }
     public PlayerInput PlayerInput { get; private set; }
-
+    public BaseStateMachine BaseStateMachine { get; private set; }
+    
     public Action<Fighter, Fighter, Vector3> onAttackHit;
 
     public int PlayerId { get; private set; }
@@ -48,6 +51,7 @@ public class Fighter : MonoBehaviour
         InputManager = GetComponent<InputManager>();
         HurtAnimator = GetComponent<HurtAnimator>();
         PlayerInput = GetComponent<PlayerInput>();
+        BaseStateMachine = GetComponent<BaseStateMachine>();
     }
 
     public void FlipCharacter(Direction newDirection)
