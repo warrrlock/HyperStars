@@ -9,7 +9,7 @@ public enum Wwise_ComboEvents
 
 public enum Wwise_MovementEvents
 {
-    FOOTSTEPS, JUMP, DASH, LANDING
+    FOOTSTEPS, JUMP, DASH, LAND
 }
 
 public class PostWwiseEvent : MonoBehaviour

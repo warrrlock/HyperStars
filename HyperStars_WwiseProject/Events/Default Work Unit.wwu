@@ -69,7 +69,7 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="Play_LISA_Footsteps" ID="{028E8DEA-A623-492C-9F18-4D03D5ACC0B9}">
+				<Event Name="Play_LISA_FOOTSTEPS" ID="{028E8DEA-A623-492C-9F18-4D03D5ACC0B9}">
 					<ChildrenList>
 						<Action Name="" ID="{95B14BA3-5FE1-4AAC-991D-F4305017BBAF}" ShortID="462086896">
 							<ReferenceList>
@@ -119,6 +119,17 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="LISA_COMBO_2" ID="{E7CDD6E8-3FEF-4A4E-A769-96333B54BBD4}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_LISA_LAND" ID="{D41DDF8D-15D2-4C22-8906-2CB654C1431A}">
+					<ChildrenList>
+						<Action Name="" ID="{93E86A7C-08D9-4F50-B8DD-ABF38572DF56}" ShortID="475620888">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LISA_LAND" ID="{DEF13026-1154-4EA9-AF79-BB276A6592BF}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

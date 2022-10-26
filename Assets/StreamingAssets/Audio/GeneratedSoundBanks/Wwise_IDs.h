@@ -24,6 +24,7 @@ namespace AK
         static const AkUniqueID PLAY_LISA_DASH = 936983702U;
         static const AkUniqueID PLAY_LISA_FOOTSTEPS = 431785379U;
         static const AkUniqueID PLAY_LISA_JUMP = 28555886U;
+        static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
     } // namespace EVENTS
 
     namespace BANKS
