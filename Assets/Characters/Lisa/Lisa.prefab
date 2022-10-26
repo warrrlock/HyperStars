@@ -370,6 +370,14 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 0c7ad146f1a1ad44c991d4fa6a1dfc56, type: 2}
   - {fileID: 7400000, guid: c8209bc4887d466468bade29ffac9b32, type: 2}
   - {fileID: 7400000, guid: 20549848deecc2548a64c2501eb1f840, type: 2}
+  - {fileID: 7400000, guid: f759e95eb3cae404593e23e97dcbb140, type: 2}
+  - {fileID: 7400000, guid: 7b9b02c7a24a6314493f47292e265aa4, type: 2}
+  - {fileID: 7400000, guid: 6b82a4882db85d74da24c7147b6a29b5, type: 2}
+  _hurtStatePairs:
+  - key: 1
+    value: {fileID: 11400000, guid: 96e613e3f0a8b480289846778927ba33, type: 2}
+  - key: 0
+    value: {fileID: 11400000, guid: 57d21d219cc124ffc9ad1d7c98953cbf, type: 2}
 --- !u!114 &5751411094791522317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,6 +451,11 @@ MonoBehaviour:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 5e8a22f6be90e6640ac5ce6488342c0b, type: 2}
+  comboVoicelineEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  movementEvents: []
 --- !u!114 &4663626311462973836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +471,7 @@ MonoBehaviour:
   _idleName: Idle
   _dazeName: lisa_standinghurt
   _launchName: lisa_launch
+  _landName: 
 --- !u!1 &5751411094795848295
 GameObject:
   m_ObjectHideFlags: 0
