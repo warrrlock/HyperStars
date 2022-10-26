@@ -33,36 +33,6 @@
 					<ChildrenList>
 						<Folder Name="Combos" ID="{73730414-ADD8-4247-BD25-6E09E8C8C095}" ShortID="24714956">
 							<ChildrenList>
-								<Sound Name="LISA_COMBO_1_INITIAL" ID="{0BD8A9E3-5553-4885-B0C7-9662B0199254}" ShortID="88370334">
-									<PropertyList>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-10</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="LISA_COMBO_1_INITIAL" ID="{5BD2630A-1770-4A5A-8E5F-9F2D1E3C5A37}">
-											<Language>SFX</Language>
-											<AudioFile>LISA_COMBO_1_INITIAL.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="1016642982"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ObjectLists/>
-									<ActiveSourceList>
-										<ActiveSource Name="LISA_COMBO_1_INITIAL" ID="{5BD2630A-1770-4A5A-8E5F-9F2D1E3C5A37}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
 								<Sound Name="LISA_COMBO_1_TRANSITION" ID="{101FAE3E-C49A-4DBA-A05A-B89683C7A3DE}" ShortID="746153450">
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -86,44 +56,7 @@
 										<ActiveSource Name="LISA_COMBO_1_TRANSITION" ID="{4428A95B-343B-49D7-82F9-AFDAF2BD8FEF}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
-								<Sound Name="LISA_COMBO_2" ID="{FF46D090-3723-4889-908B-53A97CE228E5}" ShortID="840399929">
-									<PropertyList>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-10</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="LISA_COMBO_2" ID="{9F57C602-1C25-472E-B16A-089450755BE9}">
-											<Language>SFX</Language>
-											<AudioFile>LISA_COMBO_2.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="1063992738"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ObjectLists/>
-									<ActiveSourceList>
-										<ActiveSource Name="LISA_COMBO_2" ID="{9F57C602-1C25-472E-B16A-089450755BE9}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
 								<Sound Name="LISA_COMBO_3" ID="{0FC27172-DB15-423C-B76E-8E16654035F0}" ShortID="933386739">
-									<PropertyList>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-10</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -147,13 +80,6 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LISA_COMBO_4" ID="{88F853E1-4711-44E8-9286-4AF7C32C4770}" ShortID="314035303">
-									<PropertyList>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-10</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -183,11 +109,6 @@
 												<Value>4</Value>
 											</ValueList>
 										</Property>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-13</Value>
-											</ValueList>
-										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -209,6 +130,59 @@
 									<ObjectLists/>
 									<ActiveSourceList>
 										<ActiveSource Name="LISA_COMBO_5" ID="{5814F3EA-4BF8-425D-BD1E-2440ED6A11DC}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LISA_COMBO_2" ID="{E7CDD6E8-3FEF-4A4E-A769-96333B54BBD4}" ShortID="589384731">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_COMBO_2" ID="{41C54141-266B-44EF-A87B-C569127A50D4}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_COMBO_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1063992738"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_COMBO_2" ID="{41C54141-266B-44EF-A87B-C569127A50D4}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LISA_COMBO_1_INITIAL" ID="{1506F2B4-809A-4208-AB6A-B20B00745C58}" ShortID="692424940">
+									<PropertyList>
+										<Property Name="OutputBusHighpass" Type="int16">
+											<ValueList>
+												<Value>5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_COMBO_1_INITIAL" ID="{5D0C593F-3A8A-497D-B31D-5C32EF106828}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_COMBO_1_INITIAL.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1016642982"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_COMBO_1_INITIAL" ID="{5D0C593F-3A8A-497D-B31D-5C32EF106828}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
@@ -429,13 +403,6 @@
 									<ObjectLists/>
 								</RandomSequenceContainer>
 								<Sound Name="LISA_JUMP" ID="{69C093A2-1508-408F-8689-C9C0BA323A67}" ShortID="981163210">
-									<PropertyList>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>3</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -462,12 +429,7 @@
 									<PropertyList>
 										<Property Name="Highpass" Type="int16">
 											<ValueList>
-												<Value>25</Value>
-											</ValueList>
-										</Property>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-5</Value>
+												<Value>5</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
