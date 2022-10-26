@@ -87,12 +87,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "New action",
+                    "name": "Reload Scene",
                     "type": "Button",
                     "id": "108bd6a8-7e0a-4b68-b586-6764607821b6",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "MultiTap(tapTime=0.2,tapDelay=0.75,tapCount=5,pressPoint=0.5)",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -364,11 +364,22 @@
                 {
                     "name": "",
                     "id": "4a42a061-6e6c-40f9-b65a-32e6f36056a2",
-                    "path": "",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Reload Scene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3be0a5d3-d85a-448b-b19c-866da0c999bb",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Reload Scene",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
