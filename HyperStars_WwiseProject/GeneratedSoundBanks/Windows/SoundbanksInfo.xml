@@ -16,12 +16,20 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="3127285807">
+		<SoundBank Id="3161908922" Language="SFX" Hash="3310430542">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1597314465" Name="Play_LISA_COMBO_1_INITIAL" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_1_INITIAL" DurationType="OneShot" DurationMin="0.860816" DurationMax="0.860816">
+				<Event Id="3610771357" Name="Play_3_lovely" ObjectPath="\Events\Default Work Unit\Play_3_lovely" DurationType="OneShot" DurationMin="93.45134" DurationMax="93.45134">
+					<IncludedMemoryFiles>
+						<File Id="334303634" Language="SFX">
+							<ShortName>3_lovely.wav</ShortName>
+							<Path>SFX\3_lovely_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1597314465" Name="Play_LISA_COMBO_1_INITIAL" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_1_INITIAL" DurationType="OneShot" DurationMin="0.85068" DurationMax="0.85068">
 					<IncludedMemoryFiles>
 						<File Id="1016642982" Language="SFX">
 							<ShortName>LISA_COMBO_1_INITIAL.wav</ShortName>
@@ -37,7 +45,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3376269179" Name="Play_LISA_COMBO_2" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_2" DurationType="OneShot" DurationMin="0.862268" DurationMax="0.862268">
+				<Event Id="3376269179" Name="Play_LISA_COMBO_2" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_2" DurationType="OneShot" DurationMin="0.738005" DurationMax="0.738005">
 					<IncludedMemoryFiles>
 						<File Id="1063992738" Language="SFX">
 							<ShortName>LISA_COMBO_2.wav</ShortName>
@@ -45,7 +53,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3376269178" Name="Play_LISA_COMBO_3" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_3" DurationType="OneShot" DurationMin="1.149773" DurationMax="1.149773">
+				<Event Id="3376269178" Name="Play_LISA_COMBO_3" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_3" DurationType="OneShot" DurationMin="0.793991" DurationMax="0.793991">
 					<IncludedMemoryFiles>
 						<File Id="343974448" Language="SFX">
 							<ShortName>LISA_COMBO_3.wav</ShortName>
@@ -53,7 +61,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3376269181" Name="Play_LISA_COMBO_4" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_4" DurationType="OneShot" DurationMin="0.759456" DurationMax="0.759456">
+				<Event Id="3376269181" Name="Play_LISA_COMBO_4" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_4" DurationType="OneShot" DurationMin="0.741361" DurationMax="0.741361">
 					<IncludedMemoryFiles>
 						<File Id="278112163" Language="SFX">
 							<ShortName>LISA_COMBO_4.wav</ShortName>
@@ -61,7 +69,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3376269180" Name="Play_LISA_COMBO_5" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_5" DurationType="OneShot" DurationMin="1.846145" DurationMax="1.846145">
+				<Event Id="3376269180" Name="Play_LISA_COMBO_5" ObjectPath="\Events\Default Work Unit\Play_LISA_COMBO_5" DurationType="OneShot" DurationMin="1.615374" DurationMax="1.615374">
 					<IncludedMemoryFiles>
 						<File Id="92742505" Language="SFX">
 							<ShortName>LISA_COMBO_5.wav</ShortName>
@@ -81,7 +89,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="936983702" Name="Play_LISA_DASH" ObjectPath="\Events\Default Work Unit\Play_LISA_DASH" DurationType="OneShot" DurationMin="0.923084" DurationMax="0.923084">
+				<Event Id="936983702" Name="Play_LISA_DASH" ObjectPath="\Events\Default Work Unit\Play_LISA_DASH" DurationType="OneShot" DurationMin="0.642313" DurationMax="0.642313">
 					<IncludedMemoryFiles>
 						<File Id="390276904" Language="SFX">
 							<ShortName>LISA_DASH.wav</ShortName>
@@ -89,7 +97,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="431785379" Name="Play_LISA_Footsteps" ObjectPath="\Events\Default Work Unit\Play_LISA_Footsteps" DurationType="OneShot" DurationMin="0.217693" DurationMax="0.390132">
+				<Event Id="431785379" Name="Play_LISA_FOOTSTEPS" ObjectPath="\Events\Default Work Unit\Play_LISA_FOOTSTEPS" DurationType="OneShot" DurationMin="0.141499" DurationMax="0.305911">
 					<IncludedMemoryFiles>
 						<File Id="141663241" Language="SFX">
 							<ShortName>LISA_FOOTSTEP_1.wav</ShortName>
@@ -105,11 +113,27 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="28555886" Name="Play_LISA_JUMP" ObjectPath="\Events\Default Work Unit\Play_LISA_JUMP" DurationType="OneShot" DurationMin="0.692313" DurationMax="0.692313">
+				<Event Id="28555886" Name="Play_LISA_JUMP" ObjectPath="\Events\Default Work Unit\Play_LISA_JUMP" DurationType="OneShot" DurationMin="0.894853" DurationMax="0.894853">
 					<IncludedMemoryFiles>
 						<File Id="1003057838" Language="SFX">
 							<ShortName>LISA_JUMP.wav</ShortName>
 							<Path>SFX\LISA_JUMP_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2349820377" Name="Play_LISA_LAND" ObjectPath="\Events\Default Work Unit\Play_LISA_LAND" DurationType="OneShot" DurationMin="0.44127" DurationMax="0.44127">
+					<IncludedMemoryFiles>
+						<File Id="781719068" Language="SFX">
+							<ShortName>LISA_LAND.wav</ShortName>
+							<Path>SFX\LISA_LAND_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="625690868" Name="Play_WALL_HIT" ObjectPath="\Events\Default Work Unit\Play_WALL_HIT" DurationType="OneShot" DurationMin="0.405147" DurationMax="0.405147">
+					<IncludedMemoryFiles>
+						<File Id="494133635" Language="SFX">
+							<ShortName>WALL_HIT.wav</ShortName>
+							<Path>SFX\WALL_HIT_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

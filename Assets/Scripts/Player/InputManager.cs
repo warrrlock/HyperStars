@@ -215,10 +215,11 @@ public class InputManager : MonoBehaviour
     {
         bool isAwaitingStop = true;
         StartCoroutine(Disable(() => isAwaitingStop == false, Actions["Move"]));
+        action.stop?.Invoke(action);
         yield return null;
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
-        action.stop?.Invoke(action);
+        yield return new WaitForFixedUpdate();
         if (action.isPerformQueued)
         {
             StopCoroutine(action.queuePerform);

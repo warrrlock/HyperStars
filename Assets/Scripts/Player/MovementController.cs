@@ -285,6 +285,7 @@ public class MovementController : MonoBehaviour
 
     private IEnumerator WallBounce(Vector3 direction, float magnitude, float duration)
     {
+        _fighter.Events.wallBounce?.Invoke();
         yield return null;
 
         StartCoroutine(Juice.FreezeTime(_wallBounceHitStopDuration));
