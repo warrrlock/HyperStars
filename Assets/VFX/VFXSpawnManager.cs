@@ -28,7 +28,11 @@ public class VFXSpawnManager : MonoBehaviour
 
     void Start()
     {
-        _fighter.Events.onAttackHit += PlayVFX;
+        foreach (Fighter fighter in Services.Fighters)
+        {
+            fighter.Events.onAttackHit += PlayVFX;
+        }
+        // _fighter.Events.onAttackHit += PlayVFX;
     }
 
     // Update is called once per frame
