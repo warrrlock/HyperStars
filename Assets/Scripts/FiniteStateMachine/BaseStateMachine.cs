@@ -238,7 +238,10 @@ namespace FiniteStateMachine {
         {
             yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => Fighter.MovementController.CollisionData.y.isNegativeHit);
-            //when out of air, return to idle
+            
+            if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
+            else Fighter.Events.onLandedNeutral?.Invoke();
+            //when out of air, return to idle or execute given action
             onGroundAction ??= HandleAnimationExit;
             onGroundAction();
         }

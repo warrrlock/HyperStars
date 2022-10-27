@@ -23,10 +23,7 @@ public class Fighter : MonoBehaviour
     public PlayerInput PlayerInput { get; private set; }
     public Fighter OpposingFighter { get; private set; }
     public BaseStateMachine BaseStateMachine { get; private set; }
-    
     public FighterEvents Events { get; private set; }
-
-    public Action<Fighter, Fighter, Vector3> onAttackHit;
 
     public int PlayerId { get; private set; }
 

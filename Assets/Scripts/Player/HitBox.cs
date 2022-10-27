@@ -54,7 +54,7 @@ public class HitBox : MonoBehaviour
             return;
         }
 
-        _fighter.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
+        _fighter.Events.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
         
         //hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
 
