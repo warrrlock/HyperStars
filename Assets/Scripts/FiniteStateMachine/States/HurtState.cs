@@ -33,6 +33,7 @@ namespace FiniteStateMachine
             stateMachine.PlayAnimation(_animationHash, replay: true);
             if (_hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
                 stateMachine.StartInAir(() => stateMachine.WaitToMove(_animationHash2));
+            else stateMachine.WaitToMove();
         }
         
         #region Editor
