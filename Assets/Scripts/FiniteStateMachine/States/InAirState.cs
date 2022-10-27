@@ -7,8 +7,10 @@ using UnityEngine;
 public class InAirState : BaseState
 {
     [SerializeField] private string _animationName;
-    private int _animationHash;
     [SerializeField] private List<Transition> _transitions = new List<Transition>();
+    
+    [HideInInspector]
+    [SerializeField] private int _animationHash;
     
     private void OnValidate()
     {
@@ -17,7 +19,7 @@ public class InAirState : BaseState
     }
     
     public override void Execute(BaseStateMachine stateMachine, string inputName){
-        if (stateMachine.PlayAnimation(_animationName))
+        if (stateMachine.PlayAnimation(_animationHash))
             stateMachine.StartInAir();
         
         foreach (Transition transition in _transitions)

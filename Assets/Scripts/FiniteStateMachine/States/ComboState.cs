@@ -14,7 +14,8 @@ namespace FiniteStateMachine
         
         [SerializeField] private AttackInfo _attackInfo;
 
-        private int _animationHash;
+        [HideInInspector]
+        [SerializeField] private int _animationHash;
 
         // ==========  methods ========== //
         private void OnValidate()
@@ -27,7 +28,7 @@ namespace FiniteStateMachine
         {
             stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
 
-            if (stateMachine.PlayAnimation(_animationName, _defaultCombo))
+            if (stateMachine.PlayAnimation(_animationHash, _defaultCombo))
                 stateMachine.EnableAttackStop();
 
             foreach (Transition transition in _transitions)

@@ -14,7 +14,6 @@ public class HitBox : MonoBehaviour
 
     private void Awake()
     {
-        _baseStateMachine = GetComponentInParent<BaseStateMachine>();
         _fighter = GetComponentInParent<Fighter>();
         _collider = GetComponent<Collider>();
         _colliders = _fighter.GetComponentsInChildren<Collider>();
@@ -22,6 +21,7 @@ public class HitBox : MonoBehaviour
 
     private void Start()
     {
+        _baseStateMachine = _fighter.BaseStateMachine;
         foreach(Collider collider in _colliders)
         {
             Physics.IgnoreCollision(_collider, collider);
@@ -35,7 +35,7 @@ public class HitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
+        // Debug.Log(other.name);
         //if (other.gameObject.layer != Services.FightersManager.hurtboxLayer)
         //{
         //    return;
@@ -45,35 +45,26 @@ public class HitBox : MonoBehaviour
             return;
         }
 
+        AttackInfo attackInfo = _baseStateMachine.AttackInfo;
         Vector3 hitPoint = other.ClosestPoint(transform.position);
-        AttackInfo attackInfo = _baseStateMachine.CurrentState.GetAttackInfo();
-
-        Fighter hitFighter = other.GetComponentInParent<Fighter>(); //TODO: don't use GetComponent()
-        if (!hitFighter.canBeHurt)
+        Fighter hitFighter = _fighter.OpposingFighter;
+        
+        if (!hitFighter.canBeHurt || attackInfo == null)
         {
             return;
         }
 
-        _fighter.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
-
-        if (_baseStateMachine.CurrentState == null)
-        {
-            return;
-        }
+        _fighter.Events.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
+        
         //hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
 
         hitFighter.canBeHurt = false;
 
-        if (attackInfo.knockbackForce.x > 0f && attackInfo.knockbackForce.x < 180f)
-        {
-            StartCoroutine(hitFighter.HurtAnimator.PlayLaunch());
-        }
-        else
-        {
-            StartCoroutine(hitFighter.HurtAnimator.PlayDaze());
-        }
-
-
+        StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
+            attackInfo.knockbackForce.x is > 0f and < 180f
+            ? KeyHurtStatePair.HurtStateName.KnockBack
+            : KeyHurtStatePair.HurtStateName.HitStun));
+        
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
@@ -88,7 +79,7 @@ public class HitBox : MonoBehaviour
             StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
         }
         StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
-        Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
+        Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
 
         StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
     }
