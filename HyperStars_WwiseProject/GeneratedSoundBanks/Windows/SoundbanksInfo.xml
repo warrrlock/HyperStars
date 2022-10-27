@@ -16,7 +16,7 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="1015518040">
+		<SoundBank Id="3161908922" Language="SFX" Hash="3310430542">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -126,6 +126,14 @@
 						<File Id="781719068" Language="SFX">
 							<ShortName>LISA_LAND.wav</ShortName>
 							<Path>SFX\LISA_LAND_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="625690868" Name="Play_WALL_HIT" ObjectPath="\Events\Default Work Unit\Play_WALL_HIT" DurationType="OneShot" DurationMin="0.405147" DurationMax="0.405147">
+					<IncludedMemoryFiles>
+						<File Id="494133635" Language="SFX">
+							<ShortName>WALL_HIT.wav</ShortName>
+							<Path>SFX\WALL_HIT_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
