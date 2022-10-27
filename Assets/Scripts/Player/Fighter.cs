@@ -21,6 +21,7 @@ public class Fighter : MonoBehaviour
     public HurtAnimator HurtAnimator { get; private set; }
     public PlayerInput PlayerInput { get; private set; }
     public Fighter OpposingFighter { get; private set; }
+    public FighterEvents Events { get; private set; }
 
     public Action<Fighter, Fighter, Vector3> onAttackHit;
 
@@ -34,6 +35,7 @@ public class Fighter : MonoBehaviour
         PlayerId = PlayerInput.playerIndex;
         Debug.Log(PlayerId);
         Services.Fighters[PlayerId] = this;
+        Events = new();
     }
 
     private void Start()
