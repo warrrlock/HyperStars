@@ -13,6 +13,7 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID PLAY_3_LOVELY = 3610771357U;
         static const AkUniqueID PLAY_LISA_COMBO_1_INITIAL = 1597314465U;
         static const AkUniqueID PLAY_LISA_COMBO_1_TRANSITION = 4058645190U;
         static const AkUniqueID PLAY_LISA_COMBO_2 = 3376269179U;
@@ -23,6 +24,8 @@ namespace AK
         static const AkUniqueID PLAY_LISA_DASH = 936983702U;
         static const AkUniqueID PLAY_LISA_FOOTSTEPS = 431785379U;
         static const AkUniqueID PLAY_LISA_JUMP = 28555886U;
+        static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
+        static const AkUniqueID PLAY_WALL_HIT = 625690868U;
     } // namespace EVENTS
 
     namespace BANKS
