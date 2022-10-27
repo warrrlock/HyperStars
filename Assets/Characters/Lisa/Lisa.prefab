@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 5437623320969005760}
   - component: {fileID: 3013315635892402694}
   - component: {fileID: 4663626311462973836}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lisa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcab157b49a1b4b2cb30fbc71b76ef5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canBeHurt: 0
 --- !u!114 &5751411094791522316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,6 +444,11 @@ MonoBehaviour:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 5e8a22f6be90e6640ac5ce6488342c0b, type: 2}
+  comboVoicelineEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  movementEvents: []
 --- !u!114 &4663626311462973836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +464,7 @@ MonoBehaviour:
   _idleName: Idle
   _dazeName: lisa_standinghurt
   _launchName: lisa_launch
+  _landName: 
 --- !u!1 &5751411094795848295
 GameObject:
   m_ObjectHideFlags: 0
