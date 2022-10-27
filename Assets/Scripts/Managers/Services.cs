@@ -5,5 +5,7 @@ using UnityEngine;
 public class Services
 {
     public static FightersManager FightersManager;
-    public static List<Fighter> Fighters = new();
+    public static Fighter[] Fighters = new Fighter[2];
+
+    public static FavorManager FavorManager;
 }

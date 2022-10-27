@@ -72,6 +72,7 @@ public class InputManager : MonoBehaviour
         {
             actionPair.Value.Destroy();
         }
+        StopAllCoroutines();
     }
 
     private void AssignComponents()
@@ -106,8 +107,11 @@ public class InputManager : MonoBehaviour
                 }
                 else if (action.disabledCount > 0)
                 {
-                    action.queuePerform = QueuePerform(action);
-                    StartCoroutine(action.queuePerform);
+                    if (!action.isPerformQueued)
+                    {
+                        action.queuePerform = QueuePerform(action);
+                        StartCoroutine(action.queuePerform);
+                    }
                 }
                 else
                 {
@@ -211,10 +215,17 @@ public class InputManager : MonoBehaviour
     {
         bool isAwaitingStop = true;
         StartCoroutine(Disable(() => isAwaitingStop == false, Actions["Move"]));
-        yield return null;
-        yield return null;
-        yield return null;
         action.stop?.Invoke(action);
+        yield return null;
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        if (action.isPerformQueued)
+        {
+            StopCoroutine(action.queuePerform);
+            action.isPerformQueued = false;
+        }
+        yield return new WaitForFixedUpdate();
         isAwaitingStop = false;
         yield break;
     }

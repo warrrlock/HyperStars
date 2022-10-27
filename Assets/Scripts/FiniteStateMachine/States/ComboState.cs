@@ -25,6 +25,8 @@ namespace FiniteStateMachine
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
+            stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
+
             if (stateMachine.PlayAnimation(_animationName, _defaultCombo))
                 stateMachine.EnableAttackStop();
 
