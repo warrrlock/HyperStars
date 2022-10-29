@@ -14,7 +14,7 @@ namespace FiniteStateMachine
         [SerializeField] private KeyHurtStatePair.HurtStateName _hurtType;
         [SerializeField] private string _animationName;
         [HideInInspector] [SerializeField] private int _animationHash;
-        private string _animationName2;
+        [HideInInspector] [SerializeField] private string _animationName2;
         [HideInInspector] [SerializeField] private int _animationHash2;
         // ==========  methods ========== //
         private void OnValidate()
