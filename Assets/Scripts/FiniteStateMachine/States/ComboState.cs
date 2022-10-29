@@ -21,7 +21,11 @@ namespace FiniteStateMachine
         private void OnValidate()
         {
             _animationHash = Animator.StringToHash(_animationName);
-            //_transitions.RemoveAll(t => !t);
+        }
+        
+        private void OnEnable()
+        {
+            _transitions.RemoveAll(t => !t);
         }
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)

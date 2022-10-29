@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FiniteStateMachine;
@@ -15,9 +16,13 @@ public class InAirState : BaseState
     private void OnValidate()
     {
         _animationHash = Animator.StringToHash(_animationName);
+    }
+
+    private void OnEnable()
+    {
         _transitions.RemoveAll(t => !t);
     }
-    
+
     public override void Execute(BaseStateMachine stateMachine, string inputName){
         if (stateMachine.PlayAnimation(_animationHash))
             stateMachine.StartInAir();
