@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FiniteStateMachine;
+using TMPro;
 
 public class FavorManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class FavorManager : MonoBehaviour
 
     [SerializeField] private GameObject _favorMeter;
     [SerializeField] private GameObject _favorMeterIndicator;
+    [SerializeField] private TextMeshProUGUI _multiplierText;
+    [SerializeField] private GameEvent _winConditionEvent;
 
     private void Awake()
     {
@@ -30,6 +33,7 @@ public class FavorManager : MonoBehaviour
     private void Start()
     {
         _favor = 0f;
+        UpdateFavorMeter();
         //_peakFavors = new float[2];
     }
 
@@ -45,7 +49,12 @@ public class FavorManager : MonoBehaviour
             {
                 //player wins
                 Debug.Log("Player " + playerId + " wins.");
-                SceneReloader.Instance.ReloadScene();
+                Dictionary<string, object> result = new Dictionary<string, object>()
+                {
+                    {"winnerId", playerId}
+                };
+                _winConditionEvent.Raise(result);
+                // SceneReloader.Instance.ReloadScene();
             }
         }
         if (Mathf.Abs(_favor + value) < _favor)
@@ -82,5 +91,8 @@ public class FavorManager : MonoBehaviour
         float indicatorX = Mathf.Lerp(_favorMeter.transform.position.x - _favorMeter.transform.localScale.x / 2f,
             _favorMeter.transform.position.x + _favorMeter.transform.localScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
         _favorMeterIndicator.transform.position = new Vector3(indicatorX, _favorMeterIndicator.transform.position.y, _favorMeterIndicator.transform.position.z);
+
+        _multiplierText.text = "x" + _favorMultiplier;
+        _multiplierText.rectTransform.position = new Vector3(indicatorX, _multiplierText.transform.position.y, _multiplierText.transform.position.z);
     }
 }

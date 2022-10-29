@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 5437623320969005760}
   - component: {fileID: 3013315635892402694}
   - component: {fileID: 4663626311462973836}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lisa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcab157b49a1b4b2cb30fbc71b76ef5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canBeHurt: 0
 --- !u!114 &5751411094791522316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +371,14 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 0c7ad146f1a1ad44c991d4fa6a1dfc56, type: 2}
   - {fileID: 7400000, guid: c8209bc4887d466468bade29ffac9b32, type: 2}
   - {fileID: 7400000, guid: 20549848deecc2548a64c2501eb1f840, type: 2}
+  - {fileID: 7400000, guid: f759e95eb3cae404593e23e97dcbb140, type: 2}
+  - {fileID: 7400000, guid: 7b9b02c7a24a6314493f47292e265aa4, type: 2}
+  - {fileID: 7400000, guid: 6b82a4882db85d74da24c7147b6a29b5, type: 2}
+  _hurtStatePairs:
+  - key: 1
+    value: {fileID: 11400000, guid: 96e613e3f0a8b480289846778927ba33, type: 2}
+  - key: 0
+    value: {fileID: 11400000, guid: 57d21d219cc124ffc9ad1d7c98953cbf, type: 2}
 --- !u!114 &5751411094791522317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,13 +436,13 @@ MonoBehaviour:
   comboEvents:
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b2d953743f2148c44977848929f2af3d, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: abfd5dd450ef810498a7b31ab949dcf9, type: 2}
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 702542e055ba0684c89c7f45c5cec45b, type: 2}
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 0d44ef4942f16ef4aa93988735210d43, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: c51bb14a0291e9348b25d8fc0ead0af5, type: 2}
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 94e1c0acc540f8f4286f0831f209314c, type: 2}
@@ -457,6 +466,13 @@ MonoBehaviour:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: c1b4891ddd9e3ae44bfe4448f9c4ce0c, type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: afbc0153e493e2d4483875fe46675ea9, type: 2}
+  wallBounceEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: b4da54b9192c6254aa91093177c3c796, type: 2}
 --- !u!114 &4663626311462973836
 MonoBehaviour:
   m_ObjectHideFlags: 0
