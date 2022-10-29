@@ -40,6 +40,15 @@ public class HitBox : MonoBehaviour
         //{
         //    return;
         //}
+        if (other.gameObject.layer == 13)
+        {
+            //has been parried
+            AttackInfo parryInfo = _fighter.OpposingFighter.BaseStateMachine.AttackInfo;
+            StartCoroutine(_fighter.InputManager.Disable(parryInfo.hitStunDuration, _fighter.InputManager.Actions["Move"]));
+            StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun));
+            return;
+        }
+        
         if (other.gameObject.layer != 7)
         {
             return;
