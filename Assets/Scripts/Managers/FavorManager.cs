@@ -55,7 +55,7 @@ public class FavorManager : MonoBehaviour
                 {
                     {"winnerId", playerId}
                 };
-                _winConditionEvent.Raise(result);
+                if (_winConditionEvent) _winConditionEvent.Raise(result);
                 // SceneReloader.Instance.ReloadScene();
             }
         }

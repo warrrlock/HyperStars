@@ -73,6 +73,7 @@ public class HitBox : MonoBehaviour
             attackInfo.knockbackForce.x is > 0f and < 180f
             ? KeyHurtStatePair.HurtStateName.KnockBack
             : KeyHurtStatePair.HurtStateName.HitStun));
+        hitFighter.InputManager.StopMove();
         
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
