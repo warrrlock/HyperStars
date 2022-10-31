@@ -87,7 +87,7 @@ public class RoundManager : MonoBehaviour
     private void HandleCountDown(int i)
     {
         //print number to screen ?
-        if (_countdownText) _countdownText.text = $"{i}";
+        if (_countdownText) _countdownText.text = $"{i+1}";
         //any other animations
     }
 
