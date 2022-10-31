@@ -15,7 +15,6 @@ public class VFXSpawnManager : MonoBehaviour
     [SerializeField] public GameObject spawnedVfxObject;
     
     // try
-    [SerializeField] private InputManager inputManager;
 
     void Start()
     {
@@ -23,8 +22,6 @@ public class VFXSpawnManager : MonoBehaviour
         {
             f.Events.onAttackHit += PlayHitVFX;
         }
-        // inputManager.Actions["Dash"].perform += PlayVFX;
-        // _fighter.Events.onAttackHit += PlayVFX;
     }
     
     public void InitializaeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
