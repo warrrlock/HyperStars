@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FightersManager : MonoBehaviour
+[CreateAssetMenu(fileName = "New Fighters Manager", menuName = "ScriptableObjects/Fighters Manager")]
+public class FightersManager : ScriptableObject
 {
-    public int hurtboxLayer;
-
-    private Fighter[] _fighters;
-
-    private void Awake()
-    {
-        Services.FightersManager = this;
-    }
+    public Vector3 player1StartPosition;
+    public Vector3 player2StartPosition;
+    public Color player1Color;
+    public Color player2Color;
 }
