@@ -25,6 +25,7 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private GameObject _favorMeterIndicator;
     [SerializeField] private TextMeshProUGUI _multiplierText;
     [SerializeField] private Canvas _multiplierTextCanvas;
+    [SerializeField] private GameEvent _winConditionEvent;
 
     private void Awake()
     {
