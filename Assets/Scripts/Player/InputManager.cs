@@ -161,6 +161,11 @@ public class InputManager : MonoBehaviour
         foreach (InputManager.Action action in actionsToDisable)
         {
             action.disabledCount++;
+            if (action.isBeingPerformed)
+            {
+                action.stop?.Invoke(action);
+                StartCoroutine(QueuePerform(action));
+            }
         }
         yield return new WaitForSeconds(duration);
 
@@ -176,6 +181,11 @@ public class InputManager : MonoBehaviour
         foreach (InputManager.Action action in actionsToDisable)
         {
             action.disabledCount++;
+            if (action.isBeingPerformed)
+            {
+                action.stop?.Invoke(action);
+                StartCoroutine(QueuePerform(action));
+            }
         }
         yield return null;
         yield return new WaitForFixedUpdate();
