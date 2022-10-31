@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FiniteStateMachine;
@@ -7,17 +8,23 @@ using UnityEngine;
 public class InAirState : BaseState
 {
     [SerializeField] private string _animationName;
-    private int _animationHash;
     [SerializeField] private List<Transition> _transitions = new List<Transition>();
+    
+    [HideInInspector]
+    [SerializeField] private int _animationHash;
     
     private void OnValidate()
     {
         _animationHash = Animator.StringToHash(_animationName);
+    }
+
+    private void OnEnable()
+    {
         _transitions.RemoveAll(t => !t);
     }
-    
+
     public override void Execute(BaseStateMachine stateMachine, string inputName){
-        if (stateMachine.PlayAnimation(_animationName))
+        if (stateMachine.PlayAnimation(_animationHash))
             stateMachine.StartInAir();
         
         foreach (Transition transition in _transitions)

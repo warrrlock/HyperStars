@@ -21,9 +21,9 @@ MonoBehaviour:
   _attackInfo:
     knockbackDuration: 0.3
     knockbackDistance: 1
-    hitStunDuration: 1
+    knockbackDirection: {x: 5, y: 0, z: 0}
+    hitStunDuration: 0.5
     damage: 10
-    knockBackAngle: {x: 5, y: 0, z: 0}
     causesWallBounce: 0
     hitStopDuration: 0.05
     wallBounceDuration: 0
@@ -31,3 +31,5 @@ MonoBehaviour:
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
     hangTime: 0
+    favorReward: 5
+    knockbackForce: {x: 0, y: 0}

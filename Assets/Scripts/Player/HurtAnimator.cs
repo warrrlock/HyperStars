@@ -18,6 +18,11 @@ public class HurtAnimator : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
 
     public void Daze()
     {

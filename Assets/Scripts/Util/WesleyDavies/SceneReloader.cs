@@ -4,67 +4,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using WesleyDavies.UnityFunctions;
 
-[RequireComponent(typeof(PlayerInput))]
+//[RequireComponent(typeof(PlayerInput))]
 public class SceneReloader : MonoBehaviour
 {
-    private PlayerInput _playerInput;
-
-    public static SceneReloader Singleton;
+    public static SceneReloader Instance;
 
     private void Awake()
     {
-        AssignComponents();
         CreateSingleton();
     }
 
     private void Start()
     {
-        InitializeInputs();
+        SubscribeActions();
+        Juice.UnfreezeTime();
     }
 
     private void OnDestroy()
     {
-        TerminateInputs();
     }
 
     private void ResolveActions(InputAction.CallbackContext context)
     {
-        if (context.action == _playerInput.actions["Reload Scene"])
-        {
-            ReloadScene();
-        }
+        //if (context.action == _playerInput.actions["Reload Scene"])
+        //{
+        //    ReloadScene();
+        //}
     }
 
-    public void ReloadScene()
+    public void ReloadScene(InputManager.Action action = default)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void CreateSingleton()
     {
-        if (Singleton != null && Singleton != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            Singleton = this;
+            Instance = this;
         }
     }
 
-    private void AssignComponents()
+    private void SubscribeActions()
     {
-        _playerInput = GetComponent<PlayerInput>();
+        
     }
 
-    private void InitializeInputs()
+    private void UnsubscribeActions()
     {
-        _playerInput.onActionTriggered += ResolveActions;
-    }
 
-    private void TerminateInputs()
-    {
-        _playerInput.onActionTriggered -= ResolveActions;
     }
 }

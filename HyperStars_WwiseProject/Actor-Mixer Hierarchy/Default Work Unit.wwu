@@ -455,8 +455,58 @@
 										<ActiveSource Name="LISA_DASH" ID="{7713B760-A7D9-43F4-920A-B43E9E1F2F5E}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="LISA_LAND" ID="{DEF13026-1154-4EA9-AF79-BB276A6592BF}" ShortID="415119707">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_LAND" ID="{56206A12-7E33-4BFE-B5FC-A7A28F494CFB}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_LAND.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="781719068"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_LAND" ID="{56206A12-7E33-4BFE-B5FC-A7A28F494CFB}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</Folder>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Environment" ID="{D9B472D8-1153-479F-B4F5-9A52B18496C4}" ShortID="704687956">
+					<ChildrenList>
+						<Sound Name="WALL_HIT" ID="{F1F1E13B-1F0D-4496-8A2B-55E08CFE3913}" ShortID="1032730240">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WALL_HIT" ID="{2A11873A-7C8D-4F83-8AA4-3C47C70B9B16}">
+									<Language>SFX</Language>
+									<AudioFile>WALL_HIT.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="494133635"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="WALL_HIT" ID="{2A11873A-7C8D-4F83-8AA4-3C47C70B9B16}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
