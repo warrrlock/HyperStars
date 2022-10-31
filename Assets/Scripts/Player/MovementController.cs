@@ -71,6 +71,9 @@ public class MovementController : MonoBehaviour
 
     private bool _isAttacking;
     private bool _isGravityApplied = true;
+    [SerializeField] private float _overlapResolutionSpeed;
+    private bool _isResolvingOverlap = false;
+    private Vector3 _overlapResolutionVelocity = Vector3.zero;
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
@@ -212,7 +215,7 @@ public class MovementController : MonoBehaviour
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
         }
-        _velocity = _unforcedVelocity + _forceVelocity;
+        _velocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
         Move(_velocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
@@ -497,12 +500,22 @@ public class MovementController : MonoBehaviour
 
         float rayLength = Mathf.Abs(axisVelocity) + _skinWidth;
 
+        //if (axis == Axis.y)
+        //{
+        //    RemoveCollisionLayers(9);
+        //}
+
         for (int i = 0; i < rayCount; i++)
         {
             for (int j = 0; j < rayCount; j++)
             {
                 Vector3 rayOrigin = axisDirection == -1f ? originAxis.negative : originAxis.positive;
                 rayOrigin += iDirection * (raySpacing.y * i + iOffset) + jDirection * (raySpacing.x * j + jOffset);
+
+                if (axis == Axis.y)
+                {
+
+                }
 
                 if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit hit, rayLength, _collisionMask))
                 {
@@ -515,7 +528,18 @@ public class MovementController : MonoBehaviour
                             velocity.z = (hit.distance - _skinWidth) * axisDirection;
                             break;
                         case Axis.y:
-                            velocity.y = (hit.distance - _skinWidth) * axisDirection;
+                            if (hit.transform.gameObject.layer == 9)
+                            {
+                                if (!_isResolvingOverlap)
+                                {
+                                    StartCoroutine(ResolveOverlap());
+                                    StartCoroutine(_fighter.OpposingFighter.MovementController.ResolveOverlap());
+                                }
+                            }
+                            else
+                            {
+                                velocity.y = (hit.distance - _skinWidth) * axisDirection;
+                            }
                             break;
                     }
                     rayLength = hit.distance;
@@ -530,6 +554,32 @@ public class MovementController : MonoBehaviour
                 }
             }
         }
+
+        //if (axis == Axis.y)
+        //{
+        //    AddCollisionLayers(9);
+        //}
+    }
+
+    public IEnumerator ResolveOverlap()
+    {
+        _isResolvingOverlap = true;
+        bool opponentIsRight = false;
+        if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+        {
+            opponentIsRight = true;
+            _overlapResolutionVelocity.x = -_overlapResolutionSpeed;
+        }
+        else
+        {
+            _overlapResolutionVelocity.x = _overlapResolutionSpeed;
+        }
+        //yield return new WaitUntil(opponentIsRight ? () => _collisionData.x.isPositiveHit : () => _collisionData.x.isNegativeHit);
+        yield return new WaitForSeconds(0.1f);
+
+        _overlapResolutionVelocity = Vector3.zero;
+        _isResolvingOverlap = false;
+        yield break;
     }
 
     private void StartMoving(InputManager.Action action)
@@ -627,7 +677,7 @@ public class MovementController : MonoBehaviour
     public void EnableAttackStop()
     {
         _isAttacking = true;
-        _inputManager.StopMove();
+        //_inputManager.StopMove();
         InputManager.Action[] actions =
         {
             _inputManager.Actions["Move"], 
@@ -655,5 +705,21 @@ public class MovementController : MonoBehaviour
             _collisionMask |= (1 << layer);
         }
         yield break;
+    }
+
+    private void RemoveCollisionLayers(params int[] layers)
+    {
+        foreach (int layer in layers)
+        {
+            _collisionMask &= ~(1 << layer);
+        }
+    }
+
+    private void AddCollisionLayers(params int[] layers)
+    {
+        foreach (int layer in layers)
+        {
+            _collisionMask |= (1 << layer);
+        }
     }
 }
