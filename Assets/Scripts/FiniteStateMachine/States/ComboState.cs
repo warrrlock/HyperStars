@@ -14,20 +14,25 @@ namespace FiniteStateMachine
         
         [SerializeField] private AttackInfo _attackInfo;
 
-        private int _animationHash;
+        [HideInInspector]
+        [SerializeField] private int _animationHash;
 
         // ==========  methods ========== //
         private void OnValidate()
         {
             _animationHash = Animator.StringToHash(_animationName);
-            //_transitions.RemoveAll(t => !t);
+        }
+        
+        private void OnEnable()
+        {
+            _transitions.RemoveAll(t => !t);
         }
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
             stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
 
-            if (stateMachine.PlayAnimation(_animationName, _defaultCombo))
+            if (stateMachine.PlayAnimation(_animationHash, _defaultCombo))
                 stateMachine.EnableAttackStop();
 
             foreach (Transition transition in _transitions)

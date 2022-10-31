@@ -25,6 +25,7 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private GameObject _favorMeterIndicator;
     [SerializeField] private TextMeshProUGUI _multiplierText;
     [SerializeField] private Canvas _multiplierTextCanvas;
+    [SerializeField] private GameEvent _winConditionEvent;
 
     private void Awake()
     {
@@ -50,7 +51,12 @@ public class FavorManager : MonoBehaviour
             {
                 //player wins
                 Debug.Log("Player " + playerId + " wins.");
-                SceneReloader.Instance.ReloadScene();
+                Dictionary<string, object> result = new Dictionary<string, object>()
+                {
+                    {"winnerId", playerId}
+                };
+                _winConditionEvent.Raise(result);
+                // SceneReloader.Instance.ReloadScene();
             }
         }
         switch (_favoredPlayer)
