@@ -164,7 +164,10 @@ public class InputManager : MonoBehaviour
             if (action.isBeingPerformed)
             {
                 action.stop?.Invoke(action);
-                StartCoroutine(QueuePerform(action));
+                if (action == Actions["Move"]) //TODO: use different flag for these types of actions that should continue
+                {
+                    StartCoroutine(QueuePerform(action));
+                }
             }
         }
         yield return new WaitForSeconds(duration);
@@ -184,7 +187,10 @@ public class InputManager : MonoBehaviour
             if (action.isBeingPerformed)
             {
                 action.stop?.Invoke(action);
-                StartCoroutine(QueuePerform(action));
+                if (action == Actions["Move"])
+                {
+                    StartCoroutine(QueuePerform(action));
+                }
             }
         }
         yield return null;

@@ -39,6 +39,7 @@ public class MovementController : MonoBehaviour
     [Header("Collisions")]
     [Tooltip("What layer(s) should collisions be checked on?")]
     [SerializeField] private LayerMask _collisionMask;
+    [SerializeField] private LayerMask _playerMask;
     [Tooltip("How many rays should be shot out horizontally?")]
     private int _xAxisRayCount = 3;
     [Tooltip("How many rays should be shot out forward?")]
@@ -377,17 +378,19 @@ public class MovementController : MonoBehaviour
     private void SpaceRays()
     {
         Bounds bounds = BoxCollider.bounds;
+        Bounds internalBounds = bounds;
+        internalBounds.Expand(_skinWidth * -2f);
 
         _xAxisRayCount = Mathf.Clamp(_xAxisRayCount, 2, int.MaxValue);
         _zAxisRayCount = Mathf.Clamp(_zAxisRayCount, 2, int.MaxValue);
         _yAxisRayCount = Mathf.Clamp(_yAxisRayCount, 2, int.MaxValue);
 
-        _xAxisRaySpacing.x = bounds.size.z / (_xAxisRayCount - 1);
-        _xAxisRaySpacing.y = bounds.size.y / (_xAxisRayCount - 1);
-        _zAxisRaySpacing.x = bounds.size.x / (_zAxisRayCount - 1);
-        _zAxisRaySpacing.y = bounds.size.y / (_zAxisRayCount - 1);
-        _yAxisRaySpacing.x = bounds.size.x / (_yAxisRayCount - 1);
-        _yAxisRaySpacing.y = bounds.size.z / (_yAxisRayCount - 1);
+        _xAxisRaySpacing.x = internalBounds.size.z / (_xAxisRayCount - 1);
+        _xAxisRaySpacing.y = internalBounds.size.y / (_xAxisRayCount - 1);
+        _zAxisRaySpacing.x = internalBounds.size.x / (_zAxisRayCount - 1);
+        _zAxisRaySpacing.y = internalBounds.size.y / (_zAxisRayCount - 1);
+        _yAxisRaySpacing.x = internalBounds.size.x / (_yAxisRayCount - 1);
+        _yAxisRaySpacing.y = internalBounds.size.z / (_yAxisRayCount - 1);
     }
 
     private void Move(Vector3 velocity)
@@ -421,8 +424,8 @@ public class MovementController : MonoBehaviour
         _raycastOrigins.x.positive = new Vector3(internalBounds.max.x, bounds.min.y, bounds.min.z);
         _raycastOrigins.z.negative = new Vector3(bounds.min.x, bounds.min.y, internalBounds.min.z);
         _raycastOrigins.z.positive = new Vector3(bounds.min.x, bounds.min.y, internalBounds.max.z);
-        _raycastOrigins.y.negative = new Vector3(bounds.min.x, internalBounds.min.y, bounds.min.z);
-        _raycastOrigins.y.positive = new Vector3(bounds.min.x, internalBounds.max.y, bounds.min.z);
+        _raycastOrigins.y.negative = new Vector3(internalBounds.min.x, internalBounds.min.y, internalBounds.min.z);
+        _raycastOrigins.y.positive = new Vector3(internalBounds.min.x, internalBounds.max.y, internalBounds.min.z);
     }
 
     /// <summary>
@@ -500,10 +503,10 @@ public class MovementController : MonoBehaviour
 
         float rayLength = Mathf.Abs(axisVelocity) + _skinWidth;
 
-        //if (axis == Axis.y)
-        //{
-        //    RemoveCollisionLayers(9);
-        //}
+        if (axis == Axis.y)
+        {
+            RemoveCollisionLayers(9);
+        }
 
         for (int i = 0; i < rayCount; i++)
         {
@@ -528,24 +531,25 @@ public class MovementController : MonoBehaviour
                             velocity.z = (hit.distance - _skinWidth) * axisDirection;
                             break;
                         case Axis.y:
-                            if (hit.transform.gameObject.layer == 9)
-                            {
-                                if (!_isResolvingOverlap)
-                                {
-                                    StartCoroutine(ResolveOverlap());
-                                    StartCoroutine(_fighter.OpposingFighter.MovementController.ResolveOverlap());
-                                }
-                            }
-                            else
-                            {
-                                velocity.y = (hit.distance - _skinWidth) * axisDirection;
-                            }
+                            velocity.y = (hit.distance - _skinWidth) * axisDirection;
                             break;
                     }
                     rayLength = hit.distance;
 
                     collisionAxis.isNegativeHit = axisDirection == -1f;
                     collisionAxis.isPositiveHit = axisDirection == 1f;
+                }
+
+                if (axis == Axis.y)
+                {
+                    if(Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit overlapHit, rayLength, _playerMask))
+                    {
+                        if (!_isResolvingOverlap)
+                        {
+                            StartCoroutine(ResolveOverlap());
+                            StartCoroutine(_fighter.OpposingFighter.MovementController.ResolveOverlap());
+                        }
+                    }
                 }
 
                 if (_drawDebugRays)
@@ -555,10 +559,10 @@ public class MovementController : MonoBehaviour
             }
         }
 
-        //if (axis == Axis.y)
-        //{
-        //    AddCollisionLayers(9);
-        //}
+        if (axis == Axis.y)
+        {
+            AddCollisionLayers(9);
+        }
     }
 
     public IEnumerator ResolveOverlap()
