@@ -617,9 +617,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualEffectAssets:
   - {fileID: 8926484042661614526, guid: 38c1d98b13f4628498766f6a99091189, type: 3}
+  - {fileID: 8926484042661614526, guid: b69fac5ccdd0bc14190019ef66cafddd, type: 3}
   - {fileID: 8926484042661614526, guid: 13403678a066aae4f96ad28a2fab6fe9, type: 3}
   spawnedVfxObject: {fileID: 3187476607867268997, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
-  inputManager: {fileID: 1455596787}
 --- !u!1 &701406902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,17 +1133,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1455596787 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5751411094791522317, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-  m_PrefabInstance: {fileID: 2050966792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31cf484663043424e8d7938c7385a31b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1468007127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,11 +1343,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3187476607867268992, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.74
+      value: -6.77
       objectReference: {fileID: 0}
     - target: {fileID: 3187476607867268992, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.82500046
+      value: 2.77
       objectReference: {fileID: 0}
     - target: {fileID: 3187476607867268992, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1394,19 +1383,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3187476607867268994, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3187476607867268995, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_Asset
       value: 
-      objectReference: {fileID: 8926484042661614526, guid: 13403678a066aae4f96ad28a2fab6fe9, type: 3}
+      objectReference: {fileID: 8926484042661614526, guid: b69fac5ccdd0bc14190019ef66cafddd, type: 3}
     - target: {fileID: 3187476607867268997, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_Name
       value: Spawned VFX
       objectReference: {fileID: 0}
     - target: {fileID: 3187476607867268997, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
