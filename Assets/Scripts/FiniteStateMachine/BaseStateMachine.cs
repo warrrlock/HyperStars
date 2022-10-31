@@ -147,7 +147,7 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
-            // Debug.Log(this.name + " exiting anim " + callee);
+            Debug.Log(this.name + " exiting anim ");
             TrySetQueueInitial();
             ExecuteQueuedState();
             if (_isAttacking)
