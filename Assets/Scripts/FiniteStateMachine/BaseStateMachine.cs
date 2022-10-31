@@ -167,7 +167,6 @@ namespace FiniteStateMachine {
             TrySetQueueInitial();
             ExecuteQueuedState();
             _hurtCoroutine = null;
-            HandleStateExit();
         }
 
         //ANIMATION USE
