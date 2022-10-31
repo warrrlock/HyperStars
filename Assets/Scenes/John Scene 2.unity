@@ -1674,7 +1674,6 @@ GameObject:
   - component: {fileID: 1067612108}
   - component: {fileID: 1067612111}
   - component: {fileID: 1067612110}
-  - component: {fileID: 1067612109}
   m_Layer: 13
   m_Name: Parrybox
   m_TagString: Untagged
@@ -1697,18 +1696,6 @@ Transform:
   m_Father: {fileID: 1521861800}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1067612109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1067612107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74cf9f6a6e50a45e6aff28eb6148c2f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1067612110
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2779,10 +2766,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Gamepad
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791523315, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094795848292, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
@@ -3196,7 +3187,6 @@ GameObject:
   - component: {fileID: 1875158321}
   - component: {fileID: 1875158324}
   - component: {fileID: 1875158323}
-  - component: {fileID: 1875158322}
   m_Layer: 13
   m_Name: Parrybox
   m_TagString: Untagged
@@ -3219,18 +3209,6 @@ Transform:
   m_Father: {fileID: 1653946323}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1875158322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875158320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74cf9f6a6e50a45e6aff28eb6148c2f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1875158323
 Rigidbody:
   m_ObjectHideFlags: 0
