@@ -49,7 +49,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private bool _drawDebugRays;
 
     private Fighter _fighter;
-    private BoxCollider _boxCollider;
+    public BoxCollider BoxCollider { get; private set; }
     private PlayerInput _playerInput;
     private InputManager _inputManager;
 
@@ -135,26 +135,6 @@ public class MovementController : MonoBehaviour
         _maxJumpVelocity = Mathf.Abs(_gravity) * _timeToJumpApex;
         _minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(_gravity) * _minJumpHeight);
 
-
-
-        //Easing function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
-        //float fiveTotal = 0f;
-        //for (float i = 0; i < 10; i++)
-        //{
-        //    float number = function.Ease(4, 0, i / 10);
-        //    Debug.Log(number);
-        //    fiveTotal += number;
-        //}
-        //Debug.Log(fiveTotal);
-
-        //float tenTotal = 0f;
-        //for (float i = 0; i < 10; i++)
-        //{
-        //    float number = function.Ease(5, 0, i / 10);
-        //    Debug.Log(number);
-        //    tenTotal += number;
-        //}
-        //Debug.Log(tenTotal);
 
         switch (_dashEasing)
         {
@@ -369,7 +349,7 @@ public class MovementController : MonoBehaviour
     {
         _fighter = GetComponent<Fighter>();
         _playerInput = GetComponent<PlayerInput>();
-        _boxCollider = GetComponent<BoxCollider>();
+        BoxCollider = GetComponent<BoxCollider>();
         _inputManager = GetComponent<InputManager>();
     }
 
@@ -393,7 +373,7 @@ public class MovementController : MonoBehaviour
 
     private void SpaceRays()
     {
-        Bounds bounds = _boxCollider.bounds;
+        Bounds bounds = BoxCollider.bounds;
 
         _xAxisRayCount = Mathf.Clamp(_xAxisRayCount, 2, int.MaxValue);
         _zAxisRayCount = Mathf.Clamp(_zAxisRayCount, 2, int.MaxValue);
@@ -430,7 +410,7 @@ public class MovementController : MonoBehaviour
 
     private void UpdateRaycastOrigins()
     {
-        Bounds bounds = _boxCollider.bounds;
+        Bounds bounds = BoxCollider.bounds;
         Bounds internalBounds = bounds;
         internalBounds.Expand(_skinWidth * -2f);
 
@@ -595,6 +575,27 @@ public class MovementController : MonoBehaviour
             ResetVelocityY();
         }
         StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
+        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Dash"]));
+        if (_fighter.FacingDirection == Fighter.Direction.Right)
+        {
+            if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+            {
+                if(transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
+                {
+                    StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
+                }
+            }
+        }
+        if (_fighter.FacingDirection == Fighter.Direction.Left)
+        {
+            if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
+            {
+                if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
+                {
+                    StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
+                }
+            }
+        }
         StartCoroutine(Dash(action, _dashDuration));
     }
 
@@ -639,5 +640,20 @@ public class MovementController : MonoBehaviour
     public void DisableAttackStop()
     {
         _isAttacking = false;
+    }
+
+    private IEnumerator DisableCollisionLayers(float duration, params int[] layers)
+    {
+        foreach(int layer in layers)
+        {
+            _collisionMask &= ~(1 << layer);
+        }
+        yield return new WaitForSeconds(duration);
+
+        foreach (int layer in layers)
+        {
+            _collisionMask |= (1 << layer);
+        }
+        yield break;
     }
 }

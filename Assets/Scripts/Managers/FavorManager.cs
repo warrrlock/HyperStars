@@ -14,15 +14,17 @@ public class FavorManager : MonoBehaviour
     //[SerializeField][Range(0f, 1f)] private float _favorSwitchPercentage;
 
     /// <summary>
-    /// If favor is < 0, player 1 is favored. If favor is > 0, player 2 is favored.
+    /// If favor is < 0, player 1 is favored. If favor is > 0, player 0 is favored.
     /// </summary>
     private float _favor;
     private float _favorMultiplier = 1f;
+    private int _favoredPlayer = -1;
     //private float[] _peakFavors;
 
     [SerializeField] private GameObject _favorMeter;
     [SerializeField] private GameObject _favorMeterIndicator;
     [SerializeField] private TextMeshProUGUI _multiplierText;
+    [SerializeField] private Canvas _multiplierTextCanvas;
     [SerializeField] private GameEvent _winConditionEvent;
 
     private void Awake()
@@ -57,10 +59,27 @@ public class FavorManager : MonoBehaviour
                 // SceneReloader.Instance.ReloadScene();
             }
         }
-        if (Mathf.Abs(_favor + value) < _favor)
+        switch (_favoredPlayer)
         {
-            //reverse favor
-            _favorMultiplier += _favorMultiplierDelta;
+            case < 0:
+                _favoredPlayer = playerId;
+                break;
+            case 0:
+                if (_favor + value < _favor)
+                {
+                    //reverse favor
+                    _favorMultiplier += _favorMultiplierDelta;
+                    _favoredPlayer = playerId;
+                }
+                break;
+            case 1:
+                if (_favor + value > _favor)
+                {
+                    //reverse favor
+                    _favorMultiplier += _favorMultiplierDelta;
+                    _favoredPlayer = playerId;
+                }
+                break;
         }
         _favor += value;
         _favor = Mathf.Clamp(_favor, -_maxFavor, _maxFavor);
@@ -93,6 +112,18 @@ public class FavorManager : MonoBehaviour
         _favorMeterIndicator.transform.position = new Vector3(indicatorX, _favorMeterIndicator.transform.position.y, _favorMeterIndicator.transform.position.z);
 
         _multiplierText.text = "x" + _favorMultiplier;
-        _multiplierText.rectTransform.position = new Vector3(indicatorX, _multiplierText.transform.position.y, _multiplierText.transform.position.z);
+        _multiplierText.rectTransform.position = new Vector3(WorldToUISpace(_multiplierTextCanvas, new Vector3(indicatorX, 0f, 0f)).x, _multiplierText.transform.position.y, 0f);
+    }
+
+    public Vector3 WorldToUISpace(Canvas parentCanvas, Vector3 worldPos)
+    {
+        //Convert the world for screen point so that it can be used with ScreenPointToLocalPointInRectangle function
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        Vector2 movePos;
+
+        //Convert the screenpoint to ui rectangle local point
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, screenPos, parentCanvas.worldCamera, out movePos);
+        //Convert the local point to world point
+        return parentCanvas.transform.TransformPoint(movePos);
     }
 }
