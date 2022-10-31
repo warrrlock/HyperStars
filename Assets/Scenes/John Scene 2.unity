@@ -1058,10 +1058,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce9950fc839711468d371c408d248b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visualEffectAssets:
-  - {fileID: 8926484042661614526, guid: 38c1d98b13f4628498766f6a99091189, type: 3}
+  visualEffectAssets: []
   spawnedVfxObject: {fileID: 3187476607867268997, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
-  _fighter: {fileID: 1455596782}
+  inputManager: {fileID: 0}
 --- !u!1 &624653635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,8 +1072,7 @@ GameObject:
   - component: {fileID: 624653636}
   - component: {fileID: 624653640}
   - component: {fileID: 624653639}
-  - component: {fileID: 624653638}
-  - component: {fileID: 624653637}
+  - component: {fileID: 624653641}
   m_Layer: 0
   m_Name: VFX Camera
   m_TagString: MainCamera
@@ -1097,42 +1095,6 @@ Transform:
   m_Father: {fileID: 1468007130}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 15.965, y: 0, z: 0}
---- !u!114 &624653637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624653635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d4f75a0bcc5444d8f71d81de44176f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDefaultListener: 1
-  listenerId: 0
---- !u!114 &624653638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624653635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f95bc6d9d9fee46adaa4d577c553b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_listeners:
-    initialListenerList: []
-    useDefaultListeners: 1
-  isEnvironmentAware: 0
-  isStaticObject: 0
-  m_positionOffsetData:
-    KeepMe: 0
-    positionOffset: {x: 0, y: 0, z: 0}
-  m_posOffsetData: {fileID: 0}
-  listenerMask: 1
 --- !u!114 &624653639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1193,7 +1155,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 7
   m_Depth: -1
   m_CullingMask:
@@ -1210,6 +1172,23 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &624653641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624653635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce9950fc839711468d371c408d248b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualEffectAssets:
+  - {fileID: 8926484042661614526, guid: 38c1d98b13f4628498766f6a99091189, type: 3}
+  - {fileID: 8926484042661614526, guid: 13403678a066aae4f96ad28a2fab6fe9, type: 3}
+  spawnedVfxObject: {fileID: 3187476607867268997, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
+  inputManager: {fileID: 0}
 --- !u!1 &628977907
 GameObject:
   m_ObjectHideFlags: 0
