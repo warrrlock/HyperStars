@@ -164,6 +164,7 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
+            Debug.Log(this.name + " exiting anim ");
             TrySetQueueInitial();
             ExecuteQueuedState();
             _hurtCoroutine = null;
