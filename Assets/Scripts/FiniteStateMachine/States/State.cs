@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using FiniteStateMachine;
@@ -29,6 +30,7 @@ namespace FiniteStateMachine
         }
         public override void Stop(BaseStateMachine stateMachine, string inputName)
         {
+            stateMachine.SetReturnState();
             foreach(StateAction action in _actions){
                 action.Stop(stateMachine);
             }

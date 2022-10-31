@@ -27,7 +27,11 @@ public class InAirState : BaseState
 
     public override void Execute(BaseStateMachine stateMachine, string inputName){
         if (stateMachine.PlayAnimation(_animationHash))
+        {
+            stateMachine.SetReturnState("jump");
             stateMachine.StartInAir();
+        }
+            
         
         foreach (Transition transition in _transitions)
         {

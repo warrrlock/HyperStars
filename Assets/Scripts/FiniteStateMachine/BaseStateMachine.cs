@@ -20,15 +20,16 @@ public class KeyHurtStatePair
 namespace FiniteStateMachine {
     [RequireComponent(typeof(Animator))] 
     [RequireComponent(typeof(Fighter))] 
-    public class BaseStateMachine : MonoBehaviour 
+    public class BaseStateMachine : MonoBehaviour
     {
-        
         public BaseState CurrentState {get; private set;}
         public bool CanCombo { get; private set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
 
         [SerializeField] private TextMeshProUGUI _stateInfoText;
         [SerializeField] private BaseState _initialState;
+        [SerializeField] private BaseState _jumpState;
+        [SerializeField] private BaseState _walkState;
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
                  "\n\n****Add all looping animations.")]
@@ -40,6 +41,7 @@ namespace FiniteStateMachine {
         private Coroutine _airCoroutine;
         
         private BaseState _queuedState;
+        private BaseState _returnState;
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
@@ -55,6 +57,7 @@ namespace FiniteStateMachine {
             _cachedComponents = new Dictionary<Type, Component>();
             Fighter = GetComponent<Fighter>();
             _animator = GetComponent<Animator>();
+            _returnState = _initialState;
 
             _hurtStates = new Dictionary<KeyHurtStatePair.HurtStateName, HurtState>();
             foreach (KeyHurtStatePair entry in _hurtStatePairs)
@@ -114,7 +117,7 @@ namespace FiniteStateMachine {
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput || CurrentState is HurtState) return;
-            Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
+            // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.name);
         }
 
@@ -164,9 +167,15 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
-            TrySetQueueInitial();
+            TrySetQueueReturnState();
             ExecuteQueuedState();
             _hurtCoroutine = null;
+        }
+        
+        private void HandleStateExit()
+        {
+            _currentAnimation = -1;
+            if (_isAttacking) DisableAttackStop();
         }
 
         //ANIMATION USE
@@ -185,6 +194,7 @@ namespace FiniteStateMachine {
             yield return new WaitForFixedUpdate();
             _hurtStates.TryGetValue(stateName, out HurtState state);
             if (!state) yield break;
+            SetReturnState();
             if (CurrentState is HurtState hurtState && hurtState == state)
                 CurrentState.Execute(this, "");
             else  ForceSetState(state);
@@ -200,11 +210,10 @@ namespace FiniteStateMachine {
         {
             if (!_queuedState && CurrentState != _initialState) _queuedState = _initialState;
         }
-
-        private void HandleStateExit()
+        
+        private void TrySetQueueReturnState()
         {
-            _currentAnimation = -1;
-            if (_isAttacking) DisableAttackStop();
+            if (!_queuedState && CurrentState != _returnState) _queuedState = _returnState;
         }
 
         public void EnableAttackStop()
@@ -232,7 +241,8 @@ namespace FiniteStateMachine {
         {
             yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => Fighter.MovementController.CollisionData.y.isNegativeHit);
-            
+            SetReturnState();
+            Debug.Log("handling exit air");
             if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
             else Fighter.Events.onLandedNeutral?.Invoke();
             //when out of air, return to idle or execute given action
@@ -252,6 +262,19 @@ namespace FiniteStateMachine {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
             yield return new WaitUntil(() => Fighter.InputManager.Actions["Move"].disabledCount <= 0);
             HandleAnimationExit();
+        }
+
+        public void SetReturnState(string state = "")
+        {
+            switch (state)
+            {
+                case "jump":
+                    _returnState = _jumpState ?? _initialState;
+                    break;
+                default: 
+                    _returnState = _initialState;
+                    break;
+            }
         }
 
         private void UpdateStateInfoText()
