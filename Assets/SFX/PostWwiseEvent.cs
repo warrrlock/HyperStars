@@ -24,7 +24,10 @@ public class PostWwiseEvent : MonoBehaviour
     private void Start()
     {
         _fighter = GetComponent<Fighter>();
+        // wall
         _fighter.Events.wallBounce += () => Wwise_PlaySingle(wallBounceEvent);
+        // land
+        _fighter.Events.onLandedNeutral += () => Wwise_PlaySingle(movementEvents[(int)Wwise_MovementEvents.LAND]);
     }
     
     public void Wwise_PlayComboSound(Wwise_ComboEvents cEvent)
