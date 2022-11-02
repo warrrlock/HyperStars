@@ -39,6 +39,7 @@ public class MovementController : MonoBehaviour
     [Header("Collisions")]
     [Tooltip("What layer(s) should collisions be checked on?")]
     [SerializeField] private LayerMask _collisionMask;
+    [SerializeField] private LayerMask _playerMask;
     [Tooltip("How many rays should be shot out horizontally?")]
     private int _xAxisRayCount = 3;
     [Tooltip("How many rays should be shot out forward?")]
@@ -71,6 +72,11 @@ public class MovementController : MonoBehaviour
 
     private bool _isAttacking;
     private bool _isGravityApplied = true;
+    [SerializeField] private float _overlapResolutionSpeed;
+    private bool _isResolvingOverlap = false;
+    private Vector3 _overlapResolutionVelocity = Vector3.zero;
+    private bool _isJumping;
+    public Fighter.Direction MovingDirection { get; private set; }
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
@@ -212,11 +218,18 @@ public class MovementController : MonoBehaviour
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
         }
-        _velocity = _unforcedVelocity + _forceVelocity;
+        _velocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
         Move(_velocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
             ResetVelocityY();
+        }
+        if (_collisionData.y.isNegativeHit)
+        {
+            if (_isJumping)
+            {
+                _isJumping = false;
+            }
         }
     }
 
@@ -374,17 +387,19 @@ public class MovementController : MonoBehaviour
     private void SpaceRays()
     {
         Bounds bounds = BoxCollider.bounds;
+        Bounds internalBounds = bounds;
+        internalBounds.Expand(_skinWidth * -2f);
 
         _xAxisRayCount = Mathf.Clamp(_xAxisRayCount, 2, int.MaxValue);
         _zAxisRayCount = Mathf.Clamp(_zAxisRayCount, 2, int.MaxValue);
         _yAxisRayCount = Mathf.Clamp(_yAxisRayCount, 2, int.MaxValue);
 
-        _xAxisRaySpacing.x = bounds.size.z / (_xAxisRayCount - 1);
-        _xAxisRaySpacing.y = bounds.size.y / (_xAxisRayCount - 1);
-        _zAxisRaySpacing.x = bounds.size.x / (_zAxisRayCount - 1);
-        _zAxisRaySpacing.y = bounds.size.y / (_zAxisRayCount - 1);
-        _yAxisRaySpacing.x = bounds.size.x / (_yAxisRayCount - 1);
-        _yAxisRaySpacing.y = bounds.size.z / (_yAxisRayCount - 1);
+        _xAxisRaySpacing.x = internalBounds.size.z / (_xAxisRayCount - 1);
+        _xAxisRaySpacing.y = internalBounds.size.y / (_xAxisRayCount - 1);
+        _zAxisRaySpacing.x = internalBounds.size.x / (_zAxisRayCount - 1);
+        _zAxisRaySpacing.y = internalBounds.size.y / (_zAxisRayCount - 1);
+        _yAxisRaySpacing.x = internalBounds.size.x / (_yAxisRayCount - 1);
+        _yAxisRaySpacing.y = internalBounds.size.z / (_yAxisRayCount - 1);
     }
 
     private void Move(Vector3 velocity)
@@ -418,8 +433,8 @@ public class MovementController : MonoBehaviour
         _raycastOrigins.x.positive = new Vector3(internalBounds.max.x, bounds.min.y, bounds.min.z);
         _raycastOrigins.z.negative = new Vector3(bounds.min.x, bounds.min.y, internalBounds.min.z);
         _raycastOrigins.z.positive = new Vector3(bounds.min.x, bounds.min.y, internalBounds.max.z);
-        _raycastOrigins.y.negative = new Vector3(bounds.min.x, internalBounds.min.y, bounds.min.z);
-        _raycastOrigins.y.positive = new Vector3(bounds.min.x, internalBounds.max.y, bounds.min.z);
+        _raycastOrigins.y.negative = new Vector3(internalBounds.min.x, internalBounds.min.y, internalBounds.min.z);
+        _raycastOrigins.y.positive = new Vector3(internalBounds.min.x, internalBounds.max.y, internalBounds.min.z);
     }
 
     /// <summary>
@@ -482,6 +497,10 @@ public class MovementController : MonoBehaviour
         }
 
         float axisDirection = Mathf.Sign(axisVelocity);
+        if (axis == Axis.x)
+        {
+            MovingDirection = axisDirection == -1 ? Fighter.Direction.Left : Fighter.Direction.Right;
+        }
 
         //if (axis == Axis.x)
         //{
@@ -496,6 +515,11 @@ public class MovementController : MonoBehaviour
         //}
 
         float rayLength = Mathf.Abs(axisVelocity) + _skinWidth;
+
+        if (axis == Axis.y)
+        {
+            RemoveCollisionLayers(9);
+        }
 
         for (int i = 0; i < rayCount; i++)
         {
@@ -524,12 +548,50 @@ public class MovementController : MonoBehaviour
                     collisionAxis.isPositiveHit = axisDirection == 1f;
                 }
 
+                if (axis == Axis.y)
+                {
+                    if(Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit overlapHit, rayLength, _playerMask))
+                    {
+                        if (!_isResolvingOverlap)
+                        {
+                            StartCoroutine(ResolveOverlap());
+                            StartCoroutine(_fighter.OpposingFighter.MovementController.ResolveOverlap());
+                        }
+                    }
+                }
+
                 if (_drawDebugRays)
                 {
                     Debug.DrawRay(rayOrigin, axisDirection * rayLength * rayDirection, Color.red);
                 }
             }
         }
+
+        if (axis == Axis.y)
+        {
+            AddCollisionLayers(9);
+        }
+    }
+
+    public IEnumerator ResolveOverlap()
+    {
+        _isResolvingOverlap = true;
+        //bool opponentIsRight = false;
+        if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+        {
+            //opponentIsRight = true;
+            _overlapResolutionVelocity.x = -_overlapResolutionSpeed;
+        }
+        else
+        {
+            _overlapResolutionVelocity.x = _overlapResolutionSpeed;
+        }
+        //yield return new WaitUntil(opponentIsRight ? () => _collisionData.x.isPositiveHit : () => _collisionData.x.isNegativeHit);
+        yield return new WaitForSeconds(0.1f);
+
+        _overlapResolutionVelocity = Vector3.zero;
+        _isResolvingOverlap = false;
+        yield break;
     }
 
     private void StartMoving(InputManager.Action action)
@@ -541,8 +603,11 @@ public class MovementController : MonoBehaviour
 
     private void StopMoving(InputManager.Action action)
     {
-        _unforcedVelocity.x = 0f;
-        _unforcedVelocity.z = 0f;
+        if (!_isJumping)
+        {
+            _unforcedVelocity.x = 0f;
+            _unforcedVelocity.z = 0f;
+        }
     }
 
     public void Push(float duration)
@@ -555,10 +620,10 @@ public class MovementController : MonoBehaviour
     private void Dash(InputManager.Action action)
     {
         //TODO: end the dash if player hits an obstacle
-        if (_inputManager.Actions["Move"].isBeingPerformed)
+        if (_inputManager.Actions["Move"].isBeingInput)
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
-            StartCoroutine(ApplyForce(new Vector3(_unforcedVelocity.x, 0f, _unforcedVelocity.z), _dashForce, _dashDuration, _dashEasing));
+            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, 0f), _dashForce, _dashDuration, _dashEasing));
             if (_dashToZero)
             {
                 _unforcedVelocity.x = 0f;
@@ -574,8 +639,7 @@ public class MovementController : MonoBehaviour
             StartCoroutine(DisableGravity(_dashDuration));
             ResetVelocityY();
         }
-        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
-        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Dash"]));
+        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"], _inputManager.Actions["Dash"]));
         if (_fighter.FacingDirection == Fighter.Direction.Right)
         {
             if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
@@ -603,6 +667,7 @@ public class MovementController : MonoBehaviour
     {
         if (_collisionData.y.isNegativeHit)
         {
+            _isJumping = true;
             _unforcedVelocity.y = _maxJumpVelocity;
             StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Move"]));
         }
@@ -620,14 +685,14 @@ public class MovementController : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         _inputManager.Actions["Dash"].finish?.Invoke(action);
-        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
+        //StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
     }
     
     public void EnableAttackStop()
     {
         _isAttacking = true;
-        _inputManager.StopMove();
+        //_inputManager.StopMove();
         InputManager.Action[] actions =
         {
             _inputManager.Actions["Move"], 
@@ -655,5 +720,21 @@ public class MovementController : MonoBehaviour
             _collisionMask |= (1 << layer);
         }
         yield break;
+    }
+
+    private void RemoveCollisionLayers(params int[] layers)
+    {
+        foreach (int layer in layers)
+        {
+            _collisionMask &= ~(1 << layer);
+        }
+    }
+
+    private void AddCollisionLayers(params int[] layers)
+    {
+        foreach (int layer in layers)
+        {
+            _collisionMask |= (1 << layer);
+        }
     }
 }

@@ -14,6 +14,10 @@ public class Fighter : MonoBehaviour
 {
     public enum Direction { Left, Right }
     public Direction FacingDirection { get; private set; }
+    public Direction MovingDirection
+    {
+        get => MovementController.MovingDirection;
+    }
 
     public PlayerInputState CurrentState { get; private set; }
     public MovementController MovementController { get; private set; }
@@ -28,6 +32,12 @@ public class Fighter : MonoBehaviour
     public int PlayerId { get; private set; }
 
     public bool canBeHurt;
+    public FightersManager FightersManager
+    {
+        get => _fightersManager;
+        private set => _fightersManager = value;
+    }
+    [SerializeField] private FightersManager _fightersManager;
     
     private void Awake()
     {
@@ -45,6 +55,8 @@ public class Fighter : MonoBehaviour
         FacingDirection = Direction.Right;
         canBeHurt = true;
         SubscribeActions();
+        transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
+        GetComponent<SpriteRenderer>().color = PlayerId == 0 ? FightersManager.player1Color : FightersManager.player2Color;
     }
 
     private void OnDestroy()
