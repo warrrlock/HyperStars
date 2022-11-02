@@ -14,6 +14,10 @@ public class Fighter : MonoBehaviour
 {
     public enum Direction { Left, Right }
     public Direction FacingDirection { get; private set; }
+    public Direction MovingDirection
+    {
+        get => MovementController.MovingDirection;
+    }
 
     public PlayerInputState CurrentState { get; private set; }
     public MovementController MovementController { get; private set; }
