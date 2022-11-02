@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeHurt: 0
+  _fightersManager: {fileID: 11400000, guid: bd70be347e6fe423ab7ecdf3f9028b1c, type: 2}
 --- !u!114 &5751411094791522316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,7 +301,7 @@ MonoBehaviour:
   _minJumpHeight: 3.4
   _timeToJumpApex: 0.3
   _dashForce: 2
-  _dashDistance: 3
+  _dashDistance: 10
   _dashDuration: 0.2
   _dashToZero: 1
   _dashCooldownDuration: 0.3
@@ -308,7 +309,11 @@ MonoBehaviour:
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560
-  _drawDebugRays: 0
+  _playerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _drawDebugRays: 1
+  _overlapResolutionSpeed: 10
 --- !u!65 &5751411094791523315
 BoxCollider:
   m_ObjectHideFlags: 0
