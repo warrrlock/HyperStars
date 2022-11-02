@@ -47,6 +47,7 @@ public class Fighter : MonoBehaviour
         if (PlayerId > 1)
         {
             Destroy(gameObject);
+            return;
         }
         Services.Fighters[PlayerId] = this;
         Events = new();
