@@ -48,6 +48,7 @@ namespace FiniteStateMachine
                         return;
                     }
                     stateMachine.QueueState(_trueState);
+                    stateMachine.SetExecutedInput();
                 }
                 else
                 {
@@ -77,6 +78,7 @@ namespace FiniteStateMachine
                     return;
                 }
                 stateMachine.QueueState(_trueState);
+                stateMachine.SetExecutedInput(inputName);
                 stateMachine.ExecuteQueuedState();
             }
             else if (_customFalseState)

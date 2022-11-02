@@ -30,7 +30,7 @@ namespace FiniteStateMachine
         }
         public override void Stop(BaseStateMachine stateMachine, string inputName)
         {
-            stateMachine.SetReturnState();
+            // stateMachine.SetReturnState();
             foreach(StateAction action in _actions){
                 action.Stop(stateMachine);
             }

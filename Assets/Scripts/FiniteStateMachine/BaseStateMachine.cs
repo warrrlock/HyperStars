@@ -45,6 +45,7 @@ namespace FiniteStateMachine {
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
+        private string _lastExecutedInput;
 
         public Fighter Fighter { get; private set; }
         private Animator _animator;
@@ -123,6 +124,8 @@ namespace FiniteStateMachine {
 
         private void Stop(InputManager.Action action)
         {
+            // Debug.Log($"Stop called by {action.name}, with last played action being {_lastExecutedInput}");
+            if (_lastExecutedInput != action.name) return;
             CurrentState.Stop(this, action.name);
         }
 
@@ -133,6 +136,11 @@ namespace FiniteStateMachine {
             CanCombo = defaultCombo;
             _animator.Play(animationState, -1, 0);
             return true;
+        }
+
+        public void SetExecutedInput(string inputName = "")
+        {
+            _lastExecutedInput = inputName;
         }
         
         public void QueueState(BaseState state)
@@ -167,7 +175,7 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
-            TrySetQueueReturnState();
+            TrySetQueueInitial();
             ExecuteQueuedState();
             _hurtCoroutine = null;
         }
@@ -194,7 +202,7 @@ namespace FiniteStateMachine {
             yield return new WaitForFixedUpdate();
             _hurtStates.TryGetValue(stateName, out HurtState state);
             if (!state) yield break;
-            SetReturnState();
+            // SetReturnState();
             if (CurrentState is HurtState hurtState && hurtState == state)
                 CurrentState.Execute(this, "");
             else  ForceSetState(state);
@@ -213,7 +221,22 @@ namespace FiniteStateMachine {
         
         private void TrySetQueueReturnState()
         {
-            if (!_queuedState && CurrentState != _returnState) _queuedState = _returnState;
+            if (!_queuedState && CurrentState != _returnState){
+                _queuedState = _returnState;
+            }
+        }
+        
+        public void SetReturnState(string state = "")
+        {
+            switch (state)
+            {
+                case "jump":
+                    _returnState = _jumpState ? _jumpState : _initialState;
+                    break;
+                default: 
+                    _returnState = _initialState;
+                    break;
+            }
         }
 
         public void EnableAttackStop()
@@ -241,10 +264,11 @@ namespace FiniteStateMachine {
         {
             yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => Fighter.MovementController.CollisionData.y.isNegativeHit);
-            SetReturnState();
-            Debug.Log("handling exit air");
+            // SetReturnState();
+            
             if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
             else Fighter.Events.onLandedNeutral?.Invoke();
+            
             //when out of air, return to idle or execute given action
             onGroundAction ??= HandleAnimationExit;
             onGroundAction();
@@ -262,19 +286,6 @@ namespace FiniteStateMachine {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
             yield return new WaitUntil(() => Fighter.InputManager.Actions["Move"].disabledCount <= 0);
             HandleAnimationExit();
-        }
-
-        public void SetReturnState(string state = "")
-        {
-            switch (state)
-            {
-                case "jump":
-                    _returnState = _jumpState ?? _initialState;
-                    break;
-                default: 
-                    _returnState = _initialState;
-                    break;
-            }
         }
 
         private void UpdateStateInfoText()
