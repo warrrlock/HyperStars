@@ -13,6 +13,8 @@ public class InAirState : BaseState
     [HideInInspector]
     [SerializeField] private int _animationHash;
     
+    [SerializeField] private AttackInfo _attackInfo;
+    
     private void OnValidate()
     {
         _animationHash = Animator.StringToHash(_animationName);
@@ -31,6 +33,11 @@ public class InAirState : BaseState
         {
             transition.Execute(stateMachine, inputName);
         }
+    }
+    
+    public override AttackInfo GetAttackInfo()
+    {
+        return _attackInfo;
     }
     
 }
