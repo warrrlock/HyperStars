@@ -75,6 +75,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _overlapResolutionSpeed;
     private bool _isResolvingOverlap = false;
     private Vector3 _overlapResolutionVelocity = Vector3.zero;
+    private bool _isJumping;
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
@@ -221,6 +222,13 @@ public class MovementController : MonoBehaviour
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
             ResetVelocityY();
+        }
+        if (_collisionData.y.isNegativeHit)
+        {
+            if (_isJumping)
+            {
+                _isJumping = false;
+            }
         }
     }
 
@@ -568,10 +576,10 @@ public class MovementController : MonoBehaviour
     public IEnumerator ResolveOverlap()
     {
         _isResolvingOverlap = true;
-        bool opponentIsRight = false;
+        //bool opponentIsRight = false;
         if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
         {
-            opponentIsRight = true;
+            //opponentIsRight = true;
             _overlapResolutionVelocity.x = -_overlapResolutionSpeed;
         }
         else
@@ -595,8 +603,11 @@ public class MovementController : MonoBehaviour
 
     private void StopMoving(InputManager.Action action)
     {
-        _unforcedVelocity.x = 0f;
-        _unforcedVelocity.z = 0f;
+        if (!_isJumping)
+        {
+            _unforcedVelocity.x = 0f;
+            _unforcedVelocity.z = 0f;
+        }
     }
 
     public void Push(float duration)
@@ -628,8 +639,7 @@ public class MovementController : MonoBehaviour
             StartCoroutine(DisableGravity(_dashDuration));
             ResetVelocityY();
         }
-        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"]));
-        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Dash"]));
+        StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"], _inputManager.Actions["Dash"]));
         if (_fighter.FacingDirection == Fighter.Direction.Right)
         {
             if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
@@ -657,6 +667,7 @@ public class MovementController : MonoBehaviour
     {
         if (_collisionData.y.isNegativeHit)
         {
+            _isJumping = true;
             _unforcedVelocity.y = _maxJumpVelocity;
             StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Move"]));
         }
@@ -674,7 +685,7 @@ public class MovementController : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         _inputManager.Actions["Dash"].finish?.Invoke(action);
-        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
+        //StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
     }
     
