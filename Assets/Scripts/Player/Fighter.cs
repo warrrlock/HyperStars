@@ -28,6 +28,7 @@ public class Fighter : MonoBehaviour
     public Fighter OpposingFighter { get; private set; }
     public BaseStateMachine BaseStateMachine { get; private set; }
     public FighterEvents Events { get; private set; }
+    public SpecialMeterManager SpecialMeterManager { get; private set; }
 
     public int PlayerId { get; private set; }
 
@@ -58,6 +59,7 @@ public class Fighter : MonoBehaviour
     private void Start()
     {
         OpposingFighter = Array.Find(Services.Fighters, x => x.PlayerId != PlayerId);
+        SpecialMeterManager?.Initiate();
         //TODO: change this because not all characters will start off facing right
         FacingDirection = Direction.Right;
         canBeHurt = true;
@@ -89,6 +91,7 @@ public class Fighter : MonoBehaviour
         HurtAnimator = GetComponent<HurtAnimator>();
         PlayerInput = GetComponent<PlayerInput>();
         BaseStateMachine = GetComponent<BaseStateMachine>();
+        SpecialMeterManager = GetComponent<SpecialMeterManager>();
     }
 
     public void ResetFighterHurtboxes()
