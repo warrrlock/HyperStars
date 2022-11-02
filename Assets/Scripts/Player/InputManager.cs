@@ -26,7 +26,7 @@ public class InputManager : MonoBehaviour
         public Stop stop;
         public delegate void Finish(Action action);
         public Finish finish;
-        //public bool isBeingInput;
+        public bool isBeingInput;
         public bool isPerformQueued;
         public bool isStopQueued;
         public IEnumerator queuePerform;
@@ -103,7 +103,7 @@ public class InputManager : MonoBehaviour
             action.inputAction = context.action;
             if (context.action.WasPerformedThisFrame())
             {
-                //action.isBeingInput = true;
+                action.isBeingInput = true;
                 if (action.disabledCount == 0)
                 {
                     action.perform?.Invoke(action);
@@ -128,7 +128,7 @@ public class InputManager : MonoBehaviour
             }
             if (context.action.WasReleasedThisFrame())
             {
-                //action.isBeingInput = false;
+                action.isBeingInput = false;
                 if (action.disabledCount == 0)
                 {
                     //TODO: either find a better solution to this or change based off gamepad or keyboard because now on keyboard if you input move right after letting go you'll stop

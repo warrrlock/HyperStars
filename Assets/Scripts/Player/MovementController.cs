@@ -620,10 +620,10 @@ public class MovementController : MonoBehaviour
     private void Dash(InputManager.Action action)
     {
         //TODO: end the dash if player hits an obstacle
-        if (_inputManager.Actions["Move"].isBeingPerformed)
+        if (_inputManager.Actions["Move"].isBeingInput)
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
-            StartCoroutine(ApplyForce(new Vector3(_unforcedVelocity.x, 0f, _unforcedVelocity.z), _dashForce, _dashDuration, _dashEasing));
+            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, 0f), _dashForce, _dashDuration, _dashEasing));
             if (_dashToZero)
             {
                 _unforcedVelocity.x = 0f;
