@@ -9,12 +9,13 @@ using UnityEditor;
 namespace FiniteStateMachine
 {
     [CreateAssetMenu(menuName = "StateMachine/Hurt State")]
+    [Serializable]
     public class HurtState : BaseState
     {
         [SerializeField] private KeyHurtStatePair.HurtStateName _hurtType;
         [SerializeField] private string _animationName;
         [HideInInspector] [SerializeField] private int _animationHash;
-        [HideInInspector] [SerializeField] private string _animationName2;
+        [SerializeField] private string _animationName2;
         [HideInInspector] [SerializeField] private int _animationHash2;
         // ==========  methods ========== //
         private void OnValidate()
@@ -36,23 +37,24 @@ namespace FiniteStateMachine
             else stateMachine.WaitToMove();
         }
         
-        #region Editor
-#if UNITY_EDITOR
-        [CustomEditor(typeof(HurtState))]
-        class HurtStateEditor : Editor
-        {
-            public override void OnInspectorGUI()
-            {
-                base.OnInspectorGUI();
-                HurtState hurtState = (HurtState)target;
-                if (hurtState._hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
-                {
-                    EditorGUILayout.Space();
-                    hurtState._animationName2 = EditorGUILayout.TextField("Ending Animation Name", hurtState._animationName2);
-                }
-            }
-        }
-#endif
-        #endregion
+//         #region Editor
+// #if UNITY_EDITOR
+//         [CustomEditor(typeof(HurtState))]
+//         class HurtStateEditor : Editor
+//         {
+//             public override void OnInspectorGUI()
+//             {
+//                 serializedObject.Update();
+//                 base.OnInspectorGUI();
+//                 HurtState hurtState = (HurtState)target;
+//                 if (hurtState._hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
+//                 {
+//                     EditorGUILayout.Space();
+//                     EditorGUILayout.PropertyField(serializedObject.FindProperty("_animationName2"));
+//                 }
+//             }
+//         }
+// #endif
+//         #endregion
     }
 }

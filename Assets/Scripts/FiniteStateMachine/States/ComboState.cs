@@ -20,7 +20,7 @@ namespace FiniteStateMachine
         
         [Header("Special")]
         public bool isSpecial;
-        [HideInInspector]
+
         [Tooltip("number of bars the special costs. 1 means 1 bar.")]
         public int specialBarCost;
         
@@ -57,22 +57,22 @@ namespace FiniteStateMachine
             return _attackInfo;
         }
         
-        #region Editor
-#if UNITY_EDITOR
-        [CustomEditor(typeof(ComboState))]
-        class ComboStateEditor : Editor
-        {
-            public override void OnInspectorGUI()
-            {
-                base.OnInspectorGUI();
-                ComboState state = (ComboState)target;
-                if (state.isSpecial)
-                {
-                    state.specialBarCost = EditorGUILayout.IntField("Number of Bars (COST)", state.specialBarCost);
-                }
-            }
-        }
-#endif
-        #endregion
+//         #region Editor
+// #if UNITY_EDITOR
+//         [CustomEditor(typeof(ComboState))]
+//         class ComboStateEditor : Editor
+//         {
+//             public override void OnInspectorGUI()
+//             {
+//                 base.OnInspectorGUI();
+//                 ComboState state = (ComboState)target;
+//                 if (state.isSpecial)
+//                 {
+//                     state.specialBarCost = EditorGUILayout.IntField("Number of Bars (COST)", state.specialBarCost);
+//                 }
+//             }
+//         }
+// #endif
+//         #endregion
     }
 }
