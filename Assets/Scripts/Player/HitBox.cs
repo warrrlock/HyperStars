@@ -40,10 +40,14 @@ public class HitBox : MonoBehaviour
         //{
         //    return;
         //}
+        AttackInfo attackInfo = _baseStateMachine.AttackInfo;
+        Vector3 hitPoint = other.ClosestPoint(transform.position);
+        Fighter hitFighter = _fighter.OpposingFighter;
+        
         if (other.gameObject.layer == 13)
         {
             //has been parried
-            AttackInfo parryInfo = _fighter.OpposingFighter.BaseStateMachine.AttackInfo;
+            AttackInfo parryInfo = hitFighter.BaseStateMachine.AttackInfo;
             InputManager.Action[] selfActions =
             {
                 _fighter.InputManager.Actions["Move"], 
@@ -52,6 +56,7 @@ public class HitBox : MonoBehaviour
             };
             StartCoroutine(_fighter.InputManager.Disable(parryInfo.hitStunDuration, selfActions));
             StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun));
+            _fighter.Events.onBlockHit?.Invoke(_fighter, hitFighter, hitPoint);
             return;
         }
         
@@ -60,10 +65,6 @@ public class HitBox : MonoBehaviour
             return;
         }
 
-        AttackInfo attackInfo = _baseStateMachine.AttackInfo;
-        Vector3 hitPoint = other.ClosestPoint(transform.position);
-        Fighter hitFighter = _fighter.OpposingFighter;
-        
         if (!hitFighter.canBeHurt || attackInfo == null)
         {
             return;

@@ -28,8 +28,6 @@ namespace FiniteStateMachine {
 
         [SerializeField] private TextMeshProUGUI _stateInfoText;
         [SerializeField] private BaseState _initialState;
-        [SerializeField] private BaseState _jumpState;
-        [SerializeField] private BaseState _walkState;
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
                  "\n\n****Add all looping animations.")]
@@ -49,13 +47,13 @@ namespace FiniteStateMachine {
 
         public Fighter Fighter { get; private set; }
         private Animator _animator;
-        private Dictionary<Type, Component> _cachedComponents;
+        // private Dictionary<Type, Component> _cachedComponents;
 
         #region Methods
         #region Unity
         private void Awake()
         {
-            _cachedComponents = new Dictionary<Type, Component>();
+            // _cachedComponents = new Dictionary<Type, Component>();
             Fighter = GetComponent<Fighter>();
             _animator = GetComponent<Animator>();
             _returnState = _initialState;
@@ -102,18 +100,18 @@ namespace FiniteStateMachine {
         }
         #endregion
 
-        public new T GetComponent<T>() where T: Component 
-        {
-            if (_cachedComponents.ContainsKey(typeof(T)))
-                return _cachedComponents[typeof(T)] as T;
-            
-            var component = base.GetComponent<T>();
-            
-            if (component != null)
-                _cachedComponents.Add(typeof(T), component);
-
-            return component;
-        }
+        // private new T GetComponent<T>() where T: Component 
+        // {
+        //     if (_cachedComponents.ContainsKey(typeof(T)))
+        //         return _cachedComponents[typeof(T)] as T;
+        //     
+        //     var component = base.GetComponent<T>();
+        //     
+        //     if (component != null)
+        //         _cachedComponents.Add(typeof(T), component);
+        //
+        //     return component;
+        // }
 
         private void Invoke(InputManager.Action action)
         {
@@ -145,7 +143,7 @@ namespace FiniteStateMachine {
         
         public void QueueState(BaseState state)
         {
-            if (_queuedState == null) _queuedState = state;
+            if (!_queuedState) _queuedState = state;
         }
         
         /// <summary>
@@ -219,26 +217,6 @@ namespace FiniteStateMachine {
             if (!_queuedState && CurrentState != _initialState) _queuedState = _initialState;
         }
         
-        private void TrySetQueueReturnState()
-        {
-            if (!_queuedState && CurrentState != _returnState){
-                _queuedState = _returnState;
-            }
-        }
-        
-        public void SetReturnState(string state = "")
-        {
-            switch (state)
-            {
-                case "jump":
-                    _returnState = _jumpState ? _jumpState : _initialState;
-                    break;
-                default: 
-                    _returnState = _initialState;
-                    break;
-            }
-        }
-
         public void EnableAttackStop()
         {
             if (_isAttacking) return;

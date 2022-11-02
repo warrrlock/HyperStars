@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace FiniteStateMachine
 {
@@ -12,8 +15,15 @@ namespace FiniteStateMachine
         [Tooltip("If you would like the animation to start with the combo option as true. Otherwise, set to false.")]
         [SerializeField] private bool _defaultCombo = true;
         
+        [Header("Attack Information")]
         [SerializeField] private AttackInfo _attackInfo;
-
+        
+        [Header("Special")]
+        public bool isSpecial;
+        [HideInInspector]
+        [Tooltip("number of bars the special costs. 1 means 1 bar.")]
+        public int specialBarCost;
+        
         [HideInInspector]
         [SerializeField] private int _animationHash;
 
@@ -33,7 +43,10 @@ namespace FiniteStateMachine
             stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
 
             if (stateMachine.PlayAnimation(_animationHash, _defaultCombo))
+            {
                 stateMachine.EnableAttackStop();
+                if (isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(specialBarCost);
+            }
 
             foreach (Transition transition in _transitions)
                 transition.Execute(stateMachine, inputName, stateMachine.CanCombo);
@@ -43,5 +56,23 @@ namespace FiniteStateMachine
         {
             return _attackInfo;
         }
+        
+        #region Editor
+#if UNITY_EDITOR
+        [CustomEditor(typeof(ComboState))]
+        class ComboStateEditor : Editor
+        {
+            public override void OnInspectorGUI()
+            {
+                base.OnInspectorGUI();
+                ComboState state = (ComboState)target;
+                if (state.isSpecial)
+                {
+                    state.specialBarCost = EditorGUILayout.IntField("Number of Bars (COST)", state.specialBarCost);
+                }
+            }
+        }
+#endif
+        #endregion
     }
 }
