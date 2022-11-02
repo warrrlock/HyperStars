@@ -44,8 +44,14 @@ public class Fighter : MonoBehaviour
         AssignComponents();
         PlayerId = PlayerInput.playerIndex;
         Debug.Log(PlayerId);
+        if (PlayerId > 1)
+        {
+            Destroy(gameObject);
+        }
         Services.Fighters[PlayerId] = this;
         Events = new();
+        DontDestroyOnLoad(gameObject);
+        SceneReloader.OnSceneLoaded += ResetValues;
     }
 
     private void Start()
@@ -55,12 +61,22 @@ public class Fighter : MonoBehaviour
         FacingDirection = Direction.Right;
         canBeHurt = true;
         SubscribeActions();
-        transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
+        //transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
         GetComponent<SpriteRenderer>().color = PlayerId == 0 ? FightersManager.player1Color : FightersManager.player2Color;
+        //FacingDirection = OpposingFighter.transform.position.x > transform.position.x ? Direction.Right : Direction.Left;
+    }
+
+    private void ResetValues()
+    {
+        transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
     }
 
     private void OnDestroy()
     {
+        if (PlayerId > 1)
+        {
+            return;
+        }
         UnsubscribeActions();
     }
 
