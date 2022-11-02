@@ -146,6 +146,28 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_GROUND_HIT" ID="{3F03D32D-F581-40C0-AB5B-621A8555D2DE}">
+					<ChildrenList>
+						<Action Name="" ID="{726A7325-5DDB-4618-BCE1-C5FAF6D03D53}" ShortID="41730022">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="GROUND_HIT" ID="{89BAF1B8-8141-497F-B8F7-4C095F3E4745}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_LISA_HITS" ID="{55D86EE4-AE2D-4276-B6F7-C04D17ED147A}">
+					<ChildrenList>
+						<Action Name="" ID="{4178D622-E6C0-42D1-A2EE-EF8F161DA8A8}" ShortID="271119266">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Hits" ID="{80B47569-8FB3-4CCD-922F-3605150BC781}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

@@ -480,6 +480,57 @@
 								</Sound>
 							</ChildrenList>
 						</Folder>
+						<RandomSequenceContainer Name="Hits" ID="{80B47569-8FB3-4CCD-922F-3605150BC781}" ShortID="160417717">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="LISA_HIT" ID="{AFBC4A9A-5D4C-4E04-ACB1-9183E7F9818C}" ShortID="681623104">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{FDAF425B-0608-4629-BBC7-9C806A50553D}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="278"/>
+															<Property Name="Min" Type="Real64" Value="-202"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_HIT" ID="{CD19417A-AEEE-457F-83DF-BA83A21447B1}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_HIT.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="345412689"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_HIT" ID="{CD19417A-AEEE-457F-83DF-BA83A21447B1}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Environment" ID="{D9B472D8-1153-479F-B4F5-9A52B18496C4}" ShortID="704687956">
@@ -525,6 +576,29 @@
 							<ObjectLists/>
 							<ActiveSourceList>
 								<ActiveSource Name="WALL_HIT" ID="{2A11873A-7C8D-4F83-8AA4-3C47C70B9B16}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="GROUND_HIT" ID="{89BAF1B8-8141-497F-B8F7-4C095F3E4745}" ShortID="94248136">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="GROUND_HIT" ID="{EE5F09F4-CDE9-4C05-9A0C-A9F5C31A1C97}">
+									<Language>SFX</Language>
+									<AudioFile>GROUND_HIT.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="13289569"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="GROUND_HIT" ID="{EE5F09F4-CDE9-4C05-9A0C-A9F5C31A1C97}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>

@@ -20,14 +20,19 @@ public class PostWwiseEvent : MonoBehaviour
     public AK.Wwise.Event comboVoicelineEvent;
     public AK.Wwise.Event[] movementEvents;
     public AK.Wwise.Event wallBounceEvent;
+    public AK.Wwise.Event hurtLandEvent;
+    public AK.Wwise.Event hitEvent;
 
     private void Start()
     {
         _fighter = GetComponent<Fighter>();
-        // wall
+        // environment hits
         _fighter.Events.wallBounce += () => Wwise_PlaySingle(wallBounceEvent);
+        _fighter.Events.onLandedHurt += () => Wwise_PlaySingle(hurtLandEvent);
         // land
         _fighter.Events.onLandedNeutral += () => Wwise_PlaySingle(movementEvents[(int)Wwise_MovementEvents.LAND]);
+        // hit
+        _fighter.Events.onAttackHit += Wwise_PlayHit;
     }
     
     public void Wwise_PlayComboSound(Wwise_ComboEvents cEvent)
@@ -51,5 +56,10 @@ public class PostWwiseEvent : MonoBehaviour
     private void Wwise_PlaySingle(AK.Wwise.Event e)
     {
         e.Post(gameObject);
+    }
+
+    private void Wwise_PlayHit(Fighter sender, Fighter receiver, Vector3 hitPos)
+    {
+        hitEvent.Post(gameObject);
     }
 }
