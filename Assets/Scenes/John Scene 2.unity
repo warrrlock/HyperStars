@@ -3255,7 +3255,11 @@ MonoBehaviour:
   _collisionMask:
     serializedVersion: 2
     m_Bits: 8
+  _playerMask:
+    serializedVersion: 2
+    m_Bits: 0
   _drawDebugRays: 0
+  _overlapResolutionSpeed: 0
 --- !u!114 &2049878700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3627,7 +3631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: 
+      value: Gamepad
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
