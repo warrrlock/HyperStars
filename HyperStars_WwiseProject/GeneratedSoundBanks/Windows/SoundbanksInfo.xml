@@ -16,7 +16,7 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="1405612366">
+		<SoundBank Id="3161908922" Language="SFX" Hash="372473386">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -142,6 +142,22 @@
 						<File Id="781719068" Language="SFX">
 							<ShortName>LISA_LAND.wav</ShortName>
 							<Path>SFX\LISA_LAND_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3858634255" Name="Play_LISA_SPECIAL_NEUTRAL" ObjectPath="\Events\Default Work Unit\Play_LISA_SPECIAL_NEUTRAL" DurationType="OneShot" DurationMin="1.347574" DurationMax="1.347574">
+					<IncludedMemoryFiles>
+						<File Id="1060207978" Language="SFX">
+							<ShortName>LISA_SPECIAL_NEUTRAL.wav</ShortName>
+							<Path>SFX\LISA_SPECIAL_NEUTRAL_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1098933211" Name="Play_LISA_SPECIAL_SIDE" ObjectPath="\Events\Default Work Unit\Play_LISA_SPECIAL_SIDE" DurationType="OneShot" DurationMin="1.5" DurationMax="1.5">
+					<IncludedMemoryFiles>
+						<File Id="361402554" Language="SFX">
+							<ShortName>LISA_SPECIAL_SIDE.wav</ShortName>
+							<Path>SFX\LISA_SPECIAL_SIDE_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

@@ -109,6 +109,11 @@
 												<Value>4</Value>
 											</ValueList>
 										</Property>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>14</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -531,6 +536,63 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>
+						<Folder Name="Specials" ID="{64F62F93-F396-401A-B7E2-4A7C62C244CD}" ShortID="371539495">
+							<ChildrenList>
+								<Sound Name="LISA_SPECIAL_SIDE" ID="{81179B97-9860-4872-B6BB-1B312C729C6E}" ShortID="481679120">
+									<PropertyList>
+										<Property Name="Lowpass" Type="int16">
+											<ValueList>
+												<Value>24</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_SPECIAL_SIDE" ID="{5E6D8FFF-BDC4-4E95-A022-0DD89BAFFED5}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_SPECIAL_SIDE.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="361402554"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_SPECIAL_SIDE" ID="{5E6D8FFF-BDC4-4E95-A022-0DD89BAFFED5}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LISA_SPECIAL_NEUTRAL" ID="{FA37390F-F99B-4FD3-85B7-71BACBBB3C67}" ShortID="74889218">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_SPECIAL_NEUTRAL" ID="{A7984EC9-4F4B-4FD7-85CF-E6E7C056A0C4}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_SPECIAL_NEUTRAL.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1060207978"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_SPECIAL_NEUTRAL" ID="{A7984EC9-4F4B-4FD7-85CF-E6E7C056A0C4}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Environment" ID="{D9B472D8-1153-479F-B4F5-9A52B18496C4}" ShortID="704687956">
