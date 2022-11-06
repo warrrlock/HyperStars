@@ -20,9 +20,8 @@ public class KeyHurtStatePair
 namespace FiniteStateMachine {
     [RequireComponent(typeof(Animator))] 
     [RequireComponent(typeof(Fighter))] 
-    public class BaseStateMachine : MonoBehaviour 
+    public class BaseStateMachine : MonoBehaviour
     {
-        
         public BaseState CurrentState {get; private set;}
         public bool CanCombo { get; private set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
@@ -40,21 +39,24 @@ namespace FiniteStateMachine {
         private Coroutine _airCoroutine;
         
         private BaseState _queuedState;
+        private BaseState _returnState;
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
+        private string _lastExecutedInput;
 
         public Fighter Fighter { get; private set; }
         private Animator _animator;
-        private Dictionary<Type, Component> _cachedComponents;
+        // private Dictionary<Type, Component> _cachedComponents;
 
         #region Methods
         #region Unity
         private void Awake()
         {
-            _cachedComponents = new Dictionary<Type, Component>();
+            // _cachedComponents = new Dictionary<Type, Component>();
             Fighter = GetComponent<Fighter>();
             _animator = GetComponent<Animator>();
+            _returnState = _initialState;
 
             _hurtStates = new Dictionary<KeyHurtStatePair.HurtStateName, HurtState>();
             foreach (KeyHurtStatePair entry in _hurtStatePairs)
@@ -98,28 +100,30 @@ namespace FiniteStateMachine {
         }
         #endregion
 
-        public new T GetComponent<T>() where T: Component 
-        {
-            if (_cachedComponents.ContainsKey(typeof(T)))
-                return _cachedComponents[typeof(T)] as T;
-            
-            var component = base.GetComponent<T>();
-            
-            if (component != null)
-                _cachedComponents.Add(typeof(T), component);
-
-            return component;
-        }
+        // private new T GetComponent<T>() where T: Component 
+        // {
+        //     if (_cachedComponents.ContainsKey(typeof(T)))
+        //         return _cachedComponents[typeof(T)] as T;
+        //     
+        //     var component = base.GetComponent<T>();
+        //     
+        //     if (component != null)
+        //         _cachedComponents.Add(typeof(T), component);
+        //
+        //     return component;
+        // }
 
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput || CurrentState is HurtState) return;
-            Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
+            // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.name);
         }
 
         private void Stop(InputManager.Action action)
         {
+            // Debug.Log($"Stop called by {action.name}, with last played action being {_lastExecutedInput}");
+            if (_lastExecutedInput != action.name) return;
             CurrentState.Stop(this, action.name);
         }
 
@@ -131,10 +135,15 @@ namespace FiniteStateMachine {
             _animator.Play(animationState, -1, 0);
             return true;
         }
+
+        public void SetExecutedInput(string inputName = "")
+        {
+            _lastExecutedInput = inputName;
+        }
         
         public void QueueState(BaseState state)
         {
-            if (_queuedState == null) _queuedState = state;
+            if (!_queuedState) _queuedState = state;
         }
         
         /// <summary>
@@ -168,6 +177,12 @@ namespace FiniteStateMachine {
             ExecuteQueuedState();
             _hurtCoroutine = null;
         }
+        
+        private void HandleStateExit()
+        {
+            _currentAnimation = -1;
+            if (_isAttacking) DisableAttackStop();
+        }
 
         //ANIMATION USE
         public void DisableCombo()
@@ -185,6 +200,7 @@ namespace FiniteStateMachine {
             yield return new WaitForFixedUpdate();
             _hurtStates.TryGetValue(stateName, out HurtState state);
             if (!state) yield break;
+            // SetReturnState();
             if (CurrentState is HurtState hurtState && hurtState == state)
                 CurrentState.Execute(this, "");
             else  ForceSetState(state);
@@ -200,13 +216,7 @@ namespace FiniteStateMachine {
         {
             if (!_queuedState && CurrentState != _initialState) _queuedState = _initialState;
         }
-
-        private void HandleStateExit()
-        {
-            _currentAnimation = -1;
-            if (_isAttacking) DisableAttackStop();
-        }
-
+        
         public void EnableAttackStop()
         {
             if (_isAttacking) return;
@@ -232,9 +242,11 @@ namespace FiniteStateMachine {
         {
             yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => Fighter.MovementController.CollisionData.y.isNegativeHit);
+            // SetReturnState();
             
             if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
             else Fighter.Events.onLandedNeutral?.Invoke();
+            
             //when out of air, return to idle or execute given action
             onGroundAction ??= HandleAnimationExit;
             onGroundAction();

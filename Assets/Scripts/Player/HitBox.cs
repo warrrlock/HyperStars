@@ -40,12 +40,23 @@ public class HitBox : MonoBehaviour
         //{
         //    return;
         //}
+        AttackInfo attackInfo = _baseStateMachine.AttackInfo;
+        Vector3 hitPoint = other.ClosestPoint(transform.position);
+        Fighter hitFighter = _fighter.OpposingFighter;
+        
         if (other.gameObject.layer == 13)
         {
             //has been parried
-            AttackInfo parryInfo = _fighter.OpposingFighter.BaseStateMachine.AttackInfo;
-            StartCoroutine(_fighter.InputManager.Disable(parryInfo.hitStunDuration, _fighter.InputManager.Actions["Move"]));
+            AttackInfo parryInfo = hitFighter.BaseStateMachine.AttackInfo;
+            InputManager.Action[] selfActions =
+            {
+                _fighter.InputManager.Actions["Move"], 
+                _fighter.InputManager.Actions["Dash"],
+                _fighter.InputManager.Actions["Jump"]
+            };
+            StartCoroutine(_fighter.InputManager.Disable(parryInfo.hitStunDuration, selfActions));
             StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun));
+            _fighter.Events.onBlockHit?.Invoke(_fighter, hitFighter, hitPoint);
             return;
         }
         
@@ -54,10 +65,6 @@ public class HitBox : MonoBehaviour
             return;
         }
 
-        AttackInfo attackInfo = _baseStateMachine.AttackInfo;
-        Vector3 hitPoint = other.ClosestPoint(transform.position);
-        Fighter hitFighter = _fighter.OpposingFighter;
-        
         if (!hitFighter.canBeHurt || attackInfo == null)
         {
             return;
@@ -73,8 +80,7 @@ public class HitBox : MonoBehaviour
             attackInfo.knockbackForce.x is > 0f and < 180f
             ? KeyHurtStatePair.HurtStateName.KnockBack
             : KeyHurtStatePair.HurtStateName.HitStun));
-        hitFighter.InputManager.StopMove();
-        
+
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
@@ -82,7 +88,13 @@ public class HitBox : MonoBehaviour
         forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration));
         //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, attackInfo.knockbackForce.y, attackInfo.knockbackDuration));
-        StartCoroutine(hitFighter.InputManager.Disable(attackInfo.hitStunDuration, hitFighter.InputManager.Actions["Move"]));
+        InputManager.Action[] actions =
+        {
+            hitFighter.InputManager.Actions["Move"], 
+            hitFighter.InputManager.Actions["Dash"],
+            hitFighter.InputManager.Actions["Jump"]
+        };
+        StartCoroutine(hitFighter.InputManager.Disable(attackInfo.hitStunDuration, actions));
         hitFighter.MovementController.ResetVelocityY();
         if (attackInfo.causesWallBounce)
         {

@@ -45,7 +45,7 @@ public class RoundManager : MonoBehaviour
         if (_roundText)
         {
             _roundText.gameObject.SetActive(true);
-            if (winnerId != null) _roundText.text = $"Player{(int)winnerId} won the round! Press <R> to restart.";
+            if (winnerId != null) _roundText.text = $"Player{(int)winnerId+1} won the round! Press <R> to restart.";
         }
         //if done max rounds, end game
         _round++;
@@ -87,7 +87,7 @@ public class RoundManager : MonoBehaviour
     private void HandleCountDown(int i)
     {
         //print number to screen ?
-        if (_countdownText) _countdownText.text = $"{i+1}";
+        if (_countdownText) _countdownText.text = $"{i}";
         //any other animations
     }
 

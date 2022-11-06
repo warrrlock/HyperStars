@@ -266,9 +266,4 @@ public class InputManager : MonoBehaviour
         _isAwaitingStop = false;
         yield break;
     }
-
-    public void StopMove()
-    {
-        StartCoroutine(Stop(Actions["Move"]));
-    }
 }
