@@ -39,7 +39,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     void AfterImage(InputManager.Action action) {
         _visualEffect.SendEvent("OnDash");
-        _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.position + new Vector3(0f, 1.08f, 0f));
+        _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.position + new Vector3(0f, 1.08f, 0f), GetComponent<Fighter>());
     }
     
     void Awake()

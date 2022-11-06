@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
@@ -16,7 +16,7 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="1693406580">
+		<SoundBank Id="3161908922" Language="SFX" Hash="372473386">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -26,6 +26,14 @@
 						<File Id="334303634" Language="SFX">
 							<ShortName>3_lovely.wav</ShortName>
 							<Path>SFX\3_lovely_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="348820993" Name="Play_GROUND_HIT" ObjectPath="\Events\Default Work Unit\Play_GROUND_HIT" DurationType="OneShot" DurationMin="0.331497" DurationMax="0.331497">
+					<IncludedMemoryFiles>
+						<File Id="13289569" Language="SFX">
+							<ShortName>GROUND_HIT.wav</ShortName>
+							<Path>SFX\GROUND_HIT_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -113,6 +121,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="3751620944" Name="Play_LISA_HITS" ObjectPath="\Events\Default Work Unit\Play_LISA_HITS" DurationType="OneShot" DurationMin="0.39004" DurationMax="0.514661">
+					<IncludedMemoryFiles>
+						<File Id="345412689" Language="SFX">
+							<ShortName>LISA_HIT.wav</ShortName>
+							<Path>SFX\LISA_HIT_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="28555886" Name="Play_LISA_JUMP" ObjectPath="\Events\Default Work Unit\Play_LISA_JUMP" DurationType="OneShot" DurationMin="0.894853" DurationMax="0.894853">
 					<IncludedMemoryFiles>
 						<File Id="1003057838" Language="SFX">
@@ -126,6 +142,22 @@
 						<File Id="781719068" Language="SFX">
 							<ShortName>LISA_LAND.wav</ShortName>
 							<Path>SFX\LISA_LAND_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3858634255" Name="Play_LISA_SPECIAL_NEUTRAL" ObjectPath="\Events\Default Work Unit\Play_LISA_SPECIAL_NEUTRAL" DurationType="OneShot" DurationMin="1.347574" DurationMax="1.347574">
+					<IncludedMemoryFiles>
+						<File Id="1060207978" Language="SFX">
+							<ShortName>LISA_SPECIAL_NEUTRAL.wav</ShortName>
+							<Path>SFX\LISA_SPECIAL_NEUTRAL_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1098933211" Name="Play_LISA_SPECIAL_SIDE" ObjectPath="\Events\Default Work Unit\Play_LISA_SPECIAL_SIDE" DurationType="OneShot" DurationMin="1.5" DurationMax="1.5">
+					<IncludedMemoryFiles>
+						<File Id="361402554" Language="SFX">
+							<ShortName>LISA_SPECIAL_SIDE.wav</ShortName>
+							<Path>SFX\LISA_SPECIAL_SIDE_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
