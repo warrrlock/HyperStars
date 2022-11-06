@@ -76,6 +76,7 @@ public class MovementController : MonoBehaviour
     private bool _isResolvingOverlap = false;
     private Vector3 _overlapResolutionVelocity = Vector3.zero;
     private bool _isJumping;
+    public Fighter.Direction MovingDirection { get; private set; }
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
@@ -496,6 +497,10 @@ public class MovementController : MonoBehaviour
         }
 
         float axisDirection = Mathf.Sign(axisVelocity);
+        if (axis == Axis.x)
+        {
+            MovingDirection = axisDirection == -1 ? Fighter.Direction.Left : Fighter.Direction.Right;
+        }
 
         //if (axis == Axis.x)
         //{
@@ -522,11 +527,6 @@ public class MovementController : MonoBehaviour
             {
                 Vector3 rayOrigin = axisDirection == -1f ? originAxis.negative : originAxis.positive;
                 rayOrigin += iDirection * (raySpacing.y * i + iOffset) + jDirection * (raySpacing.x * j + jOffset);
-
-                if (axis == Axis.y)
-                {
-
-                }
 
                 if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit hit, rayLength, _collisionMask))
                 {
@@ -620,10 +620,10 @@ public class MovementController : MonoBehaviour
     private void Dash(InputManager.Action action)
     {
         //TODO: end the dash if player hits an obstacle
-        if (_inputManager.Actions["Move"].isBeingPerformed)
+        if (_inputManager.Actions["Move"].isBeingInput)
         {
             Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
-            StartCoroutine(ApplyForce(new Vector3(_unforcedVelocity.x, 0f, _unforcedVelocity.z), _dashForce, _dashDuration, _dashEasing));
+            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, 0f), _dashForce, _dashDuration, _dashEasing));
             if (_dashToZero)
             {
                 _unforcedVelocity.x = 0f;

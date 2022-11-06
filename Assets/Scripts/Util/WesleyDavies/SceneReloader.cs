@@ -10,9 +10,12 @@ using WesleyDavies.UnityFunctions;
 public class SceneReloader : MonoBehaviour
 {
     public static SceneReloader Instance;
+    public delegate void SceneLoaded();
+    public static SceneLoaded OnSceneLoaded;
 
     private void Awake()
     {
+        OnSceneLoaded?.Invoke();
         CreateSingleton();
     }
 

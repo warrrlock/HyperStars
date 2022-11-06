@@ -12,6 +12,7 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private VisualEffect _visualEffect;
     [SerializeField] private VisualEffectAsset[] _vfxGraphs;
     private Fighter _fighter;
+    private VFXSpawnManager _vfxSpawnManager;
 
     //
     private SpriteRenderer _spriteRenderer;
@@ -20,44 +21,30 @@ public class CharacterVFXManager : MonoBehaviour
 
     //
     private InputManager _inputManager;
-
-    // TEST
-    string currentVFXState = "AfterImage";
     
     void VFXAssignComponents() {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _inputManager = GetComponent<InputManager>();
         _fighter = GetComponent<Fighter>();
+        _vfxSpawnManager = GameObject.Find("VFX Camera").GetComponent<VFXSpawnManager>();
     }
     void VFXSubscribeEvents() {
         _inputManager.Actions["Dash"].perform += AfterImage;
         _inputManager.Actions["Dash"].finish += StopVFX;
     }
 
-    void VFXSwitches() {
-        switch(currentVFXState) {
-            case "AfterImage":
-                _visualEffect.visualEffectAsset = _vfxGraphs[((int)vfxAssets.AfterImage)];
-                break;
-            default:
-                _visualEffect.visualEffectAsset = _vfxGraphs[((int)vfxAssets.AfterImage)];
-                break;
-        }
-    }
-    
     void StopVFX(InputManager.Action action) {
         _visualEffect.SendEvent("OnStop");
     }
 
     void AfterImage(InputManager.Action action) {
         _visualEffect.SendEvent("OnDash");
+        _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.position + new Vector3(0f, 1.08f, 0f));
     }
     
     void Awake()
     {
         VFXAssignComponents();
-
-
         _visualEffect.visualEffectAsset = _vfxGraphs[((int)vfxAssets.AfterImage)];
     }
 
@@ -68,7 +55,6 @@ public class CharacterVFXManager : MonoBehaviour
 
     void Update() {
         SpriteUpdate();
-        // VFXSwitches();
     }
 
     void SpriteUpdate() {
