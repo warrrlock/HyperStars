@@ -19,15 +19,18 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 10
     knockbackDirection: {x: 1, y: 1, z: 0}
-    hitStunDuration: 1
+    hitStunDuration: 1.5
     damage: 20
     causesWallBounce: 1
     hitStopDuration: 0.07
-    wallBounceDuration: 0.5
-    wallBounceDistance: 10
-    wallBounceDirection: {x: -1, y: 2, z: 0}
-    wallBounceHitStopDuration: 0.05
-    hangTime: 0.05
+    wallBounceDuration: 1
+    wallBounceDistance: 25
+    wallBounceDirection: {x: -1, y: 5, z: 0}
+    wallBounceHitStopDuration: 0.1
+    hangTime: 0
     favorReward: 10
     knockbackForce: {x: 30.8089, y: 100}
+    incrementBarAmount: 0
+  isSpecial: 0
+  specialBarCost: 0
   _animationHash: -1119700692

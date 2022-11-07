@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -26,4 +24,8 @@ public class AttackInfo
     [PolarArrow(100f)]
     [Tooltip("X is the force angle in degrees. Y is the force magnitude.")]
     public Vector2 knockbackForce;
+
+    [Header("Special Meter")]
+    [Tooltip("Referenced is a single bar. For example, 0.2 means this state increments special bar by 0.2 bars.")]
+    public float incrementBarAmount;
 }

@@ -20,7 +20,7 @@ MonoBehaviour:
     x: 597
     y: -166
     width: 768
-    height: 1911
+    height: 1891
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31,7 +31,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: VFX_Hit
+  m_Name: VFX_DashSmoke
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"a4e66032a79937f45bccce2bdf51d269","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"a40dec52f51d90e47acfa8d92942744f","type":3}}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -76,20 +76,6 @@ MonoBehaviour:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: False
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
-  - name: FlipbookSize
-    path: FlipbookSize
-    tooltip: 
-    sheetType: m_Vector2f
-    realType: Vector2
-    defaultValue:
-      m_Type:
-        m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.0,"y":0.0}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -131,7 +117,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":3.560784339904785,"g":0.3921568691730499,"b":1.4117647409439088,"a":1.0},"time":0.0},{"color":{"r":1.0,"g":0.0627450942993164,"b":0.09603199362754822,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.10000763088464737},{"alpha":1.0,"time":0.800000011920929}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":3.273930311203003,"g":3.273930311203003,"b":3.273930311203003,"a":1.0},"time":0.0},{"color":{"r":0.3962264060974121,"g":0.3962264060974121,"b":0.3962264060974121,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.10000763088464737},{"alpha":1.0,"time":0.800000011920929}],"gradientMode":0}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -147,7 +133,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VFX_Hit
+  m_Name: VFX_DashSmoke
   m_Graph: {fileID: 114350483966674976}
   m_Infos:
     m_RendererSettings:
@@ -953,7 +939,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"a4e66032a79937f45bccce2bdf51d269","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"a40dec52f51d90e47acfa8d92942744f","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: o
@@ -984,7 +970,7 @@ MonoBehaviour:
   m_InputSlots:
   - {fileID: 8926484042661614720}
   m_OutputSlots: []
-  m_Disabled: 0
+  m_Disabled: 1
   attribute: color
   Composition: 0
   AlphaComposition: 0
@@ -1483,7 +1469,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 20
+      m_SerializableObject: 12
     m_Space: 2147483647
   m_Property:
     name: FrameRate
@@ -1514,7 +1500,7 @@ MonoBehaviour:
   m_OutputSlots:
   - {fileID: 8926484042661614780}
   m_ExposedName: FlipbookSize
-  m_Exposed: 1
+  m_Exposed: 0
   m_Order: 2
   m_Category: 
   m_Min:
@@ -1564,7 +1550,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: 
+      m_SerializableObject: '{"x":2.0,"y":2.0}'
     m_Space: 2147483647
   m_Property:
     name: o
@@ -2212,7 +2198,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":3.560784339904785,"g":0.3921568691730499,"b":1.4117647409439088,"a":1.0},"time":0.0},{"color":{"r":1.0,"g":0.0627450942993164,"b":0.09603199362754822,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.10000763088464737},{"alpha":1.0,"time":0.800000011920929}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":3.273930311203003,"g":3.273930311203003,"b":3.273930311203003,"a":1.0},"time":0.0},{"color":{"r":0.3962264060974121,"g":0.3962264060974121,"b":0.3962264060974121,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.10000763088464737},{"alpha":1.0,"time":0.800000011920929}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: o
