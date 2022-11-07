@@ -31,23 +31,16 @@ public class CharacterVFXManager : MonoBehaviour
     }
     void VFXSubscribeEvents() {
         _inputManager.Actions["Dash"].perform += AfterImage;
-        _inputManager.Actions["Dash"].finish += StopVFX;
-    }
-
-    void StopVFX(InputManager.Action action) {
-        visualEffect.SendEvent("OnStop");
     }
 
     void AfterImage(InputManager.Action action) {
-        visualEffect.SendEvent("OnDash");
         _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
             groundOffset, 0f), GetComponent<Fighter>());
     }
-    
+
     void Awake()
     {
         VFXAssignComponents();
-        visualEffect.visualEffectAsset = vfxGraphs[((int)vfxAssets.AfterImage)];
     }
 
     private void Start()
@@ -71,5 +64,18 @@ public class CharacterVFXManager : MonoBehaviour
         }
         
         visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
+    }
+
+    // animation events
+    public void VFX_CharacterTurnOn(vfxAssets vfx)
+    {
+        visualEffect.visualEffectAsset = vfxGraphs[(int)vfx];
+        visualEffect.SendEvent("OnDash");
+    }
+
+    public void VFX_CharacterTurnOff(vfxAssets vfx)
+    {
+        visualEffect.visualEffectAsset = vfxGraphs[(int)vfx];
+        visualEffect.SendEvent("OnStop");
     }
 }

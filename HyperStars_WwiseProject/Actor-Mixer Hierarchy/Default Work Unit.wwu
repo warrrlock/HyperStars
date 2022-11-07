@@ -497,6 +497,11 @@
 							<ChildrenList>
 								<Sound Name="LISA_HIT" ID="{AFBC4A9A-5D4C-4E04-ACB1-9183E7F9818C}" ShortID="681623104">
 									<PropertyList>
+										<Property Name="Highpass" Type="int16">
+											<ValueList>
+												<Value>16</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>
 												<ModifierInfo>
@@ -527,10 +532,17 @@
 												<MediaID ID="345412689"/>
 											</MediaIDList>
 										</AudioFileSource>
+										<AudioFileSource Name="LISA_HITS" ID="{A7F36E79-9093-44EF-8EA8-54B09AF17DAB}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_HITS.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="778109053"/>
+											</MediaIDList>
+										</AudioFileSource>
 									</ChildrenList>
 									<ObjectLists/>
 									<ActiveSourceList>
-										<ActiveSource Name="LISA_HIT" ID="{CD19417A-AEEE-457F-83DF-BA83A21447B1}" Platform="Linked"/>
+										<ActiveSource Name="LISA_HITS" ID="{A7F36E79-9093-44EF-8EA8-54B09AF17DAB}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
