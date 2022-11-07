@@ -286,11 +286,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2845530192783672955, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
   m_PrefabInstance: {fileID: 16336299}
   m_PrefabAsset: {fileID: 0}
---- !u!2083052967 &16336301 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 2845530192783672932, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
-  m_PrefabInstance: {fileID: 16336299}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &114266370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,9 +1102,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 41
   orthographic: 0
-  orthographic size: 7
+  orthographic size: 7.2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1139,6 +1134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualEffectAssets:
   - {fileID: 8926484042661614526, guid: 38c1d98b13f4628498766f6a99091189, type: 3}
+  - {fileID: 8926484042661614526, guid: b69fac5ccdd0bc14190019ef66cafddd, type: 3}
   - {fileID: 8926484042661614526, guid: 13403678a066aae4f96ad28a2fab6fe9, type: 3}
   spawnedVfxObject: {fileID: 3187476607867268997, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
 --- !u!1 &628977907
@@ -2469,9 +2465,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _roundText: {fileID: 1162647565}
-  _maxRounds: 0
+  _neededWins: 0
   _countdownText: {fileID: 1143202847}
   _countdown: 3
+  _winText: []
   _backgrounds: []
 --- !u!114 &1489698392
 MonoBehaviour:
@@ -3471,9 +3468,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98fadf1de1d3914caed4988ca46638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visualEffect: {fileID: 16336301}
-  _vfxGraphs:
-  - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
+  visualEffect: {fileID: 0}
+  vfxGraphs: []
+  groundOffset: 0
   delayTime: 0.05
 --- !u!114 &2049878709
 MonoBehaviour:
@@ -3501,26 +3498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb628fc536ffd14c977e1017273a695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboEvents:
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: f3e0abc7eb2d4a04185ebf824991398d, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: f9483a37be31d8d4582cdb3dd68618cf, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 45f2198c239192f4eb5e81297de862ee, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 5e8a22f6be90e6640ac5ce6488342c0b, type: 2}
-  comboVoicelineEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+  attackEvents: []
   movementEvents: []
   wallBounceEvent:
     idInternal: 0
@@ -3561,6 +3539,10 @@ PrefabInstance:
       propertyPath: _landName
       value: lisa_knockdown
       objectReference: {fileID: 0}
+    - target: {fileID: 5437623320969005760, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: vfxGraphs.Array.data[1]
+      value: 
+      objectReference: {fileID: 8926484042661614526, guid: 13403678a066aae4f96ad28a2fab6fe9, type: 3}
     - target: {fileID: 5751411094747650480, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_IsActive
       value: 0

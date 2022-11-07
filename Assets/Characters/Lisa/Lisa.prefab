@@ -422,9 +422,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98fadf1de1d3914caed4988ca46638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visualEffect: {fileID: 150122307463432837}
-  _vfxGraphs:
+  visualEffect: {fileID: 150122307463432837}
+  vfxGraphs:
   - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
+  groundOffset: 0.75
   delayTime: 0.05
 --- !u!114 &3013315635892402694
 MonoBehaviour:
@@ -438,13 +439,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb628fc536ffd14c977e1017273a695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboEvents:
+  attackEvents:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: abfd5dd450ef810498a7b31ab949dcf9, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 702542e055ba0684c89c7f45c5cec45b, type: 2}
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: c51bb14a0291e9348b25d8fc0ead0af5, type: 2}
@@ -463,10 +461,6 @@ MonoBehaviour:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 1af085a82ef15864dbe8bdf0b6ca95e8, type: 2}
-  comboVoicelineEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 67bcff3f47f4bc64b98c5cf55f513fb6, type: 2}
   movementEvents:
   - idInternal: 0
     valueGuidInternal: 
