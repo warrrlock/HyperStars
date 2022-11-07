@@ -19,11 +19,11 @@ MonoBehaviour:
   _defaultCombo: 0
   _attackInfo:
     knockbackDuration: 0.5
-    knockbackDistance: 1
+    knockbackDistance: 0.01
     knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 0.5
+    hitStunDuration: 0.3
     damage: 10
-    causesWallBounce: 1
+    causesWallBounce: 0
     hitStopDuration: 0.1
     wallBounceDuration: 0
     wallBounceDistance: 0
@@ -32,4 +32,7 @@ MonoBehaviour:
     hangTime: 0
     favorReward: 8
     knockbackForce: {x: 0, y: 53.333336}
+    incrementBarAmount: 0
+  isSpecial: 0
+  specialBarCost: 0
   _animationHash: 1233118710

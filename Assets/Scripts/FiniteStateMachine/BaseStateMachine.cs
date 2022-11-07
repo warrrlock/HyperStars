@@ -85,8 +85,7 @@ namespace FiniteStateMachine {
             Fighter.InputManager.Actions["Dash"].finish += Stop;
             Fighter.InputManager.Actions["Move"].stop += Stop;
 
-            CurrentState = _initialState;
-            CurrentState.Execute(this, "");
+            ResetStateMachine();
             UpdateStateInfoText();
         }
 
@@ -112,7 +111,12 @@ namespace FiniteStateMachine {
         //
         //     return component;
         // }
-
+        public void ResetStateMachine()
+        {
+            CurrentState = _initialState;
+            CurrentState.Execute(this, "");
+        }
+        
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput || CurrentState is HurtState) return;
