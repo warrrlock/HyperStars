@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FiniteStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -72,6 +73,7 @@ public class Fighter : MonoBehaviour
     private void ResetValues()
     {
         transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
+        BaseStateMachine.ResetStateMachine();
     }
 
     private void OnDestroy()
@@ -92,6 +94,11 @@ public class Fighter : MonoBehaviour
         PlayerInput = GetComponent<PlayerInput>();
         BaseStateMachine = GetComponent<BaseStateMachine>();
         SpecialMeterManager = GetComponent<SpecialMeterManager>();
+    }
+
+    public void DisableAllInput(Func<bool> enableCondition)
+    {
+        StartCoroutine(InputManager.Disable(enableCondition, InputManager.Actions.Values.ToArray()));
     }
 
     public void ResetFighterHurtboxes()
