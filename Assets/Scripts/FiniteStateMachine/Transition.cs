@@ -53,7 +53,7 @@ namespace FiniteStateMachine
                         return;
                     }
                     stateMachine.QueueState(_trueState);
-                    stateMachine.SetExecutedInput();
+                    stateMachine.LastExecutedInput = inputName;
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace FiniteStateMachine
                     return;
                 }
                 stateMachine.QueueState(_trueState);
-                stateMachine.SetExecutedInput(inputName);
+                stateMachine.LastExecutedInput = inputName;
                 stateMachine.ExecuteQueuedState();
             }
             else if (_customFalseState)

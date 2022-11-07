@@ -56,7 +56,14 @@ public class HitBox : MonoBehaviour
             };
             StartCoroutine(_fighter.InputManager.Disable(parryInfo.hitStunDuration, selfActions));
             StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun));
-            _fighter.Events.onBlockHit?.Invoke(_fighter, hitFighter, hitPoint);
+            _fighter.Events.onBlockHit?.Invoke(new Dictionary<string, object>
+                {
+                    {"attacker", _fighter},
+                    {"attacked", hitFighter}, 
+                    {"hit point", hitPoint},
+                    {"attacker input", _fighter.BaseStateMachine.LastExecutedInput}
+                }
+            );
             return;
         }
         
@@ -70,8 +77,14 @@ public class HitBox : MonoBehaviour
             return;
         }
 
-        _fighter.Events.onAttackHit?.Invoke(_fighter, hitFighter, hitPoint);
-        
+        _fighter.Events.onAttackHit?.Invoke(new Dictionary<string, object>
+            {
+                {"attacker", _fighter},
+                {"attacked", hitFighter}, 
+                {"hit point", hitPoint},
+                {"attacker input", _fighter.BaseStateMachine.LastExecutedInput}
+            }
+        );
         //hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
 
         hitFighter.canBeHurt = false;

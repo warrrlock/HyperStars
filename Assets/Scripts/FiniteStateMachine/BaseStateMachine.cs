@@ -39,11 +39,16 @@ namespace FiniteStateMachine {
         private Coroutine _airCoroutine;
         
         private BaseState _queuedState;
-        private BaseState _returnState;
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
         private string _lastExecutedInput;
+
+        public string LastExecutedInput
+        {
+            get => _lastExecutedInput;
+            set => _lastExecutedInput = value;
+        }
 
         public Fighter Fighter { get; private set; }
         private Animator _animator;
@@ -56,7 +61,6 @@ namespace FiniteStateMachine {
             // _cachedComponents = new Dictionary<Type, Component>();
             Fighter = GetComponent<Fighter>();
             _animator = GetComponent<Animator>();
-            _returnState = _initialState;
 
             _hurtStates = new Dictionary<KeyHurtStatePair.HurtStateName, HurtState>();
             foreach (KeyHurtStatePair entry in _hurtStatePairs)
@@ -138,11 +142,6 @@ namespace FiniteStateMachine {
             CanCombo = defaultCombo;
             _animator.Play(animationState, -1, 0);
             return true;
-        }
-
-        public void SetExecutedInput(string inputName = "")
-        {
-            _lastExecutedInput = inputName;
         }
         
         public void QueueState(BaseState state)

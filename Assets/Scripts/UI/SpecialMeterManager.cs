@@ -52,11 +52,21 @@ public class SpecialMeterManager : MonoBehaviour
         //create visuals to show how many bars meter has
     }
 
-    private void HandleIncrement(Fighter attacker, Fighter attacked, Vector3 hitPosition)
+    private void HandleIncrement(Dictionary<string, object> message)
     {
-        IncrementBar(attacker == _fighter
-            ? attacker.BaseStateMachine.AttackInfo.incrementBarAmount
-            : attacked.BaseStateMachine.AttackInfo.incrementBarAmount);
+        try
+        {
+            Fighter attacker = message["attacker"] as Fighter;
+            Fighter attacked = message["attacked"] as Fighter;
+            if (!attacker || !attacked) return;
+            IncrementBar(attacker == _fighter
+                ? attacker.BaseStateMachine.AttackInfo.incrementBarAmount
+                : attacked.BaseStateMachine.AttackInfo.incrementBarAmount);
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.Log("keys attacker or attacked not found");
+        }
     }
 
     private void SubscribeToEvents()
