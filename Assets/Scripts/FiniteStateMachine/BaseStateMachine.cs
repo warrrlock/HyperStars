@@ -35,7 +35,6 @@ namespace FiniteStateMachine {
         
         [SerializeField] private List<KeyHurtStatePair> _hurtStatePairs;
         private Dictionary<KeyHurtStatePair.HurtStateName, HurtState> _hurtStates;
-        private Coroutine _hurtCoroutine;
         private Coroutine _airCoroutine;
         
         private BaseState _queuedState;
@@ -178,7 +177,6 @@ namespace FiniteStateMachine {
         {
             TrySetQueueInitial();
             ExecuteQueuedState();
-            _hurtCoroutine = null;
         }
         
         private void HandleStateExit()
@@ -256,16 +254,15 @@ namespace FiniteStateMachine {
             _airCoroutine = null;
         }
 
-        public void WaitToMove(int nextAnimation = -1)
+        public void WaitToMove(int nextAnimation = -1, Func<bool> function = null)
         {
-            if (_hurtCoroutine != null) StopCoroutine(_hurtCoroutine);
-            _hurtCoroutine = StartCoroutine(HandleWaitToMove(nextAnimation));
+            StartCoroutine(HandleWaitToMove(nextAnimation, function));
         }
 
-        private IEnumerator HandleWaitToMove(int nextAnimation)
+        private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> function)
         {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
-            yield return new WaitUntil(() => Fighter.InputManager.Actions["Move"].disabledCount <= 0);
+            yield return new WaitUntil(function ?? (() => Fighter.InputManager.Actions["Move"].disabledCount <= 0));
             HandleAnimationExit();
         }
 
