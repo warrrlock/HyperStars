@@ -60,7 +60,7 @@ public class PostWwiseEvent : MonoBehaviour
         e.Post(gameObject);
     }
 
-    private void Wwise_PlayHit(Fighter sender, Fighter receiver, Vector3 hitPos)
+    private void Wwise_PlayHit(Dictionary<string, object> message)
     {
         hitEvent.Post(gameObject);
     }

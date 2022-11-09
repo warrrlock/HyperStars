@@ -11,8 +11,8 @@ public class FighterEvents
     public Action onLandedNeutral;
     public Action onLandedHurt;
 
-    [Tooltip("attacker, attacked, point hit")]
-    public Action<Fighter, Fighter, Vector3> onAttackHit;
-    [Tooltip("attacker, blocker, point blocked/hit")]
-    public Action<Fighter, Fighter, Vector3> onBlockHit;
+    [Tooltip("Fighter attacker, Fighter attacked, Vector3 hit point, string attacker input")]
+    public Action<Dictionary<string, object>> onAttackHit;
+    [Tooltip("Fighter attacker, Fighter attacked (blocker), Vector3 hit point, string attacker input")]
+    public Action<Dictionary<string, object>> onBlockHit;
 }
