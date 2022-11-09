@@ -9,14 +9,15 @@ public enum vfxAssets {AfterImage, };
 [RequireComponent(typeof(InputManager))]
 public class CharacterVFXManager : MonoBehaviour
 {
-    [SerializeField] private VisualEffect _visualEffect;
-    [SerializeField] private VisualEffectAsset[] _vfxGraphs;
+    [SerializeField] private VisualEffect visualEffect;
+    [SerializeField] private VisualEffectAsset[] vfxGraphs;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
+    [SerializeField] private float groundOffset;
 
     //
     private SpriteRenderer _spriteRenderer;
-    private float delayTimer;
+    private float _delayTimer;
     public float delayTime;
 
     //
@@ -30,22 +31,16 @@ public class CharacterVFXManager : MonoBehaviour
     }
     void VFXSubscribeEvents() {
         _inputManager.Actions["Dash"].perform += AfterImage;
-        _inputManager.Actions["Dash"].finish += StopVFX;
-    }
-
-    void StopVFX(InputManager.Action action) {
-        _visualEffect.SendEvent("OnStop");
     }
 
     void AfterImage(InputManager.Action action) {
-        _visualEffect.SendEvent("OnDash");
-        _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.position + new Vector3(0f, 1.08f, 0f), GetComponent<Fighter>());
+        _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
+            groundOffset, 0f), GetComponent<Fighter>());
     }
-    
+
     void Awake()
     {
         VFXAssignComponents();
-        _visualEffect.visualEffectAsset = _vfxGraphs[((int)vfxAssets.AfterImage)];
     }
 
     private void Start()
@@ -58,16 +53,29 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void SpriteUpdate() {
-        if (delayTimer > 0)
+        if (_delayTimer > 0)
         {
-            delayTimer -= Time.deltaTime;
+            _delayTimer -= Time.deltaTime;
         }
         else
         {
-            _visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
-            delayTimer = delayTime;
+            visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
+            _delayTimer = delayTime;
         }
         
-        _visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
+        visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
+    }
+
+    // animation events
+    public void VFX_CharacterTurnOn(vfxAssets vfx)
+    {
+        visualEffect.visualEffectAsset = vfxGraphs[(int)vfx];
+        visualEffect.SendEvent("OnDash");
+    }
+
+    public void VFX_CharacterTurnOff(vfxAssets vfx)
+    {
+        visualEffect.visualEffectAsset = vfxGraphs[(int)vfx];
+        visualEffect.SendEvent("OnStop");
     }
 }

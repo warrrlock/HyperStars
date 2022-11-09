@@ -230,7 +230,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &188607629
 GameObject:
@@ -466,7 +466,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &505762756
 MonoBehaviour:
@@ -733,7 +733,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 37.418, y: -10.811, z: 8.809}
 --- !u!1001 &836742461
 PrefabInstance:
@@ -744,7 +744,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5751411094791522313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_LocalPosition.x
@@ -789,6 +789,30 @@ PrefabInstance:
     - target: {fileID: 5751411094791522315, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Name
       value: Lisa (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _moveSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _maxJumpHeight
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _minJumpHeight
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _timeToJumpApex
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Actions
@@ -895,7 +919,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1124559866
 Rigidbody:
@@ -1126,7 +1150,7 @@ RectTransform:
   m_Children:
   - {fileID: 2133713984}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1316,7 +1340,7 @@ Transform:
   - {fileID: 188607632}
   - {fileID: 1131467576}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1771460702
 PrefabInstance:
@@ -1327,7 +1351,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3187476607867268992, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3187476607867268992, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_LocalScale.x
@@ -1388,7 +1412,7 @@ PrefabInstance:
     - target: {fileID: 3187476607867268995, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_Asset
       value: 
-      objectReference: {fileID: 8926484042661614526, guid: b69fac5ccdd0bc14190019ef66cafddd, type: 3}
+      objectReference: {fileID: 8926484042661614526, guid: 38c1d98b13f4628498766f6a99091189, type: 3}
     - target: {fileID: 3187476607867268997, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
       propertyPath: m_Name
       value: Spawned VFX
@@ -1406,6 +1430,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5437623320969005760, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: delayTime
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1453,6 +1481,30 @@ PrefabInstance:
     - target: {fileID: 5751411094791522315, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Name
       value: Lisa
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _moveSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _maxJumpHeight
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _minJumpHeight
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _timeToJumpApex
+      value: 0.35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
