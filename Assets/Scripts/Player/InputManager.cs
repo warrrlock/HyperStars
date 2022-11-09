@@ -129,6 +129,12 @@ public class InputManager : MonoBehaviour
             if (context.action.WasReleasedThisFrame())
             {
                 action.isBeingInput = false;
+                
+                if (action == Actions["Crouch"])
+                {
+                    Debug.Log($"{action.name} was released this frame");
+                    action.stop?.Invoke(action);
+                }
                 if (action.disabledCount == 0)
                 {
                     //TODO: either find a better solution to this or change based off gamepad or keyboard because now on keyboard if you input move right after letting go you'll stop
