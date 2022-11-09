@@ -20,7 +20,6 @@ namespace FiniteStateMachine
         
         [Header("Special")]
         public bool isSpecial;
-
         [Tooltip("number of bars the special costs. 1 means 1 bar.")]
         public int specialBarCost;
         
