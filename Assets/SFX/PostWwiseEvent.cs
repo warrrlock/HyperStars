@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum Wwise_ComboEvents
 {
-    COMBO1_INITIAL, COMBO1_TRANSITION, COMBO2, COMBO3, COMBO4, COMBO5, SPECIAL_NEUTRAL, SPECIAL_SIDE
+    COMBO1, COMBO2, COMBO3, COMBO4, COMBO5, SPECIAL_NEUTRAL, SPECIAL_SIDE
 }
 
 public enum Wwise_MovementEvents
@@ -16,12 +16,14 @@ public enum Wwise_MovementEvents
 public class PostWwiseEvent : MonoBehaviour
 {
     private Fighter _fighter;
-    public AK.Wwise.Event[] comboEvents;
-    public AK.Wwise.Event comboVoicelineEvent;
+    public AK.Wwise.Event[] attackEvents;
     public AK.Wwise.Event[] movementEvents;
+    [Header("Hits")]
     public AK.Wwise.Event wallBounceEvent;
     public AK.Wwise.Event hurtLandEvent;
     public AK.Wwise.Event hitEvent;
+    
+    // public AK.Wwise.Event comboVoicelineEvent;
 
     private void Start()
     {
@@ -35,18 +37,18 @@ public class PostWwiseEvent : MonoBehaviour
         _fighter.Events.onAttackHit += Wwise_PlayHit;
     }
     
-    public void Wwise_PlayComboSound(Wwise_ComboEvents cEvent)
+    public void Wwise_PlayAttackSound(Wwise_ComboEvents cEvent)
     {
-        comboEvents[(int)cEvent].Post(gameObject);
+        attackEvents[(int)cEvent].Post(gameObject);
     }
 
-    public void Wwise_PlayComboVoiceline()
-    {
-        if (Random.value < .4f)
-        {
-            comboVoicelineEvent.Post(gameObject);
-        }
-    }
+    // public void Wwise_PlayComboVoiceline()
+    // {
+    //     if (Random.value < .4f)
+    //     {
+    //         comboVoicelineEvent.Post(gameObject);
+    //     }
+    // }
 
     public void Wwise_PlayMovementSound(Wwise_MovementEvents mEvent)
     {
@@ -58,7 +60,7 @@ public class PostWwiseEvent : MonoBehaviour
         e.Post(gameObject);
     }
 
-    private void Wwise_PlayHit(Fighter sender, Fighter receiver, Vector3 hitPos)
+    private void Wwise_PlayHit(Dictionary<string, object> message)
     {
         hitEvent.Post(gameObject);
     }

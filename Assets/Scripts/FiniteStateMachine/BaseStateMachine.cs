@@ -35,15 +35,19 @@ namespace FiniteStateMachine {
         
         [SerializeField] private List<KeyHurtStatePair> _hurtStatePairs;
         private Dictionary<KeyHurtStatePair.HurtStateName, HurtState> _hurtStates;
-        private Coroutine _hurtCoroutine;
         private Coroutine _airCoroutine;
         
         private BaseState _queuedState;
-        private BaseState _returnState;
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
         private string _lastExecutedInput;
+
+        public string LastExecutedInput
+        {
+            get => _lastExecutedInput;
+            set => _lastExecutedInput = value;
+        }
 
         public Fighter Fighter { get; private set; }
         private Animator _animator;
@@ -56,7 +60,6 @@ namespace FiniteStateMachine {
             // _cachedComponents = new Dictionary<Type, Component>();
             Fighter = GetComponent<Fighter>();
             _animator = GetComponent<Animator>();
-            _returnState = _initialState;
 
             _hurtStates = new Dictionary<KeyHurtStatePair.HurtStateName, HurtState>();
             foreach (KeyHurtStatePair entry in _hurtStatePairs)
@@ -139,11 +142,6 @@ namespace FiniteStateMachine {
             _animator.Play(animationState, -1, 0);
             return true;
         }
-
-        public void SetExecutedInput(string inputName = "")
-        {
-            _lastExecutedInput = inputName;
-        }
         
         public void QueueState(BaseState state)
         {
@@ -179,7 +177,6 @@ namespace FiniteStateMachine {
         {
             TrySetQueueInitial();
             ExecuteQueuedState();
-            _hurtCoroutine = null;
         }
         
         private void HandleStateExit()
@@ -257,16 +254,15 @@ namespace FiniteStateMachine {
             _airCoroutine = null;
         }
 
-        public void WaitToMove(int nextAnimation = -1)
+        public void WaitToMove(int nextAnimation = -1, Func<bool> function = null)
         {
-            if (_hurtCoroutine != null) StopCoroutine(_hurtCoroutine);
-            _hurtCoroutine = StartCoroutine(HandleWaitToMove(nextAnimation));
+            StartCoroutine(HandleWaitToMove(nextAnimation, function));
         }
 
-        private IEnumerator HandleWaitToMove(int nextAnimation)
+        private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> function)
         {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
-            yield return new WaitUntil(() => Fighter.InputManager.Actions["Move"].disabledCount <= 0);
+            yield return new WaitUntil(function ?? (() => Fighter.InputManager.Actions["Move"].disabledCount <= 0));
             HandleAnimationExit();
         }
 
