@@ -11,6 +11,8 @@ public class SpecialMeterManager : MonoBehaviour
     [SerializeField] private float _numberOfBars;
     private float _barAmount;
     private Fighter _fighter;
+    
+    public Image FillMeter {set => _fillMeter = value; }
 
     private void Awake()
     {
