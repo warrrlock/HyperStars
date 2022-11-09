@@ -37,8 +37,18 @@ public class VFXSpawnManager : MonoBehaviour
         newVFX.GetComponent<VFXCleanUp>().sender = sender;
     }
 
-    void PlayHitVFX(Fighter sender, Fighter receiver, Vector3 hitPos)
+    void PlayHitVFX(Dictionary<string, object> message)
     {
-        InitializaeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
+        try
+        {
+            Vector3 hitPos = (Vector3) message["hit point"];
+            Fighter sender = (Fighter) message["attacker"];
+            Fighter receiver = (Fighter) message["attacked"];
+            InitializaeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.Log("key was not found in dictionary.");
+        }
     }
 }
