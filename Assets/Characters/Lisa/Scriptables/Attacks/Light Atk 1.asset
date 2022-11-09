@@ -19,10 +19,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
   _defaultCombo: 0
   _attackInfo:
-    knockbackDuration: 0.1
-    knockbackDistance: 0
-    knockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 0.1
+    knockbackDuration: 0.2
+    knockbackDistance: 0.5
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 0.2
     damage: 10
     causesWallBounce: 0
     hitStopDuration: 0.05
@@ -30,10 +30,10 @@ MonoBehaviour:
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
-    hangTime: 0.1
+    hangTime: 0
     favorReward: 2
     knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0
+    incrementBarAmount: 0.1
   isSpecial: 0
   specialBarCost: 0
   _animationHash: 275295228
