@@ -568,6 +568,36 @@
 										<ActiveSource Name="LISA_HITS" ID="{A7F36E79-9093-44EF-8EA8-54B09AF17DAB}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="LISA_PARRY" ID="{2FD4881D-7518-4E09-8AB1-66A2CC27956A}" ShortID="228650222">
+									<PropertyList>
+										<Property Name="Highpass" Type="int16">
+											<ValueList>
+												<Value>15</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_PARRY" ID="{3EE1553D-1BC7-4253-A81C-755897742A8C}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_PARRY.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="232802187"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_PARRY" ID="{3EE1553D-1BC7-4253-A81C-755897742A8C}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>

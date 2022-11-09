@@ -16,7 +16,7 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="1929925397">
+		<SoundBank Id="3161908922" Language="SFX" Hash="3330316291">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -139,6 +139,10 @@
 				</Event>
 				<Event Id="3751620944" Name="Play_LISA_HITS" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_HITS" DurationType="OneShot" DurationMin="0.364414" DurationMax="0.480847">
 					<IncludedMemoryFiles>
+						<File Id="232802187" Language="SFX">
+							<ShortName>LISA_PARRY.wav</ShortName>
+							<Path>SFX\LISA_PARRY_10C4C929.wem</Path>
+						</File>
 						<File Id="778109053" Language="SFX">
 							<ShortName>LISA_HITS.wav</ShortName>
 							<Path>SFX\LISA_HITS_10C4C929.wem</Path>
@@ -158,6 +162,14 @@
 						<File Id="781719068" Language="SFX">
 							<ShortName>LISA_LAND.wav</ShortName>
 							<Path>SFX\LISA_LAND_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3732287388" Name="Play_LISA_PARRY" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_PARRY" DurationType="OneShot" DurationMin="0.461542" DurationMax="0.461542">
+					<IncludedMemoryFiles>
+						<File Id="232802187" Language="SFX">
+							<ShortName>LISA_PARRY.wav</ShortName>
+							<Path>SFX\LISA_PARRY_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -186,11 +198,6 @@
 					</IncludedMemoryFiles>
 				</Event>
 			</IncludedEvents>
-		</SoundBank>
-		<SoundBank Id="4072029455" Language="SFX">
-			<ObjectPath>\SoundBanks\Default Work Unit\New_SoundBank</ObjectPath>
-			<ShortName>New_SoundBank</ShortName>
-			<Path>New_SoundBank.bnk</Path>
 		</SoundBank>
 	</SoundBanks>
 </SoundBanksInfo>
