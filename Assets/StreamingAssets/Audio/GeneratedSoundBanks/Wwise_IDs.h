@@ -15,8 +15,10 @@ namespace AK
     {
         static const AkUniqueID PLAY_3_LOVELY = 3610771357U;
         static const AkUniqueID PLAY_GROUND_HIT = 348820993U;
+        static const AkUniqueID PLAY_LISA_AIR_LIGHT = 550992759U;
+        static const AkUniqueID PLAY_LISA_AIR_MEDIUM = 2424377084U;
+        static const AkUniqueID PLAY_LISA_AIR_SPECIAL = 1854249638U;
         static const AkUniqueID PLAY_LISA_COMBO_1_INITIAL = 1597314465U;
-        static const AkUniqueID PLAY_LISA_COMBO_1_TRANSITION = 4058645190U;
         static const AkUniqueID PLAY_LISA_COMBO_2 = 3376269179U;
         static const AkUniqueID PLAY_LISA_COMBO_3 = 3376269178U;
         static const AkUniqueID PLAY_LISA_COMBO_4 = 3376269181U;
@@ -36,6 +38,7 @@ namespace AK
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID MAIN = 3161908922U;
+        static const AkUniqueID NEW_SOUNDBANK = 4072029455U;
     } // namespace BANKS
 
     namespace BUSSES

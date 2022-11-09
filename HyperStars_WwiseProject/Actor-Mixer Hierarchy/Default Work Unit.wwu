@@ -33,29 +33,6 @@
 					<ChildrenList>
 						<Folder Name="Combos" ID="{73730414-ADD8-4247-BD25-6E09E8C8C095}" ShortID="24714956">
 							<ChildrenList>
-								<Sound Name="LISA_COMBO_1_TRANSITION" ID="{101FAE3E-C49A-4DBA-A05A-B89683C7A3DE}" ShortID="746153450">
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="LISA_COMBO_1_TRANSITION" ID="{4428A95B-343B-49D7-82F9-AFDAF2BD8FEF}">
-											<Language>SFX</Language>
-											<AudioFile>LISA_COMBO_1_TRANSITION.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="907700668"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ObjectLists/>
-									<ActiveSourceList>
-										<ActiveSource Name="LISA_COMBO_1_TRANSITION" ID="{4428A95B-343B-49D7-82F9-AFDAF2BD8FEF}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
 								<Sound Name="LISA_COMBO_3" ID="{0FC27172-DB15-423C-B76E-8E16654035F0}" ShortID="933386739">
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -188,6 +165,52 @@
 									<ObjectLists/>
 									<ActiveSourceList>
 										<ActiveSource Name="LISA_COMBO_1_INITIAL" ID="{5D0C593F-3A8A-497D-B31D-5C32EF106828}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LISA_AIR_LIGHT" ID="{DFDC7DA6-CE4D-4DAB-A90C-0C36B1CE4177}" ShortID="212993126">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_AIR_LIGHT" ID="{569B331F-6FBA-42FB-A5FC-09CA1720B5B4}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_AIR_LIGHT.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="716047945"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_AIR_LIGHT" ID="{569B331F-6FBA-42FB-A5FC-09CA1720B5B4}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LISA_AIR_MEDIUM" ID="{5B286B69-B073-4FDF-AB07-0F04D3305038}" ShortID="411139381">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_AIR_MEDIUM" ID="{1671CB68-BB3E-4B79-A369-F211502427C7}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_AIR_MEDIUM.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="723207978"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_AIR_MEDIUM" ID="{1671CB68-BB3E-4B79-A369-F211502427C7}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
@@ -601,6 +624,29 @@
 									<ObjectLists/>
 									<ActiveSourceList>
 										<ActiveSource Name="LISA_SPECIAL_NEUTRAL" ID="{A7984EC9-4F4B-4FD7-85CF-E6E7C056A0C4}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LISA_AIR_SPECIAL" ID="{4EBDF680-1828-435A-AB0B-17E546BAAE83}" ShortID="882069955">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_AIR_SPECIAL" ID="{0027B78A-35CC-4EC1-83FB-A7AFCB54A727}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_AIR_SPECIAL.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="642297353"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_AIR_SPECIAL" ID="{0027B78A-35CC-4EC1-83FB-A7AFCB54A727}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
