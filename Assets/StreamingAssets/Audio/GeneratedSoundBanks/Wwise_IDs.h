@@ -15,8 +15,10 @@ namespace AK
     {
         static const AkUniqueID PLAY_3_LOVELY = 3610771357U;
         static const AkUniqueID PLAY_GROUND_HIT = 348820993U;
+        static const AkUniqueID PLAY_LISA_AIR_LIGHT = 550992759U;
+        static const AkUniqueID PLAY_LISA_AIR_MEDIUM = 2424377084U;
+        static const AkUniqueID PLAY_LISA_AIR_SPECIAL = 1854249638U;
         static const AkUniqueID PLAY_LISA_COMBO_1_INITIAL = 1597314465U;
-        static const AkUniqueID PLAY_LISA_COMBO_1_TRANSITION = 4058645190U;
         static const AkUniqueID PLAY_LISA_COMBO_2 = 3376269179U;
         static const AkUniqueID PLAY_LISA_COMBO_3 = 3376269178U;
         static const AkUniqueID PLAY_LISA_COMBO_4 = 3376269181U;
@@ -27,6 +29,7 @@ namespace AK
         static const AkUniqueID PLAY_LISA_HITS = 3751620944U;
         static const AkUniqueID PLAY_LISA_JUMP = 28555886U;
         static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
+        static const AkUniqueID PLAY_LISA_PARRY = 3732287388U;
         static const AkUniqueID PLAY_LISA_SPECIAL_NEUTRAL = 3858634255U;
         static const AkUniqueID PLAY_LISA_SPECIAL_SIDE = 1098933211U;
         static const AkUniqueID PLAY_WALL_HIT = 625690868U;
