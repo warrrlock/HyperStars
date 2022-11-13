@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum Wwise_ComboEvents
 {
-    COMBO1, COMBO2, COMBO3, COMBO4, COMBO5, SPECIAL_NEUTRAL, SPECIAL_SIDE
+    COMBO1, COMBO2, COMBO3, COMBO4, COMBO5, SPECIAL_NEUTRAL, SPECIAL_SIDE, AIR_LIGHT, AIR_MEDIUM, AIR_SPECIAL
 }
 
 public enum Wwise_MovementEvents
@@ -22,6 +22,7 @@ public class PostWwiseEvent : MonoBehaviour
     public AK.Wwise.Event wallBounceEvent;
     public AK.Wwise.Event hurtLandEvent;
     public AK.Wwise.Event hitEvent;
+    public AK.Wwise.Event blockEvent;
     
     // public AK.Wwise.Event comboVoicelineEvent;
 
@@ -35,6 +36,8 @@ public class PostWwiseEvent : MonoBehaviour
         _fighter.Events.onLandedNeutral += () => Wwise_PlaySingle(movementEvents[(int)Wwise_MovementEvents.LAND]);
         // hit
         _fighter.Events.onAttackHit += Wwise_PlayHit;
+        // block
+        // _fighter.Events.onBlockHit += Wwise_PlayBlock;
     }
     
     public void Wwise_PlayAttackSound(Wwise_ComboEvents cEvent)
@@ -63,5 +66,10 @@ public class PostWwiseEvent : MonoBehaviour
     private void Wwise_PlayHit(Dictionary<string, object> message)
     {
         hitEvent.Post(gameObject);
+    }
+    
+    private void Wwise_PlayBlock(Dictionary<string, object> message)
+    {
+        blockEvent.Post(gameObject);
     }
 }
