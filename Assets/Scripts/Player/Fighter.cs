@@ -31,7 +31,7 @@ public class Fighter : MonoBehaviour
 
     public int PlayerId { get; private set; }
 
-    public bool canBeHurt;
+    [NonSerialized] public int invulnerabilityCount;
     public FightersManager FightersManager
     {
         get => _fightersManager;
@@ -60,7 +60,7 @@ public class Fighter : MonoBehaviour
         OpposingFighter = Array.Find(Services.Fighters, x => x.PlayerId != PlayerId);
         //TODO: change this because not all characters will start off facing right
         FacingDirection = Direction.Right;
-        canBeHurt = true;
+        invulnerabilityCount = 0;
         SubscribeActions();
         //transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
         GetComponent<SpriteRenderer>().color = PlayerId == 0 ? FightersManager.player1Color : FightersManager.player2Color;
@@ -93,7 +93,7 @@ public class Fighter : MonoBehaviour
 
     public void ResetFighterHurtboxes()
     {
-        canBeHurt = true;
+        invulnerabilityCount--;
     }
 
     public void FlipCharacter(Direction newDirection)

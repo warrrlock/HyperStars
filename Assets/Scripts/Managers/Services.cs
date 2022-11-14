@@ -8,4 +8,5 @@ public static class Services
     public static Fighter[] Fighters = new Fighter[2];
 
     public static FavorManager FavorManager;
+    public static CameraManager CameraManager;
 }
