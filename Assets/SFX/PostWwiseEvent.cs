@@ -37,7 +37,7 @@ public class PostWwiseEvent : MonoBehaviour
         // hit
         _fighter.Events.onAttackHit += Wwise_PlayHit;
         // block
-        _fighter.Events.onBlockHit += Wwise_PlayBlock;
+        // _fighter.Events.onBlockHit += Wwise_PlayBlock;
     }
     
     public void Wwise_PlayAttackSound(Wwise_ComboEvents cEvent)
