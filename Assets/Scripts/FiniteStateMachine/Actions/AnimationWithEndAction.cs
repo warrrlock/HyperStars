@@ -13,13 +13,13 @@ namespace FiniteStateMachine
         [HideInInspector] [SerializeField] private int _endAnimationHash;
         private void OnValidate()
         {
-            _animationHash = Animator.StringToHash(_animationName);
+            _animationHash = _animationName == "" ? -1 : Animator.StringToHash(_animationName);
             _endAnimationHash = Animator.StringToHash(_endAnimationName);
         }
 
         public override void Execute(BaseStateMachine stateMachine)
         {
-            stateMachine.PlayAnimation(_animationHash);
+            if (_animationHash != -1) stateMachine.PlayAnimation(_animationHash);
         }
 
         public override void Stop(BaseStateMachine stateMachine)

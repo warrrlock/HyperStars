@@ -140,7 +140,9 @@ namespace FiniteStateMachine {
         private void Stop(InputManager.Action action)
         {
             // Debug.Log($"Stop called by {action.name}, with last played action being {_lastExecutedInput}");
-            if (_lastExecutedInput != action.name && _returnState == _initialState) return;
+            if (_returnState == _initialState     && _lastExecutedInput != action.name
+                                                  && _lastExecutedInput != "Crouch" 
+                                                  && _lastExecutedInput != "") return;
             CurrentState.Stop(this, action.name);
         }
 
@@ -158,9 +160,11 @@ namespace FiniteStateMachine {
             return true;
         }
         
-        public void QueueState(BaseState state)
+        public void QueueState(BaseState state = null)
         {
-            if (!_queuedState) _queuedState = state;
+            // Debug.Log($"{name} queuing state {state?.name}");
+            // if (!_queuedState) _queuedState = state;
+            _queuedState = state;
         }
         
         /// <summary>
