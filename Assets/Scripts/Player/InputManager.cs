@@ -221,6 +221,68 @@ public class InputManager : MonoBehaviour
         yield break;
     }
 
+    public IEnumerator DisableAll(float duration)
+    {
+        foreach (KeyValuePair<string, Action> pair in Actions)
+        {
+            Action action = pair.Value;
+            action.disabledCount++;
+            if (action.isBeingPerformed)
+            {
+                if (action == Actions["Move"]) //TODO: use different flag for joystick actions
+                {
+                    action.stop?.Invoke(action);
+                    if (!action.isPerformQueued)
+                    {
+                        action.queuePerform = QueuePerform(action);
+                        StartCoroutine(action.queuePerform);
+                    }
+                }
+            }
+        }
+        yield return new WaitForSeconds(duration);
+
+        foreach (KeyValuePair<string, Action> pair in Actions)
+        {
+            Action action = pair.Value;
+            action.disabledCount--;
+        }
+        yield break;
+        //TODO: MOVING DIRECTION NOT FACING DIRECTION
+    }
+
+    public IEnumerator DisableAll(Func<bool> enableCondition, params Action[] actionsToDisable)
+    {
+        //yield return new WaitForFixedUpdate();
+        foreach (KeyValuePair<string, Action> pair in Actions)
+        {
+            Action action = pair.Value;
+            action.disabledCount++;
+            if (action.isBeingPerformed)
+            {
+                if (action == Actions["Move"])
+                {
+                    action.stop?.Invoke(action);
+                    if (!action.isPerformQueued)
+                    {
+                        action.queuePerform = QueuePerform(action);
+                        StartCoroutine(action.queuePerform);
+                    }
+                }
+            }
+        }
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        yield return new WaitUntil(enableCondition);
+
+        foreach (KeyValuePair<string, Action> pair in Actions)
+        {
+            Action action = pair.Value;
+            action.disabledCount--;
+        }
+        yield break;
+    }
+
     private IEnumerator QueuePerform(Action action)
     {
         action.isPerformQueued = true;

@@ -3,17 +3,6 @@
 	<Events>
 		<WorkUnit Name="Default Work Unit" ID="{F812067D-FD89-4D96-8FBE-D68CF9EF90E2}" PersistMode="Standalone">
 			<ChildrenList>
-				<Event Name="Play_3_lovely" ID="{B7DAAA04-EAD2-4ACE-A292-BB634824DF41}">
-					<ChildrenList>
-						<Action Name="" ID="{A413830F-DA74-45AD-B672-DAAFF2859370}" ShortID="18902659">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="3_lovely" ID="{C9D9EE00-A6CC-450C-A43A-BD6FB1264E03}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
 				<Event Name="Play_WALL_HIT" ID="{07B1DEC1-E8FE-45DE-A44B-F41CF40396A9}">
 					<ChildrenList>
 						<Action Name="" ID="{A271EC16-E25F-4B54-B262-BDAA3432E495}" ShortID="199755161">
@@ -43,7 +32,7 @@
 								<Action Name="" ID="{4178D622-E6C0-42D1-A2EE-EF8F161DA8A8}" ShortID="271119266">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="Hits" ID="{80B47569-8FB3-4CCD-922F-3605150BC781}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+											<ObjectRef Name="LISA_HIT" ID="{AFBC4A9A-5D4C-4E04-ACB1-9183E7F9818C}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>

@@ -13,7 +13,6 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID PLAY_3_LOVELY = 3610771357U;
         static const AkUniqueID PLAY_GROUND_HIT = 348820993U;
         static const AkUniqueID PLAY_LISA_AIR_LIGHT = 550992759U;
         static const AkUniqueID PLAY_LISA_AIR_MEDIUM = 2424377084U;
