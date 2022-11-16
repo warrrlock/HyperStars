@@ -70,6 +70,45 @@ namespace WesleyDavies
 
         #region Array
         /// <summary>
+        /// Shuffles an array in place.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deck">The array to shuffle.</param>
+        public static void Shuffle<T>(this T[] deck)
+        {
+            for (int i = 0; i < deck.Length; i++)
+            {
+                int randomIndex = PickRandomIndex(deck);
+                (deck[i], deck[randomIndex]) = (deck[randomIndex], deck[i]);
+            }
+        }
+
+        /// <summary>
+        /// Picks a random element from an array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deck">The array to pick from.</param>
+        /// <returns>A random element from the given array.</returns>
+        public static T PickRandom<T>(this T[] deck)
+        {
+            int randomIndex = Random.Range(0, deck.Length);
+            return deck[randomIndex];
+        }
+
+        /// <summary>
+        /// Picks a random index of an array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deck">The array to pick from.</param>
+        /// <returns>A random index of the given array.</returns>
+        public static int PickRandomIndex<T>(this T[] deck)
+        {
+            return Random.Range(0, deck.Length);
+        }
+        #endregion
+
+        #region Float Array
+        /// <summary>
         /// Finds the average of the given array.
         /// </summary>
         /// <param name="floats">The array to average.</param>
@@ -117,6 +156,14 @@ namespace WesleyDavies
             return total / floats.Length;
         }
 
+        //TODO: do this!
+        public static float Sum(this float[] floats)
+        {
+            return default;
+        }
+        #endregion
+
+        #region Int Array
         /// <summary>
         /// Finds the average of the given array, rounded.
         /// </summary>
@@ -222,43 +269,6 @@ namespace WesleyDavies
                 return Mathf.RoundToInt(total / ints.Length);
             }
             return Mathf.FloorToInt(total / ints.Length);
-        }
-
-        /// <summary>
-        /// Shuffles an array in place.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="deck">The array to shuffle.</param>
-        public static void Shuffle<T>(this T[] deck)
-        {
-            for (int i = 0; i < deck.Length; i++)
-            {
-                int randomIndex = PickRandomIndex(deck);
-                (deck[i], deck[randomIndex]) = (deck[randomIndex], deck[i]);
-            }
-        }
-
-        /// <summary>
-        /// Picks a random element from an array.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="deck">The array to pick from.</param>
-        /// <returns>A random element from the given array.</returns>
-        public static T PickRandom<T>(this T[] deck)
-        {
-            int randomIndex = Random.Range(0, deck.Length);
-            return deck[randomIndex];
-        }
-
-        /// <summary>
-        /// Picks a random index of an array.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="deck">The array to pick from.</param>
-        /// <returns>A random index of the given array.</returns>
-        public static int PickRandomIndex<T>(this T[] deck)
-        {
-            return Random.Range(0, deck.Length);
         }
         #endregion
 
