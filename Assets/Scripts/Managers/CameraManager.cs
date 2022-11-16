@@ -39,10 +39,6 @@ public class CameraManager : MonoBehaviour
     private void Update()
     {
         _targetsMidPoint = (_targets[0].position.x + _targets[1].position.x) / 2f;
-        if (_targetsMidPoint != 0f)
-        {
-            Debug.Log("Midpoint: " + _targetsMidPoint);
-        }
         _destination = new Vector3(_targetsMidPoint, _camera.transform.position.y, _camera.transform.position.z);
         float fightersDistance = Mathf.Abs(_targets[1].position.x - _targets[0].position.x);
         if (fightersDistance < _maxFightersDistance)
