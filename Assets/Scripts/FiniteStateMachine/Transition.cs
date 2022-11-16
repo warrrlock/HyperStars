@@ -53,6 +53,7 @@ namespace FiniteStateMachine
                         return;
                     }
                     stateMachine.QueueState(_trueState);
+                    // Debug.Log($"{stateMachine.name} last executed input is {inputName}");
                     stateMachine.LastExecutedInput = inputName;
                 }
                 else
@@ -90,6 +91,7 @@ namespace FiniteStateMachine
                     return;
                 }
                 stateMachine.QueueState(_trueState);
+                // Debug.Log($"{stateMachine.name} last executed input is {inputName}");
                 stateMachine.LastExecutedInput = inputName;
                 stateMachine.ExecuteQueuedState();
             }

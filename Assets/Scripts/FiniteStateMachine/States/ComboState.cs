@@ -11,6 +11,7 @@ namespace FiniteStateMachine
     public class ComboState: BaseState
     {
         [SerializeField] private string _animationName;
+        [SerializeField] private List<StateAction> _inputStopActions = new List<StateAction>();
         [SerializeField] private List<Transition> _transitions = new List<Transition>();
         [Tooltip("If you would like the animation to start with the combo option as true. Otherwise, set to false.")]
         [SerializeField] private bool _defaultCombo = true;
@@ -35,6 +36,7 @@ namespace FiniteStateMachine
         private void OnEnable()
         {
             _transitions.RemoveAll(t => !t);
+            _inputStopActions.RemoveAll(a => !a);
         }
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
@@ -48,12 +50,23 @@ namespace FiniteStateMachine
             }
 
             foreach (Transition transition in _transitions)
+            {
+                // Debug.Log($"{stateMachine.name} executing transition {transition.name}");
                 transition.Execute(stateMachine, inputName, stateMachine.CanCombo);
+            }
         }
 
         public override AttackInfo GetAttackInfo()
         {
             return _attackInfo;
+        }
+        
+        public override void Stop(BaseStateMachine stateMachine, string inputName)
+        {
+            // Debug.Log($"{stateMachine.name} stopped action {name}");
+            foreach(StateAction action in _inputStopActions){
+                action.Stop(stateMachine);
+            }
         }
         
 //         #region Editor
