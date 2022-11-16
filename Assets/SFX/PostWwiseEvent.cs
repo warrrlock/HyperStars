@@ -37,7 +37,12 @@ public class PostWwiseEvent : MonoBehaviour
         // hit
         _fighter.Events.onAttackHit += Wwise_PlayHit;
         // block
-        // _fighter.Events.onBlockHit += Wwise_PlayBlock;
+        _fighter.Events.onBlockHit += Wwise_PlayBlock;
+    }
+
+    private void Update()
+    {
+        // Debug.Log(IsEventPlayingOnGameObject("Play_LISA_PARRY"));
     }
     
     public void Wwise_PlayAttackSound(Wwise_ComboEvents cEvent)
@@ -71,5 +76,26 @@ public class PostWwiseEvent : MonoBehaviour
     private void Wwise_PlayBlock(Dictionary<string, object> message)
     {
         blockEvent.Post(gameObject);
+    }
+    
+        
+    static uint[] playingIds = new uint[50];
+    public bool IsEventPlayingOnGameObject(string eventName)
+    {
+        uint testEventId = AkSoundEngine.GetIDFromString(eventName);
+
+        uint count = (uint)playingIds.Length;
+        AKRESULT result = AkSoundEngine.GetPlayingIDsFromGameObject(this.gameObject, ref count, playingIds);
+
+        for (int i = 0; i < count; i++)
+        {
+            uint playingId = playingIds[i];
+            uint eventId = AkSoundEngine.GetEventIDFromPlayingID(playingId);
+
+            if (eventId == testEventId)
+                return true;
+        }
+
+        return false;
     }
 }

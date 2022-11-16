@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using Random = UnityEngine.Random;
 
 namespace WesleyDavies
@@ -9,6 +10,16 @@ namespace WesleyDavies
     public static class ExtensionMethods
     {
         #region Float
+
+        /// <summary>
+        /// Rounds float
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="place"></param>
+        public static float RoundToPlace(this float value, int place)
+        {
+            return value;
+        }
 
         /// <summary>
         /// Converts an angle in radians to degrees.
@@ -705,6 +716,34 @@ namespace WesleyDavies
 
         #region Collider2D
 
+        #endregion
+
+        #region LayerMask
+        /// <summary>
+        /// Adds the given layers to this LayerMask.
+        /// </summary>
+        /// <param name="layerMask">The LayerMask to add layers to.</param>
+        /// <param name="layers">The layers to add to layerMask.</param>
+        public static void AddLayers(this LayerMask layerMask, params int[] layers)
+        {
+            foreach (int layer in layers)
+            {
+                layerMask |= (1 << layer);
+            }
+        }
+
+        /// <summary>
+        /// Removes the given layers to this LayerMask.
+        /// </summary>
+        /// <param name="layerMask">The LayerMask to remove layers from.</param>
+        /// <param name="layers">The layers to remove from layerMask.</param>
+        public static void RemoveLayers(this LayerMask layerMask, params int[] layers)
+        {
+            foreach (int layer in layers)
+            {
+                layerMask &= ~(1 << layer);
+            }
+        }
         #endregion
 
         #region RaycastHit

@@ -9,7 +9,16 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "b8b5f00c-804e-4837-a999-60d34bc99739",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Sidestep",
+                    "type": "Value",
+                    "id": "6a54479f-c152-4dfa-94d7-bb587224393d",
+                    "expectedControlType": "Integer",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -107,9 +116,9 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD",
+                    "name": "WD",
                     "id": "00ca640b-d935-4593-8157-c05846ea39b3",
-                    "path": "Dpad",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -118,19 +127,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "down",
-                    "id": "320bffee-a40b-4347-ac70-c210eb8bc73a",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "d2581a9b-1d11-4566-b27d-b92aff5fabbc",
+                    "name": "Negative",
+                    "id": "e2062cb9-1b15-46a2-838c-2f8d72a0bdd9",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -140,8 +138,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
-                    "id": "fcfe95b8-67b9-4526-84b5-5d0bc98d6400",
+                    "name": "Positive",
+                    "id": "320bffee-a40b-4347-ac70-c210eb8bc73a",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -153,7 +151,7 @@
                 {
                     "name": "",
                     "id": "978bfe49-cc26-4a3d-ab7b-7d7a29327403",
-                    "path": "<Gamepad>/leftStick",
+                    "path": "<Gamepad>/leftStick/x",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -164,7 +162,7 @@
                 {
                     "name": "",
                     "id": "a47c2ca7-bc59-432c-bbb1-df0406ed04e5",
-                    "path": "<Gamepad>/dpad",
+                    "path": "<Gamepad>/dpad/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -448,13 +446,57 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "d1773f2b-f52c-4a07-8568-4434654382fd",
-                    "path": "<Keyboard>/c",
+                    "name": "WD",
+                    "id": "76309cf2-8232-4d99-bdba-cd840eadda85",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Crouch",
+                    "action": "Sidestep",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "14117d8c-4fee-41e4-8f19-9f76a0bd2036",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Sidestep",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "5cc4ee4f-e8a5-4a8f-b889-f34a9fa30afa",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Sidestep",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6a7bc859-1c94-4b29-8027-8674ca2678b8",
+                    "path": "<Gamepad>/leftStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Sidestep",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d01cd8f-3514-4bf1-af54-4fb9746037d4",
+                    "path": "<Gamepad>/dpad/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Sidestep",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
