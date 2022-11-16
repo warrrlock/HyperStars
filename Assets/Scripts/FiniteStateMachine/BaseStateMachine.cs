@@ -267,6 +267,9 @@ namespace FiniteStateMachine {
         {
             if (_airCoroutine != null) return;
             _airCoroutine = StartCoroutine(HandleExitInAir(onGroundAction));
+            StartCoroutine(Fighter.InputManager.Disable(
+                () => Fighter.MovementController.CollisionData.y.isNegativeHit, 
+                Fighter.InputManager.Actions["Crouch"]));
         }
 
         private IEnumerator HandleExitInAir(Action onGroundAction)
