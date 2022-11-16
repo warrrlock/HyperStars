@@ -33,7 +33,7 @@ public class VFXSpawnManager : MonoBehaviour
     public void InitializaeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter sender)
     {
         VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
+        //newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
         newVFX.GetComponent<VFXCleanUp>().sender = sender;
     }
 
