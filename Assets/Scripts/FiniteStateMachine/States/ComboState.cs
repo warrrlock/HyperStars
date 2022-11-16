@@ -46,6 +46,9 @@ namespace FiniteStateMachine
             if (stateMachine.PlayAnimation(_animationHash, _defaultCombo))
             {
                 stateMachine.EnableAttackStop();
+                foreach(StateAction action in _inputStopActions){
+                    action.Execute(stateMachine);
+                }
                 if (isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(specialBarCost);
             }
 
