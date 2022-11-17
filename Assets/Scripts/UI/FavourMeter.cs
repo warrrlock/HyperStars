@@ -31,7 +31,6 @@ namespace UI
 
         public void UpdateFavorMeter(bool player0, float amount, float multiplier)
         {
-            Debug.Log(amount * 0.5f);
             _multiplierText.text = $"x {multiplier}";
             IncrementFavour(player0, amount * 0.5f);
         }
@@ -43,12 +42,10 @@ namespace UI
         /// <param name="amount">percentage amount of total bar to increment, between 0 and 1.</param>
         private void IncrementFavour(bool player0, float amount)
         {
-            int direction = player0 ? -1 : 1;
+            int direction = player0 ? 1 : -1;
             _meterImage.fillAmount += (direction) * amount;
             Vector2 transformPosition = new Vector2(_length * _meterImage.fillAmount, 0);
-            Debug.Log(transformPosition);
             _indicatorTransform.anchoredPosition = transformPosition;
-            // _multiplierText.rectTransform.anchoredPosition += transformAmount;
         }
     }
 }
