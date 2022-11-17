@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FiniteStateMachine;
 using TMPro;
+using UI;
 
 public class FavorManager : MonoBehaviour
 {
@@ -26,7 +28,8 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _multiplierText;
     [SerializeField] private Canvas _multiplierTextCanvas;
     [SerializeField] private GameEvent _winConditionEvent;
-
+    [SerializeField] private FavourMeter _favourMeter;
+    
     private void Awake()
     {
         Services.FavorManager = this;
@@ -35,7 +38,8 @@ public class FavorManager : MonoBehaviour
     private void Start()
     {
         _favor = 0f;
-        UpdateFavorMeter();
+        _favourMeter.Initialize();
+        // UpdateFavorMeter();
         //_peakFavors = new float[2];
     }
 
@@ -91,7 +95,8 @@ public class FavorManager : MonoBehaviour
         //{
         //    _peakFavors[playerId] = _favor;
         //}
-        UpdateFavorMeter();
+        // UpdateFavorMeter();
+        _favourMeter.UpdateFavorMeter(playerId == 0, Math.Abs(value)/_maxFavor, _favorMultiplier);
     }
 
     public IEnumerator CooldownFavor(ComboState attack, float duration)
