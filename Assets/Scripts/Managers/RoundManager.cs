@@ -7,7 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(GameEventListener))]
 public class RoundManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _restartButton;
     [SerializeField] private TextMeshProUGUI _roundText;
+    [SerializeField] private string _startText;
     [SerializeField] private int _neededWins;
     
     [SerializeField] private TextMeshProUGUI _countdownText;
@@ -21,6 +23,7 @@ public class RoundManager : MonoBehaviour
 
     private void Awake()
     {
+        if (_restartButton) _restartButton.SetActive(false);
         if (_roundText) _roundText.gameObject.SetActive(false);
         _round = RoundInformation.round;
         if (_winText.Length >= 2) //TODO: remove
@@ -39,7 +42,8 @@ public class RoundManager : MonoBehaviour
     {
         EnableAllInput();
     }
-
+    
+    //used in event (inspector)
     public void OnRoundEnd(Dictionary<string, object> data)
     {
         Debug.Log("round ended");
@@ -62,6 +66,18 @@ public class RoundManager : MonoBehaviour
         }
 
         StartCoroutine(HandleStartNextRound());
+    }
+    
+    //for use in animation
+    public void EnableRestartGame()
+    {
+        _restartButton.SetActive(true);
+    }
+    
+    public void RestartGame()
+    {
+        Debug.Log("restarting");
+        RoundInformation.ResetRounds();
     }
 
     private void HandleAddWinTo(int player)
@@ -102,7 +118,12 @@ public class RoundManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         if (RoundInformation.MatchPoint)
         {
-            _countdownText.text = $"Match point!";
+            _countdownText.text = "Match point!";
+            yield return new WaitForSeconds(0.8f);
+            
+            _countdownText.text = $@"{(RoundInformation.MatchPointPlayers[0] ? 
+                (RoundInformation.MatchPointPlayers[1] ? "Scores Tied!" : "Player 1 in the lead.")
+                : "Player2 in the lead")}";
             yield return new WaitForSeconds(0.8f);
         }
 
@@ -115,7 +136,7 @@ public class RoundManager : MonoBehaviour
         //TODO: any necessary UI
         
         //start time/movement
-        _countdownText.text = "Start!";
+        _countdownText.text = _startText;
         EnableAllInput();
         
         yield return new WaitForSeconds(1.0f);
@@ -143,15 +164,20 @@ public class RoundManager : MonoBehaviour
     private void EndGame()
     {
         //TODO: disable all input
-        //TODO: what ui happens at end of game ?
+        DisableAllInput();
         AnnounceWinner();
     }
 
     private void AnnounceWinner()
     {
         int winner = RoundInformation.GetWinner();
+        int loser = winner == 0 ? 1 : 0;
+        //lose animation -> the losing character dies lol
+        //Win animation -> the character walks up closer to the camera and does a victory pose. 
+        
         _roundText.gameObject.SetActive(true);
         
-        _roundText.text = $"Player {winner+1} is the winner";
+        _roundText.text = $"Player {winner+1} is victorious!";
+        EnableRestartGame(); //TODO: remove after we have win/lose animations
     }
 }
