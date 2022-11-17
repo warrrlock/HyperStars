@@ -80,13 +80,6 @@ public class MovementController : MonoBehaviour
 
     [SerializeField] private float _mass = 1f;
 
-    public Transform RotationalPivot
-    {
-        get => _rotationalPivot;
-        private set => _rotationalPivot = value;
-    }
-    [SerializeField] private Transform _rotationalPivot;
-    [SerializeField] private float _sidestepAngle;
     [SerializeField] private float _sidestepDuration;
 
     private RaycastOrigins _raycastOrigins;
@@ -592,7 +585,8 @@ public class MovementController : MonoBehaviour
 
         if (axis == Axis.y)
         {
-            _collisionMask.RemoveLayers(9);
+            //_collisionMask.RemoveLayers(9);
+            RemoveCollisionLayer(9);
         }
 
         for (int i = 0; i < rayCount; i++)
@@ -643,7 +637,8 @@ public class MovementController : MonoBehaviour
 
         if (axis == Axis.y)
         {
-            _collisionMask.AddLayers(9);
+            //_collisionMask.AddLayers(9);
+            AddCollisionLayer(9);
         }
     }
 
@@ -833,5 +828,15 @@ public class MovementController : MonoBehaviour
 
         _collisionMask |= (1 << layer);
         yield break;
+    }
+
+    private void RemoveCollisionLayer(int layer)
+    {
+        _collisionMask &= ~(1 << layer);
+    }
+
+    private void AddCollisionLayer(int layer)
+    {
+        _collisionMask |= (1 << layer);
     }
 }
