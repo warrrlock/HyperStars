@@ -16,9 +16,9 @@ public class InAirState : BaseState
     [SerializeField] private AttackInfo _attackInfo;
     
     [Header("Special")]
-    public bool isSpecial;
+    [SerializeField] private bool _isSpecial;
     [Tooltip("number of bars the special costs. 1 means 1 bar.")]
-    public int specialBarCost;
+    [SerializeField] private int _specialBarCost;
 
     
     private void OnValidate()
@@ -37,7 +37,7 @@ public class InAirState : BaseState
         if (stateMachine.PlayAnimation(_animationHash))
         {
             stateMachine.StartInAir();
-            if (isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(specialBarCost);
+            if (_isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(_specialBarCost);
         }
         
         foreach (Transition transition in _transitions)
@@ -49,6 +49,11 @@ public class InAirState : BaseState
     public override AttackInfo GetAttackInfo()
     {
         return _attackInfo;
+    }
+    
+    public override int GetSpecialBarCost()
+    {
+        return _isSpecial ? _specialBarCost : -1;
     }
     
 }
