@@ -10,31 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
-  m_Name: Medium Atk 1
+  m_Name: Crouch Medium
   m_EditorClassIdentifier: 
-  _animationName: MediumAtk1
-  _inputStopActions: []
+  _animationName: Crouching Medium
+  _inputStopActions:
+  - {fileID: 11400000, guid: 03001c5c819564b419b5c438b803a3fb, type: 2}
   _transitions:
-  - {fileID: 11400000, guid: a11940838089ac0439b5700a71e8775a, type: 2}
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
-  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
-  _defaultCombo: 0
+  _defaultCombo: 1
   _attackInfo:
-    knockbackDuration: 0.5
+    knockbackDuration: 0.2
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 0.4
+    hitStunDuration: 0.2
     damage: 10
     causesWallBounce: 0
-    hitStopDuration: 0.1
+    hitStopDuration: 0.05
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 8
+    favorReward: 2
     knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0.2
+    incrementBarAmount: 0.5
   isSpecial: 0
   specialBarCost: 0
-  _animationHash: 1233118710
+  _animationHash: 1363368765
