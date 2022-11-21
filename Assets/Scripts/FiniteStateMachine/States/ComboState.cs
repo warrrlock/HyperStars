@@ -20,9 +20,9 @@ namespace FiniteStateMachine
         [SerializeField] private AttackInfo _attackInfo;
         
         [Header("Special")]
-        public bool isSpecial;
+        [SerializeField] private bool _isSpecial;
         [Tooltip("number of bars the special costs. 1 means 1 bar.")]
-        public int specialBarCost;
+        [SerializeField] private int _specialBarCost;
         
         [HideInInspector]
         [SerializeField] private int _animationHash;
@@ -49,7 +49,7 @@ namespace FiniteStateMachine
                 foreach(StateAction action in _inputStopActions){
                     action.Execute(stateMachine);
                 }
-                if (isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(specialBarCost);
+                if (_isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(_specialBarCost);
             }
 
             foreach (Transition transition in _transitions)
@@ -70,6 +70,11 @@ namespace FiniteStateMachine
             foreach(StateAction action in _inputStopActions){
                 action.Stop(stateMachine);
             }
+        }
+
+        public override int GetSpecialBarCost()
+        {
+            return _isSpecial ? _specialBarCost : -1;
         }
         
 //         #region Editor
