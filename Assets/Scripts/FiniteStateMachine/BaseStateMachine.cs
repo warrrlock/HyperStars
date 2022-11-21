@@ -49,6 +49,7 @@ namespace FiniteStateMachine {
         private int _currentAnimation;
         private bool _isAttacking;
         private string _lastExecutedInput;
+        private bool _crouchStop;
 
         public string LastExecutedInput
         {
@@ -140,6 +141,10 @@ namespace FiniteStateMachine {
         private void Stop(InputManager.Action action)
         {
             // Debug.Log($"Stop called by {action.name}, with last played action being {_lastExecutedInput}");
+            // Debug.Log($"current state is {CurrentState.name}");
+            if (action.name == "Crouch")
+                _crouchStop = true;
+            
             if (_returnState == _initialState     && _lastExecutedInput != action.name
                                                   && _lastExecutedInput != "Crouch" 
                                                   && _lastExecutedInput != "") return;
@@ -186,6 +191,11 @@ namespace FiniteStateMachine {
             _rejectInput = false;
 
             CurrentState.Execute(this, "");
+            if (_crouchStop)
+            {
+                Stop(Fighter.InputManager.Actions["Crouch"]);
+                _crouchStop = false;
+            }
         }
         
         /// <summary>
