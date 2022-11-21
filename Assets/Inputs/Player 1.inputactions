@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "51c8c8cb-322a-4223-86ab-2882838a4452",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Sidestep",
                     "type": "Value",
                     "id": "6a54479f-c152-4dfa-94d7-bb587224393d",
@@ -428,7 +437,7 @@
                 {
                     "name": "Negative",
                     "id": "14117d8c-4fee-41e4-8f19-9f76a0bd2036",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/leftBracket",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -439,7 +448,7 @@
                 {
                     "name": "Positive",
                     "id": "5cc4ee4f-e8a5-4a8f-b889-f34a9fa30afa",
-                    "path": "<Keyboard>/upArrow",
+                    "path": "<Keyboard>/rightBracket",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -466,6 +475,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Sidestep",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a35d277d-bb0f-4b28-9b23-c5d6eb506700",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
