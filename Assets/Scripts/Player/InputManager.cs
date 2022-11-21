@@ -129,6 +129,12 @@ public class InputManager : MonoBehaviour
             if (context.action.WasReleasedThisFrame())
             {
                 action.isBeingInput = false;
+                
+                if (action == Actions["Crouch"])
+                {
+                    Debug.Log($"{action.name} was released this frame");
+                    action.stop?.Invoke(action);
+                }
                 if (action.disabledCount == 0)
                 {
                     //TODO: either find a better solution to this or change based off gamepad or keyboard because now on keyboard if you input move right after letting go you'll stop
@@ -221,6 +227,68 @@ public class InputManager : MonoBehaviour
         yield break;
     }
 
+    public IEnumerator DisableAll(float duration)
+    {
+        foreach (KeyValuePair<string, Action> pair in Actions)
+        {
+            Action action = pair.Value;
+            action.disabledCount++;
+            if (action.isBeingPerformed)
+            {
+                if (action == Actions["Move"]) //TODO: use different flag for joystick actions
+                {
+                    action.stop?.Invoke(action);
+                    if (!action.isPerformQueued)
+                    {
+                        action.queuePerform = QueuePerform(action);
+                        StartCoroutine(action.queuePerform);
+                    }
+                }
+            }
+        }
+        yield return new WaitForSeconds(duration);
+
+        foreach (KeyValuePair<string, Action> pair in Actions)
+        {
+            Action action = pair.Value;
+            action.disabledCount--;
+        }
+        yield break;
+        //TODO: MOVING DIRECTION NOT FACING DIRECTION
+    }
+
+    public IEnumerator DisableAll(Func<bool> enableCondition, params Action[] actionsToDisable)
+    {
+        //yield return new WaitForFixedUpdate();
+        foreach (KeyValuePair<string, Action> pair in Actions)
+        {
+            Action action = pair.Value;
+            action.disabledCount++;
+            if (action.isBeingPerformed)
+            {
+                if (action == Actions["Move"])
+                {
+                    action.stop?.Invoke(action);
+                    if (!action.isPerformQueued)
+                    {
+                        action.queuePerform = QueuePerform(action);
+                        StartCoroutine(action.queuePerform);
+                    }
+                }
+            }
+        }
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        yield return new WaitUntil(enableCondition);
+
+        foreach (KeyValuePair<string, Action> pair in Actions)
+        {
+            Action action = pair.Value;
+            action.disabledCount--;
+        }
+        yield break;
+    }
+
     private IEnumerator QueuePerform(Action action)
     {
         action.isPerformQueued = true;
@@ -265,10 +333,5 @@ public class InputManager : MonoBehaviour
         yield return new WaitForFixedUpdate();
         _isAwaitingStop = false;
         yield break;
-    }
-
-    public void StopMove()
-    {
-        StartCoroutine(Stop(Actions["Move"]));
     }
 }

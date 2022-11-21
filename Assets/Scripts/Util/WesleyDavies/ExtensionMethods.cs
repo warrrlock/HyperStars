@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using Random = UnityEngine.Random;
 
 namespace WesleyDavies
@@ -9,6 +10,16 @@ namespace WesleyDavies
     public static class ExtensionMethods
     {
         #region Float
+
+        /// <summary>
+        /// Rounds float
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="place"></param>
+        public static float RoundToPlace(this float value, int place)
+        {
+            return value;
+        }
 
         /// <summary>
         /// Converts an angle in radians to degrees.
@@ -59,6 +70,45 @@ namespace WesleyDavies
 
         #region Array
         /// <summary>
+        /// Shuffles an array in place.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deck">The array to shuffle.</param>
+        public static void Shuffle<T>(this T[] deck)
+        {
+            for (int i = 0; i < deck.Length; i++)
+            {
+                int randomIndex = PickRandomIndex(deck);
+                (deck[i], deck[randomIndex]) = (deck[randomIndex], deck[i]);
+            }
+        }
+
+        /// <summary>
+        /// Picks a random element from an array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deck">The array to pick from.</param>
+        /// <returns>A random element from the given array.</returns>
+        public static T PickRandom<T>(this T[] deck)
+        {
+            int randomIndex = Random.Range(0, deck.Length);
+            return deck[randomIndex];
+        }
+
+        /// <summary>
+        /// Picks a random index of an array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="deck">The array to pick from.</param>
+        /// <returns>A random index of the given array.</returns>
+        public static int PickRandomIndex<T>(this T[] deck)
+        {
+            return Random.Range(0, deck.Length);
+        }
+        #endregion
+
+        #region Float Array
+        /// <summary>
         /// Finds the average of the given array.
         /// </summary>
         /// <param name="floats">The array to average.</param>
@@ -106,6 +156,14 @@ namespace WesleyDavies
             return total / floats.Length;
         }
 
+        //TODO: do this!
+        public static float Sum(this float[] floats)
+        {
+            return default;
+        }
+        #endregion
+
+        #region Int Array
         /// <summary>
         /// Finds the average of the given array, rounded.
         /// </summary>
@@ -211,43 +269,6 @@ namespace WesleyDavies
                 return Mathf.RoundToInt(total / ints.Length);
             }
             return Mathf.FloorToInt(total / ints.Length);
-        }
-
-        /// <summary>
-        /// Shuffles an array in place.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="deck">The array to shuffle.</param>
-        public static void Shuffle<T>(this T[] deck)
-        {
-            for (int i = 0; i < deck.Length; i++)
-            {
-                int randomIndex = PickRandomIndex(deck);
-                (deck[i], deck[randomIndex]) = (deck[randomIndex], deck[i]);
-            }
-        }
-
-        /// <summary>
-        /// Picks a random element from an array.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="deck">The array to pick from.</param>
-        /// <returns>A random element from the given array.</returns>
-        public static T PickRandom<T>(this T[] deck)
-        {
-            int randomIndex = Random.Range(0, deck.Length);
-            return deck[randomIndex];
-        }
-
-        /// <summary>
-        /// Picks a random index of an array.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="deck">The array to pick from.</param>
-        /// <returns>A random index of the given array.</returns>
-        public static int PickRandomIndex<T>(this T[] deck)
-        {
-            return Random.Range(0, deck.Length);
         }
         #endregion
 
@@ -705,6 +726,34 @@ namespace WesleyDavies
 
         #region Collider2D
 
+        #endregion
+
+        #region LayerMask
+        /// <summary>
+        /// Adds the given layers to this LayerMask.
+        /// </summary>
+        /// <param name="layerMask">The LayerMask to add layers to.</param>
+        /// <param name="layers">The layers to add to layerMask.</param>
+        public static void AddLayers(this LayerMask layerMask, params int[] layers)
+        {
+            foreach (int layer in layers)
+            {
+                layerMask |= (1 << layer);
+            }
+        }
+
+        /// <summary>
+        /// Removes the given layers to this LayerMask.
+        /// </summary>
+        /// <param name="layerMask">The LayerMask to remove layers from.</param>
+        /// <param name="layers">The layers to remove from layerMask.</param>
+        public static void RemoveLayers(this LayerMask layerMask, params int[] layers)
+        {
+            foreach (int layer in layers)
+            {
+                layerMask &= ~(1 << layer);
+            }
+        }
         #endregion
 
         #region RaycastHit

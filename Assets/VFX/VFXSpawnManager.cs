@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 
 public enum VFXGraphs
 {
-    LISA_HIT_1, DASH_SMOKE
+    LISA_HIT_1, LISA_HIT_5, DASH_SMOKE
 }
 
 public class VFXSpawnManager : MonoBehaviour
@@ -15,7 +15,6 @@ public class VFXSpawnManager : MonoBehaviour
     [SerializeField] public GameObject spawnedVfxObject;
     
     // try
-    [SerializeField] private InputManager inputManager;
 
     void Start()
     {
@@ -23,8 +22,6 @@ public class VFXSpawnManager : MonoBehaviour
         {
             f.Events.onAttackHit += PlayHitVFX;
         }
-        // inputManager.Actions["Dash"].perform += PlayVFX;
-        // _fighter.Events.onAttackHit += PlayVFX;
     }
     
     public void InitializaeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
@@ -36,12 +33,22 @@ public class VFXSpawnManager : MonoBehaviour
     public void InitializaeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter sender)
     {
         VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
+        //newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
         newVFX.GetComponent<VFXCleanUp>().sender = sender;
     }
 
-    void PlayHitVFX(Fighter sender, Fighter receiver, Vector3 hitPos)
+    void PlayHitVFX(Dictionary<string, object> message)
     {
-        InitializaeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
+        try
+        {
+            Vector3 hitPos = (Vector3) message["hit point"];
+            Fighter sender = (Fighter) message["attacker"];
+            Fighter receiver = (Fighter) message["attacked"];
+            InitializaeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.Log("key was not found in dictionary.");
+        }
     }
 }

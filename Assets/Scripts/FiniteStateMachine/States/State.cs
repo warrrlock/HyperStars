@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using FiniteStateMachine;
@@ -19,6 +20,7 @@ namespace FiniteStateMachine
         }
         
         public override void Execute(BaseStateMachine stateMachine, string inputName){
+            // Debug.Log($"{stateMachine.name} is executing {name}");
             foreach(StateAction action in _actions){
                 action.Execute(stateMachine);
             }
@@ -29,6 +31,7 @@ namespace FiniteStateMachine
         }
         public override void Stop(BaseStateMachine stateMachine, string inputName)
         {
+            // Debug.Log($"{stateMachine.name} stopped action {name}");
             foreach(StateAction action in _actions){
                 action.Stop(stateMachine);
             }

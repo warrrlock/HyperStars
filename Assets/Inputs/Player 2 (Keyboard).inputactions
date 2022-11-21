@@ -94,6 +94,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "bd8a5199-c322-4f1a-b736-50a4b581e6d0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sidestep",
+                    "type": "Button",
+                    "id": "d09d9464-fdb1-418e-926c-bfe6020b7534",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -107,17 +125,6 @@
                     "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "e2062cb9-1b15-46a2-838c-2f8d72a0bdd9",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "down",
@@ -177,7 +184,7 @@
                 {
                     "name": "",
                     "id": "450486a9-2859-40c8-9156-e64fc97aaac8",
-                    "path": "<Keyboard>/slash",
+                    "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -199,7 +206,7 @@
                 {
                     "name": "",
                     "id": "1da73ce2-d7a4-4b42-8c2d-dca05e0e41a4",
-                    "path": "<Keyboard>/period",
+                    "path": "<Keyboard>/semicolon",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -263,6 +270,28 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "b0a0ce1e-6029-46db-a005-dea7dc37fd4f",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e52ece3-b9af-4aac-8121-9ac81ff3bc04",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "One Modifier",
                     "id": "b86950f3-0874-473b-94d7-63264f041ae2",
                     "path": "OneModifier",
@@ -287,7 +316,7 @@
                 {
                     "name": "binding",
                     "id": "ef1634a0-0ffb-4074-9cfd-7848ce2b5df2",
-                    "path": "<Keyboard>/k",
+                    "path": "<Keyboard>/quote",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -320,7 +349,7 @@
                 {
                     "name": "binding",
                     "id": "459ca717-5d19-4c17-a48b-f6f2beda0643",
-                    "path": "<Keyboard>/k",
+                    "path": "<Keyboard>/quote",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -386,7 +415,7 @@
                 {
                     "name": "",
                     "id": "d36a10c6-5a6a-43ac-9172-457c7a7c9625",
-                    "path": "<Keyboard>/p",
+                    "path": "<Keyboard>/comma",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -408,7 +437,7 @@
                 {
                     "name": "",
                     "id": "b99e3e53-092e-4629-a307-151a60718160",
-                    "path": "<Keyboard>/comma",
+                    "path": "<Keyboard>/quote",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -426,6 +455,72 @@
                     "action": "Special",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12d9ab7f-582d-40e6-87e5-58ee57d70f40",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7548c6e-531f-4d48-a621-fe643653c5d1",
+                    "path": "<Gamepad>/dpad/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Sidestep",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55540a87-1bd1-4ea6-9c97-d5dc016aa39c",
+                    "path": "<Gamepad>/leftStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Sidestep",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WD",
+                    "id": "5218c8f8-8a2b-4f8f-95da-c82c5aa48df0",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sidestep",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "fcef4c3d-98d8-4cbc-a580-b9aa3c4f9d45",
+                    "path": "<Keyboard>/leftBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Sidestep",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "0d6350b3-bf08-45e5-b195-3ab6cc58c7db",
+                    "path": "<Keyboard>/rightBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Sidestep",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

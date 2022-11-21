@@ -13,23 +13,28 @@ MonoBehaviour:
   m_Name: Medium Atk 1
   m_EditorClassIdentifier: 
   _animationName: MediumAtk1
+  _inputStopActions: []
   _transitions:
   - {fileID: 11400000, guid: a11940838089ac0439b5700a71e8775a, type: 2}
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
+  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   _defaultCombo: 0
   _attackInfo:
-    knockbackDuration: 0.7
-    knockbackDistance: 10
-    knockbackDirection: {x: 0.5, y: 1, z: 0}
-    hitStunDuration: 1
+    knockbackDuration: 0.5
+    knockbackDistance: 0.5
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 0.4
     damage: 10
-    causesWallBounce: 1
+    causesWallBounce: 0
     hitStopDuration: 0.1
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 0
-    knockbackForce: {x: 78.439865, y: 100}
+    favorReward: 8
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0.2
+  isSpecial: 0
+  specialBarCost: 0
   _animationHash: 1233118710

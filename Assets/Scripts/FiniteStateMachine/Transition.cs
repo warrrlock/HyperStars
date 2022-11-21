@@ -25,7 +25,7 @@ namespace FiniteStateMachine
         [SerializeField] private FalseState _falseState;
         private BaseState _customFalseState;
 
-        // ReSharper disable Unity.PerformanceAnalysis
+        
         /// <summary>
         /// Queues the next state (true state if successful combo and false otherwise),
         /// which will be executed upon end of animation, or as indicated in animation.
@@ -40,7 +40,12 @@ namespace FiniteStateMachine
             bool decision = _inputActionName.Equals(inputName, StringComparison.OrdinalIgnoreCase);
             if (decision)
             {
-                if (canCombo)
+                ComboState state = _trueState as ComboState;
+                bool specialCheck = !state || 
+                                    !state.isSpecial ||
+                                    !stateMachine.Fighter.SpecialMeterManager || 
+                                    stateMachine.Fighter.SpecialMeterManager.CheckBar(state.specialBarCost);
+                if (canCombo && specialCheck)
                 {
                     if (!_trueState)
                     {
@@ -48,6 +53,8 @@ namespace FiniteStateMachine
                         return;
                     }
                     stateMachine.QueueState(_trueState);
+                    // Debug.Log($"{stateMachine.name} last executed input is {inputName}");
+                    stateMachine.LastExecutedInput = inputName;
                 }
                 else
                 {
@@ -71,12 +78,21 @@ namespace FiniteStateMachine
             // Debug.Log("checking " + inputName +" equals " + _inputActionName);
             if (decision)
             {
+                ComboState state = _trueState as ComboState;
+                bool specialCheck = !state || 
+                                    !state.isSpecial ||
+                                    !stateMachine.Fighter.SpecialMeterManager || 
+                                    stateMachine.Fighter.SpecialMeterManager.CheckBar(state.specialBarCost);
+                if (!specialCheck) return;
+                
                 if (!_trueState)
                 {
                     Debug.LogWarning("no true state was assigned to this transition", this);
                     return;
                 }
                 stateMachine.QueueState(_trueState);
+                // Debug.Log($"{stateMachine.name} last executed input is {inputName}");
+                stateMachine.LastExecutedInput = inputName;
                 stateMachine.ExecuteQueuedState();
             }
             else if (_customFalseState)

@@ -78,6 +78,10 @@ public class MovementController : MonoBehaviour
     private bool _isJumping;
     public Fighter.Direction MovingDirection { get; private set; }
 
+    [SerializeField] private float _mass = 1f;
+
+    [SerializeField] private float _sidestepDuration;
+
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
     {
@@ -351,7 +355,68 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+            inputVector *= _moveSpeed;
+            _unforcedVelocity.x = inputVector.x;
+            //_unforcedVelocity.z = inputVector.y;
+        }
+        yield break;
+    }
+
+    public IEnumerator ApplyForcePolar(Vector3 direction, float magnitude)
+    {
+        direction.Normalize();
+        float acceleration = magnitude / _mass;
+        float deceleration = 0f;
+        float forceMagnitude = magnitude;
+        float initialMagnitude = magnitude;
+        while (forceMagnitude > 0f)
+        {
+            if (_isWallBounceable)
+            {
+                if (_collisionData.x.isNegativeHit || _collisionData.x.isPositiveHit)
+                {
+                    ResetVelocityY();
+                    if (_wallBounceDistance != 0f)
+                    {
+                        Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _wallBounceDirection : new Vector3(-_wallBounceDirection.x, _wallBounceDirection.y, _wallBounceDirection.z);
+                        float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
+                        StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
+                        yield break;
+                    }
+                    direction.x *= -1f;
+                }
+                if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
+                {
+                    ResetVelocityY();
+                    if (_wallBounceDistance != 0f)
+                    {
+                        Vector3 bounceDirection = Mathf.Sign(direction.z) == 1f ? _wallBounceDirection : new Vector3(_wallBounceDirection.x, _wallBounceDirection.y, -_wallBounceDirection.z);
+                        float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
+                        StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
+                        yield break;
+                    }
+                    direction.z *= -1f;
+                }
+            }
+            Vector3 force = direction * forceMagnitude;
+            _forceVelocity += force;
+            yield return new WaitForFixedUpdate();
+
+            _forceVelocity -= force;
+            deceleration += acceleration * Time.fixedDeltaTime;
+            forceMagnitude = initialMagnitude - deceleration;
+        }
+
+        if (!_inputManager.Actions["Move"].isBeingPerformed)
+        {
+            _unforcedVelocity.x = 0f;
+            _unforcedVelocity.z = 0f;
+        }
+        else
+        {
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+            inputVector *= _moveSpeed;
             _unforcedVelocity.x = inputVector.x;
             //_unforcedVelocity.z = inputVector.y;
         }
@@ -373,6 +438,7 @@ public class MovementController : MonoBehaviour
         _inputManager.Actions["Dash"].perform += Dash;
         _inputManager.Actions["Jump"].perform += Jump;
         _inputManager.Actions["Jump"].stop += StopJumping;
+        _inputManager.Actions["Sidestep"].perform += Sidestep;
     }
 
     private void UnsubscribeActions()
@@ -382,6 +448,7 @@ public class MovementController : MonoBehaviour
         _inputManager.Actions["Dash"].perform -= Dash;
         _inputManager.Actions["Jump"].perform -= Jump;
         _inputManager.Actions["Jump"].stop -= StopJumping;
+        _inputManager.Actions["Sidestep"].perform -= Sidestep;
     }
 
     private void SpaceRays()
@@ -518,7 +585,8 @@ public class MovementController : MonoBehaviour
 
         if (axis == Axis.y)
         {
-            RemoveCollisionLayers(9);
+            //_collisionMask.RemoveLayers(9);
+            RemoveCollisionLayer(9);
         }
 
         for (int i = 0; i < rayCount; i++)
@@ -569,7 +637,8 @@ public class MovementController : MonoBehaviour
 
         if (axis == Axis.y)
         {
-            AddCollisionLayers(9);
+            //_collisionMask.AddLayers(9);
+            AddCollisionLayer(9);
         }
     }
 
@@ -596,7 +665,8 @@ public class MovementController : MonoBehaviour
 
     private void StartMoving(InputManager.Action action)
     {
-        Vector2 inputVector = action.inputAction.ReadValue<Vector2>().normalized * _moveSpeed;
+        Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+        inputVector *= _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
         //_unforcedVelocity.z = inputVector.y;
     }
@@ -622,7 +692,7 @@ public class MovementController : MonoBehaviour
         //TODO: end the dash if player hits an obstacle
         if (_inputManager.Actions["Move"].isBeingInput)
         {
-            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<Vector2>().normalized;
+        Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
             StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, 0f), _dashForce, _dashDuration, _dashEasing));
             if (_dashToZero)
             {
@@ -681,6 +751,41 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    private void Sidestep(InputManager.Action action)
+    {
+        //_fighter.invulnerabilityCount++;
+        //Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() == 1 ? Vector3.forward : Vector3.back;
+        //StartCoroutine(ApplyForce(inputVector, _sidestepForce, _sidestepDuration, _dashEasing));
+        //StartCoroutine(_inputManager.Disable(_sidestepDuration, _inputManager.Actions["Sidestep"]));
+
+
+
+        //StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
+        //float angle = action.inputAction.ReadValue<float>() == 1 ? -_sidestepAngle : _sidestepAngle;
+        //angle = transform.position.x > 0 ? angle : -angle;
+        //StartCoroutine(Sidestep(angle, _sidestepDuration));
+
+    }
+
+    private IEnumerator Sidestep(float angle, float duration)
+    {
+        //_fighter.invulnerabilityCount++;
+        //Vector3 rotation = new Vector3(0f, angle, 0f);
+        //RotationalPivot.eulerAngles += rotation;
+        //yield return new WaitForSeconds(duration);
+
+        //StartCoroutine(_fighter.OpposingFighter.MovementController.SidestepResponse(rotation));
+        //Services.CameraManager.RotateCamera(rotation);
+        //_fighter.invulnerabilityCount--;
+        yield break;
+    }
+
+    public IEnumerator SidestepResponse(Vector3 rotation)
+    {
+        //RotationalPivot.eulerAngles += rotation;
+        yield break;
+    }
+
     private IEnumerator Dash(InputManager.Action action, float duration)
     {
         yield return new WaitForSeconds(duration);
@@ -707,34 +812,31 @@ public class MovementController : MonoBehaviour
         _isAttacking = false;
     }
 
-    private IEnumerator DisableCollisionLayers(float duration, params int[] layers)
+    //private IEnumerator DisableCollisionLayers(float duration, params int[] layers)
+    //{
+    //    _collisionMask.RemoveLayers(layers);
+    //    yield return new WaitForSeconds(duration);
+
+    //    _collisionMask.AddLayers(layers);
+    //    yield break;
+    //}
+
+    private IEnumerator DisableCollisionLayers(float duration, int layer)
     {
-        foreach(int layer in layers)
-        {
-            _collisionMask &= ~(1 << layer);
-        }
+        _collisionMask &= ~(1 << layer);
         yield return new WaitForSeconds(duration);
 
-        foreach (int layer in layers)
-        {
-            _collisionMask |= (1 << layer);
-        }
+        _collisionMask |= (1 << layer);
         yield break;
     }
 
-    private void RemoveCollisionLayers(params int[] layers)
+    private void RemoveCollisionLayer(int layer)
     {
-        foreach (int layer in layers)
-        {
-            _collisionMask &= ~(1 << layer);
-        }
+        _collisionMask &= ~(1 << layer);
     }
 
-    private void AddCollisionLayers(params int[] layers)
+    private void AddCollisionLayer(int layer)
     {
-        foreach (int layer in layers)
-        {
-            _collisionMask |= (1 << layer);
-        }
+        _collisionMask |= (1 << layer);
     }
 }

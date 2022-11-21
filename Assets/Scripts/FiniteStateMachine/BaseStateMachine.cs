@@ -20,39 +20,51 @@ public class KeyHurtStatePair
 namespace FiniteStateMachine {
     [RequireComponent(typeof(Animator))] 
     [RequireComponent(typeof(Fighter))] 
-    public class BaseStateMachine : MonoBehaviour 
+    public class BaseStateMachine : MonoBehaviour
     {
-        
         public BaseState CurrentState {get; private set;}
         public bool CanCombo { get; private set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
 
+        [Header("UI")]
         [SerializeField] private TextMeshProUGUI _stateInfoText;
+        
+        [Header("States")]
         [SerializeField] private BaseState _initialState;
+        private BaseState _returnState;
+        public bool IsIdle => CurrentState == _initialState;
+    
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
                  "\n\n****Add all looping animations.")]
+        [Header("Special cases")]
         [SerializeField] private List<AnimationClip> _noEndEventClips;
-        
         [SerializeField] private List<KeyHurtStatePair> _hurtStatePairs;
+        
         private Dictionary<KeyHurtStatePair.HurtStateName, HurtState> _hurtStates;
-        private Coroutine _hurtCoroutine;
         private Coroutine _airCoroutine;
         
         private BaseState _queuedState;
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
+        private string _lastExecutedInput;
+
+        public string LastExecutedInput
+        {
+            get => _lastExecutedInput;
+            set => _lastExecutedInput = value;
+        }
 
         public Fighter Fighter { get; private set; }
         private Animator _animator;
-        private Dictionary<Type, Component> _cachedComponents;
+        // private Dictionary<Type, Component> _cachedComponents;
 
         #region Methods
         #region Unity
         private void Awake()
         {
-            _cachedComponents = new Dictionary<Type, Component>();
+            // _cachedComponents = new Dictionary<Type, Component>();
             Fighter = GetComponent<Fighter>();
             _animator = GetComponent<Animator>();
 
@@ -82,9 +94,9 @@ namespace FiniteStateMachine {
                 entry.Value.perform += Invoke;
             Fighter.InputManager.Actions["Dash"].finish += Stop;
             Fighter.InputManager.Actions["Move"].stop += Stop;
+            Fighter.InputManager.Actions["Crouch"].stop += Stop;
 
-            CurrentState = _initialState;
-            CurrentState.Execute(this, "");
+            ResetStateMachine();
             UpdateStateInfoText();
         }
 
@@ -94,33 +106,49 @@ namespace FiniteStateMachine {
                 entry.Value.perform -= Invoke;
             Fighter.InputManager.Actions["Dash"].finish -= Stop;
             Fighter.InputManager.Actions["Move"].stop -= Stop;
+            Fighter.InputManager.Actions["Crouch"].stop -= Stop;
             StopAllCoroutines();
         }
         #endregion
 
-        public new T GetComponent<T>() where T: Component 
+        // private new T GetComponent<T>() where T: Component 
+        // {
+        //     if (_cachedComponents.ContainsKey(typeof(T)))
+        //         return _cachedComponents[typeof(T)] as T;
+        //     
+        //     var component = base.GetComponent<T>();
+        //     
+        //     if (component != null)
+        //         _cachedComponents.Add(typeof(T), component);
+        //
+        //     return component;
+        // }
+        public void ResetStateMachine()
         {
-            if (_cachedComponents.ContainsKey(typeof(T)))
-                return _cachedComponents[typeof(T)] as T;
-            
-            var component = base.GetComponent<T>();
-            
-            if (component != null)
-                _cachedComponents.Add(typeof(T), component);
-
-            return component;
+            CurrentState = _initialState;
+            _returnState = _initialState;
+            CurrentState.Execute(this, "");
         }
-
+        
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput || CurrentState is HurtState) return;
-            Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
+            // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.name);
         }
 
         private void Stop(InputManager.Action action)
         {
+            // Debug.Log($"Stop called by {action.name}, with last played action being {_lastExecutedInput}");
+            if (_returnState == _initialState     && _lastExecutedInput != action.name
+                                                  && _lastExecutedInput != "Crouch" 
+                                                  && _lastExecutedInput != "") return;
             CurrentState.Stop(this, action.name);
+        }
+
+        public bool CheckReturnState(BaseState state)
+        {
+            return _returnState == state;
         }
 
         public bool PlayAnimation(int animationState, bool defaultCombo = false, bool replay = false)
@@ -132,9 +160,11 @@ namespace FiniteStateMachine {
             return true;
         }
         
-        public void QueueState(BaseState state)
+        public void QueueState(BaseState state = null)
         {
-            if (_queuedState == null) _queuedState = state;
+            // Debug.Log($"{name} queuing state {state?.name}");
+            // if (!_queuedState) _queuedState = state;
+            _queuedState = state;
         }
         
         /// <summary>
@@ -164,9 +194,15 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
-            TrySetQueueInitial();
+            TrySetQueueReturn();
+            // TrySetQueueInitial();
             ExecuteQueuedState();
-            _hurtCoroutine = null;
+        }
+        
+        private void HandleStateExit()
+        {
+            _currentAnimation = -1;
+            if (_isAttacking) DisableAttackStop();
         }
 
         //ANIMATION USE
@@ -185,6 +221,7 @@ namespace FiniteStateMachine {
             yield return new WaitForFixedUpdate();
             _hurtStates.TryGetValue(stateName, out HurtState state);
             if (!state) yield break;
+            SetReturnState();
             if (CurrentState is HurtState hurtState && hurtState == state)
                 CurrentState.Execute(this, "");
             else  ForceSetState(state);
@@ -200,13 +237,17 @@ namespace FiniteStateMachine {
         {
             if (!_queuedState && CurrentState != _initialState) _queuedState = _initialState;
         }
-
-        private void HandleStateExit()
+        
+        private void TrySetQueueReturn()
         {
-            _currentAnimation = -1;
-            if (_isAttacking) DisableAttackStop();
+            if (!_queuedState && CurrentState != _returnState) _queuedState = _returnState;
         }
 
+        public void SetReturnState(BaseState state = null)
+        {
+            _returnState = state ? state : _initialState;
+        }
+        
         public void EnableAttackStop()
         {
             if (_isAttacking) return;
@@ -226,32 +267,49 @@ namespace FiniteStateMachine {
         {
             if (_airCoroutine != null) return;
             _airCoroutine = StartCoroutine(HandleExitInAir(onGroundAction));
+            StartCoroutine(Fighter.InputManager.Disable(
+                () => Fighter.MovementController.CollisionData.y.isNegativeHit, 
+                Fighter.InputManager.Actions["Crouch"]));
         }
 
         private IEnumerator HandleExitInAir(Action onGroundAction)
         {
             yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => Fighter.MovementController.CollisionData.y.isNegativeHit);
+            // SetReturnState();
             
             if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
             else Fighter.Events.onLandedNeutral?.Invoke();
+            
             //when out of air, return to idle or execute given action
             onGroundAction ??= HandleAnimationExit;
             onGroundAction();
             _airCoroutine = null;
         }
 
-        public void WaitToMove(int nextAnimation = -1)
+        public void WaitToMove(int nextAnimation = -1, Func<bool> condition = null)
         {
-            if (_hurtCoroutine != null) StopCoroutine(_hurtCoroutine);
-            _hurtCoroutine = StartCoroutine(HandleWaitToMove(nextAnimation));
+            StartCoroutine(HandleWaitToMove(nextAnimation, condition));
         }
 
-        private IEnumerator HandleWaitToMove(int nextAnimation)
+        private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> condition, bool stateExit = false)
         {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
-            yield return new WaitUntil(() => Fighter.InputManager.Actions["Move"].disabledCount <= 0);
-            HandleAnimationExit();
+            // Debug.Log($"{name} waiting to move, current move is disabled at {Fighter.InputManager.Actions["Move"].disabledCount}");
+            yield return new WaitUntil(condition ?? (() => Fighter.InputManager.Actions["Move"].disabledCount <= 0));
+            // Debug.Log($"{name} starting to move, current move is disabled at {Fighter.InputManager.Actions["Move"].disabledCount}");
+            
+            if (stateExit) HandleStateExit();
+            else HandleAnimationExit();
+        }
+
+        public void DisableInputs(List<string> inputs, Func<bool> condition, bool returnToIdle = true)
+        {
+            IEnumerable<InputManager.Action> actionIEnum = inputs.Select(input => Fighter.InputManager.Actions[input]);
+            InputManager.Action[] actions = actionIEnum.ToArray();
+            
+            StartCoroutine(Fighter.InputManager.Disable(condition, actions));
+            StartCoroutine(HandleWaitToMove(-1, condition, !returnToIdle));
         }
 
         private void UpdateStateInfoText()
