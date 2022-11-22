@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
@@ -16,7 +16,7 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="1315744731">
+		<SoundBank Id="3161908922" Language="SFX" Hash="3191996111">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -153,14 +153,6 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3732287388" Name="Play_LISA_PARRY" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_PARRY" DurationType="OneShot" DurationMin="0.461542" DurationMax="0.461542">
-					<IncludedMemoryFiles>
-						<File Id="232802187" Language="SFX">
-							<ShortName>LISA_PARRY.wav</ShortName>
-							<Path>SFX\LISA_PARRY_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
 				<Event Id="3858634255" Name="Play_LISA_SPECIAL_NEUTRAL" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_SPECIAL_NEUTRAL" DurationType="OneShot" DurationMin="1.347574" DurationMax="1.347574">
 					<IncludedMemoryFiles>
 						<File Id="1060207978" Language="SFX">
@@ -174,6 +166,14 @@
 						<File Id="361402554" Language="SFX">
 							<ShortName>LISA_SPECIAL_SIDE.wav</ShortName>
 							<Path>SFX\LISA_SPECIAL_SIDE_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3662377158" Name="Play_PARRY_HIT" ObjectPath="\Events\Default Work Unit\Play_PARRY_HIT" DurationType="OneShot" DurationMin="0.964207" DurationMax="1.083536">
+					<IncludedMemoryFiles>
+						<File Id="312000915" Language="SFX">
+							<ShortName>PARRY_HIT.wav</ShortName>
+							<Path>SFX\PARRY_HIT_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

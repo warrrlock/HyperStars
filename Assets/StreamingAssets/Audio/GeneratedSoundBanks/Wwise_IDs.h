@@ -28,9 +28,9 @@ namespace AK
         static const AkUniqueID PLAY_LISA_HITS = 3751620944U;
         static const AkUniqueID PLAY_LISA_JUMP = 28555886U;
         static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
-        static const AkUniqueID PLAY_LISA_PARRY = 3732287388U;
         static const AkUniqueID PLAY_LISA_SPECIAL_NEUTRAL = 3858634255U;
         static const AkUniqueID PLAY_LISA_SPECIAL_SIDE = 1098933211U;
+        static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;
         static const AkUniqueID PLAY_WALL_HIT = 625690868U;
     } // namespace EVENTS
 
