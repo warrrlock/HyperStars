@@ -187,6 +187,64 @@
 										<ActiveSource Name="LISA_AIR_MEDIUM" ID="{1671CB68-BB3E-4B79-A369-F211502427C7}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="LISA_LOW_LIGHT" ID="{3DE628BD-1E03-410B-A385-FA2676B4B0D3}" ShortID="134190772">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_LOW_LIGHT" ID="{E4AC2FFD-8D8F-4E03-9FD8-F252DCF1E49A}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_LOW_LIGHT.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="888474877"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_LOW_LIGHT" ID="{E4AC2FFD-8D8F-4E03-9FD8-F252DCF1E49A}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LISA_LOW_MEDIUM" ID="{18A90AB0-81B2-4312-9916-BDB31CCCF70C}" ShortID="926630328">
+									<PropertyList>
+										<Property Name="Highpass" Type="int16">
+											<ValueList>
+												<Value>15</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>250</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_LOW_MEDIUM" ID="{E4B9A711-100A-443A-9BD5-D7708C1D8C06}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_LOW_MEDIUM.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="654942947"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_LOW_MEDIUM" ID="{E4B9A711-100A-443A-9BD5-D7708C1D8C06}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="Voicelines" ID="{8504A808-F345-4FD7-A590-7CE4D686E84C}" ShortID="258058286">
@@ -478,6 +536,36 @@
 									<ObjectLists/>
 									<ActiveSourceList>
 										<ActiveSource Name="LISA_LAND" ID="{56206A12-7E33-4BFE-B5FC-A7A28F494CFB}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LISA_CROUCH" ID="{B520D7BE-2A7F-42AA-8E01-F35A0885A27D}" ShortID="92956800">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>100</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_CROUCH" ID="{B8B82275-EB76-479B-AB49-A390E37BEB01}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_CROUCH.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="760848990"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_CROUCH" ID="{B8B82275-EB76-479B-AB49-A390E37BEB01}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>

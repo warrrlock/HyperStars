@@ -2,11 +2,13 @@ Event	ID	Name			Wwise Object Path	Notes
 	28555886	Play_LISA_JUMP			\Default Work Unit\LISA\Play_LISA_JUMP	
 	348820993	Play_GROUND_HIT			\Default Work Unit\Play_GROUND_HIT	
 	431785379	Play_LISA_FOOTSTEPS			\Default Work Unit\LISA\Play_LISA_FOOTSTEPS	
+	519494373	Play_LISA_LOW_LIGHT			\Default Work Unit\LISA\Play_LISA_LOW_LIGHT	
 	550992759	Play_LISA_AIR_LIGHT			\Default Work Unit\LISA\Play_LISA_AIR_LIGHT	
 	625690868	Play_WALL_HIT			\Default Work Unit\Play_WALL_HIT	
 	936983702	Play_LISA_DASH			\Default Work Unit\LISA\Play_LISA_DASH	
 	1098933211	Play_LISA_SPECIAL_SIDE			\Default Work Unit\LISA\Play_LISA_SPECIAL_SIDE	
 	1597314465	Play_LISA_COMBO_1_INITIAL			\Default Work Unit\LISA\Play_LISA_COMBO_1_INITIAL	
+	1808428040	Play_LISA_CROUCH			\Default Work Unit\LISA\Play_LISA_CROUCH	
 	1854249638	Play_LISA_AIR_SPECIAL			\Default Work Unit\LISA\Play_LISA_AIR_SPECIAL	
 	2083444140	Play_LISA_Combo_Voicelines			\Default Work Unit\LISA\Play_LISA_Combo_Voicelines	
 	2349820377	Play_LISA_LAND			\Default Work Unit\LISA\Play_LISA_LAND	
@@ -16,6 +18,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	3376269180	Play_LISA_COMBO_5			\Default Work Unit\LISA\Play_LISA_COMBO_5	
 	3376269181	Play_LISA_COMBO_4			\Default Work Unit\LISA\Play_LISA_COMBO_4	
 	3662377158	Play_PARRY_HIT			\Default Work Unit\Play_PARRY_HIT	
+	3727786178	Play_LISA_LOW_MEDIUM			\Default Work Unit\LISA\Play_LISA_LOW_MEDIUM	
 	3751620944	Play_LISA_HITS			\Default Work Unit\LISA\Play_LISA_HITS	
 	3858634255	Play_LISA_SPECIAL_NEUTRAL			\Default Work Unit\LISA\Play_LISA_SPECIAL_NEUTRAL	
 
@@ -35,11 +38,14 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	390276904	LISA_DASH	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_DASH_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Movements\LISA_DASH		56716
 	494133635	WALL_HIT	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\WALL_HIT_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Environment\WALL_HIT		35798
 	642297353	LISA_AIR_SPECIAL	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_AIR_SPECIAL_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Specials\LISA_AIR_SPECIAL		87494
+	654942947	LISA_LOW_MEDIUM	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_LOW_MEDIUM_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Combos\LISA_LOW_MEDIUM		64016
 	716047945	LISA_AIR_LIGHT	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_AIR_LIGHT_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Combos\LISA_AIR_LIGHT		39926
 	723207978	LISA_AIR_MEDIUM	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_AIR_MEDIUM_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Combos\LISA_AIR_MEDIUM		79726
+	760848990	LISA_CROUCH	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_CROUCH_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Movements\LISA_CROUCH		49252
 	778109053	LISA_HIT	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_HITS_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Hits\LISA_HIT		37868
 	781719068	LISA_LAND	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_LAND_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Movements\LISA_LAND		38984
 	782658603	LISA_FOOTSTEP_2	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_FOOTSTEP_2_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Movements\Footsteps\LISA_FOOTSTEP_2		13294
+	888474877	LISA_LOW_LIGHT	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_LOW_LIGHT_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Combos\LISA_LOW_LIGHT		48822
 	924215492	LISA_FOOTSTEP_3	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_FOOTSTEP_3_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Movements\Footsteps\LISA_FOOTSTEP_3		16024
 	968651512	LISA_VOICELINE_1	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_VOICELINE_1_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Voicelines\Combo Voicelines\LISA_VOICELINE_1		276864
 	1003057838	LISA_JUMP	Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_JUMP_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lisa\Movements\LISA_JUMP		78990

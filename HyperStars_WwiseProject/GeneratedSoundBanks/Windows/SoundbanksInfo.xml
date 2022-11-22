@@ -16,7 +16,7 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="3191996111">
+		<SoundBank Id="3161908922" Language="SFX" Hash="3191072575">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -105,6 +105,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="1808428040" Name="Play_LISA_CROUCH" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_CROUCH" DurationType="OneShot" DurationMin="0.526386" DurationMax="0.526386">
+					<IncludedMemoryFiles>
+						<File Id="760848990" Language="SFX">
+							<ShortName>LISA_CROUCH.wav</ShortName>
+							<Path>SFX\LISA_CROUCH_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="936983702" Name="Play_LISA_DASH" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_DASH" DurationType="OneShot" DurationMin="0.642313" DurationMax="0.642313">
 					<IncludedMemoryFiles>
 						<File Id="390276904" Language="SFX">
@@ -150,6 +158,22 @@
 						<File Id="781719068" Language="SFX">
 							<ShortName>LISA_LAND.wav</ShortName>
 							<Path>SFX\LISA_LAND_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="519494373" Name="Play_LISA_LOW_LIGHT" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_LOW_LIGHT" DurationType="OneShot" DurationMin="0.552812" DurationMax="0.552812">
+					<IncludedMemoryFiles>
+						<File Id="888474877" Language="SFX">
+							<ShortName>LISA_LOW_LIGHT.wav</ShortName>
+							<Path>SFX\LISA_LOW_LIGHT_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3727786178" Name="Play_LISA_LOW_MEDIUM" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_LOW_MEDIUM" DurationType="OneShot" DurationMin="0.627583" DurationMax="0.627583">
+					<IncludedMemoryFiles>
+						<File Id="654942947" Language="SFX">
+							<ShortName>LISA_LOW_MEDIUM.wav</ShortName>
+							<Path>SFX\LISA_LOW_MEDIUM_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
