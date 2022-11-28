@@ -79,6 +79,7 @@ public class SpecialMeterManager : MonoBehaviour
 
     private void UnsubscribeFromEvents()
     {
+        if (!_fighter) return;
         _fighter.Events.onAttackHit -= HandleIncrement;
         _fighter.OpposingFighter.Events.onBlockHit -= HandleIncrement;
     }

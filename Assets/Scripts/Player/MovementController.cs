@@ -80,13 +80,6 @@ public class MovementController : MonoBehaviour
 
     [SerializeField] private float _mass = 1f;
 
-    public Transform RotationalPivot
-    {
-        get => _rotationalPivot;
-        private set => _rotationalPivot = value;
-    }
-    [SerializeField] private Transform _rotationalPivot;
-    [SerializeField] private float _sidestepAngle;
     [SerializeField] private float _sidestepDuration;
 
     private RaycastOrigins _raycastOrigins;
@@ -592,7 +585,8 @@ public class MovementController : MonoBehaviour
 
         if (axis == Axis.y)
         {
-            _collisionMask.RemoveLayers(9);
+            //_collisionMask.RemoveLayers(9);
+            RemoveCollisionLayer(9);
         }
 
         for (int i = 0; i < rayCount; i++)
@@ -643,7 +637,8 @@ public class MovementController : MonoBehaviour
 
         if (axis == Axis.y)
         {
-            _collisionMask.AddLayers(9);
+            //_collisionMask.AddLayers(9);
+            AddCollisionLayer(9);
         }
     }
 
@@ -762,29 +757,32 @@ public class MovementController : MonoBehaviour
         //Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() == 1 ? Vector3.forward : Vector3.back;
         //StartCoroutine(ApplyForce(inputVector, _sidestepForce, _sidestepDuration, _dashEasing));
         //StartCoroutine(_inputManager.Disable(_sidestepDuration, _inputManager.Actions["Sidestep"]));
-        StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
-        float angle = action.inputAction.ReadValue<float>() == 1 ? -_sidestepAngle : _sidestepAngle;
-        angle = transform.position.x > 0 ? angle : -angle;
-        StartCoroutine(Sidestep(angle, _sidestepDuration));
+
+
+
+        //StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
+        //float angle = action.inputAction.ReadValue<float>() == 1 ? -_sidestepAngle : _sidestepAngle;
+        //angle = transform.position.x > 0 ? angle : -angle;
+        //StartCoroutine(Sidestep(angle, _sidestepDuration));
 
     }
 
     private IEnumerator Sidestep(float angle, float duration)
     {
-        _fighter.invulnerabilityCount++;
-        Vector3 rotation = new Vector3(0f, angle, 0f);
-        RotationalPivot.eulerAngles += rotation;
-        yield return new WaitForSeconds(duration);
+        //_fighter.invulnerabilityCount++;
+        //Vector3 rotation = new Vector3(0f, angle, 0f);
+        //RotationalPivot.eulerAngles += rotation;
+        //yield return new WaitForSeconds(duration);
 
-        StartCoroutine(_fighter.OpposingFighter.MovementController.SidestepResponse(rotation));
-        Services.CameraManager.RotateCamera(rotation);
-        _fighter.invulnerabilityCount--;
+        //StartCoroutine(_fighter.OpposingFighter.MovementController.SidestepResponse(rotation));
+        //Services.CameraManager.RotateCamera(rotation);
+        //_fighter.invulnerabilityCount--;
         yield break;
     }
 
     public IEnumerator SidestepResponse(Vector3 rotation)
     {
-        RotationalPivot.eulerAngles += rotation;
+        //RotationalPivot.eulerAngles += rotation;
         yield break;
     }
 
@@ -814,12 +812,31 @@ public class MovementController : MonoBehaviour
         _isAttacking = false;
     }
 
-    private IEnumerator DisableCollisionLayers(float duration, params int[] layers)
+    //private IEnumerator DisableCollisionLayers(float duration, params int[] layers)
+    //{
+    //    _collisionMask.RemoveLayers(layers);
+    //    yield return new WaitForSeconds(duration);
+
+    //    _collisionMask.AddLayers(layers);
+    //    yield break;
+    //}
+
+    private IEnumerator DisableCollisionLayers(float duration, int layer)
     {
-        _collisionMask.RemoveLayers(layers);
+        _collisionMask &= ~(1 << layer);
         yield return new WaitForSeconds(duration);
 
-        _collisionMask.AddLayers(layers);
+        _collisionMask |= (1 << layer);
         yield break;
+    }
+
+    private void RemoveCollisionLayer(int layer)
+    {
+        _collisionMask &= ~(1 << layer);
+    }
+
+    private void AddCollisionLayer(int layer)
+    {
+        _collisionMask |= (1 << layer);
     }
 }

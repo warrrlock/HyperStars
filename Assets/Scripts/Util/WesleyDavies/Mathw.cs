@@ -93,6 +93,12 @@ namespace WesleyDavies
             return total / vectors.Length;
         }
 
+        //TODO: do this!
+        public static float Sum(params float[] floats)
+        {
+            return default;
+        }
+
         /// <summary>
         /// Linearly interpolates a value over a period of time.
         /// </summary>

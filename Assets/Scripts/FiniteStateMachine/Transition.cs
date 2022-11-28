@@ -40,11 +40,7 @@ namespace FiniteStateMachine
             bool decision = _inputActionName.Equals(inputName, StringComparison.OrdinalIgnoreCase);
             if (decision)
             {
-                ComboState state = _trueState as ComboState;
-                bool specialCheck = !state || 
-                                    !state.isSpecial ||
-                                    !stateMachine.Fighter.SpecialMeterManager || 
-                                    stateMachine.Fighter.SpecialMeterManager.CheckBar(state.specialBarCost);
+                bool specialCheck = CheckSpecial(stateMachine);
                 if (canCombo && specialCheck)
                 {
                     if (!_trueState)
@@ -53,6 +49,7 @@ namespace FiniteStateMachine
                         return;
                     }
                     stateMachine.QueueState(_trueState);
+                    // Debug.Log($"{stateMachine.name} last executed input is {inputName}");
                     stateMachine.LastExecutedInput = inputName;
                 }
                 else
@@ -77,11 +74,7 @@ namespace FiniteStateMachine
             // Debug.Log("checking " + inputName +" equals " + _inputActionName);
             if (decision)
             {
-                ComboState state = _trueState as ComboState;
-                bool specialCheck = !state || 
-                                    !state.isSpecial ||
-                                    !stateMachine.Fighter.SpecialMeterManager || 
-                                    stateMachine.Fighter.SpecialMeterManager.CheckBar(state.specialBarCost);
+                bool specialCheck = CheckSpecial(stateMachine);
                 if (!specialCheck) return;
                 
                 if (!_trueState)
@@ -90,6 +83,7 @@ namespace FiniteStateMachine
                     return;
                 }
                 stateMachine.QueueState(_trueState);
+                // Debug.Log($"{stateMachine.name} last executed input is {inputName}");
                 stateMachine.LastExecutedInput = inputName;
                 stateMachine.ExecuteQueuedState();
             }
@@ -98,6 +92,15 @@ namespace FiniteStateMachine
                 stateMachine.QueueState(_customFalseState);
                 stateMachine.ExecuteQueuedState();
             }
+        }
+
+        private bool CheckSpecial(BaseStateMachine stateMachine)
+        {
+            BaseState state = _trueState;
+            return !state ||
+                    state.GetSpecialBarCost() < 0 ||
+                    !stateMachine.Fighter.SpecialMeterManager || 
+                    stateMachine.Fighter.SpecialMeterManager.CheckBar(state.GetSpecialBarCost());
         }
         
         #region Editor
