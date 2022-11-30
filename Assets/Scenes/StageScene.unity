@@ -1245,13 +1245,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393061351}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17, y: 10, z: 260.9}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 51.91059, y: 70.56813, z: 142.5875}
   m_LocalScale: {x: 59.719227, y: 59.719227, z: 59.719227}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_Father: {fileID: 809461170}
+  m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &444580371
 GameObject:
@@ -3335,6 +3335,7 @@ Transform:
   - {fileID: 1628206584}
   - {fileID: 1573858074}
   - {fileID: 1700454089}
+  - {fileID: 393061353}
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5542,13 +5543,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _restartButton: {fileID: 0}
+  _neededWins: 0
   _roundText: {fileID: 1162647565}
   _startText: 
-  _neededWins: 0
   _countdownText: {fileID: 1143202847}
   _countdown: 3
-  _winText: []
-  _backgrounds: []
+  _fightersManager: {fileID: 0}
+  _roundUIParents: []
+  _roundUIPrefab: {fileID: 0}
 --- !u!114 &1489698392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6354,6 +6356,17 @@ Transform:
   m_Father: {fileID: 809461170}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1687867366 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8881640306364533122, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
+  m_PrefabInstance: {fileID: 674479587}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1694251466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8184,6 +8197,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 8.3
       objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791523318, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _textBox
+      value: 
+      objectReference: {fileID: 1687867366}
     - target: {fileID: 5751411094795848292, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
