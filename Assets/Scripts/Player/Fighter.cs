@@ -104,7 +104,7 @@ public class Fighter : MonoBehaviour
 
     public void ResetFighterHurtboxes()
     {
-        invulnerabilityCount--;
+        if (invulnerabilityCount > 0) invulnerabilityCount--;
     }
 
     public void FlipCharacter(Direction newDirection)
