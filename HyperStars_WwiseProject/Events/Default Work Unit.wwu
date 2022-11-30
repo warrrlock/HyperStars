@@ -203,12 +203,45 @@
 								</Action>
 							</ChildrenList>
 						</Event>
-						<Event Name="Play_LISA_PARRY" ID="{C7A07F41-71B2-4B31-AF8D-D14A5DFDC9CE}">
+						<Event Name="Play_LISA_CROUCH" ID="{DF0E5C82-8DB1-48BD-8C0D-81D06E682318}">
 							<ChildrenList>
-								<Action Name="" ID="{22E72854-3E3B-4158-8C2C-3CE5CFF6BF44}" ShortID="364024347">
+								<Action Name="" ID="{54009B5E-CF22-44C5-A9DE-F49393A60611}" ShortID="1010605367">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="LISA_PARRY" ID="{2FD4881D-7518-4E09-8AB1-66A2CC27956A}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+											<ObjectRef Name="LISA_CROUCH" ID="{B520D7BE-2A7F-42AA-8E01-F35A0885A27D}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_LISA_LOW_LIGHT" ID="{9C26BB58-768D-41AF-B780-F630805B284E}">
+							<ChildrenList>
+								<Action Name="" ID="{77AF2B0F-4857-4111-9370-D8B57921EE0A}" ShortID="317669717">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="LISA_LOW_LIGHT" ID="{3DE628BD-1E03-410B-A385-FA2676B4B0D3}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_LISA_LOW_MEDIUM" ID="{63EE76D4-0E0B-4710-B7D5-7B122CC7DAEE}">
+							<ChildrenList>
+								<Action Name="" ID="{48851BF7-A093-42ED-AFE4-7C9D14D7FDC7}" ShortID="325714223">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="LISA_LOW_MEDIUM" ID="{18A90AB0-81B2-4312-9916-BDB31CCCF70C}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_LISA_LOW_SPECIAL" ID="{97A2ADAD-CEA9-4EC2-A331-CEDB904BA4E8}">
+							<ChildrenList>
+								<Action Name="" ID="{06BB03D2-E247-4EC9-89C8-F6F957B93063}" ShortID="86470086">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="LISA_LOW_SPECIAL" ID="{E85756B3-C717-436F-8424-E3CDD46F5810}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -216,6 +249,17 @@
 						</Event>
 					</ChildrenList>
 				</Folder>
+				<Event Name="Play_PARRY_HIT" ID="{D4578FA6-81DA-4E39-8D2D-B8C4EFC35B5D}">
+					<ChildrenList>
+						<Action Name="" ID="{8F62005F-FBE7-44EB-ABFB-6463DFA368A0}" ShortID="496311205">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PARRY_HIT" ID="{1421CC84-15E7-4163-9B3B-D637A972CB09}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

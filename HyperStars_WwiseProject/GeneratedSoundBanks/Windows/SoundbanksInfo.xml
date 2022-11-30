@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
@@ -16,12 +16,12 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="1315744731">
+		<SoundBank Id="3161908922" Language="SFX" Hash="2818059180">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<IncludedEvents>
-				<Event Id="348820993" Name="Play_GROUND_HIT" ObjectPath="\Events\Default Work Unit\Play_GROUND_HIT" DurationType="OneShot" DurationMin="0.461542" DurationMax="0.461542">
+				<Event Id="348820993" Name="Play_GROUND_HIT" ObjectPath="\Events\Default Work Unit\Play_GROUND_HIT" DurationType="OneShot" DurationMin="0.745459" DurationMax="0.745459">
 					<IncludedMemoryFiles>
 						<File Id="13289569" Language="SFX">
 							<ShortName>GROUND_HIT.wav</ShortName>
@@ -105,6 +105,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="1808428040" Name="Play_LISA_CROUCH" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_CROUCH" DurationType="OneShot" DurationMin="0.526386" DurationMax="0.526386">
+					<IncludedMemoryFiles>
+						<File Id="760848990" Language="SFX">
+							<ShortName>LISA_CROUCH.wav</ShortName>
+							<Path>SFX\LISA_CROUCH_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="936983702" Name="Play_LISA_DASH" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_DASH" DurationType="OneShot" DurationMin="0.642313" DurationMax="0.642313">
 					<IncludedMemoryFiles>
 						<File Id="390276904" Language="SFX">
@@ -153,11 +161,27 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3732287388" Name="Play_LISA_PARRY" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_PARRY" DurationType="OneShot" DurationMin="0.461542" DurationMax="0.461542">
+				<Event Id="519494373" Name="Play_LISA_LOW_LIGHT" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_LOW_LIGHT" DurationType="OneShot" DurationMin="0.552812" DurationMax="0.552812">
 					<IncludedMemoryFiles>
-						<File Id="232802187" Language="SFX">
-							<ShortName>LISA_PARRY.wav</ShortName>
-							<Path>SFX\LISA_PARRY_10C4C929.wem</Path>
+						<File Id="888474877" Language="SFX">
+							<ShortName>LISA_LOW_LIGHT.wav</ShortName>
+							<Path>SFX\LISA_LOW_LIGHT_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3727786178" Name="Play_LISA_LOW_MEDIUM" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_LOW_MEDIUM" DurationType="OneShot" DurationMin="0.627583" DurationMax="0.627583">
+					<IncludedMemoryFiles>
+						<File Id="654942947" Language="SFX">
+							<ShortName>LISA_LOW_MEDIUM.wav</ShortName>
+							<Path>SFX\LISA_LOW_MEDIUM_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3734986080" Name="Play_LISA_LOW_SPECIAL" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_LOW_SPECIAL" DurationType="OneShot" DurationMin="0.843719" DurationMax="0.843719">
+					<IncludedMemoryFiles>
+						<File Id="664956893" Language="SFX">
+							<ShortName>LISA_LOW_SPECIAL.wav</ShortName>
+							<Path>SFX\LISA_LOW_SPECIAL_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -177,7 +201,15 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="625690868" Name="Play_WALL_HIT" ObjectPath="\Events\Default Work Unit\Play_WALL_HIT" DurationType="OneShot" DurationMin="0.400494" DurationMax="0.400494">
+				<Event Id="3662377158" Name="Play_PARRY_HIT" ObjectPath="\Events\Default Work Unit\Play_PARRY_HIT" DurationType="OneShot" DurationMin="0.964207" DurationMax="1.083536">
+					<IncludedMemoryFiles>
+						<File Id="312000915" Language="SFX">
+							<ShortName>PARRY_HIT.wav</ShortName>
+							<Path>SFX\PARRY_HIT_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="625690868" Name="Play_WALL_HIT" ObjectPath="\Events\Default Work Unit\Play_WALL_HIT" DurationType="OneShot" DurationMin="0.454763" DurationMax="0.454763">
 					<IncludedMemoryFiles>
 						<File Id="494133635" Language="SFX">
 							<ShortName>WALL_HIT.wav</ShortName>
