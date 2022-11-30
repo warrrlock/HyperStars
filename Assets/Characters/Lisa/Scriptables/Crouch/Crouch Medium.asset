@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Crouch Medium
   m_EditorClassIdentifier: 
   _animationName: Crouching Medium
-  _inputStopActions:
+  _onInputPlayOrStopActions:
   - {fileID: 11400000, guid: 03001c5c819564b419b5c438b803a3fb, type: 2}
+  _onInputInvokeActions:
+  - {fileID: 11400000, guid: bc69c4238319745e2bf15c118a80961a, type: 2}
   _transitions:
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
   _defaultCombo: 1
@@ -31,9 +33,9 @@ MonoBehaviour:
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 2
+    favorReward: 3
     knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0.5
-  isSpecial: 0
-  specialBarCost: 0
+    incrementBarAmount: 0.2
+  _isSpecial: 0
+  _specialBarCost: 0
   _animationHash: 1363368765

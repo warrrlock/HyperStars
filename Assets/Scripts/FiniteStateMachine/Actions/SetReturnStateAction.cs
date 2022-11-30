@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace FiniteStateMachine
@@ -7,10 +6,11 @@ namespace FiniteStateMachine
     public class SetReturnStateAction: StateAction
     {
         [SerializeField] private BaseState _returnState;
+        [SerializeField] private string _invokedInput;
 
         public override void Execute(BaseStateMachine stateMachine)
         {
-            if(_returnState) stateMachine.SetReturnState(_returnState);
+            if(_returnState && stateMachine.LastInvokedInput.name == _invokedInput) stateMachine.SetReturnState(_returnState);
         }
 
         public override void Stop(BaseStateMachine stateMachine)
