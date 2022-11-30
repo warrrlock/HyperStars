@@ -33,7 +33,6 @@ public class RoundInformation : MonoBehaviour
         if (player != -1)
         {
             Wins[player]++;
-            
         }
     }
 

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace FiniteStateMachine
@@ -14,7 +13,6 @@ namespace FiniteStateMachine
 
         public override void Stop(BaseStateMachine stateMachine)
         {
-            stateMachine.SetReturnState();
             stateMachine.QueueState(_toQueueState);
         }
     }
