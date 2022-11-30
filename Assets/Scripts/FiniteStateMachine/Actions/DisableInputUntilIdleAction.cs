@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,13 +7,13 @@ namespace FiniteStateMachine
     public class DisableInputUntilIdleAction: StateAction
     {
         [SerializeField] private List<string> _inputsToDisable;
-        [SerializeField] private BaseState _returnState;
+        [Tooltip("only execute this action if the following return state hasn't been set yet.")]
+
         public override void Execute(BaseStateMachine stateMachine)
         {
-            if (!stateMachine.CheckReturnState(_returnState)) 
-                stateMachine.DisableInputs(_inputsToDisable, 
-                    () => stateMachine.IsIdle || stateMachine.CurrentState is HurtState, 
-                    false);
+            stateMachine.DisableInputs(_inputsToDisable, 
+                () => stateMachine.IsIdle || stateMachine.CurrentState is HurtState, 
+                false);
         }
 
         public override void Stop(BaseStateMachine stateMachine)

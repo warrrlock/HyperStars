@@ -3,34 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(GameEventListener))]
 public class RoundManager : MonoBehaviour
 {
+    [Header("Rounds meta")]
     [SerializeField] private GameObject _restartButton;
-    [SerializeField] private TextMeshProUGUI _roundText;
-    [SerializeField] private string _startText;
     [SerializeField] private int _neededWins;
     
+    [Header("Text Info")]
+    [SerializeField] private TextMeshProUGUI _roundText;
+    [SerializeField] private string _startText;
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] int _countdown;
     
-    [SerializeField] private TextMeshProUGUI[] _winText; //TODO: remove when we have ui
-    [SerializeField] List<Sprite> _backgrounds; //TODO: add when we have changing backgrounds
+    [Header("Round UI")]
+    [SerializeField] private FightersManager _fightersManager;
+    [SerializeField] private RectTransform[] _roundUIParents;
+    [SerializeField] private GameObject _roundUIPrefab;
+    private List<Image[]> _roundUI;
+    private Image[] _p0RoundUI;
+    private Image[] _p1RoundUI;
+    
+    // [SerializeField] List<Sprite> _backgrounds; //TODO: add when we have changing backgrounds
     
     private int _round;
     private bool _disabledInput;
+    private bool _roundEnded;
 
     private void Awake()
     {
         if (_restartButton) _restartButton.SetActive(false);
         if (_roundText) _roundText.gameObject.SetActive(false);
         _round = RoundInformation.round;
-        if (_winText.Length >= 2) //TODO: remove
-        {
-            _winText[0].text = $"Won {RoundInformation.Wins[0]}/{_neededWins}";
-            _winText[1].text = $"Won {RoundInformation.Wins[1]}/{_neededWins}";
-        }
+        
+        SetupInitialVisuals();
     }
 
     private void Start()
@@ -47,6 +55,17 @@ public class RoundManager : MonoBehaviour
     public void OnRoundEnd(Dictionary<string, object> data)
     {
         Debug.Log("round ended");
+        if (_roundEnded) return;
+        _roundEnded = true;
+        //disable movement
+        DisableAllInput();
+        
+        //TODO: should player's queues be cleared? so that if a player has queued another attack, it doesn't play
+        foreach (Fighter fighter in Services.Fighters)
+        {
+            fighter.BaseStateMachine.QueueState();
+        }
+        
         data.TryGetValue("winnerId", out object winnerId);
         int winner = winnerId == null ? -1 : (int)winnerId;
 
@@ -79,18 +98,32 @@ public class RoundManager : MonoBehaviour
         Debug.Log("restarting");
         RoundInformation.ResetRounds();
     }
+    
+    private void SetupInitialVisuals()
+    {
+        _p0RoundUI = new Image[_neededWins];
+        _p1RoundUI = new Image[_neededWins];
+        _roundUI = new List<Image[]>{_p0RoundUI, _p1RoundUI};
+        
+        for (int i = 0; i < _neededWins; i++)
+        {
+            _p0RoundUI[i] = Instantiate(_roundUIPrefab, _roundUIParents[0]).GetComponent<Image>();
+            _p1RoundUI[i] = Instantiate(_roundUIPrefab, _roundUIParents[1]).GetComponent<Image>();
+        }
+        for (int i = 0; i < RoundInformation.Wins[0]; i++)
+            _p0RoundUI[i].color = _fightersManager.playerColors[0];
+        for (int i = 0; i < RoundInformation.Wins[1]; i++)
+            _p1RoundUI[i].color = _fightersManager.playerColors[1];
+    }
 
     private void HandleAddWinTo(int player)
     {
         RoundInformation.AddWinTo(player);
-        if (_winText.Length >= 2) _winText[player].text = $"Won {RoundInformation.Wins[player]}/{_neededWins}"; //TODO: remove
+        _roundUI[player][RoundInformation.Wins[player]-1].color = _fightersManager.playerColors[player];
     }
 
     private IEnumerator HandleStartNextRound()
     {
-        //disable movement
-        DisableAllInput();
-        
         //TODO: any ui updates
         SetNewRoundVariables();
         

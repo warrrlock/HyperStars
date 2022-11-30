@@ -245,6 +245,36 @@
 										<ActiveSource Name="LISA_LOW_MEDIUM" ID="{E4B9A711-100A-443A-9BD5-D7708C1D8C06}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="LISA_LOW_SPECIAL" ID="{E85756B3-C717-436F-8424-E3CDD46F5810}" ShortID="449127922">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LISA_LOW_SPECIAL" ID="{7F94EBBC-DD65-4912-9E5C-E6004D7A71CF}">
+											<Language>SFX</Language>
+											<AudioFile>LISA_LOW_SPECIAL.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="664956893"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LISA_LOW_SPECIAL" ID="{7F94EBBC-DD65-4912-9E5C-E6004D7A71CF}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="Voicelines" ID="{8504A808-F345-4FD7-A590-7CE4D686E84C}" ShortID="258058286">
@@ -661,6 +691,11 @@
 										<Value>10</Value>
 									</ValueList>
 								</Property>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>40</Value>
+									</ValueList>
+								</Property>
 								<Property Name="MakeUpGain" Type="Real64">
 									<ValueList>
 										<Value>3</Value>
@@ -668,7 +703,12 @@
 								</Property>
 								<Property Name="Pitch" Type="int32">
 									<ValueList>
-										<Value>20</Value>
+										<Value>-200</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-7</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -698,6 +738,23 @@
 							</ActiveSourceList>
 						</Sound>
 						<Sound Name="GROUND_HIT" ID="{89BAF1B8-8141-497F-B8F7-4C095F3E4745}" ShortID="94248136">
+							<PropertyList>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>22</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-830</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-7</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -776,6 +833,11 @@
 						</Sound>
 						<Sound Name="PARRY_HIT" ID="{1421CC84-15E7-4163-9B3B-D637A972CB09}" ShortID="367577160">
 							<PropertyList>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>25</Value>
+									</ValueList>
+								</Property>
 								<Property Name="Pitch" Type="int32">
 									<ModifierList>
 										<ModifierInfo>
@@ -788,6 +850,11 @@
 											</Modifier>
 										</ModifierInfo>
 									</ModifierList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-5</Value>
+									</ValueList>
 								</Property>
 							</PropertyList>
 							<ReferenceList>

@@ -31,6 +31,7 @@ namespace AK
         static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
         static const AkUniqueID PLAY_LISA_LOW_LIGHT = 519494373U;
         static const AkUniqueID PLAY_LISA_LOW_MEDIUM = 3727786178U;
+        static const AkUniqueID PLAY_LISA_LOW_SPECIAL = 3734986080U;
         static const AkUniqueID PLAY_LISA_SPECIAL_NEUTRAL = 3858634255U;
         static const AkUniqueID PLAY_LISA_SPECIAL_SIDE = 1098933211U;
         static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;

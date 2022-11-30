@@ -16,12 +16,12 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="3191072575">
+		<SoundBank Id="3161908922" Language="SFX" Hash="2818059180">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<IncludedEvents>
-				<Event Id="348820993" Name="Play_GROUND_HIT" ObjectPath="\Events\Default Work Unit\Play_GROUND_HIT" DurationType="OneShot" DurationMin="0.461542" DurationMax="0.461542">
+				<Event Id="348820993" Name="Play_GROUND_HIT" ObjectPath="\Events\Default Work Unit\Play_GROUND_HIT" DurationType="OneShot" DurationMin="0.745459" DurationMax="0.745459">
 					<IncludedMemoryFiles>
 						<File Id="13289569" Language="SFX">
 							<ShortName>GROUND_HIT.wav</ShortName>
@@ -177,6 +177,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="3734986080" Name="Play_LISA_LOW_SPECIAL" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_LOW_SPECIAL" DurationType="OneShot" DurationMin="0.843719" DurationMax="0.843719">
+					<IncludedMemoryFiles>
+						<File Id="664956893" Language="SFX">
+							<ShortName>LISA_LOW_SPECIAL.wav</ShortName>
+							<Path>SFX\LISA_LOW_SPECIAL_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="3858634255" Name="Play_LISA_SPECIAL_NEUTRAL" ObjectPath="\Events\Default Work Unit\LISA\Play_LISA_SPECIAL_NEUTRAL" DurationType="OneShot" DurationMin="1.347574" DurationMax="1.347574">
 					<IncludedMemoryFiles>
 						<File Id="1060207978" Language="SFX">
@@ -201,7 +209,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="625690868" Name="Play_WALL_HIT" ObjectPath="\Events\Default Work Unit\Play_WALL_HIT" DurationType="OneShot" DurationMin="0.400494" DurationMax="0.400494">
+				<Event Id="625690868" Name="Play_WALL_HIT" ObjectPath="\Events\Default Work Unit\Play_WALL_HIT" DurationType="OneShot" DurationMin="0.454763" DurationMax="0.454763">
 					<IncludedMemoryFiles>
 						<File Id="494133635" Language="SFX">
 							<ShortName>WALL_HIT.wav</ShortName>

@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering.LookDev;
+//using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public enum Wwise_ComboEvents
 {
     COMBO1, COMBO2, COMBO3, COMBO4, COMBO5, SPECIAL_NEUTRAL, SPECIAL_SIDE, AIR_LIGHT, AIR_MEDIUM, AIR_SPECIAL,
-    LOW_LIGHT, LOW_MEDIUM
+    LOW_LIGHT, LOW_MEDIUM, LOW_SPECIAL
 }
 
 public enum Wwise_MovementEvents

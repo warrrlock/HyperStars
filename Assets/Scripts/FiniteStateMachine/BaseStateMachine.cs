@@ -56,6 +56,8 @@ namespace FiniteStateMachine {
             get => _lastExecutedInput;
             set => _lastExecutedInput = value;
         }
+        public BaseState QueuedState => _queuedState;
+        public InputManager.Action LastInvokedInput { get; private set; }
 
         public Fighter Fighter { get; private set; }
         private Animator _animator;
@@ -134,6 +136,8 @@ namespace FiniteStateMachine {
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput || CurrentState is HurtState) return;
+            if (_crouchStop) _crouchStop = false;
+            LastInvokedInput = action;
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.name);
         }
@@ -151,9 +155,9 @@ namespace FiniteStateMachine {
             CurrentState.Stop(this, action.name);
         }
 
-        public bool CheckReturnState(BaseState state)
+        public bool CheckReturnState(BaseState state = null)
         {
-            return _returnState == state;
+            return _returnState == state ? state : _initialState;
         }
 
         public bool PlayAnimation(int animationState, bool defaultCombo = false, bool replay = false)

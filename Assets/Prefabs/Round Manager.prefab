@@ -854,15 +854,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _restartButton: {fileID: 302354772382179442}
+  _neededWins: 2
   _roundText: {fileID: 8241631293830604878}
   _startText: SHOWTIME!
-  _neededWins: 1
   _countdownText: {fileID: 8241631293854143580}
-  _countdown: 0
-  _winText:
-  - {fileID: 8241631293354432311}
-  - {fileID: 8241631292313965860}
-  _backgrounds: []
+  _countdown: 3
+  _fightersManager: {fileID: 11400000, guid: bd70be347e6fe423ab7ecdf3f9028b1c, type: 2}
+  _roundUIParents:
+  - {fileID: 0}
+  - {fileID: 0}
+  _roundUIPrefab: {fileID: 522728690939551262, guid: 68672498d4576464f96dcd191c79f540, type: 3}
 --- !u!1 &8508379393363354955
 GameObject:
   m_ObjectHideFlags: 0
