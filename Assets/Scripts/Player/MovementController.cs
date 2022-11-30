@@ -802,7 +802,8 @@ public class MovementController : MonoBehaviour
     public void EnableAttackStop()
     {
         _isAttacking = true;
-        //_inputManager.StopMove();
+        StopMoving(null);
+        
         InputManager.Action[] actions =
         {
             _inputManager.Actions["Move"], 
