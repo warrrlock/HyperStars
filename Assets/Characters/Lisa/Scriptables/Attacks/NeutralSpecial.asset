@@ -13,21 +13,22 @@ MonoBehaviour:
   m_Name: NeutralSpecial
   m_EditorClassIdentifier: 
   _animationName: Neutral Special
-  _inputStopActions: []
+  _onInputPlayOrStopActions: []
+  _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   _defaultCombo: 0
   _attackInfo:
     knockbackDuration: 0.5
-    knockbackDistance: 7
+    knockbackDistance: 10
     knockbackDirection: {x: 1, y: 1, z: 0}
     hitStunDuration: 1.5
     damage: 20
     causesWallBounce: 1
     hitStopDuration: 0.07
     wallBounceDuration: 1
-    wallBounceDistance: 10
-    wallBounceDirection: {x: -1, y: 5, z: 0}
+    wallBounceDistance: 20
+    wallBounceDirection: {x: -0.5, y: 2, z: 0}
     wallBounceHitStopDuration: 0.1
     hangTime: 0
     favorReward: 15
