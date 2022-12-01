@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -11,7 +11,8 @@ namespace FiniteStateMachine
     public class ComboState: BaseState
     {
         [SerializeField] private string _animationName;
-        [SerializeField] private List<StateAction> _inputStopActions = new List<StateAction>();
+        [FormerlySerializedAs("_inputStopActions")] [SerializeField] private List<StateAction> _onInputPlayOrStopActions = new List<StateAction>();
+        [SerializeField] private List<StateAction> _onInputInvokeActions = new List<StateAction>();
         [SerializeField] private List<Transition> _transitions = new List<Transition>();
         [Tooltip("If you would like the animation to start with the combo option as true. Otherwise, set to false.")]
         [SerializeField] private bool _defaultCombo = true;
@@ -36,17 +37,20 @@ namespace FiniteStateMachine
         private void OnEnable()
         {
             _transitions.RemoveAll(t => !t);
-            _inputStopActions.RemoveAll(a => !a);
+            _onInputPlayOrStopActions.RemoveAll(a => !a);
+            _onInputInvokeActions.RemoveAll(a => !a);
         }
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
-            stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
-
+            foreach(StateAction action in _onInputInvokeActions){
+                action.Execute(stateMachine);
+            }
+            
             if (stateMachine.PlayAnimation(_animationHash, _defaultCombo))
             {
                 stateMachine.EnableAttackStop();
-                foreach(StateAction action in _inputStopActions){
+                foreach(StateAction action in _onInputPlayOrStopActions){
                     action.Execute(stateMachine);
                 }
                 if (_isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(_specialBarCost);
@@ -67,7 +71,10 @@ namespace FiniteStateMachine
         public override void Stop(BaseStateMachine stateMachine, string inputName)
         {
             // Debug.Log($"{stateMachine.name} stopped action {name}");
-            foreach(StateAction action in _inputStopActions){
+            foreach(StateAction action in _onInputPlayOrStopActions){
+                action.Stop(stateMachine);
+            }
+            foreach(StateAction action in _onInputInvokeActions){
                 action.Stop(stateMachine);
             }
         }

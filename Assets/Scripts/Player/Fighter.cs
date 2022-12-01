@@ -74,6 +74,7 @@ public class Fighter : MonoBehaviour
     {
         transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
         BaseStateMachine.ResetStateMachine();
+        MovementController.ResetValues();
     }
 
     private void OnDestroy()
@@ -103,7 +104,7 @@ public class Fighter : MonoBehaviour
 
     public void ResetFighterHurtboxes()
     {
-        invulnerabilityCount--;
+        if (invulnerabilityCount > 0) invulnerabilityCount--;
     }
 
     public void FlipCharacter(Direction newDirection)

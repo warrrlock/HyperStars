@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace FiniteStateMachine
@@ -24,12 +23,8 @@ namespace FiniteStateMachine
 
         public override void Stop(BaseStateMachine stateMachine)
         {
-            Debug.Log("should play end anim");
+            // Debug.Log("should play end anim");
             stateMachine.PlayAnimation(_endAnimationHash);
-            // if (stateMachine.AnimatorComponent.GetCurrentAnimatorStateInfo(0).loop)
-            // {
-            //     stateMachine.HandleAnimationExit();
-            // }
         }
     }
 }

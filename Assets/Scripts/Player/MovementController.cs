@@ -249,6 +249,11 @@ public class MovementController : MonoBehaviour
         //TODO: kill all the player's force when they land
     }
 
+    public void ResetValues()
+    {
+        StopMoving(null);
+    }
+
     public IEnumerator EnableWallBounce(float distance, float duration, Vector3 direction, float hitStopDuration)
     {
         _wallBounceDistance = distance;
@@ -797,7 +802,8 @@ public class MovementController : MonoBehaviour
     public void EnableAttackStop()
     {
         _isAttacking = true;
-        //_inputManager.StopMove();
+        StopMoving(null);
+        
         InputManager.Action[] actions =
         {
             _inputManager.Actions["Move"], 

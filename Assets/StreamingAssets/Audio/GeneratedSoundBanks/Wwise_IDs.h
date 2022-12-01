@@ -23,14 +23,18 @@ namespace AK
         static const AkUniqueID PLAY_LISA_COMBO_4 = 3376269181U;
         static const AkUniqueID PLAY_LISA_COMBO_5 = 3376269180U;
         static const AkUniqueID PLAY_LISA_COMBO_VOICELINES = 2083444140U;
+        static const AkUniqueID PLAY_LISA_CROUCH = 1808428040U;
         static const AkUniqueID PLAY_LISA_DASH = 936983702U;
         static const AkUniqueID PLAY_LISA_FOOTSTEPS = 431785379U;
         static const AkUniqueID PLAY_LISA_HITS = 3751620944U;
         static const AkUniqueID PLAY_LISA_JUMP = 28555886U;
         static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
-        static const AkUniqueID PLAY_LISA_PARRY = 3732287388U;
+        static const AkUniqueID PLAY_LISA_LOW_LIGHT = 519494373U;
+        static const AkUniqueID PLAY_LISA_LOW_MEDIUM = 3727786178U;
+        static const AkUniqueID PLAY_LISA_LOW_SPECIAL = 3734986080U;
         static const AkUniqueID PLAY_LISA_SPECIAL_NEUTRAL = 3858634255U;
         static const AkUniqueID PLAY_LISA_SPECIAL_SIDE = 1098933211U;
+        static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;
         static const AkUniqueID PLAY_WALL_HIT = 625690868U;
     } // namespace EVENTS
 
