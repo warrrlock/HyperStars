@@ -130,6 +130,7 @@ namespace FiniteStateMachine {
         {
             CurrentState = _initialState;
             _returnState = _initialState;
+            QueueState();
             CurrentState.Execute(this, "");
         }
         
