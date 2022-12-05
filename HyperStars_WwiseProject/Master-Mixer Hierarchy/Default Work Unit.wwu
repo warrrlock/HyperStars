@@ -9,6 +9,21 @@
 							<ObjectRef Name="System" ID="{8F66684D-05EE-4EA2-BCD3-C68D743B1586}" WorkUnitID="{78A5ADA1-92A5-4B59-BB80-E39A4F0251BC}"/>
 						</Reference>
 					</ReferenceList>
+					<ChildrenList>
+						<Bus Name="MusicBus" ID="{54D3226E-2BA0-4278-B4B9-AB5E064ECAB2}">
+							<ChildrenList>
+								<AuxBus Name="MusicVerb" ID="{CB911291-7C1F-40B3-9FC6-8B62A24B051A}">
+									<ReferenceList>
+										<Reference Name="Effect0" PluginName="Wwise Matrix Reverb" CompanyID="0" PluginID="115" PluginType="3">
+											<ObjectRef Name="Big_Garage1" ID="{172402A8-22F4-40FC-BE1D-5269594CB633}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+										</Reference>
+									</ReferenceList>
+									<ObjectLists/>
+								</AuxBus>
+							</ChildrenList>
+							<ObjectLists/>
+						</Bus>
+					</ChildrenList>
 					<ObjectLists/>
 				</Bus>
 			</ChildrenList>
