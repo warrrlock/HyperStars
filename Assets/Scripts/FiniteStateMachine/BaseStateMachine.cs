@@ -11,7 +11,7 @@ public class KeyHurtStatePair
 {
     public enum HurtStateName
     {
-        HitStun, KnockBack
+        HitStun, KnockBack, AirKnockBack
     }
     public HurtStateName key;
     public HurtState value;

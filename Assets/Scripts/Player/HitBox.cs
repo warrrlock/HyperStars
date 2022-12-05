@@ -96,9 +96,12 @@ public class HitBox : MonoBehaviour
         // Debug.Log(hitFighter.invulnerabilityCount);
 
         StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
-            attackInfo.knockbackForce.x is > 0f and < 180f
-            ? KeyHurtStatePair.HurtStateName.KnockBack
-            : KeyHurtStatePair.HurtStateName.HitStun));
+            !hitFighter.MovementController.CollisionData.y.isNegativeHit 
+            ? KeyHurtStatePair.HurtStateName.AirKnockBack
+            : (attackInfo.knockbackForce.x is > 0f and < 180f 
+                ? KeyHurtStatePair.HurtStateName.KnockBack 
+                : KeyHurtStatePair.HurtStateName.HitStun)
+            ));
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
