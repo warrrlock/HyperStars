@@ -93,6 +93,7 @@ public class HitBox : MonoBehaviour
         //hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
 
         hitFighter.invulnerabilityCount++;
+        // Debug.Log(hitFighter.invulnerabilityCount);
 
         StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
             attackInfo.knockbackForce.x is > 0f and < 180f
