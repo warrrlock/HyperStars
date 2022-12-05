@@ -48,9 +48,7 @@ namespace FiniteStateMachine
                         Debug.LogWarning("no true state was assigned to this transition", this);
                         return;
                     }
-                    stateMachine.QueueState(_trueState);
-                    // Debug.Log($"{stateMachine.name} last executed input is {inputName}");
-                    stateMachine.LastExecutedInput = inputName;
+                    SetTrueStatePassValues(stateMachine, inputName);
                 }
                 else
                 {
@@ -82,9 +80,7 @@ namespace FiniteStateMachine
                     Debug.LogWarning("no true state was assigned to this transition", this);
                     return;
                 }
-                stateMachine.QueueState(_trueState);
-                // Debug.Log($"{stateMachine.name} last executed input is {inputName}");
-                stateMachine.LastExecutedInput = inputName;
+                SetTrueStatePassValues(stateMachine, inputName);
                 stateMachine.ExecuteQueuedState();
             }
             else if (_customFalseState)
@@ -101,6 +97,13 @@ namespace FiniteStateMachine
                     state.GetSpecialBarCost() < 0 ||
                     !stateMachine.Fighter.SpecialMeterManager || 
                     stateMachine.Fighter.SpecialMeterManager.CheckBar(state.GetSpecialBarCost());
+        }
+
+        private void SetTrueStatePassValues(BaseStateMachine stateMachine, string inputName)
+        {
+            stateMachine.QueueState(_trueState);
+            stateMachine.LastExecutedInput = inputName;
+            stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
         }
         
         #region Editor

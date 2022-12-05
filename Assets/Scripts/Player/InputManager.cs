@@ -292,11 +292,11 @@ public class InputManager : MonoBehaviour
     private IEnumerator QueuePerform(Action action)
     {
         action.isPerformQueued = true;
-        Debug.Log(action.disabledCount);
+        // Debug.Log(action.disabledCount);
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
         yield return new WaitUntil(() => action.disabledCount == 0);
-        Debug.Log("Invoking queued");
+        // Debug.Log("Invoking queued");
         action.perform?.Invoke(action);
         action.isPerformQueued = false;
         yield break;

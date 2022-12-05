@@ -43,7 +43,6 @@ namespace FiniteStateMachine
         
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
-            stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
             foreach(StateAction action in _onInputInvokeActions){
                 action.Execute(stateMachine);
             }
