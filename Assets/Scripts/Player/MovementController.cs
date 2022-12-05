@@ -54,7 +54,7 @@ public class MovementController : MonoBehaviour
     private PlayerInput _playerInput;
     private InputManager _inputManager;
 
-    private Vector3 _velocity;
+    private Vector3 _netVelocity;
     private Vector3 _unforcedVelocity;
     private float _maxJumpVelocity;
     private float _minJumpVelocity;
@@ -63,6 +63,8 @@ public class MovementController : MonoBehaviour
     private Vector2 _yAxisRaySpacing;
     private Vector2 _zAxisRaySpacing;
     private Vector3 _forceVelocity;
+
+    private float _sidestepForce = 10f;
 
     private bool _isWallBounceable = false;
     private float _wallBounceDistance;
@@ -97,6 +99,10 @@ public class MovementController : MonoBehaviour
     private Vector2 _horizontalVelocitySmoothing;
     private Vector2 _horizontalTargetVelocity;
     private Vector3 _cachedVelocity;
+
+
+
+    [SerializeField] private PhysicsManager _physicsManager;
 
     private struct RaycastOrigins
     {
@@ -150,7 +156,7 @@ public class MovementController : MonoBehaviour
         {
             case ForceEasing.Linear:
                 //_dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
-                _dashForce = (_dashDistance * 2f) / (_dashDuration + Time.fixedDeltaTime);
+                //_dashForce = (_dashDistance * 2f) / (_dashDuration + Time.fixedDeltaTime);
                 break;
             case ForceEasing.Quadratic:
                 //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f + (Time.fixedDeltaTime / 2f));
@@ -222,8 +228,8 @@ public class MovementController : MonoBehaviour
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
         }
-        _velocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
-        Move(_velocity * Time.fixedDeltaTime);
+        _netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
+        Move(_netVelocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
             ResetVelocityY();
@@ -371,10 +377,13 @@ public class MovementController : MonoBehaviour
     public IEnumerator ApplyForcePolar(Vector3 direction, float magnitude)
     {
         direction.Normalize();
-        float acceleration = magnitude / _mass;
+        magnitude /= _mass;
+        //float acceleration = magnitude / _mass;
+        float acceleration = _physicsManager.deceleration * Time.fixedDeltaTime;
         float deceleration = 0f;
         float forceMagnitude = magnitude;
         float initialMagnitude = magnitude;
+        int i = 0;
         while (forceMagnitude > 0f)
         {
             if (_isWallBounceable)
@@ -406,10 +415,11 @@ public class MovementController : MonoBehaviour
             }
             Vector3 force = direction * forceMagnitude;
             _forceVelocity += force;
+            i++;
             yield return new WaitForFixedUpdate();
 
             _forceVelocity -= force;
-            deceleration += acceleration * Time.fixedDeltaTime;
+            deceleration = acceleration * i * i;
             forceMagnitude = initialMagnitude - deceleration;
         }
 
@@ -695,10 +705,12 @@ public class MovementController : MonoBehaviour
     private void Dash(InputManager.Action action)
     {
         //TODO: end the dash if player hits an obstacle
+        Vector3 dashDirection = Vector3.zero;
         if (_inputManager.Actions["Move"].isBeingInput)
         {
-        Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
-            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, 0f), _dashForce, _dashDuration, _dashEasing));
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+            //StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, 0f), _dashForce, _dashDuration, _dashEasing));
+            dashDirection = new Vector3(inputVector.x, 0f, 0f);
             if (_dashToZero)
             {
                 _unforcedVelocity.x = 0f;
@@ -707,8 +719,11 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
+            //StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
+            dashDirection = _fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right;
         }
+        //StartCoroutine(ApplyForce(dashDirection, _dashForce, _dashDuration, _dashEasing));
+        StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
         if (!CollisionData.y.isNegativeHit)
         {
             StartCoroutine(DisableGravity(_dashDuration));
@@ -758,38 +773,41 @@ public class MovementController : MonoBehaviour
 
     private void Sidestep(InputManager.Action action)
     {
+        Debug.Log(_inputManager.Actions["Sidestep"].inputAction.ReadValue<float>());
         //_fighter.invulnerabilityCount++;
-        //Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() == 1 ? Vector3.forward : Vector3.back;
+        Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() == 1f ? Vector3.forward : Vector3.back;
         //StartCoroutine(ApplyForce(inputVector, _sidestepForce, _sidestepDuration, _dashEasing));
         //StartCoroutine(_inputManager.Disable(_sidestepDuration, _inputManager.Actions["Sidestep"]));
 
 
 
-        //StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
+        StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
         //float angle = action.inputAction.ReadValue<float>() == 1 ? -_sidestepAngle : _sidestepAngle;
         //angle = transform.position.x > 0 ? angle : -angle;
-        //StartCoroutine(Sidestep(angle, _sidestepDuration));
+        StartCoroutine(Sidestep(inputVector, _sidestepDuration));
 
     }
 
-    private IEnumerator Sidestep(float angle, float duration)
+    private IEnumerator Sidestep(Vector3 direction, float duration)
     {
-        //_fighter.invulnerabilityCount++;
+        _fighter.invulnerabilityCount++;
+        StartCoroutine(ApplyForce(direction, _sidestepForce, _sidestepDuration, _dashEasing));
         //Vector3 rotation = new Vector3(0f, angle, 0f);
         //RotationalPivot.eulerAngles += rotation;
-        //yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration);
 
         //StartCoroutine(_fighter.OpposingFighter.MovementController.SidestepResponse(rotation));
         //Services.CameraManager.RotateCamera(rotation);
-        //_fighter.invulnerabilityCount--;
+        StartCoroutine(ApplyForce(-direction, _sidestepForce, _sidestepDuration, _dashEasing));
+        _fighter.invulnerabilityCount--;
         yield break;
     }
 
-    public IEnumerator SidestepResponse(Vector3 rotation)
-    {
-        //RotationalPivot.eulerAngles += rotation;
-        yield break;
-    }
+    //public IEnumerator SidestepResponse(Vector3 rotation)
+    //{
+    //    //RotationalPivot.eulerAngles += rotation;
+    //    yield break;
+    //}
 
     private IEnumerator Dash(InputManager.Action action, float duration)
     {

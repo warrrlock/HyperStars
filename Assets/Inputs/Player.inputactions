@@ -18,9 +18,9 @@
                     "name": "Sidestep",
                     "type": "Value",
                     "id": "6a54479f-c152-4dfa-94d7-bb587224393d",
-                    "expectedControlType": "Integer",
+                    "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap(duration=0.2)",
                     "initialStateCheck": true
                 },
                 {
@@ -116,7 +116,7 @@
             ],
             "bindings": [
                 {
-                    "name": "WD",
+                    "name": "AD",
                     "id": "00ca640b-d935-4593-8157-c05846ea39b3",
                     "path": "1DAxis",
                     "interactions": "",
@@ -260,9 +260,9 @@
                 },
                 {
                     "name": "",
-                    "id": "4cc4fa2b-89cc-45fe-af6a-b14b67018845",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
+                    "id": "e069fa0a-0508-4c09-863b-44c0081627a7",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "SlowTap(duration=0.2,pressPoint=0.5)",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
@@ -402,7 +402,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "WD",
+                    "name": "WS",
                     "id": "76309cf2-8232-4d99-bdba-cd840eadda85",
                     "path": "1DAxis",
                     "interactions": "",
@@ -436,8 +436,8 @@
                 },
                 {
                     "name": "",
-                    "id": "e225067c-e539-4ff4-84ae-16f0c3d11755",
-                    "path": "<Keyboard>/s",
+                    "id": "6a7bc859-1c94-4b29-8027-8674ca2678b8",
+                    "path": "<Gamepad>/leftStick/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -447,8 +447,8 @@
                 },
                 {
                     "name": "",
-                    "id": "b94a43e0-38bc-404e-9002-457fd173e31e",
-                    "path": "<Gamepad>/dpad/down",
+                    "id": "3d01cd8f-3514-4bf1-af54-4fb9746037d4",
+                    "path": "<Gamepad>/dpad/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
