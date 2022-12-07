@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Light Atk 1
   m_EditorClassIdentifier: 
   _animationName: LightAtk1
-  _inputStopActions: []
+  _onInputPlayOrStopActions: []
+  _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: 0edd14fd83b75c9419092aa2699ea4e3, type: 2}
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
@@ -33,10 +34,10 @@ MonoBehaviour:
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
-    hangTime: 0.2
+    hangTime: 0.3
     favorReward: 2
     knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0.2
+    incrementBarAmount: 0.3
   _isSpecial: 0
   _specialBarCost: 0
   _animationHash: 275295228

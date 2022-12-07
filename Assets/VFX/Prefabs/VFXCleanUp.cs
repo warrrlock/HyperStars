@@ -20,7 +20,7 @@ public class VFXCleanUp : MonoBehaviour
     }
 
     void Update() {
-        if(sender) 
+        if (sender)
         {
             _vfx.SetBool("FaceLeft", sender.MovingDirection == Fighter.Direction.Left);
             ChangeColor();

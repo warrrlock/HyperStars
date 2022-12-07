@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Parry
   m_EditorClassIdentifier: 
   _animationName: Parry
-  _transitions: []
+  _onInputPlayOrStopActions: []
+  _onInputInvokeActions: []
+  _transitions:
+  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   _defaultCombo: 0
   _attackInfo:
     knockbackDuration: 0
@@ -30,4 +33,7 @@ MonoBehaviour:
     hangTime: 0
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0.3
+  _isSpecial: 0
+  _specialBarCost: 0
   _animationHash: 504284770

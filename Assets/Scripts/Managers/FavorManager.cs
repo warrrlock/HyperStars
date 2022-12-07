@@ -128,27 +128,26 @@ public class FavorManager : MonoBehaviour
         //float indicatorX = Mathf.Lerp(_favorMeter.transform.position.x - _favorMeter.transform.localScale.x / 2f,
         //    _favorMeter.transform.position.x + _favorMeter.transform.localScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
         //_favorMeterIndicator.transform.position = new Vector3(indicatorX, _favorMeterIndicator.transform.position.y, _favorMeterIndicator.transform.position.z);
-
-        float indicatorX = Mathf.Lerp(-_favorMeter.rect.width / 2f,
-    _favorMeter.rect.width / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
-        _favorMeterIndicator.anchoredPosition = new Vector3(-indicatorX, 0f, 0f);
+        float indicatorX = Mathf.Lerp(-_favorMeter.rect.width * _favorMeter.lossyScale.x / 2f,
+    _favorMeter.rect.width * _favorMeter.lossyScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
+        _favorMeterIndicator.anchoredPosition = new Vector3(indicatorX, 0f, 0f);
 
         if (_multiplierText)
         {
             _multiplierText.text = "x" + _favorMultiplier;
-            _multiplierText.rectTransform.position = new Vector3(WorldToUISpace(_multiplierTextCanvas, new Vector3(indicatorX, 0f, 0f)).x, _multiplierText.transform.position.y, 0f);
+            //_multiplierText.rectTransform.position = new Vector3(WorldToUISpace(_multiplierTextCanvas, new Vector3(indicatorX, 0f, 0f)).x, _multiplierText.transform.position.y, 0f);
         }
     }
 
-    public Vector3 WorldToUISpace(Canvas parentCanvas, Vector3 worldPos)
-    {
-        //Convert the world for screen point so that it can be used with ScreenPointToLocalPointInRectangle function
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-        Vector2 movePos;
+    //public Vector3 WorldToUISpace(Canvas parentCanvas, Vector3 worldPos)
+    //{
+    //    //Convert the world for screen point so that it can be used with ScreenPointToLocalPointInRectangle function
+    //    Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+    //    Vector2 movePos;
 
-        //Convert the screenpoint to ui rectangle local point
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, screenPos, parentCanvas.worldCamera, out movePos);
-        //Convert the local point to world point
-        return parentCanvas.transform.TransformPoint(movePos);
-    }
+    //    //Convert the screenpoint to ui rectangle local point
+    //    RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, screenPos, parentCanvas.worldCamera, out movePos);
+    //    //Convert the local point to world point
+    //    return parentCanvas.transform.TransformPoint(movePos);
+    //}
 }
