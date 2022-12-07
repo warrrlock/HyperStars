@@ -423,9 +423,10 @@ MonoBehaviour:
   _maxJumpHeight: 3.4
   _minJumpHeight: 3.4
   _timeToJumpApex: 0.3
-  _dashForce: 2
+  _dashForce: 25
   _dashDistance: 10
   _dashDuration: 0.2
+  _dashHangTime: 0.15
   _dashToZero: 1
   _dashCooldownDuration: 0.3
   _dashEasing: 0
@@ -439,6 +440,7 @@ MonoBehaviour:
   _overlapResolutionSpeed: 10
   _mass: 1
   _sidestepDuration: 0
+  _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
 --- !u!114 &5751411094791523318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,7 +495,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
