@@ -128,16 +128,9 @@ public class FavorManager : MonoBehaviour
         //float indicatorX = Mathf.Lerp(_favorMeter.transform.position.x - _favorMeter.transform.localScale.x / 2f,
         //    _favorMeter.transform.position.x + _favorMeter.transform.localScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
         //_favorMeterIndicator.transform.position = new Vector3(indicatorX, _favorMeterIndicator.transform.position.y, _favorMeterIndicator.transform.position.z);
-
-<<<<<<< HEAD
-        float indicatorX = Mathf.Lerp(-_favorMeter.rect.width / 2f,
-    _favorMeter.rect.width / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
-        _favorMeterIndicator.anchoredPosition = new Vector3(-indicatorX, 0f, 0f);
-=======
         float indicatorX = Mathf.Lerp(-_favorMeter.rect.width * _favorMeter.lossyScale.x / 2f,
     _favorMeter.rect.width * _favorMeter.lossyScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
         _favorMeterIndicator.anchoredPosition = new Vector3(indicatorX, 0f, 0f);
->>>>>>> Wes
 
         if (_multiplierText)
         {
