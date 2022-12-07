@@ -69,6 +69,13 @@ public class CharacterVFXManager : MonoBehaviour
         f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 0f);
     }
 
+    public IEnumerator Shake(Fighter f)
+    {
+        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 2f);
+        yield return new WaitForSeconds(.5f);
+        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 0f);
+    }
+
     void Awake()
     {
         VFXAssignComponents();
