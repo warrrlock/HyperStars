@@ -40,6 +40,7 @@ namespace FiniteStateMachine {
         [Header("Special cases")]
         [SerializeField] private List<AnimationClip> _noEndEventClips;
         [SerializeField] private List<KeyHurtStatePair> _hurtStatePairs;
+        [SerializeField] private Collider _hitCollider;
         
         private Dictionary<KeyHurtStatePair.HurtStateName, HurtState> _hurtStates;
         private Coroutine _airCoroutine;
@@ -230,6 +231,18 @@ namespace FiniteStateMachine {
         {
             CanCombo = true;
         }
+        
+        public void SpawnProjectile()
+        {
+            Bounds? bounds = _hitCollider?.bounds;
+            if (_hitCollider) _hitCollider.enabled = false;
+            bounds ??= GetComponent<Renderer>()?.bounds;
+            if (bounds == null) return;
+            
+            CurrentState.SpawnProjectile(this, (Bounds)bounds);
+        }
+        
+        //OTHER METHODS
 
         public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName)
         {
