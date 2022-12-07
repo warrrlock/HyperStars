@@ -4963,7 +4963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1131947291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6639,6 +6639,10 @@ PrefabInstance:
       propertyPath: visualEffectAssets.Array.data[4]
       value: 
       objectReference: {fileID: 8926484042661614526, guid: 52e5d2b1e0ea5464799095c3c0a2b430, type: 3}
+    - target: {fileID: 5872363015245905466, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
 --- !u!1 &1745011788
@@ -8295,6 +8299,10 @@ PrefabInstance:
     - target: {fileID: 1727585859560439401, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
       propertyPath: m_Name
       value: Music Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439401, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
       propertyPath: m_RootOrder
