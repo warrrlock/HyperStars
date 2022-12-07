@@ -32,6 +32,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _dashForce;
     [SerializeField] private float _dashDistance;
     [SerializeField] private float _dashDuration;
+    [SerializeField] private float _dashHangTime;
     [SerializeField] private bool _dashToZero;
     [SerializeField] private float _dashCooldownDuration;
     [SerializeField] private ForceEasing _dashEasing;
@@ -374,6 +375,68 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
+    //private float CalculateDecelerationDuration(float forceMagnitude, float deceleration)
+    //{
+    //    int i = 0;
+    //    float totalDecelerationForce = 0f;
+    //    float timeStep = Time.fixedDeltaTime;
+    //    while (totalDecelerationForce < forceMagnitude)
+    //    {
+    //        totalDecelerationForce += deceleration * i * i;
+    //        i++;
+    //    }
+    //    i++;
+    //    return timeStep * i;
+    //}
+
+    private int CalculateDecelerationStepCount(float forceMagnitude, float deceleration)
+    {
+        int i = 0;
+        float totalDecelerationForce = 0f;
+        while (totalDecelerationForce < forceMagnitude)
+        {
+            totalDecelerationForce += deceleration * i * i;
+            i++;
+        }
+        i++;
+        return i;
+    }
+
+    private float CalculateForceDistance(float magnitude, float deceleration, int stepCount)
+    {
+        float distance = 0f;
+        float forceMagnitude = magnitude;
+        for (int i = 0; i < stepCount; i++)
+        {
+            distance += forceMagnitude;
+            forceMagnitude -= deceleration * i * i;
+        }
+        return distance;
+    }
+
+    //private float CalculateForceFromDistance(float distance, float deceleration)
+    //{
+
+    //}
+
+    private int CalculateDecelerationStepCountFromDistance(float distance, float deceleration)
+    {
+        int i = 0;
+        float totalDistance = -1f;
+        while (totalDistance < distance)
+        {
+            i++;
+            totalDistance += deceleration * i * i;
+        }
+        float distanceOffset = 0f;
+        if (totalDistance > distance)
+        {
+            distanceOffset = totalDistance - distance;
+        }
+
+        return i;
+    }
+
     public IEnumerator ApplyForcePolar(Vector3 direction, float magnitude)
     {
         direction.Normalize();
@@ -420,7 +483,8 @@ public class MovementController : MonoBehaviour
 
             _forceVelocity -= force;
             deceleration = acceleration * i * i;
-            forceMagnitude = initialMagnitude - deceleration;
+            //forceMagnitude = initialMagnitude - deceleration;
+            forceMagnitude -= deceleration;
         }
 
         if (!_inputManager.Actions["Move"].isBeingPerformed)
@@ -726,7 +790,7 @@ public class MovementController : MonoBehaviour
         StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
         if (!CollisionData.y.isNegativeHit)
         {
-            StartCoroutine(DisableGravity(_dashDuration));
+            StartCoroutine(DisableGravity(_dashHangTime));
             ResetVelocityY();
         }
         StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"], _inputManager.Actions["Dash"]));
