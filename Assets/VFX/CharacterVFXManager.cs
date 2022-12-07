@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
+using UnityEngine.Rendering;
 
 public enum vfxAssets {AfterImage, };
 
@@ -31,11 +32,34 @@ public class CharacterVFXManager : MonoBehaviour
     }
     void VFXSubscribeEvents() {
         _inputManager.Actions["Dash"].perform += AfterImage;
+        _fighter.Events.onBlockHit += BlockGlow;
     }
 
     void AfterImage(InputManager.Action action) {
         _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
             groundOffset, 0f), GetComponent<Fighter>());
+    }
+
+    void BlockGlow(Dictionary<string, object> d)
+    {
+        try
+        {
+            Fighter attacked = d["attacked"] as Fighter;
+            Fighter attacker = d["attacker"] as Fighter;
+            if (!attacker || !attacked) return;
+            StartCoroutine(ParryGlow(attacked));
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.Log("blocker not found");
+        }
+    }
+
+    IEnumerator ParryGlow(Fighter f)
+    {
+        f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 1f);
+        yield return new WaitForSeconds(.35f);
+        f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 0f);
     }
 
     void Awake()
