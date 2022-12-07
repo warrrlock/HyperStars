@@ -61,7 +61,8 @@ public class HitBox : MonoBehaviour
                     {"attacker", _fighter},
                     {"attacked", hitFighter}, 
                     {"hit point", hitPoint},
-                    {"attacker input", _fighter.BaseStateMachine.LastExecutedInput}
+                    {"attacker input", _fighter.BaseStateMachine.LastExecutedInput},
+                    {"attackInfo", parryInfo},
                 }
             );
             return;
@@ -87,7 +88,8 @@ public class HitBox : MonoBehaviour
                 {"attacker", _fighter},
                 {"attacked", hitFighter}, 
                 {"hit point", hitPoint},
-                {"attacker input", _fighter.BaseStateMachine.LastExecutedInput}
+                {"attacker input", _fighter.BaseStateMachine.LastExecutedInput},
+                {"attackInfo", attackInfo},
             }
         );
         //hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);

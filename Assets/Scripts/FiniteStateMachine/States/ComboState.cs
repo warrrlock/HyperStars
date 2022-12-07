@@ -24,6 +24,9 @@ namespace FiniteStateMachine
         [SerializeField] private bool _isSpecial;
         [Tooltip("number of bars the special costs. 1 means 1 bar.")]
         [SerializeField] private int _specialBarCost;
+
+        [Header("Projectile")] [SerializeField]
+        private GameObject _projectilePrefab;
         
         [HideInInspector]
         [SerializeField] private int _animationHash;
@@ -83,8 +86,14 @@ namespace FiniteStateMachine
         {
             return _isSpecial ? _specialBarCost : -1;
         }
-        
-//         #region Editor
+
+        public override void SpawnProjectile(BaseStateMachine stateMachine, Bounds bounds)
+        {
+            Projectile projectile = Instantiate(_projectilePrefab, stateMachine.Fighter.transform.position, Quaternion.identity).GetComponent<Projectile>();
+            projectile.Spawn(stateMachine.Fighter, bounds);
+        }
+
+        //         #region Editor
 // #if UNITY_EDITOR
 //         [CustomEditor(typeof(ComboState))]
 //         class ComboStateEditor : Editor
