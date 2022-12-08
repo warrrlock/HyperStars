@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
             _spawnDirection == SpawnDirection.Top ? 1 : _spawnDirection == SpawnDirection.Bottom ? -1 : 0, 
             0);
         transform.position = bounds.ClosestPoint(bounds.center + spawnDirectionVector*100 );
-        Debug.Log(transform.position);
+        // Debug.Log(transform.position);
 
         if (_speed != 0) MoveIn(_speed);
         
@@ -66,15 +66,15 @@ public class Projectile : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("trigger entered");
-        if (_hit || other.gameObject.layer != 7) return;
+        if (_hit || (other.gameObject.layer != 7 && other.gameObject.layer != 13)) return;
         
         Fighter hitFighter = other.GetComponentInParent<Fighter>();
         if (hitFighter == null || hitFighter == _owner) return; //TODO: don't hit self ?
-        Debug.Log(hitFighter.name);
         _hit = true;
-        
-        HandleDamageTo(hitFighter);
+
+        if (other.gameObject.layer == 7)
+            HandleDamageTo(hitFighter);
+        else HandleBlockBy(hitFighter);
         
         foreach (ProjectileAction action in _onTriggerEnterActions)
             action.Execute(this);
@@ -86,16 +86,33 @@ public class Projectile : MonoBehaviour
             action.Execute(this);
     }
 
-    private void HandleDamageTo(Fighter hitFighter)
+    private void HandleBlockBy(Fighter hitFighter)
     {
-        if (_attackInfo == null)
-        {
-            return;
-        }
-        
+        AttackInfo attackInfo = hitFighter.BaseStateMachine.AttackInfo;
+        if (attackInfo == null) return;
+
         Vector3 hitPoint = hitFighter.GetComponent<Collider>().ClosestPoint(transform.position);
 
-        Debug.Log($"attacker {_owner.name}, attacked {hitFighter.name}, hit point {hitPoint}, input {_input}");
+        // Debug.Log($"attacker {_owner.name}, attacked {hitFighter.name}, hit point {hitPoint}, input {_input}");
+        hitFighter.Events.onBlockHit?.Invoke(new Dictionary<string, object>
+            {
+                {"attacker", _owner},
+                {"attacked", hitFighter}, 
+                {"hit point", hitPoint},
+                {"attacker input", hitFighter.BaseStateMachine.LastExecutedInput},
+                {"attackInfo", attackInfo},
+            }
+        );
+        
+    }
+    
+    private void HandleDamageTo(Fighter hitFighter)
+    {
+        if (_attackInfo == null) return;
+
+        Vector3 hitPoint = hitFighter.GetComponent<Collider>().ClosestPoint(transform.position);
+
+        // Debug.Log($"attacker {_owner.name}, attacked {hitFighter.name}, hit point {hitPoint}, input {_input}");
         _owner.Events.onAttackHit?.Invoke(new Dictionary<string, object>
             {
                 {"attacker", _owner},

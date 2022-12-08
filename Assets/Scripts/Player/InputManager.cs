@@ -32,6 +32,7 @@ public class InputManager : MonoBehaviour
         public IEnumerator queuePerform;
         public IEnumerator queueStop;
         public InputAction inputAction;
+        public Func<bool> enableCondition;
 
         public Action(string nam)
         {
@@ -39,11 +40,15 @@ public class InputManager : MonoBehaviour
 
             perform += IsPerformed;
             stop += IsntPerformed;
+
+
+            enableCondition = () => true;
         }
 
         public void Destroy()
         {
-
+            perform -= IsPerformed;
+            stop -= IsntPerformed;
         }
 
         private void IsPerformed(Action action)
@@ -104,21 +109,24 @@ public class InputManager : MonoBehaviour
             if (context.action.WasPerformedThisFrame())
             {
                 action.isBeingInput = true;
-                if (action.disabledCount == 0)
+                if (action.enableCondition())
                 {
-                    action.perform?.Invoke(action);
-                }
-                else if (action.disabledCount > 0)
-                {
-                    if (!action.isPerformQueued)
+                    if (action.disabledCount == 0)
                     {
-                        action.queuePerform = QueuePerform(action);
-                        StartCoroutine(action.queuePerform);
+                        action.perform?.Invoke(action);
                     }
-                }
-                else
-                {
-                    throw new System.Exception("Action's disabled count is less than 0.");
+                    else if (action.disabledCount > 0)
+                    {
+                        if (!action.isPerformQueued)
+                        {
+                            action.queuePerform = QueuePerform(action);
+                            StartCoroutine(action.queuePerform);
+                        }
+                    }
+                    else
+                    {
+                        throw new System.Exception("Action's disabled count is less than 0.");
+                    }
                 }
 
                 if (action.isStopQueued)
