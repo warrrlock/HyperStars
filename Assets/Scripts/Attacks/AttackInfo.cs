@@ -21,6 +21,7 @@ public class AttackInfo
     public float wallBounceHitStopDuration;
 
     [Header("Ground Bounce")]
+    public bool causesGroundBounce;
     public float groundBounceDuration;
     [Tooltip("Leave this at 0 if ground bounce should not create a new force.")]
     public float groundBounceDistance;

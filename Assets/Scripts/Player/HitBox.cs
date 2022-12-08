@@ -127,6 +127,10 @@ public class HitBox : MonoBehaviour
         {
             StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
         }
+        if (attackInfo.causesGroundBounce)
+        {
+            StartCoroutine(hitFighter.MovementController.EnableGroundBounce(attackInfo.groundBounceDistance, attackInfo.groundBounceDuration, attackInfo.groundBounceDirection, attackInfo.groundBounceHitStopDuration));
+        }
         StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
         Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
 
