@@ -22,7 +22,7 @@ public class SpecialMeterManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        UnsubscribeFromEvents();
+        // UnsubscribeFromEvents();
     }
 
     public void Initiate()
@@ -83,6 +83,6 @@ public class SpecialMeterManager : MonoBehaviour
     {
         if (!_fighter) return;
         _fighter.Events.onAttackHit -= HandleIncrement;
-        _fighter.OpposingFighter.Events.onBlockHit -= HandleIncrement;
+        if (_fighter.OpposingFighter != null) _fighter.OpposingFighter.Events.onBlockHit -= HandleIncrement;
     }
 }
