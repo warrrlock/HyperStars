@@ -7,6 +7,8 @@ public class FighterEvents
 {
     public delegate void WallBounce();
     public WallBounce wallBounce;
+    public delegate void GroundBounce();
+    public GroundBounce groundBounce;
 
     public Action onLandedNeutral;
     public Action onLandedHurt;
