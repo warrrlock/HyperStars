@@ -852,8 +852,8 @@ public class MovementController : MonoBehaviour
             dashDirection = _fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right;
             MovingDirection = dashDirection == Vector3.left ? Fighter.Direction.Left : Fighter.Direction.Right;
         }
-        //StartCoroutine(ApplyForce(dashDirection, _dashForce, _dashDuration, _dashEasing));
-        StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
+        StartCoroutine(ApplyForce(dashDirection, _dashForce, _dashDuration, _dashEasing));
+        //StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
         if (!CollisionData.y.isNegativeHit)
         {
             StartCoroutine(DisableGravity(_dashHangTime));
