@@ -71,7 +71,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     public IEnumerator Shake(Fighter f)
     {
-        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 2f);
+        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 125f);
         yield return new WaitForSeconds(.5f);
         f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 0f);
     }
