@@ -24,7 +24,16 @@ public class VFXSpawnManager : MonoBehaviour
             f.Events.onBlockHit += PlayBlockVFX;
         }
     }
-    
+
+    private void OnDestroy()
+    {
+        foreach (Fighter f in Services.Fighters)
+        {
+            f.Events.onAttackHit -= PlayHitVFX;
+            f.Events.onBlockHit -= PlayBlockVFX;
+        }
+    }
+
     public void InitializaeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
     {
         VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
