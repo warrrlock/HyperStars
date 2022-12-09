@@ -73,6 +73,12 @@ public class MovementController : MonoBehaviour
     private Vector3 _wallBounceDirection;
     private float _wallBounceHitStopDuration;
 
+    private bool _isGroundBounceable = false;
+    private float _groundBounceDistance;
+    private float _groundBounceDuration;
+    private Vector3 _groundBounceDirection;
+    private float _groundBounceHitStopDuration;
+
     private bool _isAttacking;
     private bool _isGravityApplied = true;
     [SerializeField] private float _overlapResolutionSpeed;
@@ -283,6 +289,19 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
+    public IEnumerator EnableGroundBounce(float distance, float duration, Vector3 direction, float hitStopDuration)
+    {
+        _groundBounceDistance = distance;
+        _groundBounceDuration = duration;
+        _groundBounceDirection = direction;
+        _groundBounceHitStopDuration = hitStopDuration;
+        _isGroundBounceable = true;
+        yield return new WaitUntil(() => _forceVelocity == Vector3.zero);
+
+        _isGroundBounceable = false;
+        yield break;
+    }
+
     public IEnumerator DisableGravity(float duration)
     {
         _isGravityApplied = false;
@@ -308,6 +327,17 @@ public class MovementController : MonoBehaviour
 
         StartCoroutine(Juice.FreezeTime(_wallBounceHitStopDuration));
         _isWallBounceable = false; //TODO: instead, stop EnableWallBounce coroutine
+        StartCoroutine(ApplyForce(direction, magnitude, duration));
+        yield break;
+    }
+
+    private IEnumerator GroundBounce(Vector3 direction, float magnitude, float duration)
+    {
+        _fighter.Events.groundBounce?.Invoke();
+        yield return null;
+
+        StartCoroutine(Juice.FreezeTime(_groundBounceHitStopDuration));
+        _isGroundBounceable = false; //TODO: instead, stop EnableGroundBounce coroutine
         StartCoroutine(ApplyForce(direction, magnitude, duration));
         yield break;
     }
@@ -358,6 +388,21 @@ public class MovementController : MonoBehaviour
                         yield break;
                     }
                     direction.z *= -1f;
+                }
+            }
+            if (_isGroundBounceable)
+            {
+                if (_collisionData.y.isNegativeHit)
+                {
+                    ResetVelocityY();
+                    if (_groundBounceDistance != 0f)
+                    {
+                        Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _groundBounceDirection : new Vector3(-_groundBounceDirection.x, _groundBounceDirection.y, _groundBounceDirection.z);
+                        float bounceMagnitude = (_groundBounceDistance * 2f) / (_groundBounceDuration + Time.fixedDeltaTime);
+                        StartCoroutine(GroundBounce(bounceDirection, bounceMagnitude, _groundBounceDuration));
+                        yield break;
+                    }
+                    direction.y *= -1f;
                 }
             }
             float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
