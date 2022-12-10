@@ -31,11 +31,10 @@ namespace FiniteStateMachine
 
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
-            //always play animation again?
             stateMachine.PlayAnimation(_animationHash, replay: true);
             if (_exitState) stateMachine.QueueState(_exitState);
             if (_hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
-                stateMachine.StartInAir(() => stateMachine.WaitToMove(_animationHash2));
+                stateMachine.StartInAir(() => stateMachine.WaitToMove(nextAnimation: _animationHash2));
             else stateMachine.WaitToMove();
         }
         
