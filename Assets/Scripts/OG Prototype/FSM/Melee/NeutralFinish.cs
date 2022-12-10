@@ -1,29 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class NeutralFinish : MeleeBaseState
-{
-    public override void OnEnter(StateMachine _stateMachine)
-    {
-        base.OnEnter(_stateMachine);
-
-        //Attack
-        attackIndex = 3;
-        duration = NeutralDuration3;
-        animator.SetTrigger("Attack" + attackIndex);
-        Debug.Log("Player Attack " + attackIndex + " Fired!");
-/*        knockBackX = NeutralKnockBack3.x;
-        knockBackY = NeutralKnockBack3.y;*/
-    }
-
-    public override void OnUpdate()
-    {
-        base.OnUpdate();
-
-        if (fixedtime >= duration)
-        {
-             stateMachine.SetNextStateToMain();
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d0e26a5b0079e2658088e0cd38b64bb9ea0c5aeba152adbbf155e86bd321f00f
+size 700

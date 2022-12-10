@@ -1,18 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class MusicManager : MonoBehaviour
-{
-    // public AK.Wwise.Event musicStart;
-    void Start()
-    {
-        AkSoundEngine.PostEvent("Play_LisaTheme", gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f9a49458a17a7fa5ce7d9db676270004e23d908ee0b3ba325ae0201f4657cf78
+size 5104

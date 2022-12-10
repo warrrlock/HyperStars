@@ -1,29 +1,3 @@
-using System;
-using UnityEngine;
-
-[CreateAssetMenu(menuName = "Projectile/Destroy")]
-public class DestroyProjectileAction : ProjectileAction
-{
-    public override void Execute(Projectile projectile)
-    {
-        projectile.enabled = false;
-        projectile.GetComponent<Renderer>().enabled = false;
-        
-        AttackInfo info = projectile.AttackInfo;
-        float time = Max(new float[]{info.hangTime, info.knockbackDuration, info.hitStopDuration, info.hitStunDuration});
-        projectile.DestroyIn(time+0.2f);
-    }
-
-    float Max(float[] arr)
-    {
-        float max = Single.NegativeInfinity;
-        foreach (float f in arr)
-            max = Math.Max(max, f);
-        return max;
-    }
-
-    public override void Stop(Projectile projectile)
-    {
-        //do nothing
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:fa374ca0f77ce22a92e30ed2d682c784791176244edcb8be82a52788e0f29104
+size 792

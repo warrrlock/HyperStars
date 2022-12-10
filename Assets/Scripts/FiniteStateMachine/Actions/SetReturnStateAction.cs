@@ -1,21 +1,3 @@
-using UnityEngine;
-
-namespace FiniteStateMachine
-{
-    [CreateAssetMenu(menuName = "StateMachine/Actions/SetReturnAction")]
-    public class SetReturnStateAction: StateAction
-    {
-        [SerializeField] private BaseState _returnState;
-        [SerializeField] private string _invokedInput;
-
-        public override void Execute(BaseStateMachine stateMachine)
-        {
-            if(_returnState && stateMachine.LastInvokedInput.name == _invokedInput) stateMachine.SetReturnState(_returnState);
-        }
-
-        public override void Stop(BaseStateMachine stateMachine)
-        {
-            stateMachine.SetReturnState();
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:0aa5d6e989c9c8dab46c262b036713d83c1de0ad4c26177190bfc44749b6535d
+size 645
