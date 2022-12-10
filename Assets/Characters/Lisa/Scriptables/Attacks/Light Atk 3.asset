@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animationName: LightAtk3
   _onInputPlayOrStopActions: []
-  _onInputInvokeActions: []
+  _onInputInvokeActions:
+  - {fileID: 11400000, guid: bc69c4238319745e2bf15c118a80961a, type: 2}
+  - {fileID: 11400000, guid: 7455b6da817c24c9aa07ebf85119f48f, type: 2}
   _transitions:
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
   - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
@@ -37,4 +39,5 @@ MonoBehaviour:
     incrementBarAmount: 0.4
   _isSpecial: 0
   _specialBarCost: 0
+  _projectilePrefab: {fileID: 0}
   _animationHash: -26817840
