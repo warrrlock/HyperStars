@@ -34,20 +34,50 @@ namespace AK
         static const AkUniqueID PLAY_LISA_LOW_SPECIAL = 3734986080U;
         static const AkUniqueID PLAY_LISA_SPECIAL_NEUTRAL = 3858634255U;
         static const AkUniqueID PLAY_LISA_SPECIAL_SIDE = 1098933211U;
+        static const AkUniqueID PLAY_LISATHEME = 2345669066U;
         static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;
         static const AkUniqueID PLAY_WALL_HIT = 625690868U;
+        static const AkUniqueID STOP_LISATHEME = 564764656U;
     } // namespace EVENTS
+
+    namespace SWITCHES
+    {
+        namespace MUSICSTATE
+        {
+            static const AkUniqueID GROUP = 1021618141U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID CHORUS = 2866621671U;
+                static const AkUniqueID VERSE = 3840766212U;
+            } // namespace SWITCH
+        } // namespace MUSICSTATE
+
+    } // namespace SWITCHES
+
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID INTENSITY = 2470328564U;
+        static const AkUniqueID MUSICVOLUME = 2346531308U;
+    } // namespace GAME_PARAMETERS
 
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID MAIN = 3161908922U;
+        static const AkUniqueID MUSICMAIN = 374987273U;
     } // namespace BANKS
 
     namespace BUSSES
     {
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
+        static const AkUniqueID MUSICBUS = 2886307548U;
     } // namespace BUSSES
+
+    namespace AUX_BUSSES
+    {
+        static const AkUniqueID MUSICVERB = 670697577U;
+    } // namespace AUX_BUSSES
 
     namespace AUDIO_DEVICES
     {

@@ -14,6 +14,21 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Stop_LisaTheme" ID="{F3EE2563-C5CF-485C-97A8-4692F114B58D}">
+					<ChildrenList>
+						<Action Name="" ID="{B09F13D9-E6D3-4058-9914-DF5779EFB20B}" ShortID="298351185">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeTime" Type="Real64" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Lisa'sThemeSwitch" ID="{B254587E-D25F-4957-91E0-B59F6913F4C7}" WorkUnitID="{F45E926B-9A0A-4457-AC1B-A2435B129BC1}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
