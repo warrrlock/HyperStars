@@ -14,7 +14,7 @@ namespace FiniteStateMachine
         enum FalseState { DoNothing, CustomFalseState }
         
         [SerializeField] private String _inputActionName;
-        
+        [SerializeField] private String _inputActionName2; //TODO: fix issue of player invoking the wrong input when some inputs are supposed to be disabled
         [Tooltip("If the State allows for combos, the true State is if the combo is successful, " +
                  "and the false State is if the combo fails.\n\nOtherwise, if there are no combos, the true State is if the input is accepted, " +
                  "and false State otherwise.")]
@@ -37,8 +37,7 @@ namespace FiniteStateMachine
         public void Execute (BaseStateMachine stateMachine, string inputName, bool canCombo, Action action = null)
         {
             if (action != null) action();
-            bool decision = _inputActionName.Equals(inputName, StringComparison.OrdinalIgnoreCase);
-            if (decision)
+            if (Decide(inputName))
             {
                 bool specialCheck = CheckSpecial(stateMachine);
                 if (canCombo && specialCheck)
@@ -68,9 +67,8 @@ namespace FiniteStateMachine
         public void Execute (BaseStateMachine stateMachine, string inputName, Action action = null)
         {
             if (action != null) action();
-            bool decision = _inputActionName.Equals(inputName, StringComparison.OrdinalIgnoreCase);
-            // Debug.Log("checking " + inputName +" equals " + _inputActionName);
-            if (decision)
+            
+            if (Decide(inputName))
             {
                 bool specialCheck = CheckSpecial(stateMachine);
                 if (!specialCheck) return;
@@ -104,6 +102,14 @@ namespace FiniteStateMachine
             stateMachine.QueueState(_trueState);
             stateMachine.LastExecutedInput = inputName;
             stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
+        }
+
+        private bool Decide(string inputName)
+        {
+            bool decision = _inputActionName.Equals(inputName, StringComparison.OrdinalIgnoreCase);
+            decision = decision || (_inputActionName2 != "" &&
+                                    _inputActionName2.Equals(inputName, StringComparison.OrdinalIgnoreCase));
+            return decision;
         }
         
         #region Editor

@@ -48,20 +48,19 @@ public class HitBox : MonoBehaviour
         {
             //has been parried
             AttackInfo parryInfo = hitFighter.BaseStateMachine.AttackInfo;
-            InputManager.Action[] selfActions =
-            {
-                _fighter.InputManager.Actions["Move"], 
-                _fighter.InputManager.Actions["Dash"],
-                _fighter.InputManager.Actions["Jump"]
-            };
-            StartCoroutine(_fighter.InputManager.Disable(parryInfo.hitStunDuration, selfActions));
+            
+            _baseStateMachine.DisableTime = attackInfo.hitStunDuration;
+            _baseStateMachine.ExecuteDisableTime();
             StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun));
+            _baseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump"}, 
+                () => _baseStateMachine.IsIdle, false);
+            
             _fighter.Events.onBlockHit?.Invoke(new Dictionary<string, object>
                 {
                     {"attacker", _fighter},
                     {"attacked", hitFighter}, 
                     {"hit point", hitPoint},
-                    {"attacker input", _fighter.BaseStateMachine.LastExecutedInput},
+                    {"attacker input", hitFighter.BaseStateMachine.LastExecutedInput},
                     {"attackInfo", parryInfo},
                 }
             );
@@ -96,7 +95,9 @@ public class HitBox : MonoBehaviour
 
         hitFighter.invulnerabilityCount++;
         // Debug.Log(hitFighter.invulnerabilityCount);
-
+        
+        hitFighter.BaseStateMachine.DisableTime = attackInfo.hitStunDuration;
+        hitFighter.BaseStateMachine.ExecuteDisableTime();
         StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
             !hitFighter.MovementController.CollisionData.y.isNegativeHit 
             ? KeyHurtStatePair.HurtStateName.AirKnockBack
@@ -114,14 +115,10 @@ public class HitBox : MonoBehaviour
         forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration));
         //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, attackInfo.knockbackForce.y, attackInfo.knockbackDuration));
-        InputManager.Action[] actions =
-        {
-            hitFighter.InputManager.Actions["Move"], 
-            hitFighter.InputManager.Actions["Dash"],
-            hitFighter.InputManager.Actions["Jump"]
-        };
-        StartCoroutine(hitFighter.InputManager.Disable(attackInfo.hitStunDuration, actions));
-        //float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
+        
+        hitFighter.BaseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump"}, 
+            () => hitFighter.BaseStateMachine.IsIdle, false);
+            //float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
         //Vector3 forceDirection = attackInfo.knockbackDirection;
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration));

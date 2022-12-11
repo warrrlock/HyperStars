@@ -12,7 +12,7 @@ namespace FiniteStateMachine
         public override void Execute(BaseStateMachine stateMachine)
         {
             stateMachine.DisableInputs(_inputsToDisable, 
-                () => stateMachine.IsIdle || stateMachine.CurrentState is HurtState, 
+                () => stateMachine.IsIdle, 
                 false);
         }
 
