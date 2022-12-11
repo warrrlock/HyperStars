@@ -196,6 +196,7 @@ namespace FiniteStateMachine {
             HandleStateExit();
             CurrentState = _queuedState;
             UpdateStateInfoText();
+            Fighter.Events.onStateChange.Invoke(CurrentState);
             _queuedState = null;
 
             _rejectInput = false;
