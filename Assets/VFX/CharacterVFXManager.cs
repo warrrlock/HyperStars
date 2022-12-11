@@ -32,14 +32,17 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager = GameObject.Find("VFX Camera").GetComponent<VFXSpawnManager>();
     }
     void VFXSubscribeEvents() {
-        _inputManager.Actions["Dash"].perform += AfterImage;
+        _inputManager.Actions["Dash"].perform += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
     }
 
-    void AfterImage(InputManager.Action action) {
-        _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
-            dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
+    void DashSmoke(InputManager.Action action) {
+        if (_fighter.MovementController.IsGrounded)
+        {
+            _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
+                        dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
+        }
     }
     
     void JumpSmoke(InputManager.Action action) {
@@ -88,6 +91,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     void Update() {
         SpriteUpdate();
+        // if (_fighter.BaseStateMachine.CurrentState == State)
     }
 
     void SpriteUpdate() {

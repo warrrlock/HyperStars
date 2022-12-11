@@ -911,6 +911,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7411884658590553160, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _musicManager
+      value: 
+      objectReference: {fileID: 1727585859350708813}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
 --- !u!1 &231288178
@@ -8162,6 +8166,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _musicManager
+      value: 
+      objectReference: {fileID: 1727585859350708813}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
 --- !u!1 &2133713983
@@ -8308,10 +8316,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Music Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 1727585859560439401, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
       propertyPath: m_RootOrder
       value: 25
@@ -8358,3 +8362,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+--- !u!114 &1727585859350708813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1727585859560439396, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+  m_PrefabInstance: {fileID: 1727585859350708812}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08d2d517d7361fc43879ed550ed95031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

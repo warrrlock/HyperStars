@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1727585859560439403}
+  - component: {fileID: 8138877614642721479}
   - component: {fileID: 1727585859560439396}
   m_Layer: 0
   m_Name: Music Manager
@@ -32,6 +33,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8138877614642721479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727585859560439401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8f58ebfa947fa49ad55ae46e917b01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: ae8d9d44
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: b08a95c4f583a5c468f7e5a066f66d63, type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!114 &1727585859560439396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,3 +69,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d2d517d7361fc43879ed550ed95031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicTrack:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9082a6ea19179104db348aa5cd6d3dfe, type: 2}
+  Intensity: 1
+  musicVolume: 1
+  Impressed: 0
+  increaseIntensityDuringChorus: 1
+  DebugMode: 0
+  hitCountP1: 0
+  hitCountP2: 0
+  intensityTierTwoCountRequirement: 5
+  intensityTierThreeCountRequirement: 10
+  hitEffectiveTime: 3
+  thisHit: 0

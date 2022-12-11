@@ -129,14 +129,19 @@ public class Projectile : MonoBehaviour
         forceDirection.x *= _xDirection;
         StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, _attackInfo.knockbackDuration));
         
-        InputManager.Action[] actions =
-        {
-            hitFighter.InputManager.Actions["Move"], 
-            hitFighter.InputManager.Actions["Dash"],
-            hitFighter.InputManager.Actions["Jump"]
-        };
+        hitFighter.BaseStateMachine.DisableTime = _attackInfo.hitStunDuration;
+        hitFighter.BaseStateMachine.ExecuteDisableTime();
         
-        StartCoroutine(hitFighter.InputManager.Disable(_attackInfo.hitStunDuration, actions));
+        StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
+            !hitFighter.MovementController.CollisionData.y.isNegativeHit 
+                ? KeyHurtStatePair.HurtStateName.AirKnockBack
+                : (_attackInfo.knockbackForce.x is > 0f and < 180f 
+                    ? KeyHurtStatePair.HurtStateName.KnockBack 
+                    : KeyHurtStatePair.HurtStateName.HitStun)
+        ));
+
+        hitFighter.BaseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump"}, 
+            () => hitFighter.BaseStateMachine.IsIdle, false);
         
         hitFighter.MovementController.ResetVelocityY();
         if (_attackInfo.causesWallBounce)
@@ -146,15 +151,6 @@ public class Projectile : MonoBehaviour
         StartCoroutine(hitFighter.MovementController.DisableGravity(_attackInfo.hangTime));
         Services.FavorManager?.IncreaseFavor(_owner.PlayerId, _attackInfo.favorReward);
 
-        
-        StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
-            !hitFighter.MovementController.CollisionData.y.isNegativeHit 
-                ? KeyHurtStatePair.HurtStateName.AirKnockBack
-                : (_attackInfo.knockbackForce.x is > 0f and < 180f 
-                    ? KeyHurtStatePair.HurtStateName.KnockBack 
-                    : KeyHurtStatePair.HurtStateName.HitStun)
-        ));
-        
         // StartCoroutine(Juice.FreezeTime(_attackInfo.hitStopDuration));
         
     }
