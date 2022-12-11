@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.439345, g: 0.48766726, b: 0.5679073, a: 1}
+  m_IndirectSpecularColor: {r: 0.43934318, g: 0.48766536, b: 0.5679055, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -383,23 +383,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _dashDistance
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _dashDuration
       value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashHangTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _maxJumpHeight
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _minJumpHeight
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _timeToJumpApex
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _dashCooldownDuration
@@ -1953,6 +1957,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2666714687243223776, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: _cameraCatchUpSpeedX
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666714687243223776, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: _cameraCatchUpSpeedY
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666714687243223776, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: _cameraCatchUpSpeedZ
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2666714687243223781, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
       propertyPath: m_Cameras.Array.size
       value: 1
@@ -2131,24 +2147,32 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashEasing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _dashDistance
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _dashDuration
       value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashHangTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _maxJumpHeight
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _minJumpHeight
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _timeToJumpApex
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _dashCooldownDuration
