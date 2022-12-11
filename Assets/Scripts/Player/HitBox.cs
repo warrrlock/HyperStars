@@ -49,18 +49,18 @@ public class HitBox : MonoBehaviour
             //has been parried
             AttackInfo parryInfo = hitFighter.BaseStateMachine.AttackInfo;
             
-            _fighter.BaseStateMachine.DisableTime = attackInfo.hitStunDuration;
-            _fighter.BaseStateMachine.ExecuteDisableTime();
+            _baseStateMachine.DisableTime = attackInfo.hitStunDuration;
+            _baseStateMachine.ExecuteDisableTime();
             StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun));
-            _fighter.BaseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump"}, 
-                () => _fighter.BaseStateMachine.IsIdle, false);
+            _baseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump"}, 
+                () => _baseStateMachine.IsIdle, false);
             
             _fighter.Events.onBlockHit?.Invoke(new Dictionary<string, object>
                 {
                     {"attacker", _fighter},
                     {"attacked", hitFighter}, 
                     {"hit point", hitPoint},
-                    {"attacker input", _fighter.BaseStateMachine.LastExecutedInput},
+                    {"attacker input", hitFighter.BaseStateMachine.LastExecutedInput},
                     {"attackInfo", parryInfo},
                 }
             );

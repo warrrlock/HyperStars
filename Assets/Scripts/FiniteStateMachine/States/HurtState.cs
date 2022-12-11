@@ -34,7 +34,7 @@ namespace FiniteStateMachine
             stateMachine.PlayAnimation(_animationHash, replay: true);
             if (_exitState) stateMachine.QueueState(_exitState);
             if (_hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
-                stateMachine.StartInAir(() => stateMachine.WaitToMove(nextAnimation: _animationHash2));
+                stateMachine.StartInAir(() => stateMachine.WaitToMove(nextAnimation: _animationHash2), setJumpReturnState: false);
             else stateMachine.WaitToMove();
         }
         

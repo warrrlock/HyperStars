@@ -31,6 +31,7 @@ namespace FiniteStateMachine {
         
         [Header("States")]
         [SerializeField] private BaseState _initialState;
+        [SerializeField] private BaseState _jumpState;
         private BaseState _returnState;
         public bool IsIdle => CurrentState == _initialState;
     
@@ -294,9 +295,12 @@ namespace FiniteStateMachine {
             //TODO: return to walk state upon exit, if player is still holding onto move input
         }
         
-        public void StartInAir(Action onGroundAction = null)
+        public void StartInAir(Action onGroundAction = null, bool setJumpReturnState = true)
         {
             if (_airCoroutine != null) StopCoroutine(_airCoroutine);
+            if (setJumpReturnState)
+                SetReturnState(_jumpState);
+            else SetReturnState();
             _airCoroutine = StartCoroutine(HandleExitInAir(onGroundAction));
             StartCoroutine(Fighter.InputManager.Disable(
                 () => Fighter.MovementController.CollisionData.y.isNegativeHit, 
@@ -307,7 +311,7 @@ namespace FiniteStateMachine {
         {
             yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => Fighter.MovementController.CollisionData.y.isNegativeHit);
-            // SetReturnState();
+            SetReturnState();
             
             if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
             else Fighter.Events.onLandedNeutral?.Invoke();
