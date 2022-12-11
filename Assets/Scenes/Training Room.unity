@@ -213,6 +213,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28019889}
   m_CullTransparentMesh: 1
+--- !u!1001 &40514984
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1727585859560439396, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: musicVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439401, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_Name
+      value: Music Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.47661197
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.197688
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.806517
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
 --- !u!1 &116205848
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,11 +456,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _maxJumpHeight
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _minJumpHeight
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _timeToJumpApex
@@ -409,13 +470,17 @@ PrefabInstance:
       propertyPath: _dashCooldownDuration
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791523313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _jumpState
+      value: 
+      objectReference: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Actions
       value: 
-      objectReference: {fileID: -944628639613478452, guid: 4443cc9aceac146e5943752221cbc16b, type: 3}
+      objectReference: {fileID: -944628639613478452, guid: 8f002a308fa554e25bb9726347dc3272, type: 3}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Gamepad
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791523315, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Size.x
@@ -708,6 +773,22 @@ PrefabInstance:
     - target: {fileID: 2088754873056520491, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448191436220491297, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448191436220491297, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448191436524167817, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448191436524167817, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 6903723624306696878, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
       propertyPath: m_Name
@@ -2164,11 +2245,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _maxJumpHeight
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _minJumpHeight
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _timeToJumpApex
@@ -2178,6 +2259,10 @@ PrefabInstance:
       propertyPath: _dashCooldownDuration
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791523313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _jumpState
+      value: 
+      objectReference: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Actions
       value: 
