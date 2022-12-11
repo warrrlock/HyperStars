@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5fc9ef9c27aa32ae8002aa712eec4cf72064b19f98f9133d3512546a6927fa6d
-size 922
+[System.AttributeUsage(System.AttributeTargets.Field, Inherited = true)]
+public class AkEnumFlagAttribute : UnityEngine.PropertyAttribute
+{
+	public System.Type Type;
+
+	public AkEnumFlagAttribute(System.Type type)
+	{
+		Type = type;
+	}
+
+#if UNITY_EDITOR
+	[UnityEditor.CustomPropertyDrawer(typeof(AkEnumFlagAttribute))]
+	public class PropertyDrawer : UnityEditor.PropertyDrawer
+	{
+		public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label)
+		{
+			UnityEditor.EditorGUI.BeginProperty(position, label, property);
+			var flagAttribute = (AkEnumFlagAttribute)attribute;
+			property.longValue = UnityEditor.EditorGUI.EnumFlagsField(position, new UnityEngine.GUIContent(label.text, AkUtilities.GetTooltip(property)), (System.Enum)System.Enum.ToObject(flagAttribute.Type, property.longValue)).GetHashCode();
+			UnityEditor.EditorGUI.EndProperty();
+		}
+	}
+#endif
+}

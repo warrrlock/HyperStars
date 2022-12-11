@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:af0832f3ba8dcae8d9c382964d9cd3a84a0427b5d3749af6d5f4950b940f1bec
-size 912
+using System;
+using UnityEngine;
+
+namespace FiniteStateMachine
+{
+    [CreateAssetMenu(menuName = "StateMachine/Actions/Animation Action")]
+    public class AnimationAction: StateAction
+    {
+        [SerializeField] private string _animationName;
+
+        [HideInInspector]
+        [SerializeField] private int _animationHash;
+
+        private void OnValidate()
+        {
+            _animationHash = Animator.StringToHash(_animationName);
+        }
+
+        public override void Execute(BaseStateMachine stateMachine)
+        {
+            stateMachine.PlayAnimation(_animationHash);
+        }
+
+        public override void Stop(BaseStateMachine stateMachine)
+        {
+            stateMachine.HandleAnimationExit();
+            // if (stateMachine.AnimatorComponent.GetCurrentAnimatorStateInfo(0).loop)
+            // {
+            //     stateMachine.HandleAnimationExit();
+            // }
+        }
+    }
+}

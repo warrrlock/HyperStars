@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b10af33516e2ca5fe57b44a0deb1ff6f64e4f57da6ae2fa0add4588ec4779714
-size 558
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Shadow : MonoBehaviour
+{
+    public Transform shadowSprite;
+    public Vector3 shadowSpritePosition;
+    public float yPos = -3.75f;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        shadowSpritePosition = shadowSprite.transform.position;
+        shadowSpritePosition.y = yPos;
+        shadowSprite.transform.position = shadowSpritePosition;
+
+    }
+}

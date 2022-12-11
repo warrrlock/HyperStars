@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6e59c83c230db782a5ef4a4b796ddfd037ff914b844e96f378d59dce2e7e3a83
-size 696
+#if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+//////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2014 Audiokinetic Inc. / All Rights Reserved
+//
+//////////////////////////////////////////////////////////////////////
+
+public class AkTriggerMouseDown : AkTriggerBase
+{
+	private void OnMouseDown()
+	{
+		if (triggerDelegate != null)
+			triggerDelegate(null);
+	}
+}
+
+#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.

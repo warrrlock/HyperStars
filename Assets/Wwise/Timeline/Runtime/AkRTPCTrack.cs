@@ -1,3 +1,52 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:80a9c4c2201b8b7eaac4198e46f6f81abed1cffd0367858701d692b8bf8008c9
-size 1776
+#if !(UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+#if !UNITY_2019_1_OR_NEWER
+#define AK_ENABLE_TIMELINE
+#endif
+#if AK_ENABLE_TIMELINE
+
+[UnityEngine.Timeline.TrackColor(0.32f, 0.13f, 0.13f)]
+// Specifies the type of Playable Asset this track manages
+[UnityEngine.Timeline.TrackClipType(typeof(AkRTPCPlayable))]
+// Use if the track requires a binding to a scene object or asset
+[UnityEngine.Timeline.TrackBindingType(typeof(UnityEngine.GameObject))]
+[System.Obsolete(AkSoundEngine.Deprecation_2019_2_0)]
+#if UNITY_2019_1_OR_NEWER
+[UnityEngine.Timeline.HideInMenu]
+#endif
+public class AkRTPCTrack : UnityEngine.Timeline.TrackAsset
+{
+	public AK.Wwise.RTPC Parameter;
+
+	// override the type of mixer playable used by this track
+	public override UnityEngine.Playables.Playable CreateTrackMixer(UnityEngine.Playables.PlayableGraph graph,
+		UnityEngine.GameObject go, int inputCount)
+	{
+		var playable = UnityEngine.Playables.ScriptPlayable<AkRTPCPlayableBehaviour>.Create(graph, inputCount);
+		setPlayableProperties();
+		return playable;
+	}
+
+	public void setPlayableProperties()
+	{
+		var clips = GetClips();
+		foreach (var clip in clips)
+		{
+			var clipPlayable = (AkRTPCPlayable) clip.asset;
+			clipPlayable.Parameter = Parameter;
+			clipPlayable.OwningClip = clip;
+		}
+	}
+
+	public void OnValidate()
+	{
+		var clips = GetClips();
+		foreach (var clip in clips)
+		{
+			var clipPlayable = (AkRTPCPlayable) clip.asset;
+			clipPlayable.Parameter = Parameter;
+		}
+	}
+}
+
+#endif // AK_ENABLE_TIMELINE
+#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.

@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:60059662e975df8fc74cb71689d20cb2451ac825c73e194029819b56e17d5534
-size 209
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace WesleyDavies
+{
+    public enum Side { Top, Bottom, Left, Right, Front, Back, Other }
+    public enum Axis { x, y, z }
+}

@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2dce1bf5227804a42627ccd6397c2174e77f2976d6ca806d8bb206152bac6224
-size 414
+# Unity Wwise MonoBehaviour integration
+
+This package adds high-level MonoBehaviour components to use Wwise in Unity.
+
+## Usage
+
+See [Unity Wwise Components](https://www.audiokinetic.com/library/edge/?source=Unity&id=pg__wwise_components.html) for more information about how to use the package.
+
+## Requirements
+
+* AK.Wwise.Unity.API == 2020.1.0
+
+## Legal
+
+Copyright © 2020 Audiokinetic Inc. All rights reserved.

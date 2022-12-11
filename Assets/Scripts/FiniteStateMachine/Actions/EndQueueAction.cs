@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:94b53f124714dc22e7d2ca39884564fdd4ccfccd138d43eae6ab7c3804688d15
-size 493
+using UnityEngine;
+
+namespace FiniteStateMachine
+{
+    [CreateAssetMenu(menuName = "StateMachine/Actions/Reset Queue State")]
+    public class EndQueueAction: StateAction
+    {
+        [SerializeField] private BaseState _toQueueState;
+        public override void Execute(BaseStateMachine stateMachine)
+        {
+            //do nothing
+        }
+
+        public override void Stop(BaseStateMachine stateMachine)
+        {
+            stateMachine.QueueState(_toQueueState);
+        }
+    }
+}

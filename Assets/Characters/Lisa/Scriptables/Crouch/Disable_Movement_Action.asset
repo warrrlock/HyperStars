@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7d6ea7f3e2ae6f31c8b472f358415619d1137db69f77ca982ed2050394277a50
-size 498
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e340d46315904bffb054e63cc9624d1, type: 3}
+  m_Name: Disable_Movement_Action
+  m_EditorClassIdentifier: 
+  _inputsToDisable:
+  - Move
+  - Dash
+  - Jump
+  _conditionalReturnState: {fileID: 0}

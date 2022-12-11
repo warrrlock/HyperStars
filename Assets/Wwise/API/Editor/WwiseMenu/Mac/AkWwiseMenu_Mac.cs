@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d58bcd5b0920b16a2596298828faa4d74d9f74985684f0056744e46d8979f632
-size 332
+#if UNITY_EDITOR
+public class AkWwiseMenu_Mac
+{
+	private const string MENU_PATH = "Help/Wwise Help/";
+	private const string Platform = "Mac";
+
+	[UnityEditor.MenuItem(MENU_PATH + Platform, false, (int) AkWwiseHelpOrder.WwiseHelpOrder)]
+	public static void OpenDoc()
+	{
+		AkDocHelper.OpenDoc(Platform);
+	}
+}
+#endif // #if UNITY_EDITOR

@@ -1,3 +1,50 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:862e3aec6d257704fe5fab0df680964f62f19699233a7af572400a385a42ce61
-size 1057
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GroundMoveState : State
+{
+    protected Animator animator;
+
+    public float jumpSpeed = 8;
+
+    private Rigidbody2D floorRB;
+
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+        animator = GetComponent<Animator>();
+        floorRB = GetComponent<Rigidbody2D>();
+
+
+        animator.SetTrigger("Jump");
+    }
+
+    public override void OnUpdate()
+    {
+
+
+        base.OnUpdate();
+/*        if (player.m_Grounded)
+        {
+            stateMachine.SetNextStateToMain();
+            //player.jumping = false;
+        }
+
+        if (Input.GetButtonDown("LightAtk"))
+        {
+            stateMachine.SetNextState(new AirLightState());
+        }
+
+        if (Input.GetButtonDown("MediumAtk"))
+        {
+            stateMachine.SetNextState(new AirMedState());
+        }
+
+        if (Input.GetButtonDown("HeavyAtk"))
+        {
+            stateMachine.SetNextState(new AirHeavyState());
+        }
+*/
+    }
+}

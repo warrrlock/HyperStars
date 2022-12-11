@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:55b6f3226a04531ff814d9a86c08a11d123bd8c22d06f59db1729620cad21591
-size 333
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class SpecialMeter : MonoBehaviour
+{
+    [SerializeField] private int _player;
+    private void Start()
+    {
+        Services.Fighters[_player-1].SpecialMeterManager.FillMeter = GetComponent<Image>();
+    }
+}

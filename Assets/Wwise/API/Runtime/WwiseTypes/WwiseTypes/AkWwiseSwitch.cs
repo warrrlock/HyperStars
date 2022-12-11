@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d6fec90fc457a13afcfd8933b2cf1dd76a0ec0da0a258316b6182c0249f7442d
-size 1101
+#if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+
+namespace AK.Wwise
+{
+	[System.Serializable]
+	///@brief This type can be used to set Switch values on gameobjects.
+	public class Switch : BaseGroupType
+	{
+		public WwiseSwitchReference WwiseObjectReference;
+
+		public override WwiseObjectReference ObjectReference
+		{
+			get { return WwiseObjectReference; }
+			set { WwiseObjectReference = value as WwiseSwitchReference; }
+		}
+
+		public override WwiseObjectType WwiseObjectType { get { return WwiseObjectType.Switch; } }
+		public override WwiseObjectType WwiseObjectGroupType { get { return WwiseObjectType.SwitchGroup; } }
+
+		public void SetValue(UnityEngine.GameObject gameObject)
+		{
+			if (IsValid())
+			{
+				var result = AkSoundEngine.SetSwitch(GroupId, Id, gameObject);
+				Verify(result);
+			}
+		}
+	}
+}
+#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.

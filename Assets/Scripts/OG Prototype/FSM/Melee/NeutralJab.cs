@@ -1,3 +1,37 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3ee5e25f6fd4f3d78b878ffe50b88d6657ba5ffbc367ecab4b826883df77f129
-size 782
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class NeutralJab : MeleeBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        //Attack
+        attackIndex = 1;
+        duration = NeutralDuration1;
+        animator.SetTrigger("Attack" + attackIndex);
+        Debug.Log("Player Attack " + attackIndex + " Fired!");
+
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+
+        if (fixedtime >= duration)
+        {
+            if (shouldCombo)
+            { 
+                stateMachine.SetNextState(new NeutralFollow());
+            }
+            else
+            {
+                stateMachine.SetNextStateToMain();
+            }
+        }
+    }
+}

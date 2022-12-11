@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:138179ce151447f1c53adb8b437d5205d7768f675723417bb96a103cc2b621f0
-size 305
+# Unity Wwise API
+
+This package adds basic API support for Wwise in Unity.
+
+## Usage
+
+See [Wwise Unity Integration](https://www.audiokinetic.com/library/edge/?source=Unity&id=index.html) for more information about how to use the package.
+
+## Legal
+
+Copyright © 2020 Audiokinetic Inc. All rights reserved.

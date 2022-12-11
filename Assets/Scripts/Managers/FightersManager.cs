@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:49210795f44edcb4c1b822fa34bbc40b217d71ad857f3ab3b9b95cc4428b0c8c
-size 546
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "New Fighters Manager", menuName = "ScriptableObjects/Fighters Manager")]
+public class FightersManager : ScriptableObject
+{
+    public Vector3 player1StartPosition;
+    public Vector3 player2StartPosition;
+    public Color player1Color;
+    public Color player2Color;
+    [HideInInspector] public Color[] playerColors;
+
+    public void OnValidate()
+    {
+        playerColors = new[] { player1Color, player2Color };
+    }
+}

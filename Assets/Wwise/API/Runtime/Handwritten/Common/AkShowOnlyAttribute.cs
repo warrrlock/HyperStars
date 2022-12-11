@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:35a9d7d1f723b58cd13996a2441ed2a8bdbd93eaaf8ff348d73a986bd50f81c2
-size 773
+﻿public class AkShowOnlyAttribute : UnityEngine.PropertyAttribute
+{
+#if UNITY_EDITOR
+	[UnityEditor.CustomPropertyDrawer(typeof(AkShowOnlyAttribute))]
+	public class PropertyDrawer : UnityEditor.PropertyDrawer
+	{
+		public override float GetPropertyHeight(UnityEditor.SerializedProperty property, UnityEngine.GUIContent label)
+		{
+			return UnityEditor.EditorGUI.GetPropertyHeight(property, label, true);
+		}
+
+		public override void OnGUI(UnityEngine.Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label)
+		{
+			var saveEnabled = UnityEngine.GUI.enabled;
+			UnityEngine.GUI.enabled = false;
+			UnityEditor.EditorGUI.PropertyField(position, property, label, true);
+			UnityEngine.GUI.enabled = saveEnabled;
+		}
+	}
+#endif // #if UNITY_EDITOR
+}

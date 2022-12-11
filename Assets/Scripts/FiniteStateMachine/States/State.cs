@@ -1,3 +1,41 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ae2eb09277c8a38579bc89f019ce87f8a86cf93248943541c1a157dc33e810a4
-size 1375
+using System;
+using UnityEngine;
+using System.Collections.Generic;
+using FiniteStateMachine;
+
+namespace FiniteStateMachine
+{
+    [CreateAssetMenu(menuName = "StateMachine/States/State")]
+    public class State: BaseState
+    {
+        // ========== variables ========== //
+        [SerializeField] private List<StateAction> _actions = new List<StateAction>();
+        [SerializeField] private List<Transition> _transitions = new List<Transition>();
+        
+        // ==========  methods ========== //
+        public void OnEnable()
+        {
+            _actions.RemoveAll(a => !a);
+            _transitions.RemoveAll(t => !t);
+        }
+        
+        public override void Execute(BaseStateMachine stateMachine, string inputName){
+            // Debug.Log($"{stateMachine.name} is executing {name}");
+            foreach(StateAction action in _actions){
+                action.Execute(stateMachine);
+            }
+            foreach (Transition transition in _transitions)
+            {
+                transition.Execute(stateMachine, inputName);
+            }
+        }
+        public override void Stop(BaseStateMachine stateMachine, string inputName)
+        {
+            // Debug.Log($"{stateMachine.name} stopped action {name}");
+            foreach(StateAction action in _actions){
+                action.Stop(stateMachine);
+            }
+        }
+    }
+    
+}

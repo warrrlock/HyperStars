@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:913bcbb7711f601cb8633fe78eb45371ef09d6135b0c161e39d74289bb757a6a
-size 605
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SpecialNeutralState : MeleeBaseState
+{
+    public override void OnEnter(StateMachine _stateMachine)
+    {
+        base.OnEnter(_stateMachine);
+
+        //Attack
+        attackIndex = 4;
+        duration = 0.2f;
+        animator.SetTrigger("Attack" + attackIndex);
+        Debug.Log("Player Attack " + attackIndex + " Fired!");
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        if (fixedtime >= duration)
+        {
+            stateMachine.SetNextStateToMain();
+        }
+    }
+}

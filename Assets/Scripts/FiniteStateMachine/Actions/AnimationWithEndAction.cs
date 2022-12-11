@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5a2987d71e2b3b58163dd9552eeb9817664ba253421695d5b7f35ac972e06ebe
-size 1051
+using UnityEngine;
+
+namespace FiniteStateMachine
+{
+    [CreateAssetMenu(menuName = "StateMachine/Actions/Animation with End Action")]
+    public class AnimationWithEndAction: StateAction
+    {
+        [SerializeField] private string _animationName;
+        [SerializeField] private string _endAnimationName;
+
+        [HideInInspector] [SerializeField] private int _animationHash;
+        [HideInInspector] [SerializeField] private int _endAnimationHash;
+        private void OnValidate()
+        {
+            _animationHash = _animationName == "" ? -1 : Animator.StringToHash(_animationName);
+            _endAnimationHash = Animator.StringToHash(_endAnimationName);
+        }
+
+        public override void Execute(BaseStateMachine stateMachine)
+        {
+            if (_animationHash != -1) stateMachine.PlayAnimation(_animationHash);
+        }
+
+        public override void Stop(BaseStateMachine stateMachine)
+        {
+            // Debug.Log("should play end anim");
+            stateMachine.PlayAnimation(_endAnimationHash);
+        }
+    }
+}

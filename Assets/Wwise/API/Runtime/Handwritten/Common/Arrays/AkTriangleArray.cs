@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c3277ef90902b9f6f63f616197a0d2ff8575fc0ef20318b9fde328a22a13c33a
-size 1234
+#if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+//////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2012 Audiokinetic Inc. / All Rights Reserved
+//
+//////////////////////////////////////////////////////////////////////
+
+public class AkTriangleArray : AkBaseArray<AkTriangle>
+{
+	public AkTriangleArray(int count) : base(count)
+	{
+	}
+
+	protected override int StructureSize
+	{
+		get { return AkSoundEnginePINVOKE.CSharp_AkTriangle_GetSizeOf(); }
+	}
+
+	protected override void DefaultConstructAtIntPtr(System.IntPtr address)
+	{
+		AkSoundEnginePINVOKE.CSharp_AkTriangle_Clear(address);
+	}
+
+	protected override AkTriangle CreateNewReferenceFromIntPtr(System.IntPtr address)
+	{
+		return new AkTriangle(address, false);
+	}
+
+	protected override void CloneIntoReferenceFromIntPtr(System.IntPtr address, AkTriangle other)
+	{
+		AkSoundEnginePINVOKE.CSharp_AkTriangle_Clone(address, AkTriangle.getCPtr(other));
+	}
+}
+#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.

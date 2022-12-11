@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0d6173b155505cdbdd5946cfc5b443344cfbbf60eb90d53fb9670a3300096cdc
-size 729
+using UnityEngine;
+
+namespace FiniteStateMachine
+{
+    public abstract class BaseState : ScriptableObject
+    { 
+        public abstract void Execute(BaseStateMachine machine, string inputName);
+        public virtual void Stop(BaseStateMachine machine, string inputName) {}
+        public virtual AttackInfo GetAttackInfo()
+        {
+            return null;
+        }
+        
+        public virtual void DisableCombo(){}
+        public virtual void EnableCombo(){}
+        public virtual void SpawnProjectile(BaseStateMachine machine, Bounds bounds){}
+        public virtual void HandleExit(BaseStateMachine machine){}
+        
+        public virtual int GetSpecialBarCost()
+        {
+            return -1;
+        }
+    }
+}
