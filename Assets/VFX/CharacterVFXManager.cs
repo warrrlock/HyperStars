@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FiniteStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
@@ -25,6 +26,9 @@ public class CharacterVFXManager : MonoBehaviour
     //
     private InputManager _inputManager;
     
+    // states
+    [SerializeField] private List<BaseState> _afterImageStates;
+    
     void VFXAssignComponents() {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _inputManager = GetComponent<InputManager>();
@@ -35,6 +39,7 @@ public class CharacterVFXManager : MonoBehaviour
         _inputManager.Actions["Dash"].perform += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
+        _fighter.Events.onStateChange += SpawnAfterImage;
     }
 
     void DashSmoke(InputManager.Action action) {
@@ -91,7 +96,6 @@ public class CharacterVFXManager : MonoBehaviour
 
     void Update() {
         SpriteUpdate();
-        // if (_fighter.BaseStateMachine.CurrentState == State)
     }
 
     void SpriteUpdate() {
@@ -108,16 +112,17 @@ public class CharacterVFXManager : MonoBehaviour
         visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 
-    // animation events
-    public void VFX_CharacterTurnOn(vfxAssets vfx)
+    private void SpawnAfterImage(BaseState s)
     {
-        visualEffect.visualEffectAsset = vfxGraphs[(int)vfx];
-        visualEffect.SendEvent("OnDash");
-    }
-
-    public void VFX_CharacterTurnOff(vfxAssets vfx)
-    {
-        visualEffect.visualEffectAsset = vfxGraphs[(int)vfx];
+        visualEffect.visualEffectAsset = vfxGraphs[(int)vfxAssets.AfterImage];
+        foreach (BaseState wantedState in _afterImageStates)
+        {
+            if (s == wantedState)
+            {
+                visualEffect.SendEvent("OnDash");
+                return;
+            }
+        }
         visualEffect.SendEvent("OnStop");
     }
 }
