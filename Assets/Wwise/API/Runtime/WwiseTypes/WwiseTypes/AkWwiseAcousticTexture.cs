@@ -1,20 +1,3 @@
-#if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
-
-namespace AK.Wwise
-{
-	[System.Serializable]
-	///@brief This type represents an Acoustic Texture.
-	public class AcousticTexture : BaseType
-	{
-		public WwiseAcousticTextureReference WwiseObjectReference;
-
-		public override WwiseObjectReference ObjectReference
-		{
-			get { return WwiseObjectReference; }
-			set { WwiseObjectReference = value as WwiseAcousticTextureReference; }
-		}
-
-		public override WwiseObjectType WwiseObjectType { get { return WwiseObjectType.AcousticTexture; } }
-	}
-}
-#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+version https://git-lfs.github.com/spec/v1
+oid sha256:7dce1cee8132b5732dbe934355acb22ca3833e597451333f7b3f1f2fd9b0faaa
+size 830

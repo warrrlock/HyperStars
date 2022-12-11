@@ -1,13 +1,3 @@
-#if UNITY_EDITOR
-public class AkWwiseMenu_Windows
-{
-	private const string MENU_PATH = "Help/Wwise Help/";
-	private const string Platform = "Windows";
-
-	[UnityEditor.MenuItem(MENU_PATH + Platform, false, (int) AkWwiseHelpOrder.WwiseHelpOrder)]
-	public static void OpenDoc()
-	{
-		AkDocHelper.OpenDoc(Platform);
-	}
-}
-#endif // #if UNITY_EDITOR
+version https://git-lfs.github.com/spec/v1
+oid sha256:df8f7744f3bddaaa51db0641ff7eca8484a8f497afad6af37351bde1564cdea9
+size 340

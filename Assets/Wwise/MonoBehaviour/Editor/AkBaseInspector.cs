@@ -1,31 +1,3 @@
-#if UNITY_EDITOR
-//////////////////////////////////////////////////////////////////////
-//
-// Copyright (c) 2014 Audiokinetic Inc. / All Rights Reserved
-//
-//////////////////////////////////////////////////////////////////////
-
-public abstract class AkBaseInspector : UnityEditor.Editor
-{
-	public abstract void OnChildInspectorGUI();
-
-	public override void OnInspectorGUI()
-	{
-		serializedObject.Update();
-
-		UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
-
-		OnChildInspectorGUI();
-
-		UnityEngine.GUILayout.Space(UnityEditor.EditorGUIUtility.standardVerticalSpacing);
-
-		using (new UnityEngine.GUILayout.HorizontalScope("box"))
-			UnityEditor.EditorGUILayout.PropertyField(serializedObject.FindProperty("data"), new UnityEngine.GUIContent("Name: "));
-
-		serializedObject.ApplyModifiedProperties();
-
-		if (UnityEngine.GUI.changed)
-			UnityEditor.EditorUtility.SetDirty(serializedObject.targetObject);
-	}
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:c9aa653d964021507a338943f66214fea4d0dcc0597341ab21495339bc88f06e
+size 948

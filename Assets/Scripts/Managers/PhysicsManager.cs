@@ -1,17 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "New Physics Manager", menuName = "ScriptableObjects/Physics Manager")]
-public class PhysicsManager : ScriptableObject
-{
-    public float deceleration;
-    public float gravity;
-
-
-    private void OnEnable()
-    {
-        
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:e5bffd3b10702e3d4367dbf5b42efb9f4b0ddf586dd97973b29c17803566e83e
+size 353

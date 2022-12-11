@@ -1,25 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-
-public class FighterHealth : MonoBehaviour
-{
-    [SerializeField] private float _maxHitPoints;
-    [SerializeField] private TextMeshProUGUI _textBox;
-
-    private float _hitPoints;
-
-    private void Start()
-    {
-        _hitPoints = _maxHitPoints;
-        if (_textBox) _textBox.text = "Health: " + _hitPoints;
-    }
-
-    public void ApplyDamage(float damagePoints)
-    {
-        _hitPoints -= damagePoints;
-        //Debug.Log("Fighter lost " + damagePoints + " hit points.");
-        if (_textBox) _textBox.text = "Health: " + _hitPoints;
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:26032ed86775ec79466be19f7fa6ba9b57c98647071f96a479d2671cc0d930e8
+size 643

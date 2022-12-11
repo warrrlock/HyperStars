@@ -1,11 +1,3 @@
-The content of this file includes portions of the AUDIOKINETIC Wwise Technology
-released in source code form as part of the Wwise Unity integration installer package
-
-Commercial License Usage
-
-Licensees holding valid commercial licenses to the AUDIOKINETIC Wwise Technology
-may use this file in accordance with the end user license agreement provided 
-with the software or, alternatively, in accordance with the terms contained in a
-written agreement between you and Audiokinetic Inc.
-
-Copyright (c) 2020 Audiokinetic Inc.
+version https://git-lfs.github.com/spec/v1
+oid sha256:6d8025976faa42a151088f3e4ccf0212e28aef100e7a190448b37a82de5d38dc
+size 522

@@ -1,12 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class Services
-{
-    public static FightersManager FightersManager;
-    public static Fighter[] Fighters = new Fighter[2];
-
-    public static FavorManager FavorManager;
-    public static CameraManager CameraManager;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:57ea222fcb134edcfe25ab476893a7ba90f3441f41f5d66ff5a4aa699b226d9c
+size 312

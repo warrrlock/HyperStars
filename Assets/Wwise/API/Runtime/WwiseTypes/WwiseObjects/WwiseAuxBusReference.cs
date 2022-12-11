@@ -1,11 +1,3 @@
-//////////////////////////////////////////////////////////////////////
-//
-// Copyright (c) 2018 Audiokinetic Inc. / All Rights Reserved
-//
-//////////////////////////////////////////////////////////////////////
-
-/// @brief Represents Wwise aux buses as Unity assets.
-public class WwiseAuxBusReference : WwiseObjectReference
-{
-	public override WwiseObjectType WwiseObjectType { get { return WwiseObjectType.AuxBus; } }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:b6a51d9b3b6a406fa0e8aee9b880be99d2c69b475671d1199fd907ba39536587
+size 419

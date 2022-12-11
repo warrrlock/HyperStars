@@ -1,6 +1,3 @@
-﻿#if UNITY_EDITOR_WIN || (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_WSA
-public partial class AkBasePathGetter
-{
-	static string DefaultPlatformName = "Windows";
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7a9a0ba7055195932d0dd4dc56fec923e648367d899f0f9541c14becc50920eb
+size 176

@@ -1,17 +1,3 @@
-#if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
-//////////////////////////////////////////////////////////////////////
-//
-// Copyright (c) 2014 Audiokinetic Inc. / All Rights Reserved
-//
-//////////////////////////////////////////////////////////////////////
-
-public class AkTriggerMouseEnter : AkTriggerBase
-{
-	private void OnMouseEnter()
-	{
-		if (triggerDelegate != null)
-			triggerDelegate(null);
-	}
-}
-
-#endif // #if ! (UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+version https://git-lfs.github.com/spec/v1
+oid sha256:bf2805fa7002223606a077b75437287679878320417937e744a36f37fa0e3f0a
+size 698
