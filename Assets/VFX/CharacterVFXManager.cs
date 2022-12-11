@@ -38,8 +38,11 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void DashSmoke(InputManager.Action action) {
-        _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
-            dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
+        if (_fighter.MovementController.IsGrounded)
+        {
+            _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
+                        dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
+        }
     }
     
     void JumpSmoke(InputManager.Action action) {
