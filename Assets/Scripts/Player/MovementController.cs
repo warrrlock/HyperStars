@@ -107,6 +107,10 @@ public class MovementController : MonoBehaviour
     private Vector2 _horizontalTargetVelocity;
     private Vector3 _cachedVelocity;
 
+    public bool IsGrounded
+    {
+        get => CollisionData.y.isNegativeHit;
+    }
 
 
     [SerializeField] private PhysicsManager _physicsManager;
