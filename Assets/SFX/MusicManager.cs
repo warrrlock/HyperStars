@@ -28,6 +28,20 @@ public class MusicManager : MonoBehaviour
     public bool DebugMode;
     
     // public AK.Wwise.Event musicStart;
+    
+    // music logics
+    [HideInInspector] public int hitCountP1;
+    [HideInInspector] public int hitCountP2;
+    private int hitCountTotal;
+    [SerializeField] private int intensityTierTwoCountRequirement;
+    [SerializeField] private int intensityTierThreeCountRequirement;
+    private float _timer;
+    [SerializeField] private float hitEffectiveTime;
+    [HideInInspector] public int thisHit; // 0 = p1; 1 = p2;
+    private int lastHit;
+    private int lastSamePlayerCombo;
+    private int currentSamePlayerCombo;
+    
     void Start()
     {
         //Set our Music Manager
@@ -38,6 +52,9 @@ public class MusicManager : MonoBehaviour
         AkSoundEngine.SetSwitch("MusicState", "Verse", gameObject); //Set which section to play
         //playingIDGlobal =  //Start Music
         playingIDGlobal = MusicTrack.Post(gameObject,(uint) (AkCallbackType.AK_MusicSyncAll | AkCallbackType.AK_EnableGetMusicPlayPosition), MusicCallbackFunction);
+        
+        // set timer
+        _timer = hitEffectiveTime;
     }
 
     // Update is called once per frame
@@ -57,6 +74,8 @@ public class MusicManager : MonoBehaviour
         {
             Test();
         }
+
+        MusicChange();
         
     }
 
@@ -165,8 +184,60 @@ public class MusicManager : MonoBehaviour
                 impressionCalled = false;
                 intensityIncremented = false;
                 break;
+        }
+    }
+    
+    
+    // interactive music
+    void MusicChange()
+    {
+        if (_timer > 0)
+        {
+            _timer -= Time.deltaTime;
+        }
+        else
+        {
+            hitCountP1 = 0;
+            hitCountP2 = 0;
+        }
+        hitCountTotal = hitCountP1 + hitCountP2;
+
+        switch (hitCountTotal)
+        {
+            case var hitCountTotal when hitCountTotal < intensityTierTwoCountRequirement:
+                Intensity = 1;
+                break;
+            case var hitCountTotal when hitCountTotal < intensityTierThreeCountRequirement:
+                Intensity = 2;
+                break;
             default:
+                Intensity = 3;
                 break;
         }
+    }
+
+    public void ResetHitEffectiveTimer()
+    {
+        _timer = hitEffectiveTime;
+    }
+
+    public void CheckCombo()
+    {
+        if (thisHit == lastHit)
+        {
+            currentSamePlayerCombo++;
+        }
+        else
+        {
+            lastSamePlayerCombo = currentSamePlayerCombo;
+            currentSamePlayerCombo = 0;
+        }
+
+        if (lastSamePlayerCombo > 5 && currentSamePlayerCombo >= 3)
+        {
+            Impressed = true;
+        }
+
+        lastHit = thisHit;
     }
 }

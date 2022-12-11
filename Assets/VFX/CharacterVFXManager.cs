@@ -91,6 +91,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     void Update() {
         SpriteUpdate();
+        // if (_fighter.BaseStateMachine.CurrentState == State)
     }
 
     void SpriteUpdate() {
