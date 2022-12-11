@@ -32,12 +32,12 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager = GameObject.Find("VFX Camera").GetComponent<VFXSpawnManager>();
     }
     void VFXSubscribeEvents() {
-        _inputManager.Actions["Dash"].perform += AfterImage;
+        _inputManager.Actions["Dash"].perform += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
     }
 
-    void AfterImage(InputManager.Action action) {
+    void DashSmoke(InputManager.Action action) {
         _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
             dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
     }
