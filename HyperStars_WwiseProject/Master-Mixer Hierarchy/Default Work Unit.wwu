@@ -58,6 +58,49 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</Bus>
+						<Bus Name="CrowdBus" ID="{9EBA4114-AE99-43EC-8ACD-26B027EB00A6}">
+							<PropertyList>
+								<Property Name="BusVolume" Type="Real64">
+									<ValueList>
+										<Value>-15</Value>
+									</ValueList>
+								</Property>
+								<Property Name="OutputBusVolume" Type="Real64">
+									<RTPCList>
+										<RTPC Name="" ID="{5EEBF87B-CD2D-4792-8DE9-B5B87769B0CA}" ShortID="51033222">
+											<ReferenceList>
+												<Reference Name="ControlInput">
+													<ObjectRef Name="CrowdVolume" ID="{D8D03155-6B1B-4A6A-B593-D3D9680C2EA6}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+												</Reference>
+											</ReferenceList>
+											<Curve Name="" ID="{66E7F7D7-78BB-42DA-AF82-A3749B164A2F}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="3"/>
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-200</YPos>
+														<Flags>5</Flags>
+													</Point>
+													<Point>
+														<XPos>1</XPos>
+														<YPos>0</YPos>
+														<Flags>37</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
+								</Property>
+							</PropertyList>
+							<ChildrenList>
+								<AuxBus Name="CrowdVerb" ID="{BEB40F41-A7B1-4EDD-8406-39122F10F77C}">
+									<ObjectLists/>
+								</AuxBus>
+							</ChildrenList>
+							<ObjectLists/>
+						</Bus>
 					</ChildrenList>
 					<ObjectLists/>
 				</Bus>
