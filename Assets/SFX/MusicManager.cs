@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class MusicManager : MonoBehaviour
 {
     public AK.Wwise.Event MusicTrack;
+    public AK.Wwise.Event MusicStop;
     public AK.Wwise.Event CrowdLoop;
     public AK.Wwise.Event CrowdHype;
     
@@ -83,6 +84,11 @@ public class MusicManager : MonoBehaviour
 
         MusicChange();
         
+    }
+
+    public void StopMusic()
+    {
+        MusicStop.Post(gameObject);
     }
 
     public static void StartChorus(GameObject musicManager)
