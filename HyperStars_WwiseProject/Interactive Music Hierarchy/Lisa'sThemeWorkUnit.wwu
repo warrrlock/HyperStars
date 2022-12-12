@@ -12,7 +12,7 @@
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
 						</Reference>
 						<Reference Name="OutputBus">
-							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+							<ObjectRef Name="MusicBus" ID="{54D3226E-2BA0-4278-B4B9-AB5E064ECAB2}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
@@ -91,7 +91,7 @@
 																										<Flags>5</Flags>
 																									</Point>
 																									<Point>
-																										<XPos>17.14287</XPos>
+																										<XPos>17.14288</XPos>
 																										<YPos>0</YPos>
 																										<Flags>37</Flags>
 																									</Point>
@@ -110,7 +110,7 @@
 																										<Flags>5</Flags>
 																									</Point>
 																									<Point>
-																										<XPos>17.14287</XPos>
+																										<XPos>17.14288</XPos>
 																										<YPos>0</YPos>
 																										<Flags>37</Flags>
 																									</Point>
@@ -129,7 +129,7 @@
 																										<Flags>5</Flags>
 																									</Point>
 																									<Point>
-																										<XPos>17.14287</XPos>
+																										<XPos>17.14288</XPos>
 																										<YPos>0</YPos>
 																										<Flags>37</Flags>
 																									</Point>
@@ -138,6 +138,17 @@
 																						</PropertyCurve>
 																					</PropertyCurveList>
 																				</MusicClip>
+																			</Local>
+																		</Reference>
+																		<Reference>
+																			<Local>
+																				<MusicEventCue Name="" ID="{67D3D9E6-100F-4279-B311-810E4B1E7356}" ShortID="230183754">
+																					<ReferenceList>
+																						<Reference Name="PostEventTarget">
+																							<ObjectRef Name="Set_Switch_Verse" ID="{F27EBC10-E717-48CA-BD06-6E4A4F24F3C2}" WorkUnitID="{1A57C00A-9060-4555-BAAD-701B20518292}"/>
+																						</Reference>
+																					</ReferenceList>
+																				</MusicEventCue>
 																			</Local>
 																		</Reference>
 																	</ObjectList>
@@ -162,6 +173,16 @@
 														<PropertyList>
 															<Property Name="CueType" Type="int16" Value="1"/>
 															<Property Name="TimeMs" Type="Real64" Value="15429.417228399"/>
+														</PropertyList>
+													</MusicCue>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<MusicCue Name="End" ID="{C54C9CE4-89F1-4E57-8987-B4B4B485E6C1}">
+														<PropertyList>
+															<Property Name="CueType" Type="int16" Value="2"/>
+															<Property Name="TimeMs" Type="Real64" Value="15428.5714285714"/>
 														</PropertyList>
 													</MusicCue>
 												</Local>
@@ -283,6 +304,17 @@
 																				</MusicClip>
 																			</Local>
 																		</Reference>
+																		<Reference>
+																			<Local>
+																				<MusicEventCue Name="" ID="{807DEBED-1D9D-43CD-8A03-8FEA5335D837}" ShortID="877344074">
+																					<ReferenceList>
+																						<Reference Name="PostEventTarget">
+																							<ObjectRef Name="Set_Switch_Verse" ID="{F27EBC10-E717-48CA-BD06-6E4A4F24F3C2}" WorkUnitID="{1A57C00A-9060-4555-BAAD-701B20518292}"/>
+																						</Reference>
+																					</ReferenceList>
+																				</MusicEventCue>
+																			</Local>
+																		</Reference>
 																	</ObjectList>
 																</ObjectLists>
 															</MusicTrackSequence>
@@ -305,6 +337,25 @@
 														<PropertyList>
 															<Property Name="CueType" Type="int16" Value="1"/>
 															<Property Name="TimeMs" Type="Real64" Value="13750"/>
+														</PropertyList>
+													</MusicCue>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<MusicCue Name="LockOut" ID="{A24DEC27-5BE6-4A68-BF00-6594B88F19FD}">
+														<PropertyList>
+															<Property Name="CueType" Type="int16" Value="2"/>
+														</PropertyList>
+													</MusicCue>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<MusicCue Name="Finished" ID="{F72BCEDF-BA77-4F97-9A80-D1387C700EFF}">
+														<PropertyList>
+															<Property Name="CueType" Type="int16" Value="2"/>
+															<Property Name="TimeMs" Type="Real64" Value="13714.2857142857"/>
 														</PropertyList>
 													</MusicCue>
 												</Local>
@@ -5433,7 +5484,7 @@
 													<MusicCue Name="Exit Cue" ID="{B2D67343-5A61-4200-A950-5748BF17D061}">
 														<PropertyList>
 															<Property Name="CueType" Type="int16" Value="1"/>
-															<Property Name="TimeMs" Type="Real64" Value="30857.1428571429"/>
+															<Property Name="TimeMs" Type="Real64" Value="28285.7142857143"/>
 														</PropertyList>
 													</MusicCue>
 												</Local>
@@ -7984,7 +8035,7 @@
 													<MusicCue Name="Exit Cue" ID="{EB1286E3-C5FD-4E9C-B21C-988FF8448A66}">
 														<PropertyList>
 															<Property Name="CueType" Type="int16" Value="1"/>
-															<Property Name="TimeMs" Type="Real64" Value="27428.5714285714"/>
+															<Property Name="TimeMs" Type="Real64" Value="28285.7142857143"/>
 														</PropertyList>
 													</MusicCue>
 												</Local>
@@ -8220,7 +8271,7 @@
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
 						</Reference>
 						<Reference Name="OutputBus">
-							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+							<ObjectRef Name="MusicBus" ID="{54D3226E-2BA0-4278-B4B9-AB5E064ECAB2}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>

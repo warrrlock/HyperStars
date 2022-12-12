@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FiniteStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
@@ -14,7 +15,8 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private VisualEffectAsset[] vfxGraphs;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
-    [SerializeField] private float groundOffset;
+    [SerializeField] private float dashSmokeGroundOffset;
+    [SerializeField] private float jumpSmokeGroundOffset;
 
     //
     private SpriteRenderer _spriteRenderer;
@@ -24,6 +26,9 @@ public class CharacterVFXManager : MonoBehaviour
     //
     private InputManager _inputManager;
     
+    // states
+    [SerializeField] private List<BaseState> _afterImageStates;
+    
     void VFXAssignComponents() {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _inputManager = GetComponent<InputManager>();
@@ -31,13 +36,23 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager = GameObject.Find("VFX Camera").GetComponent<VFXSpawnManager>();
     }
     void VFXSubscribeEvents() {
-        _inputManager.Actions["Dash"].perform += AfterImage;
+        _inputManager.Actions["Dash"].perform += DashSmoke;
+        _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
+        _fighter.Events.onStateChange += SpawnAfterImage;
     }
 
-    void AfterImage(InputManager.Action action) {
-        _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
-            groundOffset, 0f), GetComponent<Fighter>());
+    void DashSmoke(InputManager.Action action) {
+        if (_fighter.MovementController.IsGrounded)
+        {
+            _vfxSpawnManager.InitializaeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
+                        dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
+        }
+    }
+    
+    void JumpSmoke(InputManager.Action action) {
+        _vfxSpawnManager.InitializaeVFX(VFXGraphs.JUMP_SMOKE, transform.localPosition + new Vector3(0f, 
+            jumpSmokeGroundOffset, 0f), GetComponent<Fighter>());
     }
 
     void BlockGlow(Dictionary<string, object> d)
@@ -60,6 +75,13 @@ public class CharacterVFXManager : MonoBehaviour
         f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 1f);
         yield return new WaitForSeconds(.35f);
         f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 0f);
+    }
+
+    public IEnumerator Shake(Fighter f)
+    {
+        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 125f);
+        yield return new WaitForSeconds(.5f);
+        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 0f);
     }
 
     void Awake()
@@ -90,16 +112,17 @@ public class CharacterVFXManager : MonoBehaviour
         visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 
-    // animation events
-    public void VFX_CharacterTurnOn(vfxAssets vfx)
+    private void SpawnAfterImage(BaseState s)
     {
-        visualEffect.visualEffectAsset = vfxGraphs[(int)vfx];
-        visualEffect.SendEvent("OnDash");
-    }
-
-    public void VFX_CharacterTurnOff(vfxAssets vfx)
-    {
-        visualEffect.visualEffectAsset = vfxGraphs[(int)vfx];
+        visualEffect.visualEffectAsset = vfxGraphs[(int)vfxAssets.AfterImage];
+        foreach (BaseState wantedState in _afterImageStates)
+        {
+            if (s == wantedState)
+            {
+                visualEffect.SendEvent("OnDash");
+                return;
+            }
+        }
         visualEffect.SendEvent("OnStop");
     }
 }
