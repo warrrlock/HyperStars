@@ -63,12 +63,12 @@ public class MusicManager : MonoBehaviour
         _timer = hitEffectiveTime;
         
         //subscribe to reload event
-        SceneReloader.Instance.onSceneReload += StopMusic;
+        if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload += StopMusic;
     }
 
     private void OnDestroy()
     {
-        SceneReloader.Instance.onSceneReload -= StopMusic;
+        if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload -= StopMusic;
     }
 
     // Update is called once per frame
