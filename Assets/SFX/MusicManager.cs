@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class MusicManager : MonoBehaviour
 {
     public AK.Wwise.Event MusicTrack;
+    public AK.Wwise.Event MusicStop;
     public AK.Wwise.Event CrowdLoop;
     public AK.Wwise.Event CrowdHype;
     
@@ -60,6 +61,14 @@ public class MusicManager : MonoBehaviour
         
         // set timer
         _timer = hitEffectiveTime;
+        
+        //subscribe to reload event
+        SceneReloader.Instance.onSceneReload += StopMusic;
+    }
+
+    private void OnDestroy()
+    {
+        SceneReloader.Instance.onSceneReload -= StopMusic;
     }
 
     // Update is called once per frame
@@ -83,6 +92,12 @@ public class MusicManager : MonoBehaviour
 
         MusicChange();
         
+    }
+
+    public void StopMusic()
+    {
+        Debug.Log("should stop music");
+        MusicStop.Post(gameObject);
     }
 
     public static void StartChorus(GameObject musicManager)

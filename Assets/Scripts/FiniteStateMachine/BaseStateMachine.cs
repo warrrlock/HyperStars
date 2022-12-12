@@ -224,6 +224,7 @@ namespace FiniteStateMachine {
         {
             _currentAnimation = -1;
             if (_isAttacking) DisableAttackStop();
+            Fighter.OpposingFighter.ResetFighterHurtboxes();
         }
 
         //ANIMATION USE
