@@ -32,6 +32,7 @@ public class Fighter : MonoBehaviour
     public SpecialMeterManager SpecialMeterManager { get; private set; }
 
     public int PlayerId { get; private set; }
+    public bool Parried { get; set; }
 
     [NonSerialized] public int invulnerabilityCount;
     public FightersManager FightersManager
@@ -105,6 +106,7 @@ public class Fighter : MonoBehaviour
     public void ResetFighterHurtboxes()
     {
         if (invulnerabilityCount > 0) invulnerabilityCount--;
+        Parried = false;
     }
 
     public void FlipCharacter(Direction newDirection)

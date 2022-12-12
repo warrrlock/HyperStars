@@ -6,10 +6,12 @@ public class MusicEffector : MonoBehaviour
 {
     private Fighter _fighter;
     private MusicManager _musicManager;
+    public MusicManager MusicManager { set => _musicManager = value; }
 
     void SFXAssignComponents() {
         _fighter = GetComponent<Fighter>();
-        _musicManager = FindObjectOfType<MusicManager>();
+        //music manager is destroyed on load would need to re find the object, so instead have it set itself
+        // _musicManager = FindObjectOfType<MusicManager>(); 
     }
     
     void SFXSubscribeEvents() {
