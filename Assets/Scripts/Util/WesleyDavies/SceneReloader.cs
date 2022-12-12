@@ -40,7 +40,7 @@ public class SceneReloader : MonoBehaviour
 
     public void ReloadScene(InputManager.Action action = default)
     {
-        onSceneReload.Invoke();
+        onSceneReload?.Invoke();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
