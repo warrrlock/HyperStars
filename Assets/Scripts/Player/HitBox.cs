@@ -35,13 +35,14 @@ public class HitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (_fighter.OpposingFighter.Parried) return;
         AttackInfo attackInfo = _baseStateMachine.AttackInfo;
         Vector3 hitPoint = other.ClosestPoint(transform.position);
         Fighter hitFighter = _fighter.OpposingFighter;
         
         if (other.gameObject.layer == 13)
         {
+            _fighter.OpposingFighter.Parried = true;
             //has been parried
             AttackInfo parryInfo = hitFighter.BaseStateMachine.AttackInfo;
             
