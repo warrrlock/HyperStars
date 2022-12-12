@@ -20,6 +20,7 @@ public class MusicEffector : MonoBehaviour
     
     void IncreaseHit(Dictionary<string, object> message)
     {
+        if (_musicManager == null) return;
         try
         {
             switch (_fighter.PlayerId)
