@@ -51,6 +51,12 @@ public class MusicManager : MonoBehaviour
     {
         //Set our Music Manager
         ourMusicManager = gameObject;
+        foreach (Fighter fighter in Services.Fighters)
+        {
+            MusicEffector effector = fighter.GetComponent<MusicEffector>();
+            if (effector != null) effector.MusicManager = this;
+        }
+        
         increaseIntensityAfterChorus = increaseIntensityDuringChorus;
         //Start music 
         AkSoundEngine.SetRTPCValue("Intensity", Intensity); //Set Intensity
@@ -96,7 +102,6 @@ public class MusicManager : MonoBehaviour
 
     public void StopMusic()
     {
-        Debug.Log("should stop music");
         MusicStop.Post(gameObject);
     }
 
