@@ -61,6 +61,14 @@ public class MusicManager : MonoBehaviour
         
         // set timer
         _timer = hitEffectiveTime;
+        
+        //subscribe to reload event
+        SceneReloader.Instance.onSceneReload += StopMusic;
+    }
+
+    private void OnDestroy()
+    {
+        SceneReloader.Instance.onSceneReload -= StopMusic;
     }
 
     // Update is called once per frame
@@ -88,6 +96,7 @@ public class MusicManager : MonoBehaviour
 
     public void StopMusic()
     {
+        Debug.Log("should stop music");
         MusicStop.Post(gameObject);
     }
 

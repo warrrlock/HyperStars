@@ -101,7 +101,6 @@ namespace FiniteStateMachine
         {
             stateMachine.QueueState(_trueState);
             stateMachine.LastExecutedInput = inputName;
-            stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
         }
 
         private bool Decide(string inputName)

@@ -140,7 +140,7 @@ public class InputManager : MonoBehaviour
                 
                 if (action == Actions["Crouch"])
                 {
-                    Debug.Log($"{action.name} was released this frame");
+                    // Debug.Log($"{action.name} was released this frame");
                     action.stop?.Invoke(action);
                 }
                 if (action.disabledCount == 0)
