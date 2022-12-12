@@ -35,11 +35,7 @@ public class HitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Debug.Log(other.name);
-        //if (other.gameObject.layer != Services.FightersManager.hurtboxLayer)
-        //{
-        //    return;
-        //}
+        
         AttackInfo attackInfo = _baseStateMachine.AttackInfo;
         Vector3 hitPoint = other.ClosestPoint(transform.position);
         Fighter hitFighter = _fighter.OpposingFighter;
@@ -71,16 +67,14 @@ public class HitBox : MonoBehaviour
         {
             return;
         }
-
-        //if (!hitFighter.canBeHurt || attackInfo == null)
-        //AttackInfo attackInfo = _baseStateMachine.AttackInfo;
-        //Vector3 hitPoint = other.ClosestPoint(transform.position);
-        //Fighter hitFighter = _fighter.OpposingFighter;
         
         if (hitFighter.invulnerabilityCount > 0f || attackInfo == null)
         {
             return;
         }
+        
+        // Debug.Log(_baseStateMachine.CurrentState.name);
+        // Debug.Log(hitFighter.invulnerabilityCount);
 
         _fighter.Events.onAttackHit?.Invoke(new Dictionary<string, object>
             {
