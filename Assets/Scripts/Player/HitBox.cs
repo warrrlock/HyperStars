@@ -46,7 +46,7 @@ public class HitBox : MonoBehaviour
             //has been parried
             AttackInfo parryInfo = hitFighter.BaseStateMachine.AttackInfo;
             
-            _baseStateMachine.DisableTime = attackInfo.hitStunDuration;
+            _baseStateMachine.DisableTime = parryInfo.hitStunDuration;
             _baseStateMachine.ExecuteDisableTime();
             StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun));
             _baseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump"}, 
