@@ -33,10 +33,16 @@ MonoBehaviour:
     wallBounceDistance: 10
     wallBounceDirection: {x: -1, y: 5, z: 0}
     wallBounceHitStopDuration: 0.1
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
     hangTime: 0.3
     favorReward: 15
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0
-  _isSpecial: 0
+  _isSpecial: 1
   _specialBarCost: 1
+  _projectilePrefab: {fileID: 0}
   _animationHash: 1100047811
