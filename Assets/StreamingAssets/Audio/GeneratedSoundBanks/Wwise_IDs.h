@@ -13,6 +13,8 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID PLAY_CROWD_CHEERS = 3617758906U;
+        static const AkUniqueID PLAY_CROWD_HYPE_SHORT = 1227494039U;
         static const AkUniqueID PLAY_GROUND_HIT = 348820993U;
         static const AkUniqueID PLAY_LISA_AIR_LIGHT = 550992759U;
         static const AkUniqueID PLAY_LISA_AIR_MEDIUM = 2424377084U;
@@ -57,6 +59,7 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
+        static const AkUniqueID CROWDVOLUME = 1427673546U;
         static const AkUniqueID INTENSITY = 2470328564U;
         static const AkUniqueID MUSICVOLUME = 2346531308U;
     } // namespace GAME_PARAMETERS
@@ -70,12 +73,14 @@ namespace AK
 
     namespace BUSSES
     {
+        static const AkUniqueID CROWDBUS = 1975785326U;
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
         static const AkUniqueID MUSICBUS = 2886307548U;
     } // namespace BUSSES
 
     namespace AUX_BUSSES
     {
+        static const AkUniqueID CROWDVERB = 952035307U;
         static const AkUniqueID MUSICVERB = 670697577U;
     } // namespace AUX_BUSSES
 

@@ -6,12 +6,16 @@ using UnityEngine.InputSystem;
 public class MusicManager : MonoBehaviour
 {
     public AK.Wwise.Event MusicTrack;
+    public AK.Wwise.Event CrowdLoop;
+    public AK.Wwise.Event CrowdHype;
     
     [HideInInspector] public static GameObject ourMusicManager;
     [Range(1, 3)]
     public int Intensity;
     [Range(0, 1)]
     public float musicVolume;
+    [Range(0, 1)]
+    public float crowdVolume;
     
     //id of the wwise event - using this to get the playback position
     private uint playingIDGlobal;
@@ -51,7 +55,8 @@ public class MusicManager : MonoBehaviour
         AkSoundEngine.SetRTPCValue("Intensity", Intensity); //Set Intensity
         AkSoundEngine.SetSwitch("MusicState", "Verse", gameObject); //Set which section to play
         //playingIDGlobal =  //Start Music
-        playingIDGlobal = MusicTrack.Post(gameObject,(uint) (AkCallbackType.AK_MusicSyncAll | AkCallbackType.AK_EnableGetMusicPlayPosition), MusicCallbackFunction);
+        playingIDGlobal = MusicTrack.Post(gameObject, (uint)(AkCallbackType.AK_MusicSyncAll | AkCallbackType.AK_EnableGetMusicPlayPosition), MusicCallbackFunction);
+        CrowdLoop.Post(gameObject);
         
         // set timer
         _timer = hitEffectiveTime;
@@ -62,6 +67,7 @@ public class MusicManager : MonoBehaviour
     {
         //Update our volume 
         AkSoundEngine.SetRTPCValue("MusicVolume", musicVolume);
+        AkSoundEngine.SetRTPCValue("CrowdVolume", crowdVolume); 
         AkSoundEngine.SetRTPCValue("Intensity", Intensity); //Set Intensity
 
         if (Impressed && !impressionCalled)
@@ -206,12 +212,15 @@ public class MusicManager : MonoBehaviour
         {
             case var hitCountTotal when hitCountTotal < intensityTierTwoCountRequirement:
                 Intensity = 1;
+                crowdVolume = .25f;
                 break;
             case var hitCountTotal when hitCountTotal < intensityTierThreeCountRequirement:
                 Intensity = 2;
+                crowdVolume = .6f;
                 break;
             default:
                 Intensity = 3;
+                crowdVolume = 1f;
                 break;
         }
     }
@@ -236,6 +245,7 @@ public class MusicManager : MonoBehaviour
         if (lastSamePlayerCombo > 5 && currentSamePlayerCombo >= 3)
         {
             Impressed = true;
+            CrowdHype.Post(gameObject);
         }
 
         lastHit = thisHit;

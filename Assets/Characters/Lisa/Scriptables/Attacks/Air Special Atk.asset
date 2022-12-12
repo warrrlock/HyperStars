@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animationName: SpecialAirAtk
   _transitions: []
+  _alwaysExecute: 0
   _animationHash: 1438773180
   _attackInfo:
     knockbackDuration: 0.8
@@ -27,6 +28,11 @@ MonoBehaviour:
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
     hangTime: 0.3
     favorReward: 12
     knockbackForce: {x: 90, y: 100}
