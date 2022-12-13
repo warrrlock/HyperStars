@@ -120,13 +120,18 @@ public class FavorManager : MonoBehaviour
     {
         _p1Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor - _maxFavor) / (_maxFavor * 2f)));
         _p2Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor + _maxFavor) / (_maxFavor * 2f)));
-        float indicatorX = Mathf.Lerp(-_favorMeter.rect.width * _favorMeter.lossyScale.x / 2f,
-            _favorMeter.rect.width * _favorMeter.lossyScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
+        float indicatorX = Mathf.Lerp(-_favorMeter.rect.width * _favorMeter.localScale.x / 2f,
+            _favorMeter.rect.width * _favorMeter.localScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
         _favorMeterIndicator.anchoredPosition = new Vector3(indicatorX, 0f, 0f);
 
         if (_multiplierText)
         {
             _multiplierText.text = "x" + Math.Round(_favorMultiplier, 1);
         }
+    }
+
+    private IEnumerator FlipIndicator()
+    {
+        yield break;
     }
 }
