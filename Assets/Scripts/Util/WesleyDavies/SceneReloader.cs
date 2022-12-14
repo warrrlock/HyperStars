@@ -40,7 +40,8 @@ public class SceneReloader : MonoBehaviour
 
     public void ReloadScene(InputManager.Action action = default)
     {
-        onSceneReload?.Invoke();
+        // onSceneReload?.Invoke();
+        FindObjectOfType<MusicManager>().StopMusic();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
