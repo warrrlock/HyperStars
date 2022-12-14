@@ -52,6 +52,10 @@ public class Fighter : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        else if (PlayerId == 0)
+        {
+            GetComponent<SpriteRenderer>().sortingOrder = 2;
+        }
         Services.Fighters[PlayerId] = this;
         Events = new();
         DontDestroyOnLoad(gameObject);

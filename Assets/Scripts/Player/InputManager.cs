@@ -148,6 +148,7 @@ public class InputManager : MonoBehaviour
                     //TODO: either find a better solution to this or change based off gamepad or keyboard because now on keyboard if you input move right after letting go you'll stop
                     if (action == Actions["Move"])
                     {
+                        //action.stop?.Invoke(action);
                         if (_playerInput.currentControlScheme == "Gamepad" && !_isAwaitingStop)
                         {
                             StartCoroutine(Stop(action));
@@ -303,6 +304,7 @@ public class InputManager : MonoBehaviour
         // Debug.Log(action.disabledCount);
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
+        //yield return new WaitForFixedUpdate();
         yield return new WaitUntil(() => action.disabledCount == 0);
         // Debug.Log("Invoking queued");
         action.perform?.Invoke(action);
@@ -328,6 +330,7 @@ public class InputManager : MonoBehaviour
     {
         _isAwaitingStop = true;
         StartCoroutine(Disable(() => !_isAwaitingStop, Actions[action.name]));
+        yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
