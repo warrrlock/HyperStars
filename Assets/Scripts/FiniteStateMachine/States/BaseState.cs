@@ -13,6 +13,7 @@ namespace FiniteStateMachine
         
         public virtual void DisableCombo(){}
         public virtual void EnableCombo(){}
+        public virtual void SpawnProjectile(BaseStateMachine machine, Bounds bounds){}
         public virtual void HandleExit(BaseStateMachine machine){}
         
         public virtual int GetSpecialBarCost()

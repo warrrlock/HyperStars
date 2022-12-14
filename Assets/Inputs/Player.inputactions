@@ -18,9 +18,9 @@
                     "name": "Sidestep",
                     "type": "Value",
                     "id": "6a54479f-c152-4dfa-94d7-bb587224393d",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Integer",
                     "processors": "",
-                    "interactions": "Tap(duration=0.2)",
+                    "interactions": "",
                     "initialStateCheck": true
                 },
                 {
@@ -54,6 +54,24 @@
                     "name": "Light",
                     "type": "Button",
                     "id": "22b51a3b-cf5f-48a9-a7d7-b0f16f04620b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CommandLight",
+                    "type": "Button",
+                    "id": "d93a5431-d411-48ee-8ccc-e5b47dd56adb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CommandMedium",
+                    "type": "Button",
+                    "id": "3bb04ab2-ff02-4705-9ccb-f7498a86c249",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -116,7 +134,7 @@
             ],
             "bindings": [
                 {
-                    "name": "AD",
+                    "name": "WD",
                     "id": "00ca640b-d935-4593-8157-c05846ea39b3",
                     "path": "1DAxis",
                     "interactions": "",
@@ -260,9 +278,9 @@
                 },
                 {
                     "name": "",
-                    "id": "e069fa0a-0508-4c09-863b-44c0081627a7",
-                    "path": "<Gamepad>/dpad/up",
-                    "interactions": "SlowTap(duration=0.2,pressPoint=0.5)",
+                    "id": "4cc4fa2b-89cc-45fe-af6a-b14b67018845",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
@@ -304,6 +322,39 @@
                 },
                 {
                     "name": "One Modifier",
+                    "id": "4c6583f7-8f9a-4daa-a949-0b7c97ca6782",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Side Special",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "38cac3ee-b10d-4118-a689-bd5ffed82df6",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Side Special",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "ad210384-e49f-4fec-be93-a605a19a3900",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Side Special",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
                     "id": "4cd6594b-24b2-42b0-8e54-a435621b5ad1",
                     "path": "OneModifier",
                     "interactions": "",
@@ -316,10 +367,10 @@
                 {
                     "name": "modifier",
                     "id": "dda98e79-5738-467a-b801-98e531892ab1",
-                    "path": "<Keyboard>/a",
+                    "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Side Special",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -327,10 +378,43 @@
                 {
                     "name": "binding",
                     "id": "459ca717-5d19-4c17-a48b-f6f2beda0643",
-                    "path": "<Keyboard>/j",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
+                    "action": "Side Special",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "0559a5ed-7fc4-43a0-8dd2-028f017128f8",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Side Special",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "0fb950e7-0d7d-4cb1-adb1-778283de08dc",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Side Special",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "bfa8b667-07b7-4a50-9976-0bcceaa4f9ec",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Side Special",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -402,7 +486,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "WS",
+                    "name": "WD",
                     "id": "76309cf2-8232-4d99-bdba-cd840eadda85",
                     "path": "1DAxis",
                     "interactions": "",
@@ -436,7 +520,7 @@
                 },
                 {
                     "name": "",
-                    "id": "6a7bc859-1c94-4b29-8027-8674ca2678b8",
+                    "id": "e225067c-e539-4ff4-84ae-16f0c3d11755",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -447,8 +531,8 @@
                 },
                 {
                     "name": "",
-                    "id": "3d01cd8f-3514-4bf1-af54-4fb9746037d4",
-                    "path": "<Gamepad>/dpad/y",
+                    "id": "b94a43e0-38bc-404e-9002-457fd173e31e",
+                    "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -466,6 +550,270 @@
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "629708d5-fc0d-4c78-9f28-2128f47a069f",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandLight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "fdcf17da-ea6e-43e4-b2b1-4947da31230c",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "e14c99b4-77e5-4bf4-9253-d902d1305d88",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "bfb09d8e-a8e4-4533-a23a-3ccfe1e83fc7",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandLight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "ac17f3be-4d64-4d8f-aed4-dd005a58721f",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "870c49af-1b10-4d80-949d-f3c0f518350d",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "6b74ec6a-617b-4526-a967-8136f6569418",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandLight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "516215c5-1e3a-4b95-b612-5bf2bdfee838",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "1ce8e776-0d45-431f-808e-06f5758b2227",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "3106f881-d7bf-4a02-baff-ec55777dd10b",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandLight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "cfba0816-7fc1-4cb6-963d-e7248f40fe34",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "ceb8103c-554f-489a-bb38-c528558c9f04",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "39d60774-fffc-4b44-8b53-fb2a1d9453d5",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "f33e0eef-bd4f-4b11-a952-69d1c36888b6",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "ceef47dd-8f6b-47b5-a745-b8b142fda5b6",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "3c6c4436-ac2b-4dc5-9d14-f6f668d2bba0",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "4920effd-494e-4ec0-907b-563fe124573b",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "3f675def-0d5a-4632-b7a7-8260db9822ed",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "9b7b303b-15c2-4612-a590-fd52d6bca57e",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "684e1c72-8f58-4084-8bdc-b2a5a2b6b280",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "ef421fd0-4fd1-4954-9bb1-0f6affd134f2",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "cbe5e419-0a73-4f4e-b551-d2c674dfc29b",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "23160544-5301-4ba5-a487-f13c78233ed1",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "e3f210d3-6589-4824-b351-944afdf8b68c",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

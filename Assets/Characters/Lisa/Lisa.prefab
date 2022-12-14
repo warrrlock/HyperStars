@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 5437623320969005760}
   - component: {fileID: 3013315635892402694}
   - component: {fileID: 4663626311462973836}
+  - component: {fileID: 7411884658590553160}
   m_Layer: 9
   m_Name: Lisa
   m_TagString: Untagged
@@ -513,6 +514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
+  _jumpState: {fileID: 0}
   _noEndEventClips:
   - {fileID: 7400000, guid: 238dbacff5646c64ca7becf136e5bd33, type: 2}
   - {fileID: 7400000, guid: 0c7ad146f1a1ad44c991d4fa6a1dfc56, type: 2}
@@ -526,6 +528,9 @@ MonoBehaviour:
     value: {fileID: 11400000, guid: 96e613e3f0a8b480289846778927ba33, type: 2}
   - key: 0
     value: {fileID: 11400000, guid: 57d21d219cc124ffc9ad1d7c98953cbf, type: 2}
+  - key: 2
+    value: {fileID: 11400000, guid: 96e613e3f0a8b480289846778927ba33, type: 2}
+  _hitCollider: {fileID: 5751411095088715694}
 --- !u!114 &5751411094791522317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,8 +558,13 @@ MonoBehaviour:
   visualEffect: {fileID: 150122307463432837}
   vfxGraphs:
   - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
-  groundOffset: 0.75
+  dashSmokeGroundOffset: 2.5
+  jumpSmokeGroundOffset: 1.95
   delayTime: 0.05
+  _afterImageStates:
+  - {fileID: 11400000, guid: acb861e23a3edf342a185fdaa0b50877, type: 2}
+  - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
+  - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
 --- !u!114 &3013315635892402694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,6 +665,18 @@ MonoBehaviour:
   _dazeName: lisa_standinghurt
   _launchName: lisa_launch
   _landName: 
+--- !u!114 &7411884658590553160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5751411094791522315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e6cfa16c53b469448c01efef33fd715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5751411094795848295
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,11 +994,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2845530192783672955, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26
+      value: 23.15
       objectReference: {fileID: 0}
     - target: {fileID: 2845530192783672955, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2845530192783672955, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
       propertyPath: m_LocalRotation.w
