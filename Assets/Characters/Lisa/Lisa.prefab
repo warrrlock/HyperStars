@@ -431,6 +431,7 @@ MonoBehaviour:
   _dashToZero: 1
   _dashCooldownDuration: 0.3
   _dashEasing: 0
+  _dashMinimumOverlap: -1
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560
@@ -442,6 +443,12 @@ MonoBehaviour:
   _mass: 1
   _sidestepDuration: 0
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
+  _yMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  _xMask:
+    serializedVersion: 2
+    m_Bits: 2560
 --- !u!114 &5751411094791523318
 MonoBehaviour:
   m_ObjectHideFlags: 0
