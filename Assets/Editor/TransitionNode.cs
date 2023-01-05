@@ -6,11 +6,18 @@ using UnityEngine;
 public class TransitionNode
 {
     private Rect _rect;
+    private const float Width = 100f;
+    private const float Height = 30f;
     private string _title;
-    private bool _isDragged;
 
-    private float _bezierTangent = 25f;
-    private float _bezierWidth = 2f;
+    private static readonly Vector2 PopupSize = new Vector2(200, 150);
+
+    private bool _isCLicked;
+    private bool _isDragged;
+    private Rect _buttonRect;
+
+    private const float BezierTangent = 25f;
+    private const float BezierWidth = 2f;
 
     private GUIStyle _style;
     
@@ -18,37 +25,40 @@ public class TransitionNode
     private ConnectionPoint _outPoint; //from state
     private Action<TransitionNode> OnClickRemoveTransition;
 
-    private float _width = 100f;
-    private float _height = 30f;
+    private StateMachineEditor _editor;
 
+    
     public TransitionNode(GUIStyle style, 
-        ConnectionPoint to, ConnectionPoint from, Action<TransitionNode> onClickRemoveTransition)
+        ConnectionPoint to, ConnectionPoint from, Action<TransitionNode> onClickRemoveTransition,
+        StateMachineEditor editor)
     {
         _inPoint = to;
         _outPoint = from;
         OnClickRemoveTransition = onClickRemoveTransition;
         
-        _rect = new Rect(0, 0, _width, _height);
+        _rect = new Rect(0, 0, Width, Height);
         _rect.center = (_inPoint.Rect.center + _outPoint.Rect.center) * 0.5f;
         _style = style;
+
+        _editor = editor;
     }
     
     public void Drag(Vector2 delta)
     {
+        _isDragged = true;
         _rect.position += delta;
     }
-
-    Rect buttonRect;
+    
     public void Draw()
     {
         Handles.DrawBezier(
             _outPoint.Rect.center + _outPoint.Rect.width/2*Vector2.right,
             _inPoint.Rect.center + _outPoint.Rect.width/2*Vector2.left,
-            _outPoint.Rect.center + Vector2.right * _bezierTangent,
-            _inPoint.Rect.center + Vector2.left * _bezierTangent,
+            _outPoint.Rect.center + Vector2.right * BezierTangent,
+            _inPoint.Rect.center + Vector2.left * BezierTangent,
             Color.white,
             null,
-            _bezierWidth
+            BezierWidth
         );
         
         //TODO: change bezier curve instead of rect center, should smoothly connect at center of transition node
@@ -56,13 +66,7 @@ public class TransitionNode
         DrawBox();
         DrawDeleteButton();
         
-        //TODO: show transition popup when clicking the node at any location
-        GUILayout.Label("Editor window with Popup example", EditorStyles.boldLabel);
-        if (GUILayout.Button("Popup Options", GUILayout.Width(200)))
-        {
-            PopupWindow.Show(_rect, new TransitionPopup());
-        }
-        if (Event.current.type == EventType.Repaint) buttonRect = GUILayoutUtility.GetLastRect();
+        // if (Event.current.type == EventType.Repaint) _buttonRect = GUILayoutUtility.GetLastRect();
     }
 
     public void DrawBezier()
@@ -73,21 +77,21 @@ public class TransitionNode
         Handles.DrawBezier(
             _outPoint.Rect.center + _outPoint.Rect.width/2*Vector2.right,
             rectIn,
-            _outPoint.Rect.center + Vector2.right * _bezierTangent,
-            rectIn + Vector2.left * _bezierTangent,
+            _outPoint.Rect.center + Vector2.right * BezierTangent,
+            rectIn + Vector2.left * BezierTangent,
             Color.white,
             null,
-            _bezierWidth
+            BezierWidth
         );
         
         Handles.DrawBezier(
             rectOut,
             _inPoint.Rect.center + _outPoint.Rect.width/2*Vector2.left,
-            rectOut + Vector2.right * _bezierTangent,
-            _inPoint.Rect.center + Vector2.left * _bezierTangent,
+            rectOut + Vector2.right * BezierTangent,
+            _inPoint.Rect.center + Vector2.left * BezierTangent,
             Color.white,
             null,
-            _bezierWidth
+            BezierWidth
         );
     }
     
@@ -101,7 +105,7 @@ public class TransitionNode
         if (Handles.Button(_rect.center, 
                 Quaternion.identity, 4, 8, Handles.RectangleHandleCap))
         {
-            OnClickRemoveTransition?.Invoke(this);
+            RemoveTransition();
         }
     }
 
@@ -112,19 +116,31 @@ public class TransitionNode
             case EventType.MouseDown:
                 if (e.button == 0)
                 {
+                    // Debug.Log("left mouse clicked");
                     if (_rect.Contains(e.mousePosition))
-                        _isDragged = true;
-                    GUI.changed = true;
+                    {
+                        _isCLicked = true;
+                        GUI.changed = true;
+                    }
                 }
                 break;
 
             case EventType.MouseUp:
+                // Debug.Log("mouse up");
+                if (_isCLicked && !_isDragged)
+                {
+                    DisplayPopup(e);
+                    GUI.changed = false;
+                }
+                _isCLicked = false;
                 _isDragged = false;
+                // Debug.Log($"ending displaying popup, {_isCLicked}, {_isDragged}");
                 break;
 
             case EventType.MouseDrag:
-                if (e.button == 0 && _isDragged)
+                if (e.button == 0 && _isCLicked)
                 {
+                    // Debug.Log("mouse dragged, left mouse button");
                     Drag(e.delta);
                     e.Use();
                     return true;
@@ -132,5 +148,19 @@ public class TransitionNode
                 break;
         }
         return false;
+    }
+
+    public void RemoveTransition()
+    {
+        OnClickRemoveTransition?.Invoke(this);
+    }
+
+    private void DisplayPopup(Event e)
+    {
+        // Debug.Log($"displaying popup, {_isCLicked}, {_isDragged}");
+        Rect editor = _editor.position;
+        Vector2 mid = new Vector2(editor.width, editor.height) / 2;
+        _buttonRect = new Rect(mid - PopupSize / 2, Vector2.zero);
+        PopupWindow.Show(_buttonRect, new TransitionPopup(PopupSize));
     }
 }
