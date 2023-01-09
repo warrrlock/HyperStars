@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
 [Serializable]
@@ -14,7 +15,10 @@ namespace FiniteStateMachine
     public abstract class BaseState : ScriptableObject
     {
         [HideInInspector][SerializeField] public NodeInfo NodeInfo = new NodeInfo();
+        [SerializeField] private List<FSMFilter> _filters = new();
+        public CharacterManager.CharacterSelection character = CharacterManager.CharacterSelection.None;
         public abstract IReadOnlyList<Transition> GetTransitions();
+
         public abstract void Execute(BaseStateMachine machine, string inputName);
         public virtual void Stop(BaseStateMachine machine, string inputName) {}
         public virtual AttackInfo GetAttackInfo()
