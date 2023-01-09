@@ -32,6 +32,11 @@ public class InAirState : BaseState
         _transitions.RemoveAll(t => !t);
     }
 
+    public override IReadOnlyList<Transition> GetTransitions()
+    {
+        return _transitions;
+    }
+
     public override void Execute(BaseStateMachine stateMachine, string inputName){
         if (stateMachine.PlayAnimation(_animationHash))
         {

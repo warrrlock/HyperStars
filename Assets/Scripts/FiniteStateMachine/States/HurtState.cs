@@ -29,6 +29,11 @@ namespace FiniteStateMachine
                     _animationHash2 = -1;
         }
 
+        public override IReadOnlyList<Transition> GetTransitions()
+        {
+            return null;
+        }
+
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
             stateMachine.PlayAnimation(_animationHash, replay: true);

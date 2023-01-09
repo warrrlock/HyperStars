@@ -43,7 +43,12 @@ namespace FiniteStateMachine
             _onInputPlayOrStopActions.RemoveAll(a => !a);
             _onInputInvokeActions.RemoveAll(a => !a);
         }
-        
+
+        public override IReadOnlyList<Transition> GetTransitions()
+        {
+            return _transitions;
+        }
+
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
             foreach(StateAction action in _onInputInvokeActions){

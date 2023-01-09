@@ -1,4 +1,5 @@
 using System;
+using FiniteStateMachine;
 using UnityEditor;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ public class TransitionNode
     private Action<TransitionNode> OnClickRemoveTransition;
 
     private StateMachineEditor _editor;
+    private Transition _transition;
 
     
     public TransitionNode(GUIStyle style, 
@@ -43,6 +45,7 @@ public class TransitionNode
         _editor = editor;
     }
     
+    //TODO: can't drag currently, need to adjust to dragging + moving the bezier curve
     public void Drag(Vector2 delta)
     {
         _isDragged = true;

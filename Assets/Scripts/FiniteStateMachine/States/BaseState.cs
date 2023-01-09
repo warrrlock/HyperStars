@@ -1,9 +1,20 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class NodeInfo
+{
+    public Rect rect = Rect.zero;
+    
+}
 
 namespace FiniteStateMachine
 {
     public abstract class BaseState : ScriptableObject
-    { 
+    {
+        [HideInInspector][SerializeField] public NodeInfo NodeInfo = new NodeInfo();
+        public abstract IReadOnlyList<Transition> GetTransitions();
         public abstract void Execute(BaseStateMachine machine, string inputName);
         public virtual void Stop(BaseStateMachine machine, string inputName) {}
         public virtual AttackInfo GetAttackInfo()

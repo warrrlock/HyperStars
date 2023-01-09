@@ -18,7 +18,12 @@ namespace FiniteStateMachine
             _actions.RemoveAll(a => !a);
             _transitions.RemoveAll(t => !t);
         }
-        
+
+        public override IReadOnlyList<Transition> GetTransitions()
+        {
+            return _transitions;
+        }
+
         public override void Execute(BaseStateMachine stateMachine, string inputName){
             // Debug.Log($"{stateMachine.name} is executing {name}");
             foreach(StateAction action in _actions){

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using System.Linq;
 using FiniteStateMachine;
 
 
@@ -61,6 +62,34 @@ public class StateMachineEditor : EditorWindow
             active ={background = EditorGUIUtility.Load("builtin skins/darkskin/images/btn right on.png") as Texture2D},
             border = new RectOffset(4, 4, 12, 12)
         };
+        
+        //TODO: get all states and transitions to create nodes and draw connections
+        //TODO: get states and create state node from each state
+        string[] guids = AssetDatabase.FindAssets("t:BaseState",new[] { "Assets/Scriptable Objects/[TEST] editor" });
+        List<BaseState> states = 
+            guids.Select(guid => (BaseState)AssetDatabase.LoadAssetAtPath(
+                AssetDatabase.GUIDToAssetPath(guid), typeof(BaseState))).ToList();
+        Dictionary<BaseState, StateNode> nodes = new Dictionary<BaseState, StateNode>();
+        foreach (BaseState state in states)
+        {
+            if (!nodes.TryGetValue(state, out var node))
+            {
+                node = AddExistingStateNode(state);
+                nodes.Add(state, node);
+            }
+            
+            foreach (Transition transition in state.GetTransitions())
+            {
+                BaseState s = transition.TrueState;
+                if (!nodes.TryGetValue(s, out StateNode n))
+                {
+                    n = AddExistingStateNode(s);
+                    nodes.Add(s, n);
+                }
+                
+                CreateTransitionNode(nodes[s].InPoint, nodes[state].OutPoint);
+            }
+        }
     }
     
     private void OnGUI()
@@ -153,6 +182,7 @@ public class StateMachineEditor : EditorWindow
         switch (e.type)
         {
             case EventType.MouseDown:
+                Selection.objects = null;
                 if (e.button == 1)
                     ProcessContextMenu(e.mousePosition);
                 break;
@@ -183,6 +213,17 @@ public class StateMachineEditor : EditorWindow
         genericMenu.ShowAsContext();
     }
     
+    private StateNode AddExistingStateNode(BaseState state)
+    {
+        _stateNodes ??= new List<StateNode>();
+        StateNode node = new StateNode(state,
+            _stateNodeStyle, _selectedStateNodeStyle,
+            _inPointStyle, _outPointStyle,
+            OnClickInPoint, OnClickOutPoint, OnClickRemoveStateNode, this);
+        _stateNodes.Add(node);
+        return node;
+    }
+    
     private void OnClickAddStateNode(Vector2 mousePosition)
     {
         _stateNodes ??= new List<StateNode>();
@@ -190,7 +231,7 @@ public class StateMachineEditor : EditorWindow
         _stateNodes.Add(new StateNode(mousePosition, 200, 50, 
             _stateNodeStyle, _selectedStateNodeStyle, 
             _inPointStyle,_outPointStyle, 
-            OnClickInPoint, OnClickOutPoint, OnClickRemoveStateNode));
+            OnClickInPoint, OnClickOutPoint, OnClickRemoveStateNode, this));
     }
 
     private void OnClickRemoveStateNode(StateNode state)
@@ -213,7 +254,7 @@ public class StateMachineEditor : EditorWindow
         {
             if (_selectedOutPoint.Node != _selectedInPoint.Node)
             {
-                CreateTransitionNode();
+                CreateTransitionNode(_selectedInPoint, _selectedOutPoint);
                 ClearConnectionSelection(); 
             }
             else
@@ -231,7 +272,7 @@ public class StateMachineEditor : EditorWindow
         {
             if (_selectedOutPoint.Node != _selectedInPoint.Node)
             {
-                CreateTransitionNode();
+                CreateTransitionNode(_selectedInPoint, _selectedOutPoint);
                 ClearConnectionSelection();
             }
             else
@@ -247,14 +288,14 @@ public class StateMachineEditor : EditorWindow
         DeleteTransition(null); //TODO: fill
     }
 
-    private void CreateTransitionNode()
+    private void CreateTransitionNode(ConnectionPoint inPoint, ConnectionPoint outPoint)
     {
         _transitionNodes ??= new List<TransitionNode>();
         
-        TransitionNode transition = new TransitionNode(_transitionNodeStyle, _selectedInPoint, _selectedOutPoint,
+        TransitionNode transition = new TransitionNode(_transitionNodeStyle, inPoint, outPoint,
             OnClickRemoveConnection, this);
-        _selectedInPoint.Node.AddTransition(transition);
-        _selectedOutPoint.Node.AddTransition(transition);
+        inPoint.Node.AddTransition(transition);
+        outPoint.Node.AddTransition(transition);
         _transitionNodes.Add(transition);
     }
 
@@ -262,6 +303,16 @@ public class StateMachineEditor : EditorWindow
     {
         _selectedInPoint = null;
         _selectedOutPoint = null;
+    }
+    
+    //TODO: create assets
+    public BaseState CreateStateAsset(string assetName)
+    {
+        BaseState state = ScriptableObject.CreateInstance<FiniteStateMachine.State>();
+        string path = AssetDatabase.GenerateUniqueAssetPath($"Assets/Scriptable Objects/[TEST] editor/{assetName}.asset");
+        AssetDatabase.CreateAsset(state, path);
+        AssetDatabase.SaveAssets();
+        return state;
     }
     
     //TODO: delete assets
