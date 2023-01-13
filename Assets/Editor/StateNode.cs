@@ -44,6 +44,7 @@ public class StateNode
         _editor = editor;
         _state = _editor.CreateStateAsset("test");
         _state.NodeInfo.rect = new Rect(position.x, position.y, width, height);
+        SaveChanges();
     }
     
     public StateNode(BaseState state, 
@@ -66,6 +67,7 @@ public class StateNode
     public void Drag(Vector2 delta)
     {
         _state.NodeInfo.rect.position += delta;
+        SaveChanges();
     }
 
     public void Draw()
@@ -133,5 +135,10 @@ public class StateNode
         {
             transition.RemoveTransition();
         }
+    }
+
+    private void SaveChanges()
+    { 
+        EditorUtility.SetDirty(_state);
     }
 }

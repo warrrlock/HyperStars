@@ -72,7 +72,7 @@ public class StateMachineEditor : EditorWindow
         Dictionary<BaseState, StateNode> nodes = new Dictionary<BaseState, StateNode>();
         foreach (BaseState state in states)
         {
-            if (!nodes.TryGetValue(state, out var node))
+            if (!nodes.TryGetValue(state, out StateNode node))
             {
                 node = AddExistingStateNode(state);
                 nodes.Add(state, node);
