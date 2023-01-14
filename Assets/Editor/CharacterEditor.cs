@@ -9,7 +9,7 @@ public class CharacterEditor : Editor
     private string createName = "";
     private Color createColor = Color.white;
     private int test;
-    private bool showButton;
+    private bool createFilterButton;
     private string[] buttonText = new[] {"create new filter", "cancel"};
     private int textIndex;
     private string pattern = "^[a-zA-Z {1}-]+$";
@@ -24,24 +24,29 @@ public class CharacterEditor : Editor
         
         EditorGUILayout.Space(20);
         DrawFilters();
+        DrawRefresh(character);
         EditorGUILayout.Space(20);
         
+        DrawCreateButton();
+        if (createFilterButton)
+            DrawCreateFilter();
+    }
+
+    private void DrawCreateButton()
+    {
         EditorGUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         if (GUILayout.Button(buttonText[textIndex], GUILayout.MaxWidth(300)))
         {
-            if (showButton) ResetCreationValues();
-            showButton = !showButton;
+            if (createFilterButton) ResetCreationValues();
+            createFilterButton = !createFilterButton;
             textIndex ^= 1;
         }
         GUILayout.FlexibleSpace();
         EditorGUILayout.EndHorizontal();
-        
-        if (showButton)
-            Draw();
     }
     
-    private void Draw()
+    private void DrawCreateFilter()
     {
         EditorGUILayout.Space();
         
@@ -88,10 +93,9 @@ public class CharacterEditor : Editor
             EditorGUILayout.BeginHorizontal(GUILayout.Width(200));
             if (!filter.edit && GUILayout.Button(filter.filterName))
             {
-                Debug.Log($"clicked {filter.filterName}");
                 foreach (FSMFilter f in character.Filters)
-                    if (f != filter) CancelFocus(filter);
-                filter.focus = !filter.focus;
+                    if (f != filter) CancelFocus(f);
+                filter.focus = true;
             }
             else if (filter.edit)
             {
@@ -109,6 +113,17 @@ public class CharacterEditor : Editor
         }
         EditorGUILayout.EndScrollView();
         EditorGUILayout.EndVertical();
+        GUILayout.FlexibleSpace();
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void DrawRefresh(Character character)
+    {
+        EditorGUILayout.Space();
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        if (GUILayout.Button("Refresh", GUILayout.MaxWidth(210)))
+            character.OnEnable();
         GUILayout.FlexibleSpace();
         EditorGUILayout.EndHorizontal();
     }
@@ -179,15 +194,14 @@ public class CharacterEditor : Editor
     {
         Character character = (Character)target;
         if (!((Character)target).DeleteFilter(filter))
-            Debug.LogError($"error deleting new FSM filter for {target.name}." +
+            Debug.LogError($"error deleting {filter.filterName} for {target.name}." +
                            $"\nThe filter does not exist.");
     }
     
     private void EditFSMFilter(FSMFilter filter)
     {
-        Character character = (Character)target;
         if (!((Character)target).EditFilter(filter, editName, editColor))
-            Debug.LogError($"error deleting new FSM filter for {target.name}." +
+            Debug.LogError($"error editing {filter.filterName} for {target.name}." +
                            $"\nThe filter does not exist.");
     }
 
