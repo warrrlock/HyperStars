@@ -121,6 +121,15 @@ public class StateMachineEditor : EditorWindow
                 _transitions.TryAdd(trueState, transition);
             }
         }
+        
+        guids = AssetDatabase.FindAssets("t:Transition",new[] { originPath });
+        List<Transition> transitions = 
+            guids.Select(guid => (Transition)AssetDatabase.LoadAssetAtPath(
+                AssetDatabase.GUIDToAssetPath(guid), typeof(Transition))).ToList();
+        foreach (var transition in transitions)
+        {
+            _transitions.TryAdd(transition.TrueState, transition);
+        }
     }
 
     private void DrawComponents()
@@ -362,11 +371,11 @@ public class StateMachineEditor : EditorWindow
         Transition transition = ScriptableObject.CreateInstance<FiniteStateMachine.Transition>();
         
         _transitions ??= new Dictionary<BaseState, Transition>();
-        _transitions.Add(to, transition);
+        _transitions.TryAdd(to, transition); //TODO: error if cannot add! uses should be in try catch
 
         transition.TrueState = to;
 
-        string ending = $"{assetName}.asset";
+        string ending = $"{assetName.Replace(' ', '_')}.asset";
         string path = AssetDatabase.GenerateUniqueAssetPath($"{originPath}/transitions/{ending}");
         AssetDatabase.CreateAsset(transition, path);
         AssetDatabase.SaveAssets();
