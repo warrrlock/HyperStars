@@ -29,6 +29,21 @@ namespace FiniteStateMachine
                     _animationHash2 = -1;
         }
 
+        public override void AddTransition(Transition t)
+        {
+            //do nothing
+        }
+
+        public override void DeleteTransition(Transition t)
+        {
+            //do nothing
+        }
+
+        public override bool HasTransitions()
+        {
+            return false;
+        }
+
         public override IReadOnlyList<Transition> GetTransitions()
         {
             return null;

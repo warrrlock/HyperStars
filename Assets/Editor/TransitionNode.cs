@@ -15,24 +15,28 @@ public class TransitionNode
 
     private bool _isCLicked;
     private bool _isDragged;
+    private bool _isSelected;
     private Rect _buttonRect;
 
     private const float BezierTangent = 25f;
     private const float BezierWidth = 2f;
 
-    private GUIStyle _style;
+    private GUIStyle _defaultStyle;
+    private GUIStyle _selectedStyle;
     
     private ConnectionPoint _inPoint; //to state
     private ConnectionPoint _outPoint; //from state
+    public ConnectionPoint InPoint => _inPoint;
+    public ConnectionPoint OutPoint => _outPoint;
     private Action<TransitionNode> OnClickRemoveTransition;
 
     private StateMachineEditor _editor;
     private Transition _transition;
-
+    public Transition Transition => _transition;
     
-    public TransitionNode(GUIStyle style, 
+    public TransitionNode(GUIStyle defaultStyle, GUIStyle selectedStyle,
         ConnectionPoint to, ConnectionPoint from, Action<TransitionNode> onClickRemoveTransition,
-        StateMachineEditor editor)
+        StateMachineEditor editor, Transition t)
     {
         _inPoint = to;
         _outPoint = from;
@@ -40,9 +44,11 @@ public class TransitionNode
         
         _rect = new Rect(0, 0, Width, Height);
         _rect.center = (_inPoint.Rect.center + _outPoint.Rect.center) * 0.5f;
-        _style = style;
+        _defaultStyle = defaultStyle;
+        _selectedStyle = selectedStyle;
 
         _editor = editor;
+        _transition = t;
     }
     
     //TODO: can't drag currently, need to adjust to dragging + moving the bezier curve
@@ -66,7 +72,7 @@ public class TransitionNode
         
         //TODO: change bezier curve instead of rect center, should smoothly connect at center of transition node
         _rect.center = (_inPoint.Rect.center + _outPoint.Rect.center) * 0.5f;
-        DrawBox();
+        DrawNode();
         DrawDeleteButton();
         
         // if (Event.current.type == EventType.Repaint) _buttonRect = GUILayoutUtility.GetLastRect();
@@ -98,9 +104,9 @@ public class TransitionNode
         );
     }
     
-    private void DrawBox()
+    private void DrawNode()
     {
-        GUI.Box(_rect, _title, _style);
+        GUI.Box(_rect, _title, _isSelected ? _selectedStyle: _defaultStyle);
     }
 
     private void DrawDeleteButton()
@@ -119,10 +125,18 @@ public class TransitionNode
             case EventType.MouseDown:
                 if (e.button == 0)
                 {
-                    // Debug.Log("left mouse clicked");
-                    if (_rect.Contains(e.mousePosition))
+                    _isSelected = _rect.Contains(e.mousePosition);
+                    if (_isSelected)
                     {
                         _isCLicked = true;
+                        
+                        if (AssetDatabase.OpenAsset(_transition))
+                        {
+                            e.Use();
+                            _editor.ClearSelectionExceptTransition(this);
+                        }
+                        else
+                            Debug.LogError("transition for this node cannot be opened.");
                         GUI.changed = true;
                     }
                 }
@@ -132,7 +146,7 @@ public class TransitionNode
                 // Debug.Log("mouse up");
                 if (_isCLicked && !_isDragged)
                 {
-                    DisplayPopup(e);
+                    // DisplayPopup(e);
                     GUI.changed = false;
                 }
                 _isCLicked = false;
@@ -156,6 +170,11 @@ public class TransitionNode
     public void RemoveTransition()
     {
         OnClickRemoveTransition?.Invoke(this);
+    }
+    
+    public void Deselect()
+    {
+        _isSelected = false;
     }
 
     private void DisplayPopup(Event e)

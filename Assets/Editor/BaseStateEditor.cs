@@ -33,7 +33,11 @@ public class BaseStateEditor : Editor
     {
         EditorGUILayout.Space(20);
         showFilters = EditorGUILayout.BeginFoldoutHeaderGroup(baseState.ShowFilters, "Filters");
-        if (baseState.ShowFilters != showFilters) baseState.ToggleShowFilter();
+        if (baseState.ShowFilters != showFilters)
+        {
+            baseState.ToggleShowFilter();
+            
+        }
         if (baseState.ShowFilters)
         {
             if (baseState.Filters.Count <= 0) EditorGUILayout.LabelField("no filters.");

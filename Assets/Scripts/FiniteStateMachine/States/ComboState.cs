@@ -44,6 +44,23 @@ namespace FiniteStateMachine
             _onInputInvokeActions.RemoveAll(a => !a);
         }
 
+        public override void AddTransition(Transition t)
+        {
+            _transitions.Add(t);
+            SaveChanges();
+        }
+
+        public override void DeleteTransition(Transition t)
+        {
+            _transitions.Remove(t);
+            SaveChanges();
+        }
+
+        public override bool HasTransitions()
+        {
+            return true;
+        }
+
         public override IReadOnlyList<Transition> GetTransitions()
         {
             return _transitions;

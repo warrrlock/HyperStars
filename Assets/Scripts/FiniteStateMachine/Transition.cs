@@ -24,7 +24,11 @@ namespace FiniteStateMachine
                  "and false State otherwise.")]
         [SerializeField] private FalseState _falseState;
         private BaseState _customFalseState;
-        public BaseState TrueState => _trueState;
+        public BaseState TrueState
+        {
+            get => _trueState;
+            set => _trueState = value;
+        }
         
         /// <summary>
         /// Queues the next state (true state if successful combo and false otherwise),

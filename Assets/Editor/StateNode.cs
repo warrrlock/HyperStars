@@ -25,6 +25,7 @@ public class StateNode
     public BaseState BaseState => _state;
     
     private List<TransitionNode> _transitionNodes = new ();
+    public IReadOnlyList<TransitionNode> TransitionNodes => _transitionNodes;
 
     private Vector2 _filterScale = new Vector2(0.2f, 0.2f);
 
@@ -69,7 +70,7 @@ public class StateNode
     public void Draw()
     {
         _inPoint.Draw();
-        _outPoint.Draw();
+        if (_state.HasTransitions()) _outPoint.Draw();
         GUI.Box(_state.NodeInfo.rect, _state.name, _isSelected ? _selectedNodeStyle: _defaultNodeStyle);
         DrawDeleteButton();
         // DrawState();
@@ -128,7 +129,7 @@ public class StateNode
                         if (AssetDatabase.OpenAsset(_state))
                         {
                             e.Use();
-                            _editor.ClearSelectionExcept(this);
+                            _editor.ClearSelectionExceptState(this);
                         }
                         else
                             Debug.LogError("state for this node cannot be opened.");
@@ -152,9 +153,14 @@ public class StateNode
         return false;
     }
 
-    public void AddTransition(TransitionNode transition)
+    public void AddTransitionNode(TransitionNode transition)
     {
         _transitionNodes.Add(transition);
+    }
+    
+    public void RemoveTransitionNode(TransitionNode transition)
+    {
+        _transitionNodes.Remove(transition);
     }
     
     public void ClearTransitions()
@@ -163,6 +169,7 @@ public class StateNode
         {
             transition.RemoveTransition();
         }
+        _transitionNodes.Clear();
     }
 
     public void Deselect()

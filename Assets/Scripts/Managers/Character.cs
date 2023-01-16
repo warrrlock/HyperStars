@@ -45,10 +45,12 @@ namespace Managers
     [CreateAssetMenu(menuName = "ScriptableObjects/Character")]
     public class Character: ScriptableObject
     {
+        [SerializeField] private GameObject _characterPrefab;
+        
         [HideInInspector][SerializeField]private List<FSMFilter> _filters = new();
         private HashSet<FSMFilter> _filtersSet = new(new FilterEqualityComparer());
         public List<FSMFilter> Filters => _filters;
-        [SerializeField] private GameObject _characterPrefab;
+        
         private string _originPath = "Assets/Scriptable Objects/[TEST] editor";
         private string _characterPath = "";
         

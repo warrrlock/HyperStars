@@ -34,6 +34,10 @@ namespace FiniteStateMachine
             return -1;
         }
 
+        public abstract void AddTransition(Transition t);
+        public abstract void DeleteTransition(Transition t);
+        public abstract bool HasTransitions();
+
         
         //editor stuff
         [HideInInspector][SerializeField] public NodeInfo NodeInfo = new NodeInfo();
@@ -64,7 +68,8 @@ namespace FiniteStateMachine
             SaveChanges();
         }
         
-        private void SaveChanges()
+        //states sometimes don't save transitions if closing application soon after making adjustments
+        protected void SaveChanges()
         { 
             EditorUtility.SetDirty(this);
         }
