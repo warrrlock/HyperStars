@@ -19,6 +19,7 @@ public class StateMachineEditor : EditorWindow
     
     private ConnectionPoint _selectedInPoint;
     private ConnectionPoint _selectedOutPoint;
+    private string originPath = "Assets/Scriptable Objects/[TEST] editor";
 
     [MenuItem("Window/State Machine Editor")]
     private static void Init()
@@ -33,15 +34,16 @@ public class StateMachineEditor : EditorWindow
         _stateNodeStyle = new GUIStyle
         {
             normal = {background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1.png") as Texture2D},
-            border = new RectOffset(12, 12, 12, 12)
+            border = new RectOffset(12, 12, 12, 12),
+            alignment = TextAnchor.MiddleCenter,
         };
         
         _selectedStateNodeStyle = new GUIStyle
         {
             normal = {background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1 on.png") as Texture2D},
-            border = new RectOffset(12, 12, 12, 12)
+            border = new RectOffset(12, 12, 12, 12),
+            alignment = TextAnchor.MiddleCenter,
         };
-
 
         _transitionNodeStyle = new GUIStyle
         {
@@ -65,7 +67,7 @@ public class StateMachineEditor : EditorWindow
         
         //TODO: get all states and transitions to create nodes and draw connections
         //TODO: get states and create state node from each state
-        string[] guids = AssetDatabase.FindAssets("t:BaseState",new[] { "Assets/Scriptable Objects/[TEST] editor" });
+        string[] guids = AssetDatabase.FindAssets("t:BaseState",new[] { originPath });
         List<BaseState> states = 
             guids.Select(guid => (BaseState)AssetDatabase.LoadAssetAtPath(
                 AssetDatabase.GUIDToAssetPath(guid), typeof(BaseState))).ToList();
@@ -183,6 +185,7 @@ public class StateMachineEditor : EditorWindow
         {
             case EventType.MouseDown:
                 Selection.objects = null;
+                ClearSelectionExcept(null);
                 if (e.button == 1)
                     ProcessContextMenu(e.mousePosition);
                 break;
@@ -238,12 +241,17 @@ public class StateMachineEditor : EditorWindow
     {
         state.ClearTransitions();
         _stateNodes.Remove(state);
-        DeleteState(null); //TODO: fill
+        DeleteState(state.BaseState);
     }
     
     private void OnClickAddTransitionNode(Vector2 mousePosition)
     {
         //TODO: popup editor, only create if transition passes safety check
+        bool pass = false;
+        if (pass)
+        {
+            CreateTransitionNode(_selectedInPoint, _selectedOutPoint);
+        }
     }
     
     private void OnClickInPoint(ConnectionPoint inPoint)
@@ -304,12 +312,21 @@ public class StateMachineEditor : EditorWindow
         _selectedInPoint = null;
         _selectedOutPoint = null;
     }
+
+    public void ClearSelectionExcept(StateNode node)
+    {
+        foreach (StateNode n in _stateNodes)
+        {
+            if (n != node) n.Deselect();
+        }
+    }
     
     //TODO: create assets
     public BaseState CreateStateAsset(string assetName)
     {
         BaseState state = ScriptableObject.CreateInstance<FiniteStateMachine.State>();
-        string path = AssetDatabase.GenerateUniqueAssetPath($"Assets/Scriptable Objects/[TEST] editor/{assetName}.asset");
+        string ending = $"{assetName}.asset";
+        string path = AssetDatabase.GenerateUniqueAssetPath($"{originPath}/unfiltered/{ending}");
         AssetDatabase.CreateAsset(state, path);
         AssetDatabase.SaveAssets();
         return state;
@@ -323,6 +340,11 @@ public class StateMachineEditor : EditorWindow
     
     private void DeleteState(BaseState state)
     {
-        
+        AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(state));
+    }
+    
+    private void DeleteAsset(Object asset)
+    {
+        AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(asset));
     }
 }

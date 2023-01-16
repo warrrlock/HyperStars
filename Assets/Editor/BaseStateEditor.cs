@@ -103,7 +103,7 @@ public class BaseStateEditor : Editor
     {
         string ending = $"{bs.name}.asset";
         if (bs.Filters.Count == 0)
-            AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{originPath}/{ending}");
+            AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{originPath}/unfiltered/{ending}");
         else if (bs.Filters.Count == 1)
             AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{originPath}/{bs.Filters[0].filterName}/{ending}");
         else

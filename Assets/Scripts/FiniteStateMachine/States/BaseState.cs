@@ -47,6 +47,7 @@ namespace FiniteStateMachine
         public void AddFilter(FSMFilter f)
         {
             _filters.Add(f);
+            _filters.Sort(); //TODO: optimization - add sorted
             SaveChanges();
         }
 
