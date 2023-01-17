@@ -10,9 +10,7 @@ public class TransitionNode
     private const float Width = 100f;
     private const float Height = 30f;
     private string _title;
-
-    private static readonly Vector2 PopupSize = new Vector2(200, 150);
-
+    
     private bool _isCLicked;
     private bool _isDragged;
     private bool _isSelected;
@@ -175,14 +173,5 @@ public class TransitionNode
     public void Deselect()
     {
         _isSelected = false;
-    }
-
-    private void DisplayPopup(Event e)
-    {
-        // Debug.Log($"displaying popup, {_isCLicked}, {_isDragged}");
-        Rect editor = _editor.position;
-        Vector2 mid = new Vector2(editor.width, editor.height) / 2;
-        _buttonRect = new Rect(mid - PopupSize / 2, Vector2.zero);
-        PopupWindow.Show(_buttonRect, new TransitionPopup(PopupSize));
     }
 }
