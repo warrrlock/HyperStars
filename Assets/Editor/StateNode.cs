@@ -165,10 +165,8 @@ public class StateNode
     
     public void ClearTransitions()
     {
-        for (int i = 0; i < _transitionNodes.Count; i++)
-        {
+        for (int i = _transitionNodes.Count-1; i >= 0; i--)
             _transitionNodes[i].RemoveTransition();
-        }
         _transitionNodes.Clear();
     }
 

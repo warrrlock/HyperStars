@@ -122,8 +122,7 @@ public class StateMachineEditor : EditorWindow
                     n = AddExistingStateNode(trueState);
                     _states.Add(trueState, n);
                 }
-                
-                CreateTransitionNode(_states[trueState].InPoint, _states[state].OutPoint, transition, false);
+                CreateTransitionNode(_states[state].OutPoint, _states[trueState].InPoint, transition, false);
                 _transitions.TryAdd(trueState, transition);
             }
         }
@@ -275,24 +274,21 @@ public class StateMachineEditor : EditorWindow
     private void OnClickRemoveStateNode(StateNode state)
     {
         state.ClearTransitions();
+        GUI.changed = true;
         _stateNodes.Remove(state);
+        _states.Remove(state.BaseState);
         DeleteState(state.BaseState);
     }
     
     private void OnClickAddTransitionNode(Vector2 mousePosition)
     {
         //TODO: popup editor, only create if transition passes safety check
-        DisplayPopup();
-        bool pass = false;
-        if (pass)
-        {
-            CreateTransitionNode(_selectedInPoint, _selectedOutPoint, null, false);
-        }
+        DisplayTransitionPopup();
     }
     
     private static readonly Vector2 PopupSize = new Vector2(200, 150);
     private Rect _buttonRect;
-    private void DisplayPopup()
+    private void DisplayTransitionPopup()
     {
         Rect editor = position;
         Vector2 mid = new Vector2(editor.width, editor.height) / 2;
@@ -320,15 +316,14 @@ public class StateMachineEditor : EditorWindow
         {
             BaseState state = inPoint.Node.BaseState;
             Transition transition = _transitions?.GetValueOrDefault(state, null);
-            CreateTransitionNode(inPoint, outPoint,
+            CreateTransitionNode(outPoint, inPoint,
                 transition ? transition : CreateTransitionAsset(state), true);
         }
         ClearConnectionSelection();
     }
 
-    private void CreateTransitionNode(ConnectionPoint inPoint, ConnectionPoint outPoint, Transition transition, bool isNew)
+    private void CreateTransitionNode(ConnectionPoint outPoint, ConnectionPoint inPoint, Transition transition, bool isNew)
     {
-        Debug.Log("creating transition");
         _transitionNodes ??= new List<TransitionNode>();
         if (inPoint.Node.TransitionNodes.Count(t => t.InPoint == inPoint && t.OutPoint == outPoint) > 0) return;
         
@@ -345,12 +340,14 @@ public class StateMachineEditor : EditorWindow
     private void OnClickRemoveConnection(TransitionNode transitionNode)
     {
         _transitionNodes.Remove(transitionNode);
-        foreach (var state in _stateNodes)
-        {
-            if (!state.TransitionNodes.Contains(transitionNode)) continue;
-            state.BaseState.DeleteTransition(transitionNode.Transition);
-            state.RemoveTransitionNode(transitionNode);
-        }
+        StateNode state;
+        //from
+        state = transitionNode.OutPoint.Node;
+        state.BaseState.DeleteTransition(transitionNode.Transition);
+        state.RemoveTransitionNode(transitionNode);
+        //to
+        state = transitionNode.InPoint.Node;
+        state.RemoveTransitionNode(transitionNode);
     }
 
     private void ClearConnectionSelection()
@@ -408,5 +405,16 @@ public class StateMachineEditor : EditorWindow
     private void DeleteState(BaseState state)
     {
         AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(state));
+        //deleting state should delete associated transition
+        if (_transitions.TryGetValue(state, out Transition transition))
+        {
+            AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(transition));
+            _transitions.Remove(state);
+            // foreach (var s in _states.Keys)
+            // {
+            //     SerializationUtility.ClearAllManagedReferencesWithMissingTypes(
+            //         AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GetAssetPath(s)));
+            // }
+        }
     }
 }
