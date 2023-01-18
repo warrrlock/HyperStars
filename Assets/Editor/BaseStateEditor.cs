@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FiniteStateMachine;
 using Managers;
@@ -14,6 +15,7 @@ public class BaseStateEditor : Editor
     private Texture2D addSymbol;
     private Texture2D minusSymbol;
     private string originPath = "Assets/Scriptable Objects/[TEST] editor";
+    private string characterPath;
     
     public override void OnInspectorGUI()
     {
@@ -27,6 +29,27 @@ public class BaseStateEditor : Editor
     {
         addSymbol = EditorGUIUtility.Load("icons/d_Toolbar Plus.png") as Texture2D;
         minusSymbol = EditorGUIUtility.Load("icons/d_Toolbar Minus.png") as Texture2D;
+        
+        BaseState baseState = (BaseState)target;
+        if (!characterManager) LoadCharacterManager();
+        if (!character)
+        {
+            KeyCharacterPair characterPair =
+                characterManager.Characters.Find(o => o.characterSelection == baseState.character);
+            if (characterPair != null) character = characterPair.character;
+            else
+            {
+                Debug.LogError($"no character '{baseState.character.ToString()}' exists in character manager.");
+            }
+        }
+
+        if (character)
+        {
+            IReadOnlyList<FSMFilter> filters = baseState.Filters;
+            for (int i = filters.Count-1; i >= 0; i--)
+                if (!character.Filters.Contains(filters[i])) RemoveFilterFromState(filters[i], baseState);
+        }
+        characterPath = $"{originPath}{(character ? $"/{character.name}" : "")}";
     }
 
     private void DrawFilters(BaseState baseState)
@@ -60,18 +83,7 @@ public class BaseStateEditor : Editor
         if (baseState.ShowFilters)
         {
             EditorGUILayout.LabelField("available filters");
-            if (!characterManager) LoadCharacterManager();
-            if (!character)
-            {
-                KeyCharacterPair characterPair = characterManager.Characters.Find(o => o.characterSelection == baseState.character);
-                if (characterPair != null) character = characterPair.character;
-                else
-                {
-                    Debug.LogError($"no character '{baseState.character.ToString()}' exists in character manager.");
-                    return;
-                }
-            }
-
+            if (!character) return;
             for (int i = 0; i < character.Filters.Count; i++)
             {
                 FSMFilter filter = character.Filters[i];
@@ -106,15 +118,17 @@ public class BaseStateEditor : Editor
     private void MoveToCorrectFolder(FSMFilter f, BaseState bs)
     {
         string ending = $"{bs.name}.asset";
+        string moved = "";
         if (bs.Filters.Count == 0)
-            AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{originPath}/unfiltered/{ending}");
+            moved = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{characterPath}/unfiltered/{ending}");
         else if (bs.Filters.Count == 1)
-            AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{originPath}/{bs.Filters[0].filterName}/{ending}");
+            moved = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{characterPath}/{bs.Filters[0].filterName}/{ending}");
         else
-            AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{originPath}/multi-filtered/{ending}");
+            moved = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{characterPath}/multi-filtered/{ending}");
         AssetDatabase.Refresh();
         
-        Debug.Log($"adding/removing {f.filterName}, moving {bs.name} with {bs.Filters.Count} filters.");
+        Debug.Log($"adding/removing {f.filterName}, moving {bs.name} with {bs.Filters.Count} filters." +
+                  $"\nMessage: {moved}");
     }
     
     private void LoadCharacterManager()

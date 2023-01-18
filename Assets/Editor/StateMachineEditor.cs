@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
@@ -23,7 +24,8 @@ public class StateMachineEditor : EditorWindow
     
     private ConnectionPoint _selectedInPoint;
     private ConnectionPoint _selectedOutPoint;
-    private string originPath = "Assets/Scriptable Objects/[TEST] editor";
+    private string _originPath = "Assets/Scriptable Objects/[TEST] editor/lisa";
+    private string _characterPath = "Assets/Scriptable Objects/[TEST] editor/lisa";
 
     [MenuItem("Window/State Machine Editor")]
     private static void Init()
@@ -101,7 +103,7 @@ public class StateMachineEditor : EditorWindow
         _transitions = new Dictionary<BaseState, Transition>();
         _transitionNodes = new List<TransitionNode>();
         
-        string[] guids = AssetDatabase.FindAssets("t:BaseState",new[] { originPath });
+        string[] guids = AssetDatabase.FindAssets("t:BaseState",new[] { _characterPath });
         List<BaseState> states = 
             guids.Select(guid => (BaseState)AssetDatabase.LoadAssetAtPath(
                 AssetDatabase.GUIDToAssetPath(guid), typeof(BaseState))).ToList();
@@ -127,7 +129,7 @@ public class StateMachineEditor : EditorWindow
             }
         }
         
-        guids = AssetDatabase.FindAssets("t:Transition",new[] { originPath });
+        guids = AssetDatabase.FindAssets("t:Transition",new[] { _characterPath });
         List<Transition> transitions = 
             guids.Select(guid => (Transition)AssetDatabase.LoadAssetAtPath(
                 AssetDatabase.GUIDToAssetPath(guid), typeof(Transition))).ToList();
@@ -378,7 +380,7 @@ public class StateMachineEditor : EditorWindow
     {
         BaseState state = ScriptableObject.CreateInstance<FiniteStateMachine.State>();
         string ending = $"{assetName}.asset";
-        string path = AssetDatabase.GenerateUniqueAssetPath($"{originPath}/unfiltered/{ending}");
+        string path = AssetDatabase.GenerateUniqueAssetPath($"{_characterPath}/unfiltered/{ending}");
         AssetDatabase.CreateAsset(state, path);
         AssetDatabase.SaveAssets();
         return state;
@@ -395,7 +397,7 @@ public class StateMachineEditor : EditorWindow
         transition.TrueState = to;
 
         string ending = $"{assetName.Replace(' ', '_')}.asset";
-        string path = AssetDatabase.GenerateUniqueAssetPath($"{originPath}/transitions/{ending}");
+        string path = AssetDatabase.GenerateUniqueAssetPath($"{_characterPath}/transitions/{ending}");
         AssetDatabase.CreateAsset(transition, path);
         AssetDatabase.SaveAssets();
         return transition;
@@ -416,5 +418,10 @@ public class StateMachineEditor : EditorWindow
             //         AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GetAssetPath(s)));
             // }
         }
+    }
+
+    public void SetCharacterPath(string pathFromOrigin)
+    {
+        _characterPath = String.Concat(_originPath, "/", pathFromOrigin);
     }
 }

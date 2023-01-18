@@ -33,7 +33,7 @@ namespace Managers
     {
         public bool Equals(FSMFilter a, FSMFilter b)
         {
-            return b != null && a != null && a.filterName.Equals(b.filterName);
+            return b != null && a != null && a.filterName.Equals(b.filterName, StringComparison.OrdinalIgnoreCase);
         }
 
         public int GetHashCode(FSMFilter obj)
@@ -52,7 +52,7 @@ namespace Managers
         public List<FSMFilter> Filters => _filters;
         
         private string _originPath = "Assets/Scriptable Objects/[TEST] editor";
-        private string _characterPath = "";
+        [SerializeField]private string _characterPath = "";
         
         public void OnEnable()
         {
@@ -63,7 +63,10 @@ namespace Managers
             foreach (string folder in folders)
             {
                 string folderName = folder.Split('/').Last();
-                if (folderName.Equals("multi-filtered") || folderName.Equals("unfiltered")) continue;
+                if (folderName.Equals("multi-filtered") 
+                    || folderName.Equals("unfiltered") 
+                    || folderName.Equals("actions")
+                    || folderName.Equals("transitions")) continue;
                 folderNames.Add(folderName);
                 FSMFilter newFilter = new FSMFilter(folderName, Color.white);
                 if (!_filters.Contains(newFilter, new FilterEqualityComparer()))
@@ -124,14 +127,13 @@ namespace Managers
                         AssetDatabase.GUIDToAssetPath(guid), typeof(BaseState))).ToArray();
                 for (int i = 0; i < guids.Length; i++)
                 {
-                    states[i].RemoveFilter(f);
-                    if (true)
+                    if (states[i].RemoveFilter(f))
                     {
                         string path = AssetDatabase.GUIDToAssetPath(guids[i]);
                         string ending = $"{states[i].name}.asset";
                         
                         if (states[i].Filters.Count == 0) 
-                            AssetDatabase.MoveAsset(path, $"{_characterPath}/{ending}");
+                            AssetDatabase.MoveAsset(path, $"{_characterPath}/unfiltered/{ending}");
                         else if (states[i].Filters.Count == 1) 
                             AssetDatabase.MoveAsset(path,$"{_characterPath}/{states[i].Filters[0].filterName}/{ending}");
                     }
