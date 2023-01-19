@@ -22,13 +22,19 @@ public class StateNode
     private Action<StateNode> OnClickRemoveState;
     private StateMachineEditor _editor;
     private BaseState _state;
-    public BaseState BaseState => _state;
-    
+    public BaseState BaseState
+    {
+        get => _state;
+        set => _state = value;
+    }
+
     private List<TransitionNode> _transitionNodes = new ();
     public IReadOnlyList<TransitionNode> TransitionNodes => _transitionNodes;
-
+    
+    private string _popupName = "";
     private Vector2 _filterScale = new Vector2(0.2f, 0.2f);
 
+    
     public StateNode(GUIStyle nodeStyle, GUIStyle selectedStyle, GUIStyle inPointStyle, GUIStyle outPointStyle, 
         Action<ConnectionPoint> onClickInPoint, Action<ConnectionPoint> onClickOutPoint,
         Action<StateNode> onClickRemoveState, StateMachineEditor editor)
@@ -40,16 +46,13 @@ public class StateNode
         OnClickRemoveState = onClickRemoveState;
         _editor = editor;
     }
+    
     public StateNode(Vector2 position, float width, float height, 
         GUIStyle nodeStyle, GUIStyle selectedStyle, GUIStyle inPointStyle, GUIStyle outPointStyle, 
         Action<ConnectionPoint> onClickInPoint, Action<ConnectionPoint> onClickOutPoint,
         Action<StateNode> onClickRemoveState, StateMachineEditor editor) 
         :this(nodeStyle, selectedStyle, inPointStyle, outPointStyle, onClickInPoint, onClickOutPoint, onClickRemoveState, editor)
     {
-        //TODO: showing naming parameter, and do not create asset if empty name
-        _state = _editor.CreateStateAsset("test");
-        _state.NodeInfo.rect = new Rect(position.x, position.y, width, height);
-        SaveChanges();
     }
     
     public StateNode(BaseState state, 
@@ -139,6 +142,11 @@ public class StateNode
 
             case EventType.MouseUp:
                 _isDragged = false;
+                if (e.button == 1 && _state.NodeInfo.rect.Contains(e.mousePosition))
+                {
+                    ProcessContextMenu(e.mousePosition);
+                    e.Use();
+                }
                 break;
 
             case EventType.MouseDrag:
@@ -151,6 +159,17 @@ public class StateNode
                 break;
         }
         return false;
+    }
+    
+    private void ProcessContextMenu(Vector2 mousePosition)
+    {
+        GenericMenu genericMenu = new GenericMenu();
+        genericMenu.AddItem(new GUIContent("Rename"), false, () => StateNodePopup.ActivatePopup(new []
+        {
+            (Action)(() => DrawRename("new name")),
+            () => _editor.DrawGeneralButton("Rename", RenameState)
+        }, Vector2.zero, new Vector2(500,150), this));
+        genericMenu.ShowAsContext();
     }
 
     public void AddTransitionNode(TransitionNode transition)
@@ -173,6 +192,27 @@ public class StateNode
     public void Deselect()
     {
         _isSelected = false;
+    }
+
+    private void DrawRename(string label)
+    {
+        EditorGUILayout.BeginVertical();
+        if (_state != null)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("current name:");
+            EditorGUILayout.SelectableLabel($"{_state.name}");
+            EditorGUILayout.EndHorizontal();
+        }
+        _popupName = EditorGUILayout.TextField(label, _popupName);
+        EditorGUILayout.EndVertical();
+    }
+    
+    private void RenameState()
+    {
+        if (!_editor.CheckNewStateName(_popupName)) return;
+        AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(_state), _popupName);
+        _popupName = "";
     }
 
     private void SaveChanges()

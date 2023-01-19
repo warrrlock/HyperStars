@@ -26,6 +26,14 @@ public class StateMachineEditor : EditorWindow
     private ConnectionPoint _selectedOutPoint;
     private string _originPath = "Assets/Scriptable Objects/[TEST] editor/lisa";
     private string _characterPath = "Assets/Scriptable Objects/[TEST] editor/lisa";
+    
+    private enum StateType
+    {
+        Select, State, ComboState, InAirState, HurtState
+    }
+    private string _popupName = "";
+    private StateType _popupSelection = StateType.Select;
+    private StateNodePopup _stateNodePopup;
 
     [MenuItem("Window/State Machine Editor")]
     private static void Init()
@@ -115,7 +123,8 @@ public class StateMachineEditor : EditorWindow
                 node = AddExistingStateNode(state);
                 _states.Add(state, node);
             }
-            
+
+            if (state.GetTransitions() == null) continue;
             foreach (Transition transition in state.GetTransitions())
             {
                 BaseState trueState = transition.TrueState;
@@ -192,6 +201,11 @@ public class StateMachineEditor : EditorWindow
         }
     }
     
+    public void DrawGeneralButton(string label, Action action)
+    {
+        if (GUILayout.Button(label, GUILayout.Width(100))) action();
+    }
+    
     private void ProcessNodeEvents(Event e)
     {
         if (_transitionNodes != null)
@@ -219,10 +233,11 @@ public class StateMachineEditor : EditorWindow
             case EventType.MouseDown:
                 Selection.objects = null;
                 ClearSelectionExceptState(null);
+                break;
+            case EventType.MouseUp:
                 if (e.button == 1)
                     ProcessContextMenu(e.mousePosition);
                 break;
-            
             case EventType.MouseDrag:
                 if (e.button == 0)
                     OnDrag(e.delta);
@@ -263,14 +278,31 @@ public class StateMachineEditor : EditorWindow
     private void OnClickAddStateNode(Vector2 mousePosition)
     {
         _stateNodes ??= new List<StateNode>();
-
-        StateNode stateNode = new StateNode(mousePosition, 200, 50,
-            _stateNodeStyle, _selectedStateNodeStyle,
-            _inPointStyle, _outPointStyle,
-            OnClickInPoint, OnClickOutPoint, OnClickRemoveStateNode, this);
         
+        //TODO: showing naming parameter, and do not create asset if empty name
+        _stateNodePopup = StateNodePopup.ActivatePopup(new []
+        {
+            (Action)(() => DrawNaming("name")),
+            DrawSelection,
+            () => DrawGeneralButton("create", () => CreateState(mousePosition, 200, 50))
+            
+        }, Vector2.zero, new Vector2(500,150),
+            new StateNode(
+                _stateNodeStyle, _selectedStateNodeStyle,
+                _inPointStyle, _outPointStyle,
+                OnClickInPoint, OnClickOutPoint, OnClickRemoveStateNode, this));
+    }
+
+    public void HandleCreateStateNode(StateNode stateNode)
+    {
+        if (!stateNode.BaseState)
+        {
+            Debug.Log("new state node not created");
+            return;
+        }
         _stateNodes.Add(stateNode);
-        _states.TryAdd(stateNode.BaseState, stateNode);
+        _states.Add(stateNode.BaseState, stateNode);
+        Debug.Log($"Successfully created a new state, {stateNode.BaseState.name}");
     }
 
     private void OnClickRemoveStateNode(StateNode state)
@@ -375,10 +407,9 @@ public class StateMachineEditor : EditorWindow
         
     }
     
-    //TODO: create assets
-    public BaseState CreateStateAsset(string assetName)
+    public BaseState CreateStateAsset<T>(string assetName) where T : BaseState
     {
-        BaseState state = ScriptableObject.CreateInstance<FiniteStateMachine.State>();
+        BaseState state = ScriptableObject.CreateInstance<T>();
         string ending = $"{assetName}.asset";
         string path = AssetDatabase.GenerateUniqueAssetPath($"{_characterPath}/unfiltered/{ending}");
         AssetDatabase.CreateAsset(state, path);
@@ -403,7 +434,6 @@ public class StateMachineEditor : EditorWindow
         return transition;
     }
     
-    //TODO: delete assets
     private void DeleteState(BaseState state)
     {
         AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(state));
@@ -418,6 +448,75 @@ public class StateMachineEditor : EditorWindow
             //         AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GetAssetPath(s)));
             // }
         }
+    }
+    
+    private void DrawNaming(string label)
+    {
+        EditorGUILayout.BeginVertical();
+        _popupName = EditorGUILayout.TextField(label, _popupName);
+        EditorGUILayout.EndVertical();
+    }
+
+    private void DrawSelection()
+    {
+        _popupSelection = (StateType)EditorGUILayout.EnumPopup("State type", _popupSelection);
+    }
+
+    private void CreateState(Vector2 nodePosition, float width, float height)
+    {
+        _popupName = _popupName.Trim();
+        if (!CheckNewStateName(_popupName)) return;
+        
+        switch (_popupSelection)
+        {
+            case StateType.ComboState:
+                _stateNodePopup.StateNode.BaseState = CreateStateAsset<ComboState>(_popupName);
+                break;
+            case StateType.InAirState:
+                _stateNodePopup.StateNode.BaseState = CreateStateAsset<InAirState>(_popupName);
+                break;
+            case StateType.HurtState:
+                _stateNodePopup.StateNode.BaseState = CreateStateAsset<HurtState>(_popupName);
+                break;
+            default:
+                _stateNodePopup.StateNode.BaseState = CreateStateAsset<FiniteStateMachine.State>(_popupName);
+                break;
+        }
+        _stateNodePopup.StateNode.BaseState.NodeInfo.rect = new Rect(nodePosition.x, nodePosition.y, width, height);
+        
+        HandleCreateStateNode(_stateNodePopup.StateNode);
+        ResetStatePopup(nodePosition);
+        SaveChanges();
+    }
+
+    public bool CheckNewStateName(string newName)
+    {
+        if (newName.Equals(""))
+        {
+            Debug.LogError("Enter a name for the new state.");
+            return false;
+        }
+        if (CheckStateExists(newName))
+        {
+            Debug.LogError($"State, {newName} already exists for this character. Please enter another name.");
+            return false;
+        }
+        return true;
+    }
+
+    private void ResetStatePopup(Vector2 mousePosition)
+    {
+        _stateNodePopup.StateNode = new StateNode(mousePosition, 200, 50,
+            _stateNodeStyle, _selectedStateNodeStyle,
+            _inPointStyle, _outPointStyle,
+            OnClickInPoint, OnClickOutPoint, OnClickRemoveStateNode, this);
+        _popupName = "";
+        _popupSelection = StateType.Select;
+    }
+    
+    public bool CheckStateExists(string checkName)
+    {
+        return (_states.Keys.Count(s => s.name.Equals(checkName, StringComparison.OrdinalIgnoreCase)) > 0);
     }
 
     public void SetCharacterPath(string pathFromOrigin)
