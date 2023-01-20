@@ -29,6 +29,7 @@ public class StateMachineEditor : EditorWindow
     private TransitionPopup _transitionPopup;
 
     private Character _character;
+    private CharacterManager.CharacterSelection _characterSelection;
     private CharacterManager _characterManager;
     private int _selectedCharacterIndex = 0;
     private readonly string[] _characterOptions = Enum.GetNames(typeof(CharacterManager.CharacterSelection))
@@ -314,20 +315,18 @@ public class StateMachineEditor : EditorWindow
         _stateNodes ??= new List<StateNode>();
         
         //TODO: showing naming parameter, and do not create asset if empty name
-        _stateNodePopup = StateNodePopup.ActivatePopup(new []
-        {
-            (Action)(() => DrawNaming("name")),
-            DrawSelection,
-            () => DrawGeneralButton("create", () => CreateState(mousePosition, 200, 50))
-            
-        }, Vector2.zero, new Vector2(500,150),
+        _stateNodePopup = StateNodePopup.ActivatePopup(new [] 
+            {
+                (Action)(() => DrawNaming("name")), DrawSelection,
+                () => DrawGeneralButton("create", () => CreateState(mousePosition, 200, 50)) 
+            }, Vector2.zero, new Vector2(500,150),
             new StateNode(
                 _stateNodeStyle, _selectedStateNodeStyle,
                 _inPointStyle, _outPointStyle,
                 OnClickInPoint, OnClickOutPoint, OnClickRemoveStateNode, this));
     }
 
-    public void HandleCreateStateNode(StateNode stateNode)
+    private void HandleCreateStateNode(StateNode stateNode)
     {
         if (!stateNode.BaseState)
         {
@@ -441,18 +440,19 @@ public class StateMachineEditor : EditorWindow
             if (n != node) n?.Deselect();
         
     }
-    
-    public BaseState CreateStateAsset<T>(string assetName) where T : BaseState
+
+    private BaseState CreateStateAsset<T>(string assetName) where T : BaseState
     {
         BaseState state = ScriptableObject.CreateInstance<T>();
+        state.character = _characterSelection;
         string ending = $"{assetName}.asset";
         string path = AssetDatabase.GenerateUniqueAssetPath($"{_characterPath}/unfiltered/{ending}");
         AssetDatabase.CreateAsset(state, path);
         AssetDatabase.SaveAssets();
         return state;
     }
-    
-    public Transition CreateTransitionAsset(BaseState to)
+
+    private Transition CreateTransitionAsset(BaseState to)
     {
         string assetName = $"to_{to.name}";
         Transition transition = ScriptableObject.CreateInstance<FiniteStateMachine.Transition>();
@@ -563,7 +563,6 @@ public class StateMachineEditor : EditorWindow
     private void SetCharacterTab(string selected)
     {
         _selectedCharacterIndex = Array.IndexOf(_characterOptions, selected);
-        CreateExistingAssetNodes();
     }
 
     private void SetCharacter(string characterString)
@@ -580,7 +579,8 @@ public class StateMachineEditor : EditorWindow
         if (_characterManager.Characters.Count <= 0)
             throw new Exception("no characters exist in the character manager." +
                                 "Please ensure there is at least one character in existence.");
-
+        
+        CharacterManager.CharacterSelection temp = selection;
         selection = selection == CharacterManager.CharacterSelection.None
             ? _characterManager.Characters.First().Key
             : selection;
@@ -588,8 +588,12 @@ public class StateMachineEditor : EditorWindow
         if (!_characterManager.Characters.TryGetValue(selection, out _character))
             throw new Exception($"character {selection.ToString()} does not exist in the manager." +
                                 "Please ensure there is such a selection in existence.");
+        
+        _characterSelection = selection;
         SetCharacterPath(_character.name);
-        SetCharacterTab(selection.ToString());
+        if (temp == CharacterManager.CharacterSelection.None)
+            SetCharacterTab(selection.ToString());
+        CreateExistingAssetNodes();
     }
     
     private void LoadCharacterManager()
