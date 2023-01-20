@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Managers
@@ -14,11 +15,11 @@ namespace Managers
     [CreateAssetMenu(menuName = "ScriptableObjects/Character Manager")]
     public class CharacterManager: ScriptableObject
     {
-        public enum CharacterSelection {None, Lisa }
-        //TODO: get all existing characters at start
+        public enum CharacterSelection {None, Lisa, Bluk}
         [SerializeField] private List<KeyCharacterPair> _characterObjects;
 
-        public List<KeyCharacterPair> Characters => _characterObjects;
+        public Dictionary<CharacterSelection, Character> Characters => _characterObjects.ToDictionary(
+            o => o.characterSelection, o => o.character);
         //TODO: create new character method
     }
 }

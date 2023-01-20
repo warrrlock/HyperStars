@@ -4,6 +4,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 using FiniteStateMachine;
+using Managers;
 
 
 // based off of https://oguzkonya.com/creating-node-based-editor-unity/
@@ -26,9 +27,15 @@ public class StateMachineEditor : EditorWindow
     private ConnectionPoint _selectedOutPoint;
 
     private TransitionPopup _transitionPopup;
-    
-    private string _originPath = "Assets/Scriptable Objects/[TEST] editor/lisa";
-    private string _characterPath = "Assets/Scriptable Objects/[TEST] editor/lisa";
+
+    private Character _character;
+    private CharacterManager _characterManager;
+    private int _selectedCharacterIndex = 0;
+    private readonly string[] _characterOptions = Enum.GetNames(typeof(CharacterManager.CharacterSelection))
+        .Where(o => !o.Equals("None", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+    private string _originPath = "Assets/Scriptable Objects/[TEST] editor";
+    private string _characterPath;
     public string CharacterPath => _characterPath;
     
     private enum StateType
@@ -39,6 +46,7 @@ public class StateMachineEditor : EditorWindow
     private StateType _popupSelection = StateType.Select;
     private StateNodePopup _stateNodePopup;
 
+    
     [MenuItem("Window/State Machine Editor")]
     private static void Init()
     {
@@ -49,6 +57,16 @@ public class StateMachineEditor : EditorWindow
     
     private void OnEnable()
     {
+        try
+        {
+            LoadCharacterManager();
+            SetCharacter(CharacterManager.CharacterSelection.None);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+            this.Close();
+        }
         CreateStyles();
         CreateExistingAssetNodes();
     }
@@ -154,8 +172,20 @@ public class StateMachineEditor : EditorWindow
 
     private void DrawComponents()
     {
+        DrawTabs();
         DrawStateNodes(_stateNodes);
         DrawTransitionNodes(_transitionNodes);
+    }
+
+    private void DrawTabs()
+    {
+        int index = _selectedCharacterIndex;
+        _selectedCharacterIndex = GUILayout.Toolbar(_selectedCharacterIndex, _characterOptions);
+        if (index != _selectedCharacterIndex)
+        {
+            SetCharacter(_characterOptions[_selectedCharacterIndex]);
+            GUI.changed = true;
+        }
     }
 
     private void DrawStateNodes(List<StateNode> nodes)
@@ -518,14 +548,56 @@ public class StateMachineEditor : EditorWindow
         _popupName = "";
         _popupSelection = StateType.Select;
     }
-    
-    public bool CheckStateExists(string checkName)
+
+    private bool CheckStateExists(string checkName)
     {
         return (_states.Keys.Count(s => s.name.Equals(checkName, StringComparison.OrdinalIgnoreCase)) > 0);
     }
 
-    public void SetCharacterPath(string pathFromOrigin)
+    private void SetCharacterPath(string pathFromOrigin)
     {
         _characterPath = String.Concat(_originPath, "/", pathFromOrigin);
+        Debug.Log(_characterPath);
+    }
+
+    private void SetCharacterTab(string selected)
+    {
+        _selectedCharacterIndex = Array.IndexOf(_characterOptions, selected);
+        CreateExistingAssetNodes();
+    }
+
+    private void SetCharacter(string characterString)
+    {
+        foreach (CharacterManager.CharacterSelection enumObj in Enum.GetValues(typeof(CharacterManager.CharacterSelection)))
+        {
+            if (!characterString.Equals(enumObj.ToString())) continue;
+            SetCharacter(enumObj);
+        }
+    }
+
+    private void SetCharacter(CharacterManager.CharacterSelection selection)
+    {
+        if (_characterManager.Characters.Count <= 0)
+            throw new Exception("no characters exist in the character manager." +
+                                "Please ensure there is at least one character in existence.");
+
+        selection = selection == CharacterManager.CharacterSelection.None
+            ? _characterManager.Characters.First().Key
+            : selection;
+        
+        if (!_characterManager.Characters.TryGetValue(selection, out _character))
+            throw new Exception($"character {selection.ToString()} does not exist in the manager." +
+                                "Please ensure there is such a selection in existence.");
+        SetCharacterPath(_character.name);
+        SetCharacterTab(selection.ToString());
+    }
+    
+    private void LoadCharacterManager()
+    {
+        _characterManager = (CharacterManager)AssetDatabase.LoadAssetAtPath($"{_originPath}/[TEST]character manager.asset", typeof(CharacterManager));
+        if (!_characterManager)
+            throw new Exception("no character manager exits at " +
+                                $"{_originPath}/[TEST]character manager. " +
+                                "Please ensure the character manager has not been moved or deleted");
     }
 }

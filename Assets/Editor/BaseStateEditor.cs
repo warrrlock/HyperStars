@@ -34,10 +34,7 @@ public class BaseStateEditor : Editor
         if (!characterManager) LoadCharacterManager();
         if (!character)
         {
-            KeyCharacterPair characterPair =
-                characterManager.Characters.Find(o => o.characterSelection == baseState.character);
-            if (characterPair != null) character = characterPair.character;
-            else
+            if (!characterManager.Characters.TryGetValue(baseState.character, out character))
             {
                 Debug.LogError($"no character '{baseState.character.ToString()}' exists in character manager.");
             }
