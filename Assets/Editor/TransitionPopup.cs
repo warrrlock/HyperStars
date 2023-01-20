@@ -1,51 +1,48 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FiniteStateMachine;
 using UnityEngine;
 using UnityEditor;
+using Object = UnityEngine.Object;
 
-public class TransitionPopup : PopupWindowContent
+public class TransitionPopup : EditorWindow
 {
-    private readonly Vector2 _size;
+    private Vector2 _size;
     private StateMachineEditor _editor;
     private BaseState _fromState;
     private BaseState _toState;
     
     private GUIStyle _objectFieldStyle;
     private Vector2 _objectFieldSize;
+    private string _originPath;
+    private AssetFinderWindow _assetFinder;
     
     private readonly Vector2 _objectFieldRatio = new Vector2(1f, 0.16f);
 
     
-    public override Vector2 GetWindowSize()
+    public static TransitionPopup CreateTransitionPopup(Vector2 editorSize, StateMachineEditor editor)
     {
-        return _size;
+        Debug.Log("creating asset window");
+        TransitionPopup window = CreateInstance(typeof(TransitionPopup)) as TransitionPopup;
+        window.titleContent = new GUIContent("Transition Creator");
+        
+        window._originPath = editor.CharacterPath;
+        window.maxSize = editorSize;
+        window.minSize = editorSize;
+        window._size = editorSize;
+        window.CreateStyles();
+        window.GetSizes();
+        window. _editor = editor;
+        
+        window.ShowUtility();
+        return window;
     }
 
-    public TransitionPopup(Vector2 size, StateMachineEditor editor)
-    {
-        _size = size;
-        _editor = editor;
-        CreateStyles();
-        GetSizes();
-    }
-
-    public override void OnGUI(Rect rect)
+    public void OnGUI()
     {
         GUILayout.Label("transition popup", EditorStyles.boldLabel);
         Draw();
-    }
-
-    public override void OnOpen()
-    {
-        //TODO: darken bg
-        Debug.Log("Popup opened: " + this);
-    }
-
-    public override void OnClose()
-    {
-        //TODO: lighten bg
-        Debug.Log("Popup closed: " + this);
     }
 
     private void CreateStyles()
@@ -72,9 +69,9 @@ public class TransitionPopup : PopupWindowContent
         EditorGUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
 
-        DrawObjectField("from state", ref _fromState);
+        DrawObjectField(_fromState? _fromState.name: "from state", ref _fromState);
         GUILayout.Space(5);
-        DrawObjectField("to state", ref _toState);
+        DrawObjectField(_toState? _toState.name: "to state", ref _toState);
         
         GUILayout.Space(10);
         DrawSaveButton();
@@ -88,21 +85,16 @@ public class TransitionPopup : PopupWindowContent
 
     private void DrawObjectField(string text, ref BaseState state)
     {
-        // EditorGUILayout.BeginHorizontal();
-        // //TODO: create editor to open custom asset finder
-        // EditorGUILayout.SelectableLabel(text, EditorStyles.objectField,
-        //     GUILayout.MaxWidth(_objectFieldSize.x), GUILayout.Height(_objectFieldSize.y));
-        // GUILayout.Space(-_objectFieldSize.y);
-        // if (GUILayout.Button(EditorGUIUtility.IconContent("d_GameObject Icon"),
-        //         GUILayout.Width(_objectFieldSize.y), GUILayout.Height(_objectFieldSize.y)))
-        // {
-        //     OpenAssetFinder();
-        // };
-        // EditorGUILayout.EndHorizontal();
-        
         EditorGUILayout.BeginHorizontal();
-        state = (BaseState)EditorGUILayout.ObjectField(state, typeof(BaseState),false,
+        //TODO: create editor to open custom asset finder
+        EditorGUILayout.SelectableLabel(text, EditorStyles.objectField,
             GUILayout.MaxWidth(_objectFieldSize.x), GUILayout.Height(_objectFieldSize.y));
+        // GUILayout.Space(-_objectFieldSize.y);
+        if (GUILayout.Button(EditorGUIUtility.IconContent("d_GameObject Icon"),
+                GUILayout.Width(_objectFieldSize.y), GUILayout.Height(_objectFieldSize.y)))
+        {
+            OpenAssetFinder(state == _fromState ? SetFrom : SetTo );
+        };
         EditorGUILayout.EndHorizontal();
     }
 
@@ -120,9 +112,24 @@ public class TransitionPopup : PopupWindowContent
         EditorGUILayout.EndHorizontal();
     }
 
-    private void OpenAssetFinder()
+    private void OpenAssetFinder(Action<BaseState> action)
     {
-        
+        if (_assetFinder) _assetFinder.Close();
+        _assetFinder = AssetFinderWindow.CreateFinderWindow(Vector2.zero, new Vector2(500, 300),
+            _editor.CharacterPath, typeof(BaseState), (Object o) => action(o as BaseState));
+    }
+
+    private void SetFrom(BaseState state)
+    {
+        Debug.Log("setting state");
+        _fromState = state;
+        Repaint();
+    }
+    
+    private void SetTo(BaseState state)
+    {
+        _toState = state;
+        Repaint();
     }
 
     private bool CreateTransition(out string message)

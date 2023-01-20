@@ -24,8 +24,12 @@ public class StateMachineEditor : EditorWindow
     
     private ConnectionPoint _selectedInPoint;
     private ConnectionPoint _selectedOutPoint;
+
+    private TransitionPopup _transitionPopup;
+    
     private string _originPath = "Assets/Scriptable Objects/[TEST] editor/lisa";
     private string _characterPath = "Assets/Scriptable Objects/[TEST] editor/lisa";
+    public string CharacterPath => _characterPath;
     
     private enum StateType
     {
@@ -327,7 +331,8 @@ public class StateMachineEditor : EditorWindow
         Rect editor = position;
         Vector2 mid = new Vector2(editor.width, editor.height) / 2;
         _buttonRect = new Rect(mid - PopupSize / 2, Vector2.zero);
-        PopupWindow.Show(_buttonRect, new TransitionPopup(PopupSize, this));
+        if (_transitionPopup) _transitionPopup.Close();
+        _transitionPopup = TransitionPopup.CreateTransitionPopup(PopupSize, this);
     }
     
     private void OnClickInPoint(ConnectionPoint inPoint)
