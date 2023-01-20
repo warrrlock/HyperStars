@@ -18,7 +18,7 @@ public class AssetFinderWindow: EditorWindow
     private Dictionary<Object, AssetNode> _nodes = new Dictionary<Object, AssetNode>();
     private AssetNode _noneNode;
 
-    private string _searchText;
+    private string _searchText = "";
     private Vector2 _scrollPos;
     private Vector2 _windowSize;
     private Vector2 _componentRatio = new Vector2(0.9f, 0.8f);
@@ -93,11 +93,9 @@ public class AssetFinderWindow: EditorWindow
     private Rect DrawSearchBar()
     {
         Rect r = EditorGUILayout.BeginHorizontal(GUILayout.MaxWidth(_windowSize.x));
+        string prev = _searchText;
         _searchText = EditorGUILayout.TextField(_searchText, EditorStyles.toolbarSearchField);
-        if (GUILayout.Button("search", EditorStyles.miniButton, GUILayout.Width(100)))
-        {
-            //TODO: create filtered search
-        }
+        if (!_searchText.Equals(prev)) _filteredAssets = SearchName(_searchText);
         EditorGUILayout.EndHorizontal();
         return r;
     }
@@ -127,5 +125,12 @@ public class AssetFinderWindow: EditorWindow
         EditorGUILayout.SelectableLabel($"{(_selectedAsset ? _selectedAsset.name : "None")}" +
                                         $"\nat path: {(_selectedAsset ? AssetDatabase.GetAssetPath(_selectedAsset) : "")}");
         EditorGUILayout.EndVertical();
+    }
+
+    private List<AssetNode> SearchName(string search)
+    {
+        if (search.Equals("")) return _nodes.Values.ToList();
+        IEnumerable<KeyValuePair<Object, AssetNode>> results = _nodes.Where(obj => obj.Key.name.Contains(search, StringComparison.OrdinalIgnoreCase));
+        return results.Select(obj => obj.Value).ToList();
     }
 }
