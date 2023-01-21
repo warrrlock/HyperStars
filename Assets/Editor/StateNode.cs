@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FiniteStateMachine;
 using Managers;
 using UnityEditor;
@@ -79,6 +80,8 @@ public class StateNode
         // DrawState();
         DrawFilters();
     }
+
+    public bool ContainsFilter(FSMFilter f) => _state.Filters.Contains(f, new FSMFilterEqualityComparer());
 
     private void DrawDeleteButton()
     {

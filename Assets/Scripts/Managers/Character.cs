@@ -9,46 +9,13 @@ using UnityEditor;
 
 namespace Managers
 {
-    [Serializable]
-    public class FSMFilter : IComparable
-    {
-        public string filterName;
-        public Color color;
-        public bool focus;
-        public bool edit;
-
-        public FSMFilter(string n, Color c)
-        {
-            filterName = n;
-            color = c;
-        }
-        
-        public int CompareTo(object f)
-        {
-            return string.CompareOrdinal(filterName, ((FSMFilter)f).filterName);
-        }
-    }
-
-    public class FilterEqualityComparer : IEqualityComparer<FSMFilter>
-    {
-        public bool Equals(FSMFilter a, FSMFilter b)
-        {
-            return b != null && a != null && a.filterName.Equals(b.filterName, StringComparison.OrdinalIgnoreCase);
-        }
-
-        public int GetHashCode(FSMFilter obj)
-        {
-            return obj.ToString().GetHashCode();
-        }
-    }
-    
     [CreateAssetMenu(menuName = "ScriptableObjects/Character")]
     public class Character: ScriptableObject
     {
         [SerializeField] private GameObject _characterPrefab;
         
         [HideInInspector][SerializeField]private List<FSMFilter> _filters = new();
-        private HashSet<FSMFilter> _filtersSet = new(new FilterEqualityComparer());
+        private HashSet<FSMFilter> _filtersSet = new(new FSMFilterEqualityComparer());
         public List<FSMFilter> Filters => _filters;
         
         private string _originPath = "Assets/Scriptable Objects/[TEST] editor";
@@ -69,7 +36,7 @@ namespace Managers
                     || folderName.Equals("transitions")) continue;
                 folderNames.Add(folderName);
                 FSMFilter newFilter = new FSMFilter(folderName, Color.white);
-                if (!_filters.Contains(newFilter, new FilterEqualityComparer()))
+                if (!_filters.Contains(newFilter, new FSMFilterEqualityComparer()))
                     _filters.Add(newFilter);
             }
 
@@ -78,7 +45,7 @@ namespace Managers
                 if (!folderNames.Contains(_filters[i].filterName))
                     _filters.Remove(_filters[i]);
             }
-            _filtersSet = new HashSet<FSMFilter>(_filters, new FilterEqualityComparer());
+            _filtersSet = new HashSet<FSMFilter>(_filters, new FSMFilterEqualityComparer());
         }
 
         private void CreateCharacterFolder()

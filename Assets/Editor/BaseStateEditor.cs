@@ -44,7 +44,7 @@ public class BaseStateEditor : Editor
         {
             IReadOnlyList<FSMFilter> filters = baseState.Filters;
             for (int i = filters.Count-1; i >= 0; i--)
-                if (!character.Filters.Contains(filters[i])) RemoveFilterFromState(filters[i], baseState);
+                if (!character.Filters.Contains(filters[i], new FSMFilterEqualityComparer())) RemoveFilterFromState(filters[i], baseState);
         }
         characterPath = $"{originPath}{(character ? $"/{character.name}" : "")}";
     }
@@ -84,7 +84,7 @@ public class BaseStateEditor : Editor
             for (int i = 0; i < character.Filters.Count; i++)
             {
                 FSMFilter filter = character.Filters[i];
-                if (!baseState.Filters.Contains(filter, new FilterEqualityComparer())) DrawFilter(filter, addSymbol, () => AddFilterToState(filter, baseState));
+                if (!baseState.Filters.Contains(filter, new FSMFilterEqualityComparer())) DrawFilter(filter, addSymbol, () => AddFilterToState(filter, baseState));
             }
         }
     }
