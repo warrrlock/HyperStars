@@ -213,7 +213,7 @@ public class StateNode
     
     private void RenameState()
     {
-        if (!_editor.CheckNewStateName(_popupName)) return;
+        if (!_editor.CheckNewName(_popupName, typeof(BaseState))) return;
         AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(_state), _popupName);
         _popupName = "";
     }

@@ -102,31 +102,14 @@ public class BaseStateEditor : Editor
 
     private void AddFilterToState(FSMFilter f, BaseState bs)
     {
-        bs.AddFilter(f);
-        MoveToCorrectFolder(f, bs);
+        bs.AddFilter(f, characterPath);
     }
     
     private void RemoveFilterFromState(FSMFilter f, BaseState bs)
     {
-        bs.RemoveFilter(f);
-        MoveToCorrectFolder(f, bs);
+        bs.RemoveFilter(f, characterPath);
     }
-
-    private void MoveToCorrectFolder(FSMFilter f, BaseState bs)
-    {
-        string ending = $"{bs.name}.asset";
-        string moved = "";
-        if (bs.Filters.Count == 0)
-            moved = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{characterPath}/unfiltered/{ending}");
-        else if (bs.Filters.Count == 1)
-            moved = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{characterPath}/{bs.Filters[0].filterName}/{ending}");
-        else
-            moved = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(bs), $"{characterPath}/multi-filtered/{ending}");
-        AssetDatabase.Refresh();
-        
-        Debug.Log($"adding/removing {f.filterName}, moving {bs.name} with {bs.Filters.Count} filters." +
-                  $"\nMessage: {moved}");
-    }
+    
     
     private void LoadCharacterManager()
     {

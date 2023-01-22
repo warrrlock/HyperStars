@@ -35,7 +35,7 @@ public class AssetFinderWindow: EditorWindow
         window._noneNode = new AssetNode(null, window);
         window.GetAssetsOfTypeFromPath(path, type);
         window._filteredAssets = window._nodes.Values.ToList();
-        window.titleContent = new GUIContent("Asset Finder");
+        window.titleContent = new GUIContent($"Asset Finder ({type.Name})");
         window.maxSize = editorSize;
         window.minSize = editorSize;
         window._windowSize = editorSize;

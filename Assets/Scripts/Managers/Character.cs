@@ -94,16 +94,7 @@ namespace Managers
                         AssetDatabase.GUIDToAssetPath(guid), typeof(BaseState))).ToArray();
                 for (int i = 0; i < guids.Length; i++)
                 {
-                    if (states[i].RemoveFilter(f))
-                    {
-                        string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                        string ending = $"{states[i].name}.asset";
-                        
-                        if (states[i].Filters.Count == 0) 
-                            AssetDatabase.MoveAsset(path, $"{_characterPath}/unfiltered/{ending}");
-                        else if (states[i].Filters.Count == 1) 
-                            AssetDatabase.MoveAsset(path,$"{_characterPath}/{states[i].Filters[0].filterName}/{ending}");
-                    }
+                    states[i].RemoveFilter(f, _characterPath);
                 }
                 SaveChanges();
                 AssetDatabase.MoveAssetToTrash($"{_characterPath}/{f.filterName}");

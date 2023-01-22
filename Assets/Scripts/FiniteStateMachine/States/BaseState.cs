@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Managers;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -47,19 +48,51 @@ namespace FiniteStateMachine
         public abstract IReadOnlyList<Transition> GetTransitions();
         private bool _showFilters;
         public bool ShowFilters => _showFilters;
+
+        public void ReloadFilters(Character character)
+        {
+            IEqualityComparer<FSMFilter> comparer = new FSMFilterEqualityComparer();
+            for (int i = _filters.Count-1; i >= 0; i--)
+            {
+                FSMFilter filter = character.Filters.Find(f => f.filterName.Equals(_filters[i].filterName));
+                if (filter != null) _filters[i] = filter;
+                else _filters.RemoveAt(i);
+            }
+        }
         
-        public void AddFilter(FSMFilter f)
+        public void AddFilter(FSMFilter f, string path)
         {
             _filters.Add(f);
             _filters.Sort(); //TODO: optimization - add sorted
+            MoveToCorrectFolder(f, path);
             SaveChanges();
         }
 
-        public bool RemoveFilter(FSMFilter f)
+        public bool RemoveFilter(FSMFilter f, string path)
         {
             bool r = _filters.Remove(f);
-            SaveChanges();
+            if (r)
+            {
+                MoveToCorrectFolder(f, path);
+                SaveChanges();
+            }
             return r;
+        }
+        
+        private void MoveToCorrectFolder(FSMFilter f, string characterPath)
+        {
+            string ending = $"{name}.asset";
+            string moved = "";
+            if (Filters.Count == 0)
+                moved = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(this), $"{characterPath}/unfiltered/{ending}");
+            else if (Filters.Count == 1)
+                moved = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(this), $"{characterPath}/{Filters[0].filterName}/{ending}");
+            else
+                moved = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(this), $"{characterPath}/multi-filtered/{ending}");
+            AssetDatabase.Refresh();
+        
+            Debug.Log($"adding/removing {f.filterName}, moving {name} with {Filters.Count} filters." +
+                      $"\nMessage: {moved}");
         }
 
         public void ToggleShowFilter()
