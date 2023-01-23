@@ -380,6 +380,7 @@ public class StateMachineEditor : EditorWindow
         genericMenu.AddItem(new GUIContent("Add node"), false, () => OnClickAddStateNode(mousePosition));
         genericMenu.AddItem(new GUIContent("Add transition"), false, () => OnClickAddTransitionNode(mousePosition));
         CreateActionMenu(genericMenu, "Add action");
+        genericMenu.AddItem(new GUIContent("Refresh"), false, EditorUtility.RequestScriptReload);
         genericMenu.ShowAsContext();
     }
     

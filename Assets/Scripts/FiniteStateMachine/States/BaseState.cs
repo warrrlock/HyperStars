@@ -51,7 +51,6 @@ namespace FiniteStateMachine
 
         public void ReloadFilters(Character character)
         {
-            IEqualityComparer<FSMFilter> comparer = new FSMFilterEqualityComparer();
             for (int i = _filters.Count-1; i >= 0; i--)
             {
                 FSMFilter filter = character.Filters.Find(f => f.filterName.Equals(_filters[i].filterName));
