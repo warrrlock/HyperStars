@@ -86,8 +86,9 @@ public class StateNode
     private void DrawDeleteButton()
     {
         if (!_isSelected) return;
-        if(Handles.Button(new Vector3(_state.NodeInfo.rect.xMax, _state.NodeInfo.rect.yMin, 0), 
-                Quaternion.identity, 4, 8, Handles.RectangleHandleCap))
+        Vector2 size = new Vector2(4, 4);
+        if(GUI.Button(new Rect(_state.NodeInfo.rect.min - size, size), 
+               EditorGUIUtility.IconContent("CrossIcon"), EditorStyles.iconButton))
             OnClickRemoveState?.Invoke(this);
     }
 

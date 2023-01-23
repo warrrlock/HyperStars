@@ -7,7 +7,7 @@ using UnityEngine;
 public class TransitionNode
 {
     private Rect _rect;
-    private const float Width = 100f;
+    private const float Width = 50f;
     private const float Height = 30f;
     private string _title;
     
@@ -16,7 +16,7 @@ public class TransitionNode
     private bool _isSelected;
     private Rect _buttonRect;
 
-    private const float BezierTangent = 25f;
+    private const float BezierTangent = 20f;
     private const float BezierWidth = 2f;
 
     private GUIStyle _defaultStyle;
@@ -53,23 +53,14 @@ public class TransitionNode
     public void Drag(Vector2 delta)
     {
         _isDragged = true;
-        _rect.position += delta;
+        _transition.NodePosition += delta;
     }
     
     public void Draw()
     {
-        Handles.DrawBezier(
-            _outPoint.Rect.center + _outPoint.Rect.width/2*Vector2.right,
-            _inPoint.Rect.center + _outPoint.Rect.width/2*Vector2.left,
-            _outPoint.Rect.center + Vector2.right * BezierTangent,
-            _inPoint.Rect.center + Vector2.left * BezierTangent,
-            Color.white,
-            null,
-            BezierWidth
-        );
-        
         //TODO: change bezier curve instead of rect center, should smoothly connect at center of transition node
-        _rect.center = (_inPoint.Rect.center + _outPoint.Rect.center) * 0.5f;
+        _rect.center = (_inPoint.Rect.center + _outPoint.Rect.center) * 0.5f + _transition.NodePosition;
+        DrawBezier();
         DrawNode();
         DrawDeleteButton();
         
@@ -78,24 +69,31 @@ public class TransitionNode
 
     public void DrawBezier()
     {
-        Vector2 rectIn = _rect.center + Vector2.left * (_rect.width / 2 - 5f);
-        Vector2 rectOut = _rect.center + Vector2.right * (_rect.width / 2 - 5f);
+        Vector2 startPos = _outPoint.Rect.center + _outPoint.Rect.width / 2 * Vector2.right;
+        Vector2 endPos = _inPoint.Rect.center + _outPoint.Rect.width / 2 * Vector2.left;
+        Vector2 midPos = _rect.center;
+
+        Vector2 startTangent1 = startPos + (endPos - startPos).normalized * BezierTangent;
+        Vector2 endTangent1 = midPos - (endPos - midPos).normalized * BezierTangent;
+        
+        Vector2 startTangent2 = midPos + (midPos - startPos).normalized * BezierTangent;
+        Vector2 endTangent2 = endPos + (startPos - endPos).normalized * BezierTangent;
+        
 
         Handles.DrawBezier(
-            _outPoint.Rect.center + _outPoint.Rect.width/2*Vector2.right,
-            rectIn,
-            _outPoint.Rect.center + Vector2.right * BezierTangent,
-            rectIn + Vector2.left * BezierTangent,
+            startPos,
+            midPos,
+            startTangent1,
+            endTangent1,
             Color.white,
             null,
             BezierWidth
         );
-        
         Handles.DrawBezier(
-            rectOut,
-            _inPoint.Rect.center + _outPoint.Rect.width/2*Vector2.left,
-            rectOut + Vector2.right * BezierTangent,
-            _inPoint.Rect.center + Vector2.left * BezierTangent,
+            midPos,
+            endPos,
+            startTangent2,
+            endTangent2,
             Color.white,
             null,
             BezierWidth
@@ -109,11 +107,11 @@ public class TransitionNode
 
     private void DrawDeleteButton()
     {
-        if (Handles.Button(_rect.center, 
-                Quaternion.identity, 4, 8, Handles.RectangleHandleCap))
-        {
+        if (!_isSelected) return;
+        Vector2 size = new Vector2(4, 4);
+        if (GUI.Button(new Rect(_rect.min - size, size), 
+                EditorGUIUtility.IconContent("CrossIcon"), EditorStyles.iconButton))
             RemoveTransition();
-        }
     }
 
     public bool ProcessEvents(Event e)
@@ -126,13 +124,11 @@ public class TransitionNode
                     _isSelected = _rect.Contains(e.mousePosition);
                     if (_isSelected)
                     {
+                        _editor.ClearSelectionExceptTransition(this);
                         _isCLicked = true;
                         
                         if (AssetDatabase.OpenAsset(_transition))
-                        {
                             e.Use();
-                            _editor.ClearSelectionExceptTransition(this);
-                        }
                         else
                             Debug.LogError("transition for this node cannot be opened.");
                         GUI.changed = true;
@@ -141,21 +137,18 @@ public class TransitionNode
                 break;
 
             case EventType.MouseUp:
-                // Debug.Log("mouse up");
                 if (_isCLicked && !_isDragged)
                 {
-                    // DisplayPopup(e);
                     GUI.changed = false;
                 }
+                if (_isDragged) SaveTransitionAsset();
                 _isCLicked = false;
                 _isDragged = false;
-                // Debug.Log($"ending displaying popup, {_isCLicked}, {_isDragged}");
                 break;
 
             case EventType.MouseDrag:
                 if (e.button == 0 && _isCLicked)
                 {
-                    // Debug.Log("mouse dragged, left mouse button");
                     Drag(e.delta);
                     e.Use();
                     return true;
@@ -173,5 +166,10 @@ public class TransitionNode
     public void Deselect()
     {
         _isSelected = false;
+    }
+
+    private void SaveTransitionAsset()
+    {
+        EditorUtility.SetDirty(_transition);
     }
 }

@@ -115,6 +115,10 @@ namespace FiniteStateMachine
             return decision;
         }
         
+        
+        //editor stuff
+        [HideInInspector][SerializeField] public Vector2 NodePosition = Vector2.zero;
+        
         #region Editor
 #if UNITY_EDITOR
         [CustomEditor(typeof(Transition))]

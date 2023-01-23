@@ -24,6 +24,7 @@ public class StateMachineEditor : EditorWindow
     private GUIStyle _selectedTransitionNodeStyle;
     private GUIStyle _inPointStyle;
     private GUIStyle _outPointStyle;
+    private Vector2 _stateNodeSize = new Vector2(150, 50);
     
     private ConnectionPoint _selectedInPoint;
     private ConnectionPoint _selectedOutPoint;
@@ -390,6 +391,7 @@ public class StateMachineEditor : EditorWindow
             _inPointStyle, _outPointStyle,
             OnClickInPoint, OnClickOutPoint, OnClickRemoveStateNode, this);
         _stateNodes.Add(node);
+        state.NodeInfo.rect.size = _stateNodeSize;
         return node;
     }
     
@@ -402,7 +404,7 @@ public class StateMachineEditor : EditorWindow
         _stateNodePopup = StateNodePopup.ActivatePopup(new [] 
             {
                 (Action)(() => DrawStateNaming("name")), DrawStateSelection,
-                () => DrawGeneralButton("create", () => CreateState(mousePosition, 200, 50)) 
+                () => DrawGeneralButton("create", () => CreateState(mousePosition, _stateNodeSize)) 
             }, Vector2.zero, new Vector2(500,150),
             new StateNode(
                 _stateNodeStyle, _selectedStateNodeStyle,
@@ -586,7 +588,7 @@ public class StateMachineEditor : EditorWindow
         _popupSelection = (StateType)EditorGUILayout.EnumPopup("State type", _popupSelection);
     }
 
-    private void CreateState(Vector2 nodePosition, float width, float height)
+    private void CreateState(Vector2 nodePosition, Vector2 size)
     {
         _popupStateName = _popupStateName.Trim();
         if (!CheckNewName(_popupStateName, typeof(BaseState))) return;
@@ -606,7 +608,7 @@ public class StateMachineEditor : EditorWindow
                 _stateNodePopup.StateNode.BaseState = CreateStateAsset<FiniteStateMachine.State>(_popupStateName);
                 break;
         }
-        _stateNodePopup.StateNode.BaseState.NodeInfo.rect = new Rect(nodePosition.x, nodePosition.y, width, height);
+        _stateNodePopup.StateNode.BaseState.NodeInfo.rect = new Rect(nodePosition, size);
         
         HandleCreateStateNode(_stateNodePopup.StateNode);
         ResetStatePopup(nodePosition);
