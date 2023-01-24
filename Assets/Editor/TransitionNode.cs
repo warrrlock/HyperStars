@@ -108,10 +108,13 @@ public class TransitionNode
     private void DrawDeleteButton()
     {
         if (!_isSelected) return;
-        Vector2 size = new Vector2(4, 4);
-        if (GUI.Button(new Rect(_rect.min - size, size), 
-                EditorGUIUtility.IconContent("CrossIcon"), EditorStyles.iconButton))
+        GUIContent icon = EditorGUIUtility.IconContent("CrossIcon");
+        Vector2 size = EditorStyles.iconButton.CalcSize(icon);
+        
+        GUILayout.BeginArea(new Rect(_rect.min - size/2, size));
+        if(GUILayout.Button(icon, EditorStyles.iconButton))
             RemoveTransition();
+        GUILayout.EndArea();
     }
 
     public bool ProcessEvents(Event e)
