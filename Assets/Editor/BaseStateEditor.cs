@@ -14,8 +14,9 @@ public class BaseStateEditor : Editor
     private Character character;
     private Texture2D addSymbol;
     private Texture2D minusSymbol;
-    private string originPath = "Assets/Scriptable Objects/[TEST] editor";
+    private string originPath = "Assets/Scriptable Objects/State Machine";
     private string characterPath;
+    private string _characterManagerPath = "Assets/Scriptable Objects/State Machine/Character Manager.asset";
     
     public override void OnInspectorGUI()
     {
@@ -113,9 +114,9 @@ public class BaseStateEditor : Editor
     
     private void LoadCharacterManager()
     {
-        characterManager = (CharacterManager)AssetDatabase.LoadAssetAtPath($"{originPath}/[TEST]character manager.asset", typeof(CharacterManager));
+        characterManager = (CharacterManager)AssetDatabase.LoadAssetAtPath(_characterManagerPath, typeof(CharacterManager));
         if (!characterManager) Debug.LogError("no character manager exits at " +
-                                              $"{originPath}/[TEST]character manager. " +
+                                              $"{_characterManagerPath}. " +
                                               "Please ensure the character manager has not been moved or deleted");
     }
 

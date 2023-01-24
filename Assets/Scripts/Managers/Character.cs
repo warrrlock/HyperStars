@@ -18,7 +18,7 @@ namespace Managers
         private HashSet<FSMFilter> _filtersSet = new(new FSMFilterEqualityComparer());
         public List<FSMFilter> Filters => _filters;
         
-        private string _originPath = "Assets/Scriptable Objects/[TEST] editor";
+        private string _originPath = "Assets/Scriptable Objects/State Machine";
         [SerializeField]private string _characterPath = "";
         
         public void OnEnable()

@@ -58,9 +58,10 @@ public class StateMachineEditor : EditorWindow
     private FSMPopup _actionPopup;
     private AssetFinderWindow _assetFinder;
     
-    private string _originPath = "Assets/Scriptable Objects/[TEST] editor";
+    private string _originPath = "Assets/Scriptable Objects/State Machine";
     private string _characterPath;
     public string CharacterPath => _characterPath;
+    private string _characterManagerPath = "Assets/Scriptable Objects/State Machine/Character Manager.asset";
 
     
     [MenuItem("Window/State Machine Editor")]
@@ -664,7 +665,7 @@ public class StateMachineEditor : EditorWindow
         
         if (!_characterManager.Characters.TryGetValue(selection, out _character))
             throw new Exception($"character {selection.ToString()} does not exist in the manager." +
-                                "Please ensure there is such a selection in existence.");
+                                " Please ensure there is such a selection in existence.");
         
         _characterSelection = selection;
         SetCharacterPath(_character.name);
@@ -756,10 +757,10 @@ public class StateMachineEditor : EditorWindow
     
     private void LoadCharacterManager()
     {
-        _characterManager = (CharacterManager)AssetDatabase.LoadAssetAtPath($"{_originPath}/[TEST]character manager.asset", typeof(CharacterManager));
+        _characterManager = (CharacterManager)AssetDatabase.LoadAssetAtPath(_characterManagerPath, typeof(CharacterManager));
         if (!_characterManager)
             throw new Exception("no character manager exits at " +
-                                $"{_originPath}/[TEST]character manager. " +
+                                $"{_characterManagerPath}. " +
                                 "Please ensure the character manager has not been moved or deleted");
     }
 }
