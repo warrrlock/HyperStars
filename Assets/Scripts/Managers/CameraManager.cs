@@ -101,4 +101,33 @@ public class CameraManager : MonoBehaviour
         _camera = GetComponent<Camera>();
         _controller = GetComponent<CameraController>();
     }
+
+    /// <summary>
+    /// Triggers camera shake
+    /// </summary>
+    /// <param name="duration">how long it lasts</param>
+    /// <param name="magnitude">shake intensity, best to keep between 0 - 1</param>
+    /// <returns></returns>
+    public IEnumerator CameraShake(float duration, float magnitude)
+    {
+        Vector3 originPos = transform.localPosition;
+
+        var shakeElapsed = 0f;
+
+        while (shakeElapsed < duration)
+        {
+            var x = originPos.x + Random.Range(-1f, 1f) * magnitude;
+            var y = originPos.y + Random.Range(-1f, 1f) * magnitude;
+
+            transform.localPosition = new Vector3(x, y, originPos.z);
+            shakeElapsed += Time.deltaTime;
+
+            yield return null;
+        }
+    }
+
+    public IEnumerator CameraZoom(Vector3 zoomTarget, float zoomHold)
+    {
+        yield return null;
+    }
 }
