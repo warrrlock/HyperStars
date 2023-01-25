@@ -4,6 +4,9 @@ using UnityEngine;
 [Serializable]
 public class AttackInfo
 {
+    public enum AttackType {None, Light, Medium, Special}
+    public AttackType attackType = AttackType.None;
+
     public float knockbackDuration;
     public float knockbackDistance;
     public Vector3 knockbackDirection;
