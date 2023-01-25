@@ -21,15 +21,21 @@ public class FavorManager : MonoBehaviour
     private float _favor;
     private float _favorMultiplier = 1f;
     private int _favoredPlayer = -1;
-    //private float[] _peakFavors;
 
-    [SerializeField] private GameObject _favorMeter;
-    [SerializeField] private GameObject _favorMeterIndicator;
+    [SerializeField] private RectTransform _favorMeter;
+    [SerializeField] private RectTransform _favorMeterIndicator;
     [SerializeField] private TextMeshProUGUI _multiplierText;
     [SerializeField] private Canvas _multiplierTextCanvas;
     [SerializeField] private GameEvent _winConditionEvent;
-    [SerializeField] private FavourMeter _favourMeter;
-    
+
+
+
+    [SerializeField] private RectTransform _p1Bar;
+    [SerializeField] private RectTransform _p2Bar;
+
+    private float _barMinimum = 0f;
+    private float _barMaximum;
+
     private void Awake()
     {
         Services.FavorManager = this;
@@ -38,9 +44,9 @@ public class FavorManager : MonoBehaviour
     private void Start()
     {
         _favor = 0f;
-        _favourMeter.Initialize();
-        // UpdateFavorMeter();
-        //_peakFavors = new float[2];
+
+        _barMaximum = _p1Bar.rect.width;
+        UpdateFavorMeter();
     }
 
     //Attacks should have a cooldown time where they don't increase favor as much when used in succession.
@@ -54,7 +60,7 @@ public class FavorManager : MonoBehaviour
             if (Mathf.Abs(_favor + value) > _maxFavor)
             {
                 //player wins
-                Debug.Log("Player " + playerId + " wins.");
+                //Debug.Log("Player " + playerId + " wins.");
                 Dictionary<string, object> result = new Dictionary<string, object>()
                 {
                     {"winnerId", playerId}
@@ -95,8 +101,8 @@ public class FavorManager : MonoBehaviour
         //{
         //    _peakFavors[playerId] = _favor;
         //}
-        // UpdateFavorMeter();
-        _favourMeter.UpdateFavorMeter(playerId == 0, Math.Abs(value)/_maxFavor, _favorMultiplier);
+        UpdateFavorMeter();
+        //_favourMeter.UpdateFavorMeter(playerId == 0, Math.Abs(value)/_maxFavor, _favorMultiplier);
     }
 
     public IEnumerator CooldownFavor(ComboState attack, float duration)
@@ -112,23 +118,20 @@ public class FavorManager : MonoBehaviour
 
     private void UpdateFavorMeter()
     {
-        float indicatorX = Mathf.Lerp(_favorMeter.transform.position.x - _favorMeter.transform.localScale.x / 2f,
-            _favorMeter.transform.position.x + _favorMeter.transform.localScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
-        _favorMeterIndicator.transform.position = new Vector3(indicatorX, _favorMeterIndicator.transform.position.y, _favorMeterIndicator.transform.position.z);
+        _p1Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor - _maxFavor) / (_maxFavor * 2f)));
+        _p2Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor + _maxFavor) / (_maxFavor * 2f)));
+        float indicatorX = Mathf.Lerp(-_favorMeter.rect.width * _favorMeter.localScale.x / 2f,
+            _favorMeter.rect.width * _favorMeter.localScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
+        _favorMeterIndicator.anchoredPosition = new Vector3(indicatorX, 0f, 0f);
 
-        _multiplierText.text = "x" + _favorMultiplier;
-        _multiplierText.rectTransform.position = new Vector3(WorldToUISpace(_multiplierTextCanvas, new Vector3(indicatorX, 0f, 0f)).x, _multiplierText.transform.position.y, 0f);
+        if (_multiplierText)
+        {
+            _multiplierText.text = "x" + Math.Round(_favorMultiplier, 1);
+        }
     }
 
-    public Vector3 WorldToUISpace(Canvas parentCanvas, Vector3 worldPos)
+    private IEnumerator FlipIndicator()
     {
-        //Convert the world for screen point so that it can be used with ScreenPointToLocalPointInRectangle function
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-        Vector2 movePos;
-
-        //Convert the screenpoint to ui rectangle local point
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, screenPos, parentCanvas.worldCamera, out movePos);
-        //Convert the local point to world point
-        return parentCanvas.transform.TransformPoint(movePos);
+        yield break;
     }
 }

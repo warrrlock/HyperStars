@@ -32,6 +32,7 @@ public class InputManager : MonoBehaviour
         public IEnumerator queuePerform;
         public IEnumerator queueStop;
         public InputAction inputAction;
+        public Func<bool> enableCondition;
 
         public Action(string nam)
         {
@@ -39,11 +40,15 @@ public class InputManager : MonoBehaviour
 
             perform += IsPerformed;
             stop += IsntPerformed;
+
+
+            enableCondition = () => true;
         }
 
         public void Destroy()
         {
-
+            perform -= IsPerformed;
+            stop -= IsntPerformed;
         }
 
         private void IsPerformed(Action action)
@@ -104,21 +109,24 @@ public class InputManager : MonoBehaviour
             if (context.action.WasPerformedThisFrame())
             {
                 action.isBeingInput = true;
-                if (action.disabledCount == 0)
+                if (action.enableCondition())
                 {
-                    action.perform?.Invoke(action);
-                }
-                else if (action.disabledCount > 0)
-                {
-                    if (!action.isPerformQueued)
+                    if (action.disabledCount == 0)
                     {
-                        action.queuePerform = QueuePerform(action);
-                        StartCoroutine(action.queuePerform);
+                        action.perform?.Invoke(action);
                     }
-                }
-                else
-                {
-                    throw new System.Exception("Action's disabled count is less than 0.");
+                    else if (action.disabledCount > 0)
+                    {
+                        if (!action.isPerformQueued)
+                        {
+                            action.queuePerform = QueuePerform(action);
+                            StartCoroutine(action.queuePerform);
+                        }
+                    }
+                    else
+                    {
+                        throw new System.Exception("Action's disabled count is less than 0.");
+                    }
                 }
 
                 if (action.isStopQueued)
@@ -132,7 +140,7 @@ public class InputManager : MonoBehaviour
                 
                 if (action == Actions["Crouch"])
                 {
-                    Debug.Log($"{action.name} was released this frame");
+                    // Debug.Log($"{action.name} was released this frame");
                     action.stop?.Invoke(action);
                 }
                 if (action.disabledCount == 0)
@@ -140,6 +148,7 @@ public class InputManager : MonoBehaviour
                     //TODO: either find a better solution to this or change based off gamepad or keyboard because now on keyboard if you input move right after letting go you'll stop
                     if (action == Actions["Move"])
                     {
+                        //action.stop?.Invoke(action);
                         if (_playerInput.currentControlScheme == "Gamepad" && !_isAwaitingStop)
                         {
                             StartCoroutine(Stop(action));
@@ -292,11 +301,12 @@ public class InputManager : MonoBehaviour
     private IEnumerator QueuePerform(Action action)
     {
         action.isPerformQueued = true;
-        Debug.Log(action.disabledCount);
+        // Debug.Log(action.disabledCount);
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
+        //yield return new WaitForFixedUpdate();
         yield return new WaitUntil(() => action.disabledCount == 0);
-        Debug.Log("Invoking queued");
+        // Debug.Log("Invoking queued");
         action.perform?.Invoke(action);
         action.isPerformQueued = false;
         yield break;
@@ -320,6 +330,7 @@ public class InputManager : MonoBehaviour
     {
         _isAwaitingStop = true;
         StartCoroutine(Disable(() => !_isAwaitingStop, Actions[action.name]));
+        yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();

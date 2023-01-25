@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Parry
   m_EditorClassIdentifier: 
   _animationName: Parry
-  _transitions: []
+  _onInputPlayOrStopActions: []
+  _onInputInvokeActions: []
+  _transitions:
+  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   _defaultCombo: 0
   _attackInfo:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 0.8
+    hitStunDuration: 1.5
     damage: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -27,7 +30,16 @@ MonoBehaviour:
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
     hangTime: 0
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0.3
+  _isSpecial: 0
+  _specialBarCost: 0
+  _projectilePrefab: {fileID: 0}
   _animationHash: 504284770

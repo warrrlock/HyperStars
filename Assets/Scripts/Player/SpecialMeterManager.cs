@@ -22,7 +22,7 @@ public class SpecialMeterManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        UnsubscribeFromEvents();
+        // UnsubscribeFromEvents();
     }
 
     public void Initiate()
@@ -58,16 +58,18 @@ public class SpecialMeterManager : MonoBehaviour
     {
         try
         {
-            Fighter attacker = message["attacker"] as Fighter;
-            Fighter attacked = message["attacked"] as Fighter;
-            if (!attacker || !attacked) return;
-            IncrementBar(attacker == _fighter
-                ? attacker.BaseStateMachine.AttackInfo.incrementBarAmount
-                : attacked.BaseStateMachine.AttackInfo.incrementBarAmount);
+            AttackInfo attackInfo = message["attackInfo"] as AttackInfo;
+
+            if (attackInfo == null)
+            {
+                Debug.Log("needed information to [handle incrementing special bar] not found.");
+                return;
+            }
+            IncrementBar(attackInfo.incrementBarAmount);
         }
         catch (KeyNotFoundException)
         {
-            Debug.Log("keys attacker or attacked not found");
+            Debug.Log($"{name}: attack info not found");
         }
     }
 
@@ -81,6 +83,6 @@ public class SpecialMeterManager : MonoBehaviour
     {
         if (!_fighter) return;
         _fighter.Events.onAttackHit -= HandleIncrement;
-        _fighter.OpposingFighter.Events.onBlockHit -= HandleIncrement;
+        if (_fighter.OpposingFighter != null) _fighter.OpposingFighter.Events.onBlockHit -= HandleIncrement;
     }
 }

@@ -9,6 +9,7 @@ public class InAirState : BaseState
 {
     [SerializeField] private string _animationName;
     [SerializeField] private List<Transition> _transitions = new List<Transition>();
+    [SerializeField] private bool _alwaysExecute;
     
     [HideInInspector]
     [SerializeField] private int _animationHash;
@@ -32,8 +33,6 @@ public class InAirState : BaseState
     }
 
     public override void Execute(BaseStateMachine stateMachine, string inputName){
-        stateMachine.Fighter.OpposingFighter.ResetFighterHurtboxes();
-        
         if (stateMachine.PlayAnimation(_animationHash))
         {
             stateMachine.StartInAir();
@@ -42,7 +41,9 @@ public class InAirState : BaseState
         
         foreach (Transition transition in _transitions)
         {
-            transition.Execute(stateMachine, inputName);
+            if (_alwaysExecute)
+                transition.Execute(stateMachine, inputName);
+            else transition.Execute(stateMachine, inputName, stateMachine.CanCombo);
         }
     }
     

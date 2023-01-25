@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{1A57C00A-9060-4555-BAAD-701B20518292}" SchemaVersion="103" RootDocumentID="{2F98701D-CA08-4782-A029-89FF17E94E68}" ParentDocumentID="{2F98701D-CA08-4782-A029-89FF17E94E68}">
+	<Events>
+		<WorkUnit Name="RTPCValues" ID="{1A57C00A-9060-4555-BAAD-701B20518292}" OwnerID="{2F98701D-CA08-4782-A029-89FF17E94E68}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="Set_Game_Parameter_Intensity" ID="{63E8C9BB-E9BB-47C2-B0AF-8325ABA109F2}">
+					<ChildrenList>
+						<Action Name="" ID="{4B851A33-FBFD-43F7-9600-4102A5BF8F95}" ShortID="258118549">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="38"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Intensity" ID="{4ECC0CF7-B5A8-41B3-886D-748724CCAEF6}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Set_Switch_Verse" ID="{F27EBC10-E717-48CA-BD06-6E4A4F24F3C2}">
+					<ChildrenList>
+						<Action Name="" ID="{FDF2A963-B0F2-439E-976B-8FDE8DCC1650}" ShortID="836113472">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="23"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Verse" ID="{9F939646-4208-4A7C-BD73-5FCE8986E605}" WorkUnitID="{EB70ADD6-DA3B-4D15-A582-1B00ED14EED7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Set_Switch_Chorus" ID="{1AA74515-DA6A-466D-8546-F8008BAE3C1A}">
+					<ChildrenList>
+						<Action Name="" ID="{046B593C-D87C-4865-9506-C2BA4EEE9843}" ShortID="361160566">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="23"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Chorus" ID="{57285213-BE14-4349-9195-FA7F8ACC5D57}" WorkUnitID="{EB70ADD6-DA3B-4D15-A582-1B00ED14EED7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

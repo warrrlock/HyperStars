@@ -32,9 +32,11 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _dashForce;
     [SerializeField] private float _dashDistance;
     [SerializeField] private float _dashDuration;
+    [SerializeField] private float _dashHangTime;
     [SerializeField] private bool _dashToZero;
     [SerializeField] private float _dashCooldownDuration;
     [SerializeField] private ForceEasing _dashEasing;
+    [SerializeField] private float _dashMinimumOverlap;
 
     [Header("Collisions")]
     [Tooltip("What layer(s) should collisions be checked on?")]
@@ -54,7 +56,7 @@ public class MovementController : MonoBehaviour
     private PlayerInput _playerInput;
     private InputManager _inputManager;
 
-    private Vector3 _velocity;
+    private Vector3 _netVelocity;
     private Vector3 _unforcedVelocity;
     private float _maxJumpVelocity;
     private float _minJumpVelocity;
@@ -64,11 +66,19 @@ public class MovementController : MonoBehaviour
     private Vector2 _zAxisRaySpacing;
     private Vector3 _forceVelocity;
 
+    private float _sidestepForce = 10f;
+
     private bool _isWallBounceable = false;
     private float _wallBounceDistance;
     private float _wallBounceDuration;
     private Vector3 _wallBounceDirection;
     private float _wallBounceHitStopDuration;
+
+    private bool _isGroundBounceable = false;
+    private float _groundBounceDistance;
+    private float _groundBounceDuration;
+    private Vector3 _groundBounceDirection;
+    private float _groundBounceHitStopDuration;
 
     private bool _isAttacking;
     private bool _isGravityApplied = true;
@@ -97,6 +107,17 @@ public class MovementController : MonoBehaviour
     private Vector2 _horizontalVelocitySmoothing;
     private Vector2 _horizontalTargetVelocity;
     private Vector3 _cachedVelocity;
+
+    public bool IsGrounded
+    {
+        get => CollisionData.y.isNegativeHit;
+    }
+
+
+    [SerializeField] private PhysicsManager _physicsManager;
+
+    [SerializeField] private LayerMask _yMask;
+    [SerializeField] private LayerMask _xMask;
 
     private struct RaycastOrigins
     {
@@ -145,6 +166,10 @@ public class MovementController : MonoBehaviour
         _maxJumpVelocity = Mathf.Abs(_gravity) * _timeToJumpApex;
         _minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(_gravity) * _minJumpHeight);
 
+        AssignSpecialConditions();
+
+
+        //_dashForce = CalculateForceFromDistance(_dashDistance, _physicsManager.deceleration);
 
         switch (_dashEasing)
         {
@@ -192,6 +217,11 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    private void AssignSpecialConditions()
+    {
+        _inputManager. Actions["Jump"].enableCondition = () => _collisionData.y.isNegativeHit;
+    }
+
     private void FixedUpdate()
     {
         //float accelerationTime = _collisionData.y.isNegativeHit ? _accelerationTimeGrounded : _accelerationTimeAirborne;
@@ -222,8 +252,8 @@ public class MovementController : MonoBehaviour
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
         }
-        _velocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
-        Move(_velocity * Time.fixedDeltaTime);
+        _netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
+        Move(_netVelocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
             ResetVelocityY();
@@ -249,6 +279,11 @@ public class MovementController : MonoBehaviour
         //TODO: kill all the player's force when they land
     }
 
+    public void ResetValues()
+    {
+        StopMoving(null);
+    }
+
     public IEnumerator EnableWallBounce(float distance, float duration, Vector3 direction, float hitStopDuration)
     {
         _wallBounceDistance = distance;
@@ -259,6 +294,19 @@ public class MovementController : MonoBehaviour
         yield return new WaitUntil(() => _forceVelocity == Vector3.zero);
 
         _isWallBounceable = false;
+        yield break;
+    }
+
+    public IEnumerator EnableGroundBounce(float distance, float duration, Vector3 direction, float hitStopDuration)
+    {
+        _groundBounceDistance = distance;
+        _groundBounceDuration = duration;
+        _groundBounceDirection = direction;
+        _groundBounceHitStopDuration = hitStopDuration;
+        _isGroundBounceable = true;
+        yield return new WaitUntil(() => _forceVelocity == Vector3.zero);
+
+        _isGroundBounceable = false;
         yield break;
     }
 
@@ -287,6 +335,17 @@ public class MovementController : MonoBehaviour
 
         StartCoroutine(Juice.FreezeTime(_wallBounceHitStopDuration));
         _isWallBounceable = false; //TODO: instead, stop EnableWallBounce coroutine
+        StartCoroutine(ApplyForce(direction, magnitude, duration));
+        yield break;
+    }
+
+    private IEnumerator GroundBounce(Vector3 direction, float magnitude, float duration)
+    {
+        _fighter.Events.groundBounce?.Invoke();
+        yield return null;
+
+        StartCoroutine(Juice.FreezeTime(_groundBounceHitStopDuration));
+        _isGroundBounceable = false; //TODO: instead, stop EnableGroundBounce coroutine
         StartCoroutine(ApplyForce(direction, magnitude, duration));
         yield break;
     }
@@ -339,6 +398,21 @@ public class MovementController : MonoBehaviour
                     direction.z *= -1f;
                 }
             }
+            if (_isGroundBounceable)
+            {
+                if (_collisionData.y.isNegativeHit)
+                {
+                    ResetVelocityY();
+                    if (_groundBounceDistance != 0f)
+                    {
+                        Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _groundBounceDirection : new Vector3(-_groundBounceDirection.x, _groundBounceDirection.y, _groundBounceDirection.z);
+                        float bounceMagnitude = (_groundBounceDistance * 2f) / (_groundBounceDuration + Time.fixedDeltaTime);
+                        StartCoroutine(GroundBounce(bounceDirection, bounceMagnitude, _groundBounceDuration));
+                        yield break;
+                    }
+                    direction.y *= -1f;
+                }
+            }
             float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
             Vector3 force = direction * forceMagnitude;
             _forceVelocity += force;
@@ -363,13 +437,88 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
+    //private float CalculateDecelerationDuration(float forceMagnitude, float deceleration)
+    //{
+    //    int i = 0;
+    //    float totalDecelerationForce = 0f;
+    //    float timeStep = Time.fixedDeltaTime;
+    //    while (totalDecelerationForce < forceMagnitude)
+    //    {
+    //        totalDecelerationForce += deceleration * i * i;
+    //        i++;
+    //    }
+    //    i++;
+    //    return timeStep * i;
+    //}
+
+    //private int CalculateDecelerationStepCount(float forceMagnitude, float deceleration)
+    //{
+    //    int i = 0;
+    //    float totalDecelerationForce = 0f;
+    //    while (totalDecelerationForce < forceMagnitude)
+    //    {
+    //        totalDecelerationForce += deceleration * i * i;
+    //        i++;
+    //    }
+    //    i++;
+    //    return i;
+    //}
+
+    //private float CalculateForceDistance(float magnitude, float deceleration, int stepCount)
+    //{
+    //    float distance = 0f;
+    //    float forceMagnitude = magnitude;
+    //    for (int i = 0; i < stepCount; i++)
+    //    {
+    //        distance += forceMagnitude;
+    //        forceMagnitude -= deceleration * i * i;
+    //    }
+    //    return distance;
+    //}
+
+    struct Force
+    {
+        public float magnitude;
+        public float distance;
+        public float duration;
+        public float deceleration;
+        public Vector3 direction;
+    }
+
+    private float CalculateForceFromDistance(float distance, float deceleration)
+    {
+        int i = 0;
+        float totalDistance = 0f;
+        //float timeStep = Time.fixedDeltaTime;
+        while (totalDistance < distance)
+        {
+            i++;
+            float decelerationI = deceleration * i * Time.fixedDeltaTime;
+            totalDistance += decelerationI * decelerationI * decelerationI;
+        }
+        float distanceOffset = Mathf.Pow(totalDistance - distance, 1f / (float)i);
+        float startValue = 0f;
+        for (int j = 1; j < i + 1; j++)
+        {
+            float decelerationI = deceleration * j * Time.fixedDeltaTime;
+            startValue += decelerationI * decelerationI;
+        }
+        Debug.Log(i);
+        startValue -= distanceOffset;
+        return startValue;
+    }
+
     public IEnumerator ApplyForcePolar(Vector3 direction, float magnitude)
     {
         direction.Normalize();
-        float acceleration = magnitude / _mass;
+        //magnitude /= _mass;
+        //float acceleration = magnitude / _mass;
+        //float acceleration = _physicsManager.deceleration * Time.fixedDeltaTime;
+        float acceleration = _physicsManager.deceleration;
         float deceleration = 0f;
         float forceMagnitude = magnitude;
         float initialMagnitude = magnitude;
+        int i = 0;
         while (forceMagnitude > 0f)
         {
             if (_isWallBounceable)
@@ -386,26 +535,17 @@ public class MovementController : MonoBehaviour
                     }
                     direction.x *= -1f;
                 }
-                if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
-                {
-                    ResetVelocityY();
-                    if (_wallBounceDistance != 0f)
-                    {
-                        Vector3 bounceDirection = Mathf.Sign(direction.z) == 1f ? _wallBounceDirection : new Vector3(_wallBounceDirection.x, _wallBounceDirection.y, -_wallBounceDirection.z);
-                        float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
-                        StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
-                        yield break;
-                    }
-                    direction.z *= -1f;
-                }
             }
             Vector3 force = direction * forceMagnitude;
             _forceVelocity += force;
+            i++;
             yield return new WaitForFixedUpdate();
 
             _forceVelocity -= force;
-            deceleration += acceleration * Time.fixedDeltaTime;
-            forceMagnitude = initialMagnitude - deceleration;
+            float accelerationI = acceleration * i * Time.fixedDeltaTime;
+            deceleration = accelerationI * accelerationI;
+            //forceMagnitude = initialMagnitude - deceleration;
+            forceMagnitude -= deceleration;
         }
 
         if (!_inputManager.Actions["Move"].isBeingPerformed)
@@ -429,6 +569,8 @@ public class MovementController : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         BoxCollider = GetComponent<BoxCollider>();
         _inputManager = GetComponent<InputManager>();
+        //_yMask = _collisionMask;
+        //_xMask = _collisionMask;
     }
 
     private void SubscribeActions()
@@ -522,6 +664,7 @@ public class MovementController : MonoBehaviour
         Vector3 iDirection;
         Vector3 jDirection;
         Vector3 rayDirection;
+        LayerMask collisionMask;
 
         //assign fields based on axis
         switch (axis)
@@ -535,6 +678,7 @@ public class MovementController : MonoBehaviour
                 jDirection = Vector3.forward;
                 rayDirection = Vector3.right;
                 collisionAxis = _collisionData.x;
+                collisionMask = _xMask;
                 break;
             case Axis.z:
                 axisVelocity = velocity.z;
@@ -546,6 +690,7 @@ public class MovementController : MonoBehaviour
                 jDirection = Vector3.right;
                 rayDirection = Vector3.forward;
                 collisionAxis = _collisionData.z;
+                collisionMask = _xMask;
                 break;
             case Axis.y:
                 axisVelocity = velocity.y;
@@ -558,6 +703,7 @@ public class MovementController : MonoBehaviour
                 jDirection = Vector3.right;
                 rayDirection = Vector3.up;
                 collisionAxis = _collisionData.y;
+                collisionMask = _yMask;
                 break;
             default:
                 throw new System.Exception("Invalid axis provided.");
@@ -583,11 +729,11 @@ public class MovementController : MonoBehaviour
 
         float rayLength = Mathf.Abs(axisVelocity) + _skinWidth;
 
-        if (axis == Axis.y)
-        {
-            //_collisionMask.RemoveLayers(9);
-            RemoveCollisionLayer(9);
-        }
+        //if (axis == Axis.y)
+        //{
+        //    //_collisionMask.RemoveLayers(9);
+        //    RemoveCollisionLayer(9);
+        //}
 
         for (int i = 0; i < rayCount; i++)
         {
@@ -596,7 +742,7 @@ public class MovementController : MonoBehaviour
                 Vector3 rayOrigin = axisDirection == -1f ? originAxis.negative : originAxis.positive;
                 rayOrigin += iDirection * (raySpacing.y * i + iOffset) + jDirection * (raySpacing.x * j + jOffset);
 
-                if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit hit, rayLength, _collisionMask))
+                if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit hit, rayLength, collisionMask))
                 {
                     switch (axis)
                     {
@@ -635,11 +781,11 @@ public class MovementController : MonoBehaviour
             }
         }
 
-        if (axis == Axis.y)
-        {
-            //_collisionMask.AddLayers(9);
-            AddCollisionLayer(9);
-        }
+        //if (axis == Axis.y)
+        //{
+        //    //_collisionMask.AddLayers(9);
+        //    //AddCollisionLayer(9);
+        //}
     }
 
     public IEnumerator ResolveOverlap()
@@ -668,7 +814,6 @@ public class MovementController : MonoBehaviour
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
         inputVector *= _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
-        //_unforcedVelocity.z = inputVector.y;
     }
 
     private void StopMoving(InputManager.Action action)
@@ -690,10 +835,11 @@ public class MovementController : MonoBehaviour
     private void Dash(InputManager.Action action)
     {
         //TODO: end the dash if player hits an obstacle
+        Vector3 dashDirection = Vector3.zero;
         if (_inputManager.Actions["Move"].isBeingInput)
         {
-        Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
-            StartCoroutine(ApplyForce(new Vector3(inputVector.x, 0f, 0f), _dashForce, _dashDuration, _dashEasing));
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+            dashDirection = new Vector3(inputVector.x, 0f, 0f);
             if (_dashToZero)
             {
                 _unforcedVelocity.x = 0f;
@@ -702,11 +848,14 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ApplyForce(_fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right, _dashForce, _dashDuration, _dashEasing));
+            dashDirection = _fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right;
+            MovingDirection = dashDirection == Vector3.left ? Fighter.Direction.Left : Fighter.Direction.Right;
         }
+        StartCoroutine(ApplyForce(dashDirection, _dashForce, _dashDuration, _dashEasing));
+        //StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
         if (!CollisionData.y.isNegativeHit)
         {
-            StartCoroutine(DisableGravity(_dashDuration));
+            StartCoroutine(DisableGravity(_dashHangTime));
             ResetVelocityY();
         }
         StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"], _inputManager.Actions["Dash"]));
@@ -714,9 +863,19 @@ public class MovementController : MonoBehaviour
         {
             if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
             {
-                if(transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
+                if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
                 {
-                    StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
+                    //RemoveCollisionLayer(ref _xMask, 9);
+                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                }
+                else if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _dashMinimumOverlap)
+                {
+                    //RemoveCollisionLayer(ref _xMask, 9);
+                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                    //if (!_isResolvingOverlap)
+                    //{
+                    //    StartCoroutine(ResolveOverlap());
+                    //}
                 }
             }
         }
@@ -726,21 +885,50 @@ public class MovementController : MonoBehaviour
             {
                 if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
                 {
-                    StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
+                    //RemoveCollisionLayer(ref _xMask, 9);
+                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                }
+                else if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _dashMinimumOverlap)
+                {
+                    //RemoveCollisionLayer(ref _xMask, 9);
+                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                    //if (!_isResolvingOverlap)
+                    //{
+                    //    StartCoroutine(ResolveOverlap());
+                    //}
                 }
             }
         }
+        //if (_fighter.FacingDirection == Fighter.Direction.Right)
+        //{
+        //    if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+        //    {
+        //        if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _dashMinimumOverlap)
+        //        {
+        //            StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
+        //            RemoveCollisionLayer(9);
+        //        }
+        //    }
+        //}
+        //if (_fighter.FacingDirection == Fighter.Direction.Left)
+        //{
+        //    if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
+        //    {
+        //        if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _dashMinimumOverlap)
+        //        {
+        //            StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
+        //            RemoveCollisionLayer(9);
+        //        }
+        //    }
+        //}
         StartCoroutine(Dash(action, _dashDuration));
     }
 
     private void Jump(InputManager.Action action)
     {
-        if (_collisionData.y.isNegativeHit)
-        {
-            _isJumping = true;
-            _unforcedVelocity.y = _maxJumpVelocity;
-            StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Move"]));
-        }
+        _isJumping = true;
+        _unforcedVelocity.y = _maxJumpVelocity;
+        StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Jump"], _inputManager.Actions["Move"]));
     }
 
     private void StopJumping(InputManager.Action action)
@@ -753,36 +941,24 @@ public class MovementController : MonoBehaviour
 
     private void Sidestep(InputManager.Action action)
     {
+        Debug.Log(_inputManager.Actions["Sidestep"].inputAction.ReadValue<float>());
         //_fighter.invulnerabilityCount++;
-        //Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() == 1 ? Vector3.forward : Vector3.back;
+        Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() == 1f ? Vector3.forward : Vector3.back;
         //StartCoroutine(ApplyForce(inputVector, _sidestepForce, _sidestepDuration, _dashEasing));
         //StartCoroutine(_inputManager.Disable(_sidestepDuration, _inputManager.Actions["Sidestep"]));
-
-
-
-        //StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
-        //float angle = action.inputAction.ReadValue<float>() == 1 ? -_sidestepAngle : _sidestepAngle;
-        //angle = transform.position.x > 0 ? angle : -angle;
-        //StartCoroutine(Sidestep(angle, _sidestepDuration));
+        StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
+        StartCoroutine(Sidestep(inputVector, _sidestepDuration));
 
     }
 
-    private IEnumerator Sidestep(float angle, float duration)
+    private IEnumerator Sidestep(Vector3 direction, float duration)
     {
-        //_fighter.invulnerabilityCount++;
-        //Vector3 rotation = new Vector3(0f, angle, 0f);
-        //RotationalPivot.eulerAngles += rotation;
-        //yield return new WaitForSeconds(duration);
+        _fighter.invulnerabilityCount++;
+        StartCoroutine(ApplyForce(direction, _sidestepForce, _sidestepDuration, _dashEasing));
+        yield return new WaitForSeconds(duration);
 
-        //StartCoroutine(_fighter.OpposingFighter.MovementController.SidestepResponse(rotation));
-        //Services.CameraManager.RotateCamera(rotation);
-        //_fighter.invulnerabilityCount--;
-        yield break;
-    }
-
-    public IEnumerator SidestepResponse(Vector3 rotation)
-    {
-        //RotationalPivot.eulerAngles += rotation;
+        StartCoroutine(ApplyForce(-direction, _sidestepForce, _sidestepDuration, _dashEasing));
+        _fighter.invulnerabilityCount--;
         yield break;
     }
 
@@ -790,14 +966,15 @@ public class MovementController : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         _inputManager.Actions["Dash"].finish?.Invoke(action);
-        //StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
+        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
         yield break;
     }
     
     public void EnableAttackStop()
     {
         _isAttacking = true;
-        //_inputManager.StopMove();
+        StopMoving(null);
+        
         InputManager.Action[] actions =
         {
             _inputManager.Actions["Move"], 
@@ -821,22 +998,22 @@ public class MovementController : MonoBehaviour
     //    yield break;
     //}
 
-    private IEnumerator DisableCollisionLayers(float duration, int layer)
+    private IEnumerator DisableXCollisionLayers(float duration, int layer)
     {
-        _collisionMask &= ~(1 << layer);
+        RemoveCollisionLayer(ref _xMask, layer);
         yield return new WaitForSeconds(duration);
 
-        _collisionMask |= (1 << layer);
+        AddCollisionLayer(ref _xMask, layer);
         yield break;
     }
 
-    private void RemoveCollisionLayer(int layer)
+    private void RemoveCollisionLayer(ref LayerMask layerMask, int layer)
     {
-        _collisionMask &= ~(1 << layer);
+        layerMask &= ~(1 << layer);
     }
 
-    private void AddCollisionLayer(int layer)
+    private void AddCollisionLayer(ref LayerMask layerMask, int layer)
     {
-        _collisionMask |= (1 << layer);
+        layerMask |= (1 << layer);
     }
 }

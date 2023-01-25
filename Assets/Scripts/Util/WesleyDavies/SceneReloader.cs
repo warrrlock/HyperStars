@@ -12,6 +12,7 @@ public class SceneReloader : MonoBehaviour
     public static SceneReloader Instance;
     public delegate void SceneLoaded();
     public static SceneLoaded OnSceneLoaded;
+    public Action onSceneReload;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class SceneReloader : MonoBehaviour
 
     public void ReloadScene(InputManager.Action action = default)
     {
+        onSceneReload?.Invoke();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
