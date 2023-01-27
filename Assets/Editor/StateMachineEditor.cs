@@ -187,6 +187,14 @@ public class StateMachineEditor : EditorWindow
                     n = AddNodeForExistingState(trueState);
                     _states.Add(trueState, n);
                 }
+
+                if (!transition.positionDictionary.ContainsKey(state))
+                {
+                    Debug.Log($"adding {state.name} to {transition.name}'s dictionary");
+                    transition.positionDictionary.Add(state, Vector2.zero);
+                    EditorUtility.SetDirty(transition);
+                }
+                
                 CreateTransitionNode(_states[state].OutPoint, _states[trueState].InPoint, transition, false);
                 _transitions.TryAdd(trueState, transition);
             }
@@ -234,11 +242,12 @@ public class StateMachineEditor : EditorWindow
     
     private void DrawComponents()
     {
+        DrawStateNodes(_filteredStateNodes);
+        DrawTransitionNodes(_filteredTransitionNodes);
+        
         DrawTabs();
         DrawFilterDropdown();
         DrawActionFinder();
-        DrawStateNodes(_filteredStateNodes);
-        DrawTransitionNodes(_filteredTransitionNodes);
     }
 
     private void DrawTabs()
@@ -335,6 +344,7 @@ public class StateMachineEditor : EditorWindow
                     GUI.changed = true;
             }
         }
+        
         if (_filteredStateNodes != null)
         {
             for (int i = _filteredStateNodes.Count - 1; i >= 0; i--)
@@ -351,7 +361,6 @@ public class StateMachineEditor : EditorWindow
         {
             case EventType.MouseDown:
                 Selection.objects = null;
-                ClearSelectionExceptState(null);
                 break;
             case EventType.MouseUp:
                 if (e.button == 1)
@@ -370,6 +379,23 @@ public class StateMachineEditor : EditorWindow
         {
             for (int i = 0; i < _stateNodes.Count; i++)
                 _stateNodes[i].Drag(delta);
+        }
+
+        GUI.changed = true;
+    }
+    
+    public void DragNodes(Event e, Vector2 delta)
+    {
+        e.Use();
+        if (Selection.count > 0)
+        {
+            foreach (var o in Selection.objects)
+            {
+                var state = (BaseState)o;
+                if (!state) continue;
+                _states.TryGetValue(state, out StateNode node);
+                node?.Drag(delta);
+            }
         }
 
         GUI.changed = true;
@@ -506,25 +532,16 @@ public class StateMachineEditor : EditorWindow
         state = transitionNode.OutPoint.Node;
         state.BaseState.DeleteTransition(transitionNode.Transition);
         state.RemoveTransitionNode(transitionNode);
+        transitionNode.Transition.positionDictionary.Remove(state.BaseState);
         //to
         state = transitionNode.InPoint.Node;
         state.RemoveTransitionNode(transitionNode);
 
         _filteredTransitionNodes.Remove(transitionNode);
     }
-
-    public void ClearSelectionExceptState(StateNode node)
-    {
-        foreach (StateNode n in _stateNodes)
-            if (n != node) n?.Deselect();
-        foreach (TransitionNode n in _transitionNodes)
-            n?.Deselect();
-    }
     
     public void ClearSelectionExceptTransition(TransitionNode node)
     {
-        foreach (StateNode n in _stateNodes)
-            n?.Deselect();
         foreach (TransitionNode n in _transitionNodes)
             if (n != node) n?.Deselect();
         
