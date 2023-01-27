@@ -58,6 +58,7 @@ public class VFXSpawnManager : MonoBehaviour
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver));
             // camera shake <temp>
             StartCoroutine(Camera.main.GetComponent<CameraManager>().CameraShake(.2f, .09f));
+            StartCoroutine(Camera.main.GetComponent<CameraManager>().CameraZoom(hitPos, .08f, 20f, .4f));
         }
         catch (KeyNotFoundException)
         {
