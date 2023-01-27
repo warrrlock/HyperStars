@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using FiniteStateMachine;
 
 namespace FiniteStateMachine
 {
@@ -9,8 +8,8 @@ namespace FiniteStateMachine
     public class State: BaseState
     {
         // ========== variables ========== //
-        [SerializeField] private List<StateAction> _actions = new List<StateAction>();
-        [SerializeField] private List<Transition> _transitions = new List<Transition>();
+        [FsmList(typeof(StateAction))] [SerializeField] private List<StateAction> _actions = new List<StateAction>();
+        [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
         
         // ==========  methods ========== //
         public void OnEnable()
@@ -59,5 +58,4 @@ namespace FiniteStateMachine
             }
         }
     }
-    
 }

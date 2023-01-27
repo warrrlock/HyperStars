@@ -8,7 +8,7 @@ using UnityEngine;
 public class InAirState : BaseState
 {
     [SerializeField] private string _animationName;
-    [SerializeField] private List<Transition> _transitions = new List<Transition>();
+    [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
     [SerializeField] private bool _alwaysExecute;
     
     [HideInInspector]

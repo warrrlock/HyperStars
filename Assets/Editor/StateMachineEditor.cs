@@ -212,8 +212,14 @@ public class StateMachineEditor : EditorWindow
         _filteredStateNodes = _stateNodes;
         _filteredTransitionNodes = _transitionNodes;
     }
-    
+
     private void FilterNodes()
+    {
+        if (_filterByUnion) FilterNodesUnion();
+        else FilterNodesIntersection();
+    }
+    
+    private void FilterNodesUnion()
     {
         HashSet<StateNode> stateNodes = new HashSet<StateNode>();
         HashSet<TransitionNode> transitionNodes = new HashSet<TransitionNode>();
@@ -227,6 +233,35 @@ public class StateMachineEditor : EditorWindow
                     if (stateNodes.Contains(tNode.InPoint.Node) && stateNodes.Contains(tNode.OutPoint.Node)) transitionNodes.Add(tNode);
             }
         }
+
+        _filteredStateNodes = stateNodes.ToList();
+        _filteredTransitionNodes = transitionNodes.ToList();
+        Repaint();
+    }
+    
+    private void FilterNodesIntersection()
+    {
+        HashSet<StateNode> stateNodes = new HashSet<StateNode>();
+        HashSet<TransitionNode> transitionNodes = new HashSet<TransitionNode>();
+
+        foreach (var sNode in _stateNodes)
+        {
+            bool addNode = true;
+            foreach (FSMFilter filter in _selectedFilters)
+            {
+                if (!sNode.ContainsFilter(filter))
+                {
+                    addNode = false;
+                    break;
+                }
+            }
+
+            if (!addNode) continue;
+            stateNodes.Add(sNode);
+            foreach (var tNode in sNode.TransitionNodes)
+                if (stateNodes.Contains(tNode.InPoint.Node) && stateNodes.Contains(tNode.OutPoint.Node)) transitionNodes.Add(tNode);
+        }
+        
 
         _filteredStateNodes = stateNodes.ToList();
         _filteredTransitionNodes = transitionNodes.ToList();
@@ -260,7 +295,8 @@ public class StateMachineEditor : EditorWindow
             Repaint();
         }
     }
-    
+
+    private bool _filterByUnion;
     private void DrawFilterDropdown()
     {
         EditorGUILayout.BeginHorizontal();
@@ -269,6 +305,11 @@ public class StateMachineEditor : EditorWindow
             PopupWindow.Show(_filterDropdownRect, CreateFilterDropdown());
         }
         if (Event.current.type == EventType.Repaint) _filterDropdownRect = GUILayoutUtility.GetLastRect();
+        if (GUILayout.Button($"{(_filterByUnion ? "intersect" : "union")}", EditorStyles.miniButton, GUILayout.Width(100)))
+        {
+            _filterByUnion = !_filterByUnion;
+            FilterNodes();
+        }
         if (GUILayout.Button("clear", EditorStyles.miniButton, GUILayout.Width(50)))
             ClearFilters();
         EditorGUILayout.EndHorizontal();
@@ -720,7 +761,6 @@ public class StateMachineEditor : EditorWindow
     private StateAction CreateStateActionAsset(string assetName, Type type)
     {
         StateAction action = ScriptableObject.CreateInstance(type) as StateAction;
-        action.character = _characterSelection;
 
         string ending = $"{assetName}.asset";
         string path = AssetDatabase.GenerateUniqueAssetPath($"{_characterPath}/actions/{ending}");
@@ -732,7 +772,7 @@ public class StateMachineEditor : EditorWindow
     private BaseState CreateStateAsset<T>(string assetName) where T : BaseState
     {
         BaseState state = ScriptableObject.CreateInstance<T>();
-        state.character = _characterSelection;
+        state.characterSelection = _characterSelection;
 
         string ending = $"{assetName}.asset";
         string path = AssetDatabase.GenerateUniqueAssetPath($"{_characterPath}/unfiltered/{ending}");

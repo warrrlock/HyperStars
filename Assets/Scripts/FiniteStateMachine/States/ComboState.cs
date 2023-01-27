@@ -11,9 +11,9 @@ namespace FiniteStateMachine
     public class ComboState: BaseState
     {
         [SerializeField] private string _animationName;
-        [FormerlySerializedAs("_inputStopActions")] [SerializeField] private List<StateAction> _onInputPlayOrStopActions = new List<StateAction>();
-        [SerializeField] private List<StateAction> _onInputInvokeActions = new List<StateAction>();
-        [SerializeField] private List<Transition> _transitions = new List<Transition>();
+        [FsmList(typeof(StateAction))] [FormerlySerializedAs("_inputStopActions")] [SerializeField] private List<StateAction> _onInputPlayOrStopActions = new List<StateAction>();
+        [FsmList(typeof(StateAction))] [SerializeField] private List<StateAction> _onInputInvokeActions = new List<StateAction>();
+        [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
         [Tooltip("If you would like the animation to start with the combo option as true. Otherwise, set to false.")]
         [SerializeField] private bool _defaultCombo = true;
         

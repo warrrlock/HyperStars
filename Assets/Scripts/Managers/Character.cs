@@ -20,6 +20,7 @@ namespace Managers
         
         private string _originPath = "Assets/Scriptable Objects/State Machine";
         [HideInInspector][SerializeField]private string _characterPath = "";
+        public string CharacterPath => _characterPath;
         
         public void OnEnable()
         {
