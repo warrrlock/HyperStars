@@ -578,6 +578,8 @@ public class MovementController : MonoBehaviour
         _inputManager.Actions["Move"].perform += StartMoving;
         _inputManager.Actions["Move"].stop += StopMoving;
         _inputManager.Actions["Dash"].perform += Dash;
+        _inputManager.Actions["Dash Left"].perform += DashLeft;
+        _inputManager.Actions["Dash Right"].perform += DashRight;
         _inputManager.Actions["Jump"].perform += Jump;
         _inputManager.Actions["Jump"].stop += StopJumping;
         _inputManager.Actions["Sidestep"].perform += Sidestep;
@@ -588,6 +590,8 @@ public class MovementController : MonoBehaviour
         _inputManager.Actions["Move"].perform -= StartMoving;
         _inputManager.Actions["Move"].stop -= StopMoving;
         _inputManager.Actions["Dash"].perform -= Dash;
+        _inputManager.Actions["Dash Left"].perform -= DashLeft;
+        _inputManager.Actions["Dash Right"].perform -= DashRight;
         _inputManager.Actions["Jump"].perform -= Jump;
         _inputManager.Actions["Jump"].stop -= StopJumping;
         _inputManager.Actions["Sidestep"].perform -= Sidestep;
@@ -832,25 +836,44 @@ public class MovementController : MonoBehaviour
         StartCoroutine(ApplyForce(direction, magnitude, duration));
     }
 
+    private Vector3 _dashDirection = Vector2.zero;
+
     private void Dash(InputManager.Action action)
     {
         //TODO: end the dash if player hits an obstacle
+        //IF PLAYER USES BUTTON
         Vector3 dashDirection = Vector3.zero;
-        if (_inputManager.Actions["Move"].isBeingInput)
+        if (_dashDirection != Vector3.zero)
         {
-            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
-            dashDirection = new Vector3(inputVector.x, 0f, 0f);
-            if (_dashToZero)
-            {
-                _unforcedVelocity.x = 0f;
-                _unforcedVelocity.z = 0f;
-            }
+            dashDirection = _dashDirection;
+            _dashDirection = Vector3.zero;
         }
         else
         {
-            dashDirection = _fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right;
-            MovingDirection = dashDirection == Vector3.left ? Fighter.Direction.Left : Fighter.Direction.Right;
+            if (_inputManager.Actions["Move"].isBeingInput)
+            {
+                Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+                dashDirection = new Vector3(inputVector.x, 0f, 0f);
+                if (_dashToZero)
+                {
+                    _unforcedVelocity.x = 0f;
+                    _unforcedVelocity.z = 0f;
+                }
+            }
+            else
+            {
+                dashDirection = _fighter.FacingDirection == Fighter.Direction.Left ? Vector3.left : Vector3.right;
+                MovingDirection = dashDirection == Vector3.left ? Fighter.Direction.Left : Fighter.Direction.Right;
+            }
         }
+        //Debug.Log(action.inputAction.ReadValue<float>());
+        //Vector3 dashDirection = _inputManager.Actions["Dash"].inputAction.ReadValue<float>() < 0 ? Vector2.left : Vector2.right;
+        //MovingDirection = dashDirection == Vector3.left ? Fighter.Direction.Left : Fighter.Direction.Right;
+        //if (_dashToZero)
+        //{
+        //    _unforcedVelocity.x = 0f;
+        //    _unforcedVelocity.z = 0f;
+        //}
         StartCoroutine(ApplyForce(dashDirection, _dashForce, _dashDuration, _dashEasing));
         //StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
         if (!CollisionData.y.isNegativeHit)
@@ -922,6 +945,20 @@ public class MovementController : MonoBehaviour
         //    }
         //}
         StartCoroutine(Dash(action, _dashDuration));
+    }
+
+    private void DashLeft(InputManager.Action action)
+    {
+        _dashDirection = Vector3.left;
+        MovingDirection = Fighter.Direction.Left;
+        _inputManager.Actions["Dash"].perform?.Invoke(action);
+    }
+
+    private void DashRight(InputManager.Action action)
+    {
+        _dashDirection = Vector3.right;
+        MovingDirection = Fighter.Direction.Right;
+        _inputManager.Actions["Dash"].perform?.Invoke(action);
     }
 
     private void Jump(InputManager.Action action)
