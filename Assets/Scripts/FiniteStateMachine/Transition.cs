@@ -24,7 +24,11 @@ namespace FiniteStateMachine
                  "and false State otherwise.")]
         [SerializeField] private FalseState _falseState;
         private BaseState _customFalseState;
-
+        public BaseState TrueState
+        {
+            get => _trueState;
+            set => _trueState = value;
+        }
         
         /// <summary>
         /// Queues the next state (true state if successful combo and false otherwise),
@@ -110,6 +114,10 @@ namespace FiniteStateMachine
                                     _inputActionName2.Equals(inputName, StringComparison.OrdinalIgnoreCase));
             return decision;
         }
+        
+        
+        //editor stuff
+        [HideInInspector][SerializeField] public Vector2 NodePosition = Vector2.zero;
         
         #region Editor
 #if UNITY_EDITOR
