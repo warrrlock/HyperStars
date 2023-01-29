@@ -9,34 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
-  m_Name: Jump
+  m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
+  m_Name: Grounded Medium
   m_EditorClassIdentifier: 
   NodeInfo:
     rect:
       serializedVersion: 2
-      x: -156
-      y: 137
+      x: 225
+      y: 263
       width: 150
       height: 50
-  _filters:
-  - filterName: air
-    color: {r: 1, g: 1, b: 1, a: 1}
-    focus: 0
-    edit: 0
-  - filterName: movement
-    color: {r: 0.47830978, g: 0.8207547, b: 0.46070668, a: 1}
-    focus: 0
-    edit: 0
-  characterSelection: 1
-  _animationName: Jump
+  _filters: []
+  characterSelection: 2
+  _animationName: Grounded Medium
+  _onInputPlayOrStopActions: []
+  _onInputInvokeActions: []
   _transitions:
-  - {fileID: 11400000, guid: cc00d7a7fb9dce3439d9fd08e27a26c1, type: 2}
-  - {fileID: 11400000, guid: f82e37ee0e505e7419137dd1c8e9c62c, type: 2}
-  - {fileID: 11400000, guid: cd6f2fc49e7685e48ae14ca94e31fee4, type: 2}
-  - {fileID: 11400000, guid: 20123a6ae7c3b1240b53dd59e0cde9ba, type: 2}
-  _alwaysExecute: 1
-  _animationHash: 125937960
+  - {fileID: 11400000, guid: e727b62ca81b0154ea07754e32adcf21, type: 2}
+  _defaultCombo: 1
   _attackInfo:
     knockbackDuration: 0
     knockbackDistance: 0
@@ -60,3 +50,5 @@ MonoBehaviour:
     incrementBarAmount: 0
   _isSpecial: 0
   _specialBarCost: 0
+  _projectilePrefab: {fileID: 0}
+  _animationHash: 1058624199

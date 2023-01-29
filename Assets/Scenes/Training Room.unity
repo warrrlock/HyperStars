@@ -316,7 +316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1727585859560439403, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1114,7 +1114,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &534677147
 GameObject:
@@ -2643,7 +2643,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 535252083858095251, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1059820851909154856, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
       propertyPath: m_LocalScale.x
@@ -3343,7 +3343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stateInfoText: {fileID: 2140118225}
-  _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
+  _initialState: {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
   _jumpState: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
   _noEndEventClips:
   - {fileID: 7400000, guid: 238dbacff5646c64ca7becf136e5bd33, type: 2}
@@ -5150,6 +5150,11 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &3747411655794713469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5765926104683114581, guid: ba91f1d23b10a3b4ebdcc1b0bf81be9c, type: 3}
+  m_PrefabInstance: {fileID: 7207400106734424872}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &3956027391488024698
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5195,6 +5200,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &5368054316626760603
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3747411655794713469}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 49.999996, y: 49.999996, z: 0.19999999}
+  m_Center: {x: 0, y: 24.999998, z: 0}
 --- !u!114 &5437623320630823706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5731,7 +5749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stateInfoText: {fileID: 2140118225}
-  _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
+  _initialState: {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
   _jumpState: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
   _noEndEventClips:
   - {fileID: 7400000, guid: 238dbacff5646c64ca7becf136e5bd33, type: 2}
@@ -6006,7 +6024,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: BLUK Special Projectile
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5744159925996440137, guid: ba91f1d23b10a3b4ebdcc1b0bf81be9c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ba91f1d23b10a3b4ebdcc1b0bf81be9c, type: 3}
 --- !u!114 &7411884658790323602
 MonoBehaviour:
