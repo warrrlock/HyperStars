@@ -471,7 +471,7 @@ public class StateMachineEditor : EditorWindow
     private void ProcessContextMenu(Vector2 mousePosition)
     {
         GenericMenu genericMenu = new GenericMenu();
-        genericMenu.AddItem(new GUIContent("Add node"), false, () => OnClickAddStateNode(mousePosition));
+        genericMenu.AddItem(new GUIContent("Add state"), false, () => OnClickAddStateNode(mousePosition));
         genericMenu.AddItem(new GUIContent("Add transition"), false, () => OnClickAddTransitionNode(mousePosition));
         CreateActionMenu(genericMenu, "Add action");
         genericMenu.AddItem(new GUIContent("Refresh"), false, EditorUtility.RequestScriptReload);

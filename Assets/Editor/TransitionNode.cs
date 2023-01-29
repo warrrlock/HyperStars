@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FiniteStateMachine;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 // based off of https://oguzkonya.com/creating-node-based-editor-unity/
 public class TransitionNode
@@ -134,12 +135,13 @@ public class TransitionNode
                     _isSelected = _rect.Contains(e.mousePosition);
                     if (_isSelected)
                     {
-                        _editor.ClearSelectionExceptTransition(this);
                         _isCLicked = true;
-
                         if (AssetDatabase.OpenAsset(_transition))
-                            return true;
-                        Debug.LogError("transition for this node cannot be opened.");
+                        {
+                            _editor.ClearSelectionExceptTransition(this);
+                            e.Use();
+                        }
+                        else Debug.LogError("transition for this node cannot be opened.");
                     }
                 }
                 break;
