@@ -117,8 +117,8 @@ namespace FiniteStateMachine
         
         
         //editor stuff
-        [HideInInspector][SerializeField] public Vector2 NodePosition = Vector2.zero;
-        
+        [SerializeField] public Util.SerializedDictionary<BaseState, Vector2> positionDictionary = new();
+
         #region Editor
 #if UNITY_EDITOR
         [CustomEditor(typeof(Transition))]

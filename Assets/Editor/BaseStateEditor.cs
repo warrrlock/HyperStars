@@ -35,9 +35,9 @@ public class BaseStateEditor : Editor
         if (!characterManager) LoadCharacterManager();
         if (!character)
         {
-            if (!characterManager.Characters.TryGetValue(baseState.character, out character))
+            if (!characterManager.Characters.TryGetValue(baseState.characterSelection, out character))
             {
-                Debug.LogError($"no character '{baseState.character.ToString()}' exists in character manager.");
+                Debug.LogError($"no character '{baseState.characterSelection.ToString()}' exists in character manager.");
             }
         }
 
