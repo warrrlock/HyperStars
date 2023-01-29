@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
@@ -57,6 +58,10 @@ public class StateMachineEditor : EditorWindow
     private string _popupActionName = "";
     private FSMPopup _actionPopup;
     private AssetFinderWindow _assetFinder;
+
+    private bool _checkImport = true;
+    private float _timePassed = 0;
+    private float _maxImportTime = 10;
     
     private string _originPath = "Assets/Scriptable Objects/State Machine";
     private string _characterPath;
@@ -71,8 +76,13 @@ public class StateMachineEditor : EditorWindow
         window.Show();
         window.titleContent = new GUIContent("State Machine Editor");
     }
-    
+
     private void OnEnable()
+    {
+        if (AssetDatabase.IsMainAssetAtPathLoaded(_characterManagerPath)) LoadEditor();
+    }
+
+    private void LoadEditor()
     {
         try
         {
@@ -87,7 +97,22 @@ public class StateMachineEditor : EditorWindow
         CreateStyles();
         CreateNodesForExistingAssets();
     }
-    
+
+    private void Update()
+    {
+        if (!_checkImport) return;
+        if (AssetDatabase.LoadAssetAtPath(_characterManagerPath, typeof(CharacterManager)) != null)
+        {
+            LoadEditor();
+            _checkImport = false; // stop the coroutine
+        }
+        _timePassed += Time.deltaTime;
+        
+        if (!(_timePassed >= _maxImportTime)) return;
+        _checkImport = false;
+        throw new Exception($"Asset not found after {_maxImportTime} seconds");
+    }
+
     private void OnGUI()
     {
         DrawComponents();
@@ -211,6 +236,8 @@ public class StateMachineEditor : EditorWindow
 
         _filteredStateNodes = _stateNodes;
         _filteredTransitionNodes = _transitionNodes;
+        Repaint();
+        Repaint();
     }
 
     private void FilterNodes()
@@ -236,7 +263,6 @@ public class StateMachineEditor : EditorWindow
 
         _filteredStateNodes = stateNodes.ToList();
         _filteredTransitionNodes = transitionNodes.ToList();
-        Repaint();
     }
     
     private void FilterNodesIntersection()
