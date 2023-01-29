@@ -46,7 +46,10 @@ namespace Managers
             for (int i = _filters.Count - 1; i >= 0; i--)
             {
                 if (!folderNames.Contains(_filters[i].filterName))
-                    _filters.Remove(_filters[i]);
+                {
+                    AssetDatabase.CreateFolder(_characterPath, _filters[i].filterName);
+                    //_filters.Remove(_filters[i]);
+                }
             }
             _filtersSet = new HashSet<FSMFilter>(_filters, new FSMFilterEqualityComparer());
         }
