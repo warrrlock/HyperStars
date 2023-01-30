@@ -55,8 +55,8 @@ public class VFXSpawnManager : MonoBehaviour
             Fighter sender = (Fighter) message["attacker"];
             Fighter receiver = (Fighter) message["attacked"];
             InitializaeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
-            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, .5f));
-            // camera shake <temp>
+            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
+            // temp camera shake
             StartCoroutine(Camera.main.GetComponent<CameraManager>().CameraShake(.2f, .09f));
             // StartCoroutine(Camera.main.GetComponent<CameraManager>().CameraZoom(hitPos, .08f, 20f, .4f));
         }
@@ -75,7 +75,7 @@ public class VFXSpawnManager : MonoBehaviour
             Fighter sender = (Fighter) message["attacker"];
             Fighter receiver = (Fighter) message["attacked"];
             InitializaeVFX(VFXGraphs.LISA_HIT_PARRY, hitPos, sender);
-            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(sender, 98f, .5f));
+            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(sender, 98f, 2f, .5f));
         }
         catch (KeyNotFoundException)
         {
