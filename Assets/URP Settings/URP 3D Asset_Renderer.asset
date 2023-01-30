@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2626290009291355351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 802ab8df17acf7242bbcbd4a0753bc50, type: 3}
+  m_Name: Blit
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    Event: 600
+    blitMaterial: {fileID: 2100000, guid: 41b5e9874fef9b84fa56a7568a53fd81, type: 2}
+    blitMaterialPassIndex: 0
+    setInverseViewMatrix: 0
+    requireDepthNormals: 0
+    srcType: 0
+    srcTextureId: _CameraColorTexture
+    srcTextureObject: {fileID: 0}
+    dstType: 0
+    dstTextureId: _BlitPassTexture
+    dstTextureObject: {fileID: 0}
+    overrideGraphicsFormat: 0
+    graphicsFormat: 8
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17,7 +44,8 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: 6720625704795399245}
   - {fileID: 4531208418850003750}
-  m_RendererFeatureMap: 4d64b09a7875445d265bd0b00c16e23e
+  - {fileID: -2626290009291355351}
+  m_RendererFeatureMap: 4d64b09a7875445d265bd0b00c16e23e290b08b7268b8ddb
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
