@@ -58,7 +58,7 @@ public class SpecialMeterManager : MonoBehaviour
     {
         try
         {
-            AttackInfo attackInfo = message["attackInfo"] as AttackInfo;
+            AttackInfo attackInfo = message["attack info"] as AttackInfo;
 
             if (attackInfo == null)
             {
@@ -69,7 +69,7 @@ public class SpecialMeterManager : MonoBehaviour
         }
         catch (KeyNotFoundException)
         {
-            Debug.Log($"{name}: attack info not found");
+            Debug.LogError($"{name}: attack info not found");
         }
     }
 
