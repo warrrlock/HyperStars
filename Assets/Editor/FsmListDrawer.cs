@@ -20,7 +20,19 @@ public class FsmListDrawer: PropertyDrawer
         position = EditorGUI.PrefixLabel(position, label);
         DrawObjectField(position, property, label);
         EditorGUI.EndProperty();
+        ProcessEvents(Event.current, position, property);
         _attribute = (FsmListAttribute)attribute;
+    }
+
+    private void ProcessEvents(Event e, Rect position, SerializedProperty property)
+    {
+        switch (e.type)
+        {
+            case EventType.MouseUp:
+                if (e.button == 0 && position.Contains(e.mousePosition))
+                    if(property.objectReferenceValue) Selection.objects = new[] { property.objectReferenceValue };
+                break;
+        }
     }
     
     private void DrawObjectField(Rect position, SerializedProperty property, GUIContent label)
@@ -33,7 +45,7 @@ public class FsmListDrawer: PropertyDrawer
         
         Vector2 buttonSize = new Vector2(height, height);
         EditorGUI.LabelField(labelRect, 
-            new GUIContent(property.objectReferenceValue.name), 
+            new GUIContent(property.objectReferenceValue? property.objectReferenceValue.name : "None"), 
             EditorStyles.objectField);
         if (GUI.Button(new Rect(position.max - buttonSize, buttonSize), 
                 EditorGUIUtility.IconContent("d_GameObject Icon"), EditorStyles.iconButton))
