@@ -77,11 +77,11 @@ public class CharacterVFXManager : MonoBehaviour
         f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 0f);
     }
 
-    public IEnumerator Shake(Fighter f)
+    public IEnumerator Shake(Fighter f, float shakeIntensity, float shakeDuration)
     {
-        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 125f);
-        yield return new WaitForSeconds(.5f);
-        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 0f);
+        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", shakeIntensity);
+        yield return new WaitForSeconds(shakeDuration);
+        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 0f); // stopping the shake
     }
 
     void Awake()

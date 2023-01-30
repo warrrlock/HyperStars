@@ -27,6 +27,8 @@ public class CameraManager : MonoBehaviour
     private float _defaultX;
     private float _defaultY;
     private float _defaultTargetY;
+    private float _defaultFov;
+    private Vector3 _defaultRotation;
 
     private void Awake()
     {
@@ -45,6 +47,8 @@ public class CameraManager : MonoBehaviour
         _defaultX = _cameraDefaultTransform.position.x;
         _defaultY = _cameraDefaultTransform.position.y;
         _defaultTargetY = _targets[0].position.y;
+        _defaultFov = _camera.fieldOfView;
+        _defaultRotation = transform.eulerAngles;
     }
 
     private void Update()
@@ -126,8 +130,30 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public IEnumerator CameraZoom(Vector3 zoomTarget, float zoomHold)
+    /// <summary>
+    /// Triggers camera zoom on a sepcific target
+    /// </summary>
+    /// <param name="zoomTarget">World pos of the target being zoomed into</param>
+    /// <param name="zoomSpeed">How fast it zooms onto target</param>
+    /// <param name="zoomFov">What's the fov when zoomed in</param>
+    /// <param name="zoomHold">How long do we hold the zoom for</param>
+    /// <returns></returns>
+    public IEnumerator CameraZoom(Vector3 zoomTarget, float zoomSpeed, float zoomFov, float zoomHold)
     {
-        yield return null;
+        var zoomElapsed = 0f;
+        transform.LookAt(zoomTarget);
+        
+        while (zoomElapsed < zoomSpeed)
+        {
+            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomElapsed / zoomSpeed);
+            zoomElapsed += Time.deltaTime;
+            
+            yield return null;
+        }
+        
+        _camera.fieldOfView = zoomFov;
+        yield return new WaitForSeconds(zoomHold);
+        _camera.fieldOfView = _defaultFov;
+        transform.rotation = Quaternion.Euler(_defaultRotation);
     }
 }
