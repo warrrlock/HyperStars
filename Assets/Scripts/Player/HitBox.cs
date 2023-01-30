@@ -49,7 +49,7 @@ public class HitBox : MonoBehaviour
             _baseStateMachine.DisableTime = parryInfo.hitStunDuration;
             _baseStateMachine.ExecuteDisableTime();
             StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun));
-            _baseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump"}, 
+            _baseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
                 () => _baseStateMachine.IsIdle, false);
             
             _fighter.Events.onBlockHit?.Invoke(new Dictionary<string, object>
@@ -113,7 +113,7 @@ public class HitBox : MonoBehaviour
         StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration));
         //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, attackInfo.knockbackForce.y, attackInfo.knockbackDuration));
         
-        hitFighter.BaseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump"}, 
+        hitFighter.BaseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
             () => hitFighter.BaseStateMachine.IsIdle, false);
             //float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
         //Vector3 forceDirection = attackInfo.knockbackDirection;

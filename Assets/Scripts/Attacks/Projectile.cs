@@ -142,7 +142,7 @@ public class Projectile : MonoBehaviour
                     : KeyHurtStatePair.HurtStateName.HitStun)
         ));
 
-        hitFighter.BaseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump"}, 
+        hitFighter.BaseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
             () => hitFighter.BaseStateMachine.IsIdle, false);
         
         hitFighter.MovementController.ResetVelocityY();

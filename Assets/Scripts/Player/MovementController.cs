@@ -1016,7 +1016,9 @@ public class MovementController : MonoBehaviour
         {
             _inputManager.Actions["Move"], 
             _inputManager.Actions["Dash"],
-            _inputManager.Actions["Jump"]
+            _inputManager.Actions["Jump"],
+            _inputManager.Actions["Dash Left"],
+            _inputManager.Actions["Dash Right"],
         };
         StartCoroutine(_inputManager.Disable(() => _isAttacking == false, actions));
     }
