@@ -78,30 +78,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackInfo:
-    knockbackDuration: 0.25
-    knockbackDistance: 2
-    knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 0.5
-    damage: 0
+    attackType: 0
+    knockbackDuration: 0.6
+    knockbackDistance: 15
+    knockbackDirection: {x: -1, y: 2, z: 0}
+    hitStunDuration: 1.5
+    damage: 20
     causesWallBounce: 0
-    hitStopDuration: 0.1
-    wallBounceDuration: 0
-    wallBounceDistance: 0
-    wallBounceDirection: {x: 0, y: 0, z: 0}
-    wallBounceHitStopDuration: 0
+    hitStopDuration: 0.15
+    wallBounceDuration: 1
+    wallBounceDistance: 20
+    wallBounceDirection: {x: -0.5, y: 2, z: 0}
+    wallBounceHitStopDuration: 0.1
     causesGroundBounce: 0
     groundBounceDuration: 0
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.3
-    favorReward: 4
-    knockbackForce: {x: 0, y: 0}
+    hangTime: 0.35
+    favorReward: 15
+    knockbackForce: {x: 124.7488, y: 100}
     incrementBarAmount: 0.2
   _spawnDirection: 2
   _onSpawnActions: []
-  _onTriggerEnterActions:
-  - {fileID: 11400000, guid: 31bb4efc467b94f70a9cc166273d2b3c, type: 2}
+  _onTriggerEnterActions: []
   _onInvisibleActions:
   - {fileID: 11400000, guid: 31bb4efc467b94f70a9cc166273d2b3c, type: 2}
   _speed: 0
