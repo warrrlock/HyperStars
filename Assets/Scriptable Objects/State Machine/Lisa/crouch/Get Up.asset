@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b2b3c4c74b394c2aa6ea240028f2bff, type: 3}
+  m_Name: Get Up
+  m_EditorClassIdentifier: 
+  NodeInfo:
+    rect:
+      serializedVersion: 2
+      x: 40
+      y: 341
+      width: 150
+      height: 50
+  _filters:
+  - filterName: crouch
+    color: {r: 1, g: 1, b: 1, a: 1}
+    focus: 0
+    edit: 0
+  characterSelection: 1
+  _actions:
+  - {fileID: 11400000, guid: cd320276e856546a1872dd0cc5b53e43, type: 2}
+  - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
+  _transitions: []

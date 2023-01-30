@@ -24,8 +24,17 @@ namespace FiniteStateMachine
                  "and false State otherwise.")]
         [SerializeField] private FalseState _falseState;
         private BaseState _customFalseState;
+        public BaseState TrueState
+        {
+            get => _trueState;
+            set => _trueState = value;
+        }
 
-        
+        private void OnEnable()
+        {
+            if(_inputActionName == "") Debug.LogWarning($"input action is empty for transition {name} at path {AssetDatabase.GetAssetPath(this)}");
+        }
+
         /// <summary>
         /// Queues the next state (true state if successful combo and false otherwise),
         /// which will be executed upon end of animation, or as indicated in animation.
@@ -111,6 +120,10 @@ namespace FiniteStateMachine
             return decision;
         }
         
+        
+        //editor stuff
+        [SerializeField] public Util.SerializedDictionary<BaseState, Vector2> positionDictionary = new();
+
         #region Editor
 #if UNITY_EDITOR
         [CustomEditor(typeof(Transition))]

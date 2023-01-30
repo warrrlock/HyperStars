@@ -8,7 +8,7 @@ using UnityEngine;
 public class InAirState : BaseState
 {
     [SerializeField] private string _animationName;
-    [SerializeField] private List<Transition> _transitions = new List<Transition>();
+    [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
     [SerializeField] private bool _alwaysExecute;
     
     [HideInInspector]
@@ -30,6 +30,28 @@ public class InAirState : BaseState
     private void OnEnable()
     {
         _transitions.RemoveAll(t => !t);
+    }
+
+    public override void AddTransition(Transition t)
+    {
+        _transitions.Add(t);
+        SaveChanges();
+    }
+
+    public override void DeleteTransition(Transition t)
+    {
+        _transitions.Remove(t);
+        SaveChanges();
+    }
+
+    public override bool HasTransitions()
+    {
+        return true;
+    }
+
+    public override IReadOnlyList<Transition> GetTransitions()
+    {
+        return _transitions;
     }
 
     public override void Execute(BaseStateMachine stateMachine, string inputName){
