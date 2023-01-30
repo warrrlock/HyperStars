@@ -15,8 +15,8 @@ MonoBehaviour:
   NodeInfo:
     rect:
       serializedVersion: 2
-      x: 313
-      y: 359
+      x: 259
+      y: 370
       width: 150
       height: 50
   _filters: []
@@ -25,15 +25,16 @@ MonoBehaviour:
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions: []
-  _defaultCombo: 1
+  _defaultCombo: 0
   _attackInfo:
-    knockbackDuration: 0
-    knockbackDistance: 0
-    knockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 0
+    attackType: 0
+    knockbackDuration: 0.3
+    knockbackDistance: 0.8
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 0.3
     damage: 0
     causesWallBounce: 0
-    hitStopDuration: 0
+    hitStopDuration: 0.07
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
@@ -44,10 +45,10 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 0
+    favorReward: 0.2
     knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0
+    incrementBarAmount: 0.2
   _isSpecial: 0
   _specialBarCost: 0
-  _projectilePrefab: {fileID: 0}
+  _projectilePrefab: {fileID: 5765926104683114581, guid: ba91f1d23b10a3b4ebdcc1b0bf81be9c, type: 3}
   _animationHash: 479667400
