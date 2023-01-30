@@ -5,13 +5,12 @@ using FiniteStateMachine;
 using Managers;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 // based off of https://oguzkonya.com/creating-node-based-editor-unity/
 public class StateNode
 {
     public Rect Rect => _state ? _state.NodeInfo.rect: Rect.zero;
-    private bool _isDragged;
-    private bool _isSelected;
 
     private GUIStyle _defaultNodeStyle;
     private GUIStyle _selectedNodeStyle;
@@ -75,9 +74,8 @@ public class StateNode
     {
         _inPoint.Draw();
         if (_state.HasTransitions()) _outPoint.Draw();
-        GUI.Box(_state.NodeInfo.rect, _state.name, _isSelected ? _selectedNodeStyle: _defaultNodeStyle);
+        GUI.Box(_state.NodeInfo.rect, _state.name, Selection.Contains(_state) ? _selectedNodeStyle: _defaultNodeStyle);
         DrawDeleteButton();
-        // DrawState();
         DrawFilters();
     }
 
@@ -85,7 +83,7 @@ public class StateNode
 
     private void DrawDeleteButton()
     {
-        if (!_isSelected) return;
+        if (!Selection.Contains(_state)) return;
         GUIContent icon = EditorGUIUtility.IconContent("CrossIcon");
         Vector2 size = EditorStyles.iconButton.CalcSize(icon);
         
@@ -127,42 +125,41 @@ public class StateNode
 
     public bool ProcessEvents(Event e)
     {
+        bool contains = _state.NodeInfo.rect.Contains(e.mousePosition);
         switch (e.type)
         {
             case EventType.MouseDown:
                 if (e.button == 0)
                 {
-                    bool contains = _state.NodeInfo.rect.Contains(e.mousePosition);
-                    _isDragged = contains;
-                    _isSelected = contains;
-                    if (_isSelected) 
-                        if (AssetDatabase.OpenAsset(_state))
+                    if (contains)
+                    {
+                        if (!e.shift)
                         {
-                            e.Use();
-                            _editor.ClearSelectionExceptState(this);
+                            if (!AssetDatabase.OpenAsset(_state))
+                                Debug.LogError("state for this node cannot be opened.");
                         }
                         else
-                            Debug.LogError("state for this node cannot be opened.");
+                        {
+                            Selection.objects = Selection.Contains(_state)
+                                ? Selection.objects.Where(o => o != (Object)_state).ToArray() 
+                                : Selection.objects.Append(_state).ToArray();
+                        }
+                        e.Use();
+                    }
                     GUI.changed = contains;
                 }
                 break;
 
             case EventType.MouseUp:
-                _isDragged = false;
-                if (e.button == 1 && _state.NodeInfo.rect.Contains(e.mousePosition))
+                if (e.button == 1 && contains)
                 {
                     ProcessContextMenu(e.mousePosition);
                     e.Use();
                 }
                 break;
-
             case EventType.MouseDrag:
-                if (e.button == 0 && _isDragged)
-                {
-                    Drag(e.delta);
-                    e.Use();
-                    return true;
-                }
+                if (Selection.Contains(_state)) 
+                    _editor.DragNodes(e, e.delta);
                 break;
         }
         return false;
@@ -194,11 +191,6 @@ public class StateNode
         for (int i = _transitionNodes.Count-1; i >= 0; i--)
             _transitionNodes[i].RemoveTransition();
         _transitionNodes.Clear();
-    }
-
-    public void Deselect()
-    {
-        _isSelected = false;
     }
 
     private void DrawRename(string label)

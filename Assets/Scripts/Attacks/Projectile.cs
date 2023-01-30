@@ -101,6 +101,7 @@ public class Projectile : MonoBehaviour
                 {"hit point", hitPoint},
                 {"attacker input", hitFighter.BaseStateMachine.LastExecutedInput},
                 {"attackInfo", attackInfo},
+                {"attack type", attackInfo.attackType},
             }
         );
         
@@ -119,7 +120,8 @@ public class Projectile : MonoBehaviour
                 {"attacked", hitFighter}, 
                 {"hit point", hitPoint},
                 {"attacker input", _input},
-                {"attackInfo", _attackInfo},
+                {"attack info", _attackInfo},
+                {"attack type", _attackInfo.attackType},
             }
         );
 

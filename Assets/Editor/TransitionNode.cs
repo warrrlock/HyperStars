@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using FiniteStateMachine;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 // based off of https://oguzkonya.com/creating-node-based-editor-unity/
 public class TransitionNode
@@ -24,6 +26,8 @@ public class TransitionNode
     
     private ConnectionPoint _inPoint; //to state
     private ConnectionPoint _outPoint; //from state
+    private BaseState _toState;
+    private BaseState _fromState;
     public ConnectionPoint InPoint => _inPoint;
     public ConnectionPoint OutPoint => _outPoint;
     private Action<TransitionNode> OnClickRemoveTransition;
@@ -38,6 +42,8 @@ public class TransitionNode
     {
         _inPoint = to;
         _outPoint = from;
+        _toState = _inPoint.Node.BaseState;
+        _fromState = _outPoint.Node.BaseState;
         OnClickRemoveTransition = onClickRemoveTransition;
         
         _rect = new Rect(0, 0, Width, Height);
@@ -53,18 +59,20 @@ public class TransitionNode
     public void Drag(Vector2 delta)
     {
         _isDragged = true;
-        _transition.NodePosition += delta;
+        if (_transition.positionDictionary.TryGetValue(_fromState, out var v2))
+        {
+            _transition.positionDictionary[_fromState] = v2 + delta;
+        }
     }
     
     public void Draw()
     {
         //TODO: change bezier curve instead of rect center, should smoothly connect at center of transition node
-        _rect.center = (_inPoint.Rect.center + _outPoint.Rect.center) * 0.5f + _transition.NodePosition;
+        _rect.center = (_inPoint.Rect.center + _outPoint.Rect.center) * 0.5f 
+                       + _transition.positionDictionary.GetValueOrDefault(_fromState, Vector2.zero);
         DrawBezier();
         DrawNode();
         DrawDeleteButton();
-        
-        // if (Event.current.type == EventType.Repaint) _buttonRect = GUILayoutUtility.GetLastRect();
     }
 
     public void DrawBezier()
@@ -127,23 +135,18 @@ public class TransitionNode
                     _isSelected = _rect.Contains(e.mousePosition);
                     if (_isSelected)
                     {
-                        _editor.ClearSelectionExceptTransition(this);
                         _isCLicked = true;
-                        
                         if (AssetDatabase.OpenAsset(_transition))
+                        {
+                            _editor.ClearSelectionExceptTransition(this);
                             e.Use();
-                        else
-                            Debug.LogError("transition for this node cannot be opened.");
-                        GUI.changed = true;
+                        }
+                        else Debug.LogError("transition for this node cannot be opened.");
                     }
                 }
                 break;
 
             case EventType.MouseUp:
-                if (_isCLicked && !_isDragged)
-                {
-                    GUI.changed = false;
-                }
                 if (_isDragged) SaveTransitionAsset();
                 _isCLicked = false;
                 _isDragged = false;

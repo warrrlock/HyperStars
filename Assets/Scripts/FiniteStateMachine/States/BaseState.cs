@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Managers;
 using UnityEngine;
+using UnityEngine.Serialization;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -44,7 +45,7 @@ namespace FiniteStateMachine
         [HideInInspector][SerializeField] public NodeInfo NodeInfo = new NodeInfo();
         [HideInInspector][SerializeField] private List<FSMFilter> _filters = new();
         public IReadOnlyList<FSMFilter> Filters => _filters;
-        public CharacterManager.CharacterSelection character = CharacterManager.CharacterSelection.None;
+        [FormerlySerializedAs("character")] public CharacterManager.CharacterSelection characterSelection = CharacterManager.CharacterSelection.None;
         public abstract IReadOnlyList<Transition> GetTransitions();
         private bool _showFilters;
         public bool ShowFilters => _showFilters;

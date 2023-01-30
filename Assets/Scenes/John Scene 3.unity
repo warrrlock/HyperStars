@@ -507,7 +507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &114266371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,11 +1318,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _maxJumpHeight
-      value: 7
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _minJumpHeight
-      value: 7
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _timeToJumpApex
@@ -1330,8 +1330,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _dashCooldownDuration
-      value: 0.8
+      value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791523313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _jumpState
+      value: 
+      objectReference: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Actions
       value: 
@@ -2874,7 +2878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1727585859560439396, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
       propertyPath: musicVolume
-      value: 0
+      value: 0.733
       objectReference: {fileID: 0}
     - target: {fileID: 1727585859560439401, guid: 33773ec743cc69741bb569c96aadb10c, type: 3}
       propertyPath: m_Name
@@ -3386,6 +3390,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 18362200236279462, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
+    - target: {fileID: 18362200236279462, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 18362200236279462, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.8235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 18362200236279462, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7752550765022321395, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
+    - target: {fileID: 18362200236279462, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4284219346
+      objectReference: {fileID: 0}
+    - target: {fileID: 18362200236279463, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 18362200247745204, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
+    - target: {fileID: 18362200247745204, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7752550765022321395, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
+    - target: {fileID: 2251802302913573509, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251802302913573509, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -61
+      objectReference: {fileID: 0}
     - target: {fileID: 2893871242414200472, guid: 15edebde50638465db196d72001d54a1, type: 3}
       propertyPath: m_Name
       value: Favour and Round Managers
@@ -3433,6 +3477,38 @@ PrefabInstance:
     - target: {fileID: 4741495675238797338, guid: 15edebde50638465db196d72001d54a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983807620042281530, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_text
+      value: x1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983807620042281530, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
+    - target: {fileID: 4983807620042281530, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983807620042281530, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983807620042281530, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983807620042281530, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7752550765022321395, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
+    - target: {fileID: 4983807620042281530, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4284219346
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983807620042281530, guid: 15edebde50638465db196d72001d54a1, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15edebde50638465db196d72001d54a1, type: 3}
@@ -11847,11 +11923,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _maxJumpHeight
-      value: 7
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _minJumpHeight
-      value: 7
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _timeToJumpApex
@@ -11859,15 +11935,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _dashCooldownDuration
-      value: 0.8
+      value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791523313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _jumpState
+      value: 
+      objectReference: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Actions
       value: 
       objectReference: {fileID: -944628639613478452, guid: 4443cc9aceac146e5943752221cbc16b, type: 3}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Keyboard&Mouse
+      value: Gamepad
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791523315, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Size.x

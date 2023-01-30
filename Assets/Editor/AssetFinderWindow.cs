@@ -51,7 +51,7 @@ public class AssetFinderWindow: EditorWindow
         GUILayout.FlexibleSpace();
         EditorGUILayout.BeginVertical();
         Rect r = DrawSearchBar();
-        DrawStates(r.height);
+        DrawStates(r.height - _scrollPos.y);
         DrawSelectedInformation();
         EditorGUILayout.EndVertical();
         GUILayout.FlexibleSpace();
