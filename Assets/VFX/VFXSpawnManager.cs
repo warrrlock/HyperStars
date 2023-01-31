@@ -13,7 +13,10 @@ public class VFXSpawnManager : MonoBehaviour
 {
     [SerializeField] public VisualEffectAsset[] visualEffectAssets;
     [SerializeField] public GameObject spawnedVfxObject;
-    
+
+    private float currentRotation;
+
+    [SerializeField] private float skyboxRotationSpeed;
     // try
 
     void Start()
@@ -23,6 +26,21 @@ public class VFXSpawnManager : MonoBehaviour
             f.Events.onAttackHit += PlayHitVFX;
             f.Events.onBlockHit += PlayBlockVFX;
         }
+    }
+
+    void Update()
+    {
+        SkyboxRotation();
+    }
+
+    void SkyboxRotation()
+    {
+        currentRotation += skyboxRotationSpeed * Time.deltaTime;
+        if (currentRotation >= 360)
+        {
+            currentRotation = 0;
+        }
+        RenderSettings.skybox.SetFloat("_Rotation", currentRotation);
     }
 
     private void OnDestroy()
