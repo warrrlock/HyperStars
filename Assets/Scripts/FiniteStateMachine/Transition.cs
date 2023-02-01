@@ -30,10 +30,12 @@ namespace FiniteStateMachine
             set => _trueState = value;
         }
 
+#if UNITY_EDITOR
         private void OnEnable()
         {
             if(_inputActionName == "") Debug.LogWarning($"input action is empty for transition {name} at path {AssetDatabase.GetAssetPath(this)}");
         }
+#endif
 
         /// <summary>
         /// Queues the next state (true state if successful combo and false otherwise),

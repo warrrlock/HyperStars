@@ -48,6 +48,7 @@ namespace FiniteStateMachine {
         private bool _isDisabled;
         private Coroutine _disableCoroutine;
         private Coroutine _airCoroutine;
+        private Coroutine _waitToAnimateRoutine;
         
         private BaseState _queuedState;
         private bool _rejectInput;
@@ -299,11 +300,13 @@ namespace FiniteStateMachine {
         
         public void StartInAir(Action onGroundAction = null, bool setJumpReturnState = true)
         {
-            if (_airCoroutine != null) StopCoroutine(_airCoroutine);
             if (setJumpReturnState)
                 SetReturnState(_jumpState);
             else SetReturnState();
+            
+            if (_airCoroutine != null) StopCoroutine(_airCoroutine);
             _airCoroutine = StartCoroutine(HandleExitInAir(onGroundAction));
+            
             StartCoroutine(Fighter.InputManager.Disable(
                 () => Fighter.MovementController.CollisionData.y.isNegativeHit, 
                 Fighter.InputManager.Actions["Crouch"]));
@@ -317,16 +320,22 @@ namespace FiniteStateMachine {
             
             if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
             else Fighter.Events.onLandedNeutral?.Invoke();
-            
+
+            if (CurrentState is HurtState { HurtType: KeyHurtStatePair.HurtStateName.HitStun })
+            {
+                _airCoroutine = null;
+                yield break;
+            }
             //when out of air, return to idle or execute given action
             onGroundAction ??= HandleAnimationExit;
             onGroundAction();
             _airCoroutine = null;
         }
 
-        public void WaitToMove(int nextAnimation = -1, Func<bool> condition = null)
+        public void WaitToAnimate(int nextAnimation = -1, Func<bool> condition = null)
         {
-            StartCoroutine(HandleWaitToMove(nextAnimation, condition));
+            if (_waitToAnimateRoutine != null) StopCoroutine(_waitToAnimateRoutine);
+            _waitToAnimateRoutine = StartCoroutine(HandleWaitToMove(nextAnimation, condition));
         }
 
         private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> condition, bool stateExit = false)
@@ -335,7 +344,8 @@ namespace FiniteStateMachine {
             // Debug.Log($"{name} waiting to move, current move is disabled at {Fighter.InputManager.Actions["Move"].disabledCount}");
             yield return new WaitUntil(condition ?? (() => !_isDisabled));
             // Debug.Log($"{name} starting to move, current move is disabled at {Fighter.InputManager.Actions["Move"].disabledCount}");
-            
+
+            _waitToAnimateRoutine = null;
             if (stateExit) HandleStateExit();
             else HandleAnimationExit();
         }
@@ -346,7 +356,7 @@ namespace FiniteStateMachine {
             InputManager.Action[] actions = actionIEnum.ToArray();
             
             StartCoroutine(Fighter.InputManager.Disable(condition, actions));
-            StartCoroutine(HandleWaitToMove(-1, condition, !returnToIdle));
+            _waitToAnimateRoutine = StartCoroutine(HandleWaitToMove(-1, condition, !returnToIdle));
         }
 
         public void ExecuteDisableTime()
