@@ -13,7 +13,7 @@ public class CameraManager : MonoBehaviour
     //[SerializeField] private float _minCameraSize;
     //[SerializeField] private float _maxCameraSize;
     [SerializeField] private Transform _cameraDefaultTransform;
-    [SerializeField] private float _minCameraZ;
+    [SerializeField] private float _maxCameraZ;
     [SerializeField] private float _maxFightersDistanceX;
     [SerializeField] private float _minFightersDistanceY;
     [SerializeField] private float _maxFightersDistanceY;
@@ -73,14 +73,17 @@ public class CameraManager : MonoBehaviour
         if (fightersDistanceX < _maxFightersDistanceX)
         {
             _destination.z = -fightersDistanceX * 1.5f;
-            _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _minCameraZ);
         }
         float fightersDistanceY = Mathf.Abs(_targets[1].position.y - _targets[0].position.y);
         if (fightersDistanceY > _minFightersDistanceY && fightersDistanceY < _maxFightersDistanceY)
         {
             _destination.z += -fightersDistanceY * 1.5f;
-            _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _minCameraZ);
         }
+        else
+        {
+            _destination.z -= -fightersDistanceY * 1.5f;
+        }
+        _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _maxCameraZ);
     }
 
     private void LateUpdate()
