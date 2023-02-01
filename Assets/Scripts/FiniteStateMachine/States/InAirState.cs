@@ -31,28 +31,7 @@ public class InAirState : BaseState
     {
         _transitions.RemoveAll(t => !t);
     }
-
-    public override void AddTransition(Transition t)
-    {
-        _transitions.Add(t);
-        SaveChanges();
-    }
-
-    public override void DeleteTransition(Transition t)
-    {
-        _transitions.Remove(t);
-        SaveChanges();
-    }
-
-    public override bool HasTransitions()
-    {
-        return true;
-    }
-
-    public override IReadOnlyList<Transition> GetTransitions()
-    {
-        return _transitions;
-    }
+    
 
     public override void Execute(BaseStateMachine stateMachine, string inputName){
         if (stateMachine.PlayAnimation(_animationHash))
@@ -79,4 +58,28 @@ public class InAirState : BaseState
         return _isSpecial ? _specialBarCost : -1;
     }
     
+    
+#if UNITY_EDITOR
+    public override void AddTransition(Transition t)
+    {
+        _transitions.Add(t);
+        SaveChanges();
+    }
+
+    public override void DeleteTransition(Transition t)
+    {
+        _transitions.Remove(t);
+        SaveChanges();
+    }
+
+    public override bool HasTransitions()
+    {
+        return true;
+    }
+
+    public override IReadOnlyList<Transition> GetTransitions()
+    {
+        return _transitions;
+    }
+#endif
 }

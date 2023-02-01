@@ -43,28 +43,7 @@ namespace FiniteStateMachine
             _onInputPlayOrStopActions.RemoveAll(a => !a);
             _onInputInvokeActions.RemoveAll(a => !a);
         }
-
-        public override void AddTransition(Transition t)
-        {
-            _transitions.Add(t);
-            SaveChanges();
-        }
-
-        public override void DeleteTransition(Transition t)
-        {
-            _transitions.Remove(t);
-            SaveChanges();
-        }
-
-        public override bool HasTransitions()
-        {
-            return true;
-        }
-
-        public override IReadOnlyList<Transition> GetTransitions()
-        {
-            return _transitions;
-        }
+        
 
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
@@ -115,6 +94,30 @@ namespace FiniteStateMachine
             projectile.Spawn(stateMachine.Fighter, bounds);
         }
 
+#if UNITY_EDITOR
+        public override void AddTransition(Transition t)
+        {
+            _transitions.Add(t);
+            SaveChanges();
+        }
+
+        public override void DeleteTransition(Transition t)
+        {
+            _transitions.Remove(t);
+            SaveChanges();
+        }
+
+        public override bool HasTransitions()
+        {
+            return true;
+        }
+
+        public override IReadOnlyList<Transition> GetTransitions()
+        {
+            return _transitions;
+        }
+#endif
+        
         //         #region Editor
 // #if UNITY_EDITOR
 //         [CustomEditor(typeof(ComboState))]
