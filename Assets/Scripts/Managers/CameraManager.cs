@@ -75,6 +75,10 @@ public class CameraManager : MonoBehaviour
             _destination.z += -fightersDistanceY * 1.5f;
             _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _minCameraZ);
         }
+        else
+        {
+            _destination.z -= -fightersDistanceY * 1.5f;
+        }
     }
 
     private void LateUpdate()
