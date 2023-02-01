@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
+  m_Name: Side Special
+  m_EditorClassIdentifier: 
+  NodeInfo:
+    rect:
+      serializedVersion: 2
+      x: -141
+      y: -37
+      width: 150
+      height: 50
+  _filters:
+  - filterName: attack
+    color: {r: 0.8773585, g: 0.84613436, b: 0.27727836, a: 1}
+    focus: 0
+    edit: 0
+  - filterName: special
+    color: {r: 0.21698113, g: 0.8014701, b: 0.8679245, a: 1}
+    focus: 0
+    edit: 0
+  characterSelection: 1
+  _animationName: Side Special
+  _onInputPlayOrStopActions: []
+  _onInputInvokeActions: []
+  _transitions: []
+  _defaultCombo: 0
+  _attackInfo:
+    attackType: 2
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0
+    damage: 0
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 4
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0
+  _isSpecial: 1
+  _specialBarCost: 100
+  _projectilePrefab: {fileID: 0}
+  _animationHash: 849165720

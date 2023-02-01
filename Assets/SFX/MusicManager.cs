@@ -51,6 +51,12 @@ public class MusicManager : MonoBehaviour
     {
         //Set our Music Manager
         ourMusicManager = gameObject;
+        foreach (Fighter fighter in Services.Fighters)
+        {
+            MusicEffector effector = fighter.GetComponent<MusicEffector>();
+            if (effector != null) effector.MusicManager = this;
+        }
+        
         increaseIntensityAfterChorus = increaseIntensityDuringChorus;
         //Start music 
         AkSoundEngine.SetRTPCValue("Intensity", Intensity); //Set Intensity
@@ -63,12 +69,12 @@ public class MusicManager : MonoBehaviour
         _timer = hitEffectiveTime;
         
         //subscribe to reload event
-        SceneReloader.Instance.onSceneReload += StopMusic;
+        // if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload += StopMusic;
     }
 
     private void OnDestroy()
     {
-        SceneReloader.Instance.onSceneReload -= StopMusic;
+        // if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload -= StopMusic;
     }
 
     // Update is called once per frame
@@ -96,7 +102,6 @@ public class MusicManager : MonoBehaviour
 
     public void StopMusic()
     {
-        Debug.Log("should stop music");
         MusicStop.Post(gameObject);
     }
 

@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using FiniteStateMachine;
 
 namespace FiniteStateMachine
 {
@@ -9,8 +8,8 @@ namespace FiniteStateMachine
     public class State: BaseState
     {
         // ========== variables ========== //
-        [SerializeField] private List<StateAction> _actions = new List<StateAction>();
-        [SerializeField] private List<Transition> _transitions = new List<Transition>();
+        [FsmList(typeof(StateAction))] [SerializeField] private List<StateAction> _actions = new List<StateAction>();
+        [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
         
         // ==========  methods ========== //
         public void OnEnable()
@@ -18,7 +17,7 @@ namespace FiniteStateMachine
             _actions.RemoveAll(a => !a);
             _transitions.RemoveAll(t => !t);
         }
-        
+
         public override void Execute(BaseStateMachine stateMachine, string inputName){
             // Debug.Log($"{stateMachine.name} is executing {name}");
             foreach(StateAction action in _actions){
@@ -36,6 +35,29 @@ namespace FiniteStateMachine
                 action.Stop(stateMachine);
             }
         }
+        
+#if UNITY_EDITOR
+        public override void AddTransition(Transition t)
+        {
+            _transitions.Add(t);
+            SaveChanges();
+        }
+
+        public override void DeleteTransition(Transition t)
+        {
+            _transitions.Remove(t);
+            SaveChanges();
+        }
+
+        public override bool HasTransitions()
+        {
+            return true;
+        }
+
+        public override IReadOnlyList<Transition> GetTransitions()
+        {
+            return _transitions;
+        }
+#endif
     }
-    
 }

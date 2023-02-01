@@ -18,6 +18,8 @@ namespace FiniteStateMachine
         [SerializeField] private string _animationName2;
         [HideInInspector] [SerializeField] private int _animationHash2;
         [SerializeField] private BaseState _exitState;
+
+        public KeyHurtStatePair.HurtStateName HurtType => _hurtType;
         // ==========  methods ========== //
         private void OnValidate()
         {
@@ -33,10 +35,33 @@ namespace FiniteStateMachine
         {
             stateMachine.PlayAnimation(_animationHash, replay: true);
             if (_exitState) stateMachine.QueueState(_exitState);
+            Debug.Log($"{stateMachine.name} starting hurt state, of type {_hurtType}");
             if (_hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
-                stateMachine.StartInAir(() => stateMachine.WaitToMove(nextAnimation: _animationHash2), setJumpReturnState: false);
-            else stateMachine.WaitToMove();
+                stateMachine.StartInAir(() => stateMachine.WaitToAnimate(nextAnimation: _animationHash2), setJumpReturnState: false);
+            else stateMachine.WaitToAnimate();
         }
+        
+#if UNITY_EDITOR
+        public override void AddTransition(Transition t)
+        {
+            //do nothing
+        }
+
+        public override void DeleteTransition(Transition t)
+        {
+            //do nothing
+        }
+
+        public override bool HasTransitions()
+        {
+            return false;
+        }
+
+        public override IReadOnlyList<Transition> GetTransitions()
+        {
+            return null;
+        }
+#endif
         
 //         #region Editor
 // #if UNITY_EDITOR

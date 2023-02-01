@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8624786370858972300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2786f6b2301a94f4288672ff5305244c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  architectures:
+  - target: 5
+    name: Windows x86
+    enabled: 1
+    binaryNameFormat: '{0}.exe'
+  - target: 19
+    name: Windows x64
+    enabled: 0
+    binaryNameFormat: '{0}.exe'
+  variants:
+  - variantName: Build Output
+    selectedIndex: 0
+    values:
+    - App
+    - Visual Studio Solution
+  platformName: PC
+  dataDirNameFormat: '{0}_Data'
+  targetGroup: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5886119a5c7b34d8872ab527ca3e1b, type: 3}
+  m_Name: SuperUnityBuildSettings
+  m_EditorClassIdentifier: 
+  _basicSettings:
+    baseBuildFolder: Builds
+    buildPath: $VERSION/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE
+    openFolderPostBuild: 1
+  _productParameters:
+    buildCounter: 1
+    buildVersion: 1.0.0.1
+    versionTemplate: 1.0.0.$BUILD
+    autoGenerate: 1
+    syncWithPlayerSettings: 0
+  _releaseTypeList:
+    releaseTypes:
+    - typeName: NewReleaseType
+      bundleIdentifier: com.DefaultCompany.HyperStars
+      companyName: DefaultCompany
+      productName: HyperStars
+      buildOptions: 0
+      customDefines: 
+      sceneList:
+        enabledScenes: []
+  _platformList:
+    platforms:
+    - {fileID: -8624786370858972300}
+  _projectConfigurations:
+    configSet:
+      _Buckets: 0100000002000000ffffffff
+      _HashCodes: cf10b466150f5805494e1b2d
+      _Next: ffffffffffffffff00000000
+      _Count: 3
+      _Version: 3
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - NewReleaseType/PC/Windows x86 (App)
+      - NewReleaseType/PC
+      - NewReleaseType
+      _Values:
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - NewReleaseType/PC/Windows x86 (App)
+      - enabled: 1
+        childKeys:
+        - NewReleaseType/PC
+    showViewOptions: 0
+    showConfigs: 0
+    showBuildInfo: 0
+    hideDisabled: 0
+    treeView: 0
+    selectedKeyChain: 
+  _preBuildActions:
+    buildActions: []
+  _postBuildActions:
+    buildActions: []

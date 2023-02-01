@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FiniteStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder;
 using UnityEngine.VFX;
 using UnityEngine.Rendering;
 
@@ -77,11 +78,37 @@ public class CharacterVFXManager : MonoBehaviour
         f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 0f);
     }
 
-    public IEnumerator Shake(Fighter f)
+    /// <summary>
+    /// Coroutine for shaking the character during hit stop
+    /// </summary>
+    /// <param name="f">which fighter to shake</param>
+    /// <param name="shakeSpeed">how fast is the shake</param>
+    /// <param name="shakeScale">how intense is the shake (!!!LOWER IS MORE INTENSE!!!) </param>
+    /// <param name="shakeDuration">how long does the character shake</param>
+    /// <returns></returns>
+    public IEnumerator Shake(Fighter f, float shakeSpeed, float shakeScale, float shakeDuration)
     {
-        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 125f);
-        yield return new WaitForSeconds(.5f);
-        f.GetComponent<SpriteRenderer>().material.SetFloat("_Shake_Intensity", 0f);
+        SpriteRenderer sr = f.GetComponent<SpriteRenderer>();
+        sr.material.SetFloat("_Shake_Scale", shakeScale);
+
+        if (!f.MovementController.IsGrounded)
+            sr.material.SetFloat("_Vertical_Shake_Trigger", 1f);
+
+        var shakeTimer = 0f;
+        var shake = shakeSpeed;
+
+        while (shakeTimer < shakeDuration)
+        {
+            sr.material.SetFloat("_Shake_Intensity", shake);
+            shake = Mathf.Lerp(shake, 0, shakeTimer / shakeDuration);
+            shakeTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(.1f);
+        sr.material.SetFloat("_Shake_Intensity", 0f); // stopping the shake
+        sr.material.SetFloat("_Shake_Scale", 3f); // default to default shake scale
+        sr.material.SetFloat("_Vertical_Shake_Trigger", 0f);
     }
 
     void Awake()
