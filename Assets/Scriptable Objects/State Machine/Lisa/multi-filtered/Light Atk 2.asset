@@ -15,8 +15,8 @@ MonoBehaviour:
   NodeInfo:
     rect:
       serializedVersion: 2
-      x: 814
-      y: 227
+      x: 39
+      y: 226
       width: 150
       height: 50
   _filters:
@@ -33,20 +33,19 @@ MonoBehaviour:
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions:
-  - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
-  - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
-  - {fileID: 11400000, guid: a11940838089ac0439b5700a71e8775a, type: 2}
-  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   - {fileID: 11400000, guid: a4a87363bb4c4074c9af3f0b9aded6d8, type: 2}
   - {fileID: 11400000, guid: 619018a969fe8534092a224429366dae, type: 2}
+  - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
+  - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
+  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   - {fileID: 11400000, guid: 565434289cbf84fa799a877d19ba5727, type: 2}
   _defaultCombo: 0
   _attackInfo:
-    attackType: 1
+    attackType: 2
     knockbackDuration: 0.3
     knockbackDistance: 1
-    knockbackDirection: {x: 5, y: 0, z: 0}
-    hitStunDuration: 0.3
+    knockbackDirection: {x: -5, y: 0, z: 0}
+    hitStunDuration: 0.35
     damage: 10
     causesWallBounce: 0
     hitStopDuration: 0.2
@@ -60,7 +59,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.3
-    favorReward: 6
+    favorReward: 8
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
   _isSpecial: 0
