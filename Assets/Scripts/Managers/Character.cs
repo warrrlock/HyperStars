@@ -22,6 +22,7 @@ namespace Managers
         [HideInInspector][SerializeField]private string _characterPath = "";
         public string CharacterPath => _characterPath;
         
+#if UNITY_EDITOR
         public void OnEnable()
         {
             CreateCharacterFolder();
@@ -135,6 +136,7 @@ namespace Managers
             EditorUtility.SetDirty(this);
             AssetDatabase.Refresh();
         }
+#endif
          
         //TODO: limit filter selection for states to its character
         //TODO: when deleting a filter, go through folder and move assets to correct folder
