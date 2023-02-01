@@ -15,7 +15,6 @@ public class VFXSpawnManager : MonoBehaviour
     [SerializeField] public GameObject spawnedVfxObject;
 
     private float currentRotation;
-
     [SerializeField] private float skyboxRotationSpeed;
     // try
 
@@ -69,14 +68,32 @@ public class VFXSpawnManager : MonoBehaviour
     {
         try
         {
-            Vector3 hitPos = (Vector3) message["hit point"];
-            Fighter sender = (Fighter) message["attacker"];
-            Fighter receiver = (Fighter) message["attacked"];
+            Vector3 hitPos = (Vector3)message["hit point"];
+            Fighter sender = (Fighter)message["attacker"];
+            Fighter receiver = (Fighter)message["attacked"];
+            AttackInfo attackInfo = (AttackInfo)message["attack info"];
+
+            CameraManager cam = Camera.main.GetComponent<CameraManager>();
+            
             InitializaeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
-            // temp camera shake
-            StartCoroutine(Camera.main.GetComponent<CameraManager>().CameraShake(.2f, .09f));
-            // StartCoroutine(Camera.main.GetComponent<CameraManager>().CameraZoom(hitPos, .08f, 20f, .4f));
+            // camera based on hits
+            switch (attackInfo.attackType)
+            {
+                case AttackInfo.AttackType.Light:
+                    StartCoroutine(cam.CameraShake(.2f, .02f));
+                    break;
+                case AttackInfo.AttackType.Medium:
+                    StartCoroutine(cam.CameraShake(.2f, .05f));
+                    break;
+                case AttackInfo.AttackType.Special:
+                    StartCoroutine(cam.CameraZoom(hitPos, .08f, 56f, .35f));
+                    StartCoroutine(cam.CameraShake(.3f, .09f));
+                    break;
+                default:
+                    StartCoroutine(cam.CameraShake(.1f, .01f));
+                    break;
+            }
         }
         catch (KeyNotFoundException)
         {

@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Cyan;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(CameraController))]
@@ -29,6 +33,8 @@ public class CameraManager : MonoBehaviour
     private float _defaultTargetY;
     private float _defaultFov;
     private Vector3 _defaultRotation;
+    
+    [SerializeField] Material ieMaterial;
 
     private void Awake()
     {
@@ -142,18 +148,30 @@ public class CameraManager : MonoBehaviour
     {
         var zoomElapsed = 0f;
         transform.LookAt(zoomTarget);
-        
+
+        var defaultDistortion = ieMaterial.GetFloat("_distortion");
+
         while (zoomElapsed < zoomSpeed)
         {
             _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomElapsed / zoomSpeed);
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(defaultDistortion, -.45f, zoomElapsed / zoomSpeed));
             zoomElapsed += Time.deltaTime;
-            
             yield return null;
         }
-        
         _camera.fieldOfView = zoomFov;
+        ieMaterial.SetFloat("_distortion", -.45f);
+        
         yield return new WaitForSeconds(zoomHold);
+
+        var zoomRecoveryElapsed = 0f;
+        while (zoomRecoveryElapsed < zoomSpeed / 1.5f)
+        {
+            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomRecoveryElapsed / (zoomSpeed / 1.5f));
+            zoomRecoveryElapsed += Time.deltaTime;
+            yield return null;
+        }
         _camera.fieldOfView = _defaultFov;
         transform.rotation = Quaternion.Euler(_defaultRotation);
+        ieMaterial.SetFloat("_distortion", defaultDistortion);
     }
 }
