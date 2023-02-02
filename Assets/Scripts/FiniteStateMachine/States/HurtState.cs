@@ -18,6 +18,8 @@ namespace FiniteStateMachine
         [SerializeField] private string _animationName2;
         [HideInInspector] [SerializeField] private int _animationHash2;
         [SerializeField] private BaseState _exitState;
+
+        public KeyHurtStatePair.HurtStateName HurtType => _hurtType;
         // ==========  methods ========== //
         private void OnValidate()
         {
@@ -29,6 +31,17 @@ namespace FiniteStateMachine
                     _animationHash2 = -1;
         }
 
+        public override void Execute(BaseStateMachine stateMachine, string inputName)
+        {
+            stateMachine.PlayAnimation(_animationHash, replay: true);
+            if (_exitState) stateMachine.QueueState(_exitState);
+            Debug.Log($"{stateMachine.name} starting hurt state, of type {_hurtType}");
+            if (_hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
+                stateMachine.StartInAir(() => stateMachine.WaitToAnimate(nextAnimation: _animationHash2), setJumpReturnState: false);
+            else stateMachine.WaitToAnimate();
+        }
+        
+#if UNITY_EDITOR
         public override void AddTransition(Transition t)
         {
             //do nothing
@@ -48,15 +61,7 @@ namespace FiniteStateMachine
         {
             return null;
         }
-
-        public override void Execute(BaseStateMachine stateMachine, string inputName)
-        {
-            stateMachine.PlayAnimation(_animationHash, replay: true);
-            if (_exitState) stateMachine.QueueState(_exitState);
-            if (_hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
-                stateMachine.StartInAir(() => stateMachine.WaitToMove(nextAnimation: _animationHash2), setJumpReturnState: false);
-            else stateMachine.WaitToMove();
-        }
+#endif
         
 //         #region Editor
 // #if UNITY_EDITOR

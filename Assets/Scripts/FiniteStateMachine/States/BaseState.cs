@@ -36,20 +36,20 @@ namespace FiniteStateMachine
             return -1;
         }
 
-        public abstract void AddTransition(Transition t);
-        public abstract void DeleteTransition(Transition t);
-        public abstract bool HasTransitions();
-
-        
+#if UNITY_EDITOR
         //editor stuff
         [HideInInspector][SerializeField] public NodeInfo NodeInfo = new NodeInfo();
         [HideInInspector][SerializeField] private List<FSMFilter> _filters = new();
         public IReadOnlyList<FSMFilter> Filters => _filters;
         [FormerlySerializedAs("character")] public CharacterManager.CharacterSelection characterSelection = CharacterManager.CharacterSelection.None;
         public abstract IReadOnlyList<Transition> GetTransitions();
+        public abstract void AddTransition(Transition t);
+        public abstract void DeleteTransition(Transition t);
+        public abstract bool HasTransitions();
+        
         private bool _showFilters;
         public bool ShowFilters => _showFilters;
-
+        
         public void ReloadFilters(Character character)
         {
             for (int i = _filters.Count-1; i >= 0; i--)
@@ -106,5 +106,6 @@ namespace FiniteStateMachine
         { 
             EditorUtility.SetDirty(this);
         }
+#endif
     }
 }

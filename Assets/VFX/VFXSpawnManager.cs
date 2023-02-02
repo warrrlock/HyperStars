@@ -13,7 +13,9 @@ public class VFXSpawnManager : MonoBehaviour
 {
     [SerializeField] public VisualEffectAsset[] visualEffectAssets;
     [SerializeField] public GameObject spawnedVfxObject;
-    
+
+    private float currentRotation;
+    [SerializeField] private float skyboxRotationSpeed;
     // try
 
     void Start()
@@ -25,6 +27,21 @@ public class VFXSpawnManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        SkyboxRotation();
+    }
+
+    void SkyboxRotation()
+    {
+        currentRotation += skyboxRotationSpeed * Time.deltaTime;
+        if (currentRotation >= 360)
+        {
+            currentRotation = 0;
+        }
+        RenderSettings.skybox.SetFloat("_Rotation", currentRotation);
+    }
+
     private void OnDestroy()
     {
         foreach (Fighter f in Services.Fighters)
@@ -34,13 +51,13 @@ public class VFXSpawnManager : MonoBehaviour
         }
     }
 
-    public void InitializaeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
+    public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
     {
         VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
         newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
     }
     
-    public void InitializaeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter sender)
+    public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter sender)
     {
         VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
         newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
@@ -51,14 +68,32 @@ public class VFXSpawnManager : MonoBehaviour
     {
         try
         {
-            Vector3 hitPos = (Vector3) message["hit point"];
-            Fighter sender = (Fighter) message["attacker"];
-            Fighter receiver = (Fighter) message["attacked"];
-            InitializaeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
-            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, .5f));
-            // camera shake <temp>
-            StartCoroutine(Camera.main.GetComponent<CameraManager>().CameraShake(.2f, .09f));
-            // StartCoroutine(Camera.main.GetComponent<CameraManager>().CameraZoom(hitPos, .08f, 20f, .4f));
+            Vector3 hitPos = (Vector3)message["hit point"];
+            Fighter sender = (Fighter)message["attacker"];
+            Fighter receiver = (Fighter)message["attacked"];
+            AttackInfo attackInfo = (AttackInfo)message["attack info"];
+
+            CameraManager cam = Camera.main.GetComponent<CameraManager>();
+            
+            InitializeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
+            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
+            // camera based on hits
+            switch (attackInfo.attackType)
+            {
+                case AttackInfo.AttackType.Light:
+                    StartCoroutine(cam.CameraShake(.2f, .02f));
+                    break;
+                case AttackInfo.AttackType.Medium:
+                    StartCoroutine(cam.CameraShake(.2f, .05f));
+                    break;
+                case AttackInfo.AttackType.Special:
+                    StartCoroutine(cam.CameraZoom(hitPos, .08f, 56f, .35f));
+                    StartCoroutine(cam.CameraShake(.3f, .09f));
+                    break;
+                default:
+                    StartCoroutine(cam.CameraShake(.1f, .01f));
+                    break;
+            }
         }
         catch (KeyNotFoundException)
         {
@@ -74,8 +109,8 @@ public class VFXSpawnManager : MonoBehaviour
             Vector3 hitPos = (Vector3) message["hit point"];
             Fighter sender = (Fighter) message["attacker"];
             Fighter receiver = (Fighter) message["attacked"];
-            InitializaeVFX(VFXGraphs.LISA_HIT_PARRY, hitPos, sender);
-            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(sender, 98f, .5f));
+            InitializeVFX(VFXGraphs.LISA_HIT_PARRY, hitPos, sender);
+            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(sender, 98f, 2f, .5f));
         }
         catch (KeyNotFoundException)
         {

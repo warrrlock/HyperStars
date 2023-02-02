@@ -17,7 +17,26 @@ namespace FiniteStateMachine
             _actions.RemoveAll(a => !a);
             _transitions.RemoveAll(t => !t);
         }
+
+        public override void Execute(BaseStateMachine stateMachine, string inputName){
+            // Debug.Log($"{stateMachine.name} is executing {name}");
+            foreach(StateAction action in _actions){
+                action.Execute(stateMachine);
+            }
+            foreach (Transition transition in _transitions)
+            {
+                transition.Execute(stateMachine, inputName);
+            }
+        }
+        public override void Stop(BaseStateMachine stateMachine, string inputName)
+        {
+            // Debug.Log($"{stateMachine.name} stopped action {name}");
+            foreach(StateAction action in _actions){
+                action.Stop(stateMachine);
+            }
+        }
         
+#if UNITY_EDITOR
         public override void AddTransition(Transition t)
         {
             _transitions.Add(t);
@@ -39,23 +58,6 @@ namespace FiniteStateMachine
         {
             return _transitions;
         }
-
-        public override void Execute(BaseStateMachine stateMachine, string inputName){
-            // Debug.Log($"{stateMachine.name} is executing {name}");
-            foreach(StateAction action in _actions){
-                action.Execute(stateMachine);
-            }
-            foreach (Transition transition in _transitions)
-            {
-                transition.Execute(stateMachine, inputName);
-            }
-        }
-        public override void Stop(BaseStateMachine stateMachine, string inputName)
-        {
-            // Debug.Log($"{stateMachine.name} stopped action {name}");
-            foreach(StateAction action in _actions){
-                action.Stop(stateMachine);
-            }
-        }
+#endif
     }
 }
