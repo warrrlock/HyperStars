@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Cyan;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(CameraController))]
@@ -9,7 +13,7 @@ public class CameraManager : MonoBehaviour
     //[SerializeField] private float _minCameraSize;
     //[SerializeField] private float _maxCameraSize;
     [SerializeField] private Transform _cameraDefaultTransform;
-    [SerializeField] private float _minCameraZ;
+    [SerializeField] private float _maxCameraZ;
     [SerializeField] private float _maxFightersDistanceX;
     [SerializeField] private float _minFightersDistanceY;
     [SerializeField] private float _maxFightersDistanceY;
@@ -27,6 +31,10 @@ public class CameraManager : MonoBehaviour
     private float _defaultX;
     private float _defaultY;
     private float _defaultTargetY;
+    private float _defaultFov;
+    private Vector3 _defaultRotation;
+    
+    [SerializeField] Material ieMaterial;
 
     private void Awake()
     {
@@ -45,6 +53,8 @@ public class CameraManager : MonoBehaviour
         _defaultX = _cameraDefaultTransform.position.x;
         _defaultY = _cameraDefaultTransform.position.y;
         _defaultTargetY = _targets[0].position.y;
+        _defaultFov = _camera.fieldOfView;
+        _defaultRotation = transform.eulerAngles;
     }
 
     private void Update()
@@ -63,14 +73,17 @@ public class CameraManager : MonoBehaviour
         if (fightersDistanceX < _maxFightersDistanceX)
         {
             _destination.z = -fightersDistanceX * 1.5f;
-            _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _minCameraZ);
         }
         float fightersDistanceY = Mathf.Abs(_targets[1].position.y - _targets[0].position.y);
         if (fightersDistanceY > _minFightersDistanceY && fightersDistanceY < _maxFightersDistanceY)
         {
             _destination.z += -fightersDistanceY * 1.5f;
-            _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _minCameraZ);
         }
+        else
+        {
+            _destination.z -= -fightersDistanceY * 1.5f;
+        }
+        _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _maxCameraZ);
     }
 
     private void LateUpdate()
@@ -126,8 +139,43 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public IEnumerator CameraZoom(Vector3 zoomTarget, float zoomHold)
+    /// <summary>
+    /// Triggers camera zoom on a sepcific target
+    /// </summary>
+    /// <param name="zoomTarget">World pos of the target being zoomed into</param>
+    /// <param name="zoomSpeed">How fast it zooms onto target</param>
+    /// <param name="zoomFov">What's the fov when zoomed in</param>
+    /// <param name="zoomHold">How long do we hold the zoom for</param>
+    /// <returns></returns>
+    public IEnumerator CameraZoom(Vector3 zoomTarget, float zoomSpeed, float zoomFov, float zoomHold)
     {
-        yield return null;
+        var zoomElapsed = 0f;
+        // transform.LookAt(zoomTarget);
+
+        var defaultDistortion = ieMaterial.GetFloat("_distortion");
+
+        while (zoomElapsed < zoomSpeed)
+        {
+            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomElapsed / zoomSpeed);
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(defaultDistortion, -.45f, zoomElapsed / zoomSpeed));
+            zoomElapsed += Time.deltaTime;
+            yield return null;
+        }
+        _camera.fieldOfView = zoomFov;
+        ieMaterial.SetFloat("_distortion", -.45f);
+        
+        yield return new WaitForSeconds(zoomHold);
+
+        var zoomRecoveryElapsed = 0f;
+        while (zoomRecoveryElapsed < zoomSpeed / 1.15f)
+        {
+            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomRecoveryElapsed / (zoomSpeed / 1.15f));
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(-.45f, defaultDistortion, zoomRecoveryElapsed / (zoomSpeed / 1.15f)));
+            zoomRecoveryElapsed += Time.deltaTime;
+            yield return null;
+        }
+        _camera.fieldOfView = _defaultFov;
+        ieMaterial.SetFloat("_distortion", defaultDistortion);
+        transform.rotation = Quaternion.Euler(_defaultRotation);
     }
 }
