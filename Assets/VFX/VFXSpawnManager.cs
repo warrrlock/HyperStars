@@ -51,13 +51,13 @@ public class VFXSpawnManager : MonoBehaviour
         }
     }
 
-    public void InitializaeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
+    public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
     {
         VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
         newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
     }
     
-    public void InitializaeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter sender)
+    public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter sender)
     {
         VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
         newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
@@ -75,7 +75,7 @@ public class VFXSpawnManager : MonoBehaviour
 
             CameraManager cam = Camera.main.GetComponent<CameraManager>();
             
-            InitializaeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
+            InitializeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
             // camera based on hits
             switch (attackInfo.attackType)
@@ -109,7 +109,7 @@ public class VFXSpawnManager : MonoBehaviour
             Vector3 hitPos = (Vector3) message["hit point"];
             Fighter sender = (Fighter) message["attacker"];
             Fighter receiver = (Fighter) message["attacked"];
-            InitializaeVFX(VFXGraphs.LISA_HIT_PARRY, hitPos, sender);
+            InitializeVFX(VFXGraphs.LISA_HIT_PARRY, hitPos, sender);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(sender, 98f, 2f, .5f));
         }
         catch (KeyNotFoundException)
