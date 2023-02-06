@@ -11,9 +11,9 @@ namespace FiniteStateMachine
     public class ComboState: BaseState
     {
         [SerializeField] private string _animationName;
-        [FormerlySerializedAs("_inputStopActions")] [SerializeField] private List<StateAction> _onInputPlayOrStopActions = new List<StateAction>();
-        [SerializeField] private List<StateAction> _onInputInvokeActions = new List<StateAction>();
-        [SerializeField] private List<Transition> _transitions = new List<Transition>();
+        [FsmList(typeof(StateAction))] [FormerlySerializedAs("_inputStopActions")] [SerializeField] private List<StateAction> _onInputPlayOrStopActions = new List<StateAction>();
+        [FsmList(typeof(StateAction))] [SerializeField] private List<StateAction> _onInputInvokeActions = new List<StateAction>();
+        [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
         [Tooltip("If you would like the animation to start with the combo option as true. Otherwise, set to false.")]
         [SerializeField] private bool _defaultCombo = true;
         
@@ -43,28 +43,7 @@ namespace FiniteStateMachine
             _onInputPlayOrStopActions.RemoveAll(a => !a);
             _onInputInvokeActions.RemoveAll(a => !a);
         }
-
-        public override void AddTransition(Transition t)
-        {
-            _transitions.Add(t);
-            SaveChanges();
-        }
-
-        public override void DeleteTransition(Transition t)
-        {
-            _transitions.Remove(t);
-            SaveChanges();
-        }
-
-        public override bool HasTransitions()
-        {
-            return true;
-        }
-
-        public override IReadOnlyList<Transition> GetTransitions()
-        {
-            return _transitions;
-        }
+        
 
         public override void Execute(BaseStateMachine stateMachine, string inputName)
         {
@@ -115,6 +94,30 @@ namespace FiniteStateMachine
             projectile.Spawn(stateMachine.Fighter, bounds);
         }
 
+#if UNITY_EDITOR
+        public override void AddTransition(Transition t)
+        {
+            _transitions.Add(t);
+            SaveChanges();
+        }
+
+        public override void DeleteTransition(Transition t)
+        {
+            _transitions.Remove(t);
+            SaveChanges();
+        }
+
+        public override bool HasTransitions()
+        {
+            return true;
+        }
+
+        public override IReadOnlyList<Transition> GetTransitions()
+        {
+            return _transitions;
+        }
+#endif
+        
         //         #region Editor
 // #if UNITY_EDITOR
 //         [CustomEditor(typeof(ComboState))]

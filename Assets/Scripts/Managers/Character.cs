@@ -19,12 +19,16 @@ namespace Managers
         public List<FSMFilter> Filters => _filters;
         
         private string _originPath = "Assets/Scriptable Objects/State Machine";
-        [SerializeField]private string _characterPath = "";
+        [HideInInspector][SerializeField]private string _characterPath = "";
+        public string CharacterPath => _characterPath;
         
+#if UNITY_EDITOR
         public void OnEnable()
         {
             CreateCharacterFolder();
+            if (_characterPath.Equals("")) SetCharacterPath();
             if (_characterPath.Equals("")) return;
+            
             string[] folders = AssetDatabase.GetSubFolders(_characterPath);
             List<string> folderNames = new ();
             foreach (string folder in folders)
@@ -43,24 +47,38 @@ namespace Managers
             for (int i = _filters.Count - 1; i >= 0; i--)
             {
                 if (!folderNames.Contains(_filters[i].filterName))
-                    _filters.Remove(_filters[i]);
+                {
+                    AssetDatabase.CreateFolder(_characterPath, _filters[i].filterName);
+                    //_filters.Remove(_filters[i]);
+                }
             }
             _filtersSet = new HashSet<FSMFilter>(_filters, new FSMFilterEqualityComparer());
         }
 
+        private void SetCharacterPath()
+        {
+            _characterPath = $"{_originPath}/{this.name}";
+        }
+
         private void CreateCharacterFolder()
         {
-            if (this.name.Equals("") || AssetDatabase.IsValidFolder($"{_originPath}/{this.name}")) return;
-            _characterPath = $"{_originPath}/{this.name}";
-            System.IO.Directory.CreateDirectory(_characterPath);
-            System.IO.Directory.CreateDirectory($"{_characterPath}/unfiltered");
-            System.IO.Directory.CreateDirectory($"{_characterPath}/multi-filtered");
-            System.IO.Directory.CreateDirectory($"{_characterPath}/transitions");
-            System.IO.Directory.CreateDirectory($"{_characterPath}/actions");
+            if (this.name.Equals("")) return;
+            SetCharacterPath();
+            if (!AssetDatabase.IsValidFolder(_characterPath))
+            {
+                System.IO.Directory.CreateDirectory(_characterPath);
+                AssetDatabase.Refresh();
+                AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(this), $"{_characterPath}/{this.name}.asset");
+            }
+            if (!AssetDatabase.IsValidFolder($"{_characterPath}/unfiltered"))
+                System.IO.Directory.CreateDirectory($"{_characterPath}/unfiltered");
+            if (!AssetDatabase.IsValidFolder($"{_characterPath}/multi-filtered"))
+                System.IO.Directory.CreateDirectory($"{_characterPath}/multi-filtered");
+            if (!AssetDatabase.IsValidFolder($"{_characterPath}/transitions"))
+                System.IO.Directory.CreateDirectory($"{_characterPath}/transitions");
+            if (!AssetDatabase.IsValidFolder($"{_characterPath}/actions"))
+                System.IO.Directory.CreateDirectory($"{_characterPath}/actions");
             
-            Debug.Log($"creating directories at path {_characterPath}\nfrom {System.IO.Directory.GetCurrentDirectory()}");
-            AssetDatabase.Refresh();
-            AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(this), $"{_characterPath}/{this.name}.asset");
             AssetDatabase.Refresh();
         }
 
@@ -118,6 +136,7 @@ namespace Managers
             EditorUtility.SetDirty(this);
             AssetDatabase.Refresh();
         }
+#endif
          
         //TODO: limit filter selection for states to its character
         //TODO: when deleting a filter, go through folder and move assets to correct folder

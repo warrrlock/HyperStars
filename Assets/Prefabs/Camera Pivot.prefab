@@ -47,7 +47,7 @@ Camera:
   m_GameObject: {fileID: 2666714687243223785}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.08810963, g: 0.09786992, b: 0.11320752, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -184,6 +184,7 @@ MonoBehaviour:
   _cameraCatchUpSpeedX: 5
   _cameraCatchUpSpeedY: 5
   _cameraCatchUpSpeedZ: 2
+  ieMaterial: {fileID: 2100000, guid: 7e6e90d73f234aa438e43e011bbc310f, type: 2}
 --- !u!1 &2666714687608587546
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +231,7 @@ GameObject:
   - component: {fileID: 5872363015245905466}
   m_Layer: 0
   m_Name: VFX Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,6 +270,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614526, guid: 13403678a066aae4f96ad28a2fab6fe9, type: 3}
   - {fileID: 8926484042661614526, guid: 52e5d2b1e0ea5464799095c3c0a2b430, type: 3}
   spawnedVfxObject: {fileID: 3187476607867268997, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
+  skyboxRotationSpeed: 2
 --- !u!20 &4582068668910756800
 Camera:
   m_ObjectHideFlags: 0
