@@ -22,6 +22,7 @@ public class Player: MonoBehaviour
     private readonly int _mainMenuSceneIndex = 0;
     private readonly int _selectionSceneIndex = 1;
     private readonly int _gameSceneIndex = 2;
+    private readonly int _trainingSceneIndex = 3;
 
     private void Awake()
     {
@@ -117,7 +118,7 @@ public class Player: MonoBehaviour
             ResetPlayer();
             SetSelectionSceneValues();
         }
-        else if (currentScene.buildIndex == _gameSceneIndex)
+        else if (currentScene.buildIndex == _gameSceneIndex || currentScene.buildIndex == _trainingSceneIndex)
         {
             ReadyStartingGame();
         }
