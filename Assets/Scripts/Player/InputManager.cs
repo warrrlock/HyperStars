@@ -4,6 +4,7 @@ using System.Collections.Generic;
 //using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using static InputManager;
 
 [RequireComponent(typeof(PlayerInput))]
@@ -37,6 +38,13 @@ public class InputManager : MonoBehaviour
         public Action(string nam)
         {
             name = nam;
+
+
+
+            //if (inputAction.interactions.Contains("asdf"))
+            //{
+            //    //IInputInteraction interaction = inputAction.interactions;
+            //}
 
             perform += IsPerformed;
             stop += IsntPerformed;
@@ -93,6 +101,7 @@ public class InputManager : MonoBehaviour
         foreach(InputAction action in _playerInput.actions)
         {
             Actions.Add(action.name, new Action(action.name));
+            //InputState.AddChangeMonitor(action, new());
         }
     }
 

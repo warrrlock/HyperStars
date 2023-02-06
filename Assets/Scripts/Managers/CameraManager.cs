@@ -150,7 +150,7 @@ public class CameraManager : MonoBehaviour
     public IEnumerator CameraZoom(Vector3 zoomTarget, float zoomSpeed, float zoomFov, float zoomHold)
     {
         var zoomElapsed = 0f;
-        transform.LookAt(zoomTarget);
+        // transform.LookAt(zoomTarget);
 
         var defaultDistortion = ieMaterial.GetFloat("_distortion");
 
@@ -167,14 +167,17 @@ public class CameraManager : MonoBehaviour
         yield return new WaitForSeconds(zoomHold);
 
         var zoomRecoveryElapsed = 0f;
-        while (zoomRecoveryElapsed < zoomSpeed / 1.5f)
+        while (zoomRecoveryElapsed < zoomSpeed)
         {
-            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomRecoveryElapsed / (zoomSpeed / 1.5f));
+            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomRecoveryElapsed / zoomSpeed);
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(-.45f, defaultDistortion, zoomRecoveryElapsed / zoomSpeed));
             zoomRecoveryElapsed += Time.deltaTime;
             yield return null;
         }
+        
+        yield return new WaitForSeconds(.2f);
         _camera.fieldOfView = _defaultFov;
-        transform.rotation = Quaternion.Euler(_defaultRotation);
         ieMaterial.SetFloat("_distortion", defaultDistortion);
+        transform.rotation = Quaternion.Euler(_defaultRotation);
     }
 }
