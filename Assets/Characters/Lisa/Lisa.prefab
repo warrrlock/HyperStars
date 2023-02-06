@@ -429,9 +429,12 @@ MonoBehaviour:
   _dashDuration: 0.2
   _dashHangTime: 0.15
   _dashToZero: 1
-  _dashCooldownDuration: 0.3
+  _dashCooldownDuration: 0
   _dashEasing: 0
   _dashMinimumOverlap: 2
+  _maxDashCharges: 3
+  _dashChargeCount: 0
+  _dashRechargeTime: 2
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560

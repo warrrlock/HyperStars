@@ -1,10 +1,13 @@
 
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Scripting;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine.InputSystem.Editor;
 #endif
+
+//TODOTODOTODO: TAP THEN TAP SOMETHING ELSE CANCELS
 
 ////TODO: add ability to respond to any of the taps in the sequence (e.g. one response for single tap, another for double tap)
 
@@ -14,6 +17,24 @@ using UnityEngine.InputSystem.Editor;
 
 namespace UnityEngine.InputSystem.Interactions
 {
+    //#if UNITY_EDITOR
+    //[InitializeOnLoad]
+    //#endif
+    public class InterruptableInteraction : IInputInteraction<float>
+    {
+        public void Process(ref InputInteractionContext context)
+        {
+        }
+
+        /// <inheritdoc />
+        public void Reset()
+        {
+        }
+    }
+
+
+
+
     ////REVIEW: Why is this deriving from IInputInteraction<float>? It goes by actuation just like Hold etc.
     /// <summary>
     /// Interaction that requires multiple taps (press and release within <see cref="tapTime"/>) spaced no more
@@ -29,7 +50,7 @@ namespace UnityEngine.InputSystem.Interactions
     #if UNITY_EDITOR
     [InitializeOnLoad]
     #endif
-    public class MultiTapDownInteraction : IInputInteraction<float>
+    public class MultiTapDownInteraction : IInputInteraction<System.Single>
     {
         static MultiTapDownInteraction()
         {
@@ -74,12 +95,51 @@ namespace UnityEngine.InputSystem.Interactions
         /// <seealso cref="InputControl.EvaluateMagnitude()"/>
         public float pressPoint;
 
+
+        public bool isInterruptionAllowed;
+
         private float tapTimeOrDefault => tapTime > 0.0 ? tapTime : InputSystem.settings.defaultTapTime;
         internal float tapDelayOrDefault => tapDelay > 0.0 ? tapDelay : InputSystem.settings.multiTapDelayTime;
         //private float pressPointOrDefault => pressPoint > 0 ? pressPoint : ButtonControl.s_GlobalDefaultButtonPressPoint;
         //private float releasePointOrDefault => pressPointOrDefault * ButtonControl.s_GlobalDefaultButtonReleaseThreshold;
         private float pressPointOrDefault => pressPoint;
         private float releasePointOrDefault => pressPointOrDefault;
+
+
+        private bool _isInterrupted;
+
+        //public MultiTapDownInteraction()
+        //{
+        //}
+
+        private enum InterruptedState { Base, Uninterrupted, Interrupted }
+        private InterruptedState _interruptedState = InterruptedState.Base;
+
+        //public MultiTapDownInteraction()
+        //{
+        //    InputSystem.onActionChange += (action, change) =>
+        //    {
+        //        if (action.GetType() != typeof(InputAction))
+        //        {
+        //            return;
+        //        }
+        //        InputAction act = action as InputAction;
+        //        if (change != InputActionChange.ActionPerformed)
+        //        {
+        //            return;
+        //        }
+        //        if (act.interactions.Contains("Down"))
+        //        {
+        //            _interruptedState = InterruptedState.Uninterrupted;
+        //            return;
+        //        }
+        //        if (_interruptedState == InterruptedState.Base)
+        //        {
+        //            _interruptedState = InterruptedState.Interrupted;
+        //        }
+        //    };
+        //}
+
 
         /// <inheritdoc />
         public void Process(ref InputInteractionContext context)
@@ -88,8 +148,8 @@ namespace UnityEngine.InputSystem.Interactions
             {
                 // We use timers multiple times but no matter what, if they expire it means
                 // that we didn't get input in time.
-                Debug.Log("ween");
                 context.Canceled();
+                _interruptedState = InterruptedState.Base;
                 return;
             }
 
@@ -166,13 +226,19 @@ namespace UnityEngine.InputSystem.Interactions
                         }
                         else
                         {
-                            Debug.Log("ha");
                             context.Canceled();
                         }
                     }
                     break;
 
                 case TapPhase.WaitingForNextPress:
+                    //if (_interruptedState == InterruptedState.Interrupted)
+                    //{
+                    //    context.Canceled();
+                    //    _interruptedState = InterruptedState.Base;
+                    //}
+
+
                     if (context.ControlIsActuated(pressPointOrDefault))
                     {
                         if (context.time - m_LastTapTime <= tapDelay)
@@ -191,7 +257,6 @@ namespace UnityEngine.InputSystem.Interactions
                         }
                         else
                         {
-                            Debug.Log("llo");
                             context.Canceled();
                         }
                     }
@@ -206,6 +271,9 @@ namespace UnityEngine.InputSystem.Interactions
             m_CurrentTapCount = 0;
             m_CurrentTapStartTime = 0;
             m_LastTapTime = 0;
+
+            _isInterrupted = false;
+            _interruptedState = InterruptedState.Base;
         }
 
         private TapPhase m_CurrentTapPhase;
@@ -220,45 +288,4 @@ namespace UnityEngine.InputSystem.Interactions
             WaitingForNextPress,
         }
     }
-
-//#if UNITY_EDITOR
-//    /// <summary>
-//    /// UI that is displayed when editing <see cref="HoldInteraction"/> in the editor.
-//    /// </summary>
-//    internal class MultiTapDownInteractionEditor : InputParameterEditor<MultiTapDownInteraction>
-//    {
-//        protected override void OnEnable()
-//        {
-//            m_TapTimeSetting.Initialize("Max Tap Duration",
-//                "Time (in seconds) within with a control has to be released again for it to register as a tap. If the control is held "
-//                + "for longer than this time, the tap is canceled.",
-//                "Default Tap Time",
-//                () => target.tapTime, x => target.tapTime = x, () => InputSystem.settings.defaultTapTime);
-//            m_TapDelaySetting.Initialize("Max Tap Spacing",
-//                "The maximum delay (in seconds) allowed between each tap. If this time is exceeded, the multi-tap is canceled.",
-//                "Default Tap Spacing",
-//                () => target.tapDelay, x => target.tapDelay = x, () => InputSystem.settings.multiTapDelayTime);
-//            m_PressPointSetting.Initialize("Press Point",
-//                "The amount of actuation a control requires before being considered pressed. If not set, default to "
-//                + "'Default Button Press Point' in the global input settings.",
-//                "Default Button Press Point",
-//                () => target.pressPoint, v => target.pressPoint = v,
-//                () => InputSystem.settings.defaultButtonPressPoint);
-//        }
-
-//        public override void OnGUI()
-//        {
-//            target.tapCount = EditorGUILayout.IntField(m_TapCountLabel, target.tapCount);
-//            m_TapDelaySetting.OnGUI();
-//            m_TapTimeSetting.OnGUI();
-//            m_PressPointSetting.OnGUI();
-//        }
-
-//        private readonly GUIContent m_TapCountLabel = new GUIContent("Tap Count", "How many taps need to be performed in succession. Two means double-tap, three means triple-tap, and so on.");
-
-//        private CustomOrDefaultSetting m_PressPointSetting;
-//        private CustomOrDefaultSetting m_TapTimeSetting;
-//        private CustomOrDefaultSetting m_TapDelaySetting;
-//    }
-//#endif
 }
