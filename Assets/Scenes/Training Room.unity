@@ -612,7 +612,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150122307463432836, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2490601690396719919, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _fillMeter
@@ -700,43 +700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522315, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-      propertyPath: _moveSpeed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-      propertyPath: _dashDistance
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-      propertyPath: _dashDuration
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-      propertyPath: _dashHangTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-      propertyPath: _maxJumpHeight
-      value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-      propertyPath: _minJumpHeight
-      value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-      propertyPath: _timeToJumpApex
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-      propertyPath: _dashMinimumOverlap
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
-      propertyPath: _dashCooldownDuration
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791523313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _jumpState
@@ -747,9 +711,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2140118225}
     - target: {fileID: 5751411094791523313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _noEndEventClips.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791523313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _noEndEventClips.Array.data[1]
       value: 
       objectReference: {fileID: 7400000, guid: 93a6df2a673403d42ae43d2dc197c325, type: 2}
+    - target: {fileID: 5751411094791523313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _noEndEventClips.Array.data[7]
+      value: 
+      objectReference: {fileID: 7400000, guid: 6b82a4882db85d74da24c7147b6a29b5, type: 2}
     - target: {fileID: 5751411094791523314, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Actions
       value: 
@@ -3453,6 +3425,9 @@ MonoBehaviour:
   _dashCooldownDuration: 0.2
   _dashEasing: 0
   _dashMinimumOverlap: 2
+  _maxDashCharges: 0
+  _dashChargeCount: 0
+  _dashRechargeTime: 0
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560
@@ -3855,8 +3830,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _moveSpeed
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashDistance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashRechargeTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _dashMinimumOverlap
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751411094791522316, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: _dashCooldownDuration
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791523313, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: _stateInfoText
@@ -4797,7 +4788,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 150122305648855901}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -5377,7 +5368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &5751411096068180434
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5497,6 +5488,9 @@ MonoBehaviour:
   _dashCooldownDuration: 0.2
   _dashEasing: 0
   _dashMinimumOverlap: 2
+  _maxDashCharges: 0
+  _dashChargeCount: 0
+  _dashRechargeTime: 0
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560
