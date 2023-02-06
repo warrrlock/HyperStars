@@ -167,13 +167,15 @@ public class CameraManager : MonoBehaviour
         yield return new WaitForSeconds(zoomHold);
 
         var zoomRecoveryElapsed = 0f;
-        while (zoomRecoveryElapsed < zoomSpeed / 1.15f)
+        while (zoomRecoveryElapsed < zoomSpeed)
         {
-            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomRecoveryElapsed / (zoomSpeed / 1.15f));
-            ieMaterial.SetFloat("_distortion", Mathf.Lerp(-.45f, defaultDistortion, zoomRecoveryElapsed / (zoomSpeed / 1.15f)));
+            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomRecoveryElapsed / zoomSpeed);
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(-.45f, defaultDistortion, zoomRecoveryElapsed / zoomSpeed));
             zoomRecoveryElapsed += Time.deltaTime;
             yield return null;
         }
+        
+        yield return new WaitForSeconds(.2f);
         _camera.fieldOfView = _defaultFov;
         ieMaterial.SetFloat("_distortion", defaultDistortion);
         transform.rotation = Quaternion.Euler(_defaultRotation);

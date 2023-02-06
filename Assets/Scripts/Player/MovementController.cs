@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 using WesleyDavies;
 using WesleyDavies.UnityFunctions;
 
+
+//TODO: PASSIVE RELOAD FOR ATTACKS AND STUFF??
+
 [RequireComponent(typeof(Fighter))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(InputManager))]
@@ -37,6 +40,12 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _dashCooldownDuration;
     [SerializeField] private ForceEasing _dashEasing;
     [SerializeField] private float _dashMinimumOverlap;
+
+    private float _shortDashForce = 0f;
+    private bool _isShortDashing = false; //TODO: these variables are stupidd
+    [SerializeField] private int _maxDashCharges;
+    [SerializeField] private int _dashChargeCount;
+    [SerializeField] private float _dashRechargeTime;
 
     [Header("Collisions")]
     [Tooltip("What layer(s) should collisions be checked on?")]
@@ -215,6 +224,8 @@ public class MovementController : MonoBehaviour
                 _dashForce = (_dashDistance * 4f) / (_dashDuration * Time.fixedDeltaTime + 1f);
                 break;
         }
+        _shortDashForce = _dashForce / 2f;
+        _dashChargeCount = _maxDashCharges;
     }
 
     private void AssignSpecialConditions()
@@ -874,7 +885,22 @@ public class MovementController : MonoBehaviour
         //    _unforcedVelocity.x = 0f;
         //    _unforcedVelocity.z = 0f;
         //}
-        StartCoroutine(ApplyForce(dashDirection, _dashForce, _dashDuration, _dashEasing));
+        float dashForce;
+        if (_isShortDashing)
+        {
+            dashForce = _shortDashForce;
+            _isShortDashing = false;
+        }
+        else
+        {
+            if (_dashChargeCount <= 0)
+            {
+                return;
+            }
+            dashForce = _dashForce;
+            _dashChargeCount--;
+        }
+        StartCoroutine(ApplyForce(dashDirection, dashForce, _dashDuration, _dashEasing));
         //StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
         if (!CollisionData.y.isNegativeHit)
         {
@@ -945,12 +971,14 @@ public class MovementController : MonoBehaviour
         //    }
         //}
         StartCoroutine(Dash(action, _dashDuration));
+        StartCoroutine(RechargeDash());
     }
 
     private void DashLeft(InputManager.Action action)
     {
         _dashDirection = Vector3.left;
         MovingDirection = Fighter.Direction.Left;
+        _isShortDashing = true;
         _inputManager.Actions["Dash"].perform?.Invoke(action);
     }
 
@@ -958,6 +986,7 @@ public class MovementController : MonoBehaviour
     {
         _dashDirection = Vector3.right;
         MovingDirection = Fighter.Direction.Right;
+        _isShortDashing = true;
         _inputManager.Actions["Dash"].perform?.Invoke(action);
     }
 
@@ -1004,6 +1033,16 @@ public class MovementController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         _inputManager.Actions["Dash"].finish?.Invoke(action);
         StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
+        yield break;
+    }
+
+    private IEnumerator RechargeDash()
+    {
+        yield return new WaitForSeconds(_dashRechargeTime);
+        if (_dashChargeCount < _maxDashCharges)
+        {
+            _dashChargeCount++;
+        }
         yield break;
     }
     
