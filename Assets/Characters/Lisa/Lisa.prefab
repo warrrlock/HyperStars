@@ -125,7 +125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3747572163244988259
 Transform:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5dbaaf1d41d7345bfa2beda1525c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionBoxColor: {r: 0.17895675, g: 1, b: 0, a: 0.5176471}
+  collisionBoxColor: {r: 0.17895675, g: 1, b: 0, a: 0.20392157}
   showGizmos: 1
 --- !u!1 &5751411094747650480
 GameObject:
@@ -437,8 +437,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 14.921073, z: 6.3329177}
-  m_Center: {x: -1.5, y: 7.4605365, z: 0}
+  m_Size: {x: 11.585196, y: 14.921073, z: 6.3329177}
+  m_Center: {x: -0.55, y: 7.4605365, z: 0}
 --- !u!114 &5751411094791523312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,21 +466,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pushDistance: 0
   pushDirection: {x: 0, y: 0, z: 0}
-  _moveSpeed: 8.5
+  _moveSpeed: 9
   _maxJumpHeight: 7.5
   _minJumpHeight: 7.5
   _timeToJumpApex: 0.4
   _dashForce: 25
   _dashDistance: 7
-  _dashDuration: 0.35
+  _dashDuration: 0.3
   _dashHangTime: 0.1
-  _dashToZero: 1
-  _dashCooldownDuration: 0
+  _dashToZero: 0
+  _dashCooldownDuration: 0.5
   _dashEasing: 0
   _dashMinimumOverlap: 20
   _maxDashCharges: 3
   _dashChargeCount: 0
-  _dashRechargeTime: 3
+  _dashRechargeTime: 5
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560
@@ -574,7 +574,6 @@ MonoBehaviour:
   _noEndEventClips:
   - {fileID: 7400000, guid: 238dbacff5646c64ca7becf136e5bd33, type: 2}
   - {fileID: 7400000, guid: 93a6df2a673403d42ae43d2dc197c325, type: 2}
-  - {fileID: 7400000, guid: c8209bc4887d466468bade29ffac9b32, type: 2}
   - {fileID: 7400000, guid: 20549848deecc2548a64c2501eb1f840, type: 2}
   - {fileID: 7400000, guid: f759e95eb3cae404593e23e97dcbb140, type: 2}
   - {fileID: 7400000, guid: 7b9b02c7a24a6314493f47292e265aa4, type: 2}
@@ -898,7 +897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5dbaaf1d41d7345bfa2beda1525c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionBoxColor: {r: 1, g: 0, b: 0, a: 0.53333336}
+  collisionBoxColor: {r: 1, g: 0, b: 0, a: 0.20392157}
   showGizmos: 1
 --- !u!1 &5751411095806974482
 GameObject:
