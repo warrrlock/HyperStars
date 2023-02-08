@@ -826,7 +826,7 @@ public class MovementController : MonoBehaviour
 
     private void StartMoving(InputManager.Action action)
     {
-        Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+        Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
         inputVector *= _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
     }
