@@ -30,27 +30,27 @@ MonoBehaviour:
   _transitions: []
   _defaultCombo: 1
   _attackInfo:
-    attackType: 2
+    attackType: 3
     knockbackDuration: 0.5
     knockbackDistance: 15
-    knockbackDirection: {x: 0.5, y: 2, z: 0}
-    hitStunDuration: 0.3
-    damage: 10
-    causesWallBounce: 0
-    hitStopDuration: 0.1
-    wallBounceDuration: 0
-    wallBounceDistance: 0
-    wallBounceDirection: {x: 0, y: 0, z: 0}
-    wallBounceHitStopDuration: 0
+    knockbackDirection: {x: 1, y: 1, z: 0}
+    hitStunDuration: 1
+    damage: 20
+    causesWallBounce: 1
+    hitStopDuration: 0.07
+    wallBounceDuration: 1
+    wallBounceDistance: 20
+    wallBounceDirection: {x: -1, y: 2, z: 0}
+    wallBounceHitStopDuration: 0.1
     causesGroundBounce: 0
     groundBounceDuration: 0
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.2
-    favorReward: 14
-    knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0.2
+    hangTime: 0
+    favorReward: 20
+    knockbackForce: {x: 30.8089, y: 100}
+    incrementBarAmount: 0
   _isSpecial: 0
   _specialBarCost: 0
   _projectilePrefab: {fileID: 0}
