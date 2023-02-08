@@ -9,7 +9,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(FighterHealth))]
 [RequireComponent(typeof(InputManager))]
-[RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(BaseStateMachine))]
 public class Fighter : MonoBehaviour
 {
@@ -19,12 +18,10 @@ public class Fighter : MonoBehaviour
     {
         get => MovementController.MovingDirection;
     }
-
-    public PlayerInputState CurrentState { get; private set; }
+    
     public MovementController MovementController { get; private set; }
     public FighterHealth FighterHealth { get; private set; }
     public InputManager InputManager { get; private set; }
-    public HurtAnimator HurtAnimator { get; private set; }
     public PlayerInput PlayerInput { get; private set; }
     public Fighter OpposingFighter { get; private set; }
     public BaseStateMachine BaseStateMachine { get; private set; }
@@ -47,25 +44,15 @@ public class Fighter : MonoBehaviour
         AssignComponents();
         PlayerId = PlayerInput.playerIndex;
         Debug.Log(PlayerId);
-        if (PlayerId > 1)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        else if (PlayerId == 0)
-        {
-            GetComponent<SpriteRenderer>().sortingOrder = 2;
-        }
+        
         Services.Fighters[PlayerId] = this;
-        Events = new();
-        DontDestroyOnLoad(gameObject);
-        SceneReloader.OnSceneLoaded += ResetValues;
+        Events = new FighterEvents();
     }
 
     private void Start()
     {
         OpposingFighter = Array.Find(Services.Fighters, x => x.PlayerId != PlayerId);
-        SpecialMeterManager?.Initiate();
+        SpecialMeterManager?.Initialize();
         //TODO: change this because not all characters will start off facing right
         FacingDirection = Direction.Right;
         invulnerabilityCount = 0;
@@ -73,6 +60,7 @@ public class Fighter : MonoBehaviour
         //transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
         GetComponent<SpriteRenderer>().color = PlayerId == 0 ? FightersManager.player1Color : FightersManager.player2Color;
         //FacingDirection = OpposingFighter.transform.position.x > transform.position.x ? Direction.Right : Direction.Left;
+        ResetValues();
     }
 
     private void ResetValues()
@@ -96,8 +84,7 @@ public class Fighter : MonoBehaviour
         MovementController = GetComponent<MovementController>();
         FighterHealth = GetComponent<FighterHealth>();
         InputManager = GetComponent<InputManager>();
-        HurtAnimator = GetComponent<HurtAnimator>();
-        PlayerInput = GetComponent<PlayerInput>();
+        PlayerInput = transform.parent.GetComponent<PlayerInput>();
         BaseStateMachine = GetComponent<BaseStateMachine>();
         SpecialMeterManager = GetComponent<SpecialMeterManager>();
     }
@@ -127,6 +114,7 @@ public class Fighter : MonoBehaviour
         {
             InputManager.Actions["Reload Scene"].perform += SceneReloader.Instance.ReloadScene;
         }
+        SceneReloader.OnSceneLoaded += ResetValues;
     }
 
     private void UnsubscribeActions()
@@ -135,5 +123,6 @@ public class Fighter : MonoBehaviour
         {
             InputManager.Actions["Reload Scene"].perform -= SceneReloader.Instance.ReloadScene;
         }
+        SceneReloader.OnSceneLoaded -= ResetValues;
     }
 }
