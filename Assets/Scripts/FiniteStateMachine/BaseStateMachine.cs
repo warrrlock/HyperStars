@@ -55,6 +55,7 @@ namespace FiniteStateMachine {
         private int _currentAnimation;
         private bool _isAttacking;
         private string _lastExecutedInput;
+        private bool _crouching;
         private bool _crouchStop;
 
         public string LastExecutedInput
@@ -143,8 +144,10 @@ namespace FiniteStateMachine {
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput || CurrentState is HurtState) return;
-            if (_crouchStop) _crouchStop = false;
-            LastInvokedInput = action;
+            LastInvokedInput = _crouching ? LastInvokedInput: action;
+            if (action.name == "Crouch")
+                _crouching = true;
+            
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
             CurrentState.Execute(this, action.name);
         }
@@ -152,13 +155,13 @@ namespace FiniteStateMachine {
         private void Stop(InputManager.Action action)
         {
             // Debug.Log($"Stop called by {action.name}, with last played action being {_lastExecutedInput}");
-            // Debug.Log($"current state is {CurrentState.name}");
             if (action.name == "Crouch")
+            {
+                _crouching = false;
                 _crouchStop = true;
-            
-            if (_returnState == _initialState     && _lastExecutedInput != action.name
-                                                  && _lastExecutedInput != "Crouch" 
-                                                  && _lastExecutedInput != "") return;
+            }
+
+            if (_crouching) return;
             CurrentState.Stop(this, action.name);
         }
 
@@ -178,8 +181,7 @@ namespace FiniteStateMachine {
         
         public void QueueState(BaseState state = null)
         {
-            // Debug.Log($"{name} queuing state {state?.name}");
-            // if (!_queuedState) _queuedState = state;
+            // Debug.Log($"statemachine is queuing state {state?.name}");
             _queuedState = state;
         }
         
@@ -203,7 +205,8 @@ namespace FiniteStateMachine {
             _rejectInput = false;
 
             CurrentState.Execute(this, "");
-            if (_crouchStop)
+            
+            if (!_crouching && _crouchStop)
             {
                 Stop(Fighter.InputManager.Actions["Crouch"]);
                 _crouchStop = false;
