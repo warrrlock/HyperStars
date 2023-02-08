@@ -87,7 +87,7 @@ public class VFXSpawnManager : MonoBehaviour
                     StartCoroutine(cam.CameraShake(.2f, .05f));
                     break;
                 case AttackInfo.AttackType.Special:
-                    StartCoroutine(cam.CameraZoom(hitPos, .08f, 56f, .35f));
+                    StartCoroutine(cam.CameraZoom(hitPos, .2f, 56f, .16f));
                     StartCoroutine(cam.CameraShake(.3f, .09f));
                     break;
                 default:

@@ -156,9 +156,10 @@ public class CameraManager : MonoBehaviour
 
         while (zoomElapsed < zoomSpeed)
         {
+            var currentDistortion = ieMaterial.GetFloat("_distortion");
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(currentDistortion, -.45f, zoomElapsed / zoomSpeed));
             _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomElapsed / zoomSpeed);
-            ieMaterial.SetFloat("_distortion", Mathf.Lerp(defaultDistortion, -.45f, zoomElapsed / zoomSpeed));
-            zoomElapsed += Time.deltaTime;
+            zoomElapsed += Time.fixedDeltaTime;
             yield return null;
         }
         _camera.fieldOfView = zoomFov;
@@ -166,16 +167,17 @@ public class CameraManager : MonoBehaviour
         
         yield return new WaitForSeconds(zoomHold);
 
-        var zoomRecoveryElapsed = 0f;
-        while (zoomRecoveryElapsed < zoomSpeed / 1.15f)
-        {
-            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomRecoveryElapsed / (zoomSpeed / 1.15f));
-            ieMaterial.SetFloat("_distortion", Mathf.Lerp(-.45f, defaultDistortion, zoomRecoveryElapsed / (zoomSpeed / 1.15f)));
-            zoomRecoveryElapsed += Time.deltaTime;
-            yield return null;
-        }
-        _camera.fieldOfView = _defaultFov;
+        // var zoomRecoveryElapsed = 0f;
+        // while (zoomRecoveryElapsed < zoomSpeed)
+        // {
+        //     _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, Time.deltaTime);
+        //     ieMaterial.SetFloat("_distortion", Mathf.Lerp(ieMaterial.GetFloat("_distortion"), defaultDistortion, Time.deltaTime));
+        //     zoomRecoveryElapsed += Time.deltaTime;
+        //     yield return null;
+        // }
+        
         ieMaterial.SetFloat("_distortion", defaultDistortion);
+        _camera.fieldOfView = _defaultFov;
         transform.rotation = Quaternion.Euler(_defaultRotation);
     }
 }
