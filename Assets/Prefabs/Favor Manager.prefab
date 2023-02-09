@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ac9bdd3a3e745f5b10d05a4b2dabce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxFavor: 100
+  _maxFavorInitial: 100
   _favorMultiplierDelta: 0.1
   _favorMeter: {fileID: 6641305619317541153}
   _favorMeterIndicator: {fileID: 709499032836859959}
@@ -54,6 +54,9 @@ MonoBehaviour:
   _winConditionEvent: {fileID: 11400000, guid: 58d9c2a4bf47c4927bcab8a59ec48fb9, type: 2}
   _p1Bar: {fileID: 3339119065152400176}
   _p2Bar: {fileID: 709499031886937323}
+  _p1Mask: {fileID: 6641305619317541153}
+  _p2Mask: {fileID: 709499031046502114}
+  _border: {fileID: 709499031122435114}
 --- !u!1 &709499031046502115
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,12 +8,18 @@ using UI;
 
 public class FavorManager : MonoBehaviour
 {
+    //public float MaxFavor
+    //{
+    //    get => _maxFavor;
+    //}
     [Tooltip("The maximum amount of favor a fighter can have.")]
-    [SerializeField] private float _maxFavor;
+    [SerializeField] private float _maxFavorInitial;
     [Tooltip("How much the favor multiplier increases when favor reverses.")]
     [SerializeField] private float _favorMultiplierDelta;
     //[Tooltip("The percentage of total favor that a fighter needs to win in order to increase the favor multiplier.")]
     //[SerializeField][Range(0f, 1f)] private float _favorSwitchPercentage;
+
+    public float MaxFavor { get; private set; }
 
     /// <summary>
     /// If favor is < 0, player 1 is favored. If favor is > 0, player 0 is favored.
@@ -29,12 +35,24 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private GameEvent _winConditionEvent;
 
 
-
+    private Canvas _canvas;
     [SerializeField] private RectTransform _p1Bar;
     [SerializeField] private RectTransform _p2Bar;
+    [SerializeField] private RectTransform _p1Mask;
+    [SerializeField] private RectTransform _p2Mask;
+    [SerializeField] private RectTransform _border;
+    private float _initialWidth;
 
     private float _barMinimum = 0f;
+
+    public float BarMaximum
+    {
+        get => _barMaximum;
+    }
     private float _barMaximum;
+    private float _multiplier; //TODO: rename this
+
+    private float _timeMultiplier;
 
     private void Awake()
     {
@@ -43,10 +61,22 @@ public class FavorManager : MonoBehaviour
 
     private void Start()
     {
+        AssignComponents();
+        MaxFavor = _maxFavorInitial;
+
+        _initialWidth = _favorMeter.rect.width;
+
         _favor = 0f;
+
+        _multiplier = _favorMeter.localScale.x / 2f;
 
         _barMaximum = _p1Bar.rect.width;
         UpdateFavorMeter();
+    }
+
+    private void AssignComponents()
+    {
+        _canvas = GetComponentInChildren<Canvas>();
     }
 
     //Attacks should have a cooldown time where they don't increase favor as much when used in succession.
@@ -55,9 +85,9 @@ public class FavorManager : MonoBehaviour
     {
         value = playerId == 0 ? value : -value;
         value *= _favorMultiplier;
-        if (Mathf.Abs(_favor) == _maxFavor)
+        if (Mathf.Abs(_favor) >= MaxFavor)
         {
-            if (Mathf.Abs(_favor + value) > _maxFavor)
+            if (Mathf.Abs(_favor + value) > MaxFavor)
             {
                 //player wins
                 //Debug.Log("Player " + playerId + " wins.");
@@ -92,8 +122,8 @@ public class FavorManager : MonoBehaviour
                 break;
         }
         _favor += value;
-        _favor = Mathf.Clamp(_favor, -_maxFavor, _maxFavor);
-        if (Mathf.Abs(_favor) == _maxFavor)
+        _favor = Mathf.Clamp(_favor, -MaxFavor, MaxFavor);
+        if (Mathf.Abs(_favor) == MaxFavor)
         {
             //give golden goal
         }
@@ -116,12 +146,23 @@ public class FavorManager : MonoBehaviour
         }
     }
 
+    public void ResizeFavorMeter(float factor)
+    {
+        MaxFavor += factor;
+        UpdateFavorMeter();
+    }
+
     private void UpdateFavorMeter()
     {
-        _p1Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor - _maxFavor) / (_maxFavor * 2f)));
-        _p2Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor + _maxFavor) / (_maxFavor * 2f)));
-        float indicatorX = Mathf.Lerp(-_favorMeter.rect.width * _favorMeter.localScale.x / 2f,
-            _favorMeter.rect.width * _favorMeter.localScale.x / 2f, (_favor + _maxFavor) / (_maxFavor * 2f));
+        _p1Mask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _barMaximum);
+        _p2Mask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _barMaximum);
+        _border.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _barMaximum);
+
+        _p1Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f)));
+        _p2Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor + _maxFavorInitial) / (_maxFavorInitial * 2f)));
+        float indicatorX = Mathf.Lerp(-_initialWidth * _multiplier,
+            _initialWidth * _multiplier, (_favor + _maxFavorInitial) / (_maxFavorInitial * 2f));
+        indicatorX = Mathf.Clamp(indicatorX, -_initialWidth * _multiplier * (MaxFavor / _maxFavorInitial), _initialWidth * _multiplier * (MaxFavor / _maxFavorInitial));
         _favorMeterIndicator.anchoredPosition = new Vector3(indicatorX, 0f, 0f);
 
         if (_multiplierText)
