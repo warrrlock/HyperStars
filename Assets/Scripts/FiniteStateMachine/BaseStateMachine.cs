@@ -257,19 +257,37 @@ namespace FiniteStateMachine {
         
         //OTHER METHODS
 
-        public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName)
+        public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName, float duration)
         {
             yield return new WaitForFixedUpdate();
-            _hurtStates.TryGetValue(stateName, out HurtState state);
-            if (!state) yield break;
+            Debug.LogWarning($"setting hurtstate to {stateName}");
+            _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
+            if (!newHurtState) yield break;
             SetReturnState();
             if (CurrentState is HurtState hurtState)
             {
-                if (hurtState != state) yield break;
-                CurrentState.Execute(this, "");
+                if (hurtState != newHurtState) //if current hurt state is not the new hurt state, give non hit-stun hits priority
+                {
+                    if (newHurtState.HurtType != KeyHurtStatePair.HurtStateName.HitStun)
+                    {
+                        PassHurtState(newHurtState, duration);
+                    }
+                    yield break;
+                }
+                // Debug.Log($"re-executing current state of type {hurtState.HurtType}");
+                PassHurtState(newHurtState, duration);
             }
             else
-                ForceSetState(state);
+                PassHurtState(newHurtState, duration);
+        }
+
+        private void PassHurtState(HurtState hurtState, float duration)
+        {
+            DisableTime = duration;
+            ExecuteDisableTime();
+            ForceSetState(hurtState);
+            DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
+                () => IsIdle, false);
         }
         
         private void ForceSetState(BaseState state)
