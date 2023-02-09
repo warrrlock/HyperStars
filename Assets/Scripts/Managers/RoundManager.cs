@@ -63,7 +63,7 @@ public class RoundManager : MonoBehaviour
         //TODO: should player's queues be cleared? so that if a player has queued another attack, it doesn't play
         foreach (Fighter fighter in Services.Fighters)
         {
-            fighter.BaseStateMachine.QueueState();
+            fighter.BaseStateMachine.ClearQueues();
         }
         
         data.TryGetValue("winnerId", out object winnerId);

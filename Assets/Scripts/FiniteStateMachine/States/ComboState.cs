@@ -45,7 +45,7 @@ namespace FiniteStateMachine
         }
         
 
-        public override void Execute(BaseStateMachine stateMachine, string inputName)
+        public override bool Execute(BaseStateMachine stateMachine, string inputName)
         {
             foreach(StateAction action in _onInputInvokeActions){
                 action.Execute(stateMachine);
@@ -63,8 +63,10 @@ namespace FiniteStateMachine
             foreach (Transition transition in _transitions)
             {
                 // Debug.Log($"{stateMachine.name} executing transition {transition.name}");
-                transition.Execute(stateMachine, inputName, stateMachine.CanCombo);
+                if (transition.Execute(stateMachine, inputName, stateMachine.CanCombo)) return true;
             }
+
+            return false;
         }
 
         public override AttackInfo GetAttackInfo()
