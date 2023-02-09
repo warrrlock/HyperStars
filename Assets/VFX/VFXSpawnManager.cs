@@ -17,7 +17,6 @@ public class VFXSpawnManager : MonoBehaviour
     private float currentRotation;
     [SerializeField] private float skyboxRotationSpeed;
     // try
-    [SerializeField] private float vfxSize;
 
     void Start()
     {
@@ -63,7 +62,7 @@ public class VFXSpawnManager : MonoBehaviour
     {
         VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
         newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
-        if (graphIndex == VFXGraphs.LISA_HIT_5) newVFX.SetFloat("Size", vfxSize);
+        // if (graphIndex == VFXGraphs.LISA_HIT_5) newVFX.SetFloat("Size", vfxSize);
         newVFX.GetComponent<VFXCleanUp>().sender = sender;
     }
 
