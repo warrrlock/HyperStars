@@ -135,21 +135,24 @@ namespace FiniteStateMachine {
         {
             if (_rejectInput || CurrentState is HurtState) return;
             LastInvokedInput = _crouching ? LastInvokedInput: action;
-            if (action.name == "Crouch")
-                _crouching = true;
             
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
-            if (_crouchStop || !CurrentState.Execute(this, action.name))
-                _returnState.QueueExecute(this, action.name);
+            if (_crouchStop || !CurrentState.Execute(this, action.name)){}
+                if (!_crouching || (_crouching && !_crouchStop)) _returnState.QueueExecute(this, action.name);
+            //TODO: do not queue next action if crouching, but do queue if crouching and not stopped; but do not queue if crouch has not yet happened (its queued)
+            
+            if (action.name == "Crouch")
+                _crouching = true;
         }
 
         private void Stop(InputManager.Action action)
         {
-            // Debug.Log($"Stop called by {action.name}, with last played action being {_lastExecutedInput}");
+            // Debug.LogWarning($"Stop called by {action.name}, with last played action being {_lastExecutedInput}, current State in {CurrentState.name}");
             if (action.name == "Crouch")
             {
                 _crouching = false;
                 _crouchStop = true;
+                QueueStateAtEnd(); //nothing should queue at end of animation, since we're no longer in crouch
             }
 
             if (_crouching) return;
@@ -172,6 +175,7 @@ namespace FiniteStateMachine {
 
         public void ClearQueues()
         {
+            // Debug.Log("clearing queues");
             QueueState();
             QueueStateAtEnd();
         }
@@ -195,8 +199,8 @@ namespace FiniteStateMachine {
         public void ExecuteQueuedState()
         {
             if (!_queuedState) return;
-            QueueStateAtEnd();
-            
+            // Debug.LogWarning("executing queued state");
+            // Debug.LogError($"queued state is {_queuedState.name}");
             _rejectInput = true;
             
             HandleStateExit();
@@ -398,6 +402,7 @@ namespace FiniteStateMachine {
             _isDisabled = true;
             if (_disableCoroutine != null) StopCoroutine(_disableCoroutine);
             _disableCoroutine = StartCoroutine(HandleDisableTime());
+            // Debug.Log($"disabling inputs for {DisableTime} courtesy of {CurrentState.name}");
         }
 
         private IEnumerator HandleDisableTime()
