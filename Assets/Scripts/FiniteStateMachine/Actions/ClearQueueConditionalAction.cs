@@ -11,7 +11,7 @@ namespace FiniteStateMachine
         public override void Execute(BaseStateMachine stateMachine)
         {
             if (_conditionalQueuedStates.Any(state => state == stateMachine.QueuedState))
-                stateMachine.QueueState();
+                stateMachine.ClearQueues();
         }
 
         public override void Stop(BaseStateMachine stateMachine)

@@ -18,16 +18,25 @@ namespace FiniteStateMachine
             _transitions.RemoveAll(t => !t);
         }
 
-        public override void Execute(BaseStateMachine stateMachine, string inputName){
+        public override bool Execute(BaseStateMachine stateMachine, string inputName){
             // Debug.Log($"{stateMachine.name} is executing {name}");
             foreach(StateAction action in _actions){
                 action.Execute(stateMachine);
             }
             foreach (Transition transition in _transitions)
             {
-                transition.Execute(stateMachine, inputName);
+                if (transition.Execute(stateMachine, inputName)) return true;
+            }
+            return false;
+        }
+        
+        public override void QueueExecute(BaseStateMachine stateMachine, string inputName){
+            foreach (Transition transition in _transitions)
+            {
+                transition.Execute(stateMachine, inputName, action: null, queueAtEndOfAnim: true);
             }
         }
+        
         public override void Stop(BaseStateMachine stateMachine, string inputName)
         {
             // Debug.Log($"{stateMachine.name} stopped action {name}");
