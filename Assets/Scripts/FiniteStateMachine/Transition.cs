@@ -45,9 +45,9 @@ namespace FiniteStateMachine
         /// <param name="inputName">name of input action from player</param>
         /// <param name="canCombo">whether or not the combo is successful.</param>
         /// <param name="action">action to perform at start</param>
-        public void Execute (BaseStateMachine stateMachine, string inputName, bool canCombo, Action action = null)
+        public bool Execute (BaseStateMachine stateMachine, string inputName, bool canCombo, Action action = null)
         {
-            if (action != null) action();
+            action?.Invoke();
             if (Decide(inputName))
             {
                 bool specialCheck = CheckSpecial(stateMachine);
@@ -56,7 +56,7 @@ namespace FiniteStateMachine
                     if (!_trueState)
                     {
                         Debug.LogWarning("no true state was assigned to this transition", this);
-                        return;
+                        return true;
                     }
                     SetTrueStatePassValues(stateMachine, inputName);
                 }
@@ -65,7 +65,9 @@ namespace FiniteStateMachine
                     if ((_customFalseState))
                         stateMachine.QueueState(_customFalseState);
                 }
+                return true;
             }
+            return false;
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
@@ -75,28 +77,31 @@ namespace FiniteStateMachine
         /// <param name="stateMachine">the state machine.</param>
         /// <param name="inputName">name of input action from player.</param>
         /// <param name="action">action to perform at start, default none.</param>
-        public void Execute (BaseStateMachine stateMachine, string inputName, Action action = null)
+        /// <param name="queueAtEndOfAnim">should it be queued at end, if transition check is successful</param>
+        public bool Execute (BaseStateMachine stateMachine, string inputName, Action action = null, bool queueAtEndOfAnim = false)
         {
-            if (action != null) action();
-            
+            action?.Invoke();
+
             if (Decide(inputName))
             {
                 bool specialCheck = CheckSpecial(stateMachine);
-                if (!specialCheck) return;
+                if (!specialCheck) return false;
                 
                 if (!_trueState)
                 {
                     Debug.LogWarning("no true state was assigned to this transition", this);
-                    return;
+                    return true;
                 }
-                SetTrueStatePassValues(stateMachine, inputName);
+                SetTrueStatePassValues(stateMachine, inputName, queueAtEndOfAnim);
                 stateMachine.ExecuteQueuedState();
+                return true;
             }
-            else if (_customFalseState)
+            if (_customFalseState && !queueAtEndOfAnim)
             {
                 stateMachine.QueueState(_customFalseState);
                 stateMachine.ExecuteQueuedState();
             }
+            return false;
         }
 
         private bool CheckSpecial(BaseStateMachine stateMachine)
@@ -108,9 +113,10 @@ namespace FiniteStateMachine
                     stateMachine.Fighter.SpecialMeterManager.CheckBar(state.GetSpecialBarCost());
         }
 
-        private void SetTrueStatePassValues(BaseStateMachine stateMachine, string inputName)
+        private void SetTrueStatePassValues(BaseStateMachine stateMachine, string inputName, bool queueAtEndOfAnim = false)
         {
-            stateMachine.QueueState(_trueState);
+            if (!queueAtEndOfAnim) stateMachine.QueueState(_trueState);
+            else stateMachine.QueueStateAtEnd(_trueState);
             stateMachine.LastExecutedInput = inputName;
         }
 
