@@ -31,6 +31,7 @@ public class VFXSpawnManager : MonoBehaviour
     {
         SkyboxRotation();
     }
+    
 
     void SkyboxRotation()
     {
@@ -76,6 +77,7 @@ public class VFXSpawnManager : MonoBehaviour
             CameraManager cam = Camera.main.GetComponent<CameraManager>();
             
             InitializeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
+            InitializeVFX(VFXGraphs.LISA_HIT_5, hitPos, sender);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
             // camera based on hits
             switch (attackInfo.attackType)
