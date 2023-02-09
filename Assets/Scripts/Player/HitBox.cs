@@ -46,12 +46,8 @@ public class HitBox : MonoBehaviour
             //has been parried
             AttackInfo parryInfo = hitFighter.BaseStateMachine.AttackInfo;
             
-            _baseStateMachine.DisableTime = parryInfo.hitStunDuration;
-            _baseStateMachine.ExecuteDisableTime();
-            StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun));
-            _baseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
-                () => _baseStateMachine.IsIdle, false);
-            
+            StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun, parryInfo.hitStunDuration));
+
             _fighter.Events.onBlockHit?.Invoke(new Dictionary<string, object>
                 {
                     {"attacker", _fighter},
@@ -93,15 +89,13 @@ public class HitBox : MonoBehaviour
         hitFighter.invulnerabilityCount++;
         // Debug.Log(hitFighter.invulnerabilityCount);
         
-        hitFighter.BaseStateMachine.DisableTime = attackInfo.hitStunDuration;
-        hitFighter.BaseStateMachine.ExecuteDisableTime();
         StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
             !hitFighter.MovementController.CollisionData.y.isNegativeHit 
             ? KeyHurtStatePair.HurtStateName.AirKnockBack
             : (attackInfo.knockbackForce.x is > 0f and < 180f 
                 ? KeyHurtStatePair.HurtStateName.KnockBack 
                 : KeyHurtStatePair.HurtStateName.HitStun)
-            ));
+            , attackInfo.hitStunDuration));
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
@@ -113,8 +107,6 @@ public class HitBox : MonoBehaviour
         StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration));
         //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, attackInfo.knockbackForce.y, attackInfo.knockbackDuration));
         
-        hitFighter.BaseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
-            () => hitFighter.BaseStateMachine.IsIdle, false);
             //float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
         //Vector3 forceDirection = attackInfo.knockbackDirection;
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
