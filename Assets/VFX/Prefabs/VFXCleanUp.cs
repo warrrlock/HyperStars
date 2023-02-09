@@ -15,8 +15,9 @@ public class VFXCleanUp : MonoBehaviour
     void Start()
     {
         _vfx = GetComponent<VisualEffect>();
-        _lifeTime = _vfx.GetFloat("Life");
-        Destroy(gameObject, _lifeTime);
+        // _lifeTime = _vfx.GetFloat("Life");
+        // all vfx destroy after one second
+        Destroy(gameObject, 1);
     }
 
     void Update() {
