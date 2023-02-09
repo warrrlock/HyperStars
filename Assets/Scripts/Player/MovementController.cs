@@ -224,7 +224,7 @@ public class MovementController : MonoBehaviour
                 _dashForce = (_dashDistance * 4f) / (_dashDuration * Time.fixedDeltaTime + 1f);
                 break;
         }
-        _shortDashForce = _dashForce / 2f;
+        _shortDashForce = _dashForce / 1.5f;
         _dashChargeCount = _maxDashCharges;
     }
 
