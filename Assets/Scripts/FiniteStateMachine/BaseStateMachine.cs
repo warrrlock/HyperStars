@@ -137,9 +137,11 @@ namespace FiniteStateMachine {
             LastInvokedInput = _crouching ? LastInvokedInput: action;
             
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
-            if (_crouchStop || !CurrentState.Execute(this, action.name)){}
+            if (_crouchStop || !CurrentState.Execute(this, action.name))
+            {
+                //TODO: do not queue next action if crouching, but do queue if crouching and not stopped; but do not queue if crouch has not yet happened (its queued)
                 if (!_crouching || (_crouching && !_crouchStop)) _returnState.QueueExecute(this, action.name);
-            //TODO: do not queue next action if crouching, but do queue if crouching and not stopped; but do not queue if crouch has not yet happened (its queued)
+            }
             
             if (action.name == "Crouch")
                 _crouching = true;
