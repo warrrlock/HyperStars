@@ -31,14 +31,15 @@ namespace FiniteStateMachine
                     _animationHash2 = -1;
         }
 
-        public override void Execute(BaseStateMachine stateMachine, string inputName)
+        public override bool Execute(BaseStateMachine stateMachine, string inputName)
         {
             stateMachine.PlayAnimation(_animationHash, replay: true);
             if (_exitState) stateMachine.QueueState(_exitState);
-            Debug.Log($"{stateMachine.name} starting hurt state, of type {_hurtType}");
+            // Debug.LogWarning($"{stateMachine.name} starting hurt state, of type {_hurtType}");
             if (_hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
                 stateMachine.StartInAir(() => stateMachine.WaitToAnimate(nextAnimation: _animationHash2), setJumpReturnState: false);
             else stateMachine.WaitToAnimate();
+            return true;
         }
         
 #if UNITY_EDITOR

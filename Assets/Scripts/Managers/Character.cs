@@ -13,6 +13,7 @@ namespace Managers
     public class Character: ScriptableObject
     {
         [SerializeField] private GameObject _characterPrefab;
+        public GameObject CharacterPrefab => _characterPrefab;
         
         [HideInInspector][SerializeField]private List<FSMFilter> _filters = new();
         private HashSet<FSMFilter> _filtersSet = new(new FSMFilterEqualityComparer());

@@ -25,7 +25,7 @@ public class SpecialMeterManager : MonoBehaviour
         // UnsubscribeFromEvents();
     }
 
-    public void Initiate()
+    public void Initialize()
     {
         SubscribeToEvents();
     }
