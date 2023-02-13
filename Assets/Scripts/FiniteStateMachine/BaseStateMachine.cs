@@ -32,6 +32,8 @@ namespace FiniteStateMachine {
         [Header("States")]
         [SerializeField] private BaseState _initialState;
         [SerializeField] private BaseState _jumpState;
+        [SerializeField] private BaseState _crouchState;
+        [SerializeField] private BaseState _crouchUpState;
         public bool IsIdle => CurrentState == _initialState;
     
         [Tooltip("Clips that should not have a end event automatically added. " +
@@ -45,6 +47,7 @@ namespace FiniteStateMachine {
         private Dictionary<KeyHurtStatePair.HurtStateName, HurtState> _hurtStates;
         public float DisableTime { get; set; }
         private bool _isDisabled;
+        
         private Coroutine _disableCoroutine;
         private Coroutine _airCoroutine;
         private Coroutine _waitToAnimateRoutine;
@@ -52,13 +55,12 @@ namespace FiniteStateMachine {
         private BaseState _queuedState;
         private BaseState _queuedAtEndState;
         private BaseState _returnState;
-            
+        
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
         private string _lastExecutedInput;
-        private bool _crouching;
-        private bool _crouchStop;
+        private bool _holdingCrouch;
 
         public string LastExecutedInput
         {
@@ -70,13 +72,12 @@ namespace FiniteStateMachine {
 
         public Fighter Fighter { get; private set; }
         private Animator _animator;
-        // private Dictionary<Type, Component> _cachedComponents;
+
 
         #region Methods
         #region Unity
         private void Awake()
         {
-            // _cachedComponents = new Dictionary<Type, Component>();
             Fighter = GetComponent<Fighter>();
             _animator = GetComponent<Animator>();
 
@@ -134,17 +135,18 @@ namespace FiniteStateMachine {
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput || CurrentState is HurtState) return;
-            LastInvokedInput = _crouching ? LastInvokedInput: action;
-            
+            LastInvokedInput = action;
+
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
-            if (_crouchStop || !CurrentState.Execute(this, action.name))
-            {
-                //TODO: do not queue next action if crouching, but do queue if crouching and not stopped; but do not queue if crouch has not yet happened (its queued)
-                if (!_crouching || (_crouching && !_crouchStop)) _returnState.QueueExecute(this, action.name);
-            }
+            //TODO: should wait until idle from crouch to begin queuing attacks, or go straight into attack?
+            if (!_holdingCrouch && CurrentState.IsCrouchState) return; //waiting to return to idle. otherwise, go to queue execute
+            if (_holdingCrouch && !CurrentState.IsCrouchState) return;
+            
+            if (!CurrentState.Execute(this, action.name))
+                (_holdingCrouch ? _crouchState: _returnState).QueueExecute(this, action.name);
             
             if (action.name == "Crouch")
-                _crouching = true;
+                _holdingCrouch = true;
         }
 
         private void Stop(InputManager.Action action)
@@ -152,18 +154,15 @@ namespace FiniteStateMachine {
             // Debug.LogWarning($"Stop called by {action.name}, with last played action being {_lastExecutedInput}, current State in {CurrentState.name}");
             if (action.name == "Crouch")
             {
-                _crouching = false;
-                _crouchStop = true;
-                QueueStateAtEnd(); //nothing should queue at end of animation, since we're no longer in crouch
+                _holdingCrouch = false;
+                ClearQueues();
+                if (CurrentState.IsCrouchState)
+                {
+                    QueueStateAtEnd(_crouchUpState);
+                }
             }
 
-            if (_crouching) return;
             CurrentState.Stop(this, action.name);
-        }
-
-        public bool CheckReturnState(BaseState state = null)
-        {
-            return _returnState == state ? state : _initialState;
         }
 
         public bool PlayAnimation(int animationState, bool defaultCombo = false, bool replay = false)
@@ -184,12 +183,13 @@ namespace FiniteStateMachine {
         
         public void QueueState(BaseState state = null)
         {
-            // Debug.Log($"statemachine is queuing state {state?.name}");
+            // Debug.Log($"queued state {state?.name}");
             _queuedState = state;
         }
 
         public void QueueStateAtEnd(BaseState state = null)
         {
+            // Debug.Log($"queued at end {state?.name}");
             _queuedAtEndState = state;
         }
         
@@ -214,12 +214,6 @@ namespace FiniteStateMachine {
             _rejectInput = false;
 
             CurrentState.Execute(this, "");
-            
-            if (!_crouching && _crouchStop)
-            {
-                Stop(Fighter.InputManager.Actions["Crouch"]);
-                _crouchStop = false;
-            }
         }
         
         /// <summary>
@@ -266,7 +260,7 @@ namespace FiniteStateMachine {
         public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName, float duration)
         {
             yield return new WaitForFixedUpdate();
-            Debug.LogWarning($"setting hurtstate to {stateName}");
+            // Debug.LogWarning($"setting hurtstate to {stateName}");
             _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
             if (!newHurtState) yield break;
             SetReturnState();
@@ -321,7 +315,6 @@ namespace FiniteStateMachine {
 
         public void SetReturnState(BaseState state = null)
         {
-            if (!state) QueueStateAtEnd();
             _returnState = state ? state : _initialState;
         }
         
@@ -387,7 +380,10 @@ namespace FiniteStateMachine {
 
             _waitToAnimateRoutine = null;
             if (stateExit) HandleStateExit();
-            else HandleAnimationExit();
+            else
+            {
+                HandleAnimationExit();
+            }
         }
 
         public void DisableInputs(List<string> inputs, Func<bool> condition, bool returnToIdle = true)
