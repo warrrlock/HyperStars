@@ -63,7 +63,7 @@ public class RoundManager : MonoBehaviour
         //TODO: should player's queues be cleared? so that if a player has queued another attack, it doesn't play
         foreach (Fighter fighter in Services.Fighters)
         {
-            fighter.BaseStateMachine.QueueState();
+            fighter.BaseStateMachine.ClearQueues();
         }
         
         data.TryGetValue("winnerId", out object winnerId);
@@ -154,10 +154,10 @@ public class RoundManager : MonoBehaviour
             _countdownText.text = "Match point!";
             yield return new WaitForSeconds(0.8f);
             
-            _countdownText.text = $@"{(RoundInformation.MatchPointPlayers[0] ? 
-                (RoundInformation.MatchPointPlayers[1] ? "Scores Tied!" : "Player 1 in the lead.")
-                : "Player2 in the lead")}";
-            yield return new WaitForSeconds(0.8f);
+            // _countdownText.text = $@"{(RoundInformation.MatchPointPlayers[0] ? 
+            //     (RoundInformation.MatchPointPlayers[1] ? "Scores Tied!" : "Player 1 in the lead.")
+            //     : "Player2 in the lead")}";
+            // yield return new WaitForSeconds(0.8f);
         }
 
         for (int i = _countdown; i > 0; i--)

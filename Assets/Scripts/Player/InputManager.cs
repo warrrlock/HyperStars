@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using static InputManager;
 
-[RequireComponent(typeof(PlayerInput))]
+// [RequireComponent(typeof(PlayerInput))]
 public class InputManager : MonoBehaviour
 {
     public readonly Dictionary<string, Action> Actions = new();
@@ -73,17 +73,13 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         AssignComponents();
+        SubscribeActions();
         CreateDictionary();
-    }
-
-    private void Start()
-    {
-        _playerInput.onActionTriggered += ResolveActions;
     }
 
     private void OnDestroy()
     {
-        _playerInput.onActionTriggered -= ResolveActions;
+        UnsubscribeActions();
         foreach (KeyValuePair<string, Action> actionPair in Actions)
         {
             actionPair.Value.Destroy();
@@ -93,7 +89,16 @@ public class InputManager : MonoBehaviour
 
     private void AssignComponents()
     {
-        _playerInput = GetComponent<PlayerInput>();
+        _playerInput = transform.parent.GetComponent<PlayerInput>();
+    }
+    
+    private void SubscribeActions()
+    {
+        _playerInput.onActionTriggered += ResolveActions;
+    }
+    private void UnsubscribeActions()
+    {
+        _playerInput.onActionTriggered += ResolveActions;
     }
 
     private void CreateDictionary()

@@ -131,20 +131,15 @@ public class Projectile : MonoBehaviour
         forceDirection.x *= _xDirection;
         StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, _attackInfo.knockbackDuration));
         
-        hitFighter.BaseStateMachine.DisableTime = _attackInfo.hitStunDuration;
-        hitFighter.BaseStateMachine.ExecuteDisableTime();
-        
         StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
             !hitFighter.MovementController.CollisionData.y.isNegativeHit 
                 ? KeyHurtStatePair.HurtStateName.AirKnockBack
                 : (_attackInfo.knockbackForce.x is > 0f and < 180f 
                     ? KeyHurtStatePair.HurtStateName.KnockBack 
                     : KeyHurtStatePair.HurtStateName.HitStun)
+            , _attackInfo.hitStunDuration
         ));
 
-        hitFighter.BaseStateMachine.DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
-            () => hitFighter.BaseStateMachine.IsIdle, false);
-        
         hitFighter.MovementController.ResetVelocityY();
         if (_attackInfo.causesWallBounce)
         {

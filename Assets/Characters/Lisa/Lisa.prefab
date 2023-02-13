@@ -109,6 +109,51 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &4043202608353631630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3747572163244988259}
+  - component: {fileID: 3647972523907399129}
+  m_Layer: 7
+  m_Name: Hurtbox (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3747572163244988259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4043202608353631630}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 14.32, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5751411094548723630}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3647972523907399129
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4043202608353631630}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5751411094548723625
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +185,7 @@ Transform:
   m_Children:
   - {fileID: 5751411094795848292}
   - {fileID: 5751411095806974483}
+  - {fileID: 3747572163244988259}
   m_Father: {fileID: 5751411094791522313}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -155,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5dbaaf1d41d7345bfa2beda1525c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionBoxColor: {r: 0.17895675, g: 1, b: 0, a: 0.5176471}
+  collisionBoxColor: {r: 0.17895675, g: 1, b: 0, a: 0.20392157}
   showGizmos: 1
 --- !u!1 &5751411094747650480
 GameObject:
@@ -273,7 +319,6 @@ GameObject:
   - component: {fileID: 5751411094791522316}
   - component: {fileID: 5751411094791523318}
   - component: {fileID: 2490601690396719919}
-  - component: {fileID: 5751411094791523314}
   - component: {fileID: 5751411094791523313}
   - component: {fileID: 5751411094791522317}
   - component: {fileID: 5437623320969005760}
@@ -391,8 +436,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 14.921073, z: 6.3329177}
-  m_Center: {x: -1.5, y: 7.4605365, z: 0}
+  m_Size: {x: 11.585196, y: 14.921073, z: 6.3329177}
+  m_Center: {x: -0.55, y: 7.4605365, z: 0}
 --- !u!114 &5751411094791523312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,21 +465,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pushDistance: 0
   pushDirection: {x: 0, y: 0, z: 0}
-  _moveSpeed: 7
+  _moveSpeed: 9
   _maxJumpHeight: 7.5
   _minJumpHeight: 7.5
-  _timeToJumpApex: 0.4
-  _dashForce: 25
-  _dashDistance: 6
-  _dashDuration: 0.35
-  _dashHangTime: 0.1
-  _dashToZero: 1
-  _dashCooldownDuration: 0.2
+  _timeToJumpApex: 0.35
+  _dashForce: 0
+  _dashDistance: 7
+  _dashDuration: 0.38
+  _dashHangTime: 0
+  _dashToZero: 0
+  _dashCooldownDuration: 0
   _dashEasing: 0
-  _dashMinimumOverlap: 2
+  _dashMinimumOverlap: 100
   _maxDashCharges: 3
   _dashChargeCount: 0
-  _dashRechargeTime: 2
+  _dashRechargeTime: 0
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560
@@ -480,36 +525,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fillMeter: {fileID: 0}
   _numberOfBars: 3
---- !u!114 &5751411094791523314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5751411094791522315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 4443cc9aceac146e5943752221cbc16b, type: 3}
-  m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Gamepad
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &5751411094791523313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,7 +543,6 @@ MonoBehaviour:
   _noEndEventClips:
   - {fileID: 7400000, guid: 238dbacff5646c64ca7becf136e5bd33, type: 2}
   - {fileID: 7400000, guid: 93a6df2a673403d42ae43d2dc197c325, type: 2}
-  - {fileID: 7400000, guid: c8209bc4887d466468bade29ffac9b32, type: 2}
   - {fileID: 7400000, guid: 20549848deecc2548a64c2501eb1f840, type: 2}
   - {fileID: 7400000, guid: f759e95eb3cae404593e23e97dcbb140, type: 2}
   - {fileID: 7400000, guid: 7b9b02c7a24a6314493f47292e265aa4, type: 2}
@@ -852,7 +866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5dbaaf1d41d7345bfa2beda1525c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionBoxColor: {r: 1, g: 0, b: 0, a: 0.53333336}
+  collisionBoxColor: {r: 1, g: 0, b: 0, a: 0.20392157}
   showGizmos: 1
 --- !u!1 &5751411095806974482
 GameObject:

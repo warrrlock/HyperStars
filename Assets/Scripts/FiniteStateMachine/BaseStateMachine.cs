@@ -32,7 +32,6 @@ namespace FiniteStateMachine {
         [Header("States")]
         [SerializeField] private BaseState _initialState;
         [SerializeField] private BaseState _jumpState;
-        private BaseState _returnState;
         public bool IsIdle => CurrentState == _initialState;
     
         [Tooltip("Clips that should not have a end event automatically added. " +
@@ -51,10 +50,14 @@ namespace FiniteStateMachine {
         private Coroutine _waitToAnimateRoutine;
         
         private BaseState _queuedState;
+        private BaseState _queuedAtEndState;
+        private BaseState _returnState;
+            
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
         private string _lastExecutedInput;
+        private bool _crouching;
         private bool _crouchStop;
 
         public string LastExecutedInput
@@ -62,7 +65,7 @@ namespace FiniteStateMachine {
             get => _lastExecutedInput;
             set => _lastExecutedInput = value;
         }
-        public BaseState QueuedState => _queuedState;
+        public BaseState QueuedState => _queuedState ? _queuedState : _queuedAtEndState;
         public InputManager.Action LastInvokedInput { get; private set; }
 
         public Fighter Fighter { get; private set; }
@@ -119,46 +122,42 @@ namespace FiniteStateMachine {
             StopAllCoroutines();
         }
         #endregion
-
-        // private new T GetComponent<T>() where T: Component 
-        // {
-        //     if (_cachedComponents.ContainsKey(typeof(T)))
-        //         return _cachedComponents[typeof(T)] as T;
-        //     
-        //     var component = base.GetComponent<T>();
-        //     
-        //     if (component != null)
-        //         _cachedComponents.Add(typeof(T), component);
-        //
-        //     return component;
-        // }
+        
         public void ResetStateMachine()
         {
             CurrentState = _initialState;
             _returnState = _initialState;
-            QueueState();
+            ClearQueues();
             CurrentState.Execute(this, "");
         }
         
         private void Invoke(InputManager.Action action)
         {
             if (_rejectInput || CurrentState is HurtState) return;
-            if (_crouchStop) _crouchStop = false;
-            LastInvokedInput = action;
+            LastInvokedInput = _crouching ? LastInvokedInput: action;
+            
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
-            CurrentState.Execute(this, action.name);
+            if (_crouchStop || !CurrentState.Execute(this, action.name))
+            {
+                //TODO: do not queue next action if crouching, but do queue if crouching and not stopped; but do not queue if crouch has not yet happened (its queued)
+                if (!_crouching || (_crouching && !_crouchStop)) _returnState.QueueExecute(this, action.name);
+            }
+            
+            if (action.name == "Crouch")
+                _crouching = true;
         }
 
         private void Stop(InputManager.Action action)
         {
-            // Debug.Log($"Stop called by {action.name}, with last played action being {_lastExecutedInput}");
-            // Debug.Log($"current state is {CurrentState.name}");
+            // Debug.LogWarning($"Stop called by {action.name}, with last played action being {_lastExecutedInput}, current State in {CurrentState.name}");
             if (action.name == "Crouch")
+            {
+                _crouching = false;
                 _crouchStop = true;
-            
-            if (_returnState == _initialState     && _lastExecutedInput != action.name
-                                                  && _lastExecutedInput != "Crouch" 
-                                                  && _lastExecutedInput != "") return;
+                QueueStateAtEnd(); //nothing should queue at end of animation, since we're no longer in crouch
+            }
+
+            if (_crouching) return;
             CurrentState.Stop(this, action.name);
         }
 
@@ -175,12 +174,23 @@ namespace FiniteStateMachine {
             _animator.Play(animationState, -1, 0);
             return true;
         }
+
+        public void ClearQueues()
+        {
+            // Debug.Log("clearing queues");
+            QueueState();
+            QueueStateAtEnd();
+        }
         
         public void QueueState(BaseState state = null)
         {
-            // Debug.Log($"{name} queuing state {state?.name}");
-            // if (!_queuedState) _queuedState = state;
+            // Debug.Log($"statemachine is queuing state {state?.name}");
             _queuedState = state;
+        }
+
+        public void QueueStateAtEnd(BaseState state = null)
+        {
+            _queuedAtEndState = state;
         }
         
         /// <summary>
@@ -191,19 +201,21 @@ namespace FiniteStateMachine {
         public void ExecuteQueuedState()
         {
             if (!_queuedState) return;
-            
+            // Debug.LogWarning("executing queued state");
+            // Debug.LogError($"queued state is {_queuedState.name}");
             _rejectInput = true;
             
             HandleStateExit();
             CurrentState = _queuedState;
             UpdateStateInfoText();
-            Fighter.Events.onStateChange.Invoke(CurrentState);
+            Fighter.Events.onStateChange?.Invoke(CurrentState);
             _queuedState = null;
 
             _rejectInput = false;
 
             CurrentState.Execute(this, "");
-            if (_crouchStop)
+            
+            if (!_crouching && _crouchStop)
             {
                 Stop(Fighter.InputManager.Actions["Crouch"]);
                 _crouchStop = false;
@@ -216,8 +228,8 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
+            TrySetQueueQueuedAtEndState();
             TrySetQueueReturn();
-            // TrySetQueueInitial();
             ExecuteQueuedState();
         }
         
@@ -251,15 +263,37 @@ namespace FiniteStateMachine {
         
         //OTHER METHODS
 
-        public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName)
+        public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName, float duration)
         {
             yield return new WaitForFixedUpdate();
-            _hurtStates.TryGetValue(stateName, out HurtState state);
-            if (!state) yield break;
+            Debug.LogWarning($"setting hurtstate to {stateName}");
+            _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
+            if (!newHurtState) yield break;
             SetReturnState();
-            if (CurrentState is HurtState hurtState && hurtState == state)
-                CurrentState.Execute(this, "");
-            else  ForceSetState(state);
+            if (CurrentState is HurtState hurtState)
+            {
+                if (hurtState != newHurtState) //if current hurt state is not the new hurt state, give non hit-stun hits priority
+                {
+                    if (newHurtState.HurtType != KeyHurtStatePair.HurtStateName.HitStun)
+                    {
+                        PassHurtState(newHurtState, duration);
+                    }
+                    yield break;
+                }
+                // Debug.Log($"re-executing current state of type {hurtState.HurtType}");
+                PassHurtState(newHurtState, duration);
+            }
+            else
+                PassHurtState(newHurtState, duration);
+        }
+
+        private void PassHurtState(HurtState hurtState, float duration)
+        {
+            DisableTime = duration;
+            ExecuteDisableTime();
+            ForceSetState(hurtState);
+            DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
+                () => IsIdle, false);
         }
         
         private void ForceSetState(BaseState state)
@@ -278,8 +312,16 @@ namespace FiniteStateMachine {
             if (!_queuedState && CurrentState != _returnState) _queuedState = _returnState;
         }
 
+        private void TrySetQueueQueuedAtEndState()
+        {
+            if (_queuedState || !_queuedAtEndState) return;
+            _queuedState = _queuedAtEndState;
+            _queuedAtEndState = null;
+        }
+
         public void SetReturnState(BaseState state = null)
         {
+            if (!state) QueueStateAtEnd();
             _returnState = state ? state : _initialState;
         }
         
@@ -341,9 +383,7 @@ namespace FiniteStateMachine {
         private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> condition, bool stateExit = false)
         {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
-            // Debug.Log($"{name} waiting to move, current move is disabled at {Fighter.InputManager.Actions["Move"].disabledCount}");
             yield return new WaitUntil(condition ?? (() => !_isDisabled));
-            // Debug.Log($"{name} starting to move, current move is disabled at {Fighter.InputManager.Actions["Move"].disabledCount}");
 
             _waitToAnimateRoutine = null;
             if (stateExit) HandleStateExit();
@@ -356,7 +396,7 @@ namespace FiniteStateMachine {
             InputManager.Action[] actions = actionIEnum.ToArray();
             
             StartCoroutine(Fighter.InputManager.Disable(condition, actions));
-            _waitToAnimateRoutine = StartCoroutine(HandleWaitToMove(-1, condition, !returnToIdle));
+            // _waitToAnimateRoutine = StartCoroutine(HandleWaitToMove(-1, condition, !returnToIdle));
         }
 
         public void ExecuteDisableTime()
@@ -364,6 +404,7 @@ namespace FiniteStateMachine {
             _isDisabled = true;
             if (_disableCoroutine != null) StopCoroutine(_disableCoroutine);
             _disableCoroutine = StartCoroutine(HandleDisableTime());
+            // Debug.Log($"disabling inputs for {DisableTime} courtesy of {CurrentState.name}");
         }
 
         private IEnumerator HandleDisableTime()

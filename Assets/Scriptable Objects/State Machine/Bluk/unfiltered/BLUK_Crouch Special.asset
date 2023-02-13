@@ -10,29 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
-  m_Name: Grounded Light
+  m_Name: BLUK_Crouch Special
   m_EditorClassIdentifier: 
   NodeInfo:
     rect:
       serializedVersion: 2
-      x: 307
-      y: 194
+      x: 259
+      y: 105
       width: 150
       height: 50
   _filters: []
   characterSelection: 2
-  _animationName: Grounded Light
-  _onInputPlayOrStopActions: []
-  _onInputInvokeActions: []
-  _transitions:
-  - {fileID: 11400000, guid: c4bfccb8f6eb436458f2bf3a3bf86dc2, type: 2}
-  _defaultCombo: 0
+  _animationName: Crouching Special
+  _onInputPlayOrStopActions:
+  - {fileID: 11400000, guid: 77c39318d6468924494c56ba044561a8, type: 2}
+  _onInputInvokeActions:
+  - {fileID: 11400000, guid: 03bd468ef772c48459750f3fbc7019fd, type: 2}
+  - {fileID: 11400000, guid: 8a0577c030dfe824fa47c8cf4d4dc2f9, type: 2}
+  _transitions: []
+  _defaultCombo: 1
   _attackInfo:
-    attackType: 0
+    attackType: 1
     knockbackDuration: 0.2
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 0.2
+    hitStunDuration: 0.3
     damage: 10
     causesWallBounce: 0
     hitStopDuration: 0.1
@@ -45,11 +47,11 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.2
-    favorReward: 4
+    hangTime: 0
+    favorReward: 18
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
   _isSpecial: 0
   _specialBarCost: 0
-  _projectilePrefab: {fileID: 0}
-  _animationHash: -1194179733
+  _projectilePrefab: {fileID: 5765926104683114581, guid: ba91f1d23b10a3b4ebdcc1b0bf81be9c, type: 3}
+  _animationHash: 1100047811

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9d02316cba1403ca4ae0b6653037306, type: 3}
-  m_Name: Idle_Action
+  m_Script: {fileID: 11500000, guid: 963b22083f8443aaa9b398a8909307b4, type: 3}
+  m_Name: BLUK_Crouch_Clear_Queue_Action
   m_EditorClassIdentifier: 
-  _animationName: Idle
-  _animationHash: 2081823275
+  _conditionalQueuedStates:
+  - {fileID: 11400000, guid: e140687ecff99a942a0510120742e5b1, type: 2}

@@ -33,7 +33,7 @@ public class InAirState : BaseState
     }
     
 
-    public override void Execute(BaseStateMachine stateMachine, string inputName){
+    public override bool Execute(BaseStateMachine stateMachine, string inputName){
         if (stateMachine.PlayAnimation(_animationHash))
         {
             stateMachine.StartInAir();
@@ -43,11 +43,20 @@ public class InAirState : BaseState
         foreach (Transition transition in _transitions)
         {
             if (_alwaysExecute)
-                transition.Execute(stateMachine, inputName);
-            else transition.Execute(stateMachine, inputName, stateMachine.CanCombo);
+            {
+                if (transition.Execute(stateMachine, inputName)) return true;
+            }
+            else if (transition.Execute(stateMachine, inputName, stateMachine.CanCombo)) return true;
         }
+
+        return false;
     }
-    
+
+    public override void QueueExecute(BaseStateMachine stateMachine, string inputName){
+        foreach (Transition transition in _transitions)
+            transition.Execute(stateMachine, inputName, action: null, queueAtEndOfAnim: true);
+    }
+
     public override AttackInfo GetAttackInfo()
     {
         return _attackInfo;
