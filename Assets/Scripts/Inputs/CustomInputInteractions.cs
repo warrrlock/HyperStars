@@ -115,30 +115,30 @@ namespace UnityEngine.InputSystem.Interactions
         private enum InterruptedState { Base, Uninterrupted, Interrupted }
         private InterruptedState _interruptedState = InterruptedState.Base;
 
-        //public MultiTapDownInteraction()
-        //{
-        //    InputSystem.onActionChange += (action, change) =>
-        //    {
-        //        if (action.GetType() != typeof(InputAction))
-        //        {
-        //            return;
-        //        }
-        //        InputAction act = action as InputAction;
-        //        if (change != InputActionChange.ActionPerformed)
-        //        {
-        //            return;
-        //        }
-        //        if (act.interactions.Contains("Down"))
-        //        {
-        //            _interruptedState = InterruptedState.Uninterrupted;
-        //            return;
-        //        }
-        //        if (_interruptedState == InterruptedState.Base)
-        //        {
-        //            _interruptedState = InterruptedState.Interrupted;
-        //        }
-        //    };
-        //}
+        public MultiTapDownInteraction()
+        {
+            InputSystem.onActionChange += (action, change) =>
+            {
+                if (action.GetType() != typeof(InputAction))
+                {
+                    return;
+                }
+                InputAction act = action as InputAction;
+                if (change != InputActionChange.ActionPerformed)
+                {
+                    return;
+                }
+                if (act.interactions.Contains("Down"))
+                {
+                    _interruptedState = InterruptedState.Uninterrupted;
+                    return;
+                }
+                if (_interruptedState == InterruptedState.Base)
+                {
+                    _interruptedState = InterruptedState.Interrupted;
+                }
+            };
+        }
 
 
         /// <inheritdoc />
@@ -148,8 +148,8 @@ namespace UnityEngine.InputSystem.Interactions
             {
                 // We use timers multiple times but no matter what, if they expire it means
                 // that we didn't get input in time.
-                context.Canceled();
                 _interruptedState = InterruptedState.Base;
+                context.Canceled();
                 return;
             }
 
@@ -232,11 +232,12 @@ namespace UnityEngine.InputSystem.Interactions
                     break;
 
                 case TapPhase.WaitingForNextPress:
-                    //if (_interruptedState == InterruptedState.Interrupted)
-                    //{
-                    //    context.Canceled();
-                    //    _interruptedState = InterruptedState.Base;
-                    //}
+                    if (_interruptedState == InterruptedState.Interrupted)
+                    {
+                        Debug.Log("peen");
+                        //_interruptedState = InterruptedState.Base;
+                        //context.Canceled();
+                    }
 
 
                     if (context.ControlIsActuated(pressPointOrDefault))
