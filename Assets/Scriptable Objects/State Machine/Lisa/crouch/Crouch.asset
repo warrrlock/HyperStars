@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2b3c4c74b394c2aa6ea240028f2bff, type: 3}
   m_Name: Crouch
   m_EditorClassIdentifier: 
+  _isCrouchState: 1
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -26,9 +27,8 @@ MonoBehaviour:
     edit: 0
   characterSelection: 1
   _actions:
-  - {fileID: 11400000, guid: 4bdaad43c668c48e7ab68b848faf09fe, type: 2}
+  - {fileID: 11400000, guid: 60f41dab417174a28a42c5827c0987aa, type: 2}
   - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
-  - {fileID: 11400000, guid: bc69c4238319745e2bf15c118a80961a, type: 2}
   _transitions:
   - {fileID: 11400000, guid: 301fd3b8fd9d54577847d001af8639f6, type: 2}
   - {fileID: 11400000, guid: 353848153be2d324589123eca8ad686f, type: 2}

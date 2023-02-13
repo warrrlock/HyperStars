@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Medium Atk 2
   m_EditorClassIdentifier: 
+  _isCrouchState: 0
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -27,13 +28,9 @@ MonoBehaviour:
   characterSelection: 1
   _animationName: MediumAtk2
   _onInputPlayOrStopActions: []
-  _onInputInvokeActions:
-  - {fileID: 11400000, guid: bc69c4238319745e2bf15c118a80961a, type: 2}
-  - {fileID: 11400000, guid: 7455b6da817c24c9aa07ebf85119f48f, type: 2}
-  - {fileID: 11400000, guid: 7455b6da817c24c9aa07ebf85119f48f, type: 2}
+  _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
-  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   _defaultCombo: 0
   _attackInfo:
     attackType: 0

@@ -13,7 +13,7 @@ namespace FiniteStateMachine
         private void OnValidate()
         {
             _animationHash = _animationName == "" ? -1 : Animator.StringToHash(_animationName);
-            _endAnimationHash = Animator.StringToHash(_endAnimationName);
+            _endAnimationHash = _endAnimationName == "" ? -1 : Animator.StringToHash(_endAnimationName);
         }
 
         public override void Execute(BaseStateMachine stateMachine)
@@ -24,7 +24,7 @@ namespace FiniteStateMachine
         public override void Stop(BaseStateMachine stateMachine)
         {
             // Debug.Log("should play end anim");
-            stateMachine.PlayAnimation(_endAnimationHash);
+            if (_animationHash != -1) stateMachine.PlayAnimation(_endAnimationHash);
         }
     }
 }

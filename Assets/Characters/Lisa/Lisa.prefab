@@ -472,11 +472,11 @@ MonoBehaviour:
   _dashForce: 0
   _dashDistance: 7
   _dashDuration: 0.38
-  _dashHangTime: 0
-  _dashToZero: 0
+  _dashHangTime: 0.15
+  _dashToZero: 1
   _dashCooldownDuration: 0
   _dashEasing: 0
-  _dashMinimumOverlap: 100
+  _dashMinimumOverlap: 10
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
@@ -540,6 +540,8 @@ MonoBehaviour:
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
   _jumpState: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
+  _crouchState: {fileID: 11400000, guid: a8e7dbf3197ad40868cb8387c3b1e95e, type: 2}
+  _crouchUpState: {fileID: 11400000, guid: db90a504a47474dc6a9234f5c5a81425, type: 2}
   _noEndEventClips:
   - {fileID: 7400000, guid: 238dbacff5646c64ca7becf136e5bd33, type: 2}
   - {fileID: 7400000, guid: 93a6df2a673403d42ae43d2dc197c325, type: 2}
@@ -547,6 +549,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: f759e95eb3cae404593e23e97dcbb140, type: 2}
   - {fileID: 7400000, guid: 7b9b02c7a24a6314493f47292e265aa4, type: 2}
   - {fileID: 7400000, guid: 6b82a4882db85d74da24c7147b6a29b5, type: 2}
+  - {fileID: 7400000, guid: 269c86b3afdd8cf46bdcef467a8071ff, type: 2}
   _hurtStatePairs:
   - key: 1
     value: {fileID: 11400000, guid: 96e613e3f0a8b480289846778927ba33, type: 2}
@@ -586,9 +589,9 @@ MonoBehaviour:
   jumpSmokeGroundOffset: 1.95
   delayTime: 0.05
   _afterImageStates:
-  - {fileID: 11400000, guid: acb861e23a3edf342a185fdaa0b50877, type: 2}
-  - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
+  - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
+  - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
 --- !u!114 &3013315635892402694
 MonoBehaviour:
   m_ObjectHideFlags: 0

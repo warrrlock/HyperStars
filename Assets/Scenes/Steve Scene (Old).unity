@@ -365,7 +365,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd76f4cfb783f774b89dab0e2cb5ea14, type: 2}
+  - {fileID: 2100000, guid: cb5830b63f21aac40a90b3ea283f4ddd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -620,6 +620,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614526, guid: b69fac5ccdd0bc14190019ef66cafddd, type: 3}
   - {fileID: 8926484042661614526, guid: 13403678a066aae4f96ad28a2fab6fe9, type: 3}
   spawnedVfxObject: {fileID: 3187476607867268997, guid: fcb01ca1227a1ea4893a3b8953a35ff3, type: 3}
+  skyboxRotationSpeed: 0
 --- !u!1 &701406902
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +877,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a4eb808387624184ab1239ee1cf7084f, type: 2}
+  - {fileID: 2100000, guid: cb5830b63f21aac40a90b3ea283f4ddd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -991,7 +992,8 @@ MonoBehaviour:
   MultiPositionType: 1
   multiPositionTypeLabel: 0
   attenuationSphereColor: {r: 1, g: 0, b: 0, a: 0.1}
-  LargeModePositions: []
+  LargeModePositions:
+  - {fileID: 0}
   multiPositionArray: []
 --- !u!1 &1131467573
 GameObject:

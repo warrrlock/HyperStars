@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
+  m_Name: Crouch Light
+  m_EditorClassIdentifier: 
+  _isCrouchState: 1
+  NodeInfo:
+    rect:
+      serializedVersion: 2
+      x: 259
+      y: 105
+      width: 150
+      height: 50
+  _filters:
+  - filterName: crouch
+    color: {r: 1, g: 1, b: 1, a: 1}
+    focus: 0
+    edit: 0
+  characterSelection: 1
+  _animationName: Crouching Light
+  _onInputPlayOrStopActions: []
+  _onInputInvokeActions: []
+  _transitions:
+  - {fileID: 11400000, guid: 353848153be2d324589123eca8ad686f, type: 2}
+  - {fileID: 11400000, guid: 619018a969fe8534092a224429366dae, type: 2}
+  - {fileID: 11400000, guid: 4bcf3947c18ebb44fb4eb1d7f129c16f, type: 2}
+  _defaultCombo: 1
+  _attackInfo:
+    attackType: 1
+    knockbackDuration: 0.2
+    knockbackDistance: 0.5
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 0.2
+    damage: 10
+    causesWallBounce: 0
+    hitStopDuration: 0.1
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 8
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0.2
+  _isSpecial: 0
+  _specialBarCost: 0
+  _projectilePrefab: {fileID: 0}
+  _animationHash: -1981980932
