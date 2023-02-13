@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Crouch Medium
   m_EditorClassIdentifier: 
+  _isCrouchState: 1
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -20,24 +21,14 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters:
-  - filterName: attack
-    color: {r: 0.8773585, g: 0.84613436, b: 0.27727836, a: 1}
-    focus: 0
-    edit: 0
   - filterName: crouch
     color: {r: 1, g: 1, b: 1, a: 1}
     focus: 0
     edit: 0
-  - filterName: medium
-    color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
-    focus: 0
-    edit: 0
   characterSelection: 1
   _animationName: Crouching Medium
-  _onInputPlayOrStopActions:
-  - {fileID: 11400000, guid: 03001c5c819564b419b5c438b803a3fb, type: 2}
-  _onInputInvokeActions:
-  - {fileID: 11400000, guid: bc69c4238319745e2bf15c118a80961a, type: 2}
+  _onInputPlayOrStopActions: []
+  _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
   - {fileID: 11400000, guid: 565ee919680260045b2797b0803ce714, type: 2}
