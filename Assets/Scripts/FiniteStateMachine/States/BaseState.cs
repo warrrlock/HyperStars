@@ -19,6 +19,9 @@ namespace FiniteStateMachine
 {
     public abstract class BaseState : ScriptableObject
     {
+        [SerializeField] private bool _isCrouchState;
+        public bool IsCrouchState => _isCrouchState;
+        
         public abstract bool Execute(BaseStateMachine machine, string inputName);
         public virtual void QueueExecute(BaseStateMachine machine, string inputName){}
         public virtual void Stop(BaseStateMachine machine, string inputName) {}
@@ -27,11 +30,7 @@ namespace FiniteStateMachine
             return null;
         }
         
-        public virtual void DisableCombo(){}
-        public virtual void EnableCombo(){}
         public virtual void SpawnProjectile(BaseStateMachine machine, Bounds bounds){}
-        public virtual void HandleExit(BaseStateMachine machine){}
-        
         public virtual int GetSpecialBarCost()
         {
             return -1;

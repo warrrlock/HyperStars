@@ -13,6 +13,7 @@ namespace FiniteStateMachine
 
         public override void Stop(BaseStateMachine stateMachine)
         {
+            // Debug.LogWarning($"queueing {_toQueueState.name}");
             stateMachine.QueueState(_toQueueState);
         }
     }

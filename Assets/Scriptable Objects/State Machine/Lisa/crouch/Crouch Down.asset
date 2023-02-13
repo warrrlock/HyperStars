@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Crouch Down
   m_EditorClassIdentifier: 
+  _isCrouchState: 1
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -28,10 +29,8 @@ MonoBehaviour:
   _animationName: Crouching
   _onInputPlayOrStopActions:
   - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
-  - {fileID: 11400000, guid: 03001c5c819564b419b5c438b803a3fb, type: 2}
-  _onInputInvokeActions:
   - {fileID: 11400000, guid: bc69c4238319745e2bf15c118a80961a, type: 2}
-  - {fileID: 11400000, guid: 7455b6da817c24c9aa07ebf85119f48f, type: 2}
+  _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: 1a2f8569491af4b9fb618f0ad1302f5b, type: 2}
   - {fileID: 11400000, guid: 301fd3b8fd9d54577847d001af8639f6, type: 2}

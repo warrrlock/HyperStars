@@ -35,7 +35,7 @@ namespace FiniteStateMachine
         {
             stateMachine.PlayAnimation(_animationHash, replay: true);
             if (_exitState) stateMachine.QueueState(_exitState);
-            // Debug.Log($"{stateMachine.name} starting hurt state, of type {_hurtType}");
+            // Debug.LogWarning($"{stateMachine.name} starting hurt state, of type {_hurtType}");
             if (_hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
                 stateMachine.StartInAir(() => stateMachine.WaitToAnimate(nextAnimation: _animationHash2), setJumpReturnState: false);
             else stateMachine.WaitToAnimate();

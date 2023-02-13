@@ -93,10 +93,10 @@ namespace FiniteStateMachine
                     return true;
                 }
                 SetTrueStatePassValues(stateMachine, inputName, queueAtEndOfAnim);
-                stateMachine.ExecuteQueuedState();
+                if (!queueAtEndOfAnim) stateMachine.ExecuteQueuedState();
                 return true;
             }
-            if (_customFalseState && !queueAtEndOfAnim)
+            else if (_customFalseState && !queueAtEndOfAnim)
             {
                 stateMachine.QueueState(_customFalseState);
                 stateMachine.ExecuteQueuedState();
@@ -117,6 +117,7 @@ namespace FiniteStateMachine
         {
             if (!queueAtEndOfAnim) stateMachine.QueueState(_trueState);
             else stateMachine.QueueStateAtEnd(_trueState);
+            // Debug.Log($"queued state {_trueState.name}");
             stateMachine.LastExecutedInput = inputName;
         }
 

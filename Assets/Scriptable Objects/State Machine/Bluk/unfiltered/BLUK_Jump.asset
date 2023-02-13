@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
+  m_Name: BLUK_Jump
+  m_EditorClassIdentifier: 
+  NodeInfo:
+    rect:
+      serializedVersion: 2
+      x: -516
+      y: 276
+      width: 150
+      height: 50
+  _filters: []
+  characterSelection: 2
+  _animationName: Jump
+  _transitions:
+  - {fileID: 11400000, guid: 611154cadee928c49b142d63bb9f171b, type: 2}
+  - {fileID: 11400000, guid: 7aed028eeacba9146a8e10a7c1a03c5e, type: 2}
+  - {fileID: 11400000, guid: a87587a48f8a59e4692696e58ed65450, type: 2}
+  _alwaysExecute: 1
+  _animationHash: 125937960
+  _attackInfo:
+    attackType: 0
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0
+    damage: 0
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 0
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0
+  _isSpecial: 0
+  _specialBarCost: 0
