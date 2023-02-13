@@ -435,12 +435,13 @@ public class MovementController : MonoBehaviour
 
         if (!_inputManager.Actions["Move"].isBeingPerformed)
         {
+            Debug.Log("Peen");
             _unforcedVelocity.x = 0f;
             _unforcedVelocity.z = 0f;
         }
         else
         {
-            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
             inputVector *= _moveSpeed;
             _unforcedVelocity.x = inputVector.x;
             //_unforcedVelocity.z = inputVector.y;
@@ -566,7 +567,7 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
             inputVector *= _moveSpeed;
             _unforcedVelocity.x = inputVector.x;
             //_unforcedVelocity.z = inputVector.y;
@@ -826,6 +827,7 @@ public class MovementController : MonoBehaviour
 
     private void StartMoving(InputManager.Action action)
     {
+        Debug.Log("us");
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
         inputVector *= _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
@@ -847,10 +849,12 @@ public class MovementController : MonoBehaviour
         StartCoroutine(ApplyForce(direction, magnitude, duration));
     }
 
-    private Vector3 _dashDirection = Vector2.zero;
+    private Vector3 _dashDirection = Vector3.zero;
 
     private void Dash(InputManager.Action action)
     {
+        //_unforcedVelocity.x = 0f;
+        //_unforcedVelocity.z = 0f;
         //TODO: end the dash if player hits an obstacle
         //IF PLAYER USES BUTTON
         Vector3 dashDirection = Vector3.zero;
@@ -863,7 +867,7 @@ public class MovementController : MonoBehaviour
         {
             if (_inputManager.Actions["Move"].isBeingInput)
             {
-                Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+                Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
                 dashDirection = new Vector3(inputVector.x, 0f, 0f);
                 if (_dashToZero)
                 {
@@ -1009,7 +1013,7 @@ public class MovementController : MonoBehaviour
     {
         Debug.Log(_inputManager.Actions["Sidestep"].inputAction.ReadValue<float>());
         //_fighter.invulnerabilityCount++;
-        Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() == 1f ? Vector3.forward : Vector3.back;
+        Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() > 0f ? Vector3.forward : Vector3.back;
         //StartCoroutine(ApplyForce(inputVector, _sidestepForce, _sidestepDuration, _dashEasing));
         //StartCoroutine(_inputManager.Disable(_sidestepDuration, _inputManager.Actions["Sidestep"]));
         StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
