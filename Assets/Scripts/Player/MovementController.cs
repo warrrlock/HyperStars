@@ -435,7 +435,6 @@ public class MovementController : MonoBehaviour
 
         if (!_inputManager.Actions["Move"].isBeingPerformed)
         {
-            Debug.Log("Peen");
             _unforcedVelocity.x = 0f;
             _unforcedVelocity.z = 0f;
         }
@@ -515,7 +514,7 @@ public class MovementController : MonoBehaviour
             float decelerationI = deceleration * j * Time.fixedDeltaTime;
             startValue += decelerationI * decelerationI;
         }
-        Debug.Log(i);
+        //Debug.Log(i);
         startValue -= distanceOffset;
         return startValue;
     }
@@ -827,7 +826,6 @@ public class MovementController : MonoBehaviour
 
     private void StartMoving(InputManager.Action action)
     {
-        Debug.Log("us");
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
         inputVector *= _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
@@ -1011,7 +1009,7 @@ public class MovementController : MonoBehaviour
 
     private void Sidestep(InputManager.Action action)
     {
-        Debug.Log(_inputManager.Actions["Sidestep"].inputAction.ReadValue<float>());
+        //Debug.Log(_inputManager.Actions["Sidestep"].inputAction.ReadValue<float>());
         //_fighter.invulnerabilityCount++;
         Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() > 0f ? Vector3.forward : Vector3.back;
         //StartCoroutine(ApplyForce(inputVector, _sidestepForce, _sidestepDuration, _dashEasing));
