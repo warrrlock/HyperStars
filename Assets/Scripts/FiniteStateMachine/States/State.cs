@@ -31,6 +31,7 @@ namespace FiniteStateMachine
         }
         
         public override void QueueExecute(BaseStateMachine stateMachine, string inputName){
+            // Debug.Log($"failed to transition, checking transitions for {name}");
             foreach (Transition transition in _transitions)
             {
                 transition.Execute(stateMachine, inputName, action: null, queueAtEndOfAnim: true);
