@@ -128,11 +128,11 @@ namespace UnityEngine.InputSystem.Interactions
                 {
                     return;
                 }
-                if (act.interactions.Contains("Down"))
-                {
-                    _interruptedState = InterruptedState.Uninterrupted;
-                    return;
-                }
+                //if (act.interactions.Contains("Down"))
+                //{
+                //    _interruptedState = InterruptedState.Uninterrupted;
+                //    return;
+                //}
                 if (_interruptedState == InterruptedState.Base)
                 {
                     _interruptedState = InterruptedState.Interrupted;
