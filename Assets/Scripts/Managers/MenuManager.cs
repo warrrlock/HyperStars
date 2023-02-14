@@ -12,14 +12,14 @@ public class MenuManager: MonoBehaviour
     {
         foreach (Player p in _players)
         {
-            p.subscription -= ShowStartButton;
+            p.showStartButton -= ShowStartButton;
         }
     }
 
     public void AddPlayer(Player p)
     {
         _players[p.PlayerInput.playerIndex] = p;
-        p.subscription += ShowStartButton;
+        p.showStartButton += ShowStartButton;
     }
 
     private void ShowStartButton()
