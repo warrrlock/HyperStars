@@ -5,6 +5,7 @@ using System.Linq;
 using FiniteStateMachine;
 using TMPro;
 using UnityEngine;
+using Util;
 
 [Serializable]
 public class KeyHurtStatePair
@@ -17,11 +18,19 @@ public class KeyHurtStatePair
     public HurtState value;
 }
 
+[Serializable]
+public class StateEvent
+{
+    public Action execute;
+}
+
 namespace FiniteStateMachine {
     [RequireComponent(typeof(Animator))] 
     [RequireComponent(typeof(Fighter))] 
     public class BaseStateMachine : MonoBehaviour
     {
+        public SerializedDictionary<BaseState, StateEvent> States;
+
         public BaseState CurrentState {get; private set;}
         public bool CanCombo { get; private set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
@@ -99,6 +108,8 @@ namespace FiniteStateMachine {
                 };
                 clip.AddEvent(animationEndEvent);
             }
+
+            CreateStateEvents();
         }
 
         private void Start()
@@ -123,6 +134,15 @@ namespace FiniteStateMachine {
             StopAllCoroutines();
         }
         #endregion
+
+        private void CreateStateEvents()
+        {
+            //create state events
+            foreach (BaseState state in Services.Characters[Fighter.PlayerId].States)
+            {
+                States.Add(state, new StateEvent());
+            }
+        }
         
         public void ResetStateMachine()
         {
@@ -173,6 +193,7 @@ namespace FiniteStateMachine {
             _currentAnimation = animationState;
             CanCombo = defaultCombo;
             _animator.Play(animationState, -1, 0);
+            States[CurrentState].execute?.Invoke();
             return true;
         }
 

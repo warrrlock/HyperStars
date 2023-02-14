@@ -1,4 +1,5 @@
 using System;
+using FiniteStateMachine;
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,7 +18,7 @@ public class Player: MonoBehaviour
     private GameObject FighterObject { get; set; }
     public bool Ready => _ready;
     [SerializeField] private bool _ready;
-    public Action subscription;
+    public Action showStartButton;
 
     private readonly int _mainMenuSceneIndex = 0;
     private readonly int _selectionSceneIndex = 1;
@@ -67,16 +68,18 @@ public class Player: MonoBehaviour
     {
         _ready = false;
         _character = character;
+        Services.Characters[PlayerInput.playerIndex] = _character;
     }
 
     public void GetReady()
     {
         _ready = true;
-        subscription?.Invoke();
+        showStartButton?.Invoke();
     }
 
     private void ReadyStartingGame()
     {
+        Services.Characters[PlayerInput.playerIndex] = _character;
         if (!FighterObject) FighterObject = Instantiate(_character.CharacterPrefab, transform);
         PlayerInput.uiInputModule = null;
     }
