@@ -773,8 +773,8 @@ Transform:
   m_GameObject: {fileID: 5093239530658642988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.25, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.27, y: 0.27, z: 0.27}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5093239531031058993}
   - {fileID: 5093239530251694889}
@@ -898,9 +898,9 @@ MonoBehaviour:
   pushDistance: 0
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 7
-  _maxJumpHeight: 7.5
-  _minJumpHeight: 7.5
-  _timeToJumpApex: 0.4
+  _maxJumpHeight: 5.5
+  _minJumpHeight: 5.5
+  _timeToJumpApex: 0.35
   _dashForce: 25
   _dashDistance: 6
   _dashDuration: 0.35
@@ -909,7 +909,7 @@ MonoBehaviour:
   _dashCooldownDuration: 0.2
   _dashEasing: 0
   _dashMinimumOverlap: 2
-  _maxDashCharges: 0
+  _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
   _collisionMask:
@@ -971,12 +971,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
-  _jumpState: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
+  _jumpState: {fileID: 11400000, guid: af7e6307898f336448c7f6558d4bab97, type: 2}
   _noEndEventClips:
   - {fileID: 7400000, guid: e971c3ff527e8ea46b4cb858705c413b, type: 2}
   - {fileID: 7400000, guid: bfa9738f2f5c3174f8e3ad090a315f9b, type: 2}
   - {fileID: 7400000, guid: ffbc982add895d34fb37ac2c6d94383a, type: 2}
-  - {fileID: 7400000, guid: 20549848deecc2548a64c2501eb1f840, type: 2}
+  - {fileID: 7400000, guid: 71b3e075114f28c4d9e145c926e73659, type: 2}
   - {fileID: 7400000, guid: f759e95eb3cae404593e23e97dcbb140, type: 2}
   - {fileID: 7400000, guid: 7b9b02c7a24a6314493f47292e265aa4, type: 2}
   - {fileID: 7400000, guid: 6b82a4882db85d74da24c7147b6a29b5, type: 2}
