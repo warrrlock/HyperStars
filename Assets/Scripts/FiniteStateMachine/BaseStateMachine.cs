@@ -452,7 +452,11 @@ namespace FiniteStateMachine {
 
         private IEnumerator HandleDisableTime()
         {
-            yield return new WaitForSeconds(DisableTime);
+            float time = Time.fixedTime;
+            while (Time.fixedTime - time < DisableTime)
+            {
+                yield return new WaitForFixedUpdate();
+            }
             _isDisabled = false;
             _disableCoroutine = null;
         }
