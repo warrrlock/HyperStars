@@ -2189,6 +2189,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5698219725593528945, guid: 2a691c1ea833549a5b2713cb01e157b4, type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 4443cc9aceac146e5943752221cbc16b, type: 3}
+    - target: {fileID: 5698219725593528945, guid: 2a691c1ea833549a5b2713cb01e157b4, type: 3}
       propertyPath: m_DefaultControlScheme
       value: Gamepad
       objectReference: {fileID: 0}
@@ -3036,6 +3040,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2acacd9414cc545ecbb21276537cf7c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  States:
+    _keys: []
+    _values: []
+  _framesBeforeEnd: 5
   _stateInfoText: {fileID: 2140118225}
   _initialState: {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
   _jumpState: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
@@ -3287,6 +3295,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2666714687243223776, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: _cameraCatchUpSpeedY
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666714687243223776, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: _minFightersDistanceY
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2666714687243223781, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
       propertyPath: m_Cameras.Array.size
       value: 1
