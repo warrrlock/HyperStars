@@ -5,6 +5,7 @@ using System.Linq;
 using FiniteStateMachine;
 using TMPro;
 using UnityEngine;
+using Util;
 
 [Serializable]
 public class KeyHurtStatePair
@@ -17,15 +18,27 @@ public class KeyHurtStatePair
     public HurtState value;
 }
 
+[Serializable]
+public class StateEvent
+{
+    public Action execute;
+}
+
 namespace FiniteStateMachine {
     [RequireComponent(typeof(Animator))] 
     [RequireComponent(typeof(Fighter))] 
     public class BaseStateMachine : MonoBehaviour
     {
+        public SerializedDictionary<BaseState, StateEvent> States;
+
         public BaseState CurrentState {get; private set;}
         public bool CanCombo { get; private set; }
+        private bool CanInputQueue { get; set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
 
+        [Header("Input Queuing")] 
+        [SerializeField] private int _framesBeforeEnd = 5;
+        
         [Header("UI")]
         [SerializeField] private TextMeshProUGUI _stateInfoText;
         
@@ -98,7 +111,18 @@ namespace FiniteStateMachine {
                     functionName = "HandleAnimationExit"
                 };
                 clip.AddEvent(animationEndEvent);
+                
+                float frameRate = clip.frameRate;
+                float numberOfFrames = clip.length * frameRate;
+                AnimationEvent inputBufferEvent = new AnimationEvent
+                {
+                    time = Math.Max(numberOfFrames - _framesBeforeEnd, 0) / frameRate,
+                    functionName = "EnableInputQueue"
+                };
+                clip.AddEvent(inputBufferEvent);
             }
+
+            CreateStateEvents();
         }
 
         private void Start()
@@ -123,6 +147,15 @@ namespace FiniteStateMachine {
             StopAllCoroutines();
         }
         #endregion
+
+        private void CreateStateEvents()
+        {
+            //create state events
+            foreach (BaseState state in Services.Characters[Fighter.PlayerId].States)
+            {
+                States.Add(state, new StateEvent());
+            }
+        }
         
         public void ResetStateMachine()
         {
@@ -142,7 +175,7 @@ namespace FiniteStateMachine {
             // if (!_holdingCrouch && CurrentState.IsCrouchState) return; //waiting to return to idle. otherwise, go to queue execute
             if (_holdingCrouch && !CurrentState.IsCrouchState) return;
             if (!CurrentState.Execute(this, action.name))
-                _returnState.QueueExecute(this, action.name);
+                if (CanInputQueue) _returnState.QueueExecute(this, action.name);
             
             if (action.name == "Crouch")
             {
@@ -171,8 +204,10 @@ namespace FiniteStateMachine {
         {
             if (_currentAnimation == animationState && !replay) return false;
             _currentAnimation = animationState;
+            DisableInputQueue();
             CanCombo = defaultCombo;
             _animator.Play(animationState, -1, 0);
+            States[CurrentState].execute?.Invoke();
             return true;
         }
 
@@ -245,6 +280,16 @@ namespace FiniteStateMachine {
         public void EnableCombo()
         {
             CanCombo = true;
+        }
+
+        private void EnableInputQueue()
+        {
+            CanInputQueue = true;
+        }
+
+        private void DisableInputQueue()
+        {
+            CanInputQueue = false;
         }
         
         public void SpawnProjectile()
@@ -407,7 +452,11 @@ namespace FiniteStateMachine {
 
         private IEnumerator HandleDisableTime()
         {
-            yield return new WaitForSeconds(DisableTime);
+            float time = Time.fixedTime;
+            while (Time.fixedTime - time < DisableTime)
+            {
+                yield return new WaitForFixedUpdate();
+            }
             _isDisabled = false;
             _disableCoroutine = null;
         }
