@@ -423,6 +423,15 @@ namespace UnityEngine.InputSystem.Interactions
         /// <inheritdoc />
         public void Process(ref InputInteractionContext context)
         {
+            //if (context.ControlIsActuated(pressPointOrDefault))
+            //{
+            //    context.PerformedAndStayPerformed();
+            //}
+            //else
+            //{
+            //    context.Canceled();
+            //}
+
             if (context.ControlIsActuated(pressPointOrDefault))
             {
                 context.PerformedAndStayPerformed();
