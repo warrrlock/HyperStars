@@ -841,6 +841,23 @@ public class MovementController : MonoBehaviour
             _unforcedVelocity.x = 0f;
             _unforcedVelocity.z = 0f;
         }
+        else if (!_landingIsAwaited)
+        {
+            StartCoroutine(AwaitLanding());
+        }
+    }
+
+    private bool _landingIsAwaited = false;
+
+    private IEnumerator AwaitLanding()
+    {
+        _landingIsAwaited = true;
+        yield return new WaitUntil(() => !_isJumping);
+
+        _unforcedVelocity.x = 0f;
+        _unforcedVelocity.z = 0f;
+        _landingIsAwaited = false;
+        yield break;
     }
 
     public void Push(float duration)
