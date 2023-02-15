@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour
         public IEnumerator queuePerform;
         public IEnumerator queueStop;
         public InputAction inputAction;
-        public Func<bool> enableCondition;
+        public List<Func<bool>> enableConditions = new();
 
         public Action(string nam)
         {
@@ -50,21 +50,21 @@ public class InputManager : MonoBehaviour
             stop += IsntPerformed;
 
 
-            enableCondition = () => true;
+            //enableConditions = () => true;
         }
 
-        public IEnumerator SetOneShotEnableCondition(Func<bool> condition)
+        public IEnumerator AddOneShotEnableCondition(Func<bool> condition)
         {
-            enableCondition = condition;
-            yield return new WaitUntil(enableCondition);
+            enableConditions.Add(condition);
+            yield return new WaitUntil(condition);
 
-            ClearEnableCondition();
+            ClearEnableCondition(condition);
             yield break;
         }
 
-        public void ClearEnableCondition()
+        private void ClearEnableCondition(Func<bool> condition)
         {
-            enableCondition = () => true;
+            enableConditions.Remove(condition);
         }
 
         public void Destroy()
@@ -137,7 +137,7 @@ public class InputManager : MonoBehaviour
             if (context.action.WasPerformedThisFrame())
             {
                 action.isBeingInput = true;
-                if (action.enableCondition())
+                if (action.enableConditions.Count == 0 || action.enableConditions.TrueForAll(x => x()))
                 {
                     if (action.disabledCount == 0)
                     {

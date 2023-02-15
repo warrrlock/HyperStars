@@ -233,7 +233,7 @@ public class MovementController : MonoBehaviour
 
     private void AssignSpecialConditions()
     {
-        _inputManager. Actions["Jump"].enableCondition = () => _collisionData.y.isNegativeHit;
+        _inputManager. Actions["Jump"].enableConditions.Add(() => _collisionData.y.isNegativeHit);
     }
 
     private void FixedUpdate()
@@ -896,25 +896,25 @@ public class MovementController : MonoBehaviour
             dashForce = _shortDashForce;
             if (!IsGrounded)
             {
-                StartCoroutine(_inputManager.Actions["Dash Left"].SetOneShotEnableCondition(() => IsGrounded));
-                StartCoroutine(_inputManager.Actions["Dash Right"].SetOneShotEnableCondition(() => IsGrounded));
+                StartCoroutine(_inputManager.Actions["Dash Left"].AddOneShotEnableCondition(() => IsGrounded));
+                StartCoroutine(_inputManager.Actions["Dash Right"].AddOneShotEnableCondition(() => IsGrounded));
             }
             StartCoroutine(Dash(action, _dashDuration, false));
             _isShortDashing = false;
         }
         else
         {
-            if (_dashChargeCount <= 0)
-            {
-                return;
-            }
             if (!IsGrounded)
             {
-                StartCoroutine(_inputManager.Actions["Dash"].SetOneShotEnableCondition(() => IsGrounded));
+                StartCoroutine(_inputManager.Actions["Dash"].AddOneShotEnableCondition(() => IsGrounded));
             }
             StartCoroutine(Dash(action, _dashDuration, true));
             dashForce = _dashForce;
             _dashChargeCount--;
+            if (_dashChargeCount <= 0)
+            {
+                StartCoroutine(_inputManager.Actions["Dash"].AddOneShotEnableCondition(() => _dashChargeCount > 0));
+            }
         }
         StartCoroutine(ApplyForce(dashDirection, dashForce, _dashDuration, _dashEasing));
         //StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
