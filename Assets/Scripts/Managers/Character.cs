@@ -22,13 +22,18 @@ namespace Managers
         private string _originPath = "Assets/Scriptable Objects/State Machine";
         [HideInInspector][SerializeField]private string _characterPath = "";
         public string CharacterPath => _characterPath;
-        
+
+        public IReadOnlyList<BaseState> States => _states;
+        [HideInInspector][SerializeField] List<BaseState> _states;
+
 #if UNITY_EDITOR
         public void OnEnable()
         {
             CreateCharacterFolder();
             if (_characterPath.Equals("")) SetCharacterPath();
             if (_characterPath.Equals("")) return;
+
+            CreateStateList();
             
             string[] folders = AssetDatabase.GetSubFolders(_characterPath);
             List<string> folderNames = new ();
@@ -81,6 +86,14 @@ namespace Managers
                 System.IO.Directory.CreateDirectory($"{_characterPath}/actions");
             
             AssetDatabase.Refresh();
+        }
+
+        private void CreateStateList()
+        {
+            string[] guids = AssetDatabase.FindAssets("t:BaseState",new[] { _characterPath });
+            _states = 
+                guids.Select(guid => (BaseState)AssetDatabase.LoadAssetAtPath(
+                    AssetDatabase.GUIDToAssetPath(guid), typeof(BaseState))).ToList();
         }
 
         public bool AddFilter(string n, Color c)
