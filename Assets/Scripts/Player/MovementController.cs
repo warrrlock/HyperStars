@@ -37,10 +37,13 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _dashDuration;
     [SerializeField] private float _dashHangTime;
     [SerializeField] private bool _dashToZero;
-    [SerializeField] private float _dashCooldownDuration;
+    [SerializeField] private float _shortDashCooldownDuration;
+    [SerializeField] private float _superDashCooldownDuration;
     [SerializeField] private ForceEasing _dashEasing;
     [SerializeField] private float _dashMinimumOverlap;
 
+    //private int _airShortDashChargeCount = 1;
+    //private int _airSuperDashChargeCount = 1;
     private float _shortDashForce = 0f;
     private bool _isShortDashing = false; //TODO: these variables are stupidd
     [SerializeField] private int _maxDashCharges;
@@ -891,6 +894,12 @@ public class MovementController : MonoBehaviour
         if (_isShortDashing)
         {
             dashForce = _shortDashForce;
+            if (!IsGrounded)
+            {
+                StartCoroutine(_inputManager.Actions["Dash Left"].SetOneShotEnableCondition(() => IsGrounded));
+                StartCoroutine(_inputManager.Actions["Dash Right"].SetOneShotEnableCondition(() => IsGrounded));
+            }
+            StartCoroutine(Dash(action, _dashDuration, false));
             _isShortDashing = false;
         }
         else
@@ -899,6 +908,11 @@ public class MovementController : MonoBehaviour
             {
                 return;
             }
+            if (!IsGrounded)
+            {
+                StartCoroutine(_inputManager.Actions["Dash"].SetOneShotEnableCondition(() => IsGrounded));
+            }
+            StartCoroutine(Dash(action, _dashDuration, true));
             dashForce = _dashForce;
             _dashChargeCount--;
         }
@@ -950,29 +964,6 @@ public class MovementController : MonoBehaviour
                 }
             }
         }
-        //if (_fighter.FacingDirection == Fighter.Direction.Right)
-        //{
-        //    if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
-        //    {
-        //        if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _dashMinimumOverlap)
-        //        {
-        //            StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
-        //            RemoveCollisionLayer(9);
-        //        }
-        //    }
-        //}
-        //if (_fighter.FacingDirection == Fighter.Direction.Left)
-        //{
-        //    if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
-        //    {
-        //        if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _dashMinimumOverlap)
-        //        {
-        //            StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
-        //            RemoveCollisionLayer(9);
-        //        }
-        //    }
-        //}
-        StartCoroutine(Dash(action, _dashDuration));
         StartCoroutine(RechargeDash());
     }
 
@@ -1030,11 +1021,18 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
-    private IEnumerator Dash(InputManager.Action action, float duration)
+    private IEnumerator Dash(InputManager.Action action, float duration, bool isSuperDash)
     {
         yield return new WaitForSeconds(duration);
         _inputManager.Actions["Dash"].finish?.Invoke(action);
-        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
+        if (isSuperDash)
+        {
+            StartCoroutine(_inputManager.Disable(_superDashCooldownDuration, _inputManager.Actions["Dash"]));
+        }
+        else
+        {
+            StartCoroutine(_inputManager.Disable(_shortDashCooldownDuration, _inputManager.Actions["Dash Left"], _inputManager.Actions["Dash Right"]));
+        }
         yield break;
     }
 

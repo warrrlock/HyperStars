@@ -53,6 +53,20 @@ public class InputManager : MonoBehaviour
             enableCondition = () => true;
         }
 
+        public IEnumerator SetOneShotEnableCondition(Func<bool> condition)
+        {
+            enableCondition = condition;
+            yield return new WaitUntil(enableCondition);
+
+            ClearEnableCondition();
+            yield break;
+        }
+
+        public void ClearEnableCondition()
+        {
+            enableCondition = () => true;
+        }
+
         public void Destroy()
         {
             perform -= IsPerformed;
