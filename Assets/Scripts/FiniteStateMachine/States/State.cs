@@ -46,6 +46,13 @@ namespace FiniteStateMachine
             }
         }
         
+        public override void Finish(BaseStateMachine stateMachine)
+        {
+            foreach(StateAction action in _actions){
+                action.Finish(stateMachine);
+            }
+        }
+        
 #if UNITY_EDITOR
         public override void AddTransition(Transition t)
         {
