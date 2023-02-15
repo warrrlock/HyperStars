@@ -37,10 +37,13 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _dashDuration;
     [SerializeField] private float _dashHangTime;
     [SerializeField] private bool _dashToZero;
-    [SerializeField] private float _dashCooldownDuration;
+    [SerializeField] private float _shortDashCooldownDuration;
+    [SerializeField] private float _superDashCooldownDuration;
     [SerializeField] private ForceEasing _dashEasing;
     [SerializeField] private float _dashMinimumOverlap;
 
+    //private int _airShortDashChargeCount = 1;
+    //private int _airSuperDashChargeCount = 1;
     private float _shortDashForce = 0f;
     private bool _isShortDashing = false; //TODO: these variables are stupidd
     [SerializeField] private int _maxDashCharges;
@@ -230,7 +233,7 @@ public class MovementController : MonoBehaviour
 
     private void AssignSpecialConditions()
     {
-        _inputManager. Actions["Jump"].enableCondition = () => _collisionData.y.isNegativeHit;
+        _inputManager. Actions["Jump"].enableConditions.Add(() => _collisionData.y.isNegativeHit);
     }
 
     private void FixedUpdate()
@@ -440,7 +443,7 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
             inputVector *= _moveSpeed;
             _unforcedVelocity.x = inputVector.x;
             //_unforcedVelocity.z = inputVector.y;
@@ -514,7 +517,7 @@ public class MovementController : MonoBehaviour
             float decelerationI = deceleration * j * Time.fixedDeltaTime;
             startValue += decelerationI * decelerationI;
         }
-        Debug.Log(i);
+        //Debug.Log(i);
         startValue -= distanceOffset;
         return startValue;
     }
@@ -566,7 +569,7 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
             inputVector *= _moveSpeed;
             _unforcedVelocity.x = inputVector.x;
             //_unforcedVelocity.z = inputVector.y;
@@ -838,6 +841,23 @@ public class MovementController : MonoBehaviour
             _unforcedVelocity.x = 0f;
             _unforcedVelocity.z = 0f;
         }
+        else if (!_landingIsAwaited)
+        {
+            StartCoroutine(AwaitLanding());
+        }
+    }
+
+    private bool _landingIsAwaited = false;
+
+    private IEnumerator AwaitLanding()
+    {
+        _landingIsAwaited = true;
+        yield return new WaitUntil(() => !_isJumping);
+
+        _unforcedVelocity.x = 0f;
+        _unforcedVelocity.z = 0f;
+        _landingIsAwaited = false;
+        yield break;
     }
 
     public void Push(float duration)
@@ -847,10 +867,12 @@ public class MovementController : MonoBehaviour
         StartCoroutine(ApplyForce(direction, magnitude, duration));
     }
 
-    private Vector3 _dashDirection = Vector2.zero;
+    private Vector3 _dashDirection = Vector3.zero;
 
     private void Dash(InputManager.Action action)
     {
+        //_unforcedVelocity.x = 0f;
+        //_unforcedVelocity.z = 0f;
         //TODO: end the dash if player hits an obstacle
         //IF PLAYER USES BUTTON
         Vector3 dashDirection = Vector3.zero;
@@ -863,7 +885,7 @@ public class MovementController : MonoBehaviour
         {
             if (_inputManager.Actions["Move"].isBeingInput)
             {
-                Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() == -1 ? Vector2.left : Vector2.right;
+                Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
                 dashDirection = new Vector3(inputVector.x, 0f, 0f);
                 if (_dashToZero)
                 {
@@ -889,16 +911,26 @@ public class MovementController : MonoBehaviour
         if (_isShortDashing)
         {
             dashForce = _shortDashForce;
-            _isShortDashing = false;
+            if (!IsGrounded)
+            {
+                StartCoroutine(_inputManager.Actions["Dash Left"].AddOneShotEnableCondition(() => IsGrounded));
+                StartCoroutine(_inputManager.Actions["Dash Right"].AddOneShotEnableCondition(() => IsGrounded));
+            }
+            StartCoroutine(Dash(action, _dashDuration, false));
         }
         else
         {
-            if (_dashChargeCount <= 0)
+            if (!IsGrounded)
             {
-                return;
+                StartCoroutine(_inputManager.Actions["Dash"].AddOneShotEnableCondition(() => IsGrounded));
             }
+            StartCoroutine(Dash(action, _dashDuration, true));
             dashForce = _dashForce;
             _dashChargeCount--;
+            if (_dashChargeCount <= 0)
+            {
+                StartCoroutine(_inputManager.Actions["Dash"].AddOneShotEnableCondition(() => _dashChargeCount > 0));
+            }
         }
         StartCoroutine(ApplyForce(dashDirection, dashForce, _dashDuration, _dashEasing));
         //StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
@@ -908,69 +940,54 @@ public class MovementController : MonoBehaviour
             ResetVelocityY();
         }
         StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"], _inputManager.Actions["Dash"]));
-        if (_fighter.FacingDirection == Fighter.Direction.Right)
+        if (!_isShortDashing)
         {
-            if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+            //dash through opponent
+            if (_fighter.FacingDirection == Fighter.Direction.Right)
             {
-                if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
+                if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
                 {
-                    //RemoveCollisionLayer(ref _xMask, 9);
-                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                    if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
+                    {
+                        //RemoveCollisionLayer(ref _xMask, 9);
+                        StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                    }
+                    else if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _dashMinimumOverlap)
+                    {
+                        //RemoveCollisionLayer(ref _xMask, 9);
+                        StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                        //if (!_isResolvingOverlap)
+                        //{
+                        //    StartCoroutine(ResolveOverlap());
+                        //}
+                    }
                 }
-                else if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _dashMinimumOverlap)
+            }
+            if (_fighter.FacingDirection == Fighter.Direction.Left)
+            {
+                if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
                 {
-                    //RemoveCollisionLayer(ref _xMask, 9);
-                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
-                    //if (!_isResolvingOverlap)
-                    //{
-                    //    StartCoroutine(ResolveOverlap());
-                    //}
+                    if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
+                    {
+                        //RemoveCollisionLayer(ref _xMask, 9);
+                        StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                    }
+                    else if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _dashMinimumOverlap)
+                    {
+                        //RemoveCollisionLayer(ref _xMask, 9);
+                        StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                        //if (!_isResolvingOverlap)
+                        //{
+                        //    StartCoroutine(ResolveOverlap());
+                        //}
+                    }
                 }
             }
         }
-        if (_fighter.FacingDirection == Fighter.Direction.Left)
+        if (_isShortDashing)
         {
-            if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
-            {
-                if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
-                {
-                    //RemoveCollisionLayer(ref _xMask, 9);
-                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
-                }
-                else if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _dashMinimumOverlap)
-                {
-                    //RemoveCollisionLayer(ref _xMask, 9);
-                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
-                    //if (!_isResolvingOverlap)
-                    //{
-                    //    StartCoroutine(ResolveOverlap());
-                    //}
-                }
-            }
+            _isShortDashing = false;
         }
-        //if (_fighter.FacingDirection == Fighter.Direction.Right)
-        //{
-        //    if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
-        //    {
-        //        if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _dashMinimumOverlap)
-        //        {
-        //            StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
-        //            RemoveCollisionLayer(9);
-        //        }
-        //    }
-        //}
-        //if (_fighter.FacingDirection == Fighter.Direction.Left)
-        //{
-        //    if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
-        //    {
-        //        if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _dashMinimumOverlap)
-        //        {
-        //            StartCoroutine(DisableCollisionLayers(_dashDuration, 9));
-        //            RemoveCollisionLayer(9);
-        //        }
-        //    }
-        //}
-        StartCoroutine(Dash(action, _dashDuration));
         StartCoroutine(RechargeDash());
     }
 
@@ -1007,9 +1024,9 @@ public class MovementController : MonoBehaviour
 
     private void Sidestep(InputManager.Action action)
     {
-        Debug.Log(_inputManager.Actions["Sidestep"].inputAction.ReadValue<float>());
+        //Debug.Log(_inputManager.Actions["Sidestep"].inputAction.ReadValue<float>());
         //_fighter.invulnerabilityCount++;
-        Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() == 1f ? Vector3.forward : Vector3.back;
+        Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() > 0f ? Vector3.forward : Vector3.back;
         //StartCoroutine(ApplyForce(inputVector, _sidestepForce, _sidestepDuration, _dashEasing));
         //StartCoroutine(_inputManager.Disable(_sidestepDuration, _inputManager.Actions["Sidestep"]));
         StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
@@ -1028,11 +1045,18 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
-    private IEnumerator Dash(InputManager.Action action, float duration)
+    private IEnumerator Dash(InputManager.Action action, float duration, bool isSuperDash)
     {
         yield return new WaitForSeconds(duration);
         _inputManager.Actions["Dash"].finish?.Invoke(action);
-        StartCoroutine(_inputManager.Disable(_dashCooldownDuration, _inputManager.Actions["Dash"]));
+        if (isSuperDash)
+        {
+            StartCoroutine(_inputManager.Disable(_superDashCooldownDuration, _inputManager.Actions["Dash"]));
+        }
+        else
+        {
+            StartCoroutine(_inputManager.Disable(_shortDashCooldownDuration, _inputManager.Actions["Dash Left"], _inputManager.Actions["Dash Right"]));
+        }
         yield break;
     }
 

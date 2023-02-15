@@ -115,30 +115,30 @@ namespace UnityEngine.InputSystem.Interactions
         private enum InterruptedState { Base, Uninterrupted, Interrupted }
         private InterruptedState _interruptedState = InterruptedState.Base;
 
-        //public MultiTapDownInteraction()
-        //{
-        //    InputSystem.onActionChange += (action, change) =>
-        //    {
-        //        if (action.GetType() != typeof(InputAction))
-        //        {
-        //            return;
-        //        }
-        //        InputAction act = action as InputAction;
-        //        if (change != InputActionChange.ActionPerformed)
-        //        {
-        //            return;
-        //        }
-        //        if (act.interactions.Contains("Down"))
-        //        {
-        //            _interruptedState = InterruptedState.Uninterrupted;
-        //            return;
-        //        }
-        //        if (_interruptedState == InterruptedState.Base)
-        //        {
-        //            _interruptedState = InterruptedState.Interrupted;
-        //        }
-        //    };
-        //}
+        public MultiTapDownInteraction()
+        {
+            InputSystem.onActionChange += (action, change) =>
+            {
+                if (action.GetType() != typeof(InputAction))
+                {
+                    return;
+                }
+                InputAction act = action as InputAction;
+                if (change != InputActionChange.ActionPerformed)
+                {
+                    return;
+                }
+                //if (act.interactions.Contains("Down"))
+                //{
+                //    _interruptedState = InterruptedState.Uninterrupted;
+                //    return;
+                //}
+                if (_interruptedState == InterruptedState.Base)
+                {
+                    _interruptedState = InterruptedState.Interrupted;
+                }
+            };
+        }
 
 
         /// <inheritdoc />
@@ -148,8 +148,8 @@ namespace UnityEngine.InputSystem.Interactions
             {
                 // We use timers multiple times but no matter what, if they expire it means
                 // that we didn't get input in time.
-                context.Canceled();
                 _interruptedState = InterruptedState.Base;
+                context.Canceled();
                 return;
             }
 
@@ -232,11 +232,12 @@ namespace UnityEngine.InputSystem.Interactions
                     break;
 
                 case TapPhase.WaitingForNextPress:
-                    //if (_interruptedState == InterruptedState.Interrupted)
-                    //{
-                    //    context.Canceled();
-                    //    _interruptedState = InterruptedState.Base;
-                    //}
+                    if (_interruptedState == InterruptedState.Interrupted)
+                    {
+                        Debug.Log("peen");
+                        //_interruptedState = InterruptedState.Base;
+                        //context.Canceled();
+                    }
 
 
                     if (context.ControlIsActuated(pressPointOrDefault))
@@ -308,36 +309,36 @@ namespace UnityEngine.InputSystem.Interactions
     {
         static Joystick()
         {
-            InputSystem.RegisterInteraction<MultiTapDownInteraction>();
+            InputSystem.RegisterInteraction<Joystick>();
         }
 
-        /// <summary>
-        /// The time in seconds within which the control needs to be pressed and released to perform the interaction.
-        /// </summary>
-        /// <remarks>
-        /// If this value is equal to or smaller than zero, the input system will use (<see cref="InputSettings.defaultTapTime"/>) instead.
-        /// </remarks>
-        [Tooltip("The maximum time (in seconds) allowed to elapse between pressing and releasing a control for it to register as a tap.")]
-        public float tapTime;
+        ///// <summary>
+        ///// The time in seconds within which the control needs to be pressed and released to perform the interaction.
+        ///// </summary>
+        ///// <remarks>
+        ///// If this value is equal to or smaller than zero, the input system will use (<see cref="InputSettings.defaultTapTime"/>) instead.
+        ///// </remarks>
+        //[Tooltip("The maximum time (in seconds) allowed to elapse between pressing and releasing a control for it to register as a tap.")]
+        //public float tapTime;
 
-        /// <summary>
-        /// The time in seconds which is allowed to pass between taps.
-        /// </summary>
-        /// <remarks>
-        /// If this time is exceeded, the multi-tap interaction is canceled.
-        /// If this value is equal to or smaller than zero, the input system will use the duplicate value of <see cref="tapTime"/> instead.
-        /// </remarks>
-        [Tooltip("The maximum delay (in seconds) allowed between each tap. If this time is exceeded, the multi-tap is canceled.")]
-        public float tapDelay;
+        ///// <summary>
+        ///// The time in seconds which is allowed to pass between taps.
+        ///// </summary>
+        ///// <remarks>
+        ///// If this time is exceeded, the multi-tap interaction is canceled.
+        ///// If this value is equal to or smaller than zero, the input system will use the duplicate value of <see cref="tapTime"/> instead.
+        ///// </remarks>
+        //[Tooltip("The maximum delay (in seconds) allowed between each tap. If this time is exceeded, the multi-tap is canceled.")]
+        //public float tapDelay;
 
-        /// <summary>
-        /// The number of taps required to perform the interaction.
-        /// </summary>
-        /// <remarks>
-        /// How many taps need to be performed in succession. Two means double-tap, three means triple-tap, and so on.
-        /// </remarks>
-        [Tooltip("How many taps need to be performed in succession. Two means double-tap, three means triple-tap, and so on.")]
-        public int tapCount = 2;
+        ///// <summary>
+        ///// The number of taps required to perform the interaction.
+        ///// </summary>
+        ///// <remarks>
+        ///// How many taps need to be performed in succession. Two means double-tap, three means triple-tap, and so on.
+        ///// </remarks>
+        //[Tooltip("How many taps need to be performed in succession. Two means double-tap, three means triple-tap, and so on.")]
+        //public int tapCount = 2;
 
         /// <summary>
         /// Magnitude threshold that must be crossed by an actuated control for the control to
@@ -350,24 +351,24 @@ namespace UnityEngine.InputSystem.Interactions
         public float pressPoint;
 
 
-        public bool isInterruptionAllowed;
+        //public bool isInterruptionAllowed;
 
-        private float tapTimeOrDefault => tapTime > 0.0 ? tapTime : InputSystem.settings.defaultTapTime;
-        internal float tapDelayOrDefault => tapDelay > 0.0 ? tapDelay : InputSystem.settings.multiTapDelayTime;
-        //private float pressPointOrDefault => pressPoint > 0 ? pressPoint : ButtonControl.s_GlobalDefaultButtonPressPoint;
-        //private float releasePointOrDefault => pressPointOrDefault * ButtonControl.s_GlobalDefaultButtonReleaseThreshold;
+        //private float tapTimeOrDefault => tapTime > 0.0 ? tapTime : InputSystem.settings.defaultTapTime;
+        //internal float tapDelayOrDefault => tapDelay > 0.0 ? tapDelay : InputSystem.settings.multiTapDelayTime;
+        ////private float pressPointOrDefault => pressPoint > 0 ? pressPoint : ButtonControl.s_GlobalDefaultButtonPressPoint;
+        ////private float releasePointOrDefault => pressPointOrDefault * ButtonControl.s_GlobalDefaultButtonReleaseThreshold;
         private float pressPointOrDefault => pressPoint;
-        private float releasePointOrDefault => pressPointOrDefault;
+        //private float releasePointOrDefault => pressPointOrDefault;
 
 
-        private bool _isInterrupted;
+        //private bool _isInterrupted;
 
-        //public MultiTapDownInteraction()
-        //{
-        //}
+        ////public MultiTapDownInteraction()
+        ////{
+        ////}
 
-        private enum InterruptedState { Base, Uninterrupted, Interrupted }
-        private InterruptedState _interruptedState = InterruptedState.Base;
+        //private enum InterruptedState { Base, Uninterrupted, Interrupted }
+        //private InterruptedState _interruptedState = InterruptedState.Base;
 
         //public MultiTapDownInteraction()
         //{
@@ -398,148 +399,157 @@ namespace UnityEngine.InputSystem.Interactions
         /// <inheritdoc />
         public void Process(ref InputInteractionContext context)
         {
-            if (context.timerHasExpired)
+            if (context.ControlIsActuated(pressPointOrDefault))
             {
-                // We use timers multiple times but no matter what, if they expire it means
-                // that we didn't get input in time.
+                context.PerformedAndStayPerformed();
+            }
+            else
+            {
                 context.Canceled();
-                _interruptedState = InterruptedState.Base;
-                return;
             }
 
-            switch (m_CurrentTapPhase)
-            {
-                case TapPhase.None:
-                    if (context.ControlIsActuated(pressPointOrDefault))
-                    {
-                        m_CurrentTapPhase = TapPhase.WaitingForNextRelease;
-                        m_CurrentTapStartTime = context.time;
-                        context.Started();
-                        ++m_CurrentTapCount;
-                        m_LastTapTime = context.time;
+            //if (context.timerHasExpired)
+            //{
+            //    // We use timers multiple times but no matter what, if they expire it means
+            //    // that we didn't get input in time.
+            //    context.Canceled();
+            //    _interruptedState = InterruptedState.Base;
+            //    return;
+            //}
 
-                        var maxTapTime = tapTimeOrDefault;
-                        var maxDelayInBetween = tapDelayOrDefault;
-                        context.SetTimeout(maxTapTime);
+            //switch (m_CurrentTapPhase)
+            //{
+            //    case TapPhase.None:
+            //        if (context.ControlIsActuated(pressPointOrDefault))
+            //        {
+            //            m_CurrentTapPhase = TapPhase.WaitingForNextRelease;
+            //            m_CurrentTapStartTime = context.time;
+            //            context.Started();
+            //            ++m_CurrentTapCount;
+            //            m_LastTapTime = context.time;
 
-                        // We'll be using multiple timeouts so set a total completion time that
-                        // effects the result of InputAction.GetTimeoutCompletionPercentage()
-                        // such that it accounts for the total time we allocate for the interaction
-                        // rather than only the time of one single timeout.
-                        context.SetTotalTimeoutCompletionTime(maxTapTime * tapCount + (tapCount - 1) * maxDelayInBetween);
-                    }
-                    break;
+            //            var maxTapTime = tapTimeOrDefault;
+            //            var maxDelayInBetween = tapDelayOrDefault;
+            //            context.SetTimeout(maxTapTime);
 
-                //case TapPhase.WaitingForNextRelease:
-                //    if (!context.ControlIsActuated(releasePointOrDefault))
-                //    {
-                //        if (context.time - m_CurrentTapStartTime <= tapTimeOrDefault)
-                //        {
-                //            ++m_CurrentTapCount;
-                //            if (m_CurrentTapCount >= tapCount)
-                //            {
-                //                context.Performed();
-                //            }
-                //            else
-                //            {
-                //                m_CurrentTapPhase = TapPhase.WaitingForNextPress;
-                //                m_LastTapReleaseTime = context.time;
-                //                context.SetTimeout(tapDelayOrDefault);
-                //            }
-                //        }
-                //        else
-                //        {
-                //            context.Canceled();
-                //        }
-                //    }
-                //    break;
+            //            // We'll be using multiple timeouts so set a total completion time that
+            //            // effects the result of InputAction.GetTimeoutCompletionPercentage()
+            //            // such that it accounts for the total time we allocate for the interaction
+            //            // rather than only the time of one single timeout.
+            //            context.SetTotalTimeoutCompletionTime(maxTapTime * tapCount + (tapCount - 1) * maxDelayInBetween);
+            //        }
+            //        break;
 
-                //case TapPhase.WaitingForNextPress:
-                //    if (context.ControlIsActuated(pressPointOrDefault))
-                //    {
-                //        if (context.time - m_LastTapReleaseTime <= tapDelayOrDefault)
-                //        {
-                //            m_CurrentTapPhase = TapPhase.WaitingForNextRelease;
-                //            m_CurrentTapStartTime = context.time;
-                //            context.SetTimeout(tapTimeOrDefault);
-                //        }
-                //        else
-                //        {
-                //            context.Canceled();
-                //        }
-                //    }
-                //    break;
+            //    //case TapPhase.WaitingForNextRelease:
+            //    //    if (!context.ControlIsActuated(releasePointOrDefault))
+            //    //    {
+            //    //        if (context.time - m_CurrentTapStartTime <= tapTimeOrDefault)
+            //    //        {
+            //    //            ++m_CurrentTapCount;
+            //    //            if (m_CurrentTapCount >= tapCount)
+            //    //            {
+            //    //                context.Performed();
+            //    //            }
+            //    //            else
+            //    //            {
+            //    //                m_CurrentTapPhase = TapPhase.WaitingForNextPress;
+            //    //                m_LastTapReleaseTime = context.time;
+            //    //                context.SetTimeout(tapDelayOrDefault);
+            //    //            }
+            //    //        }
+            //    //        else
+            //    //        {
+            //    //            context.Canceled();
+            //    //        }
+            //    //    }
+            //    //    break;
 
-                case TapPhase.WaitingForNextRelease:
-                    if (!context.ControlIsActuated(releasePointOrDefault))
-                    {
-                        if (context.time - m_LastTapTime <= tapDelay)
-                        {
-                            m_CurrentTapPhase = TapPhase.WaitingForNextPress;
-                            context.SetTimeout(tapDelayOrDefault);
-                        }
-                        else
-                        {
-                            context.Canceled();
-                        }
-                    }
-                    break;
+            //    //case TapPhase.WaitingForNextPress:
+            //    //    if (context.ControlIsActuated(pressPointOrDefault))
+            //    //    {
+            //    //        if (context.time - m_LastTapReleaseTime <= tapDelayOrDefault)
+            //    //        {
+            //    //            m_CurrentTapPhase = TapPhase.WaitingForNextRelease;
+            //    //            m_CurrentTapStartTime = context.time;
+            //    //            context.SetTimeout(tapTimeOrDefault);
+            //    //        }
+            //    //        else
+            //    //        {
+            //    //            context.Canceled();
+            //    //        }
+            //    //    }
+            //    //    break;
 
-                case TapPhase.WaitingForNextPress:
-                    //if (_interruptedState == InterruptedState.Interrupted)
-                    //{
-                    //    context.Canceled();
-                    //    _interruptedState = InterruptedState.Base;
-                    //}
+            //    case TapPhase.WaitingForNextRelease:
+            //        if (!context.ControlIsActuated(releasePointOrDefault))
+            //        {
+            //            if (context.time - m_LastTapTime <= tapDelay)
+            //            {
+            //                m_CurrentTapPhase = TapPhase.WaitingForNextPress;
+            //                context.SetTimeout(tapDelayOrDefault);
+            //            }
+            //            else
+            //            {
+            //                context.Canceled();
+            //            }
+            //        }
+            //        break;
+
+            //    case TapPhase.WaitingForNextPress:
+            //        //if (_interruptedState == InterruptedState.Interrupted)
+            //        //{
+            //        //    context.Canceled();
+            //        //    _interruptedState = InterruptedState.Base;
+            //        //}
 
 
-                    if (context.ControlIsActuated(pressPointOrDefault))
-                    {
-                        if (context.time - m_LastTapTime <= tapDelay)
-                        {
-                            ++m_CurrentTapCount;
-                            if (m_CurrentTapCount >= tapCount)
-                            {
-                                context.Performed();
-                            }
-                            else
-                            {
-                                m_CurrentTapPhase = TapPhase.WaitingForNextRelease;
-                                m_LastTapTime = context.time;
-                                context.SetTimeout(tapDelayOrDefault);
-                            }
-                        }
-                        else
-                        {
-                            context.Canceled();
-                        }
-                    }
-                    break;
-            }
+            //        if (context.ControlIsActuated(pressPointOrDefault))
+            //        {
+            //            if (context.time - m_LastTapTime <= tapDelay)
+            //            {
+            //                ++m_CurrentTapCount;
+            //                if (m_CurrentTapCount >= tapCount)
+            //                {
+            //                    context.Performed();
+            //                }
+            //                else
+            //                {
+            //                    m_CurrentTapPhase = TapPhase.WaitingForNextRelease;
+            //                    m_LastTapTime = context.time;
+            //                    context.SetTimeout(tapDelayOrDefault);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                context.Canceled();
+            //            }
+            //        }
+            //        break;
+            //}
         }
 
         /// <inheritdoc />
         public void Reset()
         {
-            m_CurrentTapPhase = TapPhase.None;
-            m_CurrentTapCount = 0;
-            m_CurrentTapStartTime = 0;
-            m_LastTapTime = 0;
+            //m_CurrentTapPhase = TapPhase.None;
+            //m_CurrentTapCount = 0;
+            //m_CurrentTapStartTime = 0;
+            //m_LastTapTime = 0;
 
-            _isInterrupted = false;
-            _interruptedState = InterruptedState.Base;
+            //_isInterrupted = false;
+            //_interruptedState = InterruptedState.Base;
         }
 
-        private TapPhase m_CurrentTapPhase;
-        private int m_CurrentTapCount;
-        private double m_CurrentTapStartTime;
-        private double m_LastTapTime;
+        //private TapPhase m_CurrentTapPhase;
+        //private int m_CurrentTapCount;
+        //private double m_CurrentTapStartTime;
+        //private double m_LastTapTime;
 
-        private enum TapPhase
-        {
-            None,
-            WaitingForNextRelease,
-            WaitingForNextPress,
-        }
+        //private enum TapPhase
+        //{
+        //    None,
+        //    WaitingForNextRelease,
+        //    WaitingForNextPress,
+        //}
     }
 }

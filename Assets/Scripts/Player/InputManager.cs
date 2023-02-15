@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour
         public IEnumerator queuePerform;
         public IEnumerator queueStop;
         public InputAction inputAction;
-        public Func<bool> enableCondition;
+        public List<Func<bool>> enableConditions = new();
 
         public Action(string nam)
         {
@@ -50,7 +50,21 @@ public class InputManager : MonoBehaviour
             stop += IsntPerformed;
 
 
-            enableCondition = () => true;
+            //enableConditions = () => true;
+        }
+
+        public IEnumerator AddOneShotEnableCondition(Func<bool> condition)
+        {
+            enableConditions.Add(condition);
+            yield return new WaitUntil(condition);
+
+            ClearEnableCondition(condition);
+            yield break;
+        }
+
+        private void ClearEnableCondition(Func<bool> condition)
+        {
+            enableConditions.Remove(condition);
         }
 
         public void Destroy()
@@ -123,7 +137,7 @@ public class InputManager : MonoBehaviour
             if (context.action.WasPerformedThisFrame())
             {
                 action.isBeingInput = true;
-                if (action.enableCondition())
+                if (action.enableConditions.Count == 0 || action.enableConditions.TrueForAll(x => x()))
                 {
                     if (action.disabledCount == 0)
                     {
@@ -148,6 +162,16 @@ public class InputManager : MonoBehaviour
                     StopCoroutine(action.queueStop);
                 }
             }
+
+
+            //TODO: NEW FOR JOYSTICK
+            if (context.canceled)
+            {
+                action.isBeingInput = false;
+                action.stop?.Invoke(action);
+            }
+
+
             if (context.action.WasReleasedThisFrame())
             {
                 action.isBeingInput = false;
@@ -159,19 +183,20 @@ public class InputManager : MonoBehaviour
                 }
                 if (action.disabledCount == 0)
                 {
+                    //action.stop?.Invoke(action);
                     //TODO: either find a better solution to this or change based off gamepad or keyboard because now on keyboard if you input move right after letting go you'll stop
-                    if (action == Actions["Move"])
-                    {
-                        //action.stop?.Invoke(action);
-                        if (_playerInput.currentControlScheme == "Gamepad" && !_isAwaitingStop)
-                        {
-                            StartCoroutine(Stop(action));
-                        }
-                        else
-                        {
-                            action.stop?.Invoke(action);
-                        }
-                    }
+                    //if (action == Actions["Move"])
+                    //{
+                    //    //action.stop?.Invoke(action);
+                    //    if (_playerInput.currentControlScheme == "Gamepad" && !_isAwaitingStop)
+                    //    {
+                    //        StartCoroutine(Stop(action));
+                    //    }
+                    //    else
+                    //    {
+                    //        action.stop?.Invoke(action);
+                    //    }
+                    //}
                 }
                 else if (action.disabledCount > 0)
                 {
@@ -321,7 +346,11 @@ public class InputManager : MonoBehaviour
         //yield return new WaitForFixedUpdate();
         yield return new WaitUntil(() => action.disabledCount == 0);
         // Debug.Log("Invoking queued");
-        action.perform?.Invoke(action);
+        if (action.isBeingInput)
+        {
+            action.perform?.Invoke(action);
+        }
+        //action.perform?.Invoke(action);
         action.isPerformQueued = false;
         yield break;
     }

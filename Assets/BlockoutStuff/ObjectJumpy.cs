@@ -7,12 +7,19 @@ public class ObjectJumpy : MonoBehaviour
     // Start is called before the first frame update
     public bool randomize;
     public bool startWithHeight;
+    public bool onPlat;
+
+
     public float minSpeed;
     public float maxSpeed;
     public float maxHeight;
     float speed;
     float height;
     private float initHeight;
+    private float jumpHeight;
+    public Transform platTrans;
+    private float platHeight;
+    private float platInitHeight;
 
     private MusicManager musicMan;
     private void Awake()
@@ -21,6 +28,10 @@ public class ObjectJumpy : MonoBehaviour
     }
     void Start()
     {
+        if (onPlat)
+        {
+            platInitHeight = platTrans.position.y;
+        }
         if (startWithHeight)
             initHeight = transform.position.y;
         if (randomize)
@@ -37,8 +48,16 @@ public class ObjectJumpy : MonoBehaviour
     void FixedUpdate()
     {
         if (musicMan.Impressed)
-            transform.position = new Vector3(transform.position.x, initHeight + Mathf.Abs(height*1.8f * Mathf.Sin(speed * 1.8f * Time.realtimeSinceStartup)), transform.position.z);
+            jumpHeight = Mathf.Abs(height * 1.8f * Mathf.Sin(speed * 1.8f * Time.realtimeSinceStartup));
         else
-            transform.position = new Vector3(transform.position.x, initHeight + Mathf.Abs(height * Mathf.Sin(speed * Time.realtimeSinceStartup)), transform.position.z);
+            jumpHeight = Mathf.Abs(height * Mathf.Sin(speed * Time.realtimeSinceStartup));
+
+        if (onPlat)
+        {
+            platHeight = platTrans.position.y;
+            transform.position = new Vector3(transform.position.x, initHeight+jumpHeight + (platHeight - platInitHeight), transform.position.z);
+        }
+        else
+            transform.position = new Vector3(transform.position.x, initHeight+jumpHeight, transform.position.z);
     }
 }
