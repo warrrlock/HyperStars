@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: BLUK_Crouch Down
   m_EditorClassIdentifier: 
+  _isCrouchState: 1
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -24,10 +25,8 @@ MonoBehaviour:
   _animationName: Crouching
   _onInputPlayOrStopActions:
   - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
-  - {fileID: 11400000, guid: 77c39318d6468924494c56ba044561a8, type: 2}
-  _onInputInvokeActions:
   - {fileID: 11400000, guid: 03bd468ef772c48459750f3fbc7019fd, type: 2}
-  - {fileID: 11400000, guid: 8a0577c030dfe824fa47c8cf4d4dc2f9, type: 2}
+  _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: 7acfd3ffcf514a6459f4f8a779dfcd66, type: 2}
   - {fileID: 11400000, guid: 9542575c4d3f46544890eaca0dbbb39a, type: 2}

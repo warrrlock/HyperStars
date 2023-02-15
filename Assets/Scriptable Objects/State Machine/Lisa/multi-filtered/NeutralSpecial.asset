@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: NeutralSpecial
   m_EditorClassIdentifier: 
+  _isCrouchState: 0
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -32,8 +33,7 @@ MonoBehaviour:
   _animationName: Neutral Special
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
-  _transitions:
-  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
+  _transitions: []
   _defaultCombo: 0
   _attackInfo:
     attackType: 3

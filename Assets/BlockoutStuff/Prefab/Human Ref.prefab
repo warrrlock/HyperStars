@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7263463260106632432}
   - component: {fileID: 7263463260106632433}
+  - component: {fileID: 8714820332794629191}
   m_Layer: 0
   m_Name: Human Ref
   m_TagString: Untagged
@@ -84,3 +85,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8714820332794629191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7263463260106632430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a47045077e99564c85ccbd4e1b52520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomize: 1
+  startWithHeight: 1
+  minSpeed: 0.9
+  maxSpeed: 7
+  maxHeight: 0.7

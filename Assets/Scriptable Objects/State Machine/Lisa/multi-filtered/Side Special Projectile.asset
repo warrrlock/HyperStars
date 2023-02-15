@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Side Special Projectile
   m_EditorClassIdentifier: 
+  _isCrouchState: 0
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -56,7 +57,7 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  _isSpecial: 1
+  _isSpecial: 0
   _specialBarCost: 0
   _projectilePrefab: {fileID: 3747411656380514564, guid: 1e9d82dc1074fa848b7666207786af92, type: 3}
   _animationHash: 849165720
