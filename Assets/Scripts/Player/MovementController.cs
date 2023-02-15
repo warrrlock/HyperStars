@@ -917,7 +917,6 @@ public class MovementController : MonoBehaviour
                 StartCoroutine(_inputManager.Actions["Dash Right"].AddOneShotEnableCondition(() => IsGrounded));
             }
             StartCoroutine(Dash(action, _dashDuration, false));
-            _isShortDashing = false;
         }
         else
         {
@@ -941,45 +940,53 @@ public class MovementController : MonoBehaviour
             ResetVelocityY();
         }
         StartCoroutine(_inputManager.Disable(_dashDuration, _inputManager.Actions["Move"], _inputManager.Actions["Dash"]));
-        if (_fighter.FacingDirection == Fighter.Direction.Right)
+        if (!_isShortDashing)
         {
-            if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+            //dash through opponent
+            if (_fighter.FacingDirection == Fighter.Direction.Right)
             {
-                if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
+                if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
                 {
-                    //RemoveCollisionLayer(ref _xMask, 9);
-                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                    if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
+                    {
+                        //RemoveCollisionLayer(ref _xMask, 9);
+                        StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                    }
+                    else if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _dashMinimumOverlap)
+                    {
+                        //RemoveCollisionLayer(ref _xMask, 9);
+                        StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                        //if (!_isResolvingOverlap)
+                        //{
+                        //    StartCoroutine(ResolveOverlap());
+                        //}
+                    }
                 }
-                else if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _dashMinimumOverlap)
+            }
+            if (_fighter.FacingDirection == Fighter.Direction.Left)
+            {
+                if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
                 {
-                    //RemoveCollisionLayer(ref _xMask, 9);
-                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
-                    //if (!_isResolvingOverlap)
-                    //{
-                    //    StartCoroutine(ResolveOverlap());
-                    //}
+                    if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
+                    {
+                        //RemoveCollisionLayer(ref _xMask, 9);
+                        StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                    }
+                    else if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _dashMinimumOverlap)
+                    {
+                        //RemoveCollisionLayer(ref _xMask, 9);
+                        StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                        //if (!_isResolvingOverlap)
+                        //{
+                        //    StartCoroutine(ResolveOverlap());
+                        //}
+                    }
                 }
             }
         }
-        if (_fighter.FacingDirection == Fighter.Direction.Left)
+        if (_isShortDashing)
         {
-            if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
-            {
-                if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _fighter.OpposingFighter.MovementController.BoxCollider.bounds.size.x)
-                {
-                    //RemoveCollisionLayer(ref _xMask, 9);
-                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
-                }
-                else if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _dashMinimumOverlap)
-                {
-                    //RemoveCollisionLayer(ref _xMask, 9);
-                    StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
-                    //if (!_isResolvingOverlap)
-                    //{
-                    //    StartCoroutine(ResolveOverlap());
-                    //}
-                }
-            }
+            _isShortDashing = false;
         }
         StartCoroutine(RechargeDash());
     }
