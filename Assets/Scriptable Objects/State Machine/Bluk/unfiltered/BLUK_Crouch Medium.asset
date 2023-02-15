@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: BLUK_Crouch Medium
   m_EditorClassIdentifier: 
+  _isCrouchState: 1
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -37,7 +38,7 @@ MonoBehaviour:
     hitStunDuration: 1
     damage: 20
     causesWallBounce: 1
-    hitStopDuration: 0.07
+    hitStopDuration: 0.2
     wallBounceDuration: 1
     wallBounceDistance: 20
     wallBounceDirection: {x: -1, y: 2, z: 0}
