@@ -69,14 +69,14 @@ public class MovementController : MonoBehaviour
     private InputManager _inputManager;
 
     private Vector3 _netVelocity;
-    private Vector3 _unforcedVelocity;
+    [SerializeField] private Vector3 _unforcedVelocity;
     private float _maxJumpVelocity;
     private float _minJumpVelocity;
     private float _gravity;
     private Vector2 _xAxisRaySpacing;
     private Vector2 _yAxisRaySpacing;
     private Vector2 _zAxisRaySpacing;
-    private Vector3 _forceVelocity;
+    [SerializeField] private Vector3 _forceVelocity;
 
     private float _sidestepForce = 10f;
 
@@ -349,7 +349,7 @@ public class MovementController : MonoBehaviour
 
         StartCoroutine(Juice.FreezeTime(_wallBounceHitStopDuration));
         _isWallBounceable = false; //TODO: instead, stop EnableWallBounce coroutine
-        StartCoroutine(ApplyForce(direction, magnitude, duration));
+        StartCoroutine(ApplyForce(direction, magnitude, duration, true));
         yield break;
     }
 
@@ -360,12 +360,17 @@ public class MovementController : MonoBehaviour
 
         StartCoroutine(Juice.FreezeTime(_groundBounceHitStopDuration));
         _isGroundBounceable = false; //TODO: instead, stop EnableGroundBounce coroutine
-        StartCoroutine(ApplyForce(direction, magnitude, duration));
+        StartCoroutine(ApplyForce(direction, magnitude, duration, true));
         yield break;
     }
 
-    public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
+    public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, bool isMomentumReset = false, ForceEasing easingFunction = ForceEasing.Linear)
     {
+        //TODO: this needs to also stop all other ApplyForce coroutines currently running
+        //if (isMomentumReset) //TODO: do this for ApplyForcePolar as well
+        //{
+        //    _forceVelocity = Vector3.zero;
+        //}
         direction.Normalize();
         float timer = 0f;
         Easing function;
@@ -864,7 +869,7 @@ public class MovementController : MonoBehaviour
     {
         float magnitude = (pushDistance * 2f) / (duration + Time.fixedDeltaTime);
         Vector3 direction = _fighter.FacingDirection == Fighter.Direction.Right ? pushDirection : new Vector3(-pushDirection.x, pushDirection.y, pushDirection.z);
-        StartCoroutine(ApplyForce(direction, magnitude, duration));
+        StartCoroutine(ApplyForce(direction, magnitude, duration, true));
     }
 
     private Vector3 _dashDirection = Vector3.zero;
@@ -932,7 +937,7 @@ public class MovementController : MonoBehaviour
                 StartCoroutine(_inputManager.Actions["Dash"].AddOneShotEnableCondition(() => _dashChargeCount > 0));
             }
         }
-        StartCoroutine(ApplyForce(dashDirection, dashForce, _dashDuration, _dashEasing));
+        StartCoroutine(ApplyForce(dashDirection, dashForce, _dashDuration, true, _dashEasing));
         //StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
         if (!CollisionData.y.isNegativeHit)
         {
@@ -1024,26 +1029,26 @@ public class MovementController : MonoBehaviour
 
     private void Sidestep(InputManager.Action action)
     {
-        //Debug.Log(_inputManager.Actions["Sidestep"].inputAction.ReadValue<float>());
-        //_fighter.invulnerabilityCount++;
-        Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() > 0f ? Vector3.forward : Vector3.back;
-        //StartCoroutine(ApplyForce(inputVector, _sidestepForce, _sidestepDuration, _dashEasing));
-        //StartCoroutine(_inputManager.Disable(_sidestepDuration, _inputManager.Actions["Sidestep"]));
-        StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
-        StartCoroutine(Sidestep(inputVector, _sidestepDuration));
+        ////Debug.Log(_inputManager.Actions["Sidestep"].inputAction.ReadValue<float>());
+        ////_fighter.invulnerabilityCount++;
+        //Vector3 inputVector = _inputManager.Actions["Sidestep"].inputAction.ReadValue<float>() > 0f ? Vector3.forward : Vector3.back;
+        ////StartCoroutine(ApplyForce(inputVector, _sidestepForce, _sidestepDuration, _dashEasing));
+        ////StartCoroutine(_inputManager.Disable(_sidestepDuration, _inputManager.Actions["Sidestep"]));
+        //StartCoroutine(_inputManager.DisableAll(_sidestepDuration));
+        //StartCoroutine(Sidestep(inputVector, _sidestepDuration));
 
     }
 
-    private IEnumerator Sidestep(Vector3 direction, float duration)
-    {
-        _fighter.invulnerabilityCount++;
-        StartCoroutine(ApplyForce(direction, _sidestepForce, _sidestepDuration, _dashEasing));
-        yield return new WaitForSeconds(duration);
+    //private IEnumerator Sidestep(Vector3 direction, float duration)
+    //{
+    //    _fighter.invulnerabilityCount++;
+    //    StartCoroutine(ApplyForce(direction, _sidestepForce, _sidestepDuration, _dashEasing));
+    //    yield return new WaitForSeconds(duration);
 
-        StartCoroutine(ApplyForce(-direction, _sidestepForce, _sidestepDuration, _dashEasing));
-        _fighter.invulnerabilityCount--;
-        yield break;
-    }
+    //    StartCoroutine(ApplyForce(-direction, _sidestepForce, _sidestepDuration, _dashEasing));
+    //    _fighter.invulnerabilityCount--;
+    //    yield break;
+    //}
 
     private IEnumerator Dash(InputManager.Action action, float duration, bool isSuperDash)
     {
