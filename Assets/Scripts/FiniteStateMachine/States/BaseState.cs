@@ -25,6 +25,7 @@ namespace FiniteStateMachine
         public abstract bool Execute(BaseStateMachine machine, string inputName);
         public virtual void QueueExecute(BaseStateMachine machine, string inputName){}
         public virtual void Stop(BaseStateMachine machine, string inputName) {}
+        public virtual void Finish(BaseStateMachine machine) {}
         public virtual AttackInfo GetAttackInfo()
         {
             return null;

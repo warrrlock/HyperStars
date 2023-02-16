@@ -129,7 +129,9 @@ namespace FiniteStateMachine {
         {
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform += Invoke;
-            Fighter.InputManager.Actions["Dash"].finish += Stop;
+            Fighter.InputManager.Actions["Dash"].finish += Finish;
+            Fighter.InputManager.Actions["Dash Left"].finish += Finish;
+            Fighter.InputManager.Actions["Dash Right"].finish += Finish;
             Fighter.InputManager.Actions["Move"].stop += Stop;
             Fighter.InputManager.Actions["Crouch"].stop += Stop;
 
@@ -141,7 +143,9 @@ namespace FiniteStateMachine {
         {
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform -= Invoke;
-            Fighter.InputManager.Actions["Dash"].finish -= Stop;
+            Fighter.InputManager.Actions["Dash"].finish -= Finish;
+            Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
+            Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
             Fighter.InputManager.Actions["Move"].stop -= Stop;
             Fighter.InputManager.Actions["Crouch"].stop -= Stop;
             StopAllCoroutines();
@@ -173,9 +177,16 @@ namespace FiniteStateMachine {
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
             //TODO: should wait until idle from crouch to begin queuing attacks, or go straight into attack?
             // if (!_holdingCrouch && CurrentState.IsCrouchState) return; //waiting to return to idle. otherwise, go to queue execute
-            if (_holdingCrouch && !CurrentState.IsCrouchState) return;
+            if (_holdingCrouch && !CurrentState.IsCrouchState)
+                return;
+
             if (!CurrentState.Execute(this, action.name))
-                if (CanInputQueue) _returnState.QueueExecute(this, action.name);
+            {
+                if (CanInputQueue || action.name == "Crouch")
+                {
+                    _returnState.QueueExecute(this, action.name);
+                }
+            }
             
             if (action.name == "Crouch")
             {
@@ -199,10 +210,16 @@ namespace FiniteStateMachine {
 
             CurrentState.Stop(this, action.name);
         }
+        
+        private void Finish(InputManager.Action action)
+        {
+            CurrentState.Finish(this);
+        }
 
         public bool PlayAnimation(int animationState, bool defaultCombo = false, bool replay = false)
         {
             if (_currentAnimation == animationState && !replay) return false;
+            // Debug.Log($"playing animation for {CurrentState.name}");
             _currentAnimation = animationState;
             DisableInputQueue();
             CanCombo = defaultCombo;
@@ -259,6 +276,7 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
+            // Debug.LogError("handling exit animation");
             TrySetQueueQueuedAtEndState();
             TrySetQueueReturn();
             ExecuteQueuedState();
@@ -266,6 +284,7 @@ namespace FiniteStateMachine {
         
         private void HandleStateExit()
         {
+            // Debug.Log("handling state animation");
             _currentAnimation = -1;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();
