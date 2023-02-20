@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FiniteStateMachine;
@@ -30,6 +31,25 @@ public class CharacterVFXManager : MonoBehaviour
     // states
     [SerializeField] private List<BaseState> _afterImageStates;
     
+    void Awake()
+    {
+        VFXAssignComponents();
+    }
+
+    private void Start()
+    {
+        VFXSubscribeEvents();
+    }
+
+    void Update() {
+        SpriteUpdate();
+    }
+
+    private void OnDestroy()
+    {
+        VFXUnsubscribeEvents();
+    }
+    
     void VFXAssignComponents() {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _inputManager = GetComponent<InputManager>();
@@ -41,6 +61,13 @@ public class CharacterVFXManager : MonoBehaviour
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnAfterImage;
+    }
+    
+    void VFXUnsubscribeEvents() {
+        _inputManager.Actions["Dash"].perform -= DashSmoke;
+        _inputManager.Actions["Jump"].perform -= JumpSmoke;
+        _fighter.Events.onBlockHit -= BlockGlow;
+        _fighter.Events.onStateChange -= SpawnAfterImage;
     }
 
     void DashSmoke(InputManager.Action action) {
@@ -111,20 +138,6 @@ public class CharacterVFXManager : MonoBehaviour
         sr.material.SetFloat("_Vertical_Shake_Trigger", 0f);
     }
 
-    void Awake()
-    {
-        VFXAssignComponents();
-    }
-
-    private void Start()
-    {
-        VFXSubscribeEvents();
-    }
-
-    void Update() {
-        SpriteUpdate();
-    }
-
     void SpriteUpdate() {
         if (_delayTimer > 0)
         {
@@ -132,11 +145,11 @@ public class CharacterVFXManager : MonoBehaviour
         }
         else
         {
-            visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
+            // visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
             _delayTimer = delayTime;
         }
         
-        visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
+        // visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 
     private void SpawnAfterImage(BaseState s)
