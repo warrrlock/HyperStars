@@ -283,7 +283,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822637850931560096}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
+  m_Asset: {fileID: 0}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -906,7 +906,8 @@ MonoBehaviour:
   _dashDuration: 0.35
   _dashHangTime: 0.1
   _dashToZero: 1
-  _dashCooldownDuration: 0.2
+  _shortDashCooldownDuration: 1
+  _superDashCooldownDuration: 1
   _dashEasing: 0
   _dashMinimumOverlap: 2
   _maxDashCharges: 3
@@ -921,7 +922,6 @@ MonoBehaviour:
   _drawDebugRays: 1
   _overlapResolutionSpeed: 10
   _mass: 1
-  _sidestepDuration: 0
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
   _yMask:
     serializedVersion: 2
@@ -929,6 +929,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
+  _flipDelayTime: 1
 --- !u!114 &5093239530658643921
 MonoBehaviour:
   m_ObjectHideFlags: 0

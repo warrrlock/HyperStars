@@ -69,16 +69,16 @@ public class MovementController : MonoBehaviour
     private InputManager _inputManager;
 
     private Vector3 _netVelocity;
-    [SerializeField] private Vector3 _unforcedVelocity;
+    private Vector3 _unforcedVelocity;
     private float _maxJumpVelocity;
     private float _minJumpVelocity;
     private float _gravity;
     private Vector2 _xAxisRaySpacing;
     private Vector2 _yAxisRaySpacing;
     private Vector2 _zAxisRaySpacing;
-    [SerializeField] private Vector3 _forceVelocity;
+    private Vector3 _forceVelocity;
 
-    private float _sidestepForce = 10f;
+    //private float _sidestepForce = 10f;
 
     private bool _isWallBounceable = false;
     private float _wallBounceDistance;
@@ -102,7 +102,7 @@ public class MovementController : MonoBehaviour
 
     [SerializeField] private float _mass = 1f;
 
-    [SerializeField] private float _sidestepDuration;
+    //private float _sidestepDuration;
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
@@ -130,6 +130,14 @@ public class MovementController : MonoBehaviour
 
     [SerializeField] private LayerMask _yMask;
     [SerializeField] private LayerMask _xMask;
+
+    private List<IEnumerator> _forceCoroutines = new();
+
+    private IEnumerator _flipCoroutine;
+    [Tooltip("How long it takes before the fighter flips around after the opponent has switched sides.")]
+    [SerializeField] private float _flipDelayTime;
+    private bool _isFlipQueued = false;
+    private Fighter.Direction _nextFlipDirection;
 
     private struct RaycastOrigins
     {
@@ -238,28 +246,25 @@ public class MovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //float accelerationTime = _collisionData.y.isNegativeHit ? _accelerationTimeGrounded : _accelerationTimeAirborne;
-
-        //_horizontalTargetVelocity += new Vector2(_forceVelocity.x, _forceVelocity.z);
-        //_velocity += _forceVelocity;
-
-        //_velocity.x = Mathf.SmoothDamp(_velocity.x, _horizontalTargetVelocity.x, ref _horizontalVelocitySmoothing.x, accelerationTime);
-        //_velocity.z = Mathf.SmoothDamp(_velocity.z, _horizontalTargetVelocity.y, ref _horizontalVelocitySmoothing.y, accelerationTime);
-
-        switch (_fighter.FacingDirection)
+        if (!_isFlipQueued)
         {
-            case Fighter.Direction.Left:
-                if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
-                {
-                    _fighter.FlipCharacter(Fighter.Direction.Right);
-                }
-                break;
-            case Fighter.Direction.Right:
-                if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
-                {
-                    _fighter.FlipCharacter(Fighter.Direction.Left);
-                }
-                break;
+            switch (_fighter.FacingDirection)
+            {
+                case Fighter.Direction.Left:
+                    if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+                    {
+                        _flipCoroutine = QueueFlip(Fighter.Direction.Right);
+                        StartCoroutine(_flipCoroutine);
+                    }
+                    break;
+                case Fighter.Direction.Right:
+                    if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
+                    {
+                        _flipCoroutine = QueueFlip(Fighter.Direction.Left);
+                        StartCoroutine(_flipCoroutine);
+                    }
+                    break;
+            }
         }
 
         if (_isGravityApplied)
@@ -296,6 +301,29 @@ public class MovementController : MonoBehaviour
     public void ResetValues()
     {
         StopMoving(null);
+    }
+
+    private void KillAllForces()
+    {
+        int max = _forceCoroutines.Count;
+        for (int i = 0; i < max; i++)
+        {
+            StopCoroutine(_forceCoroutines[i]);
+        }
+        _forceCoroutines.Clear();
+        _forceVelocity = Vector3.zero;
+    }
+
+    //TODO: use fixed update instead of waitforseconds?
+    private IEnumerator QueueFlip(Fighter.Direction newDirection)
+    {
+        _isFlipQueued = true;
+        _nextFlipDirection = newDirection;
+        yield return new WaitForSeconds(_flipDelayTime);
+
+        _fighter.FlipCharacter(_nextFlipDirection);
+        _isFlipQueued = false;
+        yield break;
     }
 
     public IEnumerator EnableWallBounce(float distance, float duration, Vector3 direction, float hitStopDuration)
@@ -738,18 +766,6 @@ public class MovementController : MonoBehaviour
             MovingDirection = axisDirection == -1 ? Fighter.Direction.Left : Fighter.Direction.Right;
         }
 
-        //if (axis == Axis.x)
-        //{
-        //    if (axisDirection == -1f && _fighter.FacingDirection == Fighter.Direction.Right)
-        //    {
-        //        _fighter.FlipCharacter(Fighter.Direction.Left);
-        //    }
-        //    if (axisDirection == 1f && _fighter.FacingDirection == Fighter.Direction.Left)
-        //    {
-        //        _fighter.FlipCharacter(Fighter.Direction.Right);
-        //    }
-        //}
-
         float rayLength = Mathf.Abs(axisVelocity) + _skinWidth;
 
         //if (axis == Axis.y)
@@ -837,6 +853,21 @@ public class MovementController : MonoBehaviour
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
         inputVector *= _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
+        if (_isFlipQueued)
+        {
+            if (inputVector == Vector2.left && _nextFlipDirection == Fighter.Direction.Left)
+            {
+                StopCoroutine(_flipCoroutine);
+                _fighter.FlipCharacter(_nextFlipDirection);
+                _isFlipQueued = false;
+            }
+            if (inputVector == Vector2.right && _nextFlipDirection == Fighter.Direction.Right)
+            {
+                StopCoroutine(_flipCoroutine);
+                _fighter.FlipCharacter(_nextFlipDirection);
+                _isFlipQueued = false;
+            }
+        }
     }
 
     private void StopMoving(InputManager.Action action)

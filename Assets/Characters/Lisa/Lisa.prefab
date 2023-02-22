@@ -474,7 +474,8 @@ MonoBehaviour:
   _dashDuration: 0.38
   _dashHangTime: 0.15
   _dashToZero: 1
-  _dashCooldownDuration: 0
+  _shortDashCooldownDuration: 0
+  _superDashCooldownDuration: 1
   _dashEasing: 0
   _dashMinimumOverlap: 10
   _maxDashCharges: 3
@@ -489,7 +490,6 @@ MonoBehaviour:
   _drawDebugRays: 1
   _overlapResolutionSpeed: 10
   _mass: 1
-  _sidestepDuration: 0
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
   _yMask:
     serializedVersion: 2
@@ -497,6 +497,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
+  _flipDelayTime: 1
 --- !u!114 &5751411094791523318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,6 +1013,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5751411094791522313}
     m_Modifications:
+    - target: {fileID: 2845530192783672932, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
+      propertyPath: m_Asset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2845530192783672934, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
       propertyPath: m_Name
       value: Character VFX Object
