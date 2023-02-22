@@ -9,9 +9,10 @@ public class DestroyProjectileAction : ProjectileAction
         projectile.enabled = false;
         projectile.GetComponent<Renderer>().enabled = false;
         
-        AttackInfo info = projectile.AttackInfo;
-        float time = Max(new float[]{info.hangTime, info.knockbackDuration, info.hitStopDuration, info.hitStunDuration});
-        projectile.DestroyIn(time+0.2f);
+        // AttackInfo info = projectile.AttackInfo;
+        // float time = Max(new float[]{info.hangTime, info.knockbackDuration, info.hitStopDuration, info.hitStunDuration});
+        // projectile.DestroyIn(time+0.2f);
+        projectile.DestroyIn(0.0f);
     }
 
     float Max(float[] arr)
