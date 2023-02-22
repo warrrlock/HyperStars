@@ -12,14 +12,14 @@ public class MenuManager: MonoBehaviour
     {
         foreach (Player p in _players)
         {
-            p.showStartButton -= ShowStartButton;
+            if (p) p.onReady -= ShowStartButton;
         }
     }
 
     public void AddPlayer(Player p)
     {
         _players[p.PlayerInput.playerIndex] = p;
-        p.showStartButton += ShowStartButton;
+        p.onReady += ShowStartButton;
     }
 
     private void ShowStartButton()
@@ -35,12 +35,20 @@ public class MenuManager: MonoBehaviour
     
     public void StartCharacterSelection()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(1);
+    }
+    
+    public void StartMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
     
     public void StartGame()
     {
-        if (!CheckReady()) //TODO: REMOVE, only show button when players ready
+        Time.timeScale = 1;
+        if (!CheckReady())
         {
             Debug.Log("players are not ready");
             return;
@@ -50,6 +58,7 @@ public class MenuManager: MonoBehaviour
 
     public void StartTraining()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(3);
     }
 
