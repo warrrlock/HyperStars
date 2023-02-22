@@ -164,7 +164,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     private void SpawnAfterImage(BaseState s)
     {
-        visualEffect.visualEffectAsset = vfxGraphs[(int)vfxAssets.AfterImage];
+        // visualEffect.visualEffectAsset = vfxGraphs[(int)vfxAssets.AfterImage];
         foreach (BaseState wantedState in _afterImageStates)
         {
             if (s == wantedState)
