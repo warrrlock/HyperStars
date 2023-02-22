@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 355493529}
   - component: {fileID: 355493528}
   m_Layer: 0
-  m_Name: Directional Light (1)
+  m_Name: Sunlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -659,7 +659,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -710,14 +710,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355493527}
-  m_LocalRotation: {x: 0.5684674, y: -0.15067795, z: 0.1435053, w: 0.79595685}
-  m_LocalPosition: {x: -5.6, y: 5.39, z: 3.88}
+  m_LocalRotation: {x: 0.31796536, y: -0.10826529, z: 0.18456061, w: 0.92364174}
+  m_LocalPosition: {x: 18.4, y: 9.5, z: -29.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 71.477, y: -13.973, z: 10.361}
+  m_LocalEulerAnglesHint: {x: 38.854, y: -6.091, z: 20.45}
 --- !u!1001 &502904861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -769,25 +769,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5448191436220491297, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5448191436220491297, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 22
-      objectReference: {fileID: 0}
     - target: {fileID: 5448191436220491309, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5448191436524167817, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5448191436524167817, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 5448191436524167861, guid: 0fbf4f9939aadc342808b3f712d1647e, type: 3}
       propertyPath: m_IsActive
@@ -1527,7 +1511,7 @@ GameObject:
   - component: {fileID: 1091928258}
   - component: {fileID: 1091928257}
   m_Layer: 0
-  m_Name: Directional Light (2)
+  m_Name: Player Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1565,7 +1549,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.61
+  m_Intensity: 0.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1602,7 +1586,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 512
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -3170,7 +3154,6 @@ MonoBehaviour:
   _drawDebugRays: 1
   _overlapResolutionSpeed: 10
   _mass: 1
-  _sidestepDuration: 0
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
   _yMask:
     serializedVersion: 2
@@ -3178,6 +3161,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
+  _flipDelayTime: 0
 --- !u!114 &1605561622
 MonoBehaviour:
   m_ObjectHideFlags: 0
