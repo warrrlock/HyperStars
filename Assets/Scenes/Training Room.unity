@@ -1549,7 +1549,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.3
+  m_Intensity: 0.23
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3007,6 +3007,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
   dashSmokeGroundOffset: 2.5
   jumpSmokeGroundOffset: 1.95
+  _hasDelay: 0
   delayTime: 0.05
   _afterImageStates:
   - {fileID: 11400000, guid: acb861e23a3edf342a185fdaa0b50877, type: 2}
@@ -3156,8 +3157,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _drawDebugRays: 1
-  _unforcedVelocity: {x: 0, y: 0, z: 0}
-  _forceVelocity: {x: 0, y: 0, z: 0}
   _overlapResolutionSpeed: 10
   _mass: 1
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
