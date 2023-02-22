@@ -157,6 +157,10 @@ public class MovementController : MonoBehaviour
         public Axis x;
         public Axis z;
         public Axis y;
+        public bool isAnyHit
+        {
+            get => x.isNegativeHit || x.isPositiveHit || z.isNegativeHit || z.isPositiveHit || y.isNegativeHit || y.isPositiveHit;
+        }
 
         public struct Axis
         {
@@ -284,6 +288,41 @@ public class MovementController : MonoBehaviour
                 _isJumping = false;
             }
         }
+        if (!_isWallBounceable)
+        {
+            if (_forceVelocity.x > 0f)
+            {
+                if (_collisionData.x.isPositiveHit)
+                {
+                    KillAllForces();
+                }
+            }
+            if (_forceVelocity.x < 0f)
+            {
+                if (_collisionData.x.isNegativeHit)
+                {
+                    KillAllForces();
+                }
+            }
+            if (_forceVelocity.y > 0f)
+            {
+                if (_collisionData.y.isPositiveHit)
+                {
+                    KillAllForces();
+                }
+            }
+            if (_forceVelocity.y < 0f)
+            {
+                if (_collisionData.y.isNegativeHit)
+                {
+                    KillAllForces();
+                }
+            }
+            //if (_collisionData.isAnyHit)
+            //{
+            //    KillAllForces();
+            //}
+        }
     }
 
     private void OnDestroy()
@@ -377,7 +416,7 @@ public class MovementController : MonoBehaviour
 
         StartCoroutine(Juice.FreezeTime(_wallBounceHitStopDuration));
         _isWallBounceable = false; //TODO: instead, stop EnableWallBounce coroutine
-        StartCoroutine(ApplyForce(direction, magnitude, duration, true));
+        ApplyForce(direction, magnitude, duration, true);
         yield break;
     }
 
@@ -388,101 +427,204 @@ public class MovementController : MonoBehaviour
 
         StartCoroutine(Juice.FreezeTime(_groundBounceHitStopDuration));
         _isGroundBounceable = false; //TODO: instead, stop EnableGroundBounce coroutine
-        StartCoroutine(ApplyForce(direction, magnitude, duration, true));
+        ApplyForce(direction, magnitude, duration, true);
         yield break;
     }
 
-    public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, bool isMomentumReset = false, ForceEasing easingFunction = ForceEasing.Linear)
+    public void ApplyForce(Vector3 direction, float magnitude, float duration, bool isMomentumReset = false, ForceEasing easingFunction = ForceEasing.Linear)
     {
-        //TODO: this needs to also stop all other ApplyForce coroutines currently running
-        //if (isMomentumReset) //TODO: do this for ApplyForcePolar as well
-        //{
-        //    _forceVelocity = Vector3.zero;
-        //}
-        direction.Normalize();
-        float timer = 0f;
-        Easing function;
-        switch (easingFunction)
+        if (isMomentumReset) //TODO: do this for ApplyForcePolar as well
         {
-            case ForceEasing.Linear:
-                function = Easing.CreateEasingFunc(Easing.Funcs.Linear);
-                break;
-            case ForceEasing.Quadratic:
-                function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
-                break;
-            case ForceEasing.Cubic:
-                function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
-                break;
-            default:
-                throw new System.Exception("Invalid easing function provided.");
+            KillAllForces();
         }
-        while (timer < duration)
-        {
-            if (_isWallBounceable)
-            {
-                if (_collisionData.x.isNegativeHit || _collisionData.x.isPositiveHit)
-                {
-                    ResetVelocityY();
-                    if (_wallBounceDistance != 0f)
-                    {
-                        Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _wallBounceDirection : new Vector3(-_wallBounceDirection.x, _wallBounceDirection.y, _wallBounceDirection.z);
-                        float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
-                        StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
-                        yield break;
-                    }
-                    direction.x *= -1f;
-                }
-                if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
-                {
-                    ResetVelocityY();
-                    if (_wallBounceDistance != 0f)
-                    {
-                        Vector3 bounceDirection = Mathf.Sign(direction.z) == 1f ? _wallBounceDirection : new Vector3(_wallBounceDirection.x, _wallBounceDirection.y, -_wallBounceDirection.z);
-                        float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
-                        StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
-                        yield break;
-                    }
-                    direction.z *= -1f;
-                }
-            }
-            if (_isGroundBounceable)
-            {
-                if (_collisionData.y.isNegativeHit)
-                {
-                    ResetVelocityY();
-                    if (_groundBounceDistance != 0f)
-                    {
-                        Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _groundBounceDirection : new Vector3(-_groundBounceDirection.x, _groundBounceDirection.y, _groundBounceDirection.z);
-                        float bounceMagnitude = (_groundBounceDistance * 2f) / (_groundBounceDuration + Time.fixedDeltaTime);
-                        StartCoroutine(GroundBounce(bounceDirection, bounceMagnitude, _groundBounceDuration));
-                        yield break;
-                    }
-                    direction.y *= -1f;
-                }
-            }
-            float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
-            Vector3 force = direction * forceMagnitude;
-            _forceVelocity += force;
-            yield return new WaitForFixedUpdate();
+        IEnumerator forceCoroutine = Force(direction, magnitude, duration, isMomentumReset, easingFunction);
+        _forceCoroutines.Add(forceCoroutine);
+        StartCoroutine(forceCoroutine);
 
-            _forceVelocity -= force;
-            timer += Time.fixedDeltaTime;
-        }
+        IEnumerator Force(Vector3 direction, float magnitude, float duration, bool isMomentumReset = false, ForceEasing easingFunction = ForceEasing.Linear)
+        {
+            //TODO: this needs to also stop all other ApplyForce coroutines currently running
+            //if (isMomentumReset) //TODO: do this for ApplyForcePolar as well
+            //{
+            //    _forceVelocity = Vector3.zero;
+            //}
+            direction.Normalize();
+            float timer = 0f;
+            Easing function;
+            switch (easingFunction)
+            {
+                case ForceEasing.Linear:
+                    function = Easing.CreateEasingFunc(Easing.Funcs.Linear);
+                    break;
+                case ForceEasing.Quadratic:
+                    function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
+                    break;
+                case ForceEasing.Cubic:
+                    function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+                    break;
+                default:
+                    throw new System.Exception("Invalid easing function provided.");
+            }
+            while (timer < duration)
+            {
+                if (_isWallBounceable)
+                {
+                    if (_collisionData.x.isNegativeHit || _collisionData.x.isPositiveHit)
+                    {
+                        ResetVelocityY();
+                        if (_wallBounceDistance != 0f)
+                        {
+                            Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _wallBounceDirection : new Vector3(-_wallBounceDirection.x, _wallBounceDirection.y, _wallBounceDirection.z);
+                            float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
+                            StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
+                            yield break;
+                        }
+                        direction.x *= -1f;
+                    }
+                    if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
+                    {
+                        ResetVelocityY();
+                        if (_wallBounceDistance != 0f)
+                        {
+                            Vector3 bounceDirection = Mathf.Sign(direction.z) == 1f ? _wallBounceDirection : new Vector3(_wallBounceDirection.x, _wallBounceDirection.y, -_wallBounceDirection.z);
+                            float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
+                            StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
+                            yield break;
+                        }
+                        direction.z *= -1f;
+                    }
+                }
+                if (_isGroundBounceable)
+                {
+                    if (_collisionData.y.isNegativeHit)
+                    {
+                        ResetVelocityY();
+                        if (_groundBounceDistance != 0f)
+                        {
+                            Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _groundBounceDirection : new Vector3(-_groundBounceDirection.x, _groundBounceDirection.y, _groundBounceDirection.z);
+                            float bounceMagnitude = (_groundBounceDistance * 2f) / (_groundBounceDuration + Time.fixedDeltaTime);
+                            StartCoroutine(GroundBounce(bounceDirection, bounceMagnitude, _groundBounceDuration));
+                            yield break;
+                        }
+                        direction.y *= -1f;
+                    }
+                }
+                float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
+                Vector3 force = direction * forceMagnitude;
+                _forceVelocity += force;
+                yield return new WaitForFixedUpdate();
 
-        if (!_inputManager.Actions["Move"].isBeingPerformed)
-        {
-            _unforcedVelocity.x = 0f;
-            _unforcedVelocity.z = 0f;
+                _forceVelocity -= force;
+                timer += Time.fixedDeltaTime;
+            }
+
+            if (!_inputManager.Actions["Move"].isBeingPerformed)
+            {
+                _unforcedVelocity.x = 0f;
+                _unforcedVelocity.z = 0f;
+            }
+            else
+            {
+                Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
+                inputVector *= _moveSpeed;
+                _unforcedVelocity.x = inputVector.x;
+                //_unforcedVelocity.z = inputVector.y;
+            }
+            yield break;
         }
-        else
-        {
-            Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
-            inputVector *= _moveSpeed;
-            _unforcedVelocity.x = inputVector.x;
-            //_unforcedVelocity.z = inputVector.y;
-        }
-        yield break;
     }
+
+    //public IEnumerator ApplyForce(Vector3 direction, float magnitude, float duration, bool isMomentumReset = false, ForceEasing easingFunction = ForceEasing.Linear)
+    //{
+    //    //TODO: this needs to also stop all other ApplyForce coroutines currently running
+    //    //if (isMomentumReset) //TODO: do this for ApplyForcePolar as well
+    //    //{
+    //    //    _forceVelocity = Vector3.zero;
+    //    //}
+    //    direction.Normalize();
+    //    float timer = 0f;
+    //    Easing function;
+    //    switch (easingFunction)
+    //    {
+    //        case ForceEasing.Linear:
+    //            function = Easing.CreateEasingFunc(Easing.Funcs.Linear);
+    //            break;
+    //        case ForceEasing.Quadratic:
+    //            function = Easing.CreateEasingFunc(Easing.Funcs.QuadraticOut);
+    //            break;
+    //        case ForceEasing.Cubic:
+    //            function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+    //            break;
+    //        default:
+    //            throw new System.Exception("Invalid easing function provided.");
+    //    }
+    //    while (timer < duration)
+    //    {
+    //        if (_isWallBounceable)
+    //        {
+    //            if (_collisionData.x.isNegativeHit || _collisionData.x.isPositiveHit)
+    //            {
+    //                ResetVelocityY();
+    //                if (_wallBounceDistance != 0f)
+    //                {
+    //                    Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _wallBounceDirection : new Vector3(-_wallBounceDirection.x, _wallBounceDirection.y, _wallBounceDirection.z);
+    //                    float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
+    //                    StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
+    //                    yield break;
+    //                }
+    //                direction.x *= -1f;
+    //            }
+    //            if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
+    //            {
+    //                ResetVelocityY();
+    //                if (_wallBounceDistance != 0f)
+    //                {
+    //                    Vector3 bounceDirection = Mathf.Sign(direction.z) == 1f ? _wallBounceDirection : new Vector3(_wallBounceDirection.x, _wallBounceDirection.y, -_wallBounceDirection.z);
+    //                    float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
+    //                    StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
+    //                    yield break;
+    //                }
+    //                direction.z *= -1f;
+    //            }
+    //        }
+    //        if (_isGroundBounceable)
+    //        {
+    //            if (_collisionData.y.isNegativeHit)
+    //            {
+    //                ResetVelocityY();
+    //                if (_groundBounceDistance != 0f)
+    //                {
+    //                    Vector3 bounceDirection = Mathf.Sign(direction.x) == 1f ? _groundBounceDirection : new Vector3(-_groundBounceDirection.x, _groundBounceDirection.y, _groundBounceDirection.z);
+    //                    float bounceMagnitude = (_groundBounceDistance * 2f) / (_groundBounceDuration + Time.fixedDeltaTime);
+    //                    StartCoroutine(GroundBounce(bounceDirection, bounceMagnitude, _groundBounceDuration));
+    //                    yield break;
+    //                }
+    //                direction.y *= -1f;
+    //            }
+    //        }
+    //        float forceMagnitude = function.Ease(magnitude, 0f, timer / duration);
+    //        Vector3 force = direction * forceMagnitude;
+    //        _forceVelocity += force;
+    //        yield return new WaitForFixedUpdate();
+
+    //        _forceVelocity -= force;
+    //        timer += Time.fixedDeltaTime;
+    //    }
+
+    //    if (!_inputManager.Actions["Move"].isBeingPerformed)
+    //    {
+    //        _unforcedVelocity.x = 0f;
+    //        _unforcedVelocity.z = 0f;
+    //    }
+    //    else
+    //    {
+    //        Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
+    //        inputVector *= _moveSpeed;
+    //        _unforcedVelocity.x = inputVector.x;
+    //        //_unforcedVelocity.z = inputVector.y;
+    //    }
+    //    yield break;
+    //}
 
     //private float CalculateDecelerationDuration(float forceMagnitude, float deceleration)
     //{
@@ -900,7 +1042,7 @@ public class MovementController : MonoBehaviour
     {
         float magnitude = (pushDistance * 2f) / (duration + Time.fixedDeltaTime);
         Vector3 direction = _fighter.FacingDirection == Fighter.Direction.Right ? pushDirection : new Vector3(-pushDirection.x, pushDirection.y, pushDirection.z);
-        StartCoroutine(ApplyForce(direction, magnitude, duration, true));
+        ApplyForce(direction, magnitude, duration, true);
     }
 
     private Vector3 _dashDirection = Vector3.zero;
@@ -968,7 +1110,7 @@ public class MovementController : MonoBehaviour
                 StartCoroutine(_inputManager.Actions["Dash"].AddOneShotEnableCondition(() => _dashChargeCount > 0));
             }
         }
-        StartCoroutine(ApplyForce(dashDirection, dashForce, _dashDuration, true, _dashEasing));
+        ApplyForce(dashDirection, dashForce, _dashDuration, true, _dashEasing);
         //StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
         if (!CollisionData.y.isNegativeHit)
         {
