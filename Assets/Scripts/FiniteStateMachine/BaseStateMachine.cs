@@ -177,9 +177,16 @@ namespace FiniteStateMachine {
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
             //TODO: should wait until idle from crouch to begin queuing attacks, or go straight into attack?
             // if (!_holdingCrouch && CurrentState.IsCrouchState) return; //waiting to return to idle. otherwise, go to queue execute
-            if (_holdingCrouch && !CurrentState.IsCrouchState) return;
+            if (_holdingCrouch && !CurrentState.IsCrouchState)
+                return;
+
             if (!CurrentState.Execute(this, action.name))
-                if (CanInputQueue) _returnState.QueueExecute(this, action.name);
+            {
+                if (CanInputQueue || action.name == "Crouch")
+                {
+                    _returnState.QueueExecute(this, action.name);
+                }
+            }
             
             if (action.name == "Crouch")
             {
