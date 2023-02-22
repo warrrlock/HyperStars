@@ -5,6 +5,7 @@ using UnityEngine;
 public class DolphinAnimation : MonoBehaviour
 {
     public Animator anim;
+    public int ranNumb;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +20,10 @@ public class DolphinAnimation : MonoBehaviour
 
     IEnumerator checkDolphin()
     {
-        yield return new WaitForSeconds(5f);
-        if (Random.Range(0, 5) > 3)
+        yield return new WaitForSeconds(30f);
+        ranNumb = Random.Range(0, 4);
+        //Debug.Log(ranNumb);
+        if (ranNumb > 2)
         {
             if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Move"))
                 anim.Play("Move", 0);

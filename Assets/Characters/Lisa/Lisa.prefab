@@ -394,8 +394,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 9526c03c02ee4004cbdcaa9d0ea448ae, type: 3}
-  m_Color: {r: 0.7311321, g: 0.9125113, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6053bde84d385c74a991dfc0455b5d2e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -472,10 +472,10 @@ MonoBehaviour:
   _dashForce: 0
   _dashDistance: 7
   _dashDuration: 0.38
-  _dashHangTime: 0.15
+  _dashHangTime: 0.2
   _dashToZero: 1
   _shortDashCooldownDuration: 0
-  _superDashCooldownDuration: 1
+  _superDashCooldownDuration: 0
   _dashEasing: 0
   _dashMinimumOverlap: 10
   _maxDashCharges: 3
@@ -488,6 +488,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _drawDebugRays: 1
+  _unforcedVelocity: {x: 0, y: 0, z: 0}
+  _forceVelocity: {x: 0, y: 0, z: 0}
   _overlapResolutionSpeed: 10
   _mass: 1
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
@@ -544,7 +546,7 @@ MonoBehaviour:
   _framesBeforeEnd: 20
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
-  _jumpState: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
+  _jumpState: {fileID: 11400000, guid: caf88fa7ae0a344c99ef212adb4599db, type: 2}
   _crouchState: {fileID: 11400000, guid: a8e7dbf3197ad40868cb8387c3b1e95e, type: 2}
   _crouchUpState: {fileID: 11400000, guid: db90a504a47474dc6a9234f5c5a81425, type: 2}
   _noEndEventClips:
@@ -593,7 +595,8 @@ MonoBehaviour:
   - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
   dashSmokeGroundOffset: 2.5
   jumpSmokeGroundOffset: 1.95
-  delayTime: 0.05
+  _hasDelay: 0
+  delayTime: 0.001
   _afterImageStates:
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
   - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
@@ -1013,10 +1016,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5751411094791522313}
     m_Modifications:
-    - target: {fileID: 2845530192783672932, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
-      propertyPath: m_Asset
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2845530192783672934, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
       propertyPath: m_Name
       value: Character VFX Object
