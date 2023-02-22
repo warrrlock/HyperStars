@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
+  m_Name: Lisa_GetUp
+  m_EditorClassIdentifier: 
+  _isCrouchState: 0
+  NodeInfo:
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+  _filters: []
+  characterSelection: 1
+  _animationName: Get Up
+  _onInputPlayOrStopActions:
+  - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
+  _onInputInvokeActions: []
+  _transitions:
+  - {fileID: 11400000, guid: a8f34c85d82c834418d49b1bb3f84b9d, type: 2}
+  - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
+  - {fileID: 11400000, guid: a76c55de77e49b64e8681716f60d65fd, type: 2}
+  - {fileID: 11400000, guid: f8945aac1fad4a8449979cb507fece13, type: 2}
+  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
+  - {fileID: 11400000, guid: 301fd3b8fd9d54577847d001af8639f6, type: 2}
+  _defaultCombo: 1
+  _attackInfo:
+    attackType: 0
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0
+    damage: 0
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 0
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _projectilePrefab: {fileID: 0}
+  _animationHash: -1181431220

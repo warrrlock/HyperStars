@@ -23,6 +23,8 @@ public class CharacterVFXManager : MonoBehaviour
     //
     private SpriteRenderer _spriteRenderer;
     private float _delayTimer;
+    [Header("Afterimage controls")]
+    [SerializeField] private bool _hasDelay;
     public float delayTime;
 
     //
@@ -139,17 +141,25 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void SpriteUpdate() {
-        if (_delayTimer > 0)
+        if (_hasDelay)
         {
-            _delayTimer -= Time.deltaTime;
+            if (_delayTimer > 0)
+            {
+                _delayTimer -= Time.deltaTime;
+            }
+            else
+            {
+                visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
+                _delayTimer = delayTime;
+            }
         }
         else
         {
-            // visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
-            _delayTimer = delayTime;
+            visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
         }
         
-        // visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
+        
+        visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 
     private void SpawnAfterImage(BaseState s)
