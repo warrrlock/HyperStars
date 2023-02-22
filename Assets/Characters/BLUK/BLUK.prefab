@@ -259,7 +259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &822637850931560125
 Transform:
   m_ObjectHideFlags: 0
@@ -323,7 +323,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822637850931560096}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -924,7 +924,6 @@ MonoBehaviour:
   _forceVelocity: {x: 0, y: 0, z: 0}
   _overlapResolutionSpeed: 10
   _mass: 1
-  _sidestepDuration: 0
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
   _yMask:
     serializedVersion: 2
@@ -932,6 +931,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
+  _flipDelayTime: 1
 --- !u!114 &5093239530658643921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1027,7 +1027,8 @@ MonoBehaviour:
   - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
   dashSmokeGroundOffset: 2.5
   jumpSmokeGroundOffset: 1.95
-  delayTime: 0.05
+  _hasDelay: 0
+  delayTime: 0.001
   _afterImageStates:
   - {fileID: 11400000, guid: acb861e23a3edf342a185fdaa0b50877, type: 2}
   - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
