@@ -48,6 +48,7 @@ namespace FiniteStateMachine {
         [SerializeField] private BaseState _crouchState;
         [SerializeField] private BaseState _crouchUpState;
         public bool IsIdle => CurrentState == _initialState;
+        public bool IsCrouch => CurrentState == _crouchState;
     
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
