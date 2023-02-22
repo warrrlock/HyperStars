@@ -108,35 +108,53 @@ namespace UnityEngine.InputSystem.Interactions
 
         private bool _isInterrupted;
 
-        //public MultiTapDownInteraction()
-        //{
-        //}
-
         private enum InterruptedState { Base, Uninterrupted, Interrupted }
         private InterruptedState _interruptedState = InterruptedState.Base;
+
+        private InputControl _lastControl;
 
         public MultiTapDownInteraction()
         {
             InputSystem.onActionChange += (action, change) =>
             {
-                if (action.GetType() != typeof(InputAction))
-                {
-                    return;
-                }
-                InputAction act = action as InputAction;
-                if (change != InputActionChange.ActionPerformed)
-                {
-                    return;
-                }
+                //if (action.GetType() != typeof(InputAction))
+                //{
+                //    return;
+                //}
+                //InputAction act = action as InputAction;
+                //if (change != InputActionChange.ActionPerformed)
+                //{
+                //    return;
+                //}
+
+                //if (_lastControl == null)
+                //{
+                //    _lastControl = act.activeControl;
+                //}
+                //else
+                //{
+                //    if (act.activeControl == _lastControl)
+                //    {
+                //        _interruptedState = InterruptedState.Uninterrupted;
+                //    }
+                //    else
+                //    {
+                //        _interruptedState = InterruptedState.Interrupted;
+                //        //_lastControl = act.activeControl;
+                //    }
+                //}
+
                 //if (act.interactions.Contains("Down"))
                 //{
+                //    Debug.Log("nis");
                 //    _interruptedState = InterruptedState.Uninterrupted;
                 //    return;
                 //}
-                if (_interruptedState == InterruptedState.Base)
-                {
-                    _interruptedState = InterruptedState.Interrupted;
-                }
+                //_interruptedState = InterruptedState.Interrupted;
+                ////if (_interruptedState == InterruptedState.Base)
+                ////{
+
+                ////}
             };
         }
 
@@ -235,9 +253,14 @@ namespace UnityEngine.InputSystem.Interactions
                     if (_interruptedState == InterruptedState.Interrupted)
                     {
                         Debug.Log("peen");
-                        //_interruptedState = InterruptedState.Base;
-                        //context.Canceled();
+                        _interruptedState = InterruptedState.Base;
+                        context.Canceled();
                     }
+
+                    //if (_interruptedState == InterruptedState.Uninterrupted)
+                    //{
+
+                    //}
 
 
                     if (context.ControlIsActuated(pressPointOrDefault))
@@ -275,6 +298,7 @@ namespace UnityEngine.InputSystem.Interactions
 
             _isInterrupted = false;
             _interruptedState = InterruptedState.Base;
+            _lastControl = null;
         }
 
         private TapPhase m_CurrentTapPhase;
@@ -399,11 +423,21 @@ namespace UnityEngine.InputSystem.Interactions
         /// <inheritdoc />
         public void Process(ref InputInteractionContext context)
         {
+            //if (context.ControlIsActuated(pressPointOrDefault))
+            //{
+            //    context.PerformedAndStayPerformed();
+            //}
+            //else
+            //{
+            //    context.Canceled();
+            //}
+
             if (context.ControlIsActuated(pressPointOrDefault))
             {
                 context.PerformedAndStayPerformed();
+                m_CurrentTapPhase = TapPhase.WaitingForNextRelease;
             }
-            else
+            else if (m_CurrentTapPhase == TapPhase.WaitingForNextRelease)
             {
                 context.Canceled();
             }
@@ -531,7 +565,7 @@ namespace UnityEngine.InputSystem.Interactions
         /// <inheritdoc />
         public void Reset()
         {
-            //m_CurrentTapPhase = TapPhase.None;
+            m_CurrentTapPhase = TapPhase.None;
             //m_CurrentTapCount = 0;
             //m_CurrentTapStartTime = 0;
             //m_LastTapTime = 0;
@@ -540,16 +574,15 @@ namespace UnityEngine.InputSystem.Interactions
             //_interruptedState = InterruptedState.Base;
         }
 
-        //private TapPhase m_CurrentTapPhase;
+        private TapPhase m_CurrentTapPhase;
         //private int m_CurrentTapCount;
         //private double m_CurrentTapStartTime;
         //private double m_LastTapTime;
 
-        //private enum TapPhase
-        //{
-        //    None,
-        //    WaitingForNextRelease,
-        //    WaitingForNextPress,
-        //}
+        private enum TapPhase
+        {
+            None,
+            WaitingForNextRelease
+        }
     }
 }

@@ -129,7 +129,9 @@ namespace FiniteStateMachine {
         {
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform += Invoke;
-            Fighter.InputManager.Actions["Dash"].finish += Stop;
+            Fighter.InputManager.Actions["Dash"].finish += Finish;
+            Fighter.InputManager.Actions["Dash Left"].finish += Finish;
+            Fighter.InputManager.Actions["Dash Right"].finish += Finish;
             Fighter.InputManager.Actions["Move"].stop += Stop;
             Fighter.InputManager.Actions["Crouch"].stop += Stop;
 
@@ -141,7 +143,9 @@ namespace FiniteStateMachine {
         {
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform -= Invoke;
-            Fighter.InputManager.Actions["Dash"].finish -= Stop;
+            Fighter.InputManager.Actions["Dash"].finish -= Finish;
+            Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
+            Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
             Fighter.InputManager.Actions["Move"].stop -= Stop;
             Fighter.InputManager.Actions["Crouch"].stop -= Stop;
             StopAllCoroutines();
@@ -199,10 +203,16 @@ namespace FiniteStateMachine {
 
             CurrentState.Stop(this, action.name);
         }
+        
+        private void Finish(InputManager.Action action)
+        {
+            CurrentState.Finish(this);
+        }
 
         public bool PlayAnimation(int animationState, bool defaultCombo = false, bool replay = false)
         {
             if (_currentAnimation == animationState && !replay) return false;
+            // Debug.Log($"playing animation for {CurrentState.name}");
             _currentAnimation = animationState;
             DisableInputQueue();
             CanCombo = defaultCombo;
@@ -259,6 +269,7 @@ namespace FiniteStateMachine {
         /// </summary>
         public void HandleAnimationExit()
         {
+            // Debug.LogError("handling exit animation");
             TrySetQueueQueuedAtEndState();
             TrySetQueueReturn();
             ExecuteQueuedState();
@@ -266,6 +277,7 @@ namespace FiniteStateMachine {
         
         private void HandleStateExit()
         {
+            // Debug.Log("handling state animation");
             _currentAnimation = -1;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();

@@ -6,6 +6,7 @@ namespace FiniteStateMachine
     [CreateAssetMenu(menuName = "StateMachine/Actions/Animation Action")]
     public class AnimationAction: StateAction
     {
+        [SerializeField] private bool _endOnFinish;
         [SerializeField] private string _animationName;
 
         [HideInInspector]
@@ -23,11 +24,12 @@ namespace FiniteStateMachine
 
         public override void Stop(BaseStateMachine stateMachine)
         {
-            stateMachine.HandleAnimationExit();
-            // if (stateMachine.AnimatorComponent.GetCurrentAnimatorStateInfo(0).loop)
-            // {
-            //     stateMachine.HandleAnimationExit();
-            // }
+            if (!_endOnFinish) stateMachine.HandleAnimationExit();
+        }
+
+        public override void Finish(BaseStateMachine stateMachine)
+        {
+            if (_endOnFinish) stateMachine.HandleAnimationExit();
         }
     }
 }
