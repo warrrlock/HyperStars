@@ -11,7 +11,10 @@ public enum VFXGraphs
 
 public class VFXSpawnManager : MonoBehaviour
 {
+    [Header("Old")]
     [SerializeField] public VisualEffectAsset[] visualEffectAssets;
+    [Header("New Prefabs")]
+    [SerializeField] public GameObject[] visualEffectPrefabs;
     [SerializeField] public GameObject spawnedVfxObject;
 
     private float currentRotation;
@@ -54,14 +57,16 @@ public class VFXSpawnManager : MonoBehaviour
 
     public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
     {
-        VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
+        VisualEffect newVFX = Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        // VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        // newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
     }
     
     public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter sender)
     {
-        VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
+        VisualEffect newVFX = Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        // VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        // newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
         // if (graphIndex == VFXGraphs.LISA_HIT_5) newVFX.SetFloat("Size", vfxSize);
         newVFX.GetComponent<VFXCleanUp>().sender = sender;
     }
