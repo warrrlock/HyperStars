@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2b3c4c74b394c2aa6ea240028f2bff, type: 3}
   m_Name: BLUK_WalkF
   m_EditorClassIdentifier: 
+  characterSelection: 2
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Walk
+  _animationHash: 765711723
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -20,7 +26,7 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
+  _endOnFinish: 0
   _actions:
   - {fileID: 11400000, guid: 7f7a260eb1a5c6d439a6b00f170ba2a1, type: 2}
   _transitions:
@@ -31,3 +37,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
   - {fileID: 11400000, guid: e82ba32029d8386489e7cf18528ba4d2, type: 2}
   - {fileID: 11400000, guid: be1c8f75bc88f7446a7c574b0e93dfe9, type: 2}
+  - {fileID: 11400000, guid: 2b8005c2e094a7d48960ba002c86cc40, type: 2}
