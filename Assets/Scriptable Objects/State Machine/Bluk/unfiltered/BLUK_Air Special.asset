@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
   m_Name: BLUK_Air Special
   m_EditorClassIdentifier: 
+  _isCrouchState: 0
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -29,7 +30,7 @@ MonoBehaviour:
     attackType: 2
     knockbackDuration: 0.5
     knockbackDistance: 15
-    knockbackDirection: {x: 1, y: 1, z: 0}
+    knockbackDirection: {x: 0, y: 1, z: 0}
     hitStunDuration: 1
     damage: 0
     causesWallBounce: 1
@@ -43,7 +44,7 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.15
+    hangTime: 0.2
     favorReward: 20
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0

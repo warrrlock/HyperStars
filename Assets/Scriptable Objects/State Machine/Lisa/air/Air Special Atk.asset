@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
   m_Name: Air Special Atk
   m_EditorClassIdentifier: 
+  _isCrouchState: 0
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -37,7 +38,7 @@ MonoBehaviour:
     hitStunDuration: 1
     damage: 0
     causesWallBounce: 0
-    hitStopDuration: 0.25
+    hitStopDuration: 0.3
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
@@ -51,5 +52,5 @@ MonoBehaviour:
     favorReward: 20
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
-  _isSpecial: 0
+  _isSpecial: 1
   _specialBarCost: 1
