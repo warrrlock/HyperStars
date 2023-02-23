@@ -66,4 +66,10 @@ public class MenuManager: MonoBehaviour
     {
         //TODO: create settings
     }
+
+    public void ExitGame()
+    {
+        Debug.Log("Exiting game if not in editor");
+        Application.Quit();
+    }
 }
