@@ -89,17 +89,17 @@ public class VFXSpawnManager : MonoBehaviour
             switch (attackInfo.attackType)
             {
                 case AttackInfo.AttackType.Light:
-                    StartCoroutine(cam.CameraShake(.2f, .02f));
+                    StartCoroutine(cam.CameraShake(.2f, .05f));
                     break;
                 case AttackInfo.AttackType.Medium:
-                    StartCoroutine(cam.CameraShake(.2f, .05f));
+                    StartCoroutine(cam.CameraShake(.2f, .08f));
                     break;
                 case AttackInfo.AttackType.Special:
                     StartCoroutine(cam.CameraZoom(hitPos, .2f, 56f, .16f));
-                    StartCoroutine(cam.CameraShake(.3f, .09f));
+                    StartCoroutine(cam.CameraShake(.3f, .19f));
                     break;
                 default:
-                    StartCoroutine(cam.CameraShake(.1f, .01f));
+                    StartCoroutine(cam.CameraShake(.1f, .04f));
                     break;
             }
         }
