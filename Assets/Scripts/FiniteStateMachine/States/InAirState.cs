@@ -7,25 +7,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "StateMachine/States/In Air State")]
 public class InAirState : BaseState
 {
-    [SerializeField] private string _animationName;
     [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
     [SerializeField] private bool _alwaysExecute;
     
-    [HideInInspector]
-    [SerializeField] private int _animationHash;
-    
     [SerializeField] private AttackInfo _attackInfo;
     
-    [Header("Special")]
-    [SerializeField] private bool _isSpecial;
-    [Tooltip("number of bars the special costs. 1 means 1 bar.")]
-    [SerializeField] private int _specialBarCost;
-
-    
-    private void OnValidate()
-    {
-        _animationHash = Animator.StringToHash(_animationName);
-    }
 
     private void OnEnable()
     {
@@ -37,7 +23,7 @@ public class InAirState : BaseState
         if (stateMachine.PlayAnimation(_animationHash))
         {
             stateMachine.StartInAir();
-            if (_isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(_specialBarCost);
+            CheckSpecialMeter(stateMachine);
         }
         
         foreach (Transition transition in _transitions)
@@ -60,11 +46,6 @@ public class InAirState : BaseState
     public override AttackInfo GetAttackInfo()
     {
         return _attackInfo;
-    }
-    
-    public override int GetSpecialBarCost()
-    {
-        return _isSpecial ? _specialBarCost : -1;
     }
     
     
