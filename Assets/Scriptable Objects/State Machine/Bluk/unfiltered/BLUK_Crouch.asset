@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2b3c4c74b394c2aa6ea240028f2bff, type: 3}
   m_Name: BLUK_Crouch
   m_EditorClassIdentifier: 
+  characterSelection: 2
   _isCrouchState: 1
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Crouching Idle
+  _animationHash: -1554208036
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -21,11 +26,11 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
+  _endOnFinish: 0
   _actions:
-  - {fileID: 11400000, guid: 9a60eb3e9861f4d84ba766a9e099931b, type: 2}
   - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
   _transitions:
   - {fileID: 11400000, guid: 9542575c4d3f46544890eaca0dbbb39a, type: 2}
   - {fileID: 11400000, guid: 167c34ec0b492bc4eb9d761a1d0d3628, type: 2}
   - {fileID: 11400000, guid: 9c89effee232ca54a942cfb1537ce38b, type: 2}
+  - {fileID: 11400000, guid: 01ee684d6e23db74fbfeeaa4200ce1b7, type: 2}

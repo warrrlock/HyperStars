@@ -149,6 +149,7 @@ public class FavorManager : MonoBehaviour
     public void ResizeFavorMeter(float factor)
     {
         MaxFavor += factor;
+        _favor = Mathf.Clamp(_favor, -MaxFavor, MaxFavor);
         UpdateFavorMeter();
     }
 

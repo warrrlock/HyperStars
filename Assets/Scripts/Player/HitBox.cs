@@ -104,7 +104,7 @@ public class HitBox : MonoBehaviour
         
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
-        StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration));
+        hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration, true);
         //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, attackInfo.knockbackForce.y, attackInfo.knockbackDuration));
         
             //float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
@@ -122,7 +122,10 @@ public class HitBox : MonoBehaviour
         {
             StartCoroutine(hitFighter.MovementController.EnableGroundBounce(attackInfo.groundBounceDistance, attackInfo.groundBounceDuration, attackInfo.groundBounceDirection, attackInfo.groundBounceHitStopDuration));
         }
-        StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
+        if (!hitFighter.MovementController.IsGrounded)
+        {
+            StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
+        }
         Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
 
         StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));

@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2b3c4c74b394c2aa6ea240028f2bff, type: 3}
   m_Name: BLUK_Dash
   m_EditorClassIdentifier: 
+  characterSelection: 2
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Dash
+  _animationHash: 995914302
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -20,11 +26,12 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
-  _actions:
-  - {fileID: 11400000, guid: 211574e8983dd614cbf5e691c7927682, type: 2}
+  _endOnFinish: 1
+  _actions: []
   _transitions:
   - {fileID: 11400000, guid: 9690695ac1dacc04e84a55803bafe8c9, type: 2}
   - {fileID: 11400000, guid: c4bfccb8f6eb436458f2bf3a3bf86dc2, type: 2}
   - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
   - {fileID: 11400000, guid: 8da3258a8e0d39e42b45df132c451036, type: 2}
+  - {fileID: 11400000, guid: be1c8f75bc88f7446a7c574b0e93dfe9, type: 2}
+  - {fileID: 11400000, guid: e82ba32029d8386489e7cf18528ba4d2, type: 2}

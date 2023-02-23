@@ -19,21 +19,41 @@ namespace FiniteStateMachine
 {
     public abstract class BaseState : ScriptableObject
     {
+        [FormerlySerializedAs("character")] public CharacterManager.CharacterSelection characterSelection = CharacterManager.CharacterSelection.None;
         [SerializeField] private bool _isCrouchState;
         public bool IsCrouchState => _isCrouchState;
+        
+        [Header("Special")]
+        [SerializeField] private bool _isSpecial;
+        [Tooltip("number of bars the special costs. 1 means 1 bar.")]
+        [SerializeField] private int _specialBarCost;
+        public int SpecialBarCost => _isSpecial ? _specialBarCost : 0;
+
+        [Header("Animation")]
+        [SerializeField] protected string _animationName;
+        [HideInInspector] [SerializeField] protected int _animationHash;
+
+        
+        protected virtual void OnValidate()
+        {
+            _animationHash = Animator.StringToHash(_animationName);
+        }
         
         public abstract bool Execute(BaseStateMachine machine, string inputName);
         public virtual void QueueExecute(BaseStateMachine machine, string inputName){}
         public virtual void Stop(BaseStateMachine machine, string inputName) {}
+        public virtual void Finish(BaseStateMachine machine) {}
+
         public virtual AttackInfo GetAttackInfo()
         {
             return null;
         }
         
         public virtual void SpawnProjectile(BaseStateMachine machine, Bounds bounds){}
-        public virtual int GetSpecialBarCost()
+
+        public void CheckSpecialMeter(BaseStateMachine stateMachine)
         {
-            return -1;
+            if (_isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(_specialBarCost);
         }
 
 #if UNITY_EDITOR
@@ -41,7 +61,6 @@ namespace FiniteStateMachine
         [HideInInspector][SerializeField] public NodeInfo NodeInfo = new NodeInfo();
         [HideInInspector][SerializeField] private List<FSMFilter> _filters = new();
         public IReadOnlyList<FSMFilter> Filters => _filters;
-        [FormerlySerializedAs("character")] public CharacterManager.CharacterSelection characterSelection = CharacterManager.CharacterSelection.None;
         public abstract IReadOnlyList<Transition> GetTransitions();
         public abstract void AddTransition(Transition t);
         public abstract void DeleteTransition(Transition t);

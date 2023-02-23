@@ -11,7 +11,10 @@ public enum VFXGraphs
 
 public class VFXSpawnManager : MonoBehaviour
 {
+    [Header("Old")]
     [SerializeField] public VisualEffectAsset[] visualEffectAssets;
+    [Header("New Prefabs")]
+    [SerializeField] public GameObject[] visualEffectPrefabs;
     [SerializeField] public GameObject spawnedVfxObject;
 
     private float currentRotation;
@@ -54,14 +57,16 @@ public class VFXSpawnManager : MonoBehaviour
 
     public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
     {
-        VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
+        VisualEffect newVFX = Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        // VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        // newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
     }
     
     public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter sender)
     {
-        VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
+        VisualEffect newVFX = Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        // VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        // newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
         // if (graphIndex == VFXGraphs.LISA_HIT_5) newVFX.SetFloat("Size", vfxSize);
         newVFX.GetComponent<VFXCleanUp>().sender = sender;
     }
@@ -84,17 +89,17 @@ public class VFXSpawnManager : MonoBehaviour
             switch (attackInfo.attackType)
             {
                 case AttackInfo.AttackType.Light:
-                    StartCoroutine(cam.CameraShake(.2f, .02f));
+                    StartCoroutine(cam.CameraShake(.2f, .05f));
                     break;
                 case AttackInfo.AttackType.Medium:
-                    StartCoroutine(cam.CameraShake(.2f, .05f));
+                    StartCoroutine(cam.CameraShake(.2f, .08f));
                     break;
                 case AttackInfo.AttackType.Special:
                     StartCoroutine(cam.CameraZoom(hitPos, .2f, 56f, .16f));
-                    StartCoroutine(cam.CameraShake(.3f, .09f));
+                    StartCoroutine(cam.CameraShake(.3f, .19f));
                     break;
                 default:
-                    StartCoroutine(cam.CameraShake(.1f, .01f));
+                    StartCoroutine(cam.CameraShake(.1f, .04f));
                     break;
             }
         }
