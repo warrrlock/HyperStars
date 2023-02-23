@@ -8,6 +8,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GameEventListener))]
 public class RoundManager : MonoBehaviour
 {
+    public bool InGame => !_disabledInput;
+    
     [Header("Rounds meta")]
     [SerializeField] private GameObject _restartButton;
     [SerializeField] private int _neededWins;
