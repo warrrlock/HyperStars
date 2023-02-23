@@ -767,8 +767,14 @@ public class MovementController : MonoBehaviour
         _inputManager.Actions["Move"].perform += StartMoving;
         _inputManager.Actions["Move"].stop += StopMoving;
         _inputManager.Actions["Dash"].perform += Dash;
-        _inputManager.Actions["Dash Left"].perform += DashLeft;
-        _inputManager.Actions["Dash Right"].perform += DashRight;
+        if(_inputManager.Actions.ContainsKey("Dash Left"))
+        {
+            _inputManager.Actions["Dash Left"].perform += DashLeft;
+        }
+        if (_inputManager.Actions.ContainsKey("Dash Right"))
+        {
+            _inputManager.Actions["Dash Right"].perform += DashRight;
+        }
         _inputManager.Actions["Jump"].perform += Jump;
         _inputManager.Actions["Jump"].stop += StopJumping;
         _inputManager.Actions["Sidestep"].perform += Sidestep;
@@ -779,8 +785,14 @@ public class MovementController : MonoBehaviour
         _inputManager.Actions["Move"].perform -= StartMoving;
         _inputManager.Actions["Move"].stop -= StopMoving;
         _inputManager.Actions["Dash"].perform -= Dash;
-        _inputManager.Actions["Dash Left"].perform -= DashLeft;
-        _inputManager.Actions["Dash Right"].perform -= DashRight;
+        if (_inputManager.Actions.ContainsKey("Dash Left"))
+        {
+            _inputManager.Actions["Dash Left"].perform -= DashLeft;
+        }
+        if (_inputManager.Actions.ContainsKey("Dash Right"))
+        {
+            _inputManager.Actions["Dash Right"].perform -= DashRight;
+        }
         _inputManager.Actions["Jump"].perform -= Jump;
         _inputManager.Actions["Jump"].stop -= StopJumping;
         _inputManager.Actions["Sidestep"].perform -= Sidestep;

@@ -131,8 +131,16 @@ namespace FiniteStateMachine {
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform += Invoke;
             Fighter.InputManager.Actions["Dash"].finish += Finish;
-            Fighter.InputManager.Actions["Dash Left"].finish += Finish;
-            Fighter.InputManager.Actions["Dash Right"].finish += Finish;
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
+            {
+                Fighter.InputManager.Actions["Dash Left"].finish += Finish;
+            }
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
+            {
+                Fighter.InputManager.Actions["Dash Right"].finish += Finish;
+            }
+            //Fighter.InputManager.Actions["Dash Left"].finish += Finish;
+            //Fighter.InputManager.Actions["Dash Right"].finish += Finish;
             Fighter.InputManager.Actions["Move"].stop += Stop;
             Fighter.InputManager.Actions["Crouch"].stop += Stop;
 
@@ -145,8 +153,16 @@ namespace FiniteStateMachine {
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform -= Invoke;
             Fighter.InputManager.Actions["Dash"].finish -= Finish;
-            Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
-            Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
+            {
+                Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
+            }
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
+            {
+                Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
+            }
+            //Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
+            //Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
             Fighter.InputManager.Actions["Move"].stop -= Stop;
             Fighter.InputManager.Actions["Crouch"].stop -= Stop;
             StopAllCoroutines();
