@@ -139,6 +139,11 @@ public class MovementController : MonoBehaviour
     private bool _isFlipQueued = false;
     private Fighter.Direction _nextFlipDirection;
 
+    /// <summary>
+    /// Returns true if Opponent is behind this Fighter.
+    /// </summary>
+    private bool _isOpponentBehind = false;
+
     private struct RaycastOrigins
     {
         public Axis x;
@@ -239,7 +244,7 @@ public class MovementController : MonoBehaviour
                 _dashForce = (_dashDistance * 4f) / (_dashDuration * Time.fixedDeltaTime + 1f);
                 break;
         }
-        _shortDashForce = _dashForce / 1.5f;
+        _shortDashForce = _dashForce / 1.5f; //TODO: MAGIC NUMBER
         _dashChargeCount = _maxDashCharges;
     }
 
@@ -250,24 +255,55 @@ public class MovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_isFlipQueued)
+        //switch (_fighter.FacingDirection)
+        //{
+        //    case Fighter.Direction.Left:
+        //        if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+        //        {
+        //            _flipCoroutine = QueueFlip(Fighter.Direction.Right);
+        //            StartCoroutine(_flipCoroutine);
+        //        }
+        //        break;
+        //    case Fighter.Direction.Right:
+        //        if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
+        //        {
+        //            _flipCoroutine = QueueFlip(Fighter.Direction.Left);
+        //            StartCoroutine(_flipCoroutine);
+        //        }
+        //        break;
+        //}
+
+        switch (_fighter.FacingDirection)
         {
-            switch (_fighter.FacingDirection)
+            case Fighter.Direction.Left:
+                if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
+                {
+                    _isOpponentBehind = true;
+                    _nextFlipDirection = Fighter.Direction.Right;
+                }
+                break;
+            case Fighter.Direction.Right:
+                if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
+                {
+                    _isOpponentBehind = true;
+                    _nextFlipDirection = Fighter.Direction.Left;
+                }
+                break;
+        }
+
+        if (_isOpponentBehind)
+        {
+            if(_fighter.BaseStateMachine.IsIdle || _fighter.BaseStateMachine.IsCrouch)
             {
-                case Fighter.Direction.Left:
-                    if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
-                    {
-                        _flipCoroutine = QueueFlip(Fighter.Direction.Right);
-                        StartCoroutine(_flipCoroutine);
-                    }
-                    break;
-                case Fighter.Direction.Right:
-                    if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
-                    {
-                        _flipCoroutine = QueueFlip(Fighter.Direction.Left);
-                        StartCoroutine(_flipCoroutine);
-                    }
-                    break;
+                _fighter.FlipCharacter(_nextFlipDirection);
+                _isOpponentBehind = false;
+            }
+            else
+            {
+                if (!_isFlipQueued)
+                {
+                    StartCoroutine(QueueFlip(_nextFlipDirection));
+                }
             }
         }
 
@@ -357,12 +393,23 @@ public class MovementController : MonoBehaviour
     private IEnumerator QueueFlip(Fighter.Direction newDirection)
     {
         _isFlipQueued = true;
-        _nextFlipDirection = newDirection;
-        yield return new WaitForSeconds(_flipDelayTime);
+        yield return new WaitUntil(() => _fighter.BaseStateMachine.IsIdle || _fighter.BaseStateMachine.IsCrouch);
 
-        _fighter.FlipCharacter(_nextFlipDirection);
         _isFlipQueued = false;
+        if (_isOpponentBehind)
+        {
+            _fighter.FlipCharacter(_nextFlipDirection);
+            _isOpponentBehind = false;
+        }
         yield break;
+
+        //_isFlipQueued = true;
+        //_nextFlipDirection = newDirection;
+        //yield return new WaitForSeconds(_flipDelayTime);
+
+        //_fighter.FlipCharacter(_nextFlipDirection);
+        //_isFlipQueued = false;
+        //yield break;
     }
 
     public IEnumerator EnableWallBounce(float distance, float duration, Vector3 direction, float hitStopDuration)
@@ -1007,21 +1054,21 @@ public class MovementController : MonoBehaviour
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
         inputVector *= _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
-        if (_isFlipQueued)
-        {
-            if (inputVector == Vector2.left && _nextFlipDirection == Fighter.Direction.Left)
-            {
-                StopCoroutine(_flipCoroutine);
-                _fighter.FlipCharacter(_nextFlipDirection);
-                _isFlipQueued = false;
-            }
-            if (inputVector == Vector2.right && _nextFlipDirection == Fighter.Direction.Right)
-            {
-                StopCoroutine(_flipCoroutine);
-                _fighter.FlipCharacter(_nextFlipDirection);
-                _isFlipQueued = false;
-            }
-        }
+        //if (_isFlipQueued)
+        //{
+        //    if (inputVector == Vector2.left && _nextFlipDirection == Fighter.Direction.Left)
+        //    {
+        //        StopCoroutine(_flipCoroutine);
+        //        _fighter.FlipCharacter(_nextFlipDirection);
+        //        _isFlipQueued = false;
+        //    }
+        //    if (inputVector == Vector2.right && _nextFlipDirection == Fighter.Direction.Right)
+        //    {
+        //        StopCoroutine(_flipCoroutine);
+        //        _fighter.FlipCharacter(_nextFlipDirection);
+        //        _isFlipQueued = false;
+        //    }
+        //}
     }
 
     private void StopMoving(InputManager.Action action)

@@ -30,7 +30,7 @@ public class MenuManager: MonoBehaviour
 
     private bool CheckReady()
     {
-        return _players.All(p => p != null && p.Ready);
+        return _players.All(p => p == null || p.Ready);
     }
     
     public void StartCharacterSelection()

@@ -10,6 +10,9 @@ using static InputManager;
 // [RequireComponent(typeof(PlayerInput))]
 public class InputManager : MonoBehaviour
 {
+    [Tooltip("How long (in secs) after pressing jump in midair should it be queued to perform upon landing?")]
+    private float _jumpQueueTime = 0.1f;
+
     public readonly Dictionary<string, Action> Actions = new();
 
     private PlayerInput _playerInput;
@@ -34,6 +37,8 @@ public class InputManager : MonoBehaviour
         public IEnumerator queueStop;
         public InputAction inputAction;
         public List<Func<bool>> enableConditions = new();
+        public IEnumerator queuePerformTime;
+        public bool isPerformTimeQueued = false;
 
         public Action(string nam)
         {
@@ -112,7 +117,7 @@ public class InputManager : MonoBehaviour
     }
     private void UnsubscribeActions()
     {
-        _playerInput.onActionTriggered -= ResolveActions;
+        _playerInput.onActionTriggered += ResolveActions;
     }
 
     private void CreateDictionary()
@@ -154,6 +159,20 @@ public class InputManager : MonoBehaviour
                     else
                     {
                         throw new System.Exception("Action's disabled count is less than 0.");
+                    }
+                } else if (action == Actions["Jump"])
+                {
+                    //TODO: make this interruptable, so doing another input will cancel the jump queue
+                    if (!action.isPerformTimeQueued)
+                    {
+                        action.queuePerformTime = QueuePerformTime(action, _jumpQueueTime);
+                        StartCoroutine(action.queuePerformTime);
+                    }
+                    else
+                    {
+                        StopCoroutine(action.queuePerformTime);
+                        action.queuePerformTime = QueuePerformTime(action, _jumpQueueTime);
+                        StartCoroutine(action.queuePerformTime);
                     }
                 }
 
@@ -334,6 +353,25 @@ public class InputManager : MonoBehaviour
             Action action = pair.Value;
             action.disabledCount--;
         }
+        yield break;
+    }
+
+    private IEnumerator QueuePerformTime(Action action, float duration)
+    {
+        action.isPerformTimeQueued = true;
+        float timer = 0f;
+        while (timer <= duration)
+        {
+            if (action.enableConditions.Count == 0 || action.enableConditions.TrueForAll(x => x()))
+            {
+                action.perform?.Invoke(action);
+                action.isPerformTimeQueued = false;
+                yield break;
+            }
+            timer += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        action.isPerformTimeQueued = false;
         yield break;
     }
 
