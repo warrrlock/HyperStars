@@ -197,7 +197,12 @@ namespace FiniteStateMachine {
             //TODO: should wait until idle from crouch to begin queuing attacks, or go straight into attack?
             // if (!_holdingCrouch && CurrentState.IsCrouchState) return; //waiting to return to idle. otherwise, go to queue execute
             if (_holdingCrouch && !CurrentState.IsCrouchState)
+            {
+                SetReturnState(_crouchState);
+                
+                _crouchState.QueueExecute(this, action.name);
                 return;
+            }
 
             if (!CurrentState.Execute(this, action.name))
             {
