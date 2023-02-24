@@ -22,7 +22,7 @@ public class InAirState : BaseState
     public override bool Execute(BaseStateMachine stateMachine, string inputName){
         if (stateMachine.PlayAnimation(_animationHash))
         {
-            stateMachine.StartInAir();
+            stateMachine.StartInAir(stateMachine.CheckRequeueJump);
             CheckSpecialMeter(stateMachine);
         }
         
