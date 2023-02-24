@@ -8,11 +8,12 @@ public class DestroyProjectileAction : ProjectileAction
     {
         projectile.enabled = false;
         projectile.GetComponent<Renderer>().enabled = false;
+        projectile.MakeInvisible();
         
-        // AttackInfo info = projectile.AttackInfo;
-        // float time = Max(new float[]{info.hangTime, info.knockbackDuration, info.hitStopDuration, info.hitStunDuration});
-        // projectile.DestroyIn(time+0.2f);
-        projectile.DestroyIn(0.0f);
+        //don't destroy projectile yet, since the coroutine needs to run
+        AttackInfo info = projectile.AttackInfo;
+        float time = Max(new float[]{info.hangTime, info.knockbackDuration, info.hitStopDuration, info.hitStunDuration});
+        projectile.DestroyIn(time+0.2f);
     }
 
     float Max(float[] arr)
