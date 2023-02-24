@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
-  m_Name: Crouch Special
+  m_Name: Crouch Heavy
   m_EditorClassIdentifier: 
   characterSelection: 1
   _isCrouchState: 1
-  _isSpecial: 1
-  _specialBarCost: 1
-  _animationName: Crouching Special
-  _animationHash: 1100047811
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Crouching Heavy
+  _animationHash: -1728677804
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -33,17 +33,18 @@ MonoBehaviour:
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions:
+  - {fileID: 11400000, guid: 565ee919680260045b2797b0803ce714, type: 2}
   - {fileID: 11400000, guid: 935cfa0097e7c473a89d61b7f7b4df60, type: 2}
   _defaultCombo: 1
   _attackInfo:
-    attackType: 3
-    knockbackDuration: 0.8
-    knockbackDistance: 16
+    attackType: 2
+    knockbackDuration: 0.5
+    knockbackDistance: 10
     knockbackDirection: {x: 0.2, y: 1, z: 0}
-    hitStunDuration: 1
-    damage: 20
+    hitStunDuration: 0.5
+    damage: 15
     causesWallBounce: 0
-    hitStopDuration: 0.25
+    hitStopDuration: 0.2
     wallBounceDuration: 1
     wallBounceDistance: 10
     wallBounceDirection: {x: -1, y: 5, z: 0}
@@ -53,8 +54,8 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.4
-    favorReward: 20
+    hangTime: 0.35
+    favorReward: 15
     knockbackForce: {x: 30.8089, y: 100}
-    incrementBarAmount: 0
+    incrementBarAmount: 0.25
   _projectilePrefab: {fileID: 0}
