@@ -76,6 +76,8 @@ namespace FiniteStateMachine {
         private string _lastExecutedInput;
         private bool _holdingCrouch;
 
+        private bool _queueJumpOnGround;
+
         public string LastExecutedInput
         {
             get => _lastExecutedInput;
@@ -203,8 +205,12 @@ namespace FiniteStateMachine {
                 {
                     _returnState.QueueExecute(this, action.name);
                 }
+                else if (action.name == "Jump")
+                {
+                    _queueJumpOnGround = true;
+                }
             }
-            
+
             if (action.name == "Crouch")
             {
                 _holdingCrouch = true;
@@ -428,6 +434,16 @@ namespace FiniteStateMachine {
             StartCoroutine(Fighter.InputManager.Disable(
                 () => Fighter.MovementController.CollisionData.y.isNegativeHit, 
                 Fighter.InputManager.Actions["Crouch"]));
+        }
+
+        public void CheckRequeueJump()
+        {
+            if (_queueJumpOnGround)
+            {
+                QueueStateAtEnd(_jumpState);
+            }
+            _queueJumpOnGround = false;
+            HandleAnimationExit();
         }
 
         private IEnumerator HandleExitInAir(Action onGroundAction)
