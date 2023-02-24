@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Light Atk 2
   m_EditorClassIdentifier: 
+  characterSelection: 1
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: LightAtk2
+  _animationHash: -1990067642
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -29,8 +34,6 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _animationName: LightAtk2
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions:
@@ -39,6 +42,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
   - {fileID: 11400000, guid: 565434289cbf84fa799a877d19ba5727, type: 2}
+  - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
   _defaultCombo: 0
   _attackInfo:
     attackType: 2
@@ -62,7 +66,4 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  _isSpecial: 0
-  _specialBarCost: 0
   _projectilePrefab: {fileID: 0}
-  _animationHash: -1990067642

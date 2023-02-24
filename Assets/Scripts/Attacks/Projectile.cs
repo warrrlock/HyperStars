@@ -48,6 +48,15 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, time);
     }
 
+    public void MakeInvisible()
+    {
+        gameObject.GetComponent<Collider>().enabled = false;
+        SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+        if (!renderer) renderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        renderer.enabled = false;
+        gameObject.GetComponent<ParticleSystem>()?.Stop();
+    }
+
     private void MoveIn(float speed)
     {
         Quaternion angle = Quaternion.AngleAxis(_angle, Vector3.right);
