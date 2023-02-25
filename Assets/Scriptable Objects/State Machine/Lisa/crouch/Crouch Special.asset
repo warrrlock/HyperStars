@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterSelection: 1
   _isCrouchState: 1
-  _isSpecial: 1
+  _isSpecial: 0
   _specialBarCost: 1
   _animationName: Crouching Special
   _animationHash: 1100047811
@@ -38,8 +38,8 @@ MonoBehaviour:
   _attackInfo:
     attackType: 3
     knockbackDuration: 0.8
-    knockbackDistance: 16
-    knockbackDirection: {x: 0.2, y: 1, z: 0}
+    knockbackDistance: 25
+    knockbackDirection: {x: 0, y: 2, z: 0}
     hitStunDuration: 1
     damage: 20
     causesWallBounce: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.4
-    favorReward: 20
+    favorReward: 10
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0
   _projectilePrefab: {fileID: 0}
