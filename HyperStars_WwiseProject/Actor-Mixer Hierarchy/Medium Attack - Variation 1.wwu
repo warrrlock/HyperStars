@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{470BAAFF-0FE6-4FDE-B08B-B6D0410D8583}" SchemaVersion="103" RootDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" ParentDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}">
+	<AudioObjects>
+		<WorkUnit Name="Medium Attack - Variation 1" ID="{470BAAFF-0FE6-4FDE-B08B-B6D0410D8583}" OwnerID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="3"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="Medium Attack - Varation 1 Mixer" ID="{B02F28B1-5B38-4AED-96B1-832D10D16927}" ShortID="916566116">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="AttackSwingBus" ID="{FA839A7E-D9F1-419C-877C-438F18690F4D}" WorkUnitID="{052FD560-9FCD-4AAF-AD39-A38EF395B6B2}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Medium Attack - Variation 1" ID="{57BE01F0-C812-42CE-BFEF-F70B6D14C8CF}" ShortID="914681355">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="3"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="CombatGeneralSound-003" ID="{4D50C353-2D64-454A-9CF1-7FDB54E08DA4}">
+									<Language>SFX</Language>
+									<AudioFile>CombatGeneralSound-003.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="1029433576"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="CombatGeneralSound-003" ID="{4D50C353-2D64-454A-9CF1-7FDB54E08DA4}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

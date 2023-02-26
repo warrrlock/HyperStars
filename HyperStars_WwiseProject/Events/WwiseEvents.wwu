@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{D526B0A0-67A1-4937-8B4F-5F71F23342D6}" SchemaVersion="103">
+	<Events>
+		<WorkUnit Name="WwiseEvents" ID="{D526B0A0-67A1-4937-8B4F-5F71F23342D6}" PersistMode="Standalone">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="13"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Event Name="Test_AttackMedium" ID="{452C9D80-13B6-4E91-A2B0-5CF17B3B8515}">
+					<ChildrenList>
+						<Action Name="" ID="{DCE0C995-AB4D-4483-BF2A-0CC341FFFEC8}" ShortID="343699226">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Medium_Attacks_Variation_2" ID="{B30DD4F5-8BF1-4B6B-863B-BF5174529DC1}" WorkUnitID="{CA87FE2A-CA98-4636-B83A-2B896886353F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{57E879D0-FEDB-4C15-A4DB-A1EAC83721DC}" ShortID="866101385">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.25"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Medium_Hit" ID="{E8C843C7-0D62-47C9-9A46-CA65E6CDAF7E}" WorkUnitID="{BD915EF0-70F4-4112-9350-6F71D82E142E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{B39CA250-11D1-444B-B585-50A78A72ED3B}" ShortID="179694873">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.35"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Placeholder_LisaPainLightVO" ID="{451A9B32-9CBC-415F-BB60-F325F664FCA7}" WorkUnitID="{93A05931-F1F5-4CF1-AE7A-BA2C8C0D6DAD}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Test_AttackSpecial" ID="{BDACB3CC-0FAF-4961-A183-7560650C74E9}">
+					<ChildrenList>
+						<Action Name="" ID="{3720FEF3-136E-4FF7-88CF-106D583239F9}" ShortID="915120317">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Dragon_Punch_Swing" ID="{1AD87628-BEA0-443A-81FF-593F6D020217}" WorkUnitID="{FF29DD82-14E1-4748-A688-8F48262099CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{3768FAF8-9883-489E-83C3-94C99BC173EC}" ShortID="725171706">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Medium_Attack_Variation_1" ID="{9599981A-B497-4660-AA7E-81DC9B97CD61}" WorkUnitID="{CA87FE2A-CA98-4636-B83A-2B896886353F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{54F95590-8E76-4338-BA53-4F3604E1FED5}" ShortID="103523078">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.3"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Placeholder_LisaPainHeavyVO" ID="{58A1BFDB-3F79-4227-A8A9-272D71180F55}" WorkUnitID="{93A05931-F1F5-4CF1-AE7A-BA2C8C0D6DAD}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{9C40477B-B0DD-4AF5-82C7-88AEDCABE2B5}" ShortID="450201444">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.25"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Dragon_Punch_Hit" ID="{D9BFAAEA-9625-4D7E-89C9-8A3E8DB17700}" WorkUnitID="{FF29DD82-14E1-4748-A688-8F48262099CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{A379F855-5273-44AE-A19F-8756308A2EF4}" ShortID="24266059">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.25"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Heavy_Hit" ID="{EAD456CB-D903-4D99-96CE-9573CB3F1E3A}" WorkUnitID="{BD915EF0-70F4-4112-9350-6F71D82E142E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Test_AttackHeavy" ID="{FC33BEF6-8889-4B8B-9324-E9DE80E6BC3D}">
+					<ChildrenList>
+						<Action Name="" ID="{DD785A38-41F6-4325-82EE-70512A48F89D}" ShortID="137931724">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Medium_Attacks_Variation_2" ID="{B30DD4F5-8BF1-4B6B-863B-BF5174529DC1}" WorkUnitID="{CA87FE2A-CA98-4636-B83A-2B896886353F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{3FA9F5EC-D60F-43A4-9F19-3E052B2CAD61}" ShortID="677152471">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.25"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Heavy_Hit" ID="{EAD456CB-D903-4D99-96CE-9573CB3F1E3A}" WorkUnitID="{BD915EF0-70F4-4112-9350-6F71D82E142E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{82F50039-64E1-41A4-8C7B-281B5EFBDA70}" ShortID="932771644">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.35"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Placeholder_LisaPainHeavyVO" ID="{58A1BFDB-3F79-4227-A8A9-272D71180F55}" WorkUnitID="{93A05931-F1F5-4CF1-AE7A-BA2C8C0D6DAD}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Test_AttackLight" ID="{B492DF96-9F6A-43EA-9D01-0813C6B2B0EB}">
+					<ChildrenList>
+						<Action Name="" ID="{9348B0D8-D8A4-4B6C-8F0D-C547B93B2349}" ShortID="41033318">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Light_Attack_Variation_1" ID="{1A7271E5-B167-42D2-9D65-D542595581BD}" WorkUnitID="{CA87FE2A-CA98-4636-B83A-2B896886353F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{0F48473A-AB35-44D7-9366-23435C1C8E2C}" ShortID="470444215">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.25"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Light_Hit" ID="{D17B301E-6809-4902-9FD8-F4F9DD3E1BC5}" WorkUnitID="{BD915EF0-70F4-4112-9350-6F71D82E142E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{0D8E30C8-F392-43C9-9134-2FC326928D48}" ShortID="29599712">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.35"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Placeholder_LisaPainLightVO" ID="{451A9B32-9CBC-415F-BB60-F325F664FCA7}" WorkUnitID="{93A05931-F1F5-4CF1-AE7A-BA2C8C0D6DAD}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

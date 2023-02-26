@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{131AD7DC-9F0C-414E-B567-B88B7477D3C1}" SchemaVersion="103" RootDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" ParentDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}">
+	<AudioObjects>
+		<WorkUnit Name="Light Attack - Variation 2" ID="{131AD7DC-9F0C-414E-B567-B88B7477D3C1}" OwnerID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="3"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="Light Attack - Variation 2 Mixer" ID="{8D6C45EA-29D6-47D7-B495-CDF6E97DD236}" ShortID="451353781">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="AttackSwingBus" ID="{FA839A7E-D9F1-419C-877C-438F18690F4D}" WorkUnitID="{052FD560-9FCD-4AAF-AD39-A38EF395B6B2}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Light Attack - Variation 2" ID="{2F86C3CC-BE3B-499D-A363-64EEF0A0797D}" ShortID="135139999">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="3"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="CombatGeneralSound-002" ID="{4B6083F7-9780-40B9-ADE3-BB22B63E7991}">
+									<Language>SFX</Language>
+									<AudioFile>CombatGeneralSound-002.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="784714379"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="CombatGeneralSound-002" ID="{4B6083F7-9780-40B9-ADE3-BB22B63E7991}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

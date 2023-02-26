@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{BD915EF0-70F4-4112-9350-6F71D82E142E}" SchemaVersion="103" RootDocumentID="{808E866F-BB47-4665-81E6-85AA171CBD22}" ParentDocumentID="{808E866F-BB47-4665-81E6-85AA171CBD22}">
+	<Events>
+		<WorkUnit Name="CombatHits" ID="{BD915EF0-70F4-4112-9350-6F71D82E142E}" OwnerID="{EBED39A1-2B74-4B0A-A093-90DDB822825C}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="Play_Heavy_Hit" ID="{EAD456CB-D903-4D99-96CE-9573CB3F1E3A}">
+					<ChildrenList>
+						<Action Name="" ID="{B73CB0F1-19F1-4993-89D0-21CAA1CF5C1E}" ShortID="658821971">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Stop_Swings" ID="{17EA8286-2D78-44E9-9696-C644B1D8752C}" WorkUnitID="{808E866F-BB47-4665-81E6-85AA171CBD22}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{67355457-ABEF-4557-A529-2F75ABDB76AD}" ShortID="30443945">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Heavy Hit" ID="{4A14AB61-6B47-4685-BCEC-978CFD83EB95}" WorkUnitID="{713276E3-817D-4B3E-A309-51F220FB95F0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Medium_Hit" ID="{E8C843C7-0D62-47C9-9A46-CA65E6CDAF7E}">
+					<ChildrenList>
+						<Action Name="" ID="{933C682D-A5CC-449A-96B8-914EC805B2D4}" ShortID="891310897">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Stop_Swings" ID="{17EA8286-2D78-44E9-9696-C644B1D8752C}" WorkUnitID="{808E866F-BB47-4665-81E6-85AA171CBD22}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{CDADDE61-8AC7-4402-B979-F77C1C9A50A4}" ShortID="430423545">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Medium Hit" ID="{F25977C3-73B2-4869-8673-CC1376E3530F}" WorkUnitID="{C877157B-B0E4-46C9-AEA1-4552D201AAD6}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Light_Hit" ID="{D17B301E-6809-4902-9FD8-F4F9DD3E1BC5}">
+					<ChildrenList>
+						<Action Name="" ID="{8F8CEA32-4992-42F5-9B76-C463380D4B16}" ShortID="428478089">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Stop_Swings" ID="{17EA8286-2D78-44E9-9696-C644B1D8752C}" WorkUnitID="{808E866F-BB47-4665-81E6-85AA171CBD22}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{BEA6CF17-62C4-405E-91AE-AA5FC2FF6514}" ShortID="1049362464">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Hit Light - Variation 1" ID="{FEE3671C-41EE-42FE-B10B-566EFE66B560}" WorkUnitID="{3E22BF57-01E7-4066-AF9F-FAA7116457AD}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

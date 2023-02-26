@@ -21,6 +21,60 @@
 						<CurrentSwitchRef Name="Verse" ID="{9F939646-4208-4A7C-BD73-5FCE8986E605}"/>
 					</CurrentSwitchList>
 				</SoundcasterSession>
+				<SoundcasterSession Name="CombatSoundCaster" ID="{040FC329-6A0F-4EE4-A41D-35CFCA013C61}">
+					<ModuleList>
+						<Module>
+							<ObjectRef Name="Test_AttackHeavy" ID="{FC33BEF6-8889-4B8B-9324-E9DE80E6BC3D}" WorkUnitID="{D526B0A0-67A1-4937-8B4F-5F71F23342D6}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Test_AttackSpecial" ID="{BDACB3CC-0FAF-4961-A183-7560650C74E9}" WorkUnitID="{D526B0A0-67A1-4937-8B4F-5F71F23342D6}"/>
+							<Position X="0" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_Placeholder_LisaJumpVO" ID="{8127ECD9-A4A8-46E4-BC1D-D97C7BD22D26}" WorkUnitID="{93A05931-F1F5-4CF1-AE7A-BA2C8C0D6DAD}"/>
+							<Position X="0" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Test_AttackMedium" ID="{452C9D80-13B6-4E91-A2B0-5CF17B3B8515}" WorkUnitID="{D526B0A0-67A1-4937-8B4F-5F71F23342D6}"/>
+							<Position X="1" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_Placeholder_LisaPainHeavyVO" ID="{58A1BFDB-3F79-4227-A8A9-272D71180F55}" WorkUnitID="{93A05931-F1F5-4CF1-AE7A-BA2C8C0D6DAD}"/>
+							<Position X="1" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_Placeholder_LisaSwingLightVO" ID="{9BA053BB-9203-4B59-91E3-B5AF49700D46}" WorkUnitID="{93A05931-F1F5-4CF1-AE7A-BA2C8C0D6DAD}"/>
+							<Position X="1" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Test_AttackLight" ID="{B492DF96-9F6A-43EA-9D01-0813C6B2B0EB}" WorkUnitID="{D526B0A0-67A1-4937-8B4F-5F71F23342D6}"/>
+							<Position X="2" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_Placeholder_LisaPainLightVO" ID="{451A9B32-9CBC-415F-BB60-F325F664FCA7}" WorkUnitID="{93A05931-F1F5-4CF1-AE7A-BA2C8C0D6DAD}"/>
+							<Position X="2" Y="1"/>
+						</Module>
+					</ModuleList>
+					<RTPCValueList ShowAll="true">
+						<RTPCValue>
+							<GameParameterRef Name="Intensity" ID="{4ECC0CF7-B5A8-41B3-886D-748724CCAEF6}"/>
+							<Value>1</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="MusicVolume" ID="{023F9EAB-2772-47B9-A240-3E433B57C4AB}"/>
+							<Value>1</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="CrowdVolume" ID="{D8D03155-6B1B-4A6A-B593-D3D9680C2EA6}"/>
+							<Value>1</Value>
+						</RTPCValue>
+					</RTPCValueList>
+					<CurrentStateList ShowAll="true"/>
+					<CurrentSwitchList ShowAll="true">
+						<CurrentSwitchRef Name="Chorus" ID="{57285213-BE14-4349-9195-FA7F8ACC5D57}"/>
+					</CurrentSwitchList>
+				</SoundcasterSession>
 			</ChildrenList>
 		</WorkUnit>
 	</SoundcasterSessions>
