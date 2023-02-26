@@ -39,12 +39,12 @@ MonoBehaviour:
   _attackInfo:
     attackType: 2
     knockbackDuration: 0.5
-    knockbackDistance: 10
-    knockbackDirection: {x: 2, y: 2, z: 0}
-    hitStunDuration: 0
+    knockbackDistance: 16
+    knockbackDirection: {x: 0.5, y: 2, z: 0}
+    hitStunDuration: 0.5
     damage: 15
     causesWallBounce: 0
-    hitStopDuration: 0.2
+    hitStopDuration: 0.3
     wallBounceDuration: 1
     wallBounceDistance: 10
     wallBounceDirection: {x: -1, y: 5, z: 0}
@@ -54,7 +54,7 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.35
+    hangTime: 0
     favorReward: 8
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0.25
