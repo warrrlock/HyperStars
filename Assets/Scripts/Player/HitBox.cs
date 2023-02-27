@@ -95,7 +95,7 @@ public class HitBox : MonoBehaviour
             : (attackInfo.knockbackForce.x is > 0f and < 180f 
                 ? KeyHurtStatePair.HurtStateName.KnockBack 
                 : KeyHurtStatePair.HurtStateName.HitStun)
-            , attackInfo.hitStunDuration));
+            , attackInfo.OutputHitStunDuration));
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
@@ -122,12 +122,15 @@ public class HitBox : MonoBehaviour
         {
             StartCoroutine(hitFighter.MovementController.EnableGroundBounce(attackInfo.groundBounceDistance, attackInfo.groundBounceDuration, attackInfo.groundBounceDirection, attackInfo.groundBounceHitStopDuration));
         }
-        //if (!hitFighter.MovementController.IsGrounded)
-        //{
-        //    StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
-        //}
-        StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
-        Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
+        if (forceDirection.y > 0f || !hitFighter.MovementController.IsGrounded)
+        {
+            StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
+        }
+        //StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
+        //Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
+        Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfo.OutputReward);
+
+        StartCoroutine(attackInfo.Decay());
 
         StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
     }
