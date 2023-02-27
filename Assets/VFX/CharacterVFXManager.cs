@@ -32,7 +32,9 @@ public class CharacterVFXManager : MonoBehaviour
     
     // states
     [SerializeField] private List<BaseState> _afterImageStates;
-
+    [SerializeField] private BaseState[] _dashStates;
+    
+    
     void Awake()
     {
         VFXAssignComponents();
@@ -59,20 +61,26 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager = GameObject.Find("VFX Camera").GetComponent<VFXSpawnManager>();
     }
     void VFXSubscribeEvents() {
-        _inputManager.Actions["Dash"].perform += DashSmoke;
+        foreach (BaseState dashState in _dashStates)
+        {
+            _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
+        }
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnAfterImage;
     }
     
     void VFXUnsubscribeEvents() {
-        _inputManager.Actions["Dash"].perform -= DashSmoke;
+        foreach (BaseState dashState in _dashStates)
+        {
+            _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
+        }
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
         _fighter.Events.onBlockHit -= BlockGlow;
         _fighter.Events.onStateChange -= SpawnAfterImage;
     }
 
-    void DashSmoke(InputManager.Action action) {
+    void DashSmoke() {
         if (_fighter.MovementController.IsGrounded)
         {
             _vfxSpawnManager.InitializeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
