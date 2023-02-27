@@ -23,7 +23,6 @@ public class CharacterVFXManager : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private float _delayTimer;
     [Header("Afterimage controls")]
-    [SerializeField] private List<BaseState> _afterImageStates;
     [SerializeField] private bool _hasDelay;
     public float delayTime;
 
@@ -31,8 +30,13 @@ public class CharacterVFXManager : MonoBehaviour
     private InputManager _inputManager;
     
     // states
-    [SerializeField] private List<BaseState> _afterImageStates;
+    [Header("State change based spawning")]
+    [Tooltip("For spawning dash smoke.")]
     [SerializeField] private BaseState[] _dashStates;
+    [Tooltip("For spawning afterimage.")]
+    [SerializeField] private List<BaseState> _afterImageStates;
+    [Tooltip("For spawning camera blur.")]
+    [SerializeField] private BaseState[] _blurStates;
     
     
     void Awake()
@@ -61,14 +65,14 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager = GameObject.Find("VFX Camera").GetComponent<VFXSpawnManager>();
     }
     void VFXSubscribeEvents() {
-        foreach (BaseState dashState in ) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
+        foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
     }
     
     void VFXUnsubscribeEvents() {
-        foreach (BaseState dashState in ) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
+        foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
         _fighter.Events.onBlockHit -= BlockGlow;
         _fighter.Events.onStateChange -= SpawnOnStateChange;
