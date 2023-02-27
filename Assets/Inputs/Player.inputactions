@@ -69,15 +69,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CommandMedium",
-                    "type": "Button",
-                    "id": "3bb04ab2-ff02-4705-9ccb-f7498a86c249",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Medium",
                     "type": "Button",
                     "id": "e7518fe1-f81a-4a55-8457-8324be2135be",
@@ -108,6 +99,15 @@
                     "name": "Side Special",
                     "type": "Button",
                     "id": "bf5306cd-7391-4ad5-91d2-8c190636e059",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CommandMedium",
+                    "type": "Button",
+                    "id": "b2019bc6-c9b2-4eb6-9a28-08ac5a774186",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -146,7 +146,7 @@
                     "id": "626a0aed-f29f-4442-ae74-a3094d32fe0a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "MultiTapDown(tapTime=0.3,tapDelay=0.3,pressPoint=0.5)",
+                    "interactions": "MultiTapDown(tapTime=0.3,tapDelay=0.3,pressPoint=0.1)",
                     "initialStateCheck": true
                 },
                 {
@@ -155,8 +155,17 @@
                     "id": "9b90693e-3862-4d18-9b60-045332485c98",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "MultiTapDown(tapTime=0.3,tapDelay=0.3,pressPoint=0.5)",
+                    "interactions": "MultiTapDown(tapTime=0.3,tapDelay=0.3,pressPoint=0.1)",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Esc",
+                    "type": "Button",
+                    "id": "aaee3700-03f9-45d6-b7de-d4e069d7a8ee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -744,7 +753,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Modifier",
+                    "name": "binding",
                     "id": "ac17f3be-4d64-4d8f-aed4-dd005a58721f",
                     "path": "<Keyboard>/a",
                     "interactions": "",
@@ -755,7 +764,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Binding",
+                    "name": "modifier",
                     "id": "870c49af-1b10-4d80-949d-f3c0f518350d",
                     "path": "<Keyboard>/g",
                     "interactions": "",
@@ -777,7 +786,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Modifier",
+                    "name": "binding",
                     "id": "516215c5-1e3a-4b95-b612-5bf2bdfee838",
                     "path": "<Keyboard>/d",
                     "interactions": "",
@@ -788,145 +797,13 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Binding",
+                    "name": "modifier",
                     "id": "1ce8e776-0d45-431f-808e-06f5758b2227",
                     "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "CommandLight",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button With One Modifier",
-                    "id": "39d60774-fffc-4b44-8b53-fb2a1d9453d5",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CommandMedium",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Modifier",
-                    "id": "f33e0eef-bd4f-4b11-a952-69d1c36888b6",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "CommandMedium",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button",
-                    "id": "ceef47dd-8f6b-47b5-a745-b8b142fda5b6",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "CommandMedium",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button With One Modifier",
-                    "id": "3c6c4436-ac2b-4dc5-9d14-f6f668d2bba0",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CommandMedium",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Modifier",
-                    "id": "4920effd-494e-4ec0-907b-563fe124573b",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "CommandMedium",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button",
-                    "id": "3f675def-0d5a-4632-b7a7-8260db9822ed",
-                    "path": "<Keyboard>/h",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "CommandMedium",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button With One Modifier",
-                    "id": "9b7b303b-15c2-4612-a590-fd52d6bca57e",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CommandMedium",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Modifier",
-                    "id": "684e1c72-8f58-4084-8bdc-b2a5a2b6b280",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "CommandMedium",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button",
-                    "id": "ef421fd0-4fd1-4954-9bb1-0f6affd134f2",
-                    "path": "<Keyboard>/h",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "CommandMedium",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button With One Modifier",
-                    "id": "cbe5e419-0a73-4f4e-b551-d2c674dfc29b",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CommandMedium",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Modifier",
-                    "id": "23160544-5301-4ba5-a487-f13c78233ed1",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "CommandMedium",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button",
-                    "id": "e3f210d3-6589-4824-b351-944afdf8b68c",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "CommandMedium",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -995,6 +872,226 @@
                     "action": "Dash Right",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9aec458a-fb79-4f6d-b50a-e3c43ebd68c5",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Esc",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5557fe0a-9c5b-4535-8ac7-db6937275efb",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Esc",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "3e525d88-4b9c-4604-95aa-b36f521236da",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "36721754-9923-4a7d-88fd-b6420a6ef78c",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Button",
+                    "id": "9fead8c1-3f4a-4e6a-8732-ca3bfe38244d",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "6d8ea864-7f37-477c-8efe-d25d04365791",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "32e063a7-9dd2-45f3-bfc8-70d51358929c",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Button",
+                    "id": "c8e9dfcc-9662-4779-b2c7-6fc8f5822913",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "1e9fd1d2-b29b-4418-8090-760b109fe9d9",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "eb396d08-3359-4168-9731-31f2304ab066",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "4da3f9ac-e620-45a7-9162-410aacabc543",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "bbd35607-c09c-4f9c-8a17-b4e9b24caba7",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "a508303e-2e13-4332-96fc-7bdf50d3a908",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "561bc193-cc2e-490e-ab7e-409229a7490f",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "d4787e9e-5b6b-4751-9807-b20f75aa0d04",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "6251c6ed-b0bd-46db-89c2-0eb3972e47b7",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "9173c834-b47c-401f-8537-0f5358ab9ea7",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "856de2b0-bca1-44a3-bef9-a95aa7bac1c2",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CommandMedium",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "f1147873-574e-479b-a779-c1592df39397",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "6d1fe9f1-70f5-41d3-a053-5e3bff0592e1",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CommandMedium",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
@@ -1375,7 +1472,7 @@
                     "path": "*/{Cancel}",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "groups": "Keyboard&Mouse;Touch;Joystick;XR;Gamepad",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false

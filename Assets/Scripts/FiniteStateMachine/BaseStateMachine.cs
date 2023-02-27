@@ -48,6 +48,7 @@ namespace FiniteStateMachine {
         [SerializeField] private BaseState _crouchState;
         [SerializeField] private BaseState _crouchUpState;
         public bool IsIdle => CurrentState == _initialState;
+        public bool IsCrouch => CurrentState == _crouchState;
     
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
@@ -130,8 +131,16 @@ namespace FiniteStateMachine {
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform += Invoke;
             Fighter.InputManager.Actions["Dash"].finish += Finish;
-            Fighter.InputManager.Actions["Dash Left"].finish += Finish;
-            Fighter.InputManager.Actions["Dash Right"].finish += Finish;
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
+            {
+                Fighter.InputManager.Actions["Dash Left"].finish += Finish;
+            }
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
+            {
+                Fighter.InputManager.Actions["Dash Right"].finish += Finish;
+            }
+            //Fighter.InputManager.Actions["Dash Left"].finish += Finish;
+            //Fighter.InputManager.Actions["Dash Right"].finish += Finish;
             Fighter.InputManager.Actions["Move"].stop += Stop;
             Fighter.InputManager.Actions["Crouch"].stop += Stop;
 
@@ -144,8 +153,16 @@ namespace FiniteStateMachine {
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform -= Invoke;
             Fighter.InputManager.Actions["Dash"].finish -= Finish;
-            Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
-            Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
+            {
+                Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
+            }
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
+            {
+                Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
+            }
+            //Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
+            //Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
             Fighter.InputManager.Actions["Move"].stop -= Stop;
             Fighter.InputManager.Actions["Crouch"].stop -= Stop;
             StopAllCoroutines();

@@ -18,7 +18,7 @@ public class Player: MonoBehaviour
     private GameObject FighterObject { get; set; }
     public bool Ready => _ready;
     [SerializeField] private bool _ready;
-    public Action showStartButton;
+    public Action onReady;
 
     private readonly int _mainMenuSceneIndex = 0;
     private readonly int _selectionSceneIndex = 1;
@@ -36,7 +36,7 @@ public class Player: MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         SubscribeActions();
-        CheckEnterResetPlayerScene();
+        CheckEnterResetPlayerScene(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
     
     private void OnDestroy()
@@ -55,12 +55,12 @@ public class Player: MonoBehaviour
 
     private void SubscribeActions()
     {
-        SceneReloader.OnSceneLoaded += CheckEnterResetPlayerScene;
+        SceneManager.sceneLoaded += CheckEnterResetPlayerScene;
     }
 
     private void UnsubscribeActions()
     {
-        SceneReloader.OnSceneLoaded -= CheckEnterResetPlayerScene;
+        SceneManager.sceneLoaded -= CheckEnterResetPlayerScene;
     }
     
 
@@ -69,12 +69,14 @@ public class Player: MonoBehaviour
         _ready = false;
         _character = character;
         Services.Characters[PlayerInput.playerIndex] = _character;
+        
+        GetReady();
     }
 
     public void GetReady()
     {
         _ready = true;
-        showStartButton?.Invoke();
+        onReady?.Invoke();
     }
 
     private void ReadyStartingGame()
@@ -109,19 +111,18 @@ public class Player: MonoBehaviour
         else Debug.LogError("no menu manager exists in selection scene.");
     }
 
-    private void CheckEnterResetPlayerScene()
+    private void CheckEnterResetPlayerScene(Scene scene, LoadSceneMode loadSceneMode)
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.buildIndex == _mainMenuSceneIndex)
+        if (scene.buildIndex == _mainMenuSceneIndex)
         {
             ResetPlayer();
         }
-        if (currentScene.buildIndex == _selectionSceneIndex)
+        if (scene.buildIndex == _selectionSceneIndex)
         {
             ResetPlayer();
             SetSelectionSceneValues();
         }
-        else if (currentScene.buildIndex == _gameSceneIndex || currentScene.buildIndex == _trainingSceneIndex)
+        else if (scene.buildIndex == _gameSceneIndex || scene.buildIndex == _trainingSceneIndex)
         {
             ReadyStartingGame();
         }

@@ -129,7 +129,7 @@ public class Projectile : MonoBehaviour
         Vector3 forceDirection = _attackInfo.knockbackDirection;
         
         forceDirection.x *= _xDirection;
-        StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, _attackInfo.knockbackDuration));
+        hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, _attackInfo.knockbackDuration, true);
         
         StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
             !hitFighter.MovementController.CollisionData.y.isNegativeHit 

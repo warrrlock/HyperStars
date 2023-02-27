@@ -394,8 +394,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 9526c03c02ee4004cbdcaa9d0ea448ae, type: 3}
-  m_Color: {r: 0.7311321, g: 0.9125113, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6053bde84d385c74a991dfc0455b5d2e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   _dashForce: 0
   _dashDistance: 7
   _dashDuration: 0.38
-  _dashHangTime: 0.15
+  _dashHangTime: 0.28
   _dashToZero: 1
   _shortDashCooldownDuration: 0
   _superDashCooldownDuration: 0
@@ -490,7 +490,6 @@ MonoBehaviour:
   _drawDebugRays: 1
   _overlapResolutionSpeed: 10
   _mass: 1
-  _sidestepDuration: 0
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
   _yMask:
     serializedVersion: 2
@@ -498,6 +497,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
+  _flipDelayTime: 0.25
 --- !u!114 &5751411094791523318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +593,8 @@ MonoBehaviour:
   - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
   dashSmokeGroundOffset: 2.5
   jumpSmokeGroundOffset: 1.95
-  delayTime: 0.05
+  _hasDelay: 0
+  delayTime: 0.001
   _afterImageStates:
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
   - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
