@@ -838,8 +838,10 @@ public class MovementController : MonoBehaviour
                 _inputManager.Actions["Dash Right"].perform += DashRight;
             }
 
-            _fighter.BaseStateMachine.States[_jump].execute += Jump;
-            _fighter.BaseStateMachine.States[_jump].stop += StopJumping;
+            _inputManager.Actions["Jump"].perform += Jump;
+            _inputManager.Actions["Jump"].stop += StopJumping;
+            // _fighter.BaseStateMachine.States[_jump].execute += Jump;
+            // _fighter.BaseStateMachine.States[_jump].stop += StopJumping;
         }
         catch (Exception e)
         {
@@ -866,8 +868,10 @@ public class MovementController : MonoBehaviour
             _inputManager.Actions["Dash Right"].perform -= DashRight;
         }
         
-        _fighter.BaseStateMachine.States[_jump].execute -= Jump;
-        _fighter.BaseStateMachine.States[_jump].stop -= StopJumping;
+        _inputManager.Actions["Jump"].perform += Jump;
+        _inputManager.Actions["Jump"].stop += StopJumping;
+        // _fighter.BaseStateMachine.States[_jump].execute -= Jump;
+        // _fighter.BaseStateMachine.States[_jump].stop -= StopJumping;
     }
 
     private void SpaceRays()
