@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{80F3679E-3B96-453B-B898-80A8F06BA392}" SchemaVersion="103" RootDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" ParentDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}">
+	<AudioObjects>
+		<WorkUnit Name="Ground Splat Foley - Mat" ID="{80F3679E-3B96-453B-B898-80A8F06BA392}" OwnerID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="3"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="Ground Splat Foley - Mat Mixer" ID="{F29B468F-483B-4896-A5C0-33764D6AD105}" ShortID="827083120">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="GeneralFoleyBus" ID="{A87D0FCA-459C-4C44-92E2-0E8DCFCB04F6}" WorkUnitID="{F8B10F05-FED8-43F7-AAF3-5A94B879AD75}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Ground Splat Foley - Mat" ID="{01FD3893-F8B7-40EC-AB84-96F509B9BD20}" ShortID="398018481">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="3"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="CombatGeneralSound-008" ID="{AAF06510-69C7-4996-AE04-54B3D73B04E9}">
+									<Language>SFX</Language>
+									<AudioFile>CombatGeneralSound-008.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="522968682"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="CombatGeneralSound-008" ID="{AAF06510-69C7-4996-AE04-54B3D73B04E9}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
