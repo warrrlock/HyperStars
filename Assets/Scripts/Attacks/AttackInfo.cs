@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [Serializable]
@@ -11,7 +12,6 @@ public class AttackInfo
     public float knockbackDistance;
     public Vector3 knockbackDirection;
     public float hitStunDuration;
-    public float damage;
     public bool causesWallBounce;
     public float hitStopDuration;
 
@@ -33,8 +33,11 @@ public class AttackInfo
     public float groundBounceHitStopDuration;
 
     public float hangTime;
-    [Tooltip("")]
+    [Tooltip("How much favor is gained upon hitting the opponent.")]
     public float favorReward;
+
+    [NonSerialized] public float OutputReward = 1;
+    public float OutputHitStunDuration { get; private set; }
 
     [PolarArrow(100f)]
     [Tooltip("X is the force angle in degrees. Y is the force magnitude.")]
@@ -43,4 +46,27 @@ public class AttackInfo
     [Header("Special Meter")]
     [Tooltip("Referenced is a single bar. For example, 0.2 means this state increments special bar by 0.2 bars.")]
     public float incrementBarAmount;
+
+    public void Initialize()
+    {
+        OutputReward = favorReward;
+        OutputHitStunDuration = hitStunDuration;
+    }
+
+    public IEnumerator Decay()
+    {
+        float preDecayReward = OutputReward;
+        OutputReward = Mathf.Clamp(OutputReward - (favorReward * Services.FavorManager.DecayValue), 0f, favorReward);
+        OutputHitStunDuration = Mathf.Clamp(OutputHitStunDuration - (hitStunDuration * Services.FavorManager.DecayValue), 0f, hitStunDuration);
+        float timer = 0f;
+        float timerDelta = Time.fixedDeltaTime / Services.FavorManager.DecayResetDuration;
+        while (OutputReward < preDecayReward && timer < Services.FavorManager.DecayResetDuration)
+        {
+            OutputReward += favorReward * Services.FavorManager.DecayValue * timerDelta;
+            OutputHitStunDuration += hitStunDuration * Services.FavorManager.DecayValue * timerDelta;
+            timer += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        yield break;
+    }
 }

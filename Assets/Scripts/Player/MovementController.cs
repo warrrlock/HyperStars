@@ -7,9 +7,6 @@ using UnityEngine.InputSystem;
 using WesleyDavies;
 using WesleyDavies.UnityFunctions;
 
-
-//TODO: PASSIVE RELOAD FOR ATTACKS AND STUFF??
-
 [RequireComponent(typeof(Fighter))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(InputManager))]
@@ -21,8 +18,12 @@ public class MovementController : MonoBehaviour
     public Vector3 pushDirection;
 
     [Header("Movement")]
-    [Tooltip("How fast should the character move sideways (in units/sec)?")]
+    [Tooltip("How fast should this character move sideways (in units/sec)?")]
     [SerializeField] private float _moveSpeed;
+    [Tooltip("How fast should this character get pushed by another character (in units/sec)?")]
+    [SerializeField] private float _opponentPushSpeed;
+
+    public bool IsBeingPushed { get; private set; }
 
     [Header("Jump")]
     [Tooltip("How high (in units) should the character jump on longest button press?")]
@@ -990,7 +991,7 @@ public class MovementController : MonoBehaviour
                 throw new System.Exception("Invalid axis provided.");
         }
 
-        float axisDirection = Mathf.Sign(axisVelocity);
+        int axisDirection = (int)Mathf.Sign(axisVelocity);
         if (axis == Axis.x)
         {
             MovingDirection = axisDirection == -1 ? Fighter.Direction.Left : Fighter.Direction.Right;
@@ -1011,6 +1012,26 @@ public class MovementController : MonoBehaviour
                 Vector3 rayOrigin = axisDirection == -1f ? originAxis.negative : originAxis.positive;
                 rayOrigin += iDirection * (raySpacing.y * i + iOffset) + jDirection * (raySpacing.x * j + jOffset);
 
+                if (!_fighter.OpposingFighter.MovementController.IsBeingPushed)
+                {
+                    if (axis == Axis.x)
+                    {
+                        if (Mathf.Abs(_unforcedVelocity.x) > 0f)
+                        {
+                            if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit overlapHit, rayLength, _playerMask))
+                            {
+                                if (_fighter.OpposingFighter.BaseStateMachine.IsIdle)
+                                {
+                                    float pushSpeed = _fighter.OpposingFighter.MovementController._opponentPushSpeed < _moveSpeed ? _fighter.OpposingFighter.MovementController._opponentPushSpeed : _moveSpeed;
+                                    StartCoroutine(_fighter.OpposingFighter.MovementController.GetPushedByOpponent(pushSpeed, axisDirection, () => _unforcedVelocity.x == 0f || !_fighter.OpposingFighter.BaseStateMachine.IsIdle));
+                                    _unforcedVelocity = new Vector3(pushSpeed * axisDirection, _unforcedVelocity.y, _unforcedVelocity.z);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //check collisions
                 if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit hit, rayLength, collisionMask))
                 {
                     switch (axis)
@@ -1055,6 +1076,17 @@ public class MovementController : MonoBehaviour
         //    //_collisionMask.AddLayers(9);
         //    //AddCollisionLayer(9);
         //}
+    }
+
+    public IEnumerator GetPushedByOpponent(float speed, int axisDirection, Func<bool> stopCondition)
+    {
+        IsBeingPushed = true;
+        _unforcedVelocity = new Vector3(speed * axisDirection, _unforcedVelocity.y, _unforcedVelocity.z);
+        yield return new WaitUntil(stopCondition);
+
+        _unforcedVelocity= new Vector3(0f, _unforcedVelocity.y, _unforcedVelocity.z);
+        IsBeingPushed = false;
+        yield break;
     }
 
     public IEnumerator ResolveOverlap()

@@ -18,6 +18,11 @@ public class RoundTimer : MonoBehaviour
         StartCoroutine(Timer());
     }
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
     public IEnumerator Timer()
     {
         yield return new WaitForSeconds(_startShrinkDelay);
@@ -27,5 +32,10 @@ public class RoundTimer : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         yield break;
+    }
+
+    public void StopTimer(Dictionary<string, object> data)
+    {
+        StopAllCoroutines();
     }
 }
