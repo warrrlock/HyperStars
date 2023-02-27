@@ -466,6 +466,7 @@ MonoBehaviour:
   pushDistance: 0
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 9
+  _opponentPushSpeed: 4
   _maxJumpHeight: 8
   _minJumpHeight: 8
   _timeToJumpApex: 0.35
@@ -497,7 +498,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
-  _flipDelayTime: 0.25
+  _flipDelayTime: 0.15
   _move: {fileID: 11400000, guid: 54a328f9757a9b44dab1b073a8671943, type: 2}
   _dashes:
   - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
@@ -549,7 +550,7 @@ MonoBehaviour:
   States:
     _keys: []
     _values: []
-  _framesBeforeEnd: 25
+  _framesBeforeEnd: 15
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
   _jumpState: {fileID: 11400000, guid: caf88fa7ae0a344c99ef212adb4599db, type: 2}
