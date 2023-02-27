@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
   m_Name: Air Special Atk
   m_EditorClassIdentifier: 
+  characterSelection: 1
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 1
+  _animationName: SpecialAirAtk
+  _animationHash: 1438773180
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -25,11 +30,8 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _animationName: SpecialAirAtk
   _transitions: []
   _alwaysExecute: 0
-  _animationHash: 1438773180
   _attackInfo:
     attackType: 2
     knockbackDuration: 0.8
@@ -38,7 +40,7 @@ MonoBehaviour:
     hitStunDuration: 1
     damage: 0
     causesWallBounce: 0
-    hitStopDuration: 0.3
+    hitStopDuration: 0.4
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
@@ -49,8 +51,6 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.3
-    favorReward: 20
+    favorReward: 10
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
-  _isSpecial: 1
-  _specialBarCost: 1

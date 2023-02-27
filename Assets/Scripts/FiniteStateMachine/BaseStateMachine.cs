@@ -22,6 +22,7 @@ public class KeyHurtStatePair
 public class StateEvent
 {
     public Action execute;
+    public Action stop;
 }
 
 namespace FiniteStateMachine {
@@ -75,6 +76,8 @@ namespace FiniteStateMachine {
         private bool _isAttacking;
         private string _lastExecutedInput;
         private bool _holdingCrouch;
+
+        private bool _queueJumpOnGround;
 
         public string LastExecutedInput
         {
@@ -139,8 +142,7 @@ namespace FiniteStateMachine {
             {
                 Fighter.InputManager.Actions["Dash Right"].finish += Finish;
             }
-            //Fighter.InputManager.Actions["Dash Left"].finish += Finish;
-            //Fighter.InputManager.Actions["Dash Right"].finish += Finish;
+            
             Fighter.InputManager.Actions["Move"].stop += Stop;
             Fighter.InputManager.Actions["Crouch"].stop += Stop;
 
@@ -161,8 +163,7 @@ namespace FiniteStateMachine {
             {
                 Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
             }
-            //Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
-            //Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
+            
             Fighter.InputManager.Actions["Move"].stop -= Stop;
             Fighter.InputManager.Actions["Crouch"].stop -= Stop;
             StopAllCoroutines();
@@ -195,7 +196,12 @@ namespace FiniteStateMachine {
             //TODO: should wait until idle from crouch to begin queuing attacks, or go straight into attack?
             // if (!_holdingCrouch && CurrentState.IsCrouchState) return; //waiting to return to idle. otherwise, go to queue execute
             if (_holdingCrouch && !CurrentState.IsCrouchState)
+            {
+                SetReturnState(_crouchState);
+                
+                _crouchState.QueueExecute(this, action.name);
                 return;
+            }
 
             if (!CurrentState.Execute(this, action.name))
             {
@@ -203,8 +209,12 @@ namespace FiniteStateMachine {
                 {
                     _returnState.QueueExecute(this, action.name);
                 }
+                else if (action.name == "Jump")
+                {
+                    _queueJumpOnGround = true;
+                }
             }
-            
+
             if (action.name == "Crouch")
             {
                 _holdingCrouch = true;
@@ -224,7 +234,7 @@ namespace FiniteStateMachine {
                     QueueStateAtEnd(_crouchUpState);
                 }
             }
-
+            // States[CurrentState].stop?.Invoke();
             CurrentState.Stop(this, action.name);
         }
         
@@ -302,6 +312,7 @@ namespace FiniteStateMachine {
         private void HandleStateExit()
         {
             // Debug.Log("handling state animation");
+            States[CurrentState].stop?.Invoke();
             _currentAnimation = -1;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();
@@ -428,6 +439,16 @@ namespace FiniteStateMachine {
             StartCoroutine(Fighter.InputManager.Disable(
                 () => Fighter.MovementController.CollisionData.y.isNegativeHit, 
                 Fighter.InputManager.Actions["Crouch"]));
+        }
+
+        public void CheckRequeueJump()
+        {
+            if (_queueJumpOnGround)
+            {
+                QueueStateAtEnd(_jumpState);
+            }
+            _queueJumpOnGround = false;
+            HandleAnimationExit();
         }
 
         private IEnumerator HandleExitInAir(Action onGroundAction)

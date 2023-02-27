@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Light Atk 1
   m_EditorClassIdentifier: 
+  characterSelection: 1
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: LightAtk1
+  _animationHash: 275295228
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -29,8 +34,6 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _animationName: LightAtk1
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions:
@@ -38,12 +41,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a4a87363bb4c4074c9af3f0b9aded6d8, type: 2}
   - {fileID: 11400000, guid: 935cfa0097e7c473a89d61b7f7b4df60, type: 2}
   - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
+  - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
+  - {fileID: 11400000, guid: 565ee919680260045b2797b0803ce714, type: 2}
   _defaultCombo: 0
   _attackInfo:
     attackType: 1
     knockbackDuration: 0.2
     knockbackDistance: 1
-    knockbackDirection: {x: -0.5, y: 0, z: 0}
+    knockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.23
     damage: 10
     causesWallBounce: 0
@@ -58,10 +63,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.2
-    favorReward: 6
+    favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  _isSpecial: 0
-  _specialBarCost: 0
   _projectilePrefab: {fileID: 0}
-  _animationHash: 275295228

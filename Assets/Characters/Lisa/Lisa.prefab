@@ -466,9 +466,8 @@ MonoBehaviour:
   pushDistance: 0
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 9
-  _opponentPushSpeed: 4
-  _maxJumpHeight: 7.5
-  _minJumpHeight: 7.5
+  _maxJumpHeight: 8
+  _minJumpHeight: 8
   _timeToJumpApex: 0.35
   _dashForce: 0
   _dashDistance: 7
@@ -499,6 +498,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2560
   _flipDelayTime: 0.25
+  _move: {fileID: 11400000, guid: 54a328f9757a9b44dab1b073a8671943, type: 2}
+  _dashes:
+  - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
+  - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
+  - {fileID: 11400000, guid: acb861e23a3edf342a185fdaa0b50877, type: 2}
+  - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
+  _jump: {fileID: 11400000, guid: caf88fa7ae0a344c99ef212adb4599db, type: 2}
 --- !u!114 &5751411094791523318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,8 +531,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c17dfe1d76844155bf2fbe301b58ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fillMeter: {fileID: 0}
+  _meterBarPrefab: {fileID: 3590384843093318759, guid: 3dcf2ab4f280b4272a640463f1671d36, type: 3}
   _numberOfBars: 3
+  _passiveIncrementAmount: 0.05
 --- !u!114 &5751411094791523313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +549,7 @@ MonoBehaviour:
   States:
     _keys: []
     _values: []
-  _framesBeforeEnd: 20
+  _framesBeforeEnd: 25
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
   _jumpState: {fileID: 11400000, guid: caf88fa7ae0a344c99ef212adb4599db, type: 2}
@@ -550,7 +557,7 @@ MonoBehaviour:
   _crouchUpState: {fileID: 11400000, guid: db90a504a47474dc6a9234f5c5a81425, type: 2}
   _noEndEventClips:
   - {fileID: 7400000, guid: 238dbacff5646c64ca7becf136e5bd33, type: 2}
-  - {fileID: 7400000, guid: 93a6df2a673403d42ae43d2dc197c325, type: 2}
+  - {fileID: 7400000, guid: 7c9d4ad39c15f3645a0d0a706c89b88b, type: 2}
   - {fileID: 7400000, guid: 20549848deecc2548a64c2501eb1f840, type: 2}
   - {fileID: 7400000, guid: f759e95eb3cae404593e23e97dcbb140, type: 2}
   - {fileID: 7400000, guid: 7b9b02c7a24a6314493f47292e265aa4, type: 2}
@@ -600,6 +607,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
   - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
   - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
+  - {fileID: 11400000, guid: 74a5f87d10931f14b9b0401fabb9f0ac, type: 2}
 --- !u!114 &3013315635892402694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1015,6 +1023,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5751411094791522313}
     m_Modifications:
+    - target: {fileID: 2845530192783672932, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
+      propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.data[0].m_Value
+      value: 
+      objectReference: {fileID: 2800000, guid: 6053bde84d385c74a991dfc0455b5d2e, type: 3}
     - target: {fileID: 2845530192783672934, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
       propertyPath: m_Name
       value: Character VFX Object
@@ -1029,7 +1041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2845530192783672955, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 23.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2845530192783672955, guid: 582adbd5b614c6d4880cc995c3264ec4, type: 3}
       propertyPath: m_LocalPosition.z

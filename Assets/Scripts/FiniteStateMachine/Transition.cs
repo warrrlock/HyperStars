@@ -108,9 +108,9 @@ namespace FiniteStateMachine
         {
             BaseState state = _trueState;
             return !state ||
-                    state.GetSpecialBarCost() < 0 ||
+                    state.SpecialBarCost <= 0 ||
                     !stateMachine.Fighter.SpecialMeterManager || 
-                    stateMachine.Fighter.SpecialMeterManager.CheckBar(state.GetSpecialBarCost());
+                    stateMachine.Fighter.SpecialMeterManager.CheckBar(state.SpecialBarCost);
         }
 
         private void SetTrueStatePassValues(BaseStateMachine stateMachine, string inputName, bool queueAtEndOfAnim = false)

@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Light Atk 3
   m_EditorClassIdentifier: 
+  characterSelection: 1
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: LightAtk3
+  _animationHash: -26817840
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -29,11 +34,10 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _animationName: LightAtk3
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
-  _transitions: []
+  _transitions:
+  - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
   _defaultCombo: 0
   _attackInfo:
     attackType: 3
@@ -54,10 +58,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 12
+    favorReward: 6
     knockbackForce: {x: 8.50458, y: 100}
-    incrementBarAmount: 0.4
-  _isSpecial: 0
-  _specialBarCost: 0
+    incrementBarAmount: 0.25
   _projectilePrefab: {fileID: 0}
-  _animationHash: -26817840

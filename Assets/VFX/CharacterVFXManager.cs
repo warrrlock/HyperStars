@@ -32,7 +32,7 @@ public class CharacterVFXManager : MonoBehaviour
     
     // states
     [SerializeField] private List<BaseState> _afterImageStates;
-    
+
     void Awake()
     {
         VFXAssignComponents();
@@ -164,12 +164,14 @@ public class CharacterVFXManager : MonoBehaviour
 
     private void SpawnAfterImage(BaseState s)
     {
-        visualEffect.visualEffectAsset = vfxGraphs[(int)vfxAssets.AfterImage];
+        // visualEffect.visualEffectAsset = vfxGraphs[(int)vfxAssets.AfterImage];
         foreach (BaseState wantedState in _afterImageStates)
         {
             if (s == wantedState)
             {
                 visualEffect.SendEvent("OnDash");
+                StartCoroutine(Services.CameraManager.CameraBlur(_fighter, .35f));
+                StartCoroutine(Services.CameraManager.CameraZoom(.1f, 38f, .2f, .12f));
                 return;
             }
         }

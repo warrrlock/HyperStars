@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: BLUK_Grounded Light
   m_EditorClassIdentifier: 
+  characterSelection: 2
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Grounded Light
+  _animationHash: -1194179733
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -20,13 +26,11 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
-  _animationName: Grounded Light
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: e82ba32029d8386489e7cf18528ba4d2, type: 2}
-  - {fileID: 11400000, guid: 7acfd3ffcf514a6459f4f8a779dfcd66, type: 2}
+  - {fileID: 11400000, guid: c4bfccb8f6eb436458f2bf3a3bf86dc2, type: 2}
   _defaultCombo: 0
   _attackInfo:
     attackType: 1
@@ -50,7 +54,4 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  _isSpecial: 0
-  _specialBarCost: 0
   _projectilePrefab: {fileID: 0}
-  _animationHash: -1194179733

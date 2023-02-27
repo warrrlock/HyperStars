@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
   m_Name: Jump
   m_EditorClassIdentifier: 
+  characterSelection: 1
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Jump
+  _animationHash: 125937960
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -28,16 +34,14 @@ MonoBehaviour:
     color: {r: 0.47830978, g: 0.8207547, b: 0.46070668, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _animationName: Jump
   _transitions:
   - {fileID: 11400000, guid: cc00d7a7fb9dce3439d9fd08e27a26c1, type: 2}
   - {fileID: 11400000, guid: f82e37ee0e505e7419137dd1c8e9c62c, type: 2}
+  - {fileID: 11400000, guid: 6510bab3ecc12874a89610607511bc29, type: 2}
   - {fileID: 11400000, guid: cd6f2fc49e7685e48ae14ca94e31fee4, type: 2}
   - {fileID: 11400000, guid: 20123a6ae7c3b1240b53dd59e0cde9ba, type: 2}
   - {fileID: 11400000, guid: e1856dca3751cdf4b8d5c26db4d5f032, type: 2}
   _alwaysExecute: 1
-  _animationHash: 125937960
   _attackInfo:
     attackType: 0
     knockbackDuration: 0
@@ -60,5 +64,3 @@ MonoBehaviour:
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  _isSpecial: 0
-  _specialBarCost: 0

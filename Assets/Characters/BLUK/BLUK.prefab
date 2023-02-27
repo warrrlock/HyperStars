@@ -934,6 +934,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2560
   _flipDelayTime: 0.25
+  _move: {fileID: 11400000, guid: e91327a451f98794f8b895020734fd45, type: 2}
+  _dashes:
+  - {fileID: 11400000, guid: f2ea8141c9b535541a3a45800fe8656a, type: 2}
+  - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
+  _jump: {fileID: 11400000, guid: 043a0370e95e9a5418231450d0db9a54, type: 2}
 --- !u!114 &5093239530658643921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,8 +965,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c17dfe1d76844155bf2fbe301b58ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fillMeter: {fileID: 0}
+  _meterBarPrefab: {fileID: 3590384843093318759, guid: 3dcf2ab4f280b4272a640463f1671d36, type: 3}
   _numberOfBars: 3
+  _passiveIncrementAmount: 0.05
 --- !u!114 &5093239530658643926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,7 +983,7 @@ MonoBehaviour:
   States:
     _keys: []
     _values: []
-  _framesBeforeEnd: 50
+  _framesBeforeEnd: 35
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
   _jumpState: {fileID: 11400000, guid: 043a0370e95e9a5418231450d0db9a54, type: 2}
@@ -1032,8 +1038,7 @@ MonoBehaviour:
   _hasDelay: 0
   delayTime: 0.001
   _afterImageStates:
-  - {fileID: 11400000, guid: acb861e23a3edf342a185fdaa0b50877, type: 2}
-  - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
+  - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
 --- !u!114 &2355027661028822561
 MonoBehaviour:

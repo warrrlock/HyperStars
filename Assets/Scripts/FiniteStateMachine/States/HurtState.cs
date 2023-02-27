@@ -13,17 +13,16 @@ namespace FiniteStateMachine
     public class HurtState : BaseState
     {
         [SerializeField] private KeyHurtStatePair.HurtStateName _hurtType;
-        [SerializeField] private string _animationName;
-        [HideInInspector] [SerializeField] private int _animationHash;
         [SerializeField] private string _animationName2;
         [HideInInspector] [SerializeField] private int _animationHash2;
         [SerializeField] private BaseState _exitState;
 
         public KeyHurtStatePair.HurtStateName HurtType => _hurtType;
         // ==========  methods ========== //
-        private void OnValidate()
+        protected override void OnValidate()
         {
-            _animationHash = Animator.StringToHash(_animationName);
+            base.OnValidate();
+            
             if (_hurtType == KeyHurtStatePair.HurtStateName.KnockBack)
                 if (_animationName2 != "")
                     _animationHash2 = Animator.StringToHash(_animationName2);

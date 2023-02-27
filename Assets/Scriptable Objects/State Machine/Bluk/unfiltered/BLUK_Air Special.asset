@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
   m_Name: BLUK_Air Special
   m_EditorClassIdentifier: 
+  characterSelection: 2
   _isCrouchState: 0
+  _isSpecial: 1
+  _specialBarCost: 1
+  _animationName: SpecialAirAtk
+  _animationHash: 1438773180
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -21,11 +26,8 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
-  _animationName: SpecialAirAtk
   _transitions: []
   _alwaysExecute: 0
-  _animationHash: 1438773180
   _attackInfo:
     attackType: 2
     knockbackDuration: 0.5
@@ -48,5 +50,3 @@ MonoBehaviour:
     favorReward: 20
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
-  _isSpecial: 0
-  _specialBarCost: 1
