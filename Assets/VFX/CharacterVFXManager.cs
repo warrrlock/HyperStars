@@ -170,7 +170,8 @@ public class CharacterVFXManager : MonoBehaviour
             if (s == wantedState)
             {
                 visualEffect.SendEvent("OnDash");
-                StartCoroutine(Services.CameraManager.CameraBlur(_fighter));
+                StartCoroutine(Services.CameraManager.CameraBlur(_fighter, .35f));
+                StartCoroutine(Services.CameraManager.CameraZoom(.1f, 38f, .2f, .12f));
                 return;
             }
         }

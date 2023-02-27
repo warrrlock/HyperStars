@@ -39,8 +39,8 @@ public class CameraManager : MonoBehaviour
     [Header("Camera Effects")]
     [SerializeField] private Material ieMaterial;
     private float defaultDistortion;
-    [SerializeField] private GameObject blurFilter;
-    [SerializeField] private Material blurMaterial;
+    [SerializeField] private GameObject blurFilterPrefab;
+    [SerializeField] private Shader blurShader;
 
     private void Awake()
     {
@@ -149,24 +149,24 @@ public class CameraManager : MonoBehaviour
     /// <summary>
     /// Triggers camera zoom on a sepcific target
     /// </summary>
-    /// <param name="zoomTarget">World pos of the target being zoomed into</param>
     /// <param name="zoomSpeed">How fast it zooms onto target</param>
-    /// <param name="zoomFov">What's the fov when zoomed in</param>
+    /// <param name="zoomFov">What's the fov when zoomed in, DEFAULT: 41</param>
     /// <param name="zoomHold">How long do we hold the zoom for</param>
+    /// <param name="distortionStrength">Amount of distortion on screen, DEFAULT: .21</param>
     /// <returns></returns>
-    public IEnumerator CameraZoom(float zoomSpeed, float zoomFov, float zoomHold)
+    public IEnumerator CameraZoom(float zoomSpeed, float zoomFov, float zoomHold, float distortionStrength)
     {
+        var isDistort = distortionStrength != 0;
         var zoomElapsed = 0f;
         while (zoomElapsed < zoomSpeed)
         {
-            ieMaterial.SetFloat("_distortion", Mathf.Lerp(ieMaterial.GetFloat("_distortion"), -.45f, zoomElapsed / zoomSpeed));
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(ieMaterial.GetFloat("_distortion"), 
+                isDistort ? distortionStrength : defaultDistortion, zoomElapsed / zoomSpeed));
             _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView, zoomFov, zoomElapsed / zoomSpeed);
             zoomElapsed += Time.fixedDeltaTime;
             yield return null;
         }
-        _camera.fieldOfView = zoomFov;
-        ieMaterial.SetFloat("_distortion", -.45f);
-        
+
         yield return new WaitForSeconds(zoomHold);
 
         var zoomRecoveryElapsed = 0f;
@@ -192,28 +192,37 @@ public class CameraManager : MonoBehaviour
     /// triggers a blur effect centered at a particular fighter position
     /// </summary>
     /// <param name="sender"></param>
+    /// <param name="duration"></param>
     /// <returns></returns>
-    public IEnumerator CameraBlur(Fighter sender)
+    public IEnumerator CameraBlur(Fighter sender, float duration)
     {
+        var dir = sender.gameObject.transform.position - transform.position;
+        var r = new Ray(transform.position, dir);
+        var spawnedBlurFilter = Instantiate(blurFilterPrefab, r.GetPoint(2), Quaternion.identity, transform);
+        Material blurMaterial = new Material(blurShader);
+        spawnedBlurFilter.GetComponent<MeshRenderer>().material = blurMaterial;
+        
+        // lerp to blur
         var blurElapsed = 0f;
-        while (blurElapsed < .15f)
+        while (blurElapsed < .05f)
         {
-            var dir = sender.gameObject.transform.position - transform.position;
-            if(Physics.Raycast(transform.position, dir, out var blurHit, 5)) 
-            {
-                if (blurHit.collider.CompareTag("BlurFilter"))
-                {
-                    blurFilter.transform.position = blurHit.point;
-                }
-            }
-            blurMaterial.SetFloat("_BlurLevel", .013f);
-            blurMaterial.SetFloat("_EdgeDarkness", .0195f);
-
+            blurMaterial.SetFloat("_AlphaStrength", Mathf.Lerp(blurMaterial.GetFloat("_AlphaStrength"), 1f, blurElapsed / .05f));
             blurElapsed += Time.fixedDeltaTime;
             yield return null;
         }
+
+        yield return new WaitForSeconds(duration);
         
-        blurMaterial.SetFloat("_BlurLevel", 0f);
-        blurMaterial.SetFloat("_EdgeDarkness", 0f);
+        // lerp to unblur
+        var unblurElapsed = 0f;
+        var unblurSpeed = .25f;
+        while (unblurElapsed < unblurSpeed)
+        {
+            blurMaterial.SetFloat("_AlphaStrength", Mathf.Lerp(blurMaterial.GetFloat("_AlphaStrength"), 0f, unblurElapsed / unblurSpeed));
+            unblurElapsed += Time.fixedDeltaTime;
+            yield return null;
+        }
+        
+        Destroy(spawnedBlurFilter);
     }
 }
