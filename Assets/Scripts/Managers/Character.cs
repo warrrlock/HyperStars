@@ -101,7 +101,6 @@ namespace Managers
 
         private void CreateAttackInfoList()
         {
-            Debug.Log("creating attack info list");
             _attackInfo = new List<AttackInfo>();
             foreach (BaseState _state in _states)
             {
