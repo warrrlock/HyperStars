@@ -32,7 +32,7 @@ public class CharacterVFXManager : MonoBehaviour
     
     // states
     [SerializeField] private List<BaseState> _afterImageStates;
-    
+
     void Awake()
     {
         VFXAssignComponents();
@@ -170,6 +170,7 @@ public class CharacterVFXManager : MonoBehaviour
             if (s == wantedState)
             {
                 visualEffect.SendEvent("OnDash");
+                StartCoroutine(Services.CameraManager.CameraBlur(_fighter));
                 return;
             }
         }

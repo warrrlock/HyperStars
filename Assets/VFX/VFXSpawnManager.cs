@@ -80,7 +80,7 @@ public class VFXSpawnManager : MonoBehaviour
             Fighter receiver = (Fighter)message["attacked"];
             AttackInfo attackInfo = (AttackInfo)message["attack info"];
 
-            CameraManager cam = Camera.main.GetComponent<CameraManager>();
+            CameraManager cam = Services.CameraManager;
             
             InitializeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
             InitializeVFX(VFXGraphs.LISA_HIT_5, hitPos, sender);

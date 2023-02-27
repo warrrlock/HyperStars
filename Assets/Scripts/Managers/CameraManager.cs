@@ -36,8 +36,11 @@ public class CameraManager : MonoBehaviour
     private float _defaultFov;
     private Vector3 _defaultRotation;
     
-    [SerializeField] Material ieMaterial;
+    [Header("Camera Effects")]
+    [SerializeField] private Material ieMaterial;
     private float defaultDistortion;
+    [SerializeField] private GameObject blurFilter;
+    [SerializeField] private Material blurMaterial;
 
     private void Awake()
     {
@@ -183,5 +186,34 @@ public class CameraManager : MonoBehaviour
     private void OnDisable()
     {
         ieMaterial.SetFloat("_distortion", defaultDistortion);
+    }
+
+    /// <summary>
+    /// triggers a blur effect centered at a particular fighter position
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <returns></returns>
+    public IEnumerator CameraBlur(Fighter sender)
+    {
+        var blurElapsed = 0f;
+        while (blurElapsed < .15f)
+        {
+            var dir = sender.gameObject.transform.position - transform.position;
+            if(Physics.Raycast(transform.position, dir, out var blurHit, 5)) 
+            {
+                if (blurHit.collider.CompareTag("BlurFilter"))
+                {
+                    blurFilter.transform.position = blurHit.point;
+                }
+            }
+            blurMaterial.SetFloat("_BlurLevel", .013f);
+            blurMaterial.SetFloat("_EdgeDarkness", .0195f);
+
+            blurElapsed += Time.fixedDeltaTime;
+            yield return null;
+        }
+        
+        blurMaterial.SetFloat("_BlurLevel", 0f);
+        blurMaterial.SetFloat("_EdgeDarkness", 0f);
     }
 }
