@@ -6,6 +6,7 @@ using FiniteStateMachine;
 using TMPro;
 using UnityEngine;
 using Util;
+using Object = System.Object;
 
 [Serializable]
 public class KeyHurtStatePair
@@ -33,7 +34,8 @@ namespace FiniteStateMachine {
         public SerializedDictionary<BaseState, StateEvent> States;
 
         public BaseState CurrentState {get; private set;}
-        public bool CanCombo { get; private set; }
+        public bool CanCombo => _canCombo && _hitOpponent;
+        private bool _canCombo;
         private bool CanInputQueue { get; set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
 
@@ -50,6 +52,7 @@ namespace FiniteStateMachine {
         [SerializeField] private BaseState _crouchUpState;
         public bool IsIdle => CurrentState == _initialState;
         public bool IsCrouch => CurrentState == _crouchState;
+        private bool InAir => CurrentState is InAirState;
     
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
@@ -74,16 +77,14 @@ namespace FiniteStateMachine {
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
-        private string _lastExecutedInput;
         private bool _holdingCrouch;
+
+        private bool _hitOpponent;
 
         private bool _queueJumpOnGround;
 
-        public string LastExecutedInput
-        {
-            get => _lastExecutedInput;
-            set => _lastExecutedInput = value;
-        }
+        public string LastExecutedInput { get; set; }
+
         public BaseState QueuedState => _queuedState ? _queuedState : _queuedAtEndState;
         public InputManager.Action LastInvokedInput { get; private set; }
 
@@ -146,6 +147,8 @@ namespace FiniteStateMachine {
             Fighter.InputManager.Actions["Move"].stop += Stop;
             Fighter.InputManager.Actions["Crouch"].stop += Stop;
 
+            Fighter.Events.onAttackHit += SetHitOpponent;
+
             ResetStateMachine();
             UpdateStateInfoText();
         }
@@ -205,6 +208,10 @@ namespace FiniteStateMachine {
 
             if (!CurrentState.Execute(this, action.name))
             {
+                if (InAir && action.name != "Jump") //do not input queue anything but jump in air
+                {
+                    return;
+                }
                 if (CanInputQueue || action.name == "Crouch")
                 {
                     _returnState.QueueExecute(this, action.name);
@@ -249,10 +256,15 @@ namespace FiniteStateMachine {
             // Debug.Log($"playing animation for {CurrentState.name}");
             _currentAnimation = animationState;
             DisableInputQueue();
-            CanCombo = defaultCombo;
+            _canCombo = defaultCombo;
             _animator.Play(animationState, -1, 0);
             States[CurrentState].execute?.Invoke();
             return true;
+        }
+        
+        private void SetHitOpponent(Dictionary<string, Object> message)
+        {
+            _hitOpponent = true;
         }
 
         public void ClearQueues()
@@ -271,6 +283,7 @@ namespace FiniteStateMachine {
         public void QueueStateAtEnd(BaseState state = null)
         {
             // Debug.Log($"queued at end {state?.name}");
+            if (_queueJumpOnGround && state != _jumpState) return;
             _queuedAtEndState = state;
         }
         
@@ -314,6 +327,7 @@ namespace FiniteStateMachine {
             // Debug.Log("handling state animation");
             States[CurrentState].stop?.Invoke();
             _currentAnimation = -1;
+            _hitOpponent = false;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();
         }
@@ -321,12 +335,12 @@ namespace FiniteStateMachine {
         //ANIMATION USE
         public void DisableCombo()
         {
-            CanCombo = false;
+            _canCombo = false;
         }
         
         public void EnableCombo()
         {
-            CanCombo = true;
+            _canCombo = true;
         }
 
         private void EnableInputQueue()
@@ -445,6 +459,8 @@ namespace FiniteStateMachine {
         {
             if (_queueJumpOnGround)
             {
+                // Debug.Log("requeue jump");
+                ClearQueues();
                 QueueStateAtEnd(_jumpState);
             }
             _queueJumpOnGround = false;
@@ -480,7 +496,7 @@ namespace FiniteStateMachine {
         private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> condition, bool stateExit = false)
         {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
-            yield return new WaitUntil(condition ?? (() => !_isDisabled));
+            yield return new WaitUntil(condition ?? (() => !_isDisabled && Fighter.MovementController.IsGrounded));
 
             _waitToAnimateRoutine = null;
             if (stateExit) HandleStateExit();
