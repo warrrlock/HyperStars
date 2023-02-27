@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using Cyan;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(CameraController))]
@@ -35,11 +37,13 @@ public class CameraManager : MonoBehaviour
     private Vector3 _defaultRotation;
     
     [SerializeField] Material ieMaterial;
+    private float defaultDistortion;
 
     private void Awake()
     {
         Services.CameraManager = this;
         AssignComponents();
+        defaultDistortion = ieMaterial.GetFloat("_distortion");
     }
 
     private void Start()
@@ -147,18 +151,13 @@ public class CameraManager : MonoBehaviour
     /// <param name="zoomFov">What's the fov when zoomed in</param>
     /// <param name="zoomHold">How long do we hold the zoom for</param>
     /// <returns></returns>
-    public IEnumerator CameraZoom(Vector3 zoomTarget, float zoomSpeed, float zoomFov, float zoomHold)
+    public IEnumerator CameraZoom(float zoomSpeed, float zoomFov, float zoomHold)
     {
         var zoomElapsed = 0f;
-        // transform.LookAt(zoomTarget);
-
-        var defaultDistortion = ieMaterial.GetFloat("_distortion");
-
         while (zoomElapsed < zoomSpeed)
         {
-            var currentDistortion = ieMaterial.GetFloat("_distortion");
-            ieMaterial.SetFloat("_distortion", Mathf.Lerp(currentDistortion, -.45f, zoomElapsed / zoomSpeed));
-            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomElapsed / zoomSpeed);
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(ieMaterial.GetFloat("_distortion"), -.45f, zoomElapsed / zoomSpeed));
+            _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView, zoomFov, zoomElapsed / zoomSpeed);
             zoomElapsed += Time.fixedDeltaTime;
             yield return null;
         }
@@ -167,17 +166,22 @@ public class CameraManager : MonoBehaviour
         
         yield return new WaitForSeconds(zoomHold);
 
-        // var zoomRecoveryElapsed = 0f;
-        // while (zoomRecoveryElapsed < zoomSpeed)
-        // {
-        //     _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, Time.deltaTime);
-        //     ieMaterial.SetFloat("_distortion", Mathf.Lerp(ieMaterial.GetFloat("_distortion"), defaultDistortion, Time.deltaTime));
-        //     zoomRecoveryElapsed += Time.deltaTime;
-        //     yield return null;
-        // }
+        var zoomRecoveryElapsed = 0f;
+        while (zoomRecoveryElapsed < .3f)
+        {
+            _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView , _defaultFov, zoomRecoveryElapsed / .3f);
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(ieMaterial.GetFloat("_distortion"), defaultDistortion, zoomRecoveryElapsed / .3f));
+            zoomRecoveryElapsed += Time.deltaTime;
+            yield return null;
+        }
         
         ieMaterial.SetFloat("_distortion", defaultDistortion);
         _camera.fieldOfView = _defaultFov;
         transform.rotation = Quaternion.Euler(_defaultRotation);
+    }
+
+    private void OnDisable()
+    {
+        ieMaterial.SetFloat("_distortion", defaultDistortion);
     }
 }
