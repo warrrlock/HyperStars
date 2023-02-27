@@ -64,6 +64,7 @@ namespace FiniteStateMachine
                 {
                     if ((_customFalseState))
                         stateMachine.QueueState(_customFalseState);
+                    return false;
                 }
                 return true;
             }
@@ -100,6 +101,7 @@ namespace FiniteStateMachine
             {
                 stateMachine.QueueState(_customFalseState);
                 stateMachine.ExecuteQueuedState();
+                return false;
             }
             return false;
         }

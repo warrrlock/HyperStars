@@ -54,7 +54,8 @@ public class Projectile : MonoBehaviour
         SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
         if (!renderer) renderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         renderer.enabled = false;
-        gameObject.GetComponent<ParticleSystem>()?.Stop();
+        ParticleSystem pc = GetComponent<ParticleSystem>();
+        if (pc != null) pc.Stop();
     }
 
     private void MoveIn(float speed)
