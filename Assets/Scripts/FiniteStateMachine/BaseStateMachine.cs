@@ -234,7 +234,7 @@ namespace FiniteStateMachine {
                     QueueStateAtEnd(_crouchUpState);
                 }
             }
-            States[CurrentState].stop?.Invoke();
+            // States[CurrentState].stop?.Invoke();
             CurrentState.Stop(this, action.name);
         }
         
@@ -312,7 +312,7 @@ namespace FiniteStateMachine {
         private void HandleStateExit()
         {
             // Debug.Log("handling state animation");
-            // States[CurrentState].stop?.Invoke();
+            States[CurrentState].stop?.Invoke();
             _currentAnimation = -1;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();
