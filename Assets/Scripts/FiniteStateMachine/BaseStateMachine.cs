@@ -22,6 +22,7 @@ public class KeyHurtStatePair
 public class StateEvent
 {
     public Action execute;
+    public Action stop;
 }
 
 namespace FiniteStateMachine {
@@ -141,8 +142,7 @@ namespace FiniteStateMachine {
             {
                 Fighter.InputManager.Actions["Dash Right"].finish += Finish;
             }
-            //Fighter.InputManager.Actions["Dash Left"].finish += Finish;
-            //Fighter.InputManager.Actions["Dash Right"].finish += Finish;
+            
             Fighter.InputManager.Actions["Move"].stop += Stop;
             Fighter.InputManager.Actions["Crouch"].stop += Stop;
 
@@ -163,8 +163,7 @@ namespace FiniteStateMachine {
             {
                 Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
             }
-            //Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
-            //Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
+            
             Fighter.InputManager.Actions["Move"].stop -= Stop;
             Fighter.InputManager.Actions["Crouch"].stop -= Stop;
             StopAllCoroutines();
@@ -235,7 +234,7 @@ namespace FiniteStateMachine {
                     QueueStateAtEnd(_crouchUpState);
                 }
             }
-
+            // States[CurrentState].stop?.Invoke();
             CurrentState.Stop(this, action.name);
         }
         
@@ -313,6 +312,7 @@ namespace FiniteStateMachine {
         private void HandleStateExit()
         {
             // Debug.Log("handling state animation");
+            States[CurrentState].stop?.Invoke();
             _currentAnimation = -1;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();

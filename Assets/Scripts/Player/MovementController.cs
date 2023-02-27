@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FiniteStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using WesleyDavies;
@@ -144,6 +145,12 @@ public class MovementController : MonoBehaviour
     /// </summary>
     private bool _isOpponentBehind = false;
 
+    [Header("Base States Subscription")]
+    [SerializeField] private BaseState _move;
+    [SerializeField] private BaseState[] _dashes;
+    [SerializeField] private BaseState _jump;
+    
+    
     private struct RaycastOrigins
     {
         public Axis x;
@@ -375,7 +382,7 @@ public class MovementController : MonoBehaviour
 
     public void ResetValues()
     {
-        StopMoving(null);
+        StopMoving();
     }
 
     private void KillAllForces()
@@ -808,41 +815,59 @@ public class MovementController : MonoBehaviour
         //_yMask = _collisionMask;
         //_xMask = _collisionMask;
     }
-
+    
     private void SubscribeActions()
     {
-        _inputManager.Actions["Move"].perform += StartMoving;
-        _inputManager.Actions["Move"].stop += StopMoving;
-        _inputManager.Actions["Dash"].perform += Dash;
-        if(_inputManager.Actions.ContainsKey("Dash Left"))
+        try
         {
-            _inputManager.Actions["Dash Left"].perform += DashLeft;
+            _fighter.BaseStateMachine.States[_move].execute += StartMoving;
+            _fighter.BaseStateMachine.States[_move].stop += StopMoving;
+
+            foreach (var dash in _dashes)
+            {
+                _fighter.BaseStateMachine.States[dash].execute += Dash;
+            }
+
+            if(_inputManager.Actions.ContainsKey("Dash Left"))
+            {
+                _inputManager.Actions["Dash Left"].perform += DashLeft;
+            }
+
+            if (_inputManager.Actions.ContainsKey("Dash Right"))
+            {
+                _inputManager.Actions["Dash Right"].perform += DashRight;
+            }
+
+            _fighter.BaseStateMachine.States[_jump].execute += Jump;
+            _fighter.BaseStateMachine.States[_jump].stop += StopJumping;
         }
-        if (_inputManager.Actions.ContainsKey("Dash Right"))
+        catch (Exception e)
         {
-            _inputManager.Actions["Dash Right"].perform += DashRight;
+            Debug.LogError($"movement states missing from controller {name}");
         }
-        _inputManager.Actions["Jump"].perform += Jump;
-        _inputManager.Actions["Jump"].stop += StopJumping;
-        _inputManager.Actions["Sidestep"].perform += Sidestep;
     }
 
     private void UnsubscribeActions()
     {
-        _inputManager.Actions["Move"].perform -= StartMoving;
-        _inputManager.Actions["Move"].stop -= StopMoving;
-        _inputManager.Actions["Dash"].perform -= Dash;
-        if (_inputManager.Actions.ContainsKey("Dash Left"))
+        _fighter.BaseStateMachine.States[_move].execute -= StartMoving;
+        _fighter.BaseStateMachine.States[_move].stop -= StopMoving;
+        foreach (var dash in _dashes)
+        {
+            _fighter.BaseStateMachine.States[dash].execute -= Dash;
+        }
+        
+        if(_inputManager.Actions.ContainsKey("Dash Left"))
         {
             _inputManager.Actions["Dash Left"].perform -= DashLeft;
         }
+
         if (_inputManager.Actions.ContainsKey("Dash Right"))
         {
             _inputManager.Actions["Dash Right"].perform -= DashRight;
         }
-        _inputManager.Actions["Jump"].perform -= Jump;
-        _inputManager.Actions["Jump"].stop -= StopJumping;
-        _inputManager.Actions["Sidestep"].perform -= Sidestep;
+        
+        _fighter.BaseStateMachine.States[_jump].execute -= Jump;
+        _fighter.BaseStateMachine.States[_jump].stop -= StopJumping;
     }
 
     private void SpaceRays()
@@ -1049,7 +1074,7 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
-    private void StartMoving(InputManager.Action action)
+    private void StartMoving()
     {
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
         inputVector *= _moveSpeed;
@@ -1071,7 +1096,7 @@ public class MovementController : MonoBehaviour
         //}
     }
 
-    private void StopMoving(InputManager.Action action)
+    private void StopMoving()
     {
         if (!_isJumping)
         {
@@ -1106,7 +1131,7 @@ public class MovementController : MonoBehaviour
 
     private Vector3 _dashDirection = Vector3.zero;
 
-    private void Dash(InputManager.Action action)
+    private void Dash()
     {
         //_unforcedVelocity.x = 0f;
         //_unforcedVelocity.z = 0f;
@@ -1153,7 +1178,7 @@ public class MovementController : MonoBehaviour
                 StartCoroutine(_inputManager.Actions["Dash Left"].AddOneShotEnableCondition(() => IsGrounded));
                 StartCoroutine(_inputManager.Actions["Dash Right"].AddOneShotEnableCondition(() => IsGrounded));
             }
-            StartCoroutine(Dash(action, _dashDuration, false));
+            StartCoroutine(Dash(_inputManager.Actions["Dash"], _dashDuration, false));
         }
         else
         {
@@ -1161,7 +1186,7 @@ public class MovementController : MonoBehaviour
             {
                 StartCoroutine(_inputManager.Actions["Dash"].AddOneShotEnableCondition(() => IsGrounded));
             }
-            StartCoroutine(Dash(action, _dashDuration, true));
+            StartCoroutine(Dash(_inputManager.Actions["Dash"], _dashDuration, true));
             dashForce = _dashForce;
             _dashChargeCount--;
             if (_dashChargeCount <= 0)
@@ -1258,6 +1283,21 @@ public class MovementController : MonoBehaviour
             _unforcedVelocity.y = _minJumpVelocity;
         }
     }
+    
+    private void Jump()
+    {
+        _isJumping = true;
+        _unforcedVelocity.y = _maxJumpVelocity;
+        StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Jump"], _inputManager.Actions["Move"]));
+    }
+
+    private void StopJumping()
+    {
+        if (_unforcedVelocity.y > _minJumpVelocity)
+        {
+            _unforcedVelocity.y = _minJumpVelocity;
+        }
+    }
 
     private void Sidestep(InputManager.Action action)
     {
@@ -1310,7 +1350,7 @@ public class MovementController : MonoBehaviour
     public void EnableAttackStop()
     {
         _isAttacking = true;
-        StopMoving(null);
+        StopMoving();
         
         InputManager.Action[] actions =
         {
