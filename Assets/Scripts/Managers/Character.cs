@@ -24,7 +24,9 @@ namespace Managers
         public string CharacterPath => _characterPath;
 
         public IReadOnlyList<BaseState> States => _states;
-        [HideInInspector][SerializeField] List<BaseState> _states;
+        public IReadOnlyList<AttackInfo> AttackInfos => _attackInfo;
+        [HideInInspector] [SerializeField] List<BaseState> _states;
+        [HideInInspector] [SerializeField] List<AttackInfo> _attackInfo;
 
 #if UNITY_EDITOR
         public void OnEnable()
@@ -34,6 +36,7 @@ namespace Managers
             if (_characterPath.Equals("")) return;
 
             CreateStateList();
+            CreateAttackInfoList();
             
             string[] folders = AssetDatabase.GetSubFolders(_characterPath);
             List<string> folderNames = new ();
@@ -94,6 +97,21 @@ namespace Managers
             _states = 
                 guids.Select(guid => (BaseState)AssetDatabase.LoadAssetAtPath(
                     AssetDatabase.GUIDToAssetPath(guid), typeof(BaseState))).ToList();
+        }
+
+        private void CreateAttackInfoList()
+        {
+            Debug.Log("creating attack info list");
+            _attackInfo = new List<AttackInfo>();
+            foreach (BaseState _state in _states)
+            {
+                AttackInfo attackInfo = _state.GetAttackInfo();
+                if (attackInfo != null)
+                {
+                    // Debug.Log($"{_state.name} of {_state.GetType()} has attackInfo");
+                    _attackInfo.Add(attackInfo);
+                }
+            }
         }
 
         public bool AddFilter(string n, Color c)
