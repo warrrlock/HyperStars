@@ -22,6 +22,17 @@
 								</Reference>
 							</ReferenceList>
 						</Action>
+						<Action Name="" ID="{33C488CB-57BD-4187-B48E-BC64FA320B24}" ShortID="485419599">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_HeavyPainVO" ID="{B3F299CA-78B4-4D02-8CC0-201B5483B56F}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
 					</ChildrenList>
 				</Event>
 				<Event Name="Play_Medium_Hit" ID="{E8C843C7-0D62-47C9-9A46-CA65E6CDAF7E}">
@@ -43,6 +54,17 @@
 								</Reference>
 							</ReferenceList>
 						</Action>
+						<Action Name="" ID="{68BE3C05-0B4F-400C-9382-D51F5A861684}" ShortID="74139349">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_LightPainVO" ID="{AE83418F-6AB4-4501-BC7C-56E1361E28A3}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
 					</ChildrenList>
 				</Event>
 				<Event Name="Play_Light_Hit" ID="{D17B301E-6809-4902-9FD8-F4F9DD3E1BC5}">
@@ -61,6 +83,17 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="Hit Light - Variation 1" ID="{FEE3671C-41EE-42FE-B10B-566EFE66B560}" WorkUnitID="{3E22BF57-01E7-4066-AF9F-FAA7116457AD}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{899C99A6-5FA5-4C38-B28C-14D8802AFBE6}" ShortID="695246162">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_LightPainVO" ID="{AE83418F-6AB4-4501-BC7C-56E1361E28A3}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
