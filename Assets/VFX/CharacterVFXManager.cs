@@ -14,7 +14,6 @@ public enum vfxAssets {AfterImage, };
 public class CharacterVFXManager : MonoBehaviour
 {
     [SerializeField] private VisualEffect visualEffect;
-    [SerializeField] private VisualEffectAsset[] vfxGraphs;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
     [SerializeField] private float dashSmokeGroundOffset;
@@ -24,6 +23,7 @@ public class CharacterVFXManager : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private float _delayTimer;
     [Header("Afterimage controls")]
+    [SerializeField] private List<BaseState> _afterImageStates;
     [SerializeField] private bool _hasDelay;
     public float delayTime;
 
@@ -61,23 +61,17 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager = GameObject.Find("VFX Camera").GetComponent<VFXSpawnManager>();
     }
     void VFXSubscribeEvents() {
-        foreach (BaseState dashState in _dashStates)
-        {
-            _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
-        }
+        foreach (BaseState dashState in ) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
-        _fighter.Events.onStateChange += SpawnAfterImage;
+        _fighter.Events.onStateChange += SpawnOnStateChange;
     }
     
     void VFXUnsubscribeEvents() {
-        foreach (BaseState dashState in _dashStates)
-        {
-            _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
-        }
+        foreach (BaseState dashState in ) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
         _fighter.Events.onBlockHit -= BlockGlow;
-        _fighter.Events.onStateChange -= SpawnAfterImage;
+        _fighter.Events.onStateChange -= SpawnOnStateChange;
     }
 
     void DashSmoke() {
@@ -170,19 +164,28 @@ public class CharacterVFXManager : MonoBehaviour
         visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 
-    private void SpawnAfterImage(BaseState s)
+    private void SpawnOnStateChange(BaseState s)
     {
-        // visualEffect.visualEffectAsset = vfxGraphs[(int)vfxAssets.AfterImage];
+        // spawn afterimage
+        visualEffect.SendEvent("OnStop");
         foreach (BaseState wantedState in _afterImageStates)
         {
             if (s == wantedState)
             {
                 visualEffect.SendEvent("OnDash");
-                StartCoroutine(Services.CameraManager.CameraBlur(_fighter, .35f));
-                StartCoroutine(Services.CameraManager.CameraZoom(.1f, 38f, .2f, .12f));
-                return;
+                break;
             }
         }
-        visualEffect.SendEvent("OnStop");
+
+        // spawn blur
+        foreach (BaseState wantedState in _blurStates)
+        {
+            if (s == wantedState)
+            {
+                StartCoroutine(Services.CameraManager.CameraBlur(_fighter, .35f));
+                StartCoroutine(Services.CameraManager.CameraZoom(.1f, 38f, .2f, .12f));
+                break;
+            }
+        }
     }
 }
