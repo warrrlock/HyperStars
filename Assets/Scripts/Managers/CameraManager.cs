@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using Cyan;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(CameraController))]
@@ -34,12 +36,17 @@ public class CameraManager : MonoBehaviour
     private float _defaultFov;
     private Vector3 _defaultRotation;
     
-    [SerializeField] Material ieMaterial;
+    [Header("Camera Effects")]
+    [SerializeField] private Material ieMaterial;
+    private float defaultDistortion;
+    [SerializeField] private GameObject blurFilterPrefab;
+    [SerializeField] private Shader blurShader;
 
     private void Awake()
     {
         Services.CameraManager = this;
         AssignComponents();
+        defaultDistortion = ieMaterial.GetFloat("_distortion");
     }
 
     private void Start()
@@ -142,42 +149,80 @@ public class CameraManager : MonoBehaviour
     /// <summary>
     /// Triggers camera zoom on a sepcific target
     /// </summary>
-    /// <param name="zoomTarget">World pos of the target being zoomed into</param>
     /// <param name="zoomSpeed">How fast it zooms onto target</param>
-    /// <param name="zoomFov">What's the fov when zoomed in</param>
+    /// <param name="zoomFov">What's the fov when zoomed in, DEFAULT: 41</param>
     /// <param name="zoomHold">How long do we hold the zoom for</param>
+    /// <param name="distortionStrength">Amount of distortion on screen, DEFAULT: .21</param>
     /// <returns></returns>
-    public IEnumerator CameraZoom(Vector3 zoomTarget, float zoomSpeed, float zoomFov, float zoomHold)
+    public IEnumerator CameraZoom(float zoomSpeed, float zoomFov, float zoomHold, float distortionStrength)
     {
+        var isDistort = distortionStrength != 0;
         var zoomElapsed = 0f;
-        // transform.LookAt(zoomTarget);
-
-        var defaultDistortion = ieMaterial.GetFloat("_distortion");
-
         while (zoomElapsed < zoomSpeed)
         {
-            var currentDistortion = ieMaterial.GetFloat("_distortion");
-            ieMaterial.SetFloat("_distortion", Mathf.Lerp(currentDistortion, -.45f, zoomElapsed / zoomSpeed));
-            _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, zoomElapsed / zoomSpeed);
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(ieMaterial.GetFloat("_distortion"), 
+                isDistort ? distortionStrength : defaultDistortion, zoomElapsed / zoomSpeed));
+            _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView, zoomFov, zoomElapsed / zoomSpeed);
             zoomElapsed += Time.fixedDeltaTime;
             yield return null;
         }
-        _camera.fieldOfView = zoomFov;
-        ieMaterial.SetFloat("_distortion", -.45f);
-        
+
         yield return new WaitForSeconds(zoomHold);
 
-        // var zoomRecoveryElapsed = 0f;
-        // while (zoomRecoveryElapsed < zoomSpeed)
-        // {
-        //     _camera.fieldOfView = Mathf.Lerp(_defaultFov, zoomFov, Time.deltaTime);
-        //     ieMaterial.SetFloat("_distortion", Mathf.Lerp(ieMaterial.GetFloat("_distortion"), defaultDistortion, Time.deltaTime));
-        //     zoomRecoveryElapsed += Time.deltaTime;
-        //     yield return null;
-        // }
+        var zoomRecoveryElapsed = 0f;
+        while (zoomRecoveryElapsed < .3f)
+        {
+            _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView , _defaultFov, zoomRecoveryElapsed / .3f);
+            ieMaterial.SetFloat("_distortion", Mathf.Lerp(ieMaterial.GetFloat("_distortion"), defaultDistortion, zoomRecoveryElapsed / .3f));
+            zoomRecoveryElapsed += Time.deltaTime;
+            yield return null;
+        }
         
         ieMaterial.SetFloat("_distortion", defaultDistortion);
         _camera.fieldOfView = _defaultFov;
         transform.rotation = Quaternion.Euler(_defaultRotation);
+    }
+
+    private void OnDisable()
+    {
+        ieMaterial.SetFloat("_distortion", defaultDistortion);
+    }
+
+    /// <summary>
+    /// triggers a blur effect centered at a particular fighter position
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="duration"></param>
+    /// <returns></returns>
+    public IEnumerator CameraBlur(Fighter sender, float duration)
+    {
+        var dir = sender.gameObject.transform.position - transform.position;
+        var r = new Ray(transform.position, dir);
+        var spawnedBlurFilter = Instantiate(blurFilterPrefab, r.GetPoint(2), Quaternion.identity, transform);
+        Material blurMaterial = new Material(blurShader);
+        spawnedBlurFilter.GetComponent<MeshRenderer>().material = blurMaterial;
+        
+        // lerp to blur
+        var blurElapsed = 0f;
+        while (blurElapsed < .05f)
+        {
+            blurMaterial.SetFloat("_AlphaStrength", Mathf.Lerp(blurMaterial.GetFloat("_AlphaStrength"), 1f, blurElapsed / .05f));
+            blurElapsed += Time.fixedDeltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(duration);
+        
+        // lerp to unblur
+        var unblurElapsed = 0f;
+        var unblurSpeed = .25f;
+        while (unblurElapsed < unblurSpeed)
+        {
+            blurMaterial.SetFloat("_AlphaStrength", Mathf.Lerp(blurMaterial.GetFloat("_AlphaStrength"), 0f, unblurElapsed / unblurSpeed));
+            unblurElapsed += Time.fixedDeltaTime;
+            yield return null;
+        }
+        
+        Destroy(spawnedBlurFilter);
     }
 }

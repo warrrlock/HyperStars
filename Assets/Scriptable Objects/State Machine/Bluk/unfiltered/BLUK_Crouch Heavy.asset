@@ -10,9 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
-  m_Name: BLUK_Crouch Special
+  m_Name: BLUK_Crouch Heavy
   m_EditorClassIdentifier: 
+  characterSelection: 2
   _isCrouchState: 1
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Crouching Special
+  _animationHash: 1100047811
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -21,8 +26,6 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
-  _animationName: Crouching Special
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions: []
@@ -31,7 +34,7 @@ MonoBehaviour:
     attackType: 1
     knockbackDuration: 0.2
     knockbackDistance: 0.5
-    knockbackDirection: {x: 1, y: 0, z: 0}
+    knockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.3
     damage: 10
     causesWallBounce: 0
@@ -49,7 +52,4 @@ MonoBehaviour:
     favorReward: 18
     knockbackForce: {x: 358.9053, y: 100}
     incrementBarAmount: 0.2
-  _isSpecial: 0
-  _specialBarCost: 0
-  _projectilePrefab: {fileID: 5765926104683114581, guid: ba91f1d23b10a3b4ebdcc1b0bf81be9c, type: 3}
-  _animationHash: 1100047811
+  _projectilePrefab: {fileID: 5765926104683114581, guid: 0f547707bd0f66e42bf6581aff28a1a8, type: 3}
