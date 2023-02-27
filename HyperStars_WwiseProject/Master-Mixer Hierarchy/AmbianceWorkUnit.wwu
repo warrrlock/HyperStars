@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{8390ACB3-B891-4A13-8A24-F1216E239634}" SchemaVersion="103" RootDocumentID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}" ParentDocumentID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}">
+	<Busses>
+		<WorkUnit Name="AmbianceWorkUnit" ID="{8390ACB3-B891-4A13-8A24-F1216E239634}" OwnerID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="5"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<WorkUnit Name="2DAmbiance" ID="{FB4E4902-8B18-4288-838D-1D124623CA7E}" PersistMode="Reference"/>
+				<WorkUnit Name="3DAmbiance" ID="{0E57CA1B-ACFD-4BEB-9472-F63439AB8925}" PersistMode="Reference"/>
+				<WorkUnit Name="AmbianceBeds" ID="{F834D522-D6FF-4045-ACDF-4062A0574D24}" PersistMode="Reference"/>
+			</ChildrenList>
+		</WorkUnit>
+	</Busses>
+</WwiseDocument>

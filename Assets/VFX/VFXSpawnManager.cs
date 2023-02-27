@@ -11,8 +11,6 @@ public enum VFXGraphs
 
 public class VFXSpawnManager : MonoBehaviour
 {
-    [Header("Old")]
-    [SerializeField] public VisualEffectAsset[] visualEffectAssets;
     [Header("New Prefabs")]
     [SerializeField] public GameObject[] visualEffectPrefabs;
     [SerializeField] public GameObject spawnedVfxObject;
