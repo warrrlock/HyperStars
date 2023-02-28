@@ -436,8 +436,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.585196, y: 14.921073, z: 6.3329177}
-  m_Center: {x: -0.55, y: 7.4605365, z: 0}
+  m_Size: {x: 11.585196, y: 14.310825, z: 6.3329177}
+  m_Center: {x: -0.5500002, y: 7.1554127, z: 0}
 --- !u!114 &5751411094791523312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,16 +466,16 @@ MonoBehaviour:
   pushDistance: 0
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 9
-  _opponentPushSpeed: 0
-  _maxJumpHeight: 8
-  _minJumpHeight: 8
+  _opponentPushSpeed: 4
+  _maxJumpHeight: 8.5
+  _minJumpHeight: 8.5
   _timeToJumpApex: 0.35
   _dashForce: 0
   _dashDistance: 7
   _dashDuration: 0.38
   _dashHangTime: 0.28
   _dashToZero: 1
-  _shortDashCooldownDuration: 0
+  _shortDashCooldownDuration: 0.25
   _superDashCooldownDuration: 0
   _dashEasing: 0
   _dashMinimumOverlap: 10
@@ -498,7 +498,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
-  _flipDelayTime: 0.25
+  _flipDelayTime: 0.05
   _move: {fileID: 11400000, guid: 54a328f9757a9b44dab1b073a8671943, type: 2}
   _dashes:
   - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
@@ -550,7 +550,7 @@ MonoBehaviour:
   States:
     _keys: []
     _values: []
-  _framesBeforeEnd: 25
+  _framesBeforeEnd: 4
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
   _jumpState: {fileID: 11400000, guid: caf88fa7ae0a344c99ef212adb4599db, type: 2}
@@ -602,18 +602,21 @@ MonoBehaviour:
   jumpSmokeGroundOffset: 1.95
   _hasDelay: 0
   delayTime: 0.001
+  _dashStates:
+  - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
+  - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
   _afterImageStates:
   - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
   - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
   - {fileID: 11400000, guid: 74a5f87d10931f14b9b0401fabb9f0ac, type: 2}
-  _dashStates:
-  - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
-  - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
   _blurStates:
   - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
   - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
+  - {fileID: 11400000, guid: 74a5f87d10931f14b9b0401fabb9f0ac, type: 2}
+  - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
+  - {fileID: 11400000, guid: 02b24582db4fc444e898f51147987132, type: 2}
 --- !u!114 &3013315635892402694
 MonoBehaviour:
   m_ObjectHideFlags: 0
