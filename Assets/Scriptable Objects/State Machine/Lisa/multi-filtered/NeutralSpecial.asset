@@ -40,11 +40,14 @@ MonoBehaviour:
   _defaultCombo: 0
   _attackInfo:
     attackType: 3
-    knockbackDuration: 2
-    knockbackDistance: 30
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 1
+    knockbackDistance: 5
     knockbackDirection: {x: 0, y: 1, z: 0}
     hitStunDuration: 1
-    damage: 20
     causesWallBounce: 0
     hitStopDuration: 0.05
     wallBounceDuration: 0.7
@@ -56,7 +59,7 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.38
+    hangTime: 0.5
     favorReward: 12
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0

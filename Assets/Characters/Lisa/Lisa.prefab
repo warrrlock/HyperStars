@@ -436,8 +436,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.585196, y: 14.921073, z: 6.3329177}
-  m_Center: {x: -0.55, y: 7.4605365, z: 0}
+  m_Size: {x: 11.585196, y: 14.310825, z: 6.3329177}
+  m_Center: {x: -0.5500002, y: 7.1554127, z: 0}
 --- !u!114 &5751411094791523312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ MonoBehaviour:
   _dashDuration: 0.38
   _dashHangTime: 0.28
   _dashToZero: 1
-  _shortDashCooldownDuration: 0
+  _shortDashCooldownDuration: 0.25
   _superDashCooldownDuration: 0
   _dashEasing: 0
   _dashMinimumOverlap: 10
@@ -498,7 +498,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
-  _flipDelayTime: 0.1
+  _flipDelayTime: 0.05
   _move: {fileID: 11400000, guid: 54a328f9757a9b44dab1b073a8671943, type: 2}
   _dashes:
   - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
@@ -550,7 +550,7 @@ MonoBehaviour:
   States:
     _keys: []
     _values: []
-  _framesBeforeEnd: 8
+  _framesBeforeEnd: 4
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
   _jumpState: {fileID: 11400000, guid: caf88fa7ae0a344c99ef212adb4599db, type: 2}

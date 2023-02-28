@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterSelection: 1
   _isCrouchState: 1
-  _isSpecial: 1
+  _isSpecial: 0
   _specialBarCost: 1
   _animationName: Crouching Special
   _animationHash: 1100047811
@@ -36,9 +36,13 @@ MonoBehaviour:
   _defaultCombo: 1
   _attackInfo:
     attackType: 2
-    knockbackDuration: 0.8
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 1
     knockbackDistance: 18
-    knockbackDirection: {x: 0.2, y: 1, z: 0}
+    knockbackDirection: {x: 0.1, y: 1, z: 0}
     hitStunDuration: 1
     causesWallBounce: 0
     hitStopDuration: 0.3
