@@ -281,6 +281,8 @@ public class MovementController : MonoBehaviour
         //        break;
         //}
 
+        SpaceRays();
+
         switch (_fighter.FacingDirection)
         {
             case Fighter.Direction.Left:

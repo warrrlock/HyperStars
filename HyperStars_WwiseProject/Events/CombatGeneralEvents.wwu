@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{808E866F-BB47-4665-81E6-85AA171CBD22}" SchemaVersion="103">
+	<Events>
+		<WorkUnit Name="CombatGeneralEvents" ID="{808E866F-BB47-4665-81E6-85AA171CBD22}" PersistMode="Standalone">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="3"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Event Name="Play_PARRY_HIT" ID="{D4578FA6-81DA-4E39-8D2D-B8C4EFC35B5D}">
+					<ChildrenList>
+						<Action Name="" ID="{8F62005F-FBE7-44EB-ABFB-6463DFA368A0}" ShortID="496311205">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PARRY_HIT" ID="{1421CC84-15E7-4163-9B3B-D637A972CB09}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_WALL_HIT" ID="{07B1DEC1-E8FE-45DE-A44B-F41CF40396A9}">
+					<ChildrenList>
+						<Action Name="" ID="{A271EC16-E25F-4B54-B262-BDAA3432E495}" ShortID="199755161">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="WALL_HIT" ID="{F1F1E13B-1F0D-4496-8A2B-55E08CFE3913}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_GROUND_HIT" ID="{3F03D32D-F581-40C0-AB5B-621A8555D2DE}">
+					<ChildrenList>
+						<Action Name="" ID="{726A7325-5DDB-4618-BCE1-C5FAF6D03D53}" ShortID="41730022">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="GROUND_HIT" ID="{89BAF1B8-8141-497F-B8F7-4C095F3E4745}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Folder Name="GeneralCombatFolder" ID="{EBED39A1-2B74-4B0A-A093-90DDB822825C}" ShortID="876788420">
+					<ChildrenList>
+						<WorkUnit Name="CombatSwings" ID="{CA87FE2A-CA98-4636-B83A-2B896886353F}" PersistMode="Reference"/>
+						<WorkUnit Name="CombatHits" ID="{BD915EF0-70F4-4112-9350-6F71D82E142E}" PersistMode="Reference"/>
+						<WorkUnit Name="CombatFoley" ID="{31FD17E8-441E-44E5-856D-61DE984AA9B2}" PersistMode="Reference"/>
+						<Event Name="Stop_Swings" ID="{17EA8286-2D78-44E9-9696-C644B1D8752C}">
+							<ChildrenList>
+								<Action Name="" ID="{D4DAC6B1-3D16-4760-A7C1-D2023982203D}" ShortID="548424562">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Light Attack - Variation 1" ID="{33A483CA-A7E8-46E8-ABD7-B89B9912AF29}" WorkUnitID="{E0DDC904-CC2A-4C40-A9D1-D4A3D540E85D}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{0D723B20-CEC0-4F7D-BA8E-65F9579218C9}" ShortID="526440044">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Light Attack - Variation 2" ID="{2F86C3CC-BE3B-499D-A363-64EEF0A0797D}" WorkUnitID="{131AD7DC-9F0C-414E-B567-B88B7477D3C1}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{3C99051D-F27E-40B4-973A-65BCCCD669CE}" ShortID="1071449983">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Medium Attack - Variation 1" ID="{57BE01F0-C812-42CE-BFEF-F70B6D14C8CF}" WorkUnitID="{470BAAFF-0FE6-4FDE-B08B-B6D0410D8583}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{C8B7A028-24AA-4ACD-AFEE-1734D10D2B75}" ShortID="875184324">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Medium Attacks - Variation 2" ID="{E85F1A78-0CA1-4253-A5C8-18614E2696D0}" WorkUnitID="{01B1DCC0-91F8-4EC0-93EA-083C78F693AA}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
