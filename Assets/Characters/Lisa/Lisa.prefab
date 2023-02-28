@@ -598,17 +598,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualEffect: {fileID: 150122307463432837}
-  vfxGraphs:
-  - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
   dashSmokeGroundOffset: 2.5
   jumpSmokeGroundOffset: 1.95
   _hasDelay: 0
   delayTime: 0.001
   _afterImageStates:
-  - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
   - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
   - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
+  - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
   - {fileID: 11400000, guid: 74a5f87d10931f14b9b0401fabb9f0ac, type: 2}
+  _dashStates:
+  - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
+  - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
+  _blurStates:
+  - {fileID: 11400000, guid: 42e8e96f3bf929e4d872257bec6adb83, type: 2}
+  - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
+  - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
 --- !u!114 &3013315635892402694
 MonoBehaviour:
   m_ObjectHideFlags: 0
