@@ -13,7 +13,7 @@ public class KeyHurtStatePair
 {
     public enum HurtStateName
     {
-        HitStun, KnockBack, AirKnockBack
+        HitStun, KnockBack, AirKnockBack, WallBounce, GroundBounce
     }
     public HurtStateName key;
     public HurtState value;
@@ -148,7 +148,9 @@ namespace FiniteStateMachine {
             Fighter.InputManager.Actions["Crouch"].stop += Stop;
 
             Fighter.Events.onAttackHit += SetHitOpponent;
-
+            Fighter.Events.wallBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.WallBounce);
+            Fighter.Events.groundBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.GroundBounce);
+            
             ResetStateMachine();
             UpdateStateInfoText();
         }
@@ -256,7 +258,7 @@ namespace FiniteStateMachine {
             DisableInputQueue();
             _canCombo = defaultCombo;
             _animator.Play(animationState, -1, 0);
-            States[CurrentState].execute?.Invoke();
+            if (States.ContainsKey(CurrentState)) States[CurrentState].execute?.Invoke();
             return true;
         }
         
@@ -334,7 +336,7 @@ namespace FiniteStateMachine {
         private void HandleStateExit()
         {
             // Debug.Log("handling state animation");
-            States[CurrentState].stop?.Invoke();
+            if (States.ContainsKey(CurrentState)) States[CurrentState].stop?.Invoke();
             _currentAnimation = -1;
             _hitOpponent = false;
             if (_isAttacking) DisableAttackStop();
@@ -377,9 +379,9 @@ namespace FiniteStateMachine {
         public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName, float duration)
         {
             yield return new WaitForFixedUpdate();
-            // Debug.LogWarning($"setting hurtstate to {stateName}");
             _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
             if (!newHurtState) yield break;
+            // Debug.LogWarning($"setting hurtstate to {stateName}");
             SetReturnState();
             if (CurrentState is HurtState hurtState)
             {
@@ -398,12 +400,19 @@ namespace FiniteStateMachine {
                 PassHurtState(newHurtState, duration);
         }
 
+        private void UpdateHurtState(KeyHurtStatePair.HurtStateName stateName)
+        {
+            StartCoroutine(SetHurtState(stateName, 0f));
+        }
+
         private void PassHurtState(HurtState hurtState, float duration)
         {
-            DisableTime = duration;
-            ExecuteDisableTime();
+            if (duration > 0) {
+                DisableTime = duration;
+                ExecuteDisableTime();
+            }
             ForceSetState(hurtState);
-            DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
+            if (duration > 0) DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
                 () => IsIdle, false);
         }
         
