@@ -32,7 +32,7 @@ public class InAirState : BaseState
             {
                 if (transition.Execute(stateMachine, inputName)) return true;
             }
-            else if (transition.Execute(stateMachine, inputName, stateMachine.CanCombo)) return true;
+            else if (transition.Execute(stateMachine, inputName, stateMachine.CanCombo())) return true;
         }
 
         return false;
