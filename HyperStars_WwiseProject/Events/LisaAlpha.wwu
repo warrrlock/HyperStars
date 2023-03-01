@@ -69,6 +69,17 @@
 										</Reference>
 									</ReferenceList>
 								</Action>
+								<Action Name="" ID="{5234B165-287F-4AEE-9E3B-42B0B45FEBCD}" ShortID="113822226">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="41"/>
+										<Property Name="Delay" Type="Real64" Value="0.1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Play_DashVO" ID="{9AB59D62-4F46-4592-9B2C-2AF277257AEF}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
 							</ChildrenList>
 						</Event>
 						<Event Name="Play_LISA_COMBO_2" ID="{A60C7218-1DD1-4267-99F3-5FB575FF9186}">
@@ -99,17 +110,6 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="LISA_COMBO_5" ID="{EAFA1DA9-C312-4624-A92C-783F34F35F48}" WorkUnitID="{6C83E148-4523-4E24-9B67-7BF3EFCA170C}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
-							</ChildrenList>
-						</Event>
-						<Event Name="Play_LISA_Combo_Voicelines" ID="{0891ED8A-50CC-4EA1-8C41-1F92DAF16120}">
-							<ChildrenList>
-								<Action Name="" ID="{330DA5FC-708B-4E73-AF50-8E2F08CD4BD7}" ShortID="1029460328">
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Combo Voicelines" ID="{CCC1D660-9595-4D8F-BABF-17AFC3996B57}" WorkUnitID="{39F39A08-4AE6-4D20-9F27-309BB6A9004D}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>

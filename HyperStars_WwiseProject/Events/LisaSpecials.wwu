@@ -23,6 +23,16 @@
 								</Reference>
 							</ReferenceList>
 						</Action>
+						<Action Name="" ID="{D8637D8A-4998-4A44-AE90-4DD130E617EA}" ShortID="299248174">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_HeavySwingVO" ID="{5CEBB1E3-F637-4DB2-B01E-71383BC63D83}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
 					</ChildrenList>
 				</Event>
 				<Event Name="Play_Air_Special_Launch" ID="{27D9535C-1704-42D0-8978-4D7D288E8AEF}">
@@ -45,17 +55,6 @@
 								</Reference>
 							</ReferenceList>
 						</Action>
-						<Action Name="" ID="{65047636-2016-4D05-954B-C702FE111161}" ShortID="297450494">
-							<PropertyList>
-								<Property Name="ActionType" Type="int16" Value="41"/>
-								<Property Name="Delay" Type="Real64" Value="0.1"/>
-							</PropertyList>
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Play_HeavySwingVO" ID="{5CEBB1E3-F637-4DB2-B01E-71383BC63D83}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
 					</ChildrenList>
 				</Event>
 				<Event Name="Play_Dragon_Punch_Swing" ID="{1AD87628-BEA0-443A-81FF-593F6D020217}">
@@ -64,6 +63,16 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="Dragon Punch Swing" ID="{5322E4C6-5D75-4E6D-AD17-79B2CBCCB053}" WorkUnitID="{9E3F6DC9-7299-42E9-8E2C-D408CE2C427E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{F0701AB5-B748-46E8-9CA2-35B3FB240C27}" ShortID="86169543">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_HeavySwingVO" ID="{5CEBB1E3-F637-4DB2-B01E-71383BC63D83}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

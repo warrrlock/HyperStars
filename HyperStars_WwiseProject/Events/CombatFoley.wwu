@@ -14,6 +14,42 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_Wall_Bounce_Foley_Mat" ID="{96CE644A-A672-4496-9043-4E98708609F4}">
+					<ChildrenList>
+						<Action Name="" ID="{AEA96D65-03C5-43D5-9B95-1D05F0A0A638}" ShortID="1008788082">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Wall Bounce Foley - Mat" ID="{C08909C3-5C6D-46F9-BEB4-BF09DBDDE9B9}" WorkUnitID="{B30AB4BA-5ADE-48C4-8EB1-1FFACCE5CBAE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{7EFE8852-AE23-451D-8D13-1EEA9076654E}" ShortID="91645722">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Medium_Hit" ID="{E8C843C7-0D62-47C9-9A46-CA65E6CDAF7E}" WorkUnitID="{BD915EF0-70F4-4112-9350-6F71D82E142E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{4F5B4E1F-355C-4730-BEAB-EC715ABC0C73}" ShortID="122941192">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Light_Hit" ID="{D17B301E-6809-4902-9FD8-F4F9DD3E1BC5}" WorkUnitID="{BD915EF0-70F4-4112-9350-6F71D82E142E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
