@@ -66,6 +66,8 @@ public class FavorManager : MonoBehaviour
 
     private float _timeMultiplier;
 
+    private bool _isRoundOver = false;
+
     private void Awake()
     {
         Services.FavorManager = this;
@@ -91,10 +93,17 @@ public class FavorManager : MonoBehaviour
         _canvas = GetComponentInChildren<Canvas>();
     }
 
-    //Attacks should have a cooldown time where they don't increase favor as much when used in succession.
+    public void StopIncrementing(Dictionary<string, object> data)
+    {
+        _isRoundOver = true;
+    }
 
     public void IncreaseFavor(int playerId, float value)
     {
+        if (_isRoundOver)
+        {
+            return;
+        }
         value = playerId == 0 ? value : -value;
         value *= _favorMultiplier;
         if (Mathf.Abs(_favor) >= MaxFavor)
