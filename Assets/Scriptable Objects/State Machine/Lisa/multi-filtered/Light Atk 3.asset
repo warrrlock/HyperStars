@@ -40,12 +40,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
   _defaultCombo: 0
   _attackInfo:
-    attackType: 3
+    attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.5
-    knockbackDistance: 10
-    knockbackDirection: {x: 1, y: -2, z: 0}
+    knockbackDistance: 20
+    knockbackDirection: {x: 2, y: -1, z: 0}
     hitStunDuration: 0.5
-    damage: 0
     causesWallBounce: 0
     hitStopDuration: 0.3
     wallBounceDuration: 2
@@ -53,10 +56,10 @@ MonoBehaviour:
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
     causesGroundBounce: 0
-    groundBounceDuration: 0
-    groundBounceDistance: 0
-    groundBounceDirection: {x: 0, y: 0, z: 0}
-    groundBounceHitStopDuration: 0
+    groundBounceDuration: 1
+    groundBounceDistance: 10
+    groundBounceDirection: {x: 0, y: 1, z: 0}
+    groundBounceHitStopDuration: 0.3
     hangTime: 0
     favorReward: 6
     knockbackForce: {x: 8.50458, y: 100}
