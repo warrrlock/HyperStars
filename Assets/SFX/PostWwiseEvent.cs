@@ -17,18 +17,26 @@ public enum Wwise_MovementEvents
 public class PostWwiseEvent : MonoBehaviour
 {
     private Fighter _fighter;
+    public AK.Wwise.Switch CharacterSwitch;
     public AK.Wwise.Event[] attackEvents;
     public AK.Wwise.Event[] movementEvents;
-    [Header("Hits")]
+    [Header("Environment Bounces")]
     public AK.Wwise.Event wallBounceEvent;
     public AK.Wwise.Event hurtLandEvent;
-    public AK.Wwise.Event hitEvent;
-    public AK.Wwise.Event blockEvent;
+    [Header("Hits")]
+    public AK.Wwise.Event lightHit;
+    public AK.Wwise.Event meidumHit;
+    public AK.Wwise.Event heavyHit;
     
+    public AK.Wwise.Event blockEvent;
+
     // public AK.Wwise.Event comboVoicelineEvent;
 
     private void Start()
     {
+        // set cahracter swtich
+        CharacterSwitch.SetValue(gameObject);
+        
         _fighter = GetComponent<Fighter>();
         // environment hits
         _fighter.Events.wallBounce += () => Wwise_PlaySingle(wallBounceEvent);
@@ -43,21 +51,13 @@ public class PostWwiseEvent : MonoBehaviour
 
     private void Update()
     {
-        // Debug.Log(IsEventPlayingOnGameObject("Play_LISA_PARRY"));
+        
     }
     
     public void Wwise_PlayAttackSound(Wwise_ComboEvents cEvent)
     {
         attackEvents[(int)cEvent].Post(gameObject);
     }
-
-    // public void Wwise_PlayComboVoiceline()
-    // {
-    //     if (Random.value < .4f)
-    //     {
-    //         comboVoicelineEvent.Post(gameObject);
-    //     }
-    // }
 
     public void Wwise_PlayMovementSound(Wwise_MovementEvents mEvent)
     {
@@ -71,7 +71,22 @@ public class PostWwiseEvent : MonoBehaviour
 
     private void Wwise_PlayHit(Dictionary<string, object> message)
     {
-        hitEvent.Post(gameObject);
+        
+        //Play Character Hit Sound
+        Fighter receiver = (Fighter)message["attacked"];
+        AttackInfo.AttackType type = (AttackInfo.AttackType)message["attack type"];
+        switch (type)
+        {
+            case AttackInfo.AttackType.Light:
+                lightHit.Post(receiver.gameObject);
+                break;
+            case AttackInfo.AttackType.Medium:
+                meidumHit.Post(receiver.gameObject);
+                break;
+            case AttackInfo.AttackType.Special:
+                heavyHit.Post(receiver.gameObject);
+                break;
+        }
     }
     
     private void Wwise_PlayBlock(Dictionary<string, object> message)

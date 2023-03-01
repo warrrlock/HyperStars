@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using FiniteStateMachine;
 using Managers;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -69,14 +71,23 @@ public class Player: MonoBehaviour
         _ready = false;
         _character = character;
         Services.Characters[PlayerInput.playerIndex] = _character;
-        
-        GetReady();
+
+        StartCoroutine(GetReady());
     }
 
-    public void GetReady()
+    public IEnumerator GetReady()
     {
+        yield return new WaitForFixedUpdate();
         _ready = true;
         onReady?.Invoke();
+        //TODO: move input to character colours
+    }
+    
+    public void UnReady()
+    {
+        _ready = false;
+        onReady?.Invoke();
+        //TODO: move input to character selection
     }
 
     private void ReadyStartingGame()
@@ -105,6 +116,16 @@ public class Player: MonoBehaviour
                 break;
             }
         }
+        
+        PlayerInput.SwitchCurrentActionMap("UI");
+        UIInputManager[] inputManagers = FindObjectsOfType<UIInputManager>();
+        foreach (var inputManager in inputManagers)
+        {
+            if (inputManager.PlayerId == PlayerInput.playerIndex)
+            {
+                inputManager.Initialize(this);
+            }
+        }
 
         MenuManager manager = FindObjectOfType<MenuManager>();
         if (manager) manager.AddPlayer(this);
@@ -124,6 +145,7 @@ public class Player: MonoBehaviour
         }
         else if (scene.buildIndex == _gameSceneIndex || scene.buildIndex == _trainingSceneIndex)
         {
+            PlayerInput.SwitchCurrentActionMap("Player");
             ReadyStartingGame();
         }
     }

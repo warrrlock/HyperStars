@@ -871,8 +871,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 14.921073, z: 6.3329177}
-  m_Center: {x: -1.5, y: 7.4605365, z: 0}
+  m_Size: {x: 5.893322, y: 12.502292, z: 6.3329177}
+  m_Center: {x: -0.44666043, y: 6.251146, z: 0}
 --- !u!114 &5093239530658643927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -901,6 +901,7 @@ MonoBehaviour:
   pushDistance: 0
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 7
+  _opponentPushSpeed: 2
   _maxJumpHeight: 5.5
   _minJumpHeight: 5.5
   _timeToJumpApex: 0.35
@@ -932,7 +933,12 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
-  _flipDelayTime: 0.25
+  _flipDelayTime: 0.15
+  _move: {fileID: 11400000, guid: e91327a451f98794f8b895020734fd45, type: 2}
+  _dashes:
+  - {fileID: 11400000, guid: f2ea8141c9b535541a3a45800fe8656a, type: 2}
+  - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
+  _jump: {fileID: 11400000, guid: 043a0370e95e9a5418231450d0db9a54, type: 2}
 --- !u!114 &5093239530658643921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,8 +965,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c17dfe1d76844155bf2fbe301b58ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fillMeter: {fileID: 0}
+  _meterBarPrefab: {fileID: 3590384843093318759, guid: 3dcf2ab4f280b4272a640463f1671d36, type: 3}
   _numberOfBars: 3
+  _passiveIncrementAmount: 0.05
 --- !u!114 &5093239530658643926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -976,7 +983,7 @@ MonoBehaviour:
   States:
     _keys: []
     _values: []
-  _framesBeforeEnd: 50
+  _framesBeforeEnd: 25
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
   _jumpState: {fileID: 11400000, guid: 043a0370e95e9a5418231450d0db9a54, type: 2}
@@ -1024,16 +1031,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualEffect: {fileID: 822637850931560098}
-  vfxGraphs:
-  - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
   dashSmokeGroundOffset: 2.5
   jumpSmokeGroundOffset: 1.95
   _hasDelay: 0
   delayTime: 0.001
+  _dashStates:
+  - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
   _afterImageStates:
-  - {fileID: 11400000, guid: acb861e23a3edf342a185fdaa0b50877, type: 2}
-  - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
+  - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
+  _blurStates:
+  - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
 --- !u!114 &2355027661028822561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,6 +1054,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb628fc536ffd14c977e1017273a695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterSwitch:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: fe891148d38282441805526eeeaddd9e, type: 2}
   attackEvents:
   - idInternal: 0
     valueGuidInternal: 
@@ -1105,15 +1119,23 @@ MonoBehaviour:
   wallBounceEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b4da54b9192c6254aa91093177c3c796, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 1175f8aed5aa41b4a8fa48bc84401b35, type: 2}
   hurtLandEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: c59de4e7a91395b42b73d2f243a0251e, type: 2}
-  hitEvent:
+    WwiseObjectReference: {fileID: 11400000, guid: a8ef54ff374ec1846968cfc6e7e4b777, type: 2}
+  lightHit:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 31b72b73755c36b4eb46a338e72efb5c, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 8134191c7edf74840957f45c77716a9b, type: 2}
+  meidumHit:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: b746e0bc9b978a243ae297935e821d17, type: 2}
+  heavyHit:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: b3121bd7d525d0143ac15a4e240184aa, type: 2}
   blockEvent:
     idInternal: 0
     valueGuidInternal: 

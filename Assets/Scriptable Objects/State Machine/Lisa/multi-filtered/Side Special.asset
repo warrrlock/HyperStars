@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Side Special
   m_EditorClassIdentifier: 
+  characterSelection: 1
+  _isCrouchState: 0
+  _isSpecial: 1
+  _specialBarCost: 100
+  _animationName: Side Special
+  _animationHash: 849165720
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -28,8 +34,6 @@ MonoBehaviour:
     color: {r: 0.21698113, g: 0.8014701, b: 0.8679245, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _animationName: Side Special
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions: []
@@ -55,8 +59,5 @@ MonoBehaviour:
     hangTime: 0
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0
-  _isSpecial: 1
-  _specialBarCost: 100
+    incrementBarAmount: 0.25
   _projectilePrefab: {fileID: 0}
-  _animationHash: 849165720

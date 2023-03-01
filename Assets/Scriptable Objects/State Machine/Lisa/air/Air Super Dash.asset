@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2b3c4c74b394c2aa6ea240028f2bff, type: 3}
   m_Name: Air Super Dash
   m_EditorClassIdentifier: 
+  characterSelection: 1
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Dash
+  _animationHash: 995914302
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -24,10 +30,10 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _actions:
-  - {fileID: 11400000, guid: f6b184c8e5edd024fa3f56cd30d7ba56, type: 2}
+  _endOnFinish: 1
+  _actions: []
   _transitions:
   - {fileID: 11400000, guid: cc00d7a7fb9dce3439d9fd08e27a26c1, type: 2}
   - {fileID: 11400000, guid: f82e37ee0e505e7419137dd1c8e9c62c, type: 2}
+  - {fileID: 11400000, guid: 6510bab3ecc12874a89610607511bc29, type: 2}
   - {fileID: 11400000, guid: cd6f2fc49e7685e48ae14ca94e31fee4, type: 2}

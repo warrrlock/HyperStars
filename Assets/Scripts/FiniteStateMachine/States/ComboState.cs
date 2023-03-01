@@ -10,7 +10,6 @@ namespace FiniteStateMachine
     [CreateAssetMenu(menuName = "StateMachine/States/Combo State")]
     public class ComboState: BaseState
     {
-        [SerializeField] private string _animationName;
         [FsmList(typeof(StateAction))] [FormerlySerializedAs("_inputStopActions")] [SerializeField] private List<StateAction> _onInputPlayOrStopActions = new List<StateAction>();
         [FsmList(typeof(StateAction))] [SerializeField] private List<StateAction> _onInputInvokeActions = new List<StateAction>();
         [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
@@ -19,24 +18,12 @@ namespace FiniteStateMachine
         
         [Header("Attack Information")]
         [SerializeField] private AttackInfo _attackInfo;
-        
-        [Header("Special")]
-        [SerializeField] private bool _isSpecial;
-        [Tooltip("number of bars the special costs. 1 means 1 bar.")]
-        [SerializeField] private int _specialBarCost;
 
         [Header("Projectile")] [SerializeField]
         private GameObject _projectilePrefab;
         
-        [HideInInspector]
-        [SerializeField] private int _animationHash;
 
         // ==========  methods ========== //
-        private void OnValidate()
-        {
-            _animationHash = Animator.StringToHash(_animationName);
-        }
-        
         private void OnEnable()
         {
             _transitions.RemoveAll(t => !t);
@@ -57,7 +44,7 @@ namespace FiniteStateMachine
                 foreach(StateAction action in _onInputPlayOrStopActions){
                     action.Execute(stateMachine);
                 }
-                if (_isSpecial) stateMachine.Fighter.SpecialMeterManager?.DecrementBar(_specialBarCost);
+                CheckSpecialMeter(stateMachine);
             }
 
             foreach (Transition transition in _transitions)
@@ -83,11 +70,6 @@ namespace FiniteStateMachine
             foreach(StateAction action in _onInputInvokeActions){
                 action.Stop(stateMachine);
             }
-        }
-
-        public override int GetSpecialBarCost()
-        {
-            return _isSpecial ? _specialBarCost : -1;
         }
 
         public override void SpawnProjectile(BaseStateMachine stateMachine, Bounds bounds)

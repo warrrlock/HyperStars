@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{9E3F6DC9-7299-42E9-8E2C-D408CE2C427E}" SchemaVersion="103" RootDocumentID="{0893AA5F-CA15-4878-98A2-09F5232829DE}" ParentDocumentID="{F948D1FE-DD78-49EF-B634-956350552131}">
+	<AudioObjects>
+		<WorkUnit Name="Dragon Punch Swing" ID="{9E3F6DC9-7299-42E9-8E2C-D408CE2C427E}" OwnerID="{F948D1FE-DD78-49EF-B634-956350552131}" PersistMode="Nested">
+			<ChildrenList>
+				<ActorMixer Name="DragonPunchSwing" ID="{DD049C14-180D-47D9-ABF1-7247B22E201F}" ShortID="280278626">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="LisaSpecialsBus" ID="{E3CFB8C3-D5D6-4A31-BFCA-74969544FC91}" WorkUnitID="{4F2A6DFC-3D74-455F-BD71-9ED5CCA7B14F}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Dragon Punch Swing" ID="{5322E4C6-5D75-4E6D-AD17-79B2CBCCB053}" ShortID="156991333">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="LisaSpecial-002" ID="{6D857560-F1B0-403F-B565-C49FF407F3B6}">
+									<Language>SFX</Language>
+									<AudioFile>LisaSpecial-002.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="75974794"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="LisaSpecial-002" ID="{6D857560-F1B0-403F-B565-C49FF407F3B6}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

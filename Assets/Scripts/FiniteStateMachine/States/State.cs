@@ -8,6 +8,7 @@ namespace FiniteStateMachine
     public class State: BaseState
     {
         // ========== variables ========== //
+        [SerializeField] private bool _endOnFinish;
         [FsmList(typeof(StateAction))] [SerializeField] private List<StateAction> _actions = new List<StateAction>();
         [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
         
@@ -20,6 +21,11 @@ namespace FiniteStateMachine
 
         public override bool Execute(BaseStateMachine stateMachine, string inputName){
             // Debug.Log($"{stateMachine.name} is executing {name}");
+            if (stateMachine.PlayAnimation(_animationHash))
+            {
+                CheckSpecialMeter(stateMachine);
+            }
+            
             foreach(StateAction action in _actions){
                 action.Execute(stateMachine);
             }
@@ -41,6 +47,7 @@ namespace FiniteStateMachine
         public override void Stop(BaseStateMachine stateMachine, string inputName)
         {
             // Debug.Log($"{stateMachine.name} stopped action {name}");
+            if (!_endOnFinish) stateMachine.HandleAnimationExit();
             foreach(StateAction action in _actions){
                 action.Stop(stateMachine);
             }
@@ -48,9 +55,7 @@ namespace FiniteStateMachine
         
         public override void Finish(BaseStateMachine stateMachine)
         {
-            foreach(StateAction action in _actions){
-                action.Finish(stateMachine);
-            }
+            if (_endOnFinish) stateMachine.HandleAnimationExit();
         }
         
 #if UNITY_EDITOR

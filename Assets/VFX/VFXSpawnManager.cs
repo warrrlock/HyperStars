@@ -11,11 +11,8 @@ public enum VFXGraphs
 
 public class VFXSpawnManager : MonoBehaviour
 {
-    [Header("Old")]
-    [SerializeField] public VisualEffectAsset[] visualEffectAssets;
     [Header("New Prefabs")]
     [SerializeField] public GameObject[] visualEffectPrefabs;
-    [SerializeField] public GameObject spawnedVfxObject;
 
     private float currentRotation;
     [SerializeField] private float skyboxRotationSpeed;
@@ -80,7 +77,7 @@ public class VFXSpawnManager : MonoBehaviour
             Fighter receiver = (Fighter)message["attacked"];
             AttackInfo attackInfo = (AttackInfo)message["attack info"];
 
-            CameraManager cam = Camera.main.GetComponent<CameraManager>();
+            CameraManager cam = Services.CameraManager;
             
             InitializeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
             InitializeVFX(VFXGraphs.LISA_HIT_5, hitPos, sender);
@@ -89,17 +86,17 @@ public class VFXSpawnManager : MonoBehaviour
             switch (attackInfo.attackType)
             {
                 case AttackInfo.AttackType.Light:
-                    StartCoroutine(cam.CameraShake(.2f, .02f));
-                    break;
-                case AttackInfo.AttackType.Medium:
                     StartCoroutine(cam.CameraShake(.2f, .05f));
                     break;
+                case AttackInfo.AttackType.Medium:
+                    StartCoroutine(cam.CameraShake(.2f, .08f));
+                    break;
                 case AttackInfo.AttackType.Special:
-                    StartCoroutine(cam.CameraZoom(hitPos, .2f, 56f, .16f));
-                    StartCoroutine(cam.CameraShake(.3f, .09f));
+                    StartCoroutine(cam.CameraZoom(.2f, 36f, .16f, -.45f));
+                    StartCoroutine(cam.CameraShake(.3f, .19f));
                     break;
                 default:
-                    StartCoroutine(cam.CameraShake(.1f, .01f));
+                    StartCoroutine(cam.CameraShake(.1f, .04f));
                     break;
             }
         }

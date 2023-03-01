@@ -78,18 +78,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Special",
+                    "name": "Heavy",
                     "type": "Button",
-                    "id": "1ba64023-94db-4f71-8da7-d05860a48aae",
+                    "id": "5943b869-828e-4bcc-8c1e-3b624279f1cf",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "EXSpecial",
+                    "name": "Special",
                     "type": "Button",
-                    "id": "7e0c01c1-54d1-4f59-a68a-59a42f0d89a8",
+                    "id": "1ba64023-94db-4f71-8da7-d05860a48aae",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -108,15 +108,6 @@
                     "name": "CommandMedium",
                     "type": "Button",
                     "id": "b2019bc6-c9b2-4eb6-9a28-08ac5a774186",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Up Special",
-                    "type": "Button",
-                    "id": "9f86eb0e-fded-465f-8d9f-0fabf6fd5b7c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -335,17 +326,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "4cc4fa2b-89cc-45fe-af6a-b14b67018845",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "Button With One Modifier",
                     "id": "b86950f3-0874-473b-94d7-63264f041ae2",
                     "path": "ButtonWithOneModifier",
@@ -370,7 +350,7 @@
                 {
                     "name": "Button",
                     "id": "ef1634a0-0ffb-4074-9cfd-7848ce2b5df2",
-                    "path": "<Keyboard>/j",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -403,7 +383,7 @@
                 {
                     "name": "Button",
                     "id": "ad210384-e49f-4fec-be93-a605a19a3900",
-                    "path": "<Keyboard>/j",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -436,7 +416,7 @@
                 {
                     "name": "binding",
                     "id": "459ca717-5d19-4c17-a48b-f6f2beda0643",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -469,7 +449,7 @@
                 {
                     "name": "binding",
                     "id": "b06b96cd-337f-4683-ae48-d6aca35c68c7",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -502,7 +482,7 @@
                 {
                     "name": "binding",
                     "id": "835ac8cd-e06f-48d8-bd2d-f599fb9426fa",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -535,7 +515,7 @@
                 {
                     "name": "binding",
                     "id": "fe7cdb71-61b6-4b99-9683-bb03e36b42eb",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -590,7 +570,7 @@
                 {
                     "name": "",
                     "id": "b99e3e53-092e-4629-a307-151a60718160",
-                    "path": "<Keyboard>/j",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -601,7 +581,7 @@
                 {
                     "name": "",
                     "id": "c7497097-fbf8-435b-b91e-b9e40e2e172a",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -1092,6 +1072,28 @@
                     "action": "CommandMedium",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "cd28c129-f377-4f7f-b206-6d531535c38d",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Heavy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3814604-528e-42e3-9790-8e6bc2805ab3",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Heavy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

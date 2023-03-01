@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{31FD17E8-441E-44E5-856D-61DE984AA9B2}" SchemaVersion="103" RootDocumentID="{808E866F-BB47-4665-81E6-85AA171CBD22}" ParentDocumentID="{808E866F-BB47-4665-81E6-85AA171CBD22}">
+	<Events>
+		<WorkUnit Name="CombatFoley" ID="{31FD17E8-441E-44E5-856D-61DE984AA9B2}" OwnerID="{EBED39A1-2B74-4B0A-A093-90DDB822825C}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="Play_Ground_Splat_Foley_Mat" ID="{47E6F712-12BF-496C-84A2-3B2D5EB134CB}">
+					<ChildrenList>
+						<Action Name="" ID="{4D4AE43E-5F60-479F-B1F5-D6035F913FC4}" ShortID="783521195">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Ground Splat Foley - Mat" ID="{01FD3893-F8B7-40EC-AB84-96F509B9BD20}" WorkUnitID="{80F3679E-3B96-453B-B898-80A8F06BA392}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Wall_Bounce_Foley_Mat" ID="{96CE644A-A672-4496-9043-4E98708609F4}">
+					<ChildrenList>
+						<Action Name="" ID="{AEA96D65-03C5-43D5-9B95-1D05F0A0A638}" ShortID="1008788082">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Wall Bounce Foley - Mat" ID="{C08909C3-5C6D-46F9-BEB4-BF09DBDDE9B9}" WorkUnitID="{B30AB4BA-5ADE-48C4-8EB1-1FFACCE5CBAE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{7EFE8852-AE23-451D-8D13-1EEA9076654E}" ShortID="91645722">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Medium_Hit" ID="{E8C843C7-0D62-47C9-9A46-CA65E6CDAF7E}" WorkUnitID="{BD915EF0-70F4-4112-9350-6F71D82E142E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{4F5B4E1F-355C-4730-BEAB-EC715ABC0C73}" ShortID="122941192">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_Light_Hit" ID="{D17B301E-6809-4902-9FD8-F4F9DD3E1BC5}" WorkUnitID="{BD915EF0-70F4-4112-9350-6F71D82E142E}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

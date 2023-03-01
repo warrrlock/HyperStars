@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
+  m_Name: Air Heavy Atk
+  m_EditorClassIdentifier: 
+  characterSelection: 1
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 1
+  _animationName: AirHeavyAtk
+  _animationHash: -277427101
+  NodeInfo:
+    rect:
+      serializedVersion: 2
+      x: 270
+      y: 252
+      width: 150
+      height: 50
+  _filters:
+  - filterName: air
+    color: {r: 1, g: 1, b: 1, a: 1}
+    focus: 0
+    edit: 0
+  _transitions:
+  - {fileID: 11400000, guid: cd6f2fc49e7685e48ae14ca94e31fee4, type: 2}
+  _alwaysExecute: 0
+  _attackInfo:
+    attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.3
+    knockbackDistance: 10
+    knockbackDirection: {x: 0, y: -1, z: 0}
+    hitStunDuration: 1
+    causesWallBounce: 1
+    hitStopDuration: 0.4
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0.4
+    groundBounceDistance: 10
+    groundBounceDirection: {x: 0, y: 1, z: 0}
+    groundBounceHitStopDuration: 0.2
+    hangTime: 0
+    favorReward: 6
+    knockbackForce: {x: 0, y: 100}
+    incrementBarAmount: 0.4

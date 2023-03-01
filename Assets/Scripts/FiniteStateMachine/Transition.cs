@@ -64,6 +64,7 @@ namespace FiniteStateMachine
                 {
                     if ((_customFalseState))
                         stateMachine.QueueState(_customFalseState);
+                    return false;
                 }
                 return true;
             }
@@ -100,6 +101,7 @@ namespace FiniteStateMachine
             {
                 stateMachine.QueueState(_customFalseState);
                 stateMachine.ExecuteQueuedState();
+                return false;
             }
             return false;
         }
@@ -108,9 +110,9 @@ namespace FiniteStateMachine
         {
             BaseState state = _trueState;
             return !state ||
-                    state.GetSpecialBarCost() < 0 ||
+                    state.SpecialBarCost <= 0 ||
                     !stateMachine.Fighter.SpecialMeterManager || 
-                    stateMachine.Fighter.SpecialMeterManager.CheckBar(state.GetSpecialBarCost());
+                    stateMachine.Fighter.SpecialMeterManager.CheckBar(state.SpecialBarCost);
         }
 
         private void SetTrueStatePassValues(BaseStateMachine stateMachine, string inputName, bool queueAtEndOfAnim = false)

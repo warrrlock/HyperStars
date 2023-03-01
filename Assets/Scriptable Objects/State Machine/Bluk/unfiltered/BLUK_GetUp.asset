@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2b3c4c74b394c2aa6ea240028f2bff, type: 3}
   m_Name: BLUK_GetUp
   m_EditorClassIdentifier: 
+  characterSelection: 2
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Get Up
+  _animationHash: -1181431220
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -21,8 +26,7 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
+  _endOnFinish: 0
   _actions:
-  - {fileID: 11400000, guid: 358ad6b694e20ce41a353f2facafd45b, type: 2}
   - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
   _transitions: []

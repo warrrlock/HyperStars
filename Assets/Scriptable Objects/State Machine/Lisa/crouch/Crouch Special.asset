@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Crouch Special
   m_EditorClassIdentifier: 
+  characterSelection: 1
   _isCrouchState: 1
+  _isSpecial: 1
+  _specialBarCost: 1
+  _animationName: Crouching Special
+  _animationHash: 1100047811
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -25,35 +30,33 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _animationName: Crouching Special
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions: []
-  _defaultCombo: 1
+  _defaultCombo: 0
   _attackInfo:
-    attackType: 3
-    knockbackDuration: 0.8
-    knockbackDistance: 16
-    knockbackDirection: {x: 0.3, y: 1, z: 0}
+    attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 1
+    knockbackDistance: 17
+    knockbackDirection: {x: 0.1, y: 1, z: 0}
     hitStunDuration: 1
-    damage: 20
     causesWallBounce: 0
-    hitStopDuration: 0.2
-    wallBounceDuration: 1
-    wallBounceDistance: 10
-    wallBounceDirection: {x: -1, y: 5, z: 0}
-    wallBounceHitStopDuration: 0.1
+    hitStopDuration: 0.3
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
     causesGroundBounce: 0
     groundBounceDuration: 0
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.35
-    favorReward: 20
-    knockbackForce: {x: 30.8089, y: 100}
+    hangTime: 0.4
+    favorReward: 10
+    knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
-  _isSpecial: 0
-  _specialBarCost: 1
   _projectilePrefab: {fileID: 0}
-  _animationHash: 1100047811

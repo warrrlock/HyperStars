@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{CCD99DC0-1673-4F2D-AFF6-D3DD25071970}" SchemaVersion="103" RootDocumentID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}" ParentDocumentID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}">
+	<Busses>
+		<WorkUnit Name="CombatGeneralBusWorkUnit" ID="{CCD99DC0-1673-4F2D-AFF6-D3DD25071970}" OwnerID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="3"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<WorkUnit Name="GeneralFoley" ID="{F8B10F05-FED8-43F7-AAF3-5A94B879AD75}" PersistMode="Reference"/>
+				<WorkUnit Name="AttackHits" ID="{169AB6F2-859E-4F34-886F-990D7C1028A3}" PersistMode="Reference"/>
+				<WorkUnit Name="AttackSwings" ID="{052FD560-9FCD-4AAF-AD39-A38EF395B6B2}" PersistMode="Reference"/>
+			</ChildrenList>
+		</WorkUnit>
+	</Busses>
+</WwiseDocument>
