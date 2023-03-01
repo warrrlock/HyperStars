@@ -16,7 +16,7 @@
 							<ObjectRef Name="Empty" ID="{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}" WorkUnitID="{32AC2E88-A442-484D-8F59-41BA11B63357}"/>
 						</Reference>
 						<Reference Name="OutputBus">
-							<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
 						</Reference>
 						<Reference Name="SwitchGroupOrStateGroup">
 							<ObjectRef Name="CharacterHit" ID="{4A4722CB-937B-47E2-AC4E-DB72A8CD93B3}" WorkUnitID="{32AC2E88-A442-484D-8F59-41BA11B63357}"/>
@@ -24,6 +24,13 @@
 					</ReferenceList>
 					<ChildrenList>
 						<RandomSequenceContainer Name="Placeholder_LisaPainLightVO" ID="{BCE32FED-DFFE-4770-89EE-E6D4768DF9CF}" ShortID="47022205">
+							<PropertyList>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -197,10 +204,190 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="LisaPainLightVO" ID="{AB954567-657E-4563-A8B4-115BD5E440F0}" ShortID="749954129">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="LisaPainLight1" ID="{68E867C8-CDD8-4E51-9B8E-945E2495892C}" ShortID="866047907">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainLight1" ID="{11ED09E5-4700-4816-BF92-A89EF420AB20}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainLight1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="502478946"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainLight1" ID="{11ED09E5-4700-4816-BF92-A89EF420AB20}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainLight2" ID="{8EC2F77F-A48B-49E6-A5B6-D1FD3FCDFEDD}" ShortID="39968992">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainLight2" ID="{6661D81A-897D-4AE3-9CC2-92A340D60406}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainLight2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="47987096"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainLight2" ID="{6661D81A-897D-4AE3-9CC2-92A340D60406}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainLight3" ID="{46DC7DA4-77FF-4F8F-9C7E-31FF24C8AFAA}" ShortID="291886581">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainLight3" ID="{2ACC6C4F-C918-43AF-9917-55AADAE2C34B}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainLight3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="892670490"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainLight3" ID="{2ACC6C4F-C918-43AF-9917-55AADAE2C34B}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainLight4" ID="{59FAD9B4-6B50-42E1-A415-2CA77D09CE8C}" ShortID="958579168">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainLight4" ID="{3A494386-E477-4B33-B6AB-31EEA837624A}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainLight4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="739367922"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainLight4" ID="{3A494386-E477-4B33-B6AB-31EEA837624A}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainLight5" ID="{4B0F65E4-D564-4CDD-8F59-EC5D3AECEB89}" ShortID="461046342">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainLight5" ID="{A41E5452-5FE2-45CB-AAC7-8EDAAF86E781}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainLight5.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="232818191"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainLight5" ID="{A41E5452-5FE2-45CB-AAC7-8EDAAF86E781}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainLight6" ID="{C5B7519A-E638-4DD8-B62C-4A8DAB4B3A9F}" ShortID="1021566775">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainLight6" ID="{2908A8FF-4A30-4534-A6DF-FD763C1D4837}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainLight6.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="443231741"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainLight6" ID="{2908A8FF-4A30-4534-A6DF-FD763C1D4837}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainLight7" ID="{F98086BE-D94B-4E5C-8582-F8A363F1A89F}" ShortID="696078395">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainLight7" ID="{287AB6E7-6E30-45D3-8A0E-2B91F1E61B45}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainLight7.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="852130968"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainLight7" ID="{287AB6E7-6E30-45D3-8A0E-2B91F1E61B45}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
 					</ChildrenList>
 					<ObjectLists/>
 					<GroupingInfo>
 						<GroupingBehaviorList>
+							<GroupingBehavior>
+								<ItemRef Name="LisaPainLightVO" ID="{AB954567-657E-4563-A8B4-115BD5E440F0}"/>
+							</GroupingBehavior>
 							<GroupingBehavior>
 								<ItemRef Name="Placeholder_LisaPainLightVO" ID="{BCE32FED-DFFE-4770-89EE-E6D4768DF9CF}"/>
 							</GroupingBehavior>
@@ -209,7 +396,7 @@
 							<Grouping>
 								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
 								<ItemList>
-									<ItemRef Name="Placeholder_LisaPainLightVO" ID="{BCE32FED-DFFE-4770-89EE-E6D4768DF9CF}"/>
+									<ItemRef Name="LisaPainLightVO" ID="{AB954567-657E-4563-A8B4-115BD5E440F0}"/>
 								</ItemList>
 							</Grouping>
 						</GroupingList>
@@ -224,7 +411,7 @@
 							<ObjectRef Name="Empty" ID="{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}" WorkUnitID="{32AC2E88-A442-484D-8F59-41BA11B63357}"/>
 						</Reference>
 						<Reference Name="OutputBus">
-							<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
 						</Reference>
 						<Reference Name="SwitchGroupOrStateGroup">
 							<ObjectRef Name="CharacterHit" ID="{4A4722CB-937B-47E2-AC4E-DB72A8CD93B3}" WorkUnitID="{32AC2E88-A442-484D-8F59-41BA11B63357}"/>
@@ -232,6 +419,13 @@
 					</ReferenceList>
 					<ChildrenList>
 						<RandomSequenceContainer Name="Placeholder_LisaPainHeavyVO" ID="{18243D68-25BD-4466-9DBF-1E974C19794E}" ShortID="751639399">
+							<PropertyList>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -405,6 +599,183 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="LisaPainHeavyVO" ID="{9209BF6D-DA4E-4D33-9E8C-0A83E432F7E8}" ShortID="891953568">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="LisaPainHeavy1" ID="{5FB98510-1C10-49B8-9A86-0B3548E9C893}" ShortID="959394864">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainHeavy1" ID="{1499DFA9-27CC-4A79-AA75-CE3D7C750BFA}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainHeavy1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="933610410"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainHeavy1" ID="{1499DFA9-27CC-4A79-AA75-CE3D7C750BFA}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainHeavy2" ID="{BA71DDAF-2CE9-44E5-9217-7D4E15E77C17}" ShortID="624326945">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainHeavy2" ID="{CDBBDB40-7BB1-44D8-871B-5589DEAFCB65}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainHeavy2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="673975813"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainHeavy2" ID="{CDBBDB40-7BB1-44D8-871B-5589DEAFCB65}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainHeavy3" ID="{D5B1DC79-1AA7-4500-A4CB-9A3C7C9DF979}" ShortID="5399728">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainHeavy3" ID="{DAFD859E-4B01-4F05-A64A-8EA60890BB2F}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainHeavy3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1073479553"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainHeavy3" ID="{DAFD859E-4B01-4F05-A64A-8EA60890BB2F}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainHeavy4" ID="{0CC0C257-B469-4CC3-B8B2-330E5B801348}" ShortID="612992408">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainHeavy4" ID="{2ED30A9D-5CEF-4E6C-97DE-A22123233E89}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainHeavy4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="158946141"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainHeavy4" ID="{2ED30A9D-5CEF-4E6C-97DE-A22123233E89}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainHeavy5" ID="{09FED144-0E75-4FE4-82D1-F83C2C0ABDB7}" ShortID="640742257">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainHeavy5" ID="{767D9BED-699D-4367-81F8-AFA3A26C9E0D}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainHeavy5.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="347892328"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainHeavy5" ID="{767D9BED-699D-4367-81F8-AFA3A26C9E0D}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainHeavy6" ID="{6D9A32B9-3242-4D83-BB4C-20DD8403533B}" ShortID="308739536">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainHeavy6" ID="{59279A1A-C466-465C-A397-5379E6067082}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainHeavy6.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="955426283"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainHeavy6" ID="{59279A1A-C466-465C-A397-5379E6067082}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaPainHeavy7" ID="{92D88FA5-C535-4A77-8590-984E117BA847}" ShortID="113858223">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaPainHeavy7" ID="{F3BB871D-C1EC-4699-9682-4FFE18DA68B6}">
+											<Language>SFX</Language>
+											<AudioFile>LisaPainHeavy7.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="774390346"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaPainHeavy7" ID="{F3BB871D-C1EC-4699-9682-4FFE18DA68B6}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
 					</ChildrenList>
 					<ObjectLists/>
 					<GroupingInfo>
@@ -412,12 +783,15 @@
 							<GroupingBehavior>
 								<ItemRef Name="Placeholder_LisaPainHeavyVO" ID="{18243D68-25BD-4466-9DBF-1E974C19794E}"/>
 							</GroupingBehavior>
+							<GroupingBehavior>
+								<ItemRef Name="LisaPainHeavyVO" ID="{9209BF6D-DA4E-4D33-9E8C-0A83E432F7E8}"/>
+							</GroupingBehavior>
 						</GroupingBehaviorList>
 						<GroupingList>
 							<Grouping>
 								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
 								<ItemList>
-									<ItemRef Name="Placeholder_LisaPainHeavyVO" ID="{18243D68-25BD-4466-9DBF-1E974C19794E}"/>
+									<ItemRef Name="LisaPainHeavyVO" ID="{9209BF6D-DA4E-4D33-9E8C-0A83E432F7E8}"/>
 								</ItemList>
 							</Grouping>
 						</GroupingList>
@@ -440,6 +814,13 @@
 					</ReferenceList>
 					<ChildrenList>
 						<RandomSequenceContainer Name="Placeholder_LisaSwingLightVO" ID="{492D7812-6238-4A61-B231-EB2BCD312B30}" ShortID="863786129">
+							<PropertyList>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -722,6 +1103,206 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="LisaSwingLightVO" ID="{7AAFF9CD-E8D9-4E89-9011-EB902152D99A}" ShortID="391164275">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="LisaSwingLight1" ID="{A4BC8D81-2986-4BFA-B14C-8BAA69992A10}" ShortID="161248372">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingLight1" ID="{45F1A5B5-CF5E-4A0D-BB7C-42DF79B91073}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingLight1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="604298463"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingLight1" ID="{45F1A5B5-CF5E-4A0D-BB7C-42DF79B91073}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingLight2" ID="{4D9FC187-D44F-4402-884C-5A2823E62820}" ShortID="758629343">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingLight2" ID="{BB6B8A11-02A6-455E-AF08-87EC170C9755}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingLight2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="231317726"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingLight2" ID="{BB6B8A11-02A6-455E-AF08-87EC170C9755}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingLight3" ID="{D091CDE9-41B7-4811-860E-F1FE84EEB7BC}" ShortID="1055236047">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingLight3" ID="{0534E42A-8A6D-499B-B21C-C89251AC00EE}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingLight3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="537607641"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingLight3" ID="{0534E42A-8A6D-499B-B21C-C89251AC00EE}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingLight4" ID="{665A67B2-6E6F-46A3-91B1-11B2882E6342}" ShortID="249303466">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingLight4" ID="{2366F7B3-2256-4434-BA94-09C73DD66FBF}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingLight4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="93031113"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingLight4" ID="{2366F7B3-2256-4434-BA94-09C73DD66FBF}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingLight5" ID="{D3EADEAD-892D-4B52-B47B-0D0E9A64CCB7}" ShortID="824528071">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingLight5" ID="{675FEED0-C05C-4435-B89D-ABB6D9098E71}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingLight5.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="386909822"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingLight5" ID="{675FEED0-C05C-4435-B89D-ABB6D9098E71}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingLight6" ID="{7BDCB46F-9C08-4CAC-8224-6DDC966B5A02}" ShortID="613214029">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingLight6" ID="{D491A327-7684-47D3-AE5A-D8B023109751}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingLight6.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="480422843"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingLight6" ID="{D491A327-7684-47D3-AE5A-D8B023109751}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingLight7" ID="{6629F1D5-CA5E-4571-A1D1-14B0EC3DD4BD}" ShortID="102329940">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingLight7" ID="{5E4017C7-79BD-4ECC-8726-CF25C262896C}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingLight7.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="830684219"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingLight7" ID="{5E4017C7-79BD-4ECC-8726-CF25C262896C}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingLight8" ID="{0E327251-F743-4125-8B59-3271AB4580E0}" ShortID="958223059">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingLight8" ID="{086DD17E-63F3-483B-A87E-1BB5EDC9DE43}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingLight8.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="382170641"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingLight8" ID="{086DD17E-63F3-483B-A87E-1BB5EDC9DE43}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
 					</ChildrenList>
 					<ObjectLists/>
 					<GroupingInfo>
@@ -729,12 +1310,15 @@
 							<GroupingBehavior>
 								<ItemRef Name="Placeholder_LisaSwingLightVO" ID="{492D7812-6238-4A61-B231-EB2BCD312B30}"/>
 							</GroupingBehavior>
+							<GroupingBehavior>
+								<ItemRef Name="LisaSwingLightVO" ID="{7AAFF9CD-E8D9-4E89-9011-EB902152D99A}"/>
+							</GroupingBehavior>
 						</GroupingBehaviorList>
 						<GroupingList>
 							<Grouping>
 								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
 								<ItemList>
-									<ItemRef Name="Placeholder_LisaSwingLightVO" ID="{492D7812-6238-4A61-B231-EB2BCD312B30}"/>
+									<ItemRef Name="LisaSwingLightVO" ID="{7AAFF9CD-E8D9-4E89-9011-EB902152D99A}"/>
 								</ItemList>
 							</Grouping>
 						</GroupingList>
@@ -757,6 +1341,13 @@
 					</ReferenceList>
 					<ChildrenList>
 						<RandomSequenceContainer Name="Placeholder_LisaSwingMediumVO" ID="{1D54A9D0-A5CD-42AE-9E6A-59C66C34F806}" ShortID="730457129">
+							<PropertyList>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -889,10 +1480,144 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="LisaSwingMediumVO" ID="{FD7B8F33-6988-4204-A3AD-A64032147830}" ShortID="758643418">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="LisaSwingMedium1" ID="{9015447E-F2DB-4E6A-87C9-54711831D980}" ShortID="10790128">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingMedium1" ID="{211DA86C-46D6-46CC-9737-68B253282D5B}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingMedium1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="509751271"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingMedium1" ID="{211DA86C-46D6-46CC-9737-68B253282D5B}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingMedium2" ID="{CB0AE573-0352-4F0F-9B5F-D650A802E665}" ShortID="71432730">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingMedium2" ID="{13CFA26B-0595-468A-8B46-1175889885BF}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingMedium2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="71251293"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingMedium2" ID="{13CFA26B-0595-468A-8B46-1175889885BF}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingMedium3" ID="{8375DCC6-BFBB-4241-B191-6DBD2C36F3ED}" ShortID="941675145">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingMedium3" ID="{3C34F46E-39AB-46FB-990D-14E4EAD79D09}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingMedium3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="96103633"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingMedium3" ID="{3C34F46E-39AB-46FB-990D-14E4EAD79D09}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingMedium4" ID="{1B181922-E34D-45CB-ACDA-B4A1114386DD}" ShortID="9135841">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingMedium4" ID="{2F461937-0AFD-4786-B439-3762BAE132B2}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingMedium4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="410631971"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingMedium4" ID="{2F461937-0AFD-4786-B439-3762BAE132B2}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingMedium5" ID="{54DF9783-2710-490B-A5E7-97C510F987DA}" ShortID="243188833">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingMedium5" ID="{BFAD660A-CCA7-4E51-A439-36DC720594A3}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingMedium5.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="452909908"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingMedium5" ID="{BFAD660A-CCA7-4E51-A439-36DC720594A3}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
 					</ChildrenList>
 					<ObjectLists/>
 					<GroupingInfo>
 						<GroupingBehaviorList>
+							<GroupingBehavior>
+								<ItemRef Name="LisaSwingMediumVO" ID="{FD7B8F33-6988-4204-A3AD-A64032147830}"/>
+							</GroupingBehavior>
 							<GroupingBehavior>
 								<ItemRef Name="Placeholder_LisaSwingMediumVO" ID="{1D54A9D0-A5CD-42AE-9E6A-59C66C34F806}"/>
 							</GroupingBehavior>
@@ -901,7 +1626,7 @@
 							<Grouping>
 								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
 								<ItemList>
-									<ItemRef Name="Placeholder_LisaSwingMediumVO" ID="{1D54A9D0-A5CD-42AE-9E6A-59C66C34F806}"/>
+									<ItemRef Name="LisaSwingMediumVO" ID="{FD7B8F33-6988-4204-A3AD-A64032147830}"/>
 								</ItemList>
 							</Grouping>
 						</GroupingList>
@@ -924,6 +1649,13 @@
 					</ReferenceList>
 					<ChildrenList>
 						<RandomSequenceContainer Name="Placeholder_LisaSwingHeavyVO" ID="{1B590D97-EE76-4CD4-9FC5-1921EB07B7D8}" ShortID="1007777251">
+							<PropertyList>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -1028,6 +1760,91 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="LisaSwingHeavyVO" ID="{B3669798-FCAF-4FB2-A438-B0DFA8AACB6C}" ShortID="875553583">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="LisaSwingHeavy3" ID="{EF9D27A5-8644-4EF1-9B3E-97C9D2D0F17B}" ShortID="902026757">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingHeavy3" ID="{D6A50FD3-81AE-4620-A2A5-B2EA079664E7}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingHeavy3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="285774774"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingHeavy3" ID="{D6A50FD3-81AE-4620-A2A5-B2EA079664E7}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingHeavy1" ID="{261FD153-F1F7-4587-B6C1-11DA2EA2E444}" ShortID="116565814">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingHeavy1" ID="{D6F9C157-C439-4017-9EDC-9C73A6F30B1A}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingHeavy1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="815807655"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingHeavy1" ID="{D6F9C157-C439-4017-9EDC-9C73A6F30B1A}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaSwingHeavy2" ID="{38113B26-D30D-457B-9464-501613D5C259}" ShortID="471840397">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaSwingHeavy2" ID="{15D717C5-8F08-43C7-AFF6-FC861BA15D1D}">
+											<Language>SFX</Language>
+											<AudioFile>LisaSwingHeavy2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="984497490"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaSwingHeavy2" ID="{15D717C5-8F08-43C7-AFF6-FC861BA15D1D}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
 					</ChildrenList>
 					<ObjectLists/>
 					<GroupingInfo>
@@ -1035,12 +1852,157 @@
 							<GroupingBehavior>
 								<ItemRef Name="Placeholder_LisaSwingHeavyVO" ID="{1B590D97-EE76-4CD4-9FC5-1921EB07B7D8}"/>
 							</GroupingBehavior>
+							<GroupingBehavior>
+								<ItemRef Name="LisaSwingHeavyVO" ID="{B3669798-FCAF-4FB2-A438-B0DFA8AACB6C}"/>
+							</GroupingBehavior>
 						</GroupingBehaviorList>
 						<GroupingList>
 							<Grouping>
 								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
 								<ItemList>
-									<ItemRef Name="Placeholder_LisaSwingHeavyVO" ID="{1B590D97-EE76-4CD4-9FC5-1921EB07B7D8}"/>
+									<ItemRef Name="LisaSwingHeavyVO" ID="{B3669798-FCAF-4FB2-A438-B0DFA8AACB6C}"/>
+								</ItemList>
+							</Grouping>
+						</GroupingList>
+					</GroupingInfo>
+				</SwitchContainer>
+				<SwitchContainer Name="DashVO" ID="{0520EAD9-08E5-4259-B98E-729D2AB7BDA5}" ShortID="746639282">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="DefaultSwitchOrState">
+							<ObjectRef Name="Empty" ID="{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}" WorkUnitID="{32AC2E88-A442-484D-8F59-41BA11B63357}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+						<Reference Name="SwitchGroupOrStateGroup">
+							<ObjectRef Name="CharacterHit" ID="{4A4722CB-937B-47E2-AC4E-DB72A8CD93B3}" WorkUnitID="{32AC2E88-A442-484D-8F59-41BA11B63357}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<RandomSequenceContainer Name="LisaDashVO" ID="{B123B114-2A7B-4EEE-AD04-B2B01644C7B3}" ShortID="884583278">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="LisaDash1" ID="{D6FD85F4-AF15-4FA7-996F-21BC351C2541}" ShortID="453311775">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaDash1" ID="{C078934D-A79F-46E0-8622-421F7C414AB1}">
+											<Language>SFX</Language>
+											<AudioFile>LisaDash1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="44234917"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaDash1" ID="{C078934D-A79F-46E0-8622-421F7C414AB1}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaDash2" ID="{1BB5C80F-9632-4FB3-9F92-E08D49D64C22}" ShortID="255705726">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaDash2" ID="{BA7AF4F8-EE7E-453C-B334-6912334F9181}">
+											<Language>SFX</Language>
+											<AudioFile>LisaDash2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="357315264"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaDash2" ID="{BA7AF4F8-EE7E-453C-B334-6912334F9181}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaDash3" ID="{201365BC-9600-4BB0-89AE-ABEC9521C448}" ShortID="892910762">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaDash3" ID="{4753556A-1EF7-4B08-AF2B-8E9ACDF908DC}">
+											<Language>SFX</Language>
+											<AudioFile>LisaDash3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="449960712"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaDash3" ID="{4753556A-1EF7-4B08-AF2B-8E9ACDF908DC}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaDash4" ID="{F46C9E10-7540-4937-AA2E-B4D5FAEDAF93}" ShortID="303217468">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaDash4" ID="{0FB53ECC-5CA8-4C58-BAFA-24166011B488}">
+											<Language>SFX</Language>
+											<AudioFile>LisaDash4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="851827539"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaDash4" ID="{0FB53ECC-5CA8-4C58-BAFA-24166011B488}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
+					</ChildrenList>
+					<ObjectLists/>
+					<GroupingInfo>
+						<GroupingBehaviorList>
+							<GroupingBehavior>
+								<ItemRef Name="LisaDashVO" ID="{B123B114-2A7B-4EEE-AD04-B2B01644C7B3}"/>
+							</GroupingBehavior>
+						</GroupingBehaviorList>
+						<GroupingList>
+							<Grouping>
+								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
+								<ItemList>
+									<ItemRef Name="LisaDashVO" ID="{B123B114-2A7B-4EEE-AD04-B2B01644C7B3}"/>
 								</ItemList>
 							</Grouping>
 						</GroupingList>

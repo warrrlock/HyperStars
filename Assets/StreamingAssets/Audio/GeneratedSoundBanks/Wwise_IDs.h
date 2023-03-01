@@ -18,6 +18,7 @@ namespace AK
         static const AkUniqueID PLAY_AREA_BLAST_SWING = 748205809U;
         static const AkUniqueID PLAY_CROWD_CHEERS = 3617758906U;
         static const AkUniqueID PLAY_CROWD_HYPE_SHORT = 1227494039U;
+        static const AkUniqueID PLAY_DASHVO = 2540994183U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_HIT = 2124280636U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_SWING = 2525681113U;
         static const AkUniqueID PLAY_GROUND_HIT = 348820993U;
@@ -38,7 +39,6 @@ namespace AK
         static const AkUniqueID PLAY_LISA_COMBO_3 = 3376269178U;
         static const AkUniqueID PLAY_LISA_COMBO_4 = 3376269181U;
         static const AkUniqueID PLAY_LISA_COMBO_5 = 3376269180U;
-        static const AkUniqueID PLAY_LISA_COMBO_VOICELINES = 2083444140U;
         static const AkUniqueID PLAY_LISA_CROUCH = 1808428040U;
         static const AkUniqueID PLAY_LISA_DASH = 936983702U;
         static const AkUniqueID PLAY_LISA_FOOTSTEPS = 431785379U;
@@ -63,6 +63,7 @@ namespace AK
         static const AkUniqueID PLAY_PLACEHOLDER_LISASWINGHEAVYVO = 112458367U;
         static const AkUniqueID PLAY_PLACEHOLDER_LISASWINGLIGHTVO = 2752186518U;
         static const AkUniqueID PLAY_PLACEHOLDER_LISASWINGMEDIUMVO = 1886944937U;
+        static const AkUniqueID PLAY_WALL_BOUNCE_FOLEY_MAT = 2769098130U;
         static const AkUniqueID PLAY_WALL_HIT = 625690868U;
         static const AkUniqueID STOP_LISATHEME = 564764656U;
         static const AkUniqueID STOP_SWINGS = 3063666669U;

@@ -62,6 +62,20 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_DashVO" ID="{9AB59D62-4F46-4592-9B2C-2AF277257AEF}">
+					<ChildrenList>
+						<Action Name="" ID="{A8B18BFC-809F-443B-B111-B718D76A050B}" ShortID="983449875">
+							<PropertyList>
+								<Property Name="Probability" Type="Real64" Value="50"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DashVO" ID="{0520EAD9-08E5-4259-B98E-729D2AB7BDA5}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
