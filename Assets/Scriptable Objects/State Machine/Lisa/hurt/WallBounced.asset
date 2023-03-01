@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59d989259cd24311aa1814be58ea5c4, type: 3}
+  m_Name: WallBounced
+  m_EditorClassIdentifier: 
+  characterSelection: 1
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Standing Hurt
+  _animationHash: 1164305107
+  NodeInfo:
+    rect:
+      serializedVersion: 2
+      x: -71
+      y: 228
+      width: 150
+      height: 50
+  _filters:
+  - filterName: hurt
+    color: {r: 0.8396226, g: 0.18614274, b: 0.18614274, a: 1}
+    focus: 0
+    edit: 0
+  _hurtType: 3
+  _animationName2: Knockdown
+  _animationHash2: -1
+  _exitState: {fileID: 11400000, guid: 08cc7450946dea54bb3bb9b14caf666e, type: 2}
