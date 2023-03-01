@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="374987273" Language="SFX" Hash="3942121146">
+		<SoundBank Id="374987273" Language="SFX" Hash="3391988937">
 			<ObjectPath>\SoundBanks\MusicSoundBanks\MusicMain</ObjectPath>
 			<ShortName>MusicMain</ShortName>
 			<Path>MusicMain.bnk</Path>
@@ -155,7 +155,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Language="SFX" Hash="845170866">
+		<SoundBank Id="1355168291" Language="SFX" Hash="2470206810">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
@@ -168,7 +168,7 @@
 				<GameParameter Id="2346531308" Name="MusicVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MusicVolume"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="1229172265">
+		<SoundBank Id="3161908922" Language="SFX" Hash="1047517186">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -196,6 +196,9 @@
 							<Path>SFX\LisaSpecial-004_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO"/>
+					</ActionPostEvent>
 				</Event>
 				<Event Id="3617758906" Name="Play_Crowd_Cheers" ObjectPath="\Events\Ambiance\CrowdAmbiance\Play_Crowd_Cheers" DurationType="Infinite">
 					<IncludedMemoryFiles>
@@ -213,6 +216,37 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="2540994183" Name="Play_DashVO" ObjectPath="\Events\VOWorkUnit\Play_DashVO" DurationType="OneShot" DurationMin="0." DurationMax="0.266833">
+					<IncludedMemoryFiles>
+						<File Id="44234917" Language="SFX">
+							<ShortName>LisaDash1.wav</ShortName>
+							<Path>SFX\LisaDash1_10C4C929.wem</Path>
+						</File>
+						<File Id="357315264" Language="SFX">
+							<ShortName>LisaDash2.wav</ShortName>
+							<Path>SFX\LisaDash2_10C4C929.wem</Path>
+						</File>
+						<File Id="449960712" Language="SFX">
+							<ShortName>LisaDash3.wav</ShortName>
+							<Path>SFX\LisaDash3_10C4C929.wem</Path>
+						</File>
+						<File Id="851827539" Language="SFX">
+							<ShortName>LisaDash4.wav</ShortName>
+							<Path>SFX\LisaDash4_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
+							<Media>
+								<File Id="44234917"/>
+								<File Id="357315264"/>
+								<File Id="449960712"/>
+								<File Id="851827539"/>
+							</Media>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
 				<Event Id="2124280636" Name="Play_Dragon_Punch_Hit" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaSpecials\Play_Dragon_Punch_Hit" DurationType="OneShot" DurationMin="2.016458" DurationMax="2.016458">
 					<IncludedMemoryFiles>
 						<File Id="890370448" Language="SFX">
@@ -220,9 +254,6 @@
 							<Path>SFX\LisaSpecial-001_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
-					<ActionPostEvent>
-						<ActionPostEventEntry Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO"/>
-					</ActionPostEvent>
 				</Event>
 				<Event Id="2525681113" Name="Play_Dragon_Punch_Swing" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaSpecials\Play_Dragon_Punch_Swing" DurationType="OneShot" DurationMin="1.857896" DurationMax="1.857896">
 					<IncludedMemoryFiles>
@@ -231,6 +262,9 @@
 							<Path>SFX\LisaSpecial-002_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO"/>
+					</ActionPostEvent>
 				</Event>
 				<Event Id="348820993" Name="Play_GROUND_HIT" ObjectPath="\Events\CombatGeneralEvents\Play_GROUND_HIT" DurationType="OneShot" DurationMin="1.041229" DurationMax="1.041229">
 					<IncludedMemoryFiles>
@@ -260,59 +294,79 @@
 						<ActionPostEventEntry Id="3063666669" Name="Stop_Swings" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\Stop_Swings"/>
 					</ActionPostEvent>
 				</Event>
-				<Event Id="2810545614" Name="Play_HeavyPainVO" ObjectPath="\Events\VOWorkUnit\Play_HeavyPainVO" DurationType="OneShot" DurationMin="0.475854" DurationMax="0.978625">
+				<Event Id="2810545614" Name="Play_HeavyPainVO" ObjectPath="\Events\VOWorkUnit\Play_HeavyPainVO" DurationType="OneShot" DurationMin="0.4" DurationMax="0.671354">
 					<IncludedMemoryFiles>
-						<File Id="87171878" Language="SFX">
-							<ShortName>LisaPlaceholderVO-012.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-012_10C4C929.wem</Path>
+						<File Id="158946141" Language="SFX">
+							<ShortName>LisaPainHeavy4.wav</ShortName>
+							<Path>SFX\LisaPainHeavy4_10C4C929.wem</Path>
 						</File>
-						<File Id="127216166" Language="SFX">
-							<ShortName>LisaPlaceholderVO-014.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-014_10C4C929.wem</Path>
+						<File Id="347892328" Language="SFX">
+							<ShortName>LisaPainHeavy5.wav</ShortName>
+							<Path>SFX\LisaPainHeavy5_10C4C929.wem</Path>
 						</File>
-						<File Id="131211254" Language="SFX">
-							<ShortName>LisaPlaceholderVO-013.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-013_10C4C929.wem</Path>
+						<File Id="673975813" Language="SFX">
+							<ShortName>LisaPainHeavy2.wav</ShortName>
+							<Path>SFX\LisaPainHeavy2_10C4C929.wem</Path>
 						</File>
-						<File Id="319776538" Language="SFX">
-							<ShortName>LisaPlaceholderVO-009.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-009_10C4C929.wem</Path>
+						<File Id="774390346" Language="SFX">
+							<ShortName>LisaPainHeavy7.wav</ShortName>
+							<Path>SFX\LisaPainHeavy7_10C4C929.wem</Path>
 						</File>
-						<File Id="395716747" Language="SFX">
-							<ShortName>LisaPlaceholderVO-010.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-010_10C4C929.wem</Path>
+						<File Id="933610410" Language="SFX">
+							<ShortName>LisaPainHeavy1.wav</ShortName>
+							<Path>SFX\LisaPainHeavy1_10C4C929.wem</Path>
 						</File>
-						<File Id="416807326" Language="SFX">
-							<ShortName>LisaPlaceholderVO-008.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-008_10C4C929.wem</Path>
+						<File Id="955426283" Language="SFX">
+							<ShortName>LisaPainHeavy6.wav</ShortName>
+							<Path>SFX\LisaPainHeavy6_10C4C929.wem</Path>
 						</File>
-						<File Id="624929647" Language="SFX">
-							<ShortName>LisaPlaceholderVO-011.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-011_10C4C929.wem</Path>
+						<File Id="1073479553" Language="SFX">
+							<ShortName>LisaPainHeavy3.wav</ShortName>
+							<Path>SFX\LisaPainHeavy3_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
+							<Media>
+								<File Id="158946141"/>
+								<File Id="347892328"/>
+								<File Id="673975813"/>
+								<File Id="774390346"/>
+								<File Id="933610410"/>
+								<File Id="955426283"/>
+								<File Id="1073479553"/>
+							</Media>
+						</SwitchContainer>
+					</SwitchContainers>
 				</Event>
-				<Event Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO" DurationType="OneShot" DurationMin="0.349854" DurationMax="0.552292">
+				<Event Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO" DurationType="OneShot" DurationMin="0.215396" DurationMax="0.362">
 					<IncludedMemoryFiles>
-						<File Id="166803815" Language="SFX">
-							<ShortName>LisaPlaceholderVO-031.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-031_10C4C929.wem</Path>
+						<File Id="285774774" Language="SFX">
+							<ShortName>LisaSwingHeavy3.wav</ShortName>
+							<Path>SFX\LisaSwingHeavy3_10C4C929.wem</Path>
 						</File>
-						<File Id="967045617" Language="SFX">
-							<ShortName>LisaPlaceholderVO-029.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-029_10C4C929.wem</Path>
+						<File Id="815807655" Language="SFX">
+							<ShortName>LisaSwingHeavy1.wav</ShortName>
+							<Path>SFX\LisaSwingHeavy1_10C4C929.wem</Path>
 						</File>
-						<File Id="1014777037" Language="SFX">
-							<ShortName>LisaPlaceholderVO-028.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-028_10C4C929.wem</Path>
-						</File>
-						<File Id="1040259962" Language="SFX">
-							<ShortName>LisaPlaceholderVO-030.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-030_10C4C929.wem</Path>
+						<File Id="984497490" Language="SFX">
+							<ShortName>LisaSwingHeavy2.wav</ShortName>
+							<Path>SFX\LisaSwingHeavy2_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
+							<Media>
+								<File Id="285774774"/>
+								<File Id="815807655"/>
+								<File Id="984497490"/>
+							</Media>
+						</SwitchContainer>
+					</SwitchContainers>
 				</Event>
-				<Event Id="2526553015" Name="Play_Light_Attack_Variation_1" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Light_Attack_Variation_1" DurationType="OneShot" DurationMin="0.605542" DurationMax="0.605542">
+				<Event Id="2526553015" Name="Play_Light_Attack_Variation_1" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Light_Attack_Variation_1" DurationType="OneShot" DurationMin="0.601354" DurationMax="0.601354">
 					<IncludedMemoryFiles>
 						<File Id="878287009" Language="SFX">
 							<ShortName>CombatGeneralSound-001.wav</ShortName>
@@ -323,7 +377,7 @@
 						<ActionPostEventEntry Id="2258955033" Name="Play_LightSwingVO" ObjectPath="\Events\VOWorkUnit\Play_LightSwingVO"/>
 					</ActionPostEvent>
 				</Event>
-				<Event Id="2526553012" Name="Play_Light_Attack_Variation_2" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Light_Attack_Variation_2" DurationType="OneShot" DurationMin="0.601542" DurationMax="0.601542">
+				<Event Id="2526553012" Name="Play_Light_Attack_Variation_2" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Light_Attack_Variation_2" DurationType="OneShot" DurationMin="0.591354" DurationMax="0.591354">
 					<IncludedMemoryFiles>
 						<File Id="784714379" Language="SFX">
 							<ShortName>CombatGeneralSound-002.wav</ShortName>
@@ -346,90 +400,99 @@
 						<ActionPostEventEntry Id="3063666669" Name="Stop_Swings" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\Stop_Swings"/>
 					</ActionPostEvent>
 				</Event>
-				<Event Id="2753477471" Name="Play_LightPainVO" ObjectPath="\Events\VOWorkUnit\Play_LightPainVO" DurationType="OneShot" DurationMin="0.219625" DurationMax="0.743479">
+				<Event Id="2753477471" Name="Play_LightPainVO" ObjectPath="\Events\VOWorkUnit\Play_LightPainVO" DurationType="OneShot" DurationMin="0.254604" DurationMax="0.432604">
 					<IncludedMemoryFiles>
-						<File Id="42585862" Language="SFX">
-							<ShortName>LisaPlaceholderVO-007.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-007_10C4C929.wem</Path>
+						<File Id="47987096" Language="SFX">
+							<ShortName>LisaPainLight2.wav</ShortName>
+							<Path>SFX\LisaPainLight2_10C4C929.wem</Path>
 						</File>
-						<File Id="66201738" Language="SFX">
-							<ShortName>LisaPlaceholderVO-006.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-006_10C4C929.wem</Path>
+						<File Id="232818191" Language="SFX">
+							<ShortName>LisaPainLight5.wav</ShortName>
+							<Path>SFX\LisaPainLight5_10C4C929.wem</Path>
 						</File>
-						<File Id="419464606" Language="SFX">
-							<ShortName>LisaPlaceholderVO-005.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-005_10C4C929.wem</Path>
+						<File Id="443231741" Language="SFX">
+							<ShortName>LisaPainLight6.wav</ShortName>
+							<Path>SFX\LisaPainLight6_10C4C929.wem</Path>
 						</File>
-						<File Id="422955732" Language="SFX">
-							<ShortName>LisaPlaceholderVO-002.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-002_10C4C929.wem</Path>
+						<File Id="502478946" Language="SFX">
+							<ShortName>LisaPainLight1.wav</ShortName>
+							<Path>SFX\LisaPainLight1_10C4C929.wem</Path>
 						</File>
-						<File Id="761667568" Language="SFX">
-							<ShortName>LisaPlaceholderVO-004.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-004_10C4C929.wem</Path>
+						<File Id="739367922" Language="SFX">
+							<ShortName>LisaPainLight4.wav</ShortName>
+							<Path>SFX\LisaPainLight4_10C4C929.wem</Path>
 						</File>
-						<File Id="806545621" Language="SFX">
-							<ShortName>LisaPlaceholderVO-001.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-001_10C4C929.wem</Path>
+						<File Id="852130968" Language="SFX">
+							<ShortName>LisaPainLight7.wav</ShortName>
+							<Path>SFX\LisaPainLight7_10C4C929.wem</Path>
 						</File>
-						<File Id="873947280" Language="SFX">
-							<ShortName>LisaPlaceholderVO-003.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-003_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="2258955033" Name="Play_LightSwingVO" ObjectPath="\Events\VOWorkUnit\Play_LightSwingVO" DurationType="OneShot" DurationMin="0.165125" DurationMax="0.263292">
-					<IncludedMemoryFiles>
-						<File Id="203239602" Language="SFX">
-							<ShortName>LisaPlaceholderVO-015.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-015_10C4C929.wem</Path>
-						</File>
-						<File Id="210707105" Language="SFX">
-							<ShortName>LisaPlaceholderVO-022.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-022_10C4C929.wem</Path>
-						</File>
-						<File Id="220851970" Language="SFX">
-							<ShortName>LisaPlaceholderVO-017.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-017_10C4C929.wem</Path>
-						</File>
-						<File Id="413215231" Language="SFX">
-							<ShortName>LisaPlaceholderVO-016.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-016_10C4C929.wem</Path>
-						</File>
-						<File Id="432808639" Language="SFX">
-							<ShortName>LisaPlaceholderVO-018.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-018_10C4C929.wem</Path>
-						</File>
-						<File Id="671706733" Language="SFX">
-							<ShortName>LisaPlaceholderVO-021.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-021_10C4C929.wem</Path>
-						</File>
-						<File Id="738842602" Language="SFX">
-							<ShortName>LisaPlaceholderVO-019.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-019_10C4C929.wem</Path>
-						</File>
-						<File Id="759812664" Language="SFX">
-							<ShortName>LisaPlaceholderVO-023.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-023_10C4C929.wem</Path>
-						</File>
-						<File Id="793832701" Language="SFX">
-							<ShortName>LisaPlaceholderVO-020.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-020_10C4C929.wem</Path>
+						<File Id="892670490" Language="SFX">
+							<ShortName>LisaPainLight3.wav</ShortName>
+							<Path>SFX\LisaPainLight3_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
 					<SwitchContainers>
 						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
 							<Media>
-								<File Id="203239602"/>
-								<File Id="210707105"/>
-								<File Id="220851970"/>
-								<File Id="413215231"/>
-								<File Id="432808639"/>
-								<File Id="671706733"/>
-								<File Id="738842602"/>
-								<File Id="759812664"/>
-								<File Id="793832701"/>
+								<File Id="47987096"/>
+								<File Id="232818191"/>
+								<File Id="443231741"/>
+								<File Id="502478946"/>
+								<File Id="739367922"/>
+								<File Id="852130968"/>
+								<File Id="892670490"/>
+							</Media>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="2258955033" Name="Play_LightSwingVO" ObjectPath="\Events\VOWorkUnit\Play_LightSwingVO" DurationType="OneShot" DurationMin="0.169292" DurationMax="0.303708">
+					<IncludedMemoryFiles>
+						<File Id="93031113" Language="SFX">
+							<ShortName>LisaSwingLight4.wav</ShortName>
+							<Path>SFX\LisaSwingLight4_10C4C929.wem</Path>
+						</File>
+						<File Id="231317726" Language="SFX">
+							<ShortName>LisaSwingLight2.wav</ShortName>
+							<Path>SFX\LisaSwingLight2_10C4C929.wem</Path>
+						</File>
+						<File Id="382170641" Language="SFX">
+							<ShortName>LisaSwingLight8.wav</ShortName>
+							<Path>SFX\LisaSwingLight8_10C4C929.wem</Path>
+						</File>
+						<File Id="386909822" Language="SFX">
+							<ShortName>LisaSwingLight5.wav</ShortName>
+							<Path>SFX\LisaSwingLight5_10C4C929.wem</Path>
+						</File>
+						<File Id="480422843" Language="SFX">
+							<ShortName>LisaSwingLight6.wav</ShortName>
+							<Path>SFX\LisaSwingLight6_10C4C929.wem</Path>
+						</File>
+						<File Id="537607641" Language="SFX">
+							<ShortName>LisaSwingLight3.wav</ShortName>
+							<Path>SFX\LisaSwingLight3_10C4C929.wem</Path>
+						</File>
+						<File Id="604298463" Language="SFX">
+							<ShortName>LisaSwingLight1.wav</ShortName>
+							<Path>SFX\LisaSwingLight1_10C4C929.wem</Path>
+						</File>
+						<File Id="830684219" Language="SFX">
+							<ShortName>LisaSwingLight7.wav</ShortName>
+							<Path>SFX\LisaSwingLight7_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
+							<Media>
+								<File Id="93031113"/>
+								<File Id="231317726"/>
+								<File Id="382170641"/>
+								<File Id="386909822"/>
+								<File Id="480422843"/>
+								<File Id="537607641"/>
+								<File Id="604298463"/>
+								<File Id="830684219"/>
 							</Media>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -498,18 +561,6 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2083444140" Name="Play_LISA_Combo_Voicelines" ObjectPath="\Events\LisaEvents\LisaAlpha\LISA\Play_LISA_Combo_Voicelines" DurationType="OneShot" DurationMin="1.038458" DurationMax="1.569161">
-					<IncludedMemoryFiles>
-						<File Id="161590614" Language="SFX">
-							<ShortName>LISA_VOICELINE_3.wav</ShortName>
-							<Path>SFX\LISA_VOICELINE_3_10C4C929.wem</Path>
-						</File>
-						<File Id="968651512" Language="SFX">
-							<ShortName>LISA_VOICELINE_1.wav</ShortName>
-							<Path>SFX\LISA_VOICELINE_1_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
 				<Event Id="1808428040" Name="Play_LISA_CROUCH" ObjectPath="\Events\LisaEvents\LisaAlpha\LISA\Play_LISA_CROUCH" DurationType="OneShot" DurationMin="0.526386" DurationMax="0.526386">
 					<IncludedMemoryFiles>
 						<File Id="760848990" Language="SFX">
@@ -525,6 +576,9 @@
 							<Path>SFX\LISA_DASH_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="2540994183" Name="Play_DashVO" ObjectPath="\Events\VOWorkUnit\Play_DashVO"/>
+					</ActionPostEvent>
 				</Event>
 				<Event Id="431785379" Name="Play_LISA_FOOTSTEPS" ObjectPath="\Events\LisaEvents\LisaAlpha\LISA\Play_LISA_FOOTSTEPS" DurationType="OneShot" DurationMin="0.141499" DurationMax="0.305911">
 					<IncludedMemoryFiles>
@@ -606,7 +660,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3237039600" Name="Play_Medium_Attack_Variation_1" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Medium_Attack_Variation_1" DurationType="OneShot" DurationMin="0.57925" DurationMax="0.57925">
+				<Event Id="3237039600" Name="Play_Medium_Attack_Variation_1" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Medium_Attack_Variation_1" DurationType="OneShot" DurationMin="0.556063" DurationMax="0.556063">
 					<IncludedMemoryFiles>
 						<File Id="1029433576" Language="SFX">
 							<ShortName>CombatGeneralSound-003.wav</ShortName>
@@ -617,7 +671,7 @@
 						<ActionPostEventEntry Id="1501759178" Name="Play_MediumSwingVO" ObjectPath="\Events\VOWorkUnit\Play_MediumSwingVO"/>
 					</ActionPostEvent>
 				</Event>
-				<Event Id="3760087320" Name="Play_Medium_Attacks_Variation_2" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Medium_Attacks_Variation_2" DurationType="OneShot" DurationMin="0.593146" DurationMax="0.593146">
+				<Event Id="3760087320" Name="Play_Medium_Attacks_Variation_2" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Medium_Attacks_Variation_2" DurationType="OneShot" DurationMin="0.562104" DurationMax="0.562104">
 					<IncludedMemoryFiles>
 						<File Id="399765044" Language="SFX">
 							<ShortName>CombatGeneralSound-004.wav</ShortName>
@@ -640,33 +694,38 @@
 						<ActionPostEventEntry Id="3063666669" Name="Stop_Swings" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\Stop_Swings"/>
 					</ActionPostEvent>
 				</Event>
-				<Event Id="1501759178" Name="Play_MediumSwingVO" ObjectPath="\Events\VOWorkUnit\Play_MediumSwingVO" DurationType="OneShot" DurationMin="0.190354" DurationMax="0.272167">
+				<Event Id="1501759178" Name="Play_MediumSwingVO" ObjectPath="\Events\VOWorkUnit\Play_MediumSwingVO" DurationType="OneShot" DurationMin="0.208146" DurationMax="0.326625">
 					<IncludedMemoryFiles>
-						<File Id="189909359" Language="SFX">
-							<ShortName>LisaPlaceholderVO-024.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-024_10C4C929.wem</Path>
+						<File Id="71251293" Language="SFX">
+							<ShortName>LisaSwingMedium2.wav</ShortName>
+							<Path>SFX\LisaSwingMedium2_10C4C929.wem</Path>
 						</File>
-						<File Id="329955123" Language="SFX">
-							<ShortName>LisaPlaceholderVO-027.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-027_10C4C929.wem</Path>
+						<File Id="96103633" Language="SFX">
+							<ShortName>LisaSwingMedium3.wav</ShortName>
+							<Path>SFX\LisaSwingMedium3_10C4C929.wem</Path>
 						</File>
-						<File Id="637091291" Language="SFX">
-							<ShortName>LisaPlaceholderVO-025.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-025_10C4C929.wem</Path>
+						<File Id="410631971" Language="SFX">
+							<ShortName>LisaSwingMedium4.wav</ShortName>
+							<Path>SFX\LisaSwingMedium4_10C4C929.wem</Path>
 						</File>
-						<File Id="816279783" Language="SFX">
-							<ShortName>LisaPlaceholderVO-026.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-026_10C4C929.wem</Path>
+						<File Id="452909908" Language="SFX">
+							<ShortName>LisaSwingMedium5.wav</ShortName>
+							<Path>SFX\LisaSwingMedium5_10C4C929.wem</Path>
+						</File>
+						<File Id="509751271" Language="SFX">
+							<ShortName>LisaSwingMedium1.wav</ShortName>
+							<Path>SFX\LisaSwingMedium1_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
 					<SwitchContainers>
 						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
 							<Media>
-								<File Id="189909359"/>
-								<File Id="329955123"/>
-								<File Id="637091291"/>
-								<File Id="816279783"/>
+								<File Id="71251293"/>
+								<File Id="96103633"/>
+								<File Id="410631971"/>
+								<File Id="452909908"/>
+								<File Id="509751271"/>
 							</Media>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -715,149 +774,21 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2456716363" Name="Play_Placeholder_LisaPainHeavyVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaPainHeavyVO" DurationType="OneShot" DurationMin="0.475854" DurationMax="0.978625">
+				<Event Id="2456716363" Name="Play_Placeholder_LisaPainHeavyVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaPainHeavyVO" DurationType="OneShot" DurationMin="0." DurationMax="0."/>
+				<Event Id="960329018" Name="Play_Placeholder_LisaPainLightVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaPainLightVO" DurationType="OneShot" DurationMin="0." DurationMax="0."/>
+				<Event Id="112458367" Name="Play_Placeholder_LisaSwingHeavyVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaSwingHeavyVO" DurationType="OneShot" DurationMin="0." DurationMax="0."/>
+				<Event Id="2752186518" Name="Play_Placeholder_LisaSwingLightVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaSwingLightVO" DurationType="OneShot" DurationMin="0." DurationMax="0."/>
+				<Event Id="1886944937" Name="Play_Placeholder_LisaSwingMediumVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaSwingMediumVO" DurationType="OneShot" DurationMin="0." DurationMax="0."/>
+				<Event Id="2769098130" Name="Play_Wall_Bounce_Foley_Mat" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatFoley\Play_Wall_Bounce_Foley_Mat" DurationType="OneShot" DurationMin="1.0115" DurationMax="1.0115">
 					<IncludedMemoryFiles>
-						<File Id="87171878" Language="SFX">
-							<ShortName>LisaPlaceholderVO-012.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-012_10C4C929.wem</Path>
-						</File>
-						<File Id="127216166" Language="SFX">
-							<ShortName>LisaPlaceholderVO-014.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-014_10C4C929.wem</Path>
-						</File>
-						<File Id="131211254" Language="SFX">
-							<ShortName>LisaPlaceholderVO-013.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-013_10C4C929.wem</Path>
-						</File>
-						<File Id="319776538" Language="SFX">
-							<ShortName>LisaPlaceholderVO-009.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-009_10C4C929.wem</Path>
-						</File>
-						<File Id="395716747" Language="SFX">
-							<ShortName>LisaPlaceholderVO-010.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-010_10C4C929.wem</Path>
-						</File>
-						<File Id="416807326" Language="SFX">
-							<ShortName>LisaPlaceholderVO-008.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-008_10C4C929.wem</Path>
-						</File>
-						<File Id="624929647" Language="SFX">
-							<ShortName>LisaPlaceholderVO-011.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-011_10C4C929.wem</Path>
+						<File Id="458752533" Language="SFX">
+							<ShortName>Wall Bounce Foley - Mat.wav</ShortName>
+							<Path>SFX\Wall Bounce Foley - Mat_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="960329018" Name="Play_Placeholder_LisaPainLightVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaPainLightVO" DurationType="OneShot" DurationMin="0.219625" DurationMax="0.743479">
-					<IncludedMemoryFiles>
-						<File Id="42585862" Language="SFX">
-							<ShortName>LisaPlaceholderVO-007.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-007_10C4C929.wem</Path>
-						</File>
-						<File Id="66201738" Language="SFX">
-							<ShortName>LisaPlaceholderVO-006.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-006_10C4C929.wem</Path>
-						</File>
-						<File Id="419464606" Language="SFX">
-							<ShortName>LisaPlaceholderVO-005.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-005_10C4C929.wem</Path>
-						</File>
-						<File Id="422955732" Language="SFX">
-							<ShortName>LisaPlaceholderVO-002.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-002_10C4C929.wem</Path>
-						</File>
-						<File Id="761667568" Language="SFX">
-							<ShortName>LisaPlaceholderVO-004.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-004_10C4C929.wem</Path>
-						</File>
-						<File Id="806545621" Language="SFX">
-							<ShortName>LisaPlaceholderVO-001.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-001_10C4C929.wem</Path>
-						</File>
-						<File Id="873947280" Language="SFX">
-							<ShortName>LisaPlaceholderVO-003.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-003_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="112458367" Name="Play_Placeholder_LisaSwingHeavyVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaSwingHeavyVO" DurationType="OneShot" DurationMin="0.349854" DurationMax="0.552292">
-					<IncludedMemoryFiles>
-						<File Id="166803815" Language="SFX">
-							<ShortName>LisaPlaceholderVO-031.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-031_10C4C929.wem</Path>
-						</File>
-						<File Id="967045617" Language="SFX">
-							<ShortName>LisaPlaceholderVO-029.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-029_10C4C929.wem</Path>
-						</File>
-						<File Id="1014777037" Language="SFX">
-							<ShortName>LisaPlaceholderVO-028.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-028_10C4C929.wem</Path>
-						</File>
-						<File Id="1040259962" Language="SFX">
-							<ShortName>LisaPlaceholderVO-030.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-030_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="2752186518" Name="Play_Placeholder_LisaSwingLightVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaSwingLightVO" DurationType="OneShot" DurationMin="0.165125" DurationMax="0.263292">
-					<IncludedMemoryFiles>
-						<File Id="203239602" Language="SFX">
-							<ShortName>LisaPlaceholderVO-015.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-015_10C4C929.wem</Path>
-						</File>
-						<File Id="210707105" Language="SFX">
-							<ShortName>LisaPlaceholderVO-022.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-022_10C4C929.wem</Path>
-						</File>
-						<File Id="220851970" Language="SFX">
-							<ShortName>LisaPlaceholderVO-017.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-017_10C4C929.wem</Path>
-						</File>
-						<File Id="413215231" Language="SFX">
-							<ShortName>LisaPlaceholderVO-016.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-016_10C4C929.wem</Path>
-						</File>
-						<File Id="432808639" Language="SFX">
-							<ShortName>LisaPlaceholderVO-018.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-018_10C4C929.wem</Path>
-						</File>
-						<File Id="671706733" Language="SFX">
-							<ShortName>LisaPlaceholderVO-021.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-021_10C4C929.wem</Path>
-						</File>
-						<File Id="738842602" Language="SFX">
-							<ShortName>LisaPlaceholderVO-019.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-019_10C4C929.wem</Path>
-						</File>
-						<File Id="759812664" Language="SFX">
-							<ShortName>LisaPlaceholderVO-023.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-023_10C4C929.wem</Path>
-						</File>
-						<File Id="793832701" Language="SFX">
-							<ShortName>LisaPlaceholderVO-020.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-020_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="1886944937" Name="Play_Placeholder_LisaSwingMediumVO" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaVoiceLines\LisaPlaceholderVOEvents\Play_Placeholder_LisaSwingMediumVO" DurationType="OneShot" DurationMin="0.190354" DurationMax="0.272167">
-					<IncludedMemoryFiles>
-						<File Id="189909359" Language="SFX">
-							<ShortName>LisaPlaceholderVO-024.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-024_10C4C929.wem</Path>
-						</File>
-						<File Id="329955123" Language="SFX">
-							<ShortName>LisaPlaceholderVO-027.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-027_10C4C929.wem</Path>
-						</File>
-						<File Id="637091291" Language="SFX">
-							<ShortName>LisaPlaceholderVO-025.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-025_10C4C929.wem</Path>
-						</File>
-						<File Id="816279783" Language="SFX">
-							<ShortName>LisaPlaceholderVO-026.wav</ShortName>
-							<Path>SFX\LisaPlaceholderVO-026_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="50577568" Name="Play_Light_Hit" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatHits\Play_Light_Hit"/>
+					</ActionPostEvent>
 				</Event>
 				<Event Id="625690868" Name="Play_WALL_HIT" ObjectPath="\Events\CombatGeneralEvents\Play_WALL_HIT" DurationType="OneShot" DurationMin="0.862201" DurationMax="1.057822">
 					<IncludedMemoryFiles>
