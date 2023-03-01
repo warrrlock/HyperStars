@@ -208,16 +208,14 @@ namespace FiniteStateMachine {
 
             if (!CurrentState.Execute(this, action.name))
             {
-                if (InAir && action.name != "Jump") //do not input queue anything but jump in air
+                if (!InAir && (CanInputQueue || action.name == "Crouch"))
                 {
-                    return;
-                }
-                if (CanInputQueue || action.name == "Crouch")
-                {
+                    // Debug.Log($"queue execute {action.name}");
                     _returnState.QueueExecute(this, action.name);
                 }
                 else if (action.name == "Jump")
                 {
+                    // Debug.Log($"{action.name} is jump, queue jump");
                     _queueJumpOnGround = true;
                 }
             }
@@ -295,8 +293,8 @@ namespace FiniteStateMachine {
         public void ExecuteQueuedState()
         {
             if (!_queuedState) return;
-            // Debug.LogWarning("executing queued state");
-            // Debug.LogError($"queued state is {_queuedState.name}");
+            // Debug.LogError($"executing queued state {_queuedState.name}" +
+            //                $"\nwith queued state: {_queuedState?.name}\nand queued at end: {_queuedAtEndState?.name}");
             _rejectInput = true;
             
             HandleStateExit();
@@ -309,6 +307,15 @@ namespace FiniteStateMachine {
 
             CurrentState.Execute(this, "");
         }
+
+        private bool _noExitThisFrame;
+        private IEnumerator RefuseThisFrame()
+        {
+            // Debug.Log("refuse this frame");
+            _noExitThisFrame = true;
+            yield return new WaitForFixedUpdate();
+            _noExitThisFrame = false;
+        }
         
         /// <summary>
         /// Invoked at the end of an animation. Automatically added to each animation,
@@ -317,6 +324,8 @@ namespace FiniteStateMachine {
         public void HandleAnimationExit()
         {
             // Debug.LogError("handling exit animation");
+            if (_noExitThisFrame) return;
+            
             TrySetQueueQueuedAtEndState();
             TrySetQueueReturn();
             ExecuteQueuedState();
@@ -465,6 +474,7 @@ namespace FiniteStateMachine {
             }
             _queueJumpOnGround = false;
             HandleAnimationExit();
+            StartCoroutine(RefuseThisFrame());
         }
 
         private IEnumerator HandleExitInAir(Action onGroundAction)

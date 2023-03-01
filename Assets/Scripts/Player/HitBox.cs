@@ -54,7 +54,7 @@ public class HitBox : MonoBehaviour
                     {"attacked", hitFighter}, 
                     {"hit point", hitPoint},
                     {"attacker input", hitFighter.BaseStateMachine.LastExecutedInput},
-                    {"attackInfo", parryInfo},
+                    {"attack info", parryInfo},
                     {"attack type", attackInfo.attackType},
                 }
             );
