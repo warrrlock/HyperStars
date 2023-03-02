@@ -34,9 +34,11 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _timeToJumpApex;
 
     [Header("Dash")]
-    [SerializeField] private float _dashForce;
+    private float _dashForce;
     [SerializeField] private float _dashDistance;
     [SerializeField] private float _dashDuration;
+    [SerializeField] private float _shortDashDistance;
+    [SerializeField] private float _shortDashDuration;
     [SerializeField] private float _dashHangTime;
     [SerializeField] private bool _dashToZero;
     [SerializeField] private float _shortDashCooldownDuration;
@@ -213,6 +215,7 @@ public class MovementController : MonoBehaviour
             case ForceEasing.Linear:
                 //_dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
                 _dashForce = (_dashDistance * 2f) / (_dashDuration + Time.fixedDeltaTime);
+                _shortDashForce = (_shortDashDistance * 2f) / (_shortDashDuration + Time.fixedDeltaTime);
                 break;
             case ForceEasing.Quadratic:
                 //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f + (Time.fixedDeltaTime / 2f));
@@ -252,7 +255,7 @@ public class MovementController : MonoBehaviour
                 _dashForce = (_dashDistance * 4f) / (_dashDuration * Time.fixedDeltaTime + 1f);
                 break;
         }
-        _shortDashForce = _dashForce / 1.5f; //TODO: MAGIC NUMBER
+        //_shortDashForce = _dashForce / 1.5f; //TODO: MAGIC NUMBER
         _dashChargeCount = _maxDashCharges;
     }
 
@@ -398,6 +401,11 @@ public class MovementController : MonoBehaviour
         _forceCoroutines.Clear();
         _forceVelocity = Vector3.zero;
     }
+
+    //private void StateChange(BaseState state)
+    //{
+
+    //}
 
     //TODO: use fixed update instead of waitforseconds?
     private IEnumerator QueueFlip(Fighter.Direction newDirection)
@@ -850,6 +858,8 @@ public class MovementController : MonoBehaviour
         {
             Debug.LogError($"movement states missing from controller {name}");
         }
+
+        //_fighter.Events.onStateChange += StateChange;
     }
 
     private void UnsubscribeActions()
@@ -875,6 +885,8 @@ public class MovementController : MonoBehaviour
         _inputManager.Actions["Jump"].stop += StopJumping;
         // _fighter.BaseStateMachine.States[_jump].execute -= Jump;
         // _fighter.BaseStateMachine.States[_jump].stop -= StopJumping;
+
+        //_fighter.Events.onStateChange -= StateChange;
     }
 
     private void SpaceRays()
@@ -1364,9 +1376,9 @@ public class MovementController : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         _inputManager.Actions["Dash"].finish?.Invoke(action);
-        if (isSuperDash)
+        if (!isSuperDash)
         {
-            StartCoroutine(_inputManager.Disable(_superDashCooldownDuration, _inputManager.Actions["Dash"]));
+            //StartCoroutine(_inputManager.Disable(_superDashCooldownDuration, _inputManager.Actions["Dash"]));
         }
         else
         {

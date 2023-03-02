@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59d989259cd24311aa1814be58ea5c4, type: 3}
   m_Name: HitStunned
   m_EditorClassIdentifier: 
+  characterSelection: 1
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Standing Hurt
+  _animationHash: 1164305107
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -25,10 +30,7 @@ MonoBehaviour:
     color: {r: 0.8396226, g: 0.18614274, b: 0.18614274, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
   _hurtType: 0
-  _animationName: Standing Hurt
-  _animationHash: 1164305107
   _animationName2: 
   _animationHash2: -1
   _exitState: {fileID: 0}
