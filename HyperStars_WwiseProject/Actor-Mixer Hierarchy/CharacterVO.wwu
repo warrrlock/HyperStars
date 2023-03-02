@@ -206,11 +206,15 @@
 						</RandomSequenceContainer>
 						<RandomSequenceContainer Name="LisaPainLightVO" ID="{AB954567-657E-4563-A8B4-115BD5E440F0}" ShortID="749954129">
 							<PropertyList>
+								<Property Name="OverrideEffect" Type="bool" Value="True"/>
 								<Property Name="OverrideOutput" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="Effect0" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+									<ObjectRef Name="High_Pass_60Hz" ID="{F9627628-0B10-4272-BC30-D4C20423CB38}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
 								</Reference>
 								<Reference Name="OutputBus">
 									<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
@@ -241,6 +245,19 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LisaPainLight2" ID="{8EC2F77F-A48B-49E6-A5B6-D1FD3FCDFEDD}" ShortID="39968992">
+									<Comment>too much noise</Comment>
+									<PropertyList>
+										<Property Name="Inclusion" Type="bool">
+											<ValueList>
+												<Value>False</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>180</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -613,6 +630,18 @@
 							</ReferenceList>
 							<ChildrenList>
 								<Sound Name="LisaPainHeavy1" ID="{5FB98510-1C10-49B8-9A86-0B3548E9C893}" ShortID="959394864">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>50</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -705,6 +734,13 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LisaPainHeavy5" ID="{09FED144-0E75-4FE4-82D1-F83C2C0ABDB7}" ShortID="640742257">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>30</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -728,6 +764,18 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LisaPainHeavy6" ID="{6D9A32B9-3242-4D83-BB4C-20DD8403533B}" ShortID="308739536">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>150</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-2</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -748,29 +796,6 @@
 									<ObjectLists/>
 									<ActiveSourceList>
 										<ActiveSource Name="LisaPainHeavy6" ID="{59279A1A-C466-465C-A397-5379E6067082}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="LisaPainHeavy7" ID="{92D88FA5-C535-4A77-8590-984E117BA847}" ShortID="113858223">
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="LisaPainHeavy7" ID="{F3BB871D-C1EC-4699-9682-4FFE18DA68B6}">
-											<Language>SFX</Language>
-											<AudioFile>LisaPainHeavy7.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="774390346"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ObjectLists/>
-									<ActiveSourceList>
-										<ActiveSource Name="LisaPainHeavy7" ID="{F3BB871D-C1EC-4699-9682-4FFE18DA68B6}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
@@ -1896,6 +1921,13 @@
 							</ReferenceList>
 							<ChildrenList>
 								<Sound Name="LisaDash1" ID="{D6FD85F4-AF15-4FA7-996F-21BC351C2541}" ShortID="453311775">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>6</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -1919,6 +1951,13 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LisaDash2" ID="{1BB5C80F-9632-4FB3-9F92-E08D49D64C22}" ShortID="255705726">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>8</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -1942,6 +1981,13 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LisaDash3" ID="{201365BC-9600-4BB0-89AE-ABEC9521C448}" ShortID="892910762">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>6</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -1965,6 +2011,13 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LisaDash4" ID="{F46C9E10-7540-4937-AA2E-B4D5FAEDAF93}" ShortID="303217468">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
