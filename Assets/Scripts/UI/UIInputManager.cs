@@ -47,7 +47,8 @@ namespace UI
             {
                 case "Submit":
                     // Debug.Log("submitting");
-                    _menu.StartGame();
+                    if (_menu.IsTraining) _menu.StartTraining();
+                    else _menu.StartGame();
                     break;
                 case "Cancel":
                     // Debug.Log("cancelling");

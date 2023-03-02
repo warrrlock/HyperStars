@@ -881,8 +881,8 @@ public class MovementController : MonoBehaviour
             _inputManager.Actions["Dash Right"].perform -= DashRight;
         }
         
-        _inputManager.Actions["Jump"].perform += Jump;
-        _inputManager.Actions["Jump"].stop += StopJumping;
+        _inputManager.Actions["Jump"].perform -= Jump;
+        _inputManager.Actions["Jump"].stop -= StopJumping;
         // _fighter.BaseStateMachine.States[_jump].execute -= Jump;
         // _fighter.BaseStateMachine.States[_jump].stop -= StopJumping;
 
