@@ -34,7 +34,7 @@ namespace FiniteStateMachine {
         public SerializedDictionary<BaseState, StateEvent> States;
 
         public BaseState CurrentState {get; private set;}
-        public bool CanCombo => _canCombo && _hitOpponent;
+        public bool CanCombo(bool alwaysHitConfirm = false) => _canCombo && (_hitOpponent || alwaysHitConfirm);
         private bool _canCombo;
         private bool CanInputQueue { get; set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();

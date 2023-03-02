@@ -14,7 +14,7 @@ namespace FiniteStateMachine
 
         public override void Stop(BaseStateMachine stateMachine)
         {
-            stateMachine.SetReturnState();
+            // stateMachine.SetReturnState();
         }
     }
 }
