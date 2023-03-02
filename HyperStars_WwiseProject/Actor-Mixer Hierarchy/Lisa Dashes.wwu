@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{67AB5CD9-38AB-495B-81EB-A249FE6724A9}" SchemaVersion="103" RootDocumentID="{0893AA5F-CA15-4878-98A2-09F5232829DE}" ParentDocumentID="{65DE3498-FFCC-4241-B2B1-F99086CFB68B}">
+	<AudioObjects>
+		<WorkUnit Name="Lisa Dashes" ID="{67AB5CD9-38AB-495B-81EB-A249FE6724A9}" OwnerID="{65DE3498-FFCC-4241-B2B1-F99086CFB68B}" PersistMode="Nested">
+			<ChildrenList>
+				<ActorMixer Name="LisaDashes" ID="{7E38E914-2C84-4BE1-96E0-23FF318F393E}" ShortID="1032143982">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Lisa Super Dash" ID="{6CFFC3AB-67FD-4B37-909B-89DD05EEAF9D}" ShortID="31210068">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Lisa Super Dash" ID="{01491D71-6B0C-4FE2-A9FE-019D3FBBF990}">
+									<Language>SFX</Language>
+									<AudioFile>Lisa Super Dash.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="552569431"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="Lisa Super Dash" ID="{01491D71-6B0C-4FE2-A9FE-019D3FBBF990}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Lisa Dash" ID="{805A113A-4384-488E-B1B5-AB30AE871C67}" ShortID="132528841">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Lisa Dash" ID="{F819EEFC-492E-47D9-881F-D33E3F085CA7}">
+									<Language>SFX</Language>
+									<AudioFile>Lisa Dash.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="140762579"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="Lisa Dash" ID="{F819EEFC-492E-47D9-881F-D33E3F085CA7}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

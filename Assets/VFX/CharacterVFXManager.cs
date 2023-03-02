@@ -69,6 +69,8 @@ public class CharacterVFXManager : MonoBehaviour
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
+        _fighter.Events.onLandedHurt += GroundWave;
+        _fighter.Events.wallBounce += WallWave;
     }
     
     void VFXUnsubscribeEvents() {
@@ -76,6 +78,8 @@ public class CharacterVFXManager : MonoBehaviour
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
         _fighter.Events.onBlockHit -= BlockGlow;
         _fighter.Events.onStateChange -= SpawnOnStateChange;
+        _fighter.Events.onLandedHurt -= GroundWave;
+        _fighter.Events.wallBounce -= WallWave;
     }
 
     void DashSmoke() {
@@ -113,6 +117,15 @@ public class CharacterVFXManager : MonoBehaviour
         f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 0f);
     }
 
+    void GroundWave()
+    {
+        _vfxSpawnManager.InitializeVFX(VFXGraphs.GROUND_WAVE, transform.localPosition + new Vector3(0, .3f, 0));
+    }
+
+    void WallWave()
+    {
+        _vfxSpawnManager.InitializeVFX(VFXGraphs.WALL_WAVE, transform.localPosition + new Vector3(0, 4.5f, 0));
+    }
     /// <summary>
     /// Coroutine for shaking the character during hit stop
     /// </summary>
