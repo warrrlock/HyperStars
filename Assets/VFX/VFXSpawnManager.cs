@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 
 public enum VFXGraphs
 {
-    LISA_HIT_1, LISA_HIT_5, LISA_HIT_PARRY, DASH_SMOKE, JUMP_SMOKE
+    LISA_HIT_1, LISA_HIT_5, LISA_HIT_PARRY, DASH_SMOKE, JUMP_SMOKE, GROUND_WAVE, WALL_WAVE
 }
 
 public class VFXSpawnManager : MonoBehaviour

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using FiniteStateMachine;
 //using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public enum Wwise_MovementEvents
 {
-    Footsteps, Jump, Dash, Land, Crouch
+    Footsteps, Jump, Dash, SuperDash, Land, Crouch
 }
 
 public enum Wwise_SpecialSwings
@@ -24,6 +25,10 @@ public class PostWwiseEvent : MonoBehaviour
     [Header("Movements")]
     public AK.Wwise.Event[] movements;
 
+    [Header("Dashes")]
+    [SerializeField] private BaseState[] normalDashes;
+    [SerializeField] private BaseState[] superDashes;
+
     private void Start()
     {
         // set character switch
@@ -39,6 +44,14 @@ public class PostWwiseEvent : MonoBehaviour
         _fighter.Events.onLandedHurt += () => Wwise_PlaySingle(SoundManagerCombat.Instance.environmentHits[(int)Wwise_CombatEnvironmentSounds.GroundSplat]);
         // land
         _fighter.Events.onLandedNeutral += () => Wwise_PlaySingle(movements[(int)Wwise_MovementEvents.Land]);
+        foreach (var normalDash in normalDashes)
+        {
+            _fighter.BaseStateMachine.States[normalDash].execute += () => Wwise_PlaySingle(movements[(int)Wwise_MovementEvents.Dash]);
+        }
+        foreach (var superDash in superDashes)
+        {
+            _fighter.BaseStateMachine.States[superDash].execute += () => Wwise_PlaySingle(movements[(int)Wwise_MovementEvents.SuperDash]);
+        }
     }
     
     private void Wwise_PlaySingle(AK.Wwise.Event e)
