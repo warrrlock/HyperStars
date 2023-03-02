@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: BLUK_Crouch Light
   m_EditorClassIdentifier: 
+  characterSelection: 2
   _isCrouchState: 1
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Crouching Light
+  _animationHash: -1981980932
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -21,19 +26,22 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
-  _animationName: Crouching Light
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
-  _transitions: []
+  _transitions:
+  - {fileID: 11400000, guid: 167c34ec0b492bc4eb9d761a1d0d3628, type: 2}
   _defaultCombo: 1
+  _alwaysHitConfirm: 0
   _attackInfo:
     attackType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.2
     knockbackDistance: 1
     knockbackDirection: {x: 1, y: 0, z: 0}
     hitStunDuration: 0.4
-    damage: 10
     causesWallBounce: 0
     hitStopDuration: 0.12
     wallBounceDuration: 0
@@ -46,10 +54,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 8
+    favorReward: 6
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  _isSpecial: 0
-  _specialBarCost: 0
   _projectilePrefab: {fileID: 0}
-  _animationHash: -1981980932
