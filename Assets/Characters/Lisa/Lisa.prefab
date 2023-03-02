@@ -615,7 +615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pushDistance: 0
   pushDirection: {x: 0, y: 0, z: 0}
-  _moveSpeed: 9
+  _moveSpeed: 11
   _opponentPushSpeed: 4
   _maxJumpHeight: 8
   _minJumpHeight: 8
@@ -626,10 +626,10 @@ MonoBehaviour:
   _shortDashDuration: 0.2
   _dashHangTime: 0.28
   _dashToZero: 1
-  _shortDashCooldownDuration: 0.3
+  _shortDashCooldownDuration: 0
   _superDashCooldownDuration: 0
   _dashEasing: 0
-  _dashMinimumOverlap: 10
+  _dashMinimumOverlap: 2
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
@@ -640,7 +640,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _drawDebugRays: 1
-  _overlapResolutionSpeed: 10
+  _overlapResolutionSpeed: 15
   _mass: 1
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
   _yMask:
@@ -789,47 +789,17 @@ MonoBehaviour:
     groupIdInternal: 0
     groupGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 705965e74d9b8d240a9e878e96137911, type: 2}
-  attackEvents:
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7db3e2d29c8be1c41979f10269a1be28, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: de6a0996bc9f48c4683d0206ef3965f8, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: a549127c72bcb664190e14e17e484b44, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 0595f9e79caea044bb171f9c4d0b462f, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: a549127c72bcb664190e14e17e484b44, type: 2}
+  specialSwings:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 583f452192956d34a8f2bdd20cde5b58, type: 2}
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 1af085a82ef15864dbe8bdf0b6ca95e8, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7db3e2d29c8be1c41979f10269a1be28, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: a549127c72bcb664190e14e17e484b44, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: e84b549f098de134caed36d66c5d54f2, type: 2}
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: eb69ffabb7fb29a409e871e16f287db1, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: de6a0996bc9f48c4683d0206ef3965f8, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 0595f9e79caea044bb171f9c4d0b462f, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: e84b549f098de134caed36d66c5d54f2, type: 2}
-  movementEvents:
+  movements:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 5249f756f2bc83e4eb3e1becb99c829a, type: 2}
@@ -845,30 +815,6 @@ MonoBehaviour:
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 3be3b6b60f1025046939451ec7a74963, type: 2}
-  wallBounceEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 1175f8aed5aa41b4a8fa48bc84401b35, type: 2}
-  hurtLandEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: a8ef54ff374ec1846968cfc6e7e4b777, type: 2}
-  lightHit:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 8134191c7edf74840957f45c77716a9b, type: 2}
-  meidumHit:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b746e0bc9b978a243ae297935e821d17, type: 2}
-  heavyHit:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b3121bd7d525d0143ac15a4e240184aa, type: 2}
-  blockEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 22de4c90f76bbbf45a40337a11ebd0ad, type: 2}
 --- !u!114 &4663626311462973836
 MonoBehaviour:
   m_ObjectHideFlags: 0

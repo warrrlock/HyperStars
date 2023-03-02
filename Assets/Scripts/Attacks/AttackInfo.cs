@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class AttackInfo
 {
-    public enum AttackType {None, Light, Medium, Special}
+    public enum AttackType {None, Light, Medium, Heavy, Special}
     public AttackType attackType = AttackType.None;
 
     public AK.Wwise.Event hitSfxEvent;
