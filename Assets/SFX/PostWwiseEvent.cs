@@ -5,12 +5,12 @@ using UnityEngine;
 
 public enum Wwise_MovementEvents
 {
-    FOOTSTEPS, JUMP, DASH, LAND, CROUCH
+    Footsteps, Jump, Dash, Land, Crouch
 }
 
 public enum Wwise_SpecialSwings
 {
-    
+    Neutral, Low, Air, Side
 }
 
 public class PostWwiseEvent : MonoBehaviour
@@ -38,7 +38,7 @@ public class PostWwiseEvent : MonoBehaviour
         _fighter.Events.wallBounce += () => Wwise_PlaySingle(SoundManagerCombat.Instance.environmentHits[(int)Wwise_CombatEnvironmentSounds.WallBounce]);
         _fighter.Events.onLandedHurt += () => Wwise_PlaySingle(SoundManagerCombat.Instance.environmentHits[(int)Wwise_CombatEnvironmentSounds.GroundSplat]);
         // land
-        _fighter.Events.onLandedNeutral += () => Wwise_PlaySingle(movements[(int)Wwise_MovementEvents.LAND]);
+        _fighter.Events.onLandedNeutral += () => Wwise_PlaySingle(movements[(int)Wwise_MovementEvents.Land]);
     }
     
     private void Wwise_PlaySingle(AK.Wwise.Event e)
