@@ -31,31 +31,32 @@ MonoBehaviour:
   _transitions:
   - {fileID: 11400000, guid: e727b62ca81b0154ea07754e32adcf21, type: 2}
   - {fileID: 11400000, guid: e82ba32029d8386489e7cf18528ba4d2, type: 2}
-  _defaultCombo: 0
-  _alwaysHitConfirm: 0
+  - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
+  _defaultCombo: 1
+  _alwaysHitConfirm: 1
   _attackInfo:
     attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
-    knockbackDuration: 0.4
-    knockbackDistance: 8
-    knockbackDirection: {x: 5, y: 1, z: 0}
-    hitStunDuration: 0.4
-    causesWallBounce: 0
-    hitStopDuration: 0.2
-    wallBounceDuration: 0.7
-    wallBounceDistance: 20
+    knockbackDuration: 0.5
+    knockbackDistance: 12
+    knockbackDirection: {x: 1, y: 0.8, z: 0}
+    hitStunDuration: 0.8
+    causesWallBounce: 1
+    hitStopDuration: 0.28
+    wallBounceDuration: 1
+    wallBounceDistance: 18
     wallBounceDirection: {x: -0.5, y: 2, z: 0}
-    wallBounceHitStopDuration: 0.2
+    wallBounceHitStopDuration: 0.15
     causesGroundBounce: 0
     groundBounceDuration: 0
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 8
-    knockbackForce: {x: 0, y: 0}
+    favorReward: 10
+    knockbackForce: {x: 167.55, y: 100}
     incrementBarAmount: 0.25
   _projectilePrefab: {fileID: 0}
