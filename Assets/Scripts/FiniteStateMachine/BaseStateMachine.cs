@@ -186,8 +186,15 @@ namespace FiniteStateMachine {
         
         public void ResetStateMachine()
         {
+            StopAllCoroutines();
+            _airCoroutine = null;
+            _waitToAnimateRoutine = null;
+            _disableCoroutine = null;
+            _isDisabled = false;
+            
             CurrentState = _initialState;
             _returnState = _initialState;
+
             ClearQueues();
             CurrentState.Execute(this, "");
         }
