@@ -8,9 +8,15 @@ namespace UI
     {
         [SerializeField] private GameObject _menu;
         private Fighter _opener;
+        private InputSystemUIInputModule _inputModule;
+            
         private void Start()
         {
-            if (_menu) _menu.SetActive(false);
+            if (_menu)
+            {
+                _menu.SetActive(false);
+                _inputModule = _menu.GetComponent<InputSystemUIInputModule>();
+            }
             SubscribeEvents();
         }
 
@@ -37,7 +43,8 @@ namespace UI
 
         private void DisplayMenuSelection(Fighter f)
         {
-            Debug.Log("called");
+            // Debug.Log("opening pause menu");
+            if (!_menu) return;
             if (_opener && f != _opener) return;
             
             if (_menu.activeSelf)
@@ -53,12 +60,17 @@ namespace UI
                 Time.timeScale = 0;
                 _menu.SetActive(true);
                 _opener.PlayerInput.uiInputModule = _menu.GetComponent<InputSystemUIInputModule>();
+                
+                foreach (Fighter fighter in Services.Fighters)
+                {
+                    StartCoroutine(fighter.DisableAllInput(() => !_menu.activeSelf));
+                }
             }
         }
 
         public void UnpauseGame()
         {
-            Debug.Log("unpause");
+            // Debug.Log("unpause");
             DisplayMenuSelection(_opener);
         }
     }
