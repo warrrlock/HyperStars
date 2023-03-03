@@ -155,7 +155,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Language="SFX" Hash="2985449160">
+		<SoundBank Id="1355168291" Language="SFX" Hash="3710102760">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
@@ -168,7 +168,7 @@
 				<GameParameter Id="2346531308" Name="MusicVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MusicVolume"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="3849337352">
+		<SoundBank Id="3161908922" Language="SFX" Hash="3442249078">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -357,6 +357,37 @@
 								<File Id="285774774"/>
 								<File Id="815807655"/>
 								<File Id="984497490"/>
+							</Media>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="1683057335" Name="Play_JumpVO" ObjectPath="\Events\VOWorkUnit\Play_JumpVO" DurationType="OneShot" DurationMin="0." DurationMax="0.248542">
+					<IncludedMemoryFiles>
+						<File Id="126881099" Language="SFX">
+							<ShortName>LisaJump2.wav</ShortName>
+							<Path>SFX\LisaJump2_10C4C929.wem</Path>
+						</File>
+						<File Id="623112627" Language="SFX">
+							<ShortName>LisaJump1.wav</ShortName>
+							<Path>SFX\LisaJump1_10C4C929.wem</Path>
+						</File>
+						<File Id="624024900" Language="SFX">
+							<ShortName>LisaJump4.wav</ShortName>
+							<Path>SFX\LisaJump4_10C4C929.wem</Path>
+						</File>
+						<File Id="812779222" Language="SFX">
+							<ShortName>LisaJump3.wav</ShortName>
+							<Path>SFX\LisaJump3_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
+							<Media>
+								<File Id="126881099"/>
+								<File Id="623112627"/>
+								<File Id="624024900"/>
+								<File Id="812779222"/>
 							</Media>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -577,6 +608,9 @@
 							<Path>SFX\Lisa Dash_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="2540994183" Name="Play_DashVO" ObjectPath="\Events\VOWorkUnit\Play_DashVO"/>
+					</ActionPostEvent>
 				</Event>
 				<Event Id="431785379" Name="Play_LISA_FOOTSTEPS" ObjectPath="\Events\LisaEvents\LisaAlpha\LISA\Play_LISA_FOOTSTEPS" DurationType="OneShot" DurationMin="0.141499" DurationMax="0.305911">
 					<IncludedMemoryFiles>
@@ -609,6 +643,17 @@
 							<Path>SFX\LISA_JUMP_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="10510631" Name="Play_Lisa_Jump_Beta" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaMovements\Play_Lisa_Jump_Beta" DurationType="OneShot" DurationMin="0.355839" DurationMax="0.355839">
+					<IncludedMemoryFiles>
+						<File Id="580589807" Language="SFX">
+							<ShortName>Lisa Jump.wav</ShortName>
+							<Path>SFX\Lisa Jump_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="1683057335" Name="Play_JumpVO" ObjectPath="\Events\VOWorkUnit\Play_JumpVO"/>
+					</ActionPostEvent>
 				</Event>
 				<Event Id="2349820377" Name="Play_LISA_LAND" ObjectPath="\Events\LisaEvents\LisaAlpha\LISA\Play_LISA_LAND" DurationType="OneShot" DurationMin="0.44127" DurationMax="0.44127">
 					<IncludedMemoryFiles>
@@ -665,6 +710,9 @@
 							<Path>SFX\Lisa Super Dash_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="2540994183" Name="Play_DashVO" ObjectPath="\Events\VOWorkUnit\Play_DashVO"/>
+					</ActionPostEvent>
 				</Event>
 				<Event Id="3237039600" Name="Play_Medium_Attack_Variation_1" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Medium_Attack_Variation_1" DurationType="OneShot" DurationMin="0.556063" DurationMax="0.556063">
 					<IncludedMemoryFiles>

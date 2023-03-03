@@ -26,6 +26,7 @@ namespace AK
         static const AkUniqueID PLAY_HEAVY_HIT = 2944971053U;
         static const AkUniqueID PLAY_HEAVYPAINVO = 2810545614U;
         static const AkUniqueID PLAY_HEAVYSWINGVO = 1845776394U;
+        static const AkUniqueID PLAY_JUMPVO = 1683057335U;
         static const AkUniqueID PLAY_LIGHT_ATTACK_VARIATION_1 = 2526553015U;
         static const AkUniqueID PLAY_LIGHT_ATTACK_VARIATION_2 = 2526553012U;
         static const AkUniqueID PLAY_LIGHT_HIT = 50577568U;
@@ -45,6 +46,7 @@ namespace AK
         static const AkUniqueID PLAY_LISA_FOOTSTEPS = 431785379U;
         static const AkUniqueID PLAY_LISA_HITS = 3751620944U;
         static const AkUniqueID PLAY_LISA_JUMP = 28555886U;
+        static const AkUniqueID PLAY_LISA_JUMP_BETA = 10510631U;
         static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
         static const AkUniqueID PLAY_LISA_LOW_LIGHT = 519494373U;
         static const AkUniqueID PLAY_LISA_LOW_MEDIUM = 3727786178U;
