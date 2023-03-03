@@ -78,6 +78,27 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_Side_Launch_Swing" ID="{2B91F3DD-274E-4A3B-B11D-CF928FA01A8E}">
+					<ChildrenList>
+						<Action Name="" ID="{1488AFD8-F2D0-423E-A5AC-37325397350A}" ShortID="781865945">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Side Launch Swing" ID="{104E4D74-14C7-4B7B-B065-91D894E9CB13}" WorkUnitID="{25655577-1FDB-4C74-BBBE-1391D1BC4625}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{2DD92FF4-4A3A-42F6-99DA-6D9FFEA754F5}" ShortID="817551191">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_HeavySwingVO" ID="{5CEBB1E3-F637-4DB2-B01E-71383BC63D83}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

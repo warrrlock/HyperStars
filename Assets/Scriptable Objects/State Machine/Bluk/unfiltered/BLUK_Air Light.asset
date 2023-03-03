@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
   m_Name: BLUK_Air Light
   m_EditorClassIdentifier: 
+  characterSelection: 2
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: LightAirAtk
+  _animationHash: -931663598
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -20,18 +26,21 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
-  _animationName: LightAirAtk
-  _transitions: []
+  _transitions:
+  - {fileID: 11400000, guid: 7aed028eeacba9146a8e10a7c1a03c5e, type: 2}
+  - {fileID: 11400000, guid: 068030f1346abde4aa3d46bf16d5c03e, type: 2}
+  - {fileID: 11400000, guid: a87587a48f8a59e4692696e58ed65450, type: 2}
   _alwaysExecute: 0
-  _animationHash: -931663598
   _attackInfo:
     attackType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.5
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: -1, z: 0}
     hitStunDuration: 0.25
-    damage: 0
     causesWallBounce: 0
     hitStopDuration: 0.15
     wallBounceDuration: 0
@@ -44,8 +53,6 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.3
-    favorReward: 8
+    favorReward: 4
     knockbackForce: {x: 0, y: 56.063454}
     incrementBarAmount: 0.2
-  _isSpecial: 0
-  _specialBarCost: 0

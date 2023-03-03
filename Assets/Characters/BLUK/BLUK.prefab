@@ -872,8 +872,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.893322, y: 12.502292, z: 6.3329177}
-  m_Center: {x: -0.44666043, y: 6.251146, z: 0}
+  m_Size: {x: 12.36799, y: 12.502292, z: 6.3329177}
+  m_Center: {x: -1.8665407, y: 6.251146, z: 0}
 --- !u!114 &5093239530658643927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,7 +915,7 @@ MonoBehaviour:
   _shortDashCooldownDuration: 0
   _superDashCooldownDuration: 0
   _dashEasing: 0
-  _dashMinimumOverlap: 2
+  _dashMinimumOverlap: 1
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
@@ -926,7 +926,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _drawDebugRays: 1
-  _overlapResolutionSpeed: 10
+  _overlapResolutionSpeed: 15
   _mass: 1
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
   _yMask:
@@ -935,7 +935,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
-  _flipDelayTime: 0.15
+  _flipDelayTime: 0.1
   _move: {fileID: 11400000, guid: e91327a451f98794f8b895020734fd45, type: 2}
   _dashes:
   - {fileID: 11400000, guid: f2ea8141c9b535541a3a45800fe8656a, type: 2}
@@ -1007,6 +1007,8 @@ MonoBehaviour:
     value: {fileID: 11400000, guid: 117b3ca8d8512aa4981a78b57a4b4e5a, type: 2}
   - key: 2
     value: {fileID: 11400000, guid: 5ff41f2c97c86c542aa3499ac6960bab, type: 2}
+  - key: 3
+    value: {fileID: 11400000, guid: fad8b2dc7ee33fb4fa6e2747fc368378, type: 2}
   _hitCollider: {fileID: 5093239530218611593}
 --- !u!114 &5093239530658642986
 MonoBehaviour:
@@ -1085,10 +1087,17 @@ MonoBehaviour:
     WwiseObjectReference: {fileID: 11400000, guid: c1b4891ddd9e3ae44bfe4448f9c4ce0c, type: 2}
   - idInternal: 0
     valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: c1b4891ddd9e3ae44bfe4448f9c4ce0c, type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: afbc0153e493e2d4483875fe46675ea9, type: 2}
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 3be3b6b60f1025046939451ec7a74963, type: 2}
+  normalDashes:
+  - {fileID: 11400000, guid: f2ea8141c9b535541a3a45800fe8656a, type: 2}
+  superDashes:
+  - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
 --- !u!114 &5316298007501784491
 MonoBehaviour:
   m_ObjectHideFlags: 0
