@@ -14,25 +14,47 @@ class SelectionSpritePair
 
 public class CharacterButtonsPlayer: MonoBehaviour
 {
+    [SerializeField] private bool _isBot;
     [SerializeField] private CharacterManager _characterManager;
     [SerializeField] private CharacterSelectManager _selectionManager;
     [SerializeField] private int _playerId;
     [SerializeField] private Image _characterSelectionImage;
     [SerializeField] private List<SelectionSpritePair> _images;
+    [SerializeField] private GameObject _readyVisual;
     
-    public Player Player { get; set; }
+    public Player Player { get; private set; }
+    public bool IsBot => _isBot;
     public int PlayerId => _playerId;
+
+    private void OnDestroy()
+    {
+        Player.onReady -= UpdateReadyVisuals;
+    }
+
+    public void SetPlayer(Player p)
+    {
+        if (Player) p.onReady -= UpdateReadyVisuals;
+        Player = p;
+        Player.onReady += UpdateReadyVisuals;
+    }
     
     public void SelectLisa()
     {
-            _characterManager.Characters.TryGetValue(CharacterManager.CharacterSelection.Lisa, out Character character);
-            if (character) Player.SelectCharacter(character);
+        _characterManager.Characters.TryGetValue(CharacterManager.CharacterSelection.Lisa, out Character character);
+        SelectCharacter(character);
     }
 
     public void SelectBluk()
     {
         _characterManager.Characters.TryGetValue(CharacterManager.CharacterSelection.Bluk, out Character character);
-        if (character) Player.SelectCharacter(character);
+        SelectCharacter(character);
+    }
+
+    private void SelectCharacter(Character character)
+    {
+        if (!character) return;
+        if (_isBot) Player.SelectBot(character);
+        else Player.SelectCharacter(character);
     }
     
     public void UpdateCharacterSelect(string character)
@@ -41,6 +63,11 @@ public class CharacterButtonsPlayer: MonoBehaviour
             pair.character.ToString().Equals(character, StringComparison.OrdinalIgnoreCase));
         if (_characterSelectionImage) _characterSelectionImage.sprite = selectionSpritePair.image;
         if (_selectionManager) _selectionManager.UpdateSelection(selectionSpritePair.character, _playerId);
+    }
+
+    private void UpdateReadyVisuals()
+    {
+        _readyVisual.SetActive(true); //TODO: replace with animations/ui input module change
     }
     
     public void GetReady()

@@ -106,6 +106,12 @@ public class InputManager : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public void ResetValues()
+    {
+        StopAllCoroutines();
+        EnableAll();
+    }
+
     private void AssignComponents()
     {
         _playerInput = transform.parent.GetComponent<PlayerInput>();
@@ -258,7 +264,7 @@ public class InputManager : MonoBehaviour
 
         foreach (InputManager.Action action in actionsToDisable)
         {
-            action.disabledCount--;
+            if (action.disabledCount > 0) action.disabledCount--;
         }
         yield break;
         //TODO: MOVING DIRECTION NOT FACING DIRECTION
@@ -289,7 +295,7 @@ public class InputManager : MonoBehaviour
 
         foreach (InputManager.Action action in actionsToDisable)
         {
-            action.disabledCount--;
+            if (action.disabledCount > 0) action.disabledCount--;
         }
         yield break;
     }
@@ -318,7 +324,7 @@ public class InputManager : MonoBehaviour
         foreach (KeyValuePair<string, Action> pair in Actions)
         {
             Action action = pair.Value;
-            action.disabledCount--;
+            if (action.disabledCount > 0) action.disabledCount--;
         }
         yield break;
         //TODO: MOVING DIRECTION NOT FACING DIRECTION
@@ -351,9 +357,17 @@ public class InputManager : MonoBehaviour
         foreach (KeyValuePair<string, Action> pair in Actions)
         {
             Action action = pair.Value;
-            action.disabledCount--;
+            if (action.disabledCount > 0) action.disabledCount--;
         }
         yield break;
+    }
+
+    private void EnableAll()
+    {
+        foreach (KeyValuePair<string, Action> pair in Actions)
+        {
+            pair.Value.disabledCount = 0;
+        }
     }
 
     private IEnumerator QueuePerformTime(Action action, float duration)
@@ -377,6 +391,16 @@ public class InputManager : MonoBehaviour
 
     private IEnumerator QueuePerform(Action action)
     {
+        if (action == Actions["Dash"]) yield break;
+        if (Actions.ContainsKey("Dash Left"))
+        {
+            if (action == Actions["Dash Left"]) yield break;
+        }
+        if (Actions.ContainsKey("Dash Right"))
+        {
+            if (action == Actions["Dash Right"]) yield break;
+        }
+        
         action.isPerformQueued = true;
         // Debug.Log(action.disabledCount);
         yield return new WaitForFixedUpdate();

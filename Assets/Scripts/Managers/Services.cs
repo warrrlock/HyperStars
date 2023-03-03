@@ -6,6 +6,7 @@ using UnityEngine;
 public static class Services
 {
     public static FightersManager FightersManager;
+    public static Player[] Players = new Player[2];
     public static Fighter[] Fighters = new Fighter[2];
     public static Character[] Characters = new Character[2];
 

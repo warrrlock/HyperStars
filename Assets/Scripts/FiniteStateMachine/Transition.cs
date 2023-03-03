@@ -12,7 +12,7 @@ namespace FiniteStateMachine
     public class Transition: ScriptableObject
     {
         enum FalseState { DoNothing, CustomFalseState }
-        
+        [SerializeField] private bool _ignoreHitConfirm;
         [SerializeField] private String _inputActionName;
         [SerializeField] private String _inputActionName2; //TODO: fix issue of player invoking the wrong input when some inputs are supposed to be disabled
         [Tooltip("If the State allows for combos, the true State is if the combo is successful, " +
@@ -45,13 +45,13 @@ namespace FiniteStateMachine
         /// <param name="inputName">name of input action from player</param>
         /// <param name="canCombo">whether or not the combo is successful.</param>
         /// <param name="action">action to perform at start</param>
-        public bool Execute (BaseStateMachine stateMachine, string inputName, bool canCombo, Action action = null)
+        public bool ExecuteCombo (BaseStateMachine stateMachine, string inputName, Action action = null)
         {
             action?.Invoke();
             if (Decide(inputName))
             {
                 bool specialCheck = CheckSpecial(stateMachine);
-                if (canCombo && specialCheck)
+                if (stateMachine.CanCombo(_ignoreHitConfirm) && specialCheck)
                 {
                     if (!_trueState)
                     {
@@ -79,8 +79,13 @@ namespace FiniteStateMachine
         /// <param name="inputName">name of input action from player.</param>
         /// <param name="action">action to perform at start, default none.</param>
         /// <param name="queueAtEndOfAnim">should it be queued at end, if transition check is successful</param>
-        public bool Execute (BaseStateMachine stateMachine, string inputName, Action action = null, bool queueAtEndOfAnim = false)
+        public bool Execute (BaseStateMachine stateMachine, string inputName, bool isCombo = false, Action action = null, bool queueAtEndOfAnim = false)
         {
+            if (isCombo)
+            {
+                return ExecuteCombo(stateMachine, inputName);;
+            }
+            
             action?.Invoke();
 
             if (Decide(inputName))
