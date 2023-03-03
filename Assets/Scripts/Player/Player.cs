@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
-using FiniteStateMachine;
 using Managers;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
+using Util;
 
 [RequireComponent(typeof(PlayerInput))]
 /*
@@ -16,16 +16,14 @@ using UnityEngine.SceneManagement;
 public class Player: MonoBehaviour
 {
     public PlayerInput PlayerInput { get; private set; }
-    [SerializeField] private Character _character;
-    private GameObject FighterObject { get; set; }
     public bool Ready => _ready;
-    [SerializeField] private bool _ready;
     public Action onReady;
-
-    private readonly int _mainMenuSceneIndex = 0;
-    private readonly int _selectionSceneIndex = 1;
-    private readonly int _gameSceneIndex = 2;
-    private readonly int _trainingSceneIndex = 3;
+    
+    [SerializeField] private Character _character;
+    [SerializeField] private bool _ready;
+    [SerializeField] private BuildSettingIndices _indices;
+    
+    public GameObject FighterObject { get; set; }
 
     private void Awake()
     {
@@ -37,6 +35,7 @@ public class Player: MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+        Services.Players[PlayerInput.playerIndex] = this;
         SubscribeActions();
         CheckEnterResetPlayerScene(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
@@ -65,7 +64,6 @@ public class Player: MonoBehaviour
         SceneManager.sceneLoaded -= CheckEnterResetPlayerScene;
     }
     
-
     public void SelectCharacter(Character character)
     {
         _ready = false;
@@ -89,11 +87,17 @@ public class Player: MonoBehaviour
         onReady?.Invoke();
         //TODO: move input to character selection
     }
+    
+    public void SelectBot(Character character)
+    {
+        Services.Characters[PlayerInput.playerIndex^1] = character;
+        Services.Players[PlayerInput.playerIndex ^ 1]._ready = true;
+    }
 
     private void ReadyStartingGame()
     {
-        Services.Characters[PlayerInput.playerIndex] = _character;
-        if (!FighterObject) FighterObject = Instantiate(_character.CharacterPrefab, transform);
+        if (_character) Services.Characters[PlayerInput.playerIndex] = _character;
+        if (!FighterObject) FighterObject = Instantiate(Services.Characters[PlayerInput.playerIndex].CharacterPrefab, transform);
         PlayerInput.uiInputModule = null;
     }
 
@@ -134,18 +138,18 @@ public class Player: MonoBehaviour
 
     private void CheckEnterResetPlayerScene(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if (scene.buildIndex == _mainMenuSceneIndex)
+        if (scene.buildIndex == _indices.mainMenuScene)
         {
-            ResetPlayer();
+            Destroy(gameObject);
         }
-        if (scene.buildIndex == _selectionSceneIndex)
+        else if (scene.buildIndex == _indices.selectionScene || scene.buildIndex == _indices.trainingSelectionScene)
         {
             ResetPlayer();
             SetSelectionSceneValues();
         }
-        else if (scene.buildIndex == _gameSceneIndex || scene.buildIndex == _trainingSceneIndex)
+        else if (scene.buildIndex == _indices.gameScene || scene.buildIndex == _indices.trainingScene)
         {
-            PlayerInput.SwitchCurrentActionMap("Player");
+            PlayerInput.SwitchCurrentActionMap(PlayerInput.defaultActionMap);
             ReadyStartingGame();
         }
     }

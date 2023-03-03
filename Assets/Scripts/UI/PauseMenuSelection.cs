@@ -4,7 +4,7 @@ using UnityEngine.InputSystem.UI;
 
 namespace UI
 {
-    public class MenuSelection: MonoBehaviour
+    public class PauseMenuSelection: MonoBehaviour
     {
         [SerializeField] private GameObject _menu;
         private Fighter _opener;
