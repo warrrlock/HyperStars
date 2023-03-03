@@ -132,45 +132,14 @@ namespace FiniteStateMachine {
 
         private void Start()
         {
-            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
-                entry.Value.perform += Invoke;
-            Fighter.InputManager.Actions["Dash"].finish += Finish;
-            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
-            {
-                Fighter.InputManager.Actions["Dash Left"].finish += Finish;
-            }
-            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
-            {
-                Fighter.InputManager.Actions["Dash Right"].finish += Finish;
-            }
-            
-            Fighter.InputManager.Actions["Move"].stop += Stop;
-            Fighter.InputManager.Actions["Crouch"].stop += Stop;
-
-            Fighter.Events.onAttackHit += SetHitOpponent;
-            Fighter.Events.wallBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.WallBounce);
-            Fighter.Events.groundBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.GroundBounce);
-            
+            SubscribeActions();
             ResetStateMachine();
             UpdateStateInfoText();
         }
 
         private void OnDestroy()
         {
-            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
-                entry.Value.perform -= Invoke;
-            Fighter.InputManager.Actions["Dash"].finish -= Finish;
-            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
-            {
-                Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
-            }
-            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
-            {
-                Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
-            }
-            
-            Fighter.InputManager.Actions["Move"].stop -= Stop;
-            Fighter.InputManager.Actions["Crouch"].stop -= Stop;
+            UnSubscribeActions();
             StopAllCoroutines();
         }
         #endregion
@@ -197,6 +166,50 @@ namespace FiniteStateMachine {
 
             ClearQueues();
             CurrentState.Execute(this, "");
+        }
+        
+        private void SubscribeActions()
+        {
+            Fighter.InputManager.Actions["Jump"].perform += ExecuteJump;
+            
+            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
+                entry.Value.perform += Invoke;
+            Fighter.InputManager.Actions["Dash"].finish += Finish;
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
+            {
+                Fighter.InputManager.Actions["Dash Left"].finish += Finish;
+            }
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
+            {
+                Fighter.InputManager.Actions["Dash Right"].finish += Finish;
+            }
+            
+            Fighter.InputManager.Actions["Move"].stop += Stop;
+            Fighter.InputManager.Actions["Crouch"].stop += Stop;
+
+            Fighter.Events.onAttackHit += SetHitOpponent;
+            Fighter.Events.wallBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.WallBounce);
+            Fighter.Events.groundBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.GroundBounce);
+        }
+        
+        private void UnSubscribeActions()
+        {
+            Fighter.InputManager.Actions["Jump"].perform -= ExecuteJump;
+            
+            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
+                entry.Value.perform -= Invoke;
+            Fighter.InputManager.Actions["Dash"].finish -= Finish;
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
+            {
+                Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
+            }
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
+            {
+                Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
+            }
+            
+            Fighter.InputManager.Actions["Move"].stop -= Stop;
+            Fighter.InputManager.Actions["Crouch"].stop -= Stop;
         }
         
         private void Invoke(InputManager.Action action)
@@ -255,6 +268,12 @@ namespace FiniteStateMachine {
         private void Finish(InputManager.Action action)
         {
             CurrentState.Finish(this);
+        }
+
+        private void ExecuteJump(InputManager.Action action)
+        {
+            QueueState(_jumpState);
+            ExecuteQueuedState();
         }
 
         public bool PlayAnimation(int animationState, bool defaultCombo = false, bool replay = false)
