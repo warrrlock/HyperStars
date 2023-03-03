@@ -1407,8 +1407,7 @@ public class MovementController : MonoBehaviour
         
         InputManager.Action[] actions =
         {
-            _inputManager.Actions["Move"], 
-            _inputManager.Actions["Dash"],
+            _inputManager.Actions["Move"],
             _inputManager.Actions["Jump"],
             _inputManager.Actions["Dash Left"],
             _inputManager.Actions["Dash Right"],

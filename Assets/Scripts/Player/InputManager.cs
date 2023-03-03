@@ -391,6 +391,16 @@ public class InputManager : MonoBehaviour
 
     private IEnumerator QueuePerform(Action action)
     {
+        if (action == Actions["Dash"]) yield break;
+        if (Actions.ContainsKey("Dash Left"))
+        {
+            if (action == Actions["Dash Left"]) yield break;
+        }
+        if (Actions.ContainsKey("Dash Right"))
+        {
+            if (action == Actions["Dash Right"]) yield break;
+        }
+        
         action.isPerformQueued = true;
         // Debug.Log(action.disabledCount);
         yield return new WaitForFixedUpdate();
