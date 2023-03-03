@@ -123,7 +123,7 @@ public class InputManager : MonoBehaviour
     }
     private void UnsubscribeActions()
     {
-        _playerInput.onActionTriggered += ResolveActions;
+        _playerInput.onActionTriggered -= ResolveActions;
     }
 
     private void CreateDictionary()

@@ -67,7 +67,7 @@ public class CharacterButtonsPlayer: MonoBehaviour
 
     private void UpdateReadyVisuals()
     {
-        _readyVisual.SetActive(true); //TODO: replace with animations/ui input module change
+        if (_readyVisual) _readyVisual.SetActive(true); //TODO: replace with animations/ui input module change
     }
     
     public void GetReady()
