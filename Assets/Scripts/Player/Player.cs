@@ -115,7 +115,7 @@ public class Player: MonoBehaviour
         {
             if (selection.PlayerId == PlayerInput.playerIndex)
             {
-                selection.Player = this;
+                selection.SetPlayer(this);
                 PlayerInput.uiInputModule = selection.GetComponent<InputSystemUIInputModule>();
                 break;
             }

@@ -20,10 +20,23 @@ public class CharacterButtonsPlayer: MonoBehaviour
     [SerializeField] private int _playerId;
     [SerializeField] private Image _characterSelectionImage;
     [SerializeField] private List<SelectionSpritePair> _images;
+    [SerializeField] private GameObject _readyVisual;
     
-    public Player Player { get; set; }
+    public Player Player { get; private set; }
     public bool IsBot => _isBot;
     public int PlayerId => _playerId;
+
+    private void OnDestroy()
+    {
+        Player.onReady -= UpdateReadyVisuals;
+    }
+
+    public void SetPlayer(Player p)
+    {
+        if (Player) p.onReady -= UpdateReadyVisuals;
+        Player = p;
+        Player.onReady += UpdateReadyVisuals;
+    }
     
     public void SelectLisa()
     {
@@ -50,6 +63,11 @@ public class CharacterButtonsPlayer: MonoBehaviour
             pair.character.ToString().Equals(character, StringComparison.OrdinalIgnoreCase));
         if (_characterSelectionImage) _characterSelectionImage.sprite = selectionSpritePair.image;
         if (_selectionManager) _selectionManager.UpdateSelection(selectionSpritePair.character, _playerId);
+    }
+
+    private void UpdateReadyVisuals()
+    {
+        _readyVisual.SetActive(true); //TODO: replace with animations/ui input module change
     }
     
     public void GetReady()
