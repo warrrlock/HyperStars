@@ -92,6 +92,7 @@ public class Player: MonoBehaviour
     {
         Services.Characters[PlayerInput.playerIndex^1] = character;
         Services.Players[PlayerInput.playerIndex ^ 1]._ready = true;
+        Services.Players[PlayerInput.playerIndex ^ 1].onReady?.Invoke();
     }
 
     private void ReadyStartingGame()
