@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{25655577-1FDB-4C74-BBBE-1391D1BC4625}" SchemaVersion="103" RootDocumentID="{0893AA5F-CA15-4878-98A2-09F5232829DE}" ParentDocumentID="{F948D1FE-DD78-49EF-B634-956350552131}">
+	<AudioObjects>
+		<WorkUnit Name="Side Launch Swing" ID="{25655577-1FDB-4C74-BBBE-1391D1BC4625}" OwnerID="{F948D1FE-DD78-49EF-B634-956350552131}" PersistMode="Nested">
+			<ChildrenList>
+				<ActorMixer Name="SideLaunchSwing" ID="{A7AE7E24-BEA2-4188-A393-78128E74C536}" ShortID="608848270">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="LisaSpecialsBus" ID="{E3CFB8C3-D5D6-4A31-BFCA-74969544FC91}" WorkUnitID="{4F2A6DFC-3D74-455F-BD71-9ED5CCA7B14F}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Side Launch Swing" ID="{104E4D74-14C7-4B7B-B065-91D894E9CB13}" ShortID="607958619">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Side Launch Swing" ID="{8200F61D-C275-4CA5-A939-72C846BBFD6F}">
+									<Language>SFX</Language>
+									<AudioFile>Side Launch Swing.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="713930790"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="Side Launch Swing" ID="{8200F61D-C275-4CA5-A939-72C846BBFD6F}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

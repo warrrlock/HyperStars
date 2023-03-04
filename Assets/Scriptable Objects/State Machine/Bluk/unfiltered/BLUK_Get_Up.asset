@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: BLUK_Get_Up
   m_EditorClassIdentifier: 
+  characterSelection: 2
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Get Up
+  _animationHash: -1181431220
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -21,8 +26,6 @@ MonoBehaviour:
       width: 0
       height: 0
   _filters: []
-  characterSelection: 2
-  _animationName: Get Up
   _onInputPlayOrStopActions:
   - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
   _onInputInvokeActions: []
@@ -34,13 +37,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9542575c4d3f46544890eaca0dbbb39a, type: 2}
   - {fileID: 11400000, guid: 167c34ec0b492bc4eb9d761a1d0d3628, type: 2}
   _defaultCombo: 1
+  _alwaysHitConfirm: 1
   _attackInfo:
     attackType: 0
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
-    damage: 0
     causesWallBounce: 0
     hitStopDuration: 0
     wallBounceDuration: 0
@@ -56,7 +63,4 @@ MonoBehaviour:
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  _isSpecial: 0
-  _specialBarCost: 0
   _projectilePrefab: {fileID: 0}
-  _animationHash: -1181431220

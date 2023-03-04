@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{B30AB4BA-5ADE-48C4-8EB1-1FFACCE5CBAE}" SchemaVersion="103" RootDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" ParentDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}">
+	<AudioObjects>
+		<WorkUnit Name="Wall Bounce Foley - Mat" ID="{B30AB4BA-5ADE-48C4-8EB1-1FFACCE5CBAE}" OwnerID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="3"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="Wall Bounce Foley - Mat Mixer" ID="{377CA3FF-FE91-408A-A5F3-C0FB5A32E0AE}" ShortID="929130377">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="GeneralFoleyBus" ID="{A87D0FCA-459C-4C44-92E2-0E8DCFCB04F6}" WorkUnitID="{F8B10F05-FED8-43F7-AAF3-5A94B879AD75}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Wall Bounce Foley - Mat" ID="{C08909C3-5C6D-46F9-BEB4-BF09DBDDE9B9}" ShortID="1052114669">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Wall Bounce Foley - Mat" ID="{0C233CD8-5BA2-4002-9288-548D1A41DBA7}">
+									<Language>SFX</Language>
+									<AudioFile>Wall Bounce Foley - Mat.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="458752533"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="Wall Bounce Foley - Mat" ID="{0C233CD8-5BA2-4002-9288-548D1A41DBA7}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

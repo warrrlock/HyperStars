@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Lisa_GetUp
   m_EditorClassIdentifier: 
+  characterSelection: 1
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Get Up
+  _animationHash: -1181431220
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -21,8 +26,6 @@ MonoBehaviour:
       width: 0
       height: 0
   _filters: []
-  characterSelection: 1
-  _animationName: Get Up
   _onInputPlayOrStopActions:
   - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
   _onInputInvokeActions: []
@@ -31,16 +34,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
   - {fileID: 11400000, guid: a76c55de77e49b64e8681716f60d65fd, type: 2}
   - {fileID: 11400000, guid: f8945aac1fad4a8449979cb507fece13, type: 2}
-  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   - {fileID: 11400000, guid: 301fd3b8fd9d54577847d001af8639f6, type: 2}
+  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   _defaultCombo: 1
+  _alwaysHitConfirm: 1
   _attackInfo:
     attackType: 0
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
-    damage: 0
     causesWallBounce: 0
     hitStopDuration: 0
     wallBounceDuration: 0
@@ -56,7 +63,4 @@ MonoBehaviour:
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  _isSpecial: 0
-  _specialBarCost: 0
   _projectilePrefab: {fileID: 0}
-  _animationHash: -1181431220

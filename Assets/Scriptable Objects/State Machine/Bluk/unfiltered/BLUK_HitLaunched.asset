@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59d989259cd24311aa1814be58ea5c4, type: 3}
   m_Name: BLUK_HitLaunched
   m_EditorClassIdentifier: 
+  characterSelection: 2
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Launch
+  _animationHash: 2115719875
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -21,10 +26,7 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
   _hurtType: 1
-  _animationName: Launch
-  _animationHash: 2115719875
   _animationName2: Knockdown
   _animationHash2: 1600680830
-  _exitState: {fileID: 11400000, guid: 4c61eacc5e06bf542a88c14a6d4eeeaf, type: 2}
+  _exitState: {fileID: 11400000, guid: 28d599a337b69014fa270ee49718104e, type: 2}

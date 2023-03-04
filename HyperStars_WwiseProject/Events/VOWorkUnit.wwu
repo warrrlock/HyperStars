@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{54350438-78CD-4A27-934F-2468F63E91CE}" SchemaVersion="103">
+	<Events>
+		<WorkUnit Name="VOWorkUnit" ID="{54350438-78CD-4A27-934F-2468F63E91CE}" PersistMode="Standalone">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="25"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Event Name="Play_LightPainVO" ID="{AE83418F-6AB4-4501-BC7C-56E1361E28A3}">
+					<ChildrenList>
+						<Action Name="" ID="{80C3EBDD-DF92-48ED-9201-5DC5AA855D57}" ShortID="478792034">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LightPainVO" ID="{A904C430-79A3-4B0B-B840-3AE671197FB4}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_HeavyPainVO" ID="{B3F299CA-78B4-4D02-8CC0-201B5483B56F}">
+					<ChildrenList>
+						<Action Name="" ID="{3FDC9105-E3F3-42BC-B509-43241D24D1A1}" ShortID="704101623">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="HeavyPainVO" ID="{F906CA22-3004-4FD1-B178-0F0B46316427}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_HeavySwingVO" ID="{5CEBB1E3-F637-4DB2-B01E-71383BC63D83}">
+					<ChildrenList>
+						<Action Name="" ID="{6D7A7AC5-49E0-493E-BE1F-40ED22845710}" ShortID="945042244">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="HeavySwingVO" ID="{31796527-B980-45D7-AEEB-031D77264951}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_MediumSwingVO" ID="{250CDFC9-8BF4-4103-912E-1957C433BD68}">
+					<ChildrenList>
+						<Action Name="" ID="{33490E34-A548-45A3-BCEC-E6E273F986E1}" ShortID="860072191">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MediumSwingVO" ID="{E1BBEDEB-B118-4DA8-9B1F-C836BB88E4A1}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_LightSwingVO" ID="{D42FB24C-C243-4C4E-824B-22DFB39DF30C}">
+					<ChildrenList>
+						<Action Name="" ID="{031D9F51-AC44-4BFC-9050-CB10C5682642}" ShortID="884243410">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LightSwingVO" ID="{F47558AF-2979-4317-AE34-2C62191B34CA}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_DashVO" ID="{9AB59D62-4F46-4592-9B2C-2AF277257AEF}">
+					<ChildrenList>
+						<Action Name="" ID="{A8B18BFC-809F-443B-B111-B718D76A050B}" ShortID="983449875">
+							<PropertyList>
+								<Property Name="Probability" Type="Real64" Value="60"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DashVO" ID="{0520EAD9-08E5-4259-B98E-729D2AB7BDA5}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_JumpVO" ID="{7B3A3F61-9621-4DEB-AE48-F61A9707688D}">
+					<ChildrenList>
+						<Action Name="" ID="{28C2B20D-0BA9-4B29-9C17-0CED0220B930}" ShortID="709736866">
+							<PropertyList>
+								<Property Name="Probability" Type="Real64" Value="50"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="JumpVO" ID="{0A9512DD-FA1D-4D34-A3D8-A9849E62F9F5}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

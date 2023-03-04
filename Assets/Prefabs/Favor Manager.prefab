@@ -57,6 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 535252083858095251}
   - component: {fileID: 535252083858095250}
+  - component: {fileID: 7482730245944352026}
   m_Layer: 0
   m_Name: Favor Manager
   m_TagString: Untagged
@@ -94,6 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxFavorInitial: 100
   _favorMultiplierDelta: 0.1
+  _decayValue: 0.25
+  _decayResetDuration: 1
   _favorMeter: {fileID: 6641305619317541153}
   _favorMeterIndicator: {fileID: 709499032836859959}
   _multiplierText: {fileID: 1658837537840481286}
@@ -104,6 +107,34 @@ MonoBehaviour:
   _p1Mask: {fileID: 6641305619317541153}
   _p2Mask: {fileID: 709499031046502114}
   _border: {fileID: 709499031122435114}
+--- !u!114 &7482730245944352026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535252083858095253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df87a74dd3f84c3bb2ee057ebeebcf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 58d9c2a4bf47c4927bcab8a59ec48fb9, type: 2}
+  _responses:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 535252083858095250}
+        m_TargetAssemblyTypeName: FavorManager, Assembly-CSharp
+        m_MethodName: StopIncrementing
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &709499031046502115
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +255,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.7425, y: 1.7425, z: 1.7425}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1233081119358299452}
+  - {fileID: 6122412127599863011}
   m_Father: {fileID: 8571239410700591778}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

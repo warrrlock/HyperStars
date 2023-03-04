@@ -1,13 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FiniteStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using WesleyDavies;
 using WesleyDavies.UnityFunctions;
-
-
-//TODO: PASSIVE RELOAD FOR ATTACKS AND STUFF??
 
 [RequireComponent(typeof(Fighter))]
 [RequireComponent(typeof(BoxCollider))]
@@ -20,8 +18,12 @@ public class MovementController : MonoBehaviour
     public Vector3 pushDirection;
 
     [Header("Movement")]
-    [Tooltip("How fast should the character move sideways (in units/sec)?")]
+    [Tooltip("How fast should this character move sideways (in units/sec)?")]
     [SerializeField] private float _moveSpeed;
+    [Tooltip("How fast should this character get pushed by another character (in units/sec)?")]
+    [SerializeField] private float _opponentPushSpeed;
+
+    public bool IsBeingPushed { get; private set; }
 
     [Header("Jump")]
     [Tooltip("How high (in units) should the character jump on longest button press?")]
@@ -32,9 +34,11 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _timeToJumpApex;
 
     [Header("Dash")]
-    [SerializeField] private float _dashForce;
+    private float _dashForce;
     [SerializeField] private float _dashDistance;
     [SerializeField] private float _dashDuration;
+    [SerializeField] private float _shortDashDistance;
+    [SerializeField] private float _shortDashDuration;
     [SerializeField] private float _dashHangTime;
     [SerializeField] private bool _dashToZero;
     [SerializeField] private float _shortDashCooldownDuration;
@@ -144,6 +148,12 @@ public class MovementController : MonoBehaviour
     /// </summary>
     private bool _isOpponentBehind = false;
 
+    [Header("Base States Subscription")]
+    [SerializeField] private BaseState _move;
+    [SerializeField] private BaseState[] _dashes;
+    [SerializeField] private BaseState _jump;
+    
+    
     private struct RaycastOrigins
     {
         public Axis x;
@@ -205,6 +215,7 @@ public class MovementController : MonoBehaviour
             case ForceEasing.Linear:
                 //_dashForce = (_dashDistance * 2f) / (_dashDuration * Time.fixedDeltaTime + _dashDuration);
                 _dashForce = (_dashDistance * 2f) / (_dashDuration + Time.fixedDeltaTime);
+                _shortDashForce = (_shortDashDistance * 2f) / (_shortDashDuration + Time.fixedDeltaTime);
                 break;
             case ForceEasing.Quadratic:
                 //_dashForce = (_dashDistance * 3f) / (_dashDuration * Time.fixedDeltaTime + 1f + (Time.fixedDeltaTime / 2f));
@@ -244,7 +255,7 @@ public class MovementController : MonoBehaviour
                 _dashForce = (_dashDistance * 4f) / (_dashDuration * Time.fixedDeltaTime + 1f);
                 break;
         }
-        _shortDashForce = _dashForce / 1.5f; //TODO: MAGIC NUMBER
+        //_shortDashForce = _dashForce / 1.5f; //TODO: MAGIC NUMBER
         _dashChargeCount = _maxDashCharges;
     }
 
@@ -272,6 +283,8 @@ public class MovementController : MonoBehaviour
         //        }
         //        break;
         //}
+
+        SpaceRays();
 
         switch (_fighter.FacingDirection)
         {
@@ -375,7 +388,7 @@ public class MovementController : MonoBehaviour
 
     public void ResetValues()
     {
-        StopMoving(null);
+        StopMoving();
     }
 
     private void KillAllForces()
@@ -388,6 +401,11 @@ public class MovementController : MonoBehaviour
         _forceCoroutines.Clear();
         _forceVelocity = Vector3.zero;
     }
+
+    //private void StateChange(BaseState state)
+    //{
+
+    //}
 
     //TODO: use fixed update instead of waitforseconds?
     private IEnumerator QueueFlip(Fighter.Direction newDirection)
@@ -808,41 +826,67 @@ public class MovementController : MonoBehaviour
         //_yMask = _collisionMask;
         //_xMask = _collisionMask;
     }
-
+    
     private void SubscribeActions()
     {
-        _inputManager.Actions["Move"].perform += StartMoving;
-        _inputManager.Actions["Move"].stop += StopMoving;
-        _inputManager.Actions["Dash"].perform += Dash;
-        if(_inputManager.Actions.ContainsKey("Dash Left"))
+        try
         {
-            _inputManager.Actions["Dash Left"].perform += DashLeft;
+            _fighter.BaseStateMachine.States[_move].execute += StartMoving;
+            _fighter.BaseStateMachine.States[_move].stop += StopMoving;
+
+            foreach (var dash in _dashes)
+            {
+                _fighter.BaseStateMachine.States[dash].execute += Dash;
+            }
+
+            if(_inputManager.Actions.ContainsKey("Dash Left"))
+            {
+                _inputManager.Actions["Dash Left"].perform += DashLeft;
+            }
+
+            if (_inputManager.Actions.ContainsKey("Dash Right"))
+            {
+                _inputManager.Actions["Dash Right"].perform += DashRight;
+            }
+
+            _inputManager.Actions["Jump"].perform += Jump;
+            _inputManager.Actions["Jump"].stop += StopJumping;
+            // _fighter.BaseStateMachine.States[_jump].execute += Jump;
+            // _fighter.BaseStateMachine.States[_jump].stop += StopJumping;
         }
-        if (_inputManager.Actions.ContainsKey("Dash Right"))
+        catch (Exception e)
         {
-            _inputManager.Actions["Dash Right"].perform += DashRight;
+            Debug.LogError($"movement states missing from controller {name}");
         }
-        _inputManager.Actions["Jump"].perform += Jump;
-        _inputManager.Actions["Jump"].stop += StopJumping;
-        _inputManager.Actions["Sidestep"].perform += Sidestep;
+
+        //_fighter.Events.onStateChange += StateChange;
     }
 
     private void UnsubscribeActions()
     {
-        _inputManager.Actions["Move"].perform -= StartMoving;
-        _inputManager.Actions["Move"].stop -= StopMoving;
-        _inputManager.Actions["Dash"].perform -= Dash;
-        if (_inputManager.Actions.ContainsKey("Dash Left"))
+        _fighter.BaseStateMachine.States[_move].execute -= StartMoving;
+        _fighter.BaseStateMachine.States[_move].stop -= StopMoving;
+        foreach (var dash in _dashes)
+        {
+            _fighter.BaseStateMachine.States[dash].execute -= Dash;
+        }
+        
+        if(_inputManager.Actions.ContainsKey("Dash Left"))
         {
             _inputManager.Actions["Dash Left"].perform -= DashLeft;
         }
+
         if (_inputManager.Actions.ContainsKey("Dash Right"))
         {
             _inputManager.Actions["Dash Right"].perform -= DashRight;
         }
+        
         _inputManager.Actions["Jump"].perform -= Jump;
         _inputManager.Actions["Jump"].stop -= StopJumping;
-        _inputManager.Actions["Sidestep"].perform -= Sidestep;
+        // _fighter.BaseStateMachine.States[_jump].execute -= Jump;
+        // _fighter.BaseStateMachine.States[_jump].stop -= StopJumping;
+
+        //_fighter.Events.onStateChange -= StateChange;
     }
 
     private void SpaceRays()
@@ -961,7 +1005,7 @@ public class MovementController : MonoBehaviour
                 throw new System.Exception("Invalid axis provided.");
         }
 
-        float axisDirection = Mathf.Sign(axisVelocity);
+        int axisDirection = (int)Mathf.Sign(axisVelocity);
         if (axis == Axis.x)
         {
             MovingDirection = axisDirection == -1 ? Fighter.Direction.Left : Fighter.Direction.Right;
@@ -982,6 +1026,26 @@ public class MovementController : MonoBehaviour
                 Vector3 rayOrigin = axisDirection == -1f ? originAxis.negative : originAxis.positive;
                 rayOrigin += iDirection * (raySpacing.y * i + iOffset) + jDirection * (raySpacing.x * j + jOffset);
 
+                if (!_fighter.OpposingFighter.MovementController.IsBeingPushed)
+                {
+                    if (axis == Axis.x)
+                    {
+                        if (Mathf.Abs(_unforcedVelocity.x) > 0f)
+                        {
+                            if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit overlapHit, rayLength, _playerMask))
+                            {
+                                if (_fighter.OpposingFighter.BaseStateMachine.IsIdle)
+                                {
+                                    float pushSpeed = _fighter.OpposingFighter.MovementController._opponentPushSpeed < _moveSpeed ? _fighter.OpposingFighter.MovementController._opponentPushSpeed : _moveSpeed;
+                                    StartCoroutine(_fighter.OpposingFighter.MovementController.GetPushedByOpponent(pushSpeed, axisDirection, () => _unforcedVelocity.x == 0f || !_fighter.OpposingFighter.BaseStateMachine.IsIdle));
+                                    _unforcedVelocity = new Vector3(pushSpeed * axisDirection, _unforcedVelocity.y, _unforcedVelocity.z);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //check collisions
                 if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit hit, rayLength, collisionMask))
                 {
                     switch (axis)
@@ -1028,6 +1092,17 @@ public class MovementController : MonoBehaviour
         //}
     }
 
+    public IEnumerator GetPushedByOpponent(float speed, int axisDirection, Func<bool> stopCondition)
+    {
+        IsBeingPushed = true;
+        _unforcedVelocity = new Vector3(speed * axisDirection, _unforcedVelocity.y, _unforcedVelocity.z);
+        yield return new WaitUntil(stopCondition);
+
+        _unforcedVelocity= new Vector3(0f, _unforcedVelocity.y, _unforcedVelocity.z);
+        IsBeingPushed = false;
+        yield break;
+    }
+
     public IEnumerator ResolveOverlap()
     {
         _isResolvingOverlap = true;
@@ -1049,7 +1124,7 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
-    private void StartMoving(InputManager.Action action)
+    private void StartMoving()
     {
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
         inputVector *= _moveSpeed;
@@ -1071,7 +1146,7 @@ public class MovementController : MonoBehaviour
         //}
     }
 
-    private void StopMoving(InputManager.Action action)
+    private void StopMoving()
     {
         if (!_isJumping)
         {
@@ -1106,7 +1181,7 @@ public class MovementController : MonoBehaviour
 
     private Vector3 _dashDirection = Vector3.zero;
 
-    private void Dash(InputManager.Action action)
+    private void Dash()
     {
         //_unforcedVelocity.x = 0f;
         //_unforcedVelocity.z = 0f;
@@ -1153,7 +1228,7 @@ public class MovementController : MonoBehaviour
                 StartCoroutine(_inputManager.Actions["Dash Left"].AddOneShotEnableCondition(() => IsGrounded));
                 StartCoroutine(_inputManager.Actions["Dash Right"].AddOneShotEnableCondition(() => IsGrounded));
             }
-            StartCoroutine(Dash(action, _dashDuration, false));
+            StartCoroutine(Dash(_inputManager.Actions["Dash"], _dashDuration, false));
         }
         else
         {
@@ -1161,7 +1236,7 @@ public class MovementController : MonoBehaviour
             {
                 StartCoroutine(_inputManager.Actions["Dash"].AddOneShotEnableCondition(() => IsGrounded));
             }
-            StartCoroutine(Dash(action, _dashDuration, true));
+            StartCoroutine(Dash(_inputManager.Actions["Dash"], _dashDuration, true));
             dashForce = _dashForce;
             _dashChargeCount--;
             if (_dashChargeCount <= 0)
@@ -1258,6 +1333,21 @@ public class MovementController : MonoBehaviour
             _unforcedVelocity.y = _minJumpVelocity;
         }
     }
+    
+    private void Jump()
+    {
+        _isJumping = true;
+        _unforcedVelocity.y = _maxJumpVelocity;
+        StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Jump"], _inputManager.Actions["Move"]));
+    }
+
+    private void StopJumping()
+    {
+        if (_unforcedVelocity.y > _minJumpVelocity)
+        {
+            _unforcedVelocity.y = _minJumpVelocity;
+        }
+    }
 
     private void Sidestep(InputManager.Action action)
     {
@@ -1286,9 +1376,9 @@ public class MovementController : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         _inputManager.Actions["Dash"].finish?.Invoke(action);
-        if (isSuperDash)
+        if (!isSuperDash)
         {
-            StartCoroutine(_inputManager.Disable(_superDashCooldownDuration, _inputManager.Actions["Dash"]));
+            //StartCoroutine(_inputManager.Disable(_superDashCooldownDuration, _inputManager.Actions["Dash"]));
         }
         else
         {
@@ -1310,7 +1400,7 @@ public class MovementController : MonoBehaviour
     public void EnableAttackStop()
     {
         _isAttacking = true;
-        StopMoving(null);
+        StopMoving();
         
         InputManager.Action[] actions =
         {

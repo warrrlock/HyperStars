@@ -18,6 +18,18 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private float _favorMultiplierDelta;
     //[Tooltip("The percentage of total favor that a fighter needs to win in order to increase the favor multiplier.")]
     //[SerializeField][Range(0f, 1f)] private float _favorSwitchPercentage;
+    public float DecayValue
+    {
+        get => _decayValue;
+    }
+    [Tooltip("What percentage of an attack gets decayed after use.")]
+    [SerializeField][Range(0f, 1f)] private float _decayValue;
+    public float DecayResetDuration
+    {
+        get => _decayResetDuration;
+    }
+    [Tooltip("How long it takes for an attack to fully recover from decay.")]
+    [SerializeField] private float _decayResetDuration;
 
     public float MaxFavor { get; private set; }
 
@@ -54,6 +66,8 @@ public class FavorManager : MonoBehaviour
 
     private float _timeMultiplier;
 
+    private bool _isRoundOver = false;
+
     private void Awake()
     {
         Services.FavorManager = this;
@@ -79,10 +93,17 @@ public class FavorManager : MonoBehaviour
         _canvas = GetComponentInChildren<Canvas>();
     }
 
-    //Attacks should have a cooldown time where they don't increase favor as much when used in succession.
+    public void StopIncrementing(Dictionary<string, object> data)
+    {
+        _isRoundOver = true;
+    }
 
     public void IncreaseFavor(int playerId, float value)
     {
+        if (_isRoundOver)
+        {
+            return;
+        }
         value = playerId == 0 ? value : -value;
         value *= _favorMultiplier;
         if (Mathf.Abs(_favor) >= MaxFavor)

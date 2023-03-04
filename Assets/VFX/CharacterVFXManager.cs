@@ -14,7 +14,6 @@ public enum vfxAssets {AfterImage, };
 public class CharacterVFXManager : MonoBehaviour
 {
     [SerializeField] private VisualEffect visualEffect;
-    [SerializeField] private VisualEffectAsset[] vfxGraphs;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
     [SerializeField] private float dashSmokeGroundOffset;
@@ -31,7 +30,14 @@ public class CharacterVFXManager : MonoBehaviour
     private InputManager _inputManager;
     
     // states
+    [Header("State change based spawning")]
+    [Tooltip("For spawning dash smoke.")]
+    [SerializeField] private BaseState[] _dashStates;
+    [Tooltip("For spawning afterimage.")]
     [SerializeField] private List<BaseState> _afterImageStates;
+    [Tooltip("For spawning camera blur.")]
+    [SerializeField] private BaseState[] _blurStates;
+    
     
     void Awake()
     {
@@ -59,20 +65,24 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager = GameObject.Find("VFX Camera").GetComponent<VFXSpawnManager>();
     }
     void VFXSubscribeEvents() {
-        _inputManager.Actions["Dash"].perform += DashSmoke;
+        foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         _fighter.Events.onBlockHit += BlockGlow;
-        _fighter.Events.onStateChange += SpawnAfterImage;
+        _fighter.Events.onStateChange += SpawnOnStateChange;
+        _fighter.Events.onLandedHurt += GroundWave;
+        _fighter.Events.wallBounce += WallWave;
     }
     
     void VFXUnsubscribeEvents() {
-        _inputManager.Actions["Dash"].perform -= DashSmoke;
+        foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
         _fighter.Events.onBlockHit -= BlockGlow;
-        _fighter.Events.onStateChange -= SpawnAfterImage;
+        _fighter.Events.onStateChange -= SpawnOnStateChange;
+        _fighter.Events.onLandedHurt -= GroundWave;
+        _fighter.Events.wallBounce -= WallWave;
     }
 
-    void DashSmoke(InputManager.Action action) {
+    void DashSmoke() {
         if (_fighter.MovementController.IsGrounded)
         {
             _vfxSpawnManager.InitializeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
@@ -107,6 +117,15 @@ public class CharacterVFXManager : MonoBehaviour
         f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 0f);
     }
 
+    void GroundWave()
+    {
+        _vfxSpawnManager.InitializeVFX(VFXGraphs.GROUND_WAVE, transform.localPosition + new Vector3(0, .3f, 0));
+    }
+
+    void WallWave()
+    {
+        _vfxSpawnManager.InitializeVFX(VFXGraphs.WALL_WAVE, transform.localPosition + new Vector3(0, 4.5f, 0));
+    }
     /// <summary>
     /// Coroutine for shaking the character during hit stop
     /// </summary>
@@ -162,17 +181,28 @@ public class CharacterVFXManager : MonoBehaviour
         visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 
-    private void SpawnAfterImage(BaseState s)
+    private void SpawnOnStateChange(BaseState s)
     {
-        // visualEffect.visualEffectAsset = vfxGraphs[(int)vfxAssets.AfterImage];
+        // spawn afterimage
+        visualEffect.SendEvent("OnStop");
         foreach (BaseState wantedState in _afterImageStates)
         {
             if (s == wantedState)
             {
                 visualEffect.SendEvent("OnDash");
-                return;
+                break;
             }
         }
-        visualEffect.SendEvent("OnStop");
+
+        // spawn blur
+        foreach (BaseState wantedState in _blurStates)
+        {
+            if (s == wantedState)
+            {
+                StartCoroutine(Services.CameraManager.CameraBlur(_fighter, .35f));
+                StartCoroutine(Services.CameraManager.CameraZoom(.1f, 38f, .2f, .12f));
+                break;
+            }
+        }
     }
 }

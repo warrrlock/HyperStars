@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Crouch Medium
   m_EditorClassIdentifier: 
+  characterSelection: 1
   _isCrouchState: 1
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Crouching Medium
+  _animationHash: 1363368765
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -25,23 +30,20 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _animationName: Crouching Medium
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
   _transitions:
-  - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
+  - {fileID: 11400000, guid: ef94e13ba6c52b6468b7ba8c836b9483, type: 2}
   - {fileID: 11400000, guid: 565ee919680260045b2797b0803ce714, type: 2}
-  - {fileID: 11400000, guid: 619018a969fe8534092a224429366dae, type: 2}
   - {fileID: 11400000, guid: 4bcf3947c18ebb44fb4eb1d7f129c16f, type: 2}
+  - {fileID: 11400000, guid: 935cfa0097e7c473a89d61b7f7b4df60, type: 2}
   _defaultCombo: 1
   _attackInfo:
     attackType: 2
     knockbackDuration: 0.2
-    knockbackDistance: 3
+    knockbackDistance: 2
     knockbackDirection: {x: 1, y: 0, z: 0}
     hitStunDuration: 0.4
-    damage: 10
     causesWallBounce: 0
     hitStopDuration: 0.1
     wallBounceDuration: 0
@@ -54,10 +56,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 12
+    favorReward: 6
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.4
-  _isSpecial: 0
-  _specialBarCost: 0
   _projectilePrefab: {fileID: 0}
-  _animationHash: 1363368765
