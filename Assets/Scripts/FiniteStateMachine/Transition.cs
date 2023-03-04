@@ -43,32 +43,30 @@ namespace FiniteStateMachine
         /// </summary>
         /// <param name="stateMachine">state machine</param>
         /// <param name="inputName">name of input action from player</param>
-        /// <param name="canCombo">whether or not the combo is successful.</param>
+        /// <param name="canCambo">whether or not the combo is successful.</param>
         /// <param name="action">action to perform at start</param>
-        public bool ExecuteCombo (BaseStateMachine stateMachine, string inputName, Action action = null)
+        public bool Execute (BaseStateMachine stateMachine, string inputName, bool canCambo, Action action = null)
         {
             action?.Invoke();
-            if (Decide(inputName))
+            if (!Decide(inputName)) return false;
+            
+            bool specialCheck = CheckSpecial(stateMachine);
+            if ((canCambo || stateMachine.CanCombo(_ignoreHitConfirm)) && specialCheck)
             {
-                bool specialCheck = CheckSpecial(stateMachine);
-                if (stateMachine.CanCombo(_ignoreHitConfirm) && specialCheck)
+                if (!_trueState)
                 {
-                    if (!_trueState)
-                    {
-                        Debug.LogWarning("no true state was assigned to this transition", this);
-                        return true;
-                    }
-                    SetTrueStatePassValues(stateMachine, inputName);
+                    Debug.LogWarning("no true state was assigned to this transition", this);
+                    return true;
                 }
-                else
-                {
-                    if ((_customFalseState))
-                        stateMachine.QueueState(_customFalseState);
-                    return false;
-                }
-                return true;
+                SetTrueStatePassValues(stateMachine, inputName);
             }
-            return false;
+            else
+            {
+                if ((_customFalseState))
+                    stateMachine.QueueState(_customFalseState);
+                return false;
+            }
+            return true;
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
@@ -79,13 +77,8 @@ namespace FiniteStateMachine
         /// <param name="inputName">name of input action from player.</param>
         /// <param name="action">action to perform at start, default none.</param>
         /// <param name="queueAtEndOfAnim">should it be queued at end, if transition check is successful</param>
-        public bool Execute (BaseStateMachine stateMachine, string inputName, bool isCombo = false, Action action = null, bool queueAtEndOfAnim = false)
+        public bool Execute (BaseStateMachine stateMachine, string inputName, Action action = null, bool queueAtEndOfAnim = false)
         {
-            if (isCombo)
-            {
-                return ExecuteCombo(stateMachine, inputName);;
-            }
-            
             action?.Invoke();
 
             if (Decide(inputName))

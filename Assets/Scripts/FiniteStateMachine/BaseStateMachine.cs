@@ -81,7 +81,7 @@ namespace FiniteStateMachine {
 
         private bool _hitOpponent;
 
-        private bool _queueJumpOnGround;
+        // private bool _queueJumpOnGround;
 
         public string LastExecutedInput { get; set; }
 
@@ -235,11 +235,6 @@ namespace FiniteStateMachine {
                     // Debug.Log($"queue execute {action.name}");
                     _returnState.QueueExecute(this, action.name);
                 }
-                else if (action.name == "Jump")
-                {
-                    // Debug.Log($"{action.name} is jump, queue jump");
-                    _queueJumpOnGround = true;
-                }
             }
 
             if (action.name == "Crouch")
@@ -309,7 +304,6 @@ namespace FiniteStateMachine {
         public void QueueStateAtEnd(BaseState state = null)
         {
             // Debug.Log($"queued at end {state?.name}");
-            if (_queueJumpOnGround && state != _jumpState) return;
             _queuedAtEndState = state;
         }
         
@@ -497,19 +491,6 @@ namespace FiniteStateMachine {
             StartCoroutine(Fighter.InputManager.Disable(
                 () => Fighter.MovementController.CollisionData.y.isNegativeHit, 
                 Fighter.InputManager.Actions["Crouch"]));
-        }
-
-        public void CheckRequeueJump()
-        {
-            if (_queueJumpOnGround)
-            {
-                // Debug.Log("requeue jump");
-                ClearQueues();
-                QueueStateAtEnd(_jumpState);
-            }
-            _queueJumpOnGround = false;
-            HandleAnimationExit();
-            StartCoroutine(RefuseThisFrame());
         }
 
         private IEnumerator HandleExitInAir(Action onGroundAction)
