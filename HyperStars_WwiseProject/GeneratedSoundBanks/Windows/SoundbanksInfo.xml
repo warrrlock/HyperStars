@@ -155,7 +155,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Language="SFX" Hash="2664380370">
+		<SoundBank Id="1355168291" Language="SFX" Hash="849724051">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
@@ -168,7 +168,7 @@
 				<GameParameter Id="2346531308" Name="MusicVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MusicVolume"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="3442249078">
+		<SoundBank Id="3161908922" Language="SFX" Hash="2033936627">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -265,6 +265,14 @@
 					<ActionPostEvent>
 						<ActionPostEventEntry Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO"/>
 					</ActionPostEvent>
+				</Event>
+				<Event Id="3727876332" Name="Play_FavorLockBreak" ObjectPath="\Events\UIWorkUnit\CombatUI\Play_FavorLockBreak" DurationType="OneShot" DurationMin="0.992354" DurationMax="0.992354">
+					<IncludedMemoryFiles>
+						<File Id="469448747" Language="SFX">
+							<ShortName>FavorLockBreak.wav</ShortName>
+							<Path>SFX\FavorLockBreak_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="348820993" Name="Play_GROUND_HIT" ObjectPath="\Events\CombatGeneralEvents\Play_GROUND_HIT" DurationType="OneShot" DurationMin="1.041229" DurationMax="1.041229">
 					<IncludedMemoryFiles>
