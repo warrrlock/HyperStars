@@ -85,6 +85,14 @@ public class MenuManager: MonoBehaviour
         SceneManager.LoadScene(_indices.trainingScene);
     }
 
+    public void ReturnToCharacterSelect()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == _indices.gameScene)
+            StartCharacterSelection();
+        else
+            StartTrainingSelection();
+    }
+
     public void OpenSettings()
     {
         //TODO: create settings

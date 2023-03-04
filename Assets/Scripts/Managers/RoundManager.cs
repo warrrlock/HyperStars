@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(GameEventListener))]
@@ -11,7 +12,7 @@ public class RoundManager : MonoBehaviour
     public bool InGame => !_disabledInput;
     
     [Header("Rounds meta")]
-    [SerializeField] private GameObject _restartButton;
+    [SerializeField] private GameObject _buttons;
     [SerializeField] private int _neededWins;
     
     [Header("Text Info")]
@@ -36,7 +37,7 @@ public class RoundManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_restartButton) _restartButton.SetActive(false);
+        if (_buttons) _buttons.SetActive(false);
         if (_roundText) _roundText.gameObject.SetActive(false);
         _round = RoundInformation.round;
         
@@ -92,7 +93,8 @@ public class RoundManager : MonoBehaviour
     //for use in animation
     public void EnableRestartGame()
     {
-        _restartButton.SetActive(true);
+        _buttons.SetActive(true);
+        Services.Players[0].PlayerInput.uiInputModule = GetComponentInChildren<InputSystemUIInputModule>();
     }
     
     public void RestartGame()
