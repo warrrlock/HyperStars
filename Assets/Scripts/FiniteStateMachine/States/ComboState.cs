@@ -15,8 +15,7 @@ namespace FiniteStateMachine
         [FsmList(typeof(Transition))] [SerializeField] private List<Transition> _transitions = new List<Transition>();
         [Tooltip("If you would like the animation to start with the combo option as true. Otherwise, set to false.")]
         [SerializeField] private bool _defaultCombo = true;
-        [SerializeField] private bool _alwaysHitConfirm;
-        
+
         [Header("Attack Information")]
         [SerializeField] private AttackInfo _attackInfo;
 
@@ -51,7 +50,7 @@ namespace FiniteStateMachine
             foreach (Transition transition in _transitions)
             {
                 // Debug.Log($"{stateMachine.name} executing transition {transition.name}");
-                if (transition.Execute(stateMachine, inputName, stateMachine.CanCombo(_alwaysHitConfirm))) return true;
+                if (transition.Execute(stateMachine, inputName, canCambo: stateMachine.CanCombo(_bypassHitConfirm))) return true;
             }
 
             return false;

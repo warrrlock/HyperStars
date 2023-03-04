@@ -21,6 +21,7 @@ namespace AK
         static const AkUniqueID PLAY_DASHVO = 2540994183U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_HIT = 2124280636U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_SWING = 2525681113U;
+        static const AkUniqueID PLAY_FAVORLOCKBREAK = 3727876332U;
         static const AkUniqueID PLAY_GROUND_HIT = 348820993U;
         static const AkUniqueID PLAY_GROUND_SPLAT_FOLEY_MAT = 2109586569U;
         static const AkUniqueID PLAY_HEAVY_HIT = 2944971053U;
@@ -112,8 +113,10 @@ namespace AK
     {
         static const AkUniqueID ATTACKHITBUS = 534946722U;
         static const AkUniqueID ATTACKSWINGBUS = 4276455557U;
+        static const AkUniqueID COMBATUIBUS = 1862777451U;
         static const AkUniqueID CROWDBUS = 1975785326U;
         static const AkUniqueID GENERALFOLEYBUS = 2674442030U;
+        static const AkUniqueID GENERALUIBUS = 3685745737U;
         static const AkUniqueID LISASPECIALSBUS = 3751746538U;
         static const AkUniqueID LISAVOICELINESBUS = 1910231631U;
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;

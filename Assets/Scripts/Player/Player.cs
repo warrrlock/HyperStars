@@ -92,6 +92,7 @@ public class Player: MonoBehaviour
     {
         Services.Characters[PlayerInput.playerIndex^1] = character;
         Services.Players[PlayerInput.playerIndex ^ 1]._ready = true;
+        Services.Players[PlayerInput.playerIndex ^ 1].onReady?.Invoke();
     }
 
     private void ReadyStartingGame()
@@ -115,7 +116,7 @@ public class Player: MonoBehaviour
         {
             if (selection.PlayerId == PlayerInput.playerIndex)
             {
-                selection.Player = this;
+                selection.SetPlayer(this);
                 PlayerInput.uiInputModule = selection.GetComponent<InputSystemUIInputModule>();
                 break;
             }
