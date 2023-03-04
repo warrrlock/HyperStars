@@ -1232,7 +1232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5698219725593528945, guid: 2a691c1ea833549a5b2713cb01e157b4, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Gamepad
+      value: Keyboard&Mouse
       objectReference: {fileID: 0}
     - target: {fileID: 5698219725593528945, guid: 2a691c1ea833549a5b2713cb01e157b4, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
@@ -1261,7 +1261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4895763656867111169, guid: b19f74dbd3dd1465faf10ffe125c91d0, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Keyboard&Mouse
+      value: Gamepad
       objectReference: {fileID: 0}
     - target: {fileID: 4895763656867111169, guid: b19f74dbd3dd1465faf10ffe125c91d0, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
@@ -1324,6 +1324,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2666714687243223776, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: _cameraCatchUpSpeedX
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666714687243223776, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: _cameraCatchUpSpeedZ
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666714687243223783, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: far clip plane
+      value: 6000
+      objectReference: {fileID: 0}
     - target: {fileID: 2666714687608587546, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
       propertyPath: m_Name
       value: Camera Pivot
