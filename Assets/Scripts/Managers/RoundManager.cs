@@ -10,8 +10,9 @@ using UnityEngine.UI;
 public class RoundManager : MonoBehaviour
 {
     public bool InGame => !_disabledInput;
-    
-    [Header("Rounds meta")]
+
+    [Header("Rounds meta")] 
+    [SerializeField] private GameEvent _roundStartEvent;
     [SerializeField] private GameObject _buttons;
     [SerializeField] private int _neededWins;
     
@@ -174,10 +175,12 @@ public class RoundManager : MonoBehaviour
         
         //start time/movement
         _countdownText.text = _startText;
-        EnableAllInput();
-        
+
         yield return new WaitForSeconds(1.0f);
         _countdownText.gameObject.SetActive(false);
+        
+        EnableAllInput();
+        _roundStartEvent.Raise(new Dictionary<string, object>());
     }
 
     private void DisableAllInput()
