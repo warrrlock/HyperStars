@@ -19,7 +19,10 @@ namespace FiniteStateMachine
 {
     public abstract class BaseState : ScriptableObject
     {
+        [Header("Meta")]
         [FormerlySerializedAs("character")] public CharacterManager.CharacterSelection characterSelection = CharacterManager.CharacterSelection.None;
+
+        [SerializeField] protected bool _bypassHitConfirm;
         [SerializeField] private bool _isCrouchState;
         public bool IsCrouchState => _isCrouchState;
         
