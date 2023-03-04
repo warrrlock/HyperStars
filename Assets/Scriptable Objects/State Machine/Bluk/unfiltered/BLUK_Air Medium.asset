@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
   m_Name: BLUK_Air Medium
   m_EditorClassIdentifier: 
+  characterSelection: 2
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: MediumAirAtk
+  _animationHash: -1543754728
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -20,18 +26,18 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  characterSelection: 2
-  _animationName: MediumAirAtk
   _transitions: []
   _alwaysExecute: 0
-  _animationHash: -1543754728
   _attackInfo:
     attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.5
     knockbackDistance: 4
     knockbackDirection: {x: 1, y: 0, z: 0}
     hitStunDuration: 0.35
-    damage: 0
     causesWallBounce: 1
     hitStopDuration: 0.15
     wallBounceDuration: 0
@@ -44,8 +50,6 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0.1
     hangTime: 0
-    favorReward: 10
+    favorReward: 6
     knockbackForce: {x: 0, y: 100}
     incrementBarAmount: 0.4
-  _isSpecial: 0
-  _specialBarCost: 0

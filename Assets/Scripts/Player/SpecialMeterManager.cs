@@ -77,7 +77,7 @@ public class SpecialMeterManager : MonoBehaviour
     public bool CheckBar(int bars)
     {
         float amount = _barAmount * bars;
-        Debug.Log($"wanted {amount} and have filled {_barIndex} bars");
+        // Debug.Log($"wanted {amount} and have filled {_barIndex} bars");
         
         return _barIndex >= bars;
     }

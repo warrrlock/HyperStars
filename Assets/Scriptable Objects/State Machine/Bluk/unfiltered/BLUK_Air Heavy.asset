@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859418b82dd5b4636827ff623def0e81, type: 3}
+  m_Name: BLUK_Air Heavy
+  m_EditorClassIdentifier: 
+  characterSelection: 2
+  _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: HeavyAirAtk
+  _animationHash: 426662221
+  NodeInfo:
+    rect:
+      serializedVersion: 2
+      x: 38
+      y: 216
+      width: 150
+      height: 50
+  _filters: []
+  _transitions: []
+  _alwaysExecute: 0
+  _attackInfo:
+    attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.2
+    knockbackDistance: 10
+    knockbackDirection: {x: 1, y: -1, z: 0}
+    hitStunDuration: 0.5
+    causesWallBounce: 1
+    hitStopDuration: 0.3
+    wallBounceDuration: 1
+    wallBounceDistance: 20
+    wallBounceDirection: {x: -1, y: 2, z: 0}
+    wallBounceHitStopDuration: 0.1
+    causesGroundBounce: 0
+    groundBounceDuration: 0.6
+    groundBounceDistance: 15
+    groundBounceDirection: {x: 0, y: 1, z: 0}
+    groundBounceHitStopDuration: 0.1
+    hangTime: 0
+    favorReward: 8
+    knockbackForce: {x: 270.29382, y: 100}
+    incrementBarAmount: 0.4

@@ -182,7 +182,7 @@ public class RoundManager : MonoBehaviour
     {
         _disabledInput = true;
         foreach (Fighter fighter in Services.Fighters)
-            fighter.DisableAllInput(() => _disabledInput == false);
+            StartCoroutine(fighter.DisableAllInput(() => _disabledInput == false, fighter.InputManager.ResetValues));
     }
 
     private void EnableAllInput()

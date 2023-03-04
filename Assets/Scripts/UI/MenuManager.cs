@@ -1,14 +1,23 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Util;
 
 public class MenuManager: MonoBehaviour
 {
     private Player[] _players = new Player[2];
-    [SerializeField] private Button _startButton;
+    [SerializeField] private GameObject _playersReadyVisual;
     private bool _allowStart;
+    [SerializeField] private BuildSettingIndices _indices;
+    public bool IsTraining { get; private set; }
+
+    private void Awake()
+    {
+        IsTraining = SceneManager.GetActiveScene().buildIndex == _indices.trainingSelectionScene;
+    }
 
     private void OnDestroy()
     {
@@ -26,25 +35,26 @@ public class MenuManager: MonoBehaviour
 
     private void ShowStartGame()
     {
-        // if (CheckReady())
-            // _startButton.gameObject.SetActive(true);
+        if (CheckReady())
+            if (_playersReadyVisual) _playersReadyVisual.SetActive(true);
     }
 
     private bool CheckReady()
     {
-        return _players.All(p => !p || p.Ready);
+        // Debug.Log("checking ready");
+        return Services.Players.All(p => !p || p.Ready);
     }
     
     public void StartCharacterSelection()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(_indices.selectionScene);
     }
     
     public void StartMainMenu()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(_indices.mainMenuScene);
     }
     
     public void StartGame()
@@ -55,13 +65,24 @@ public class MenuManager: MonoBehaviour
             return;
         }
         Time.timeScale = 1;
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(_indices.gameScene);
     }
 
-    public void StartTraining()
+    public void StartTrainingSelection()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(_indices.trainingSelectionScene);
+    }
+    
+    public void StartTraining()
+    {
+        if (!CheckReady())
+        {
+            Debug.Log("players are not ready");
+            return;
+        }
+        Time.timeScale = 1;
+        SceneManager.LoadScene(_indices.trainingScene);
     }
 
     public void OpenSettings()
