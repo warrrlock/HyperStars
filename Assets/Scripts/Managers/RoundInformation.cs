@@ -1,8 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Util;
+
 public class RoundInformation : MonoBehaviour
 {
+    [SerializeField] private BuildSettingIndices _indices;
     public static RoundInformation Instance;
     public static int round = 1;
     public static readonly int[] Wins = new int[2];
@@ -24,8 +29,19 @@ public class RoundInformation : MonoBehaviour
             MatchPointPlayers = new bool[2];
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += CheckDestroy;
         }
             
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= CheckDestroy;
+    }
+
+    private void CheckDestroy(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        if (scene.buildIndex != _indices.gameScene) Destroy(gameObject);
     }
 
     public static void AddWinTo(int player)
