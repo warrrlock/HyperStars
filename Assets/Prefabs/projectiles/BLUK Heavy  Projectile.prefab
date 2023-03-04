@@ -78,14 +78,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackInfo:
-    attackType: 3
+    attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.6
     knockbackDistance: 15
     knockbackDirection: {x: -1, y: 2, z: 0}
     hitStunDuration: 1.5
-    damage: 20
     causesWallBounce: 0
-    hitStopDuration: 0.25
+    hitStopDuration: 0.5
     wallBounceDuration: 1
     wallBounceDistance: 20
     wallBounceDirection: {x: 0, y: 1, z: 0}
@@ -96,7 +99,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.35
-    favorReward: 15
+    favorReward: 10
     knockbackForce: {x: 124.7488, y: 100}
     incrementBarAmount: 0.2
   _spawnDirection: 2

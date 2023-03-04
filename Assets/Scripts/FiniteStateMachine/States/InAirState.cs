@@ -22,7 +22,7 @@ public class InAirState : BaseState
     public override bool Execute(BaseStateMachine stateMachine, string inputName){
         if (stateMachine.PlayAnimation(_animationHash))
         {
-            stateMachine.StartInAir(stateMachine.CheckRequeueJump);
+            stateMachine.StartInAir();
             CheckSpecialMeter(stateMachine);
         }
         
@@ -32,7 +32,7 @@ public class InAirState : BaseState
             {
                 if (transition.Execute(stateMachine, inputName)) return true;
             }
-            else if (transition.Execute(stateMachine, inputName, stateMachine.CanCombo)) return true;
+            else if (transition.Execute(stateMachine, inputName, canCambo: stateMachine.CanCombo(_bypassHitConfirm))) return true;
         }
 
         return false;

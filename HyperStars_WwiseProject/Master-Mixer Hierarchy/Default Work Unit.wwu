@@ -4,6 +4,10 @@
 		<WorkUnit Name="Default Work Unit" ID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}" PersistMode="Standalone">
 			<ChildrenList>
 				<Bus Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="1"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
 					<ReferenceList>
 						<Reference Name="AudioDevice">
 							<ObjectRef Name="System" ID="{8F66684D-05EE-4EA2-BCD3-C68D743B1586}" WorkUnitID="{78A5ADA1-92A5-4B59-BB80-E39A4F0251BC}"/>
@@ -101,6 +105,10 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</Bus>
+						<WorkUnit Name="AmbianceWorkUnit" ID="{8390ACB3-B891-4A13-8A24-F1216E239634}" PersistMode="Reference"/>
+						<WorkUnit Name="CombatGeneralBusWorkUnit" ID="{CCD99DC0-1673-4F2D-AFF6-D3DD25071970}" PersistMode="Reference"/>
+						<WorkUnit Name="BlukBusWorkUnit" ID="{7B5DC76A-8EB7-4FF7-80AC-76E088EC1C0A}" PersistMode="Reference"/>
+						<WorkUnit Name="LisaBusWorkUnit" ID="{A1426B48-D160-4B30-8853-C630E6524E64}" PersistMode="Reference"/>
 					</ChildrenList>
 					<ObjectLists/>
 				</Bus>

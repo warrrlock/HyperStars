@@ -89,9 +89,11 @@ public class Fighter : MonoBehaviour
         SpecialMeterManager = GetComponent<SpecialMeterManager>();
     }
 
-    public void DisableAllInput(Func<bool> enableCondition)
+    public IEnumerator DisableAllInput(Func<bool> enableCondition, Action callback = null)
     {
         StartCoroutine(InputManager.Disable(enableCondition, InputManager.Actions.Values.ToArray()));
+        yield return new WaitUntil(enableCondition);
+        callback?.Invoke();
     }
 
     public void ResetFighterHurtboxes()

@@ -31,14 +31,19 @@ MonoBehaviour:
   _transitions:
   - {fileID: 11400000, guid: e82ba32029d8386489e7cf18528ba4d2, type: 2}
   - {fileID: 11400000, guid: c4bfccb8f6eb436458f2bf3a3bf86dc2, type: 2}
+  - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
   _defaultCombo: 0
+  _alwaysHitConfirm: 0
   _attackInfo:
     attackType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.2
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: 0, z: 0}
     hitStunDuration: 0.45
-    damage: 10
     causesWallBounce: 0
     hitStopDuration: 0.1
     wallBounceDuration: 0
@@ -51,7 +56,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.2
-    favorReward: 8
+    favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
   _projectilePrefab: {fileID: 0}

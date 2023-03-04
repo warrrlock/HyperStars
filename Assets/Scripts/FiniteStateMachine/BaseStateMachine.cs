@@ -6,13 +6,14 @@ using FiniteStateMachine;
 using TMPro;
 using UnityEngine;
 using Util;
+using Object = System.Object;
 
 [Serializable]
 public class KeyHurtStatePair
 {
     public enum HurtStateName
     {
-        HitStun, KnockBack, AirKnockBack
+        HitStun, KnockBack, AirKnockBack, WallBounce, GroundBounce
     }
     public HurtStateName key;
     public HurtState value;
@@ -33,7 +34,8 @@ namespace FiniteStateMachine {
         public SerializedDictionary<BaseState, StateEvent> States;
 
         public BaseState CurrentState {get; private set;}
-        public bool CanCombo { get; private set; }
+        public bool CanCombo(bool alwaysHitConfirm = false) => _canCombo && (_hitOpponent || alwaysHitConfirm);
+        private bool _canCombo;
         private bool CanInputQueue { get; set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
 
@@ -50,6 +52,7 @@ namespace FiniteStateMachine {
         [SerializeField] private BaseState _crouchUpState;
         public bool IsIdle => CurrentState == _initialState;
         public bool IsCrouch => CurrentState == _crouchState;
+        private bool InAir => CurrentState is InAirState;
     
         [Tooltip("Clips that should not have a end event automatically added. " +
                  "The end event resets variables of the current state, then returns the player to the initial state." +
@@ -74,16 +77,14 @@ namespace FiniteStateMachine {
         private bool _rejectInput;
         private int _currentAnimation;
         private bool _isAttacking;
-        private string _lastExecutedInput;
         private bool _holdingCrouch;
 
-        private bool _queueJumpOnGround;
+        private bool _hitOpponent;
 
-        public string LastExecutedInput
-        {
-            get => _lastExecutedInput;
-            set => _lastExecutedInput = value;
-        }
+        // private bool _queueJumpOnGround;
+
+        public string LastExecutedInput { get; set; }
+
         public BaseState QueuedState => _queuedState ? _queuedState : _queuedAtEndState;
         public InputManager.Action LastInvokedInput { get; private set; }
 
@@ -131,41 +132,14 @@ namespace FiniteStateMachine {
 
         private void Start()
         {
-            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
-                entry.Value.perform += Invoke;
-            Fighter.InputManager.Actions["Dash"].finish += Finish;
-            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
-            {
-                Fighter.InputManager.Actions["Dash Left"].finish += Finish;
-            }
-            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
-            {
-                Fighter.InputManager.Actions["Dash Right"].finish += Finish;
-            }
-            
-            Fighter.InputManager.Actions["Move"].stop += Stop;
-            Fighter.InputManager.Actions["Crouch"].stop += Stop;
-
+            SubscribeActions();
             ResetStateMachine();
             UpdateStateInfoText();
         }
 
         private void OnDestroy()
         {
-            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
-                entry.Value.perform -= Invoke;
-            Fighter.InputManager.Actions["Dash"].finish -= Finish;
-            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
-            {
-                Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
-            }
-            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
-            {
-                Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
-            }
-            
-            Fighter.InputManager.Actions["Move"].stop -= Stop;
-            Fighter.InputManager.Actions["Crouch"].stop -= Stop;
+            UnSubscribeActions();
             StopAllCoroutines();
         }
         #endregion
@@ -181,10 +155,61 @@ namespace FiniteStateMachine {
         
         public void ResetStateMachine()
         {
+            StopAllCoroutines();
+            _airCoroutine = null;
+            _waitToAnimateRoutine = null;
+            _disableCoroutine = null;
+            _isDisabled = false;
+            
             CurrentState = _initialState;
             _returnState = _initialState;
+
             ClearQueues();
             CurrentState.Execute(this, "");
+        }
+        
+        private void SubscribeActions()
+        {
+            Fighter.InputManager.Actions["Jump"].perform += ExecuteJump;
+            
+            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
+                entry.Value.perform += Invoke;
+            Fighter.InputManager.Actions["Dash"].finish += Finish;
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
+            {
+                Fighter.InputManager.Actions["Dash Left"].finish += Finish;
+            }
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
+            {
+                Fighter.InputManager.Actions["Dash Right"].finish += Finish;
+            }
+            
+            Fighter.InputManager.Actions["Move"].stop += Stop;
+            Fighter.InputManager.Actions["Crouch"].stop += Stop;
+
+            Fighter.Events.onAttackHit += SetHitOpponent;
+            Fighter.Events.wallBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.WallBounce);
+            Fighter.Events.groundBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.GroundBounce);
+        }
+        
+        private void UnSubscribeActions()
+        {
+            Fighter.InputManager.Actions["Jump"].perform -= ExecuteJump;
+            
+            foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
+                entry.Value.perform -= Invoke;
+            Fighter.InputManager.Actions["Dash"].finish -= Finish;
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Left"))
+            {
+                Fighter.InputManager.Actions["Dash Left"].finish -= Finish;
+            }
+            if (Fighter.InputManager.Actions.ContainsKey("Dash Right"))
+            {
+                Fighter.InputManager.Actions["Dash Right"].finish -= Finish;
+            }
+            
+            Fighter.InputManager.Actions["Move"].stop -= Stop;
+            Fighter.InputManager.Actions["Crouch"].stop -= Stop;
         }
         
         private void Invoke(InputManager.Action action)
@@ -205,13 +230,10 @@ namespace FiniteStateMachine {
 
             if (!CurrentState.Execute(this, action.name))
             {
-                if (CanInputQueue || action.name == "Crouch")
+                if (!InAir && (CanInputQueue || action.name == "Crouch"))
                 {
+                    // Debug.Log($"queue execute {action.name}");
                     _returnState.QueueExecute(this, action.name);
-                }
-                else if (action.name == "Jump")
-                {
-                    _queueJumpOnGround = true;
                 }
             }
 
@@ -243,16 +265,27 @@ namespace FiniteStateMachine {
             CurrentState.Finish(this);
         }
 
+        private void ExecuteJump(InputManager.Action action)
+        {
+            QueueState(_jumpState);
+            ExecuteQueuedState();
+        }
+
         public bool PlayAnimation(int animationState, bool defaultCombo = false, bool replay = false)
         {
             if (_currentAnimation == animationState && !replay) return false;
             // Debug.Log($"playing animation for {CurrentState.name}");
             _currentAnimation = animationState;
             DisableInputQueue();
-            CanCombo = defaultCombo;
+            _canCombo = defaultCombo;
             _animator.Play(animationState, -1, 0);
-            States[CurrentState].execute?.Invoke();
+            if (States.ContainsKey(CurrentState)) States[CurrentState].execute?.Invoke();
             return true;
+        }
+        
+        private void SetHitOpponent(Dictionary<string, Object> message)
+        {
+            _hitOpponent = true;
         }
 
         public void ClearQueues()
@@ -282,8 +315,8 @@ namespace FiniteStateMachine {
         public void ExecuteQueuedState()
         {
             if (!_queuedState) return;
-            // Debug.LogWarning("executing queued state");
-            // Debug.LogError($"queued state is {_queuedState.name}");
+            // Debug.LogError($"executing queued state {_queuedState.name}" +
+            //                $"\nwith queued state: {_queuedState?.name}\nand queued at end: {_queuedAtEndState?.name}");
             _rejectInput = true;
             
             HandleStateExit();
@@ -296,6 +329,15 @@ namespace FiniteStateMachine {
 
             CurrentState.Execute(this, "");
         }
+
+        private bool _noExitThisFrame;
+        private IEnumerator RefuseThisFrame()
+        {
+            // Debug.Log("refuse this frame");
+            _noExitThisFrame = true;
+            yield return new WaitForFixedUpdate();
+            _noExitThisFrame = false;
+        }
         
         /// <summary>
         /// Invoked at the end of an animation. Automatically added to each animation,
@@ -304,6 +346,8 @@ namespace FiniteStateMachine {
         public void HandleAnimationExit()
         {
             // Debug.LogError("handling exit animation");
+            if (_noExitThisFrame) return;
+            
             TrySetQueueQueuedAtEndState();
             TrySetQueueReturn();
             ExecuteQueuedState();
@@ -312,8 +356,9 @@ namespace FiniteStateMachine {
         private void HandleStateExit()
         {
             // Debug.Log("handling state animation");
-            States[CurrentState].stop?.Invoke();
+            if (States.ContainsKey(CurrentState)) States[CurrentState].stop?.Invoke();
             _currentAnimation = -1;
+            _hitOpponent = false;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();
         }
@@ -321,12 +366,12 @@ namespace FiniteStateMachine {
         //ANIMATION USE
         public void DisableCombo()
         {
-            CanCombo = false;
+            _canCombo = false;
         }
         
         public void EnableCombo()
         {
-            CanCombo = true;
+            _canCombo = true;
         }
 
         private void EnableInputQueue()
@@ -354,9 +399,9 @@ namespace FiniteStateMachine {
         public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName, float duration)
         {
             yield return new WaitForFixedUpdate();
-            // Debug.LogWarning($"setting hurtstate to {stateName}");
             _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
             if (!newHurtState) yield break;
+            // Debug.LogWarning($"setting hurtstate to {stateName}");
             SetReturnState();
             if (CurrentState is HurtState hurtState)
             {
@@ -375,12 +420,19 @@ namespace FiniteStateMachine {
                 PassHurtState(newHurtState, duration);
         }
 
+        private void UpdateHurtState(KeyHurtStatePair.HurtStateName stateName)
+        {
+            StartCoroutine(SetHurtState(stateName, 0f));
+        }
+
         private void PassHurtState(HurtState hurtState, float duration)
         {
-            DisableTime = duration;
-            ExecuteDisableTime();
+            if (duration > 0) {
+                DisableTime = duration;
+                ExecuteDisableTime();
+            }
             ForceSetState(hurtState);
-            DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
+            if (duration > 0) DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
                 () => IsIdle, false);
         }
         
@@ -441,16 +493,6 @@ namespace FiniteStateMachine {
                 Fighter.InputManager.Actions["Crouch"]));
         }
 
-        public void CheckRequeueJump()
-        {
-            if (_queueJumpOnGround)
-            {
-                QueueStateAtEnd(_jumpState);
-            }
-            _queueJumpOnGround = false;
-            HandleAnimationExit();
-        }
-
         private IEnumerator HandleExitInAir(Action onGroundAction)
         {
             yield return new WaitForFixedUpdate();
@@ -480,7 +522,7 @@ namespace FiniteStateMachine {
         private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> condition, bool stateExit = false)
         {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
-            yield return new WaitUntil(condition ?? (() => !_isDisabled));
+            yield return new WaitUntil(condition ?? (() => !_isDisabled && Fighter.MovementController.IsGrounded));
 
             _waitToAnimateRoutine = null;
             if (stateExit) HandleStateExit();

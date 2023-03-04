@@ -6,16 +6,13 @@ using UnityEngine.VFX;
 
 public enum VFXGraphs
 {
-    LISA_HIT_1, LISA_HIT_5, LISA_HIT_PARRY, DASH_SMOKE, JUMP_SMOKE
+    LISA_HIT_1, LISA_HIT_5, LISA_HIT_PARRY, DASH_SMOKE, JUMP_SMOKE, GROUND_WAVE, WALL_WAVE
 }
 
 public class VFXSpawnManager : MonoBehaviour
 {
-    [Header("Old")]
-    [SerializeField] public VisualEffectAsset[] visualEffectAssets;
     [Header("New Prefabs")]
     [SerializeField] public GameObject[] visualEffectPrefabs;
-    [SerializeField] public GameObject spawnedVfxObject;
 
     private float currentRotation;
     [SerializeField] private float skyboxRotationSpeed;
@@ -95,7 +92,7 @@ public class VFXSpawnManager : MonoBehaviour
                     StartCoroutine(cam.CameraShake(.2f, .08f));
                     break;
                 case AttackInfo.AttackType.Special:
-                    StartCoroutine(cam.CameraZoom(.2f, 32f, .16f, -.45f));
+                    StartCoroutine(cam.CameraZoom(.2f, 36f, .16f, -.45f));
                     StartCoroutine(cam.CameraShake(.3f, .19f));
                     break;
                 default:

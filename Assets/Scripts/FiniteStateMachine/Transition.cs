@@ -12,7 +12,7 @@ namespace FiniteStateMachine
     public class Transition: ScriptableObject
     {
         enum FalseState { DoNothing, CustomFalseState }
-        
+        [SerializeField] private bool _ignoreHitConfirm;
         [SerializeField] private String _inputActionName;
         [SerializeField] private String _inputActionName2; //TODO: fix issue of player invoking the wrong input when some inputs are supposed to be disabled
         [Tooltip("If the State allows for combos, the true State is if the combo is successful, " +
@@ -43,31 +43,30 @@ namespace FiniteStateMachine
         /// </summary>
         /// <param name="stateMachine">state machine</param>
         /// <param name="inputName">name of input action from player</param>
-        /// <param name="canCombo">whether or not the combo is successful.</param>
+        /// <param name="canCambo">whether or not the combo is successful.</param>
         /// <param name="action">action to perform at start</param>
-        public bool Execute (BaseStateMachine stateMachine, string inputName, bool canCombo, Action action = null)
+        public bool Execute (BaseStateMachine stateMachine, string inputName, bool canCambo, Action action = null)
         {
             action?.Invoke();
-            if (Decide(inputName))
+            if (!Decide(inputName)) return false;
+            
+            bool specialCheck = CheckSpecial(stateMachine);
+            if ((canCambo || stateMachine.CanCombo(_ignoreHitConfirm)) && specialCheck)
             {
-                bool specialCheck = CheckSpecial(stateMachine);
-                if (canCombo && specialCheck)
+                if (!_trueState)
                 {
-                    if (!_trueState)
-                    {
-                        Debug.LogWarning("no true state was assigned to this transition", this);
-                        return true;
-                    }
-                    SetTrueStatePassValues(stateMachine, inputName);
+                    Debug.LogWarning("no true state was assigned to this transition", this);
+                    return true;
                 }
-                else
-                {
-                    if ((_customFalseState))
-                        stateMachine.QueueState(_customFalseState);
-                }
-                return true;
+                SetTrueStatePassValues(stateMachine, inputName);
             }
-            return false;
+            else
+            {
+                if ((_customFalseState))
+                    stateMachine.QueueState(_customFalseState);
+                return false;
+            }
+            return true;
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
@@ -100,6 +99,7 @@ namespace FiniteStateMachine
             {
                 stateMachine.QueueState(_customFalseState);
                 stateMachine.ExecuteQueuedState();
+                return false;
             }
             return false;
         }

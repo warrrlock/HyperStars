@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{F86B014F-D8E9-4B93-9204-B7E8358ACD99}" SchemaVersion="103" RootDocumentID="{0893AA5F-CA15-4878-98A2-09F5232829DE}" ParentDocumentID="{F149C655-0407-453F-A779-CF4249B05D68}">
+	<AudioObjects>
+		<WorkUnit Name="LisaMovement" ID="{F86B014F-D8E9-4B93-9204-B7E8358ACD99}" OwnerID="{CCA9E25C-05BE-46CB-AC0C-CFBBCA12C0BB}" PersistMode="Nested">
+			<ChildrenList>
+				<RandomSequenceContainer Name="Footsteps" ID="{A84E2D62-5A12-4F5B-9B0E-9F78D9DEC487}" ShortID="585362696">
+					<PropertyList>
+						<Property Name="Pitch" Type="int32">
+							<ModifierList>
+								<ModifierInfo>
+									<Modifier Name="" ID="{A1A532B0-EDF1-46EC-9F1F-7914BF7E87AB}">
+										<PropertyList>
+											<Property Name="Enabled" Type="bool" Value="True"/>
+											<Property Name="Max" Type="Real64" Value="101"/>
+											<Property Name="Min" Type="Real64" Value="-909"/>
+										</PropertyList>
+									</Modifier>
+								</ModifierInfo>
+							</ModifierList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="Effect0">
+							<Custom>
+								<Effect Name="Wwise Parametric EQ (Custom)" ID="{A60943A2-1D24-4800-88AE-527A6B1E15E6}" ShortID="24838509" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+									<PropertyList>
+										<Property Name="FrequencyBand3" Type="Real32" Value="8967"/>
+									</PropertyList>
+								</Effect>
+							</Custom>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="LISA_FOOTSTEP_1" ID="{200C9C03-64D1-4AEF-B46B-2FC35102F14E}" ShortID="322793887">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-3</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="LISA_FOOTSTEP_1" ID="{3F06630A-A4AB-465C-A7D1-4179FADE07E7}">
+									<Language>SFX</Language>
+									<AudioFile>LISA_FOOTSTEP_1.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="141663241"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="LISA_FOOTSTEP_1" ID="{3F06630A-A4AB-465C-A7D1-4179FADE07E7}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="LISA_FOOTSTEP_2" ID="{C2F097D1-49D1-421C-8ACA-B7460A3CD4D8}" ShortID="525537795">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-3</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="LISA_FOOTSTEP_2" ID="{AD9D9A53-0FDF-483E-8276-47A758D6E966}">
+									<Language>SFX</Language>
+									<AudioFile>LISA_FOOTSTEP_2.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="782658603"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="LISA_FOOTSTEP_2" ID="{AD9D9A53-0FDF-483E-8276-47A758D6E966}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="LISA_FOOTSTEP_3" ID="{418FD167-8764-4E1B-AE2A-3A7BA4869F16}" ShortID="741736693">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-3</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="LISA_FOOTSTEP_3" ID="{88378E63-5DE4-4516-8BCB-BCFAD14B7974}">
+									<Language>SFX</Language>
+									<AudioFile>LISA_FOOTSTEP_3.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="924215492"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="LISA_FOOTSTEP_3" ID="{88378E63-5DE4-4516-8BCB-BCFAD14B7974}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</RandomSequenceContainer>
+				<Sound Name="LISA_JUMP" ID="{69C093A2-1508-408F-8689-C9C0BA323A67}" ShortID="981163210">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="LISA_JUMP" ID="{A6E46E1C-1506-45DC-81A9-BED99B9C33B2}">
+							<Language>SFX</Language>
+							<AudioFile>LISA_JUMP.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="1003057838"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="LISA_JUMP" ID="{A6E46E1C-1506-45DC-81A9-BED99B9C33B2}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="LISA_DASH" ID="{C48D0E72-3529-465C-8B78-2612C35CA88B}" ShortID="3819157">
+					<PropertyList>
+						<Property Name="Highpass" Type="int16">
+							<ValueList>
+								<Value>5</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="LISA_DASH" ID="{7713B760-A7D9-43F4-920A-B43E9E1F2F5E}">
+							<Language>SFX</Language>
+							<AudioFile>LISA_DASH.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="390276904"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="LISA_DASH" ID="{7713B760-A7D9-43F4-920A-B43E9E1F2F5E}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="LISA_LAND" ID="{DEF13026-1154-4EA9-AF79-BB276A6592BF}" ShortID="415119707">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="LISA_LAND" ID="{56206A12-7E33-4BFE-B5FC-A7A28F494CFB}">
+							<Language>SFX</Language>
+							<AudioFile>LISA_LAND.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="781719068"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="LISA_LAND" ID="{56206A12-7E33-4BFE-B5FC-A7A28F494CFB}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="LISA_CROUCH" ID="{B520D7BE-2A7F-42AA-8E01-F35A0885A27D}" ShortID="92956800">
+					<PropertyList>
+						<Property Name="Pitch" Type="int32">
+							<ValueList>
+								<Value>100</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="LISA_CROUCH" ID="{B8B82275-EB76-479B-AB49-A390E37BEB01}">
+							<Language>SFX</Language>
+							<AudioFile>LISA_CROUCH.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="760848990"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="LISA_CROUCH" ID="{B8B82275-EB76-479B-AB49-A390E37BEB01}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
