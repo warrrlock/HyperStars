@@ -17,6 +17,8 @@ public class MovementController : MonoBehaviour
     public float pushDistance;
     public Vector3 pushDirection;
 
+    public Action JumpAction;
+
     [Header("Movement")]
     [Tooltip("How fast should this character move sideways (in units/sec)?")]
     [SerializeField] private float _moveSpeed;
@@ -1324,6 +1326,7 @@ public class MovementController : MonoBehaviour
         _isJumping = true;
         _unforcedVelocity.y = _maxJumpVelocity;
         StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Jump"], _inputManager.Actions["Move"]));
+        JumpAction?.Invoke();
     }
 
     private void StopJumping(InputManager.Action action)
@@ -1404,8 +1407,7 @@ public class MovementController : MonoBehaviour
         
         InputManager.Action[] actions =
         {
-            _inputManager.Actions["Move"], 
-            _inputManager.Actions["Dash"],
+            _inputManager.Actions["Move"],
             _inputManager.Actions["Jump"],
             _inputManager.Actions["Dash Left"],
             _inputManager.Actions["Dash Right"],

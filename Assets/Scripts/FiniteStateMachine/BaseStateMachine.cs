@@ -132,6 +132,46 @@ namespace FiniteStateMachine {
 
         private void Start()
         {
+            SubscribeActions();
+            ResetStateMachine();
+            UpdateStateInfoText();
+        }
+
+        private void OnDestroy()
+        {
+            UnSubscribeActions();
+            StopAllCoroutines();
+        }
+        #endregion
+
+        private void CreateStateEvents()
+        {
+            //create state events
+            foreach (BaseState state in Services.Characters[Fighter.PlayerId].States)
+            {
+                States.Add(state, new StateEvent());
+            }
+        }
+        
+        public void ResetStateMachine()
+        {
+            StopAllCoroutines();
+            _airCoroutine = null;
+            _waitToAnimateRoutine = null;
+            _disableCoroutine = null;
+            _isDisabled = false;
+            
+            CurrentState = _initialState;
+            _returnState = _initialState;
+
+            ClearQueues();
+            CurrentState.Execute(this, "");
+        }
+        
+        private void SubscribeActions()
+        {
+            Fighter.InputManager.Actions["Jump"].perform += ExecuteJump;
+            
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform += Invoke;
             Fighter.InputManager.Actions["Dash"].finish += Finish;
@@ -150,13 +190,12 @@ namespace FiniteStateMachine {
             Fighter.Events.onAttackHit += SetHitOpponent;
             Fighter.Events.wallBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.WallBounce);
             Fighter.Events.groundBounce += () => UpdateHurtState(KeyHurtStatePair.HurtStateName.GroundBounce);
-            
-            ResetStateMachine();
-            UpdateStateInfoText();
         }
-
-        private void OnDestroy()
+        
+        private void UnSubscribeActions()
         {
+            Fighter.InputManager.Actions["Jump"].perform -= ExecuteJump;
+            
             foreach (KeyValuePair<string, InputManager.Action> entry in Fighter.InputManager.Actions)
                 entry.Value.perform -= Invoke;
             Fighter.InputManager.Actions["Dash"].finish -= Finish;
@@ -171,25 +210,6 @@ namespace FiniteStateMachine {
             
             Fighter.InputManager.Actions["Move"].stop -= Stop;
             Fighter.InputManager.Actions["Crouch"].stop -= Stop;
-            StopAllCoroutines();
-        }
-        #endregion
-
-        private void CreateStateEvents()
-        {
-            //create state events
-            foreach (BaseState state in Services.Characters[Fighter.PlayerId].States)
-            {
-                States.Add(state, new StateEvent());
-            }
-        }
-        
-        public void ResetStateMachine()
-        {
-            CurrentState = _initialState;
-            _returnState = _initialState;
-            ClearQueues();
-            CurrentState.Execute(this, "");
         }
         
         private void Invoke(InputManager.Action action)
@@ -248,6 +268,12 @@ namespace FiniteStateMachine {
         private void Finish(InputManager.Action action)
         {
             CurrentState.Finish(this);
+        }
+
+        private void ExecuteJump(InputManager.Action action)
+        {
+            QueueState(_jumpState);
+            ExecuteQueuedState();
         }
 
         public bool PlayAnimation(int animationState, bool defaultCombo = false, bool replay = false)

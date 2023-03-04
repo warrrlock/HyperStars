@@ -75,7 +75,7 @@ namespace UI
         {
             Debug.Log("set bot selection");
             CharacterButtonsPlayer selection = _playerButtons[1];
-            selection.Player = Services.Players[0];
+            selection.SetPlayer(Services.Players[0]);
             Services.Players[0].PlayerInput.uiInputModule = selection.GetComponent<InputSystemUIInputModule>();
         }
     }

@@ -9,7 +9,7 @@ using Util;
 public class MenuManager: MonoBehaviour
 {
     private Player[] _players = new Player[2];
-    [SerializeField] private Button _startButton;
+    [SerializeField] private GameObject _playersReadyVisual;
     private bool _allowStart;
     [SerializeField] private BuildSettingIndices _indices;
     public bool IsTraining { get; private set; }
@@ -35,13 +35,13 @@ public class MenuManager: MonoBehaviour
 
     private void ShowStartGame()
     {
-        // if (CheckReady())
-            // _startButton.gameObject.SetActive(true);
+        if (CheckReady())
+            if (_playersReadyVisual) _playersReadyVisual.SetActive(true);
     }
 
     private bool CheckReady()
     {
-        Debug.Log("checking ready");
+        // Debug.Log("checking ready");
         return Services.Players.All(p => !p || p.Ready);
     }
     
@@ -83,6 +83,14 @@ public class MenuManager: MonoBehaviour
         }
         Time.timeScale = 1;
         SceneManager.LoadScene(_indices.trainingScene);
+    }
+
+    public void ReturnToCharacterSelect()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == _indices.gameScene)
+            StartCharacterSelection();
+        else
+            StartTrainingSelection();
     }
 
     public void OpenSettings()
