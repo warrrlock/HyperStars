@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.7342989, g: 0.79642385, b: 0.8692537, a: 1}
+  m_IndirectSpecularColor: {r: 0.56006134, g: 0.721002, b: 0.8175835, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1324,10 +1324,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2666714687243223783, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
-      propertyPath: far clip plane
-      value: 6000
-      objectReference: {fileID: 0}
     - target: {fileID: 2666714687608587546, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
       propertyPath: m_Name
       value: Camera Pivot
@@ -1374,6 +1370,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2666714687608587547, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666714688557446519, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: turnOnSilhouetteOnMediumAttacks
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
