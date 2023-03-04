@@ -41,6 +41,8 @@ public class CameraManager : MonoBehaviour
     private float defaultDistortion;
     [SerializeField] private GameObject blurFilterPrefab;
     [SerializeField] private Shader blurShader;
+    [SerializeField] private Material silhouetteMaterial;
+    [SerializeField] private Camera silhouetteCamera;
 
     private void Awake()
     {
@@ -224,5 +226,32 @@ public class CameraManager : MonoBehaviour
         }
         
         Destroy(spawnedBlurFilter);
+    }
+
+    private Material[] bothMats;
+    public void SilhouetteToggle(bool isOn, Material[] materials)
+    {
+        LayerCullingShow(silhouetteCamera, "Player");
+        bothMats = materials;
+        foreach (var mat in materials)
+        {
+            mat.SetFloat("_SilhouetteStrength", isOn ? 1 : 0);
+        }
+        silhouetteMaterial.SetFloat("_SilhouetteAlpha", isOn ? 1 : 0);
+        if (isOn) StartCoroutine(SilhouetteTurnOff());
+    }
+    
+    private void LayerCullingShow(Camera cam, string layer) {
+        cam.cullingMask |= 1 << LayerMask.NameToLayer(layer);
+    }
+    private void LayerCullingHide(Camera cam, string layer) {
+        cam.cullingMask &= ~1 << LayerMask.NameToLayer(layer);
+    }
+
+    private IEnumerator SilhouetteTurnOff()
+    {
+        yield return new WaitForSeconds(.1f);
+        SilhouetteToggle(false, bothMats);
+        LayerCullingHide(silhouetteCamera, "Player");
     }
 }
