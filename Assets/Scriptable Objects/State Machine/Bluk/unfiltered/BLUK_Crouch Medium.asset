@@ -30,7 +30,6 @@ MonoBehaviour:
   _onInputInvokeActions: []
   _transitions: []
   _defaultCombo: 1
-  _alwaysHitConfirm: 0
   _attackInfo:
     attackType: 2
     hitSfxEvent:
@@ -44,16 +43,16 @@ MonoBehaviour:
     causesWallBounce: 1
     hitStopDuration: 0.2
     wallBounceDuration: 1
-    wallBounceDistance: 20
+    wallBounceDistance: 12
     wallBounceDirection: {x: -1, y: 2, z: 0}
-    wallBounceHitStopDuration: 0.1
+    wallBounceHitStopDuration: 0.2
     causesGroundBounce: 0
     groundBounceDuration: 0
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 10
+    favorReward: 6
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0
   _projectilePrefab: {fileID: 0}
