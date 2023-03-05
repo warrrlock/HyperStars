@@ -48,6 +48,7 @@ namespace FiniteStateMachine {
         [Header("States")]
         [SerializeField] private BaseState _initialState;
         [SerializeField] private BaseState _jumpState;
+        [SerializeField] private BaseState _jumpLandState;
         [SerializeField] private BaseState _crouchState;
         [SerializeField] private BaseState _crouchUpState;
         public bool IsIdle => CurrentState == _initialState;
@@ -223,7 +224,6 @@ namespace FiniteStateMachine {
             if (_holdingCrouch && !CurrentState.IsCrouchState)
             {
                 SetReturnState(_crouchState);
-                
                 _crouchState.QueueExecute(this, action.name);
                 return;
             }
@@ -232,8 +232,13 @@ namespace FiniteStateMachine {
             {
                 if (!InAir && (CanInputQueue || action.name == "Crouch"))
                 {
-                    // Debug.Log($"queue execute {action.name}");
+                    Debug.Log($"queue execute {action.name}, current state: {CurrentState.name}, return state: {_returnState.name}");
                     _returnState.QueueExecute(this, action.name);
+                }
+                if(CurrentState.BypassQueueAtEnd)
+                {
+                    ClearQueues();
+                    _returnState.Execute(this, action.name);
                 }
             }
 
@@ -300,6 +305,11 @@ namespace FiniteStateMachine {
             // Debug.Log($"queued state {state?.name}");
             _queuedState = state;
         }
+        
+        public void TryQueueState(BaseState state)
+        {
+            if (!_queuedState) _queuedState = state;
+        }
 
         public void QueueStateAtEnd(BaseState state = null)
         {
@@ -346,7 +356,7 @@ namespace FiniteStateMachine {
         public void HandleAnimationExit()
         {
             // Debug.LogError("handling exit animation");
-            if (_noExitThisFrame) return;
+            // if (_noExitThisFrame) return;
             
             TrySetQueueQueuedAtEndState();
             TrySetQueueReturn();
@@ -500,7 +510,11 @@ namespace FiniteStateMachine {
             SetReturnState();
             
             if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
-            else Fighter.Events.onLandedNeutral?.Invoke();
+            else
+            {
+                Fighter.Events.onLandedNeutral?.Invoke();
+                TryQueueState(_jumpLandState);
+            }
 
             if (CurrentState is HurtState { HurtType: KeyHurtStatePair.HurtStateName.HitStun })
             {
