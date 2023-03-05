@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Heavy Atk
   m_EditorClassIdentifier: 
   characterSelection: 1
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -49,7 +50,7 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 15
     knockbackDirection: {x: 1, y: 0.2, z: 0}
-    hitStunDuration: 0.8
+    hitStunDuration: 1
     causesWallBounce: 1
     hitStopDuration: 0.28
     wallBounceDuration: 1

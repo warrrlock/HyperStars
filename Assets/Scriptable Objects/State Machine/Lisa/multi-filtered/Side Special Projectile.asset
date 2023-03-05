@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Side Special Projectile
   m_EditorClassIdentifier: 
   characterSelection: 1
+  _bypassHitConfirm: 0
   _isCrouchState: 0
-  _isSpecial: 0
-  _specialBarCost: 0
+  _isSpecial: 1
+  _specialBarCost: 1
   _animationName: Side Special
   _animationHash: 849165720
   NodeInfo:
@@ -40,11 +41,14 @@ MonoBehaviour:
   _defaultCombo: 0
   _attackInfo:
     attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.1
     knockbackDistance: 0.1
     knockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
-    damage: 0
     causesWallBounce: 0
     hitStopDuration: 0
     wallBounceDuration: 0
