@@ -21,11 +21,13 @@ namespace AK
         static const AkUniqueID PLAY_DASHVO = 2540994183U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_HIT = 2124280636U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_SWING = 2525681113U;
+        static const AkUniqueID PLAY_FAVORLOCKBREAK = 3727876332U;
         static const AkUniqueID PLAY_GROUND_HIT = 348820993U;
         static const AkUniqueID PLAY_GROUND_SPLAT_FOLEY_MAT = 2109586569U;
         static const AkUniqueID PLAY_HEAVY_HIT = 2944971053U;
         static const AkUniqueID PLAY_HEAVYPAINVO = 2810545614U;
         static const AkUniqueID PLAY_HEAVYSWINGVO = 1845776394U;
+        static const AkUniqueID PLAY_JUMPVO = 1683057335U;
         static const AkUniqueID PLAY_LIGHT_ATTACK_VARIATION_1 = 2526553015U;
         static const AkUniqueID PLAY_LIGHT_ATTACK_VARIATION_2 = 2526553012U;
         static const AkUniqueID PLAY_LIGHT_HIT = 50577568U;
@@ -45,6 +47,7 @@ namespace AK
         static const AkUniqueID PLAY_LISA_FOOTSTEPS = 431785379U;
         static const AkUniqueID PLAY_LISA_HITS = 3751620944U;
         static const AkUniqueID PLAY_LISA_JUMP = 28555886U;
+        static const AkUniqueID PLAY_LISA_JUMP_BETA = 10510631U;
         static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
         static const AkUniqueID PLAY_LISA_LOW_LIGHT = 519494373U;
         static const AkUniqueID PLAY_LISA_LOW_MEDIUM = 3727786178U;
@@ -110,8 +113,10 @@ namespace AK
     {
         static const AkUniqueID ATTACKHITBUS = 534946722U;
         static const AkUniqueID ATTACKSWINGBUS = 4276455557U;
+        static const AkUniqueID COMBATUIBUS = 1862777451U;
         static const AkUniqueID CROWDBUS = 1975785326U;
         static const AkUniqueID GENERALFOLEYBUS = 2674442030U;
+        static const AkUniqueID GENERALUIBUS = 3685745737U;
         static const AkUniqueID LISASPECIALSBUS = 3751746538U;
         static const AkUniqueID LISAVOICELINESBUS = 1910231631U;
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;

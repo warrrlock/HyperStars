@@ -26,7 +26,9 @@ MonoBehaviour:
       width: 150
       height: 50
   _filters: []
-  _transitions: []
+  _transitions:
+  - {fileID: 11400000, guid: 7aed028eeacba9146a8e10a7c1a03c5e, type: 2}
+  - {fileID: 11400000, guid: 611154cadee928c49b142d63bb9f171b, type: 2}
   _alwaysExecute: 0
   _attackInfo:
     attackType: 2
@@ -34,16 +36,16 @@ MonoBehaviour:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
-    knockbackDuration: 0.5
-    knockbackDistance: 4
-    knockbackDirection: {x: 0, y: -1, z: 0}
-    hitStunDuration: 0.35
-    causesWallBounce: 0
+    knockbackDuration: 0.2
+    knockbackDistance: 10
+    knockbackDirection: {x: 1, y: -1, z: 0}
+    hitStunDuration: 0.5
+    causesWallBounce: 1
     hitStopDuration: 0.3
-    wallBounceDuration: 0
-    wallBounceDistance: 0
-    wallBounceDirection: {x: 0, y: 0, z: 0}
-    wallBounceHitStopDuration: 0
+    wallBounceDuration: 1
+    wallBounceDistance: 20
+    wallBounceDirection: {x: -1, y: 2, z: 0}
+    wallBounceHitStopDuration: 0.1
     causesGroundBounce: 0
     groundBounceDuration: 0.6
     groundBounceDistance: 15
