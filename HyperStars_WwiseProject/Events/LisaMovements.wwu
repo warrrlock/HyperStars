@@ -12,6 +12,16 @@
 								</Reference>
 							</ReferenceList>
 						</Action>
+						<Action Name="" ID="{F485E720-0EC7-42A1-89D5-7AD0A11E52E2}" ShortID="43727756">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_DashVO" ID="{9AB59D62-4F46-4592-9B2C-2AF277257AEF}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
 					</ChildrenList>
 				</Event>
 				<Event Name="Play_Lisa_Dash_Beta" ID="{0CABB5A2-60EC-403B-93F9-5B32E5E367EE}">
@@ -20,6 +30,38 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="Lisa Dash" ID="{805A113A-4384-488E-B1B5-AB30AE871C67}" WorkUnitID="{67AB5CD9-38AB-495B-81EB-A249FE6724A9}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{295A32D1-6FAB-4FF1-ABB2-E5255A049852}" ShortID="460362736">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_DashVO" ID="{9AB59D62-4F46-4592-9B2C-2AF277257AEF}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Lisa_Jump_Beta" ID="{CCA50007-9D2C-4495-814C-B9AC3D30A68C}">
+					<ChildrenList>
+						<Action Name="" ID="{26B0A826-AF4F-4A32-9458-E4446EBBE644}" ShortID="260707729">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Lisa Jump" ID="{352BEF45-E004-428C-BF6D-4609388ACEED}" WorkUnitID="{116FD3A6-CF56-4F6C-B54C-A47750465FE7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{B296C495-F6F4-494D-A946-37F0E51C2D50}" ShortID="351768627">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_JumpVO" ID="{7B3A3F61-9621-4DEB-AE48-F61A9707688D}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

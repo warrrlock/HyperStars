@@ -16,7 +16,11 @@ public class VFXSpawnManager : MonoBehaviour
 
     private float currentRotation;
     [SerializeField] private float skyboxRotationSpeed;
-    // try
+    
+    // test
+    [Header("Test")]
+    [SerializeField] private bool turnOnSilhouetteOnLightAttacks;
+    [SerializeField] private bool turnOnSilhouetteOnMediumAttacks;
 
     void Start()
     {
@@ -87,9 +91,28 @@ public class VFXSpawnManager : MonoBehaviour
             {
                 case AttackInfo.AttackType.Light:
                     StartCoroutine(cam.CameraShake(.2f, .05f));
+                    if (turnOnSilhouetteOnLightAttacks)
+                    {
+                        Material[] mats =
+                        {
+                            sender.GetComponent<SpriteRenderer>().material, receiver.GetComponent<SpriteRenderer>().material
+                        };
+                        cam.SilhouetteToggle(true, mats);
+                    }
                     break;
                 case AttackInfo.AttackType.Medium:
+                    if (turnOnSilhouetteOnMediumAttacks)
+                    {
+                        Material[] mats =
+                        {
+                            sender.GetComponent<SpriteRenderer>().material, receiver.GetComponent<SpriteRenderer>().material
+                        };
+                        cam.SilhouetteToggle(true, mats);
+                    }
                     StartCoroutine(cam.CameraShake(.2f, .08f));
+                    break;
+                case AttackInfo.AttackType.Heavy:
+                    StartCoroutine(cam.CameraShake(.3f, .19f));
                     break;
                 case AttackInfo.AttackType.Special:
                     StartCoroutine(cam.CameraZoom(.2f, 36f, .16f, -.45f));

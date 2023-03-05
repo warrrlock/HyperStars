@@ -28,9 +28,10 @@ MonoBehaviour:
   _filters: []
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
-  _transitions: []
+  _transitions:
+  - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
+  - {fileID: 11400000, guid: be1c8f75bc88f7446a7c574b0e93dfe9, type: 2}
   _defaultCombo: 1
-  _alwaysHitConfirm: 0
   _attackInfo:
     attackType: 1
     hitSfxEvent:
@@ -53,7 +54,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 12
+    favorReward: 8
     knockbackForce: {x: 358.9053, y: 100}
     incrementBarAmount: 0.2
   _projectilePrefab: {fileID: 5765926104683114581, guid: 0f547707bd0f66e42bf6581aff28a1a8, type: 3}
