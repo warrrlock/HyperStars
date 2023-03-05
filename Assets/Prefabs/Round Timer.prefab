@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2708654416862814465}
   - component: {fileID: 2708654416862814464}
+  - component: {fileID: 3759323165387974948}
   - component: {fileID: 6297637706704514447}
   m_Layer: 0
   m_Name: Round Timer
@@ -45,9 +46,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0befbd2dc6924f44bdc46047bb75caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startShrinkDelay: 0
+  _borderTimer: {fileID: 0}
+  _startShrinkDelay: 5
   _shrinkSpeed: 1
   _minFavorMeter: 50
+  _topLeft: {fileID: 0}
+  _topRight: {fileID: 0}
+  _left: {fileID: 0}
+  _right: {fileID: 0}
+  _bottomLeft: {fileID: 0}
+  _bottomRight: {fileID: 0}
+  _leftNodePivot: {fileID: 0}
+  _rightNodePivot: {fileID: 0}
+  _uBorderEdgeX: 0
+  _sidePercentage: 0
+  _lock: {fileID: 0}
+  _brokenLockSprite: {fileID: 0}
+--- !u!114 &3759323165387974948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708654416862814467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df87a74dd3f84c3bb2ee057ebeebcf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: b884955c3587c4462915870e78b8ea90, type: 2}
+  _responses:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2708654416862814464}
+        m_TargetAssemblyTypeName: RoundTimer, Assembly-CSharp
+        m_MethodName: StartTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6297637706704514447
 MonoBehaviour:
   m_ObjectHideFlags: 0
