@@ -28,6 +28,11 @@ namespace Managers
         [HideInInspector] [SerializeField] List<BaseState> _states;
         [HideInInspector] [SerializeField] List<AttackInfo> _attackInfo;
 
+        public Sprite IndicatorSprite => _indicatorSprite;
+        [SerializeField] private Sprite _indicatorSprite;
+        public Sprite IndicatorGlowSprite => _indicatorGlowSprite;
+        [SerializeField] private Sprite _indicatorGlowSprite;
+
 #if UNITY_EDITOR
         public void OnEnable()
         {
