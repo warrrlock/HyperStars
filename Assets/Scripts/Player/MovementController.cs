@@ -217,7 +217,7 @@ public class MovementController : MonoBehaviour
 
         _diagonalJumpDistance = Vector2.Distance(Vector2.zero, _jumpDistance);
         _verticalJumpForce = _jumpDistance.y / (_jumpDuration + Time.fixedDeltaTime);
-        _horizontalJumpForce = _jumpDistance.y / (_jumpDuration * 2f + Time.fixedDeltaTime);
+        _horizontalJumpForce = _jumpDistance.x / (_jumpDuration * 2f + Time.fixedDeltaTime);
         _diagonalJumpForce = _diagonalJumpDistance / (_jumpDuration + Time.fixedDeltaTime);
 
         AssignSpecialConditions();
@@ -342,7 +342,7 @@ public class MovementController : MonoBehaviour
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
         }
-        _netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity + _secondaryForceVelocity;
+        _netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
         Move(_netVelocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
@@ -355,37 +355,37 @@ public class MovementController : MonoBehaviour
                 _isJumping = false;
             }
         }
-        if (!_isWallBounceable && !_isForcingOpponent)
-        {
-            if (_netVelocity.x > 0f)
-            {
-                if (_collisionData.x.isPositiveHit)
-                {
-                    KillAllForces();
-                }
-            }
-            if (_netVelocity.x < 0f)
-            {
-                if (_collisionData.x.isNegativeHit)
-                {
-                    KillAllForces();
-                }
-            }
-            if (_netVelocity.y > 0f)
-            {
-                if (_collisionData.y.isPositiveHit)
-                {
-                    KillAllForces();
-                }
-            }
-            if (_netVelocity.y < 0f)
-            {
-                if (_collisionData.y.isNegativeHit)
-                {
-                    KillAllForces();
-                }
-            }
-        }
+        //if (!_isWallBounceable)
+        //{
+        //    if (_netVelocity.x > 0f)
+        //    {
+        //        if (_collisionData.x.isPositiveHit)
+        //        {
+        //            KillAllForces();
+        //        }
+        //    }
+        //    if (_netVelocity.x < 0f)
+        //    {
+        //        if (_collisionData.x.isNegativeHit)
+        //        {
+        //            KillAllForces();
+        //        }
+        //    }
+        //    if (_netVelocity.y > 0f)
+        //    {
+        //        if (_collisionData.y.isPositiveHit)
+        //        {
+        //            KillAllForces();
+        //        }
+        //    }
+        //    if (_netVelocity.y < 0f)
+        //    {
+        //        if (_collisionData.y.isNegativeHit)
+        //        {
+        //            KillAllForces();
+        //        }
+        //    }
+        //}
     }
 
     private void OnDestroy()
