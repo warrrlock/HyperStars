@@ -180,14 +180,22 @@ public class RoundManager : MonoBehaviour
         _countdownText.gameObject.SetActive(false);
         
         EnableAllInput();
+        StartCoroutine(HandleRoundStart());
+    }
+
+    private IEnumerator HandleRoundStart()
+    {
         _roundStartEvent.Raise(new Dictionary<string, object>());
+        yield return new WaitForFixedUpdate();
+        foreach (Fighter fighter in Services.Fighters)
+            fighter.InputManager.ResetValues();
     }
 
     private void DisableAllInput()
     {
         _disabledInput = true;
         foreach (Fighter fighter in Services.Fighters)
-            StartCoroutine(fighter.DisableAllInput(() => _disabledInput == false, fighter.InputManager.ResetValues));
+            StartCoroutine(fighter.DisableAllInput(() => _disabledInput == false));
     }
 
     private void EnableAllInput()
