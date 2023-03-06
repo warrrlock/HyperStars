@@ -29,6 +29,8 @@ public class RoundManager : MonoBehaviour
     private List<Image[]> _roundUI;
     private Image[] _p0RoundUI;
     private Image[] _p1RoundUI;
+
+    [SerializeField] private Image[] _characterPortraits;
     
     // [SerializeField] List<Sprite> _backgrounds; //TODO: add when we have changing backgrounds
     
@@ -119,6 +121,12 @@ public class RoundManager : MonoBehaviour
             _p0RoundUI[i].color = _fightersManager.playerColors[0];
         for (int i = 0; i < RoundInformation.Wins[1]; i++)
             _p1RoundUI[i].color = _fightersManager.playerColors[1];
+        
+        if (_characterPortraits.Length == 2)
+        {
+            _characterPortraits[0].sprite = Services.Characters[0].CharacterPortrait[0];
+            _characterPortraits[1].sprite = Services.Characters[1].CharacterPortrait[1];
+        }
     }
 
     private void HandleAddWinTo(int player)
