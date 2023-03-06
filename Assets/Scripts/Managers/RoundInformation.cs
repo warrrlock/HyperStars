@@ -26,7 +26,7 @@ public class RoundInformation : MonoBehaviour
             Destroy(gameObject);
         else
         {
-            MatchPointPlayers = new bool[2];
+            ResetRounds();
             Instance = this;
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += CheckDestroy;
