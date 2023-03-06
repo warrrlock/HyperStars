@@ -122,7 +122,7 @@ public class HitBox : MonoBehaviour
         //StartCoroutine(hitFighter.MovementController.ApplyForcePolar(forceDirection, attackInfo.knockbackForce.y));
         //StartCoroutine(hitFighter.InputManager.Disable(attackInfo.hitStunDuration, hitFighter.InputManager.Actions["Move"]));
         hitFighter.MovementController.ResetVelocityY();
-        _fighter.MovementController.ResetVelocityY();
+        //_fighter.MovementController.ResetVelocityY();
         if (attackInfo.causesWallBounce)
         {
             StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
