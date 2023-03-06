@@ -56,6 +56,8 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private RectTransform _p2Mask;
     [SerializeField] private RectTransform _outline;
     private float _initialWidth;
+    [Tooltip("Index 0 is p1, index 1 is p2.")]
+    [SerializeField] private Color[] _glowColors = new Color[2];
 
     private float _barMinimum = 0f;
 
@@ -196,11 +198,13 @@ public class FavorManager : MonoBehaviour
         {
             _favorMeterIndicator.sprite = Services.Characters[_favoredPlayer].IndicatorSprite;
             _favorMeterIndicatorGlow.sprite = Services.Characters[_favoredPlayer].IndicatorGlowSprite;
+            _favorMeterIndicatorGlow.color = _glowColors[_favoredPlayer];
         }
         else
         {
             _favorMeterIndicator.sprite = Services.Characters[0].IndicatorSprite;
             _favorMeterIndicatorGlow.sprite = Services.Characters[0].IndicatorGlowSprite;
+            _favorMeterIndicatorGlow.color = _glowColors[0];
         }
 
         if (_multiplierText)
