@@ -410,16 +410,23 @@ public class MovementController : MonoBehaviour
         _forceVelocity = Vector3.zero;
     }
 
-    //private void StateChange(BaseState state)
-    //{
+    private void StateChange(BaseState state)
+    {
+        if (_canFlip)
+        {
+            _canFlip = false;
+        }
+    }
 
-    //}
+    private bool _canFlip = false;
 
     //TODO: use fixed update instead of waitforseconds?
     private IEnumerator QueueFlip(Fighter.Direction newDirection)
     {
         _isFlipQueued = true;
-        yield return new WaitUntil(() => _fighter.BaseStateMachine.IsIdle || _fighter.BaseStateMachine.IsCrouch);
+        _canFlip = true;
+        //yield return new WaitUntil(() => _fighter.BaseStateMachine.IsIdle || _fighter.BaseStateMachine.IsCrouch);
+        yield return new WaitUntil(() => !_canFlip);
 
         _isFlipQueued = false;
         if (_isOpponentBehind)
@@ -771,7 +778,7 @@ public class MovementController : MonoBehaviour
             Debug.LogError($"movement states missing from controller {name}");
         }
 
-        //_fighter.Events.onStateChange += StateChange;
+        _fighter.Events.onStateChange += StateChange;
     }
 
     private void UnsubscribeActions()
@@ -800,7 +807,7 @@ public class MovementController : MonoBehaviour
         // _fighter.BaseStateMachine.States[_jump].execute -= Jump;
         // _fighter.BaseStateMachine.States[_jump].stop -= StopJumping;
 
-        //_fighter.Events.onStateChange -= StateChange;
+        _fighter.Events.onStateChange -= StateChange;
     }
 
     private void SpaceRays()
