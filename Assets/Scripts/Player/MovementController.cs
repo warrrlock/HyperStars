@@ -355,37 +355,40 @@ public class MovementController : MonoBehaviour
                 _isJumping = false;
             }
         }
-        //if (!_isWallBounceable)
-        //{
-        //    if (_netVelocity.x > 0f)
-        //    {
-        //        if (_collisionData.x.isPositiveHit)
-        //        {
-        //            KillAllForces();
-        //        }
-        //    }
-        //    if (_netVelocity.x < 0f)
-        //    {
-        //        if (_collisionData.x.isNegativeHit)
-        //        {
-        //            KillAllForces();
-        //        }
-        //    }
-        //    if (_netVelocity.y > 0f)
-        //    {
-        //        if (_collisionData.y.isPositiveHit)
-        //        {
-        //            KillAllForces();
-        //        }
-        //    }
-        //    if (_netVelocity.y < 0f)
-        //    {
-        //        if (_collisionData.y.isNegativeHit)
-        //        {
-        //            KillAllForces();
-        //        }
-        //    }
-        //}
+        if (!_isWallBounceable)
+        {
+            if (_netVelocity.x > 0f)
+            {
+                if (_collisionData.x.isPositiveHit)
+                {
+                    KillAllForces();
+                }
+            }
+            if (_netVelocity.x < 0f)
+            {
+                if (_collisionData.x.isNegativeHit)
+                {
+                    KillAllForces();
+                }
+            }
+            if (_netVelocity.y > 0f)
+            {
+                if (_collisionData.y.isPositiveHit)
+                {
+                    KillAllForces();
+                }
+            }
+            if (_netVelocity.y < 0f)
+            {
+                if (!_isDashing)
+                {
+                    if (_collisionData.y.isNegativeHit)
+                    {
+                        KillAllForces();
+                    }
+                }
+            }
+        }
     }
 
     private void OnDestroy()
