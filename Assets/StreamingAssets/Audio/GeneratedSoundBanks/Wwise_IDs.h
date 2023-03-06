@@ -113,6 +113,7 @@ namespace AK
     {
         static const AkUniqueID ATTACKHITBUS = 534946722U;
         static const AkUniqueID ATTACKSWINGBUS = 4276455557U;
+        static const AkUniqueID BLUKVOICELINESBUS = 259737002U;
         static const AkUniqueID COMBATUIBUS = 1862777451U;
         static const AkUniqueID CROWDBUS = 1975785326U;
         static const AkUniqueID GENERALFOLEYBUS = 2674442030U;
