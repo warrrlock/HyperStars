@@ -101,19 +101,28 @@ public class HitBox : MonoBehaviour
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
         Vector3 forceDirection = attackInfo.knockbackDirection;
-        
+
+        float reverseForceMagnitude = (attackInfo.reverseKnockbackDistance * 2f) / (attackInfo.reverseKnockbackDuration + Time.fixedDeltaTime);
+        Vector3 reverseForceDirection = attackInfo.reverseKnockbackDirection;
+
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
+        reverseForceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration, true);
+        if (attackInfo.reverseKnockbackDistance > 0f)
+        {
+            _fighter.MovementController.ApplyForce(reverseForceDirection, reverseForceMagnitude, attackInfo.reverseKnockbackDuration, true);
+        }
         //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, attackInfo.knockbackForce.y, attackInfo.knockbackDuration));
-        
-            //float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
+
+        //float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
         //Vector3 forceDirection = attackInfo.knockbackDirection;
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration));
         //StartCoroutine(hitFighter.MovementController.ApplyForcePolar(forceDirection, attackInfo.knockbackForce.y));
         //StartCoroutine(hitFighter.InputManager.Disable(attackInfo.hitStunDuration, hitFighter.InputManager.Actions["Move"]));
         hitFighter.MovementController.ResetVelocityY();
+        //_fighter.MovementController.ResetVelocityY();
         if (attackInfo.causesWallBounce)
         {
             StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
