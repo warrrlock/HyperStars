@@ -903,10 +903,10 @@ MonoBehaviour:
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 9
   _opponentPushSpeed: 2
-  _maxJumpHeight: 7.5
-  _minJumpHeight: 2
-  _timeToJumpApex: 0.4
-  _dashDistance: 6
+  _jumpDistance: {x: 7, y: 18}
+  _jumpDuration: 0.5
+  _gravity: 93.74999
+  _dashDistance: 10
   _dashDuration: 0.35
   _shortDashDistance: 4
   _shortDashDuration: 0.28
@@ -919,6 +919,7 @@ MonoBehaviour:
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
+  _secondaryForcePercentage: 0
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560
