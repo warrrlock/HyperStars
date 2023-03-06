@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: BLUK_Neutral_Parry
   m_EditorClassIdentifier: 
   characterSelection: 2
+  _bypassQueueAtEnd: 1
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -39,7 +41,7 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 1
+    hitStunDuration: 0.6
     causesWallBounce: 0
     hitStopDuration: 0.5
     wallBounceDuration: 0
