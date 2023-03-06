@@ -13,10 +13,10 @@ public class AttackInfo
     public float knockbackDuration;
     public float knockbackDistance;
     public Vector3 knockbackDirection;
-    public float reverseKnockbackDuration;
-    public float reverseKnockbackDistance;
-    [Tooltip("The direction to knock the attacking player back. Assume the fighter is facing right.")]
-    public Vector3 reverseKnockbackDirection;
+    //public float reverseKnockbackDuration;
+    //public float reverseKnockbackDistance;
+    //[Tooltip("The direction to knock the attacking player back. Assume the fighter is facing right.")]
+    //public Vector3 reverseKnockbackDirection;
     public float hitStunDuration;
     public bool causesWallBounce;
     public float hitStopDuration;
