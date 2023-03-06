@@ -38,6 +38,7 @@ public class Fighter : MonoBehaviour
         private set => _fightersManager = value;
     }
     [SerializeField] private FightersManager _fightersManager;
+    private SpriteRenderer _spriteRenderer;
     
     private void Awake()
     {
@@ -51,6 +52,7 @@ public class Fighter : MonoBehaviour
 
     private void Start()
     {
+        _spriteRenderer.sortingOrder = PlayerId;
         OpposingFighter = Array.Find(Services.Fighters, x => x.PlayerId != PlayerId);
         SpecialMeterManager?.Initialize();
         //TODO: change this because not all characters will start off facing right
@@ -87,6 +89,7 @@ public class Fighter : MonoBehaviour
         PlayerInput = transform.parent.GetComponent<PlayerInput>();
         BaseStateMachine = GetComponent<BaseStateMachine>();
         SpecialMeterManager = GetComponent<SpecialMeterManager>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public IEnumerator DisableAllInput(Func<bool> enableCondition, Action callback = null)
