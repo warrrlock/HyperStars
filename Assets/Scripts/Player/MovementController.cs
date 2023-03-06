@@ -64,6 +64,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _dashRechargeTime;
 
     [Header("Collisions")]
+    [Tooltip("What percentage of a force that hits this fighter should push it backwards?")]
+    [SerializeField][Range(0f, 1f)] private float _secondaryForcePercentage;
     [Tooltip("What layer(s) should collisions be checked on?")]
     [SerializeField] private LayerMask _collisionMask;
     [SerializeField] private LayerMask _playerMask;
@@ -277,6 +279,9 @@ public class MovementController : MonoBehaviour
         _inputManager. Actions["Jump"].enableConditions.Add(() => _collisionData.y.isNegativeHit);
     }
 
+    private bool _isForcingOpponent = false;
+    private Vector3 _secondaryForceVelocity = Vector3.zero;
+
     private void FixedUpdate()
     {
         //switch (_fighter.FacingDirection)
@@ -337,7 +342,7 @@ public class MovementController : MonoBehaviour
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
         }
-        _netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
+        _netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity + _secondaryForceVelocity;
         Move(_netVelocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
@@ -350,7 +355,7 @@ public class MovementController : MonoBehaviour
                 _isJumping = false;
             }
         }
-        if (!_isWallBounceable)
+        if (!_isWallBounceable && !_isForcingOpponent)
         {
             if (_netVelocity.x > 0f)
             {
@@ -966,6 +971,29 @@ public class MovementController : MonoBehaviour
                     }
                 }
 
+                //if (axis == Axis.x) //TODO: check on y axis too
+                //{
+                //    if (_forceVelocity != Vector3.zero)
+                //    {
+                //        if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit overlapHit, rayLength, _playerMask))
+                //        {
+                //            _isForcingOpponent = true;
+                //            _fighter.OpposingFighter.MovementController._secondaryForceVelocity = _forceVelocity * _fighter.OpposingFighter.MovementController._secondaryForcePercentage;
+                //            Debug.Log(_fighter.OpposingFighter.MovementController._netVelocity);
+                //        }
+                //        else
+                //        {
+                //            _isForcingOpponent = false;
+                //            _fighter.OpposingFighter.MovementController._secondaryForceVelocity = Vector3.zero;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        _isForcingOpponent = false;
+                //        _fighter.OpposingFighter.MovementController._secondaryForceVelocity = Vector3.zero;
+                //    }
+                //}
+
                 //check collisions
                 if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit hit, rayLength, collisionMask))
                 {
@@ -1289,6 +1317,7 @@ public class MovementController : MonoBehaviour
             if (_sideJumpInputVector != Vector3.zero)
             {
                 ApplyForce(_sideJumpInputVector, _horizontalJumpForce, _jumpDuration * 2f, false);
+                StartCoroutine(DisableXCollisionLayers(_jumpDuration, 9));
                 yield break;
             }
             timer += Time.fixedDeltaTime;
