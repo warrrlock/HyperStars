@@ -12,4 +12,5 @@ public static class Services
 
     public static FavorManager FavorManager;
     public static CameraManager CameraManager;
+    public static RoundTimer RoundTimer;
 }

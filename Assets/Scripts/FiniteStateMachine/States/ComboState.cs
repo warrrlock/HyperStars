@@ -50,7 +50,7 @@ namespace FiniteStateMachine
             foreach (Transition transition in _transitions)
             {
                 // Debug.Log($"{stateMachine.name} executing transition {transition.name}");
-                if (transition.Execute(stateMachine, inputName, isCombo:true)) return true;
+                if (transition.Execute(stateMachine, inputName, canCambo: stateMachine.CanCombo(_bypassHitConfirm))) return true;
             }
 
             return false;

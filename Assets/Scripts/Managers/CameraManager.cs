@@ -41,6 +41,8 @@ public class CameraManager : MonoBehaviour
     private float defaultDistortion;
     [SerializeField] private GameObject blurFilterPrefab;
     [SerializeField] private Shader blurShader;
+    [SerializeField] private Material silhouetteMaterial;
+    [SerializeField] private Camera silhouetteCamera;
 
     private void Awake()
     {
@@ -199,14 +201,14 @@ public class CameraManager : MonoBehaviour
         var dir = sender.gameObject.transform.position - transform.position;
         var r = new Ray(transform.position, dir);
         var spawnedBlurFilter = Instantiate(blurFilterPrefab, r.GetPoint(2), Quaternion.identity, transform);
-        Material blurMaterial = new Material(blurShader);
-        spawnedBlurFilter.GetComponent<MeshRenderer>().material = blurMaterial;
+        // Material blurMaterial = new Material(blurShader);
+        // spawnedBlurFilter.GetComponent<MeshRenderer>().material = blurMaterial;
         
         // lerp to blur
         var blurElapsed = 0f;
         while (blurElapsed < .05f)
         {
-            blurMaterial.SetFloat("_AlphaStrength", Mathf.Lerp(blurMaterial.GetFloat("_AlphaStrength"), 1f, blurElapsed / .05f));
+            spawnedBlurFilter.GetComponent<MeshRenderer>().material.SetFloat("_AlphaStrength", Mathf.Lerp(spawnedBlurFilter.GetComponent<MeshRenderer>().material.GetFloat("_AlphaStrength"), 1f, blurElapsed / .05f));
             blurElapsed += Time.fixedDeltaTime;
             yield return null;
         }
@@ -218,11 +220,39 @@ public class CameraManager : MonoBehaviour
         var unblurSpeed = .25f;
         while (unblurElapsed < unblurSpeed)
         {
-            blurMaterial.SetFloat("_AlphaStrength", Mathf.Lerp(blurMaterial.GetFloat("_AlphaStrength"), 0f, unblurElapsed / unblurSpeed));
+            spawnedBlurFilter.GetComponent<MeshRenderer>().material.SetFloat("_AlphaStrength", Mathf.Lerp(spawnedBlurFilter.GetComponent<MeshRenderer>().material.GetFloat("_AlphaStrength"), 0f, unblurElapsed / unblurSpeed));
             unblurElapsed += Time.fixedDeltaTime;
             yield return null;
         }
-        
+
+        yield return new WaitForFixedUpdate();
         Destroy(spawnedBlurFilter);
+    }
+
+    private Material[] bothMats;
+    public void SilhouetteToggle(bool isOn, Material[] materials)
+    {
+        LayerCullingShow(silhouetteCamera, "Player");
+        bothMats = materials;
+        foreach (var mat in materials)
+        {
+            mat.SetFloat("_SilhouetteStrength", isOn ? 1 : 0);
+        }
+        silhouetteMaterial.SetFloat("_SilhouetteAlpha", isOn ? 1 : 0);
+        if (isOn) StartCoroutine(SilhouetteTurnOff());
+    }
+    
+    private void LayerCullingShow(Camera cam, string layer) {
+        cam.cullingMask |= 1 << LayerMask.NameToLayer(layer);
+    }
+    private void LayerCullingHide(Camera cam, string layer) {
+        cam.cullingMask &= ~1 << LayerMask.NameToLayer(layer);
+    }
+
+    private IEnumerator SilhouetteTurnOff()
+    {
+        yield return new WaitForSeconds(.1f);
+        SilhouetteToggle(false, bothMats);
+        LayerCullingHide(silhouetteCamera, "Player");
     }
 }

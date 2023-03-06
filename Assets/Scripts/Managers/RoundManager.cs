@@ -3,15 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(GameEventListener))]
 public class RoundManager : MonoBehaviour
 {
     public bool InGame => !_disabledInput;
-    
-    [Header("Rounds meta")]
-    [SerializeField] private GameObject _restartButton;
+
+    [Header("Rounds meta")] 
+    [SerializeField] private GameEvent _roundStartEvent;
+    [SerializeField] private GameObject _buttons;
     [SerializeField] private int _neededWins;
     
     [Header("Text Info")]
@@ -36,7 +38,7 @@ public class RoundManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_restartButton) _restartButton.SetActive(false);
+        if (_buttons) _buttons.SetActive(false);
         if (_roundText) _roundText.gameObject.SetActive(false);
         _round = RoundInformation.round;
         
@@ -92,7 +94,8 @@ public class RoundManager : MonoBehaviour
     //for use in animation
     public void EnableRestartGame()
     {
-        _restartButton.SetActive(true);
+        _buttons.SetActive(true);
+        Services.Players[0].PlayerInput.uiInputModule = GetComponentInChildren<InputSystemUIInputModule>();
     }
     
     public void RestartGame()
@@ -172,17 +175,27 @@ public class RoundManager : MonoBehaviour
         
         //start time/movement
         _countdownText.text = _startText;
-        EnableAllInput();
-        
+
         yield return new WaitForSeconds(1.0f);
         _countdownText.gameObject.SetActive(false);
+        
+        EnableAllInput();
+        StartCoroutine(HandleRoundStart());
+    }
+
+    private IEnumerator HandleRoundStart()
+    {
+        _roundStartEvent.Raise(new Dictionary<string, object>());
+        yield return new WaitForFixedUpdate();
+        foreach (Fighter fighter in Services.Fighters)
+            fighter.InputManager.ResetValues();
     }
 
     private void DisableAllInput()
     {
         _disabledInput = true;
         foreach (Fighter fighter in Services.Fighters)
-            StartCoroutine(fighter.DisableAllInput(() => _disabledInput == false, fighter.InputManager.ResetValues));
+            StartCoroutine(fighter.DisableAllInput(() => _disabledInput == false));
     }
 
     private void EnableAllInput()

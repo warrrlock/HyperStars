@@ -498,23 +498,20 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
-    public void ApplyForce(Vector3 direction, float magnitude, float duration, bool isMomentumReset = false, ForceEasing easingFunction = ForceEasing.Linear)
+    public void ApplyForce(Vector3 direction, float magnitude, float duration, bool isMomentumReset = false, float collideDecay = 0f, ForceEasing easingFunction = ForceEasing.Linear)
     {
+        //collide decay is how much the force decays when it collides into something
+
         if (isMomentumReset) //TODO: do this for ApplyForcePolar as well
         {
             KillAllForces();
         }
-        IEnumerator forceCoroutine = Force(direction, magnitude, duration, isMomentumReset, easingFunction);
+        IEnumerator forceCoroutine = Force(direction, magnitude, duration, easingFunction);
         _forceCoroutines.Add(forceCoroutine);
         StartCoroutine(forceCoroutine);
 
-        IEnumerator Force(Vector3 direction, float magnitude, float duration, bool isMomentumReset = false, ForceEasing easingFunction = ForceEasing.Linear)
+        IEnumerator Force(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
         {
-            //TODO: this needs to also stop all other ApplyForce coroutines currently running
-            //if (isMomentumReset) //TODO: do this for ApplyForcePolar as well
-            //{
-            //    _forceVelocity = Vector3.zero;
-            //}
             direction.Normalize();
             float timer = 0f;
             Easing function;
@@ -1182,9 +1179,12 @@ public class MovementController : MonoBehaviour
     }
 
     private Vector3 _dashDirection = Vector3.zero;
+    private bool _isDashing = false;
 
     private void Dash()
     {
+        _isDashing = true;
+        StartCoroutine(_inputManager.Actions["Jump"].AddOneShotEnableCondition(() => !_isDashing));
         //_unforcedVelocity.x = 0f;
         //_unforcedVelocity.z = 0f;
         //TODO: end the dash if player hits an obstacle
@@ -1246,7 +1246,8 @@ public class MovementController : MonoBehaviour
                 StartCoroutine(_inputManager.Actions["Dash"].AddOneShotEnableCondition(() => _dashChargeCount > 0));
             }
         }
-        ApplyForce(dashDirection, dashForce, _dashDuration, true, _dashEasing);
+        //ApplyForce(dashDirection, dashForce, _dashDuration, true, _dashEasing);
+        ApplyForce(dashDirection, dashForce, _dashDuration, true);
         //StartCoroutine(ApplyForcePolar(dashDirection, _dashForce));
         if (!CollisionData.y.isNegativeHit)
         {
@@ -1387,6 +1388,7 @@ public class MovementController : MonoBehaviour
         {
             StartCoroutine(_inputManager.Disable(_shortDashCooldownDuration, _inputManager.Actions["Dash Left"], _inputManager.Actions["Dash Right"]));
         }
+        _isDashing = false;
         yield break;
     }
 

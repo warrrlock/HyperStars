@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Air Heavy Atk
   m_EditorClassIdentifier: 
   characterSelection: 1
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 1
@@ -42,7 +44,7 @@ MonoBehaviour:
     knockbackDuration: 0.3
     knockbackDistance: 10
     knockbackDirection: {x: 0, y: -1, z: 0}
-    hitStunDuration: 1
+    hitStunDuration: 0.6
     causesWallBounce: 1
     hitStopDuration: 0.4
     wallBounceDuration: 0

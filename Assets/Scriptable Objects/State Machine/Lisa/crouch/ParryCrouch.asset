@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ParryCrouch
   m_EditorClassIdentifier: 
   characterSelection: 1
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 0
   _isCrouchState: 1
   _isSpecial: 0
   _specialBarCost: 0
@@ -35,7 +37,7 @@ MonoBehaviour:
   _transitions: []
   _defaultCombo: 0
   _attackInfo:
-    attackType: 4
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -43,7 +45,7 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 0.8
+    hitStunDuration: 0.6
     causesWallBounce: 0
     hitStopDuration: 0
     wallBounceDuration: 0

@@ -66,11 +66,25 @@
 					<ChildrenList>
 						<Action Name="" ID="{A8B18BFC-809F-443B-B111-B718D76A050B}" ShortID="983449875">
 							<PropertyList>
-								<Property Name="Probability" Type="Real64" Value="75"/>
+								<Property Name="Probability" Type="Real64" Value="60"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="DashVO" ID="{0520EAD9-08E5-4259-B98E-729D2AB7BDA5}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_JumpVO" ID="{7B3A3F61-9621-4DEB-AE48-F61A9707688D}">
+					<ChildrenList>
+						<Action Name="" ID="{28C2B20D-0BA9-4B29-9C17-0CED0220B930}" ShortID="709736866">
+							<PropertyList>
+								<Property Name="Probability" Type="Real64" Value="50"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="JumpVO" ID="{0A9512DD-FA1D-4D34-A3D8-A9849E62F9F5}" WorkUnitID="{CBC55EAB-5919-4AB6-9498-07208FF5B665}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

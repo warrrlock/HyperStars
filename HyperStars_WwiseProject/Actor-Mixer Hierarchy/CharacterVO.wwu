@@ -398,10 +398,149 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="BlukPainLightVO" ID="{58193B24-3E08-46D0-95A5-9273697AD73F}" ShortID="598670747">
+							<PropertyList>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="BlukVoicelinesBus" ID="{9B93152D-818E-45DF-99AD-7B1F2D0D4850}" WorkUnitID="{D0B78DAD-E655-47EB-8AAA-1E2C0F6EF821}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="BlukPainLight1" ID="{3A589DE6-62B1-484A-BCF0-EB22B0841C12}" ShortID="537521422">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight1" ID="{DAAD744A-189E-40E1-B72D-4BB96FA5B5E8}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="585174335"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight1" ID="{DAAD744A-189E-40E1-B72D-4BB96FA5B5E8}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BlukPainLight2" ID="{59C7B35B-3240-4A89-966A-285C5A3A2BD1}" ShortID="696499025">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight2" ID="{CC485AC2-AE22-4828-AB4E-B6947981023F}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="664955467"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight2" ID="{CC485AC2-AE22-4828-AB4E-B6947981023F}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BlukPainLight3" ID="{35D3FE41-8230-43DF-B10D-301C197A8D91}" ShortID="545073147">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight3" ID="{9657AD41-589A-4FBC-B205-32FAC11B1093}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="812111047"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight3" ID="{9657AD41-589A-4FBC-B205-32FAC11B1093}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BlukPainLight4" ID="{03675442-6548-4737-B457-314AA7D8F9D8}" ShortID="971146200">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight4" ID="{A85827C9-0718-410E-89F7-82CA9E428A80}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="245253941"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight4" ID="{A85827C9-0718-410E-89F7-82CA9E428A80}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BlukPainLight5" ID="{F2D2B367-8A38-4AD6-AD85-E989177FEEC4}" ShortID="934353642">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight5" ID="{807FF728-8374-4003-8EC6-8B958B899578}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight5.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="595486195"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight5" ID="{807FF728-8374-4003-8EC6-8B958B899578}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
 					</ChildrenList>
 					<ObjectLists/>
 					<GroupingInfo>
 						<GroupingBehaviorList>
+							<GroupingBehavior>
+								<ItemRef Name="BlukPainLightVO" ID="{58193B24-3E08-46D0-95A5-9273697AD73F}"/>
+							</GroupingBehavior>
 							<GroupingBehavior>
 								<ItemRef Name="LisaPainLightVO" ID="{AB954567-657E-4563-A8B4-115BD5E440F0}"/>
 							</GroupingBehavior>
@@ -410,6 +549,12 @@
 							</GroupingBehavior>
 						</GroupingBehaviorList>
 						<GroupingList>
+							<Grouping>
+								<SwitchRef Name="Bluk" ID="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}"/>
+								<ItemList>
+									<ItemRef Name="BlukPainLightVO" ID="{58193B24-3E08-46D0-95A5-9273697AD73F}"/>
+								</ItemList>
+							</Grouping>
 							<Grouping>
 								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
 								<ItemList>
@@ -619,6 +764,11 @@
 						<RandomSequenceContainer Name="LisaPainHeavyVO" ID="{9209BF6D-DA4E-4D33-9E8C-0A83E432F7E8}" ShortID="891953568">
 							<PropertyList>
 								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-2</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -1131,6 +1281,11 @@
 						<RandomSequenceContainer Name="LisaSwingLightVO" ID="{7AAFF9CD-E8D9-4E89-9011-EB902152D99A}" ShortID="391164275">
 							<PropertyList>
 								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>5</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -1165,6 +1320,13 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LisaSwingLight2" ID="{4D9FC187-D44F-4402-884C-5A2823E62820}" ShortID="758629343">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-1</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -1280,6 +1442,13 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LisaSwingLight7" ID="{6629F1D5-CA5E-4571-A1D1-14B0EC3DD4BD}" ShortID="102329940">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -1303,6 +1472,13 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="LisaSwingLight8" ID="{0E327251-F743-4125-8B59-3271AB4580E0}" ShortID="958223059">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>3</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -1328,6 +1504,137 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="BlukPainLightVO" ID="{405785BB-B760-4266-82FD-87B6767424AA}" ShortID="987697652">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="BlukVoicelinesBus" ID="{9B93152D-818E-45DF-99AD-7B1F2D0D4850}" WorkUnitID="{D0B78DAD-E655-47EB-8AAA-1E2C0F6EF821}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="BlukPainLight1" ID="{3478A5F9-E52C-4B24-8B74-9FE56ACD63E9}" ShortID="487043223">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight1" ID="{D851574A-B80C-4DF9-83BD-6A26B6ADC6F0}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="585174335"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight1" ID="{D851574A-B80C-4DF9-83BD-6A26B6ADC6F0}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BlukPainLight2" ID="{0F1531E5-12A3-4A64-85A1-5C1701A661D2}" ShortID="149938092">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight2" ID="{0DF5AAE0-45D3-4011-B797-E75FC8791409}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="664955467"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight2" ID="{0DF5AAE0-45D3-4011-B797-E75FC8791409}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BlukPainLight3" ID="{13C919B3-0FBE-46DF-B6C0-02ECE44BBCC4}" ShortID="314839428">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight3" ID="{F8E51D40-DCC0-49F1-BC61-EF91447B7AB8}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="812111047"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight3" ID="{F8E51D40-DCC0-49F1-BC61-EF91447B7AB8}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BlukPainLight4" ID="{F1FE42DC-DC64-46F9-880C-C46F8ED6A8AA}" ShortID="981538080">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight4" ID="{2A657D4B-42B3-4E2F-82D4-8B312BEFD3E9}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="245253941"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight4" ID="{2A657D4B-42B3-4E2F-82D4-8B312BEFD3E9}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BlukPainLight5" ID="{03479B19-FE48-4DD3-874D-2D597F2707BF}" ShortID="653022464">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="BlukPainLight5" ID="{DC264145-458C-403E-B2C8-92D13FFADA11}">
+											<Language>SFX</Language>
+											<AudioFile>BlukPainLight5.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="595486195"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="BlukPainLight5" ID="{DC264145-458C-403E-B2C8-92D13FFADA11}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
 					</ChildrenList>
 					<ObjectLists/>
 					<GroupingInfo>
@@ -1336,10 +1643,19 @@
 								<ItemRef Name="Placeholder_LisaSwingLightVO" ID="{492D7812-6238-4A61-B231-EB2BCD312B30}"/>
 							</GroupingBehavior>
 							<GroupingBehavior>
+								<ItemRef Name="BlukPainLightVO" ID="{405785BB-B760-4266-82FD-87B6767424AA}"/>
+							</GroupingBehavior>
+							<GroupingBehavior>
 								<ItemRef Name="LisaSwingLightVO" ID="{7AAFF9CD-E8D9-4E89-9011-EB902152D99A}"/>
 							</GroupingBehavior>
 						</GroupingBehaviorList>
 						<GroupingList>
+							<Grouping>
+								<SwitchRef Name="Bluk" ID="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}"/>
+								<ItemList>
+									<ItemRef Name="BlukPainLightVO" ID="{405785BB-B760-4266-82FD-87B6767424AA}"/>
+								</ItemList>
+							</Grouping>
 							<Grouping>
 								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
 								<ItemList>
@@ -1508,6 +1824,11 @@
 						<RandomSequenceContainer Name="LisaSwingMediumVO" ID="{FD7B8F33-6988-4204-A3AD-A64032147830}" ShortID="758643418">
 							<PropertyList>
 								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-1</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -1910,6 +2231,11 @@
 						<RandomSequenceContainer Name="LisaDashVO" ID="{B123B114-2A7B-4EEE-AD04-B2B01644C7B3}" ShortID="884583278">
 							<PropertyList>
 								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>4</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -2056,6 +2382,153 @@
 								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
 								<ItemList>
 									<ItemRef Name="LisaDashVO" ID="{B123B114-2A7B-4EEE-AD04-B2B01644C7B3}"/>
+								</ItemList>
+							</Grouping>
+						</GroupingList>
+					</GroupingInfo>
+				</SwitchContainer>
+				<SwitchContainer Name="JumpVO" ID="{0A9512DD-FA1D-4D34-A3D8-A9849E62F9F5}" ShortID="96710004">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="DefaultSwitchOrState">
+							<ObjectRef Name="Empty" ID="{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}" WorkUnitID="{32AC2E88-A442-484D-8F59-41BA11B63357}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+						<Reference Name="SwitchGroupOrStateGroup">
+							<ObjectRef Name="CharacterHit" ID="{4A4722CB-937B-47E2-AC4E-DB72A8CD93B3}" WorkUnitID="{32AC2E88-A442-484D-8F59-41BA11B63357}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<RandomSequenceContainer Name="LisaJumpVO" ID="{7366FB11-7CA0-4815-9C1C-25AB43EED83E}" ShortID="15838">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>2</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="LisaSpecialsBus" ID="{E3CFB8C3-D5D6-4A31-BFCA-74969544FC91}" WorkUnitID="{4F2A6DFC-3D74-455F-BD71-9ED5CCA7B14F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="LisaJump2" ID="{E718ED6A-1465-4B75-95C4-F4D342200F5B}" ShortID="542026819">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaJump2" ID="{01F4263A-919F-498F-AB82-B876A12E0359}">
+											<Language>SFX</Language>
+											<AudioFile>LisaJump2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="126881099"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaJump2" ID="{01F4263A-919F-498F-AB82-B876A12E0359}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaJump3" ID="{DAA07434-7437-41F4-B28E-F7768353A5F7}" ShortID="491377883">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaJump3" ID="{3E55126C-5E14-4FAE-95D9-236646780F7A}">
+											<Language>SFX</Language>
+											<AudioFile>LisaJump3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="812779222"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaJump3" ID="{3E55126C-5E14-4FAE-95D9-236646780F7A}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaJump4" ID="{AA472918-078B-4193-9F5A-649EF0207041}" ShortID="153770151">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaJump4" ID="{906E3082-286D-4E07-A1F6-227808AE924E}">
+											<Language>SFX</Language>
+											<AudioFile>LisaJump4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="624024900"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaJump4" ID="{906E3082-286D-4E07-A1F6-227808AE924E}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="LisaJump1" ID="{CDB755A1-4489-420C-8DC1-8DF7124997F4}" ShortID="701525480">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="LisaJump1" ID="{991B6202-36D1-41DF-9811-6659F8A223AC}">
+											<Language>SFX</Language>
+											<AudioFile>LisaJump1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="623112627"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="LisaJump1" ID="{991B6202-36D1-41DF-9811-6659F8A223AC}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
+					</ChildrenList>
+					<ObjectLists/>
+					<GroupingInfo>
+						<GroupingBehaviorList>
+							<GroupingBehavior>
+								<ItemRef Name="LisaJumpVO" ID="{7366FB11-7CA0-4815-9C1C-25AB43EED83E}"/>
+							</GroupingBehavior>
+						</GroupingBehaviorList>
+						<GroupingList>
+							<Grouping>
+								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
+								<ItemList>
+									<ItemRef Name="LisaJumpVO" ID="{7366FB11-7CA0-4815-9C1C-25AB43EED83E}"/>
 								</ItemList>
 							</Grouping>
 						</GroupingList>

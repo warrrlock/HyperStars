@@ -27,3 +27,442 @@ MonoBehaviour:
     focus: 0
     edit: 0
   _characterPath: Assets/Scriptable Objects/State Machine/BLUK
+  _states:
+  - {fileID: 11400000, guid: 9a51352988cd38245967f0d4d077a55f, type: 2}
+  - {fileID: 11400000, guid: 675ec9ccd8af88942bb13bc83cbab369, type: 2}
+  - {fileID: 11400000, guid: 8ac6e8ed59c6f2b49aa93c543e0f8d43, type: 2}
+  - {fileID: 11400000, guid: 1610e8e042ee0164c81c786734d08ec5, type: 2}
+  - {fileID: 11400000, guid: bc5d313a19a1b6e4a98a1bff3a8e5886, type: 2}
+  - {fileID: 11400000, guid: 296fc3d57402cb148b619936b3433ebd, type: 2}
+  - {fileID: 11400000, guid: 07bb61c5195d46b48bfe7fe14d157a3e, type: 2}
+  - {fileID: 11400000, guid: 1def7bd6a95a63c43814d6119b47d163, type: 2}
+  - {fileID: 11400000, guid: e140687ecff99a942a0510120742e5b1, type: 2}
+  - {fileID: 11400000, guid: b6d5ab85d502ea240859cb8ffe110397, type: 2}
+  - {fileID: 11400000, guid: f2ea8141c9b535541a3a45800fe8656a, type: 2}
+  - {fileID: 11400000, guid: 28d599a337b69014fa270ee49718104e, type: 2}
+  - {fileID: 11400000, guid: 4c61eacc5e06bf542a88c14a6d4eeeaf, type: 2}
+  - {fileID: 11400000, guid: 08505ada512c6974f9ab56a9cf0d6e14, type: 2}
+  - {fileID: 11400000, guid: 94c76d1ad324bd94094db4eec55ec7d1, type: 2}
+  - {fileID: 11400000, guid: 3ef7958b5f68b5d4eb104a5aa76a64f3, type: 2}
+  - {fileID: 11400000, guid: 74f54eff4b37b6248be84fbc90ef7ae5, type: 2}
+  - {fileID: 11400000, guid: 5ff41f2c97c86c542aa3499ac6960bab, type: 2}
+  - {fileID: 11400000, guid: 117b3ca8d8512aa4981a78b57a4b4e5a, type: 2}
+  - {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
+  - {fileID: 11400000, guid: 043a0370e95e9a5418231450d0db9a54, type: 2}
+  - {fileID: 11400000, guid: af7e6307898f336448c7f6558d4bab97, type: 2}
+  - {fileID: 11400000, guid: c1a554cf6dec92e4c9df07dda450973d, type: 2}
+  - {fileID: 11400000, guid: aea48d41f887b1843a80f70b14807bdb, type: 2}
+  - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
+  - {fileID: 11400000, guid: e91327a451f98794f8b895020734fd45, type: 2}
+  - {fileID: 11400000, guid: fad8b2dc7ee33fb4fa6e2747fc368378, type: 2}
+  _attackInfo:
+  - attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.5
+    knockbackDistance: 4
+    knockbackDirection: {x: 0, y: -1, z: 0}
+    hitStunDuration: 0.35
+    causesWallBounce: 0
+    hitStopDuration: 0.3
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0.6
+    groundBounceDistance: 15
+    groundBounceDirection: {x: 0, y: 1, z: 0}
+    groundBounceHitStopDuration: 0.1
+    hangTime: 0
+    favorReward: 8
+    knockbackForce: {x: 270.29382, y: 100}
+    incrementBarAmount: 0.4
+  - attackType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.5
+    knockbackDistance: 0.5
+    knockbackDirection: {x: 1, y: -1, z: 0}
+    hitStunDuration: 0.25
+    causesWallBounce: 0
+    hitStopDuration: 0.15
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0.3
+    favorReward: 4
+    knockbackForce: {x: 0, y: 56.063454}
+    incrementBarAmount: 0.2
+  - attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.5
+    knockbackDistance: 4
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 0.35
+    causesWallBounce: 1
+    hitStopDuration: 0.15
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0.6
+    groundBounceDistance: 15
+    groundBounceDirection: {x: 0, y: 1, z: 0}
+    groundBounceHitStopDuration: 0.1
+    hangTime: 0
+    favorReward: 6
+    knockbackForce: {x: 0, y: 100}
+    incrementBarAmount: 0.4
+  - attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 1
+    knockbackDistance: 17
+    knockbackDirection: {x: 0.1, y: 1, z: 0}
+    hitStunDuration: 1
+    causesWallBounce: 0
+    hitStopDuration: 0.3
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0.4
+    favorReward: 10
+    knockbackForce: {x: 90, y: 100}
+    incrementBarAmount: 0
+  - attackType: 0
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 10
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0
+  - attackType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.2
+    knockbackDistance: 0.5
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0.3
+    causesWallBounce: 0
+    hitStopDuration: 0.5
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 12
+    knockbackForce: {x: 358.9053, y: 100}
+    incrementBarAmount: 0.2
+  - attackType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.2
+    knockbackDistance: 1
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 0.4
+    causesWallBounce: 0
+    hitStopDuration: 0.12
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 6
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0.2
+  - attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.5
+    knockbackDistance: 15
+    knockbackDirection: {x: 1, y: 1, z: 0}
+    hitStunDuration: 1
+    causesWallBounce: 1
+    hitStopDuration: 0.2
+    wallBounceDuration: 1
+    wallBounceDistance: 20
+    wallBounceDirection: {x: -1, y: 2, z: 0}
+    wallBounceHitStopDuration: 0.1
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 10
+    knockbackForce: {x: 30.8089, y: 100}
+    incrementBarAmount: 0
+  - attackType: 0
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 0
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0
+  - attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.3
+    knockbackDistance: 0.8
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 0.3
+    causesWallBounce: 0
+    hitStopDuration: 0.5
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 8
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0.2
+  - attackType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.2
+    knockbackDistance: 0.5
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 0.45
+    causesWallBounce: 0
+    hitStopDuration: 0.1
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0.2
+    favorReward: 4
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0.2
+  - attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.5
+    knockbackDistance: 12
+    knockbackDirection: {x: 1, y: 0.8, z: 0}
+    hitStunDuration: 0.8
+    causesWallBounce: 0
+    hitStopDuration: 0.28
+    wallBounceDuration: 1
+    wallBounceDistance: 18
+    wallBounceDirection: {x: -0.5, y: 2, z: 0}
+    wallBounceHitStopDuration: 0.15
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 10
+    knockbackForce: {x: 167.55, y: 100}
+    incrementBarAmount: 0.25
+  - attackType: 3
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.3
+    knockbackDistance: 0.8
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 0.3
+    causesWallBounce: 1
+    hitStopDuration: 0.1
+    wallBounceDuration: 1
+    wallBounceDistance: 18
+    wallBounceDirection: {x: -0.5, y: 2, z: 0}
+    wallBounceHitStopDuration: 0.2
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 8
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0.2
+  - attackType: 0
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 0
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0
+  - attackType: 0
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 0
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0
+  - attackType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 1, y: 0, z: 0}
+    hitStunDuration: 1
+    causesWallBounce: 0
+    hitStopDuration: 0.5
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 10
+    knockbackForce: {x: 358.65738, y: 100}
+    incrementBarAmount: 0.3
+  - attackType: 0
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0.8
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    favorReward: 0
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0.3
+  _indicatorSprite: {fileID: 21300000, guid: ddd2dcfe3eb124efabd38a477f5616e9, type: 3}
+  _indicatorGlowSprite: {fileID: 21300000, guid: 58bc41eaf1d9643d7924027dc964a6c0, type: 3}
