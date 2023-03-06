@@ -8,7 +8,7 @@ public class ObjectJumpy : MonoBehaviour
     public bool randomize;
     public bool startWithHeight;
     public bool onPlat;
-
+    public CrowdManager crowdManager;
 
     public float minSpeed;
     public float maxSpeed;
@@ -24,10 +24,14 @@ public class ObjectJumpy : MonoBehaviour
     private MusicManager musicMan;
     private void Awake()
     {
-        musicMan = GameObject.Find("Music Manager").GetComponent<MusicManager>();
+        
     }
     void Start()
     {
+        crowdManager = GameObject.Find("CrowdManager").GetComponent<CrowdManager>();
+        musicMan = crowdManager.musicManager;
+        RandomizeColor();
+
         if (onPlat)
         {
             platInitHeight = platTrans.position.y;
@@ -59,5 +63,15 @@ public class ObjectJumpy : MonoBehaviour
         }
         else
             transform.position = new Vector3(transform.position.x, initHeight+jumpHeight, transform.position.z);
+    }
+    void RandomizeColor()
+    {
+        SpriteRenderer sprRend = gameObject.GetComponent<SpriteRenderer>();
+        int sprIndex = Random.Range(0, crowdManager.sprListLength - 1);
+        sprRend.sprite = crowdManager.sprList[sprIndex];
+        float H, S, V;
+        Color col = sprRend.color;
+        Color.RGBToHSV(col, out H, out S, out V);
+        sprRend.color = Color.HSVToRGB(Random.Range(0.0f,1.0f),S,V);
     }
 }
