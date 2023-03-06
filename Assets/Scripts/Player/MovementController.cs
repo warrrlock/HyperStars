@@ -1179,9 +1179,12 @@ public class MovementController : MonoBehaviour
     }
 
     private Vector3 _dashDirection = Vector3.zero;
+    private bool _isDashing = false;
 
     private void Dash()
     {
+        _isDashing = true;
+        StartCoroutine(_inputManager.Actions["Jump"].AddOneShotEnableCondition(() => !_isDashing));
         //_unforcedVelocity.x = 0f;
         //_unforcedVelocity.z = 0f;
         //TODO: end the dash if player hits an obstacle
@@ -1385,6 +1388,7 @@ public class MovementController : MonoBehaviour
         {
             StartCoroutine(_inputManager.Disable(_shortDashCooldownDuration, _inputManager.Actions["Dash Left"], _inputManager.Actions["Dash Right"]));
         }
+        _isDashing = false;
         yield break;
     }
 
