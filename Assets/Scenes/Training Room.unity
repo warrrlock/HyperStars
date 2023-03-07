@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.64179045, g: 0.82571757, b: 0.9358472, a: 1}
+  m_IndirectSpecularColor: {r: 0.64191884, g: 0.82588154, b: 0.9360761, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -746,6 +746,11 @@ MonoBehaviour:
   unloadTriggerList: 958ca0ea
   bankNameInternal: 
   valueGuidInternal: 
+--- !u!223 &655412078 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3946683493386771837, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
+  m_PrefabInstance: {fileID: 669354151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &669354151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1364,10 +1369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2666714687243223783, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
-      propertyPath: far clip plane
-      value: 6000
-      objectReference: {fileID: 0}
+    - target: {fileID: 2666714687243223776, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: favorCanvas
+      value: 
+      objectReference: {fileID: 655412078}
     - target: {fileID: 2666714687608587546, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
       propertyPath: m_Name
       value: Camera Pivot
