@@ -872,8 +872,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 12.36799, y: 12.502292, z: 6.3329177}
-  m_Center: {x: -1.8665407, y: 6.251146, z: 0}
+  m_Size: {x: 8.706833, y: 12.502292, z: 6.3329177}
+  m_Center: {x: -1.3435178, y: 6.251146, z: 0}
 --- !u!114 &5093239530658643927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,10 +903,10 @@ MonoBehaviour:
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 9
   _opponentPushSpeed: 2
-  _maxJumpHeight: 7.5
-  _minJumpHeight: 2
-  _timeToJumpApex: 0.4
-  _dashDistance: 6
+  _jumpDistance: {x: 18, y: 40}
+  _jumpDuration: 0.8
+  _gravity: 93.74999
+  _dashDistance: 10
   _dashDuration: 0.35
   _shortDashDistance: 4
   _shortDashDuration: 0.28
@@ -919,6 +919,7 @@ MonoBehaviour:
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
+  _secondaryForcePercentage: 0
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560
@@ -989,6 +990,7 @@ MonoBehaviour:
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
   _jumpState: {fileID: 11400000, guid: 043a0370e95e9a5418231450d0db9a54, type: 2}
+  _jumpLandState: {fileID: 0}
   _crouchState: {fileID: 11400000, guid: b6d5ab85d502ea240859cb8ffe110397, type: 2}
   _crouchUpState: {fileID: 11400000, guid: e140687ecff99a942a0510120742e5b1, type: 2}
   _noEndEventClips:

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: BLUK_Grounded Special
   m_EditorClassIdentifier: 
   characterSelection: 2
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 1
   _specialBarCost: 1
@@ -28,7 +30,8 @@ MonoBehaviour:
   _filters: []
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
-  _transitions: []
+  _transitions:
+  - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
   _defaultCombo: 0
   _attackInfo:
     attackType: 3

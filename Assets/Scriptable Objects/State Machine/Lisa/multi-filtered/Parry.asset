@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
   m_Name: Parry
   m_EditorClassIdentifier: 
+  characterSelection: 1
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 1
   _isCrouchState: 0
+  _isSpecial: 0
+  _specialBarCost: 0
+  _animationName: Parry
+  _animationHash: 504284770
   NodeInfo:
     rect:
       serializedVersion: 2
@@ -29,19 +36,30 @@ MonoBehaviour:
     color: {r: 0.47830978, g: 0.8207547, b: 0.46070668, a: 1}
     focus: 0
     edit: 0
-  characterSelection: 1
-  _animationName: Parry
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
-  _transitions: []
+  _transitions:
+  - {fileID: 11400000, guid: a8f34c85d82c834418d49b1bb3f84b9d, type: 2}
+  - {fileID: 11400000, guid: 75081abe562b9ca4fad0544c9ff81be7, type: 2}
+  - {fileID: 11400000, guid: fc01fe9b4e924174fa01975bc9ee9d78, type: 2}
+  - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
+  - {fileID: 11400000, guid: 4bcf3947c18ebb44fb4eb1d7f129c16f, type: 2}
+  - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
+  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   _defaultCombo: 0
   _attackInfo:
     attackType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 1
-    damage: 0
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0.6
     causesWallBounce: 0
     hitStopDuration: 0.5
     wallBounceDuration: 0
@@ -57,7 +75,4 @@ MonoBehaviour:
     favorReward: 10
     knockbackForce: {x: 358.65738, y: 100}
     incrementBarAmount: 0.3
-  _isSpecial: 0
-  _specialBarCost: 0
   _projectilePrefab: {fileID: 0}
-  _animationHash: 504284770

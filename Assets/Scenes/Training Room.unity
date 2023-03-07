@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6427212, g: 0.8263313, b: 0.9361673, a: 1}
+  m_IndirectSpecularColor: {r: 0.64191884, g: 0.82588154, b: 0.9360761, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -746,6 +746,11 @@ MonoBehaviour:
   unloadTriggerList: 958ca0ea
   bankNameInternal: 
   valueGuidInternal: 
+--- !u!223 &655412078 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3946683493386771837, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
+  m_PrefabInstance: {fileID: 669354151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &669354151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -817,6 +822,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1967346957}
+    - target: {fileID: 3946683493386771837, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4372518531820595242, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -5.0000324
@@ -1281,7 +1290,7 @@ PrefabInstance:
     - target: {fileID: 5698219725593528951, guid: 2a691c1ea833549a5b2713cb01e157b4, type: 3}
       propertyPath: _character
       value: 
-      objectReference: {fileID: 11400000, guid: 1ff7cd23ef22a4fbe8111989290bd55d, type: 2}
+      objectReference: {fileID: 11400000, guid: 8f468b1b7dff9494e8490d72d111e4b9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a691c1ea833549a5b2713cb01e157b4, type: 3}
 --- !u!1001 &1621711355
@@ -1360,6 +1369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2666714687243223776, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
+      propertyPath: favorCanvas
+      value: 
+      objectReference: {fileID: 655412078}
     - target: {fileID: 2666714687608587546, guid: fe324893dc92a4da19e8f5aeeaba4785, type: 3}
       propertyPath: m_Name
       value: Camera Pivot
