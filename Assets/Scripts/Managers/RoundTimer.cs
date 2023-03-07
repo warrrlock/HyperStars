@@ -33,6 +33,7 @@ public class RoundTimer : MonoBehaviour
     [SerializeField] private Image _lock;
     [SerializeField] private Sprite _brokenLockSprite;
     [SerializeField] private float _lockDisappearTime;
+    [SerializeField] private float _lockFallSpeed;
 
     public delegate void StartShrink();
     public StartShrink onStartShrink;
@@ -87,6 +88,8 @@ public class RoundTimer : MonoBehaviour
                 Color newLockColor = _lock.color;
                 newLockColor.a = Mathf.Lerp(1f, 0f, timer / _lockDisappearTime);
                 _lock.color = newLockColor;
+                Vector2 newLockPosition = new Vector2(_lock.rectTransform.anchoredPosition.x, _lock.rectTransform.anchoredPosition.y - _lockFallSpeed * Time.fixedDeltaTime);
+                _lock.rectTransform.anchoredPosition = newLockPosition;
             }
             _lock.gameObject.SetActive(false);
             yield break;
