@@ -586,8 +586,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.585196, y: 14.310825, z: 6.3329177}
-  m_Center: {x: -0.5500002, y: 7.1554127, z: 0}
+  m_Size: {x: 11.140398, y: 14.310825, z: 6.3329177}
+  m_Center: {x: -0.7723987, y: 7.1554127, z: 0}
 --- !u!114 &5751411094791523312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,9 +617,9 @@ MonoBehaviour:
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 11
   _opponentPushSpeed: 4
-  _maxJumpHeight: 8
-  _minJumpHeight: 8
-  _timeToJumpApex: 0.35
+  _jumpDistance: {x: 20, y: 48}
+  _jumpDuration: 0.8
+  _gravity: 130.6122
   _dashDistance: 7
   _dashDuration: 0.38
   _shortDashDistance: 3
@@ -633,6 +633,7 @@ MonoBehaviour:
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
+  _secondaryForcePercentage: 0
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560

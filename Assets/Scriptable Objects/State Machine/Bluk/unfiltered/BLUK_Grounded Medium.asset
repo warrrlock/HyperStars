@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: BLUK_Grounded Medium
   m_EditorClassIdentifier: 
   characterSelection: 2
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -42,7 +44,7 @@ MonoBehaviour:
       WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.5
     knockbackDistance: 12
-    knockbackDirection: {x: 1, y: 0.8, z: 0}
+    knockbackDirection: {x: 1, y: 0.9, z: 0}
     hitStunDuration: 0.8
     causesWallBounce: 0
     hitStopDuration: 0.28
@@ -55,7 +57,7 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0
+    hangTime: 0.1
     favorReward: 6
     knockbackForce: {x: 167.55, y: 100}
     incrementBarAmount: 0.25

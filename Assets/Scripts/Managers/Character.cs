@@ -33,6 +33,9 @@ namespace Managers
         public Sprite IndicatorGlowSprite => _indicatorGlowSprite;
         [SerializeField] private Sprite _indicatorGlowSprite;
 
+        public Sprite[] CharacterPortrait => _characterPortrait;
+        [SerializeField] private Sprite[] _characterPortrait;
+
 #if UNITY_EDITOR
         public void OnEnable()
         {
