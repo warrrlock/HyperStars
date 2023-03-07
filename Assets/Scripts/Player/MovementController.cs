@@ -337,7 +337,7 @@ public class MovementController : MonoBehaviour
                 }
             }
         }
-
+        Vector3 preGravityVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
         if (_isGravityApplied)
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
@@ -357,35 +357,32 @@ public class MovementController : MonoBehaviour
         }
         if (!_isWallBounceable)
         {
-            if (_netVelocity.x > 0f)
+            //if (_netVelocity.x > 0f)
+            //{
+            //    if (_collisionData.x.isPositiveHit)
+            //    {
+            //        KillAllForces();
+            //    }
+            //}
+            //if (_netVelocity.x < 0f)
+            //{
+            //    if (_collisionData.x.isNegativeHit)
+            //    {
+            //        KillAllForces();
+            //    }
+            //}
+            //if (_netVelocity.y > 0f)
+            //{
+            //    if (_collisionData.y.isPositiveHit)
+            //    {
+            //        KillAllForces();
+            //    }
+            //}
+            if (preGravityVelocity.y < 0f)
             {
-                if (_collisionData.x.isPositiveHit)
+                if (_collisionData.y.isNegativeHit)
                 {
                     KillAllForces();
-                }
-            }
-            if (_netVelocity.x < 0f)
-            {
-                if (_collisionData.x.isNegativeHit)
-                {
-                    KillAllForces();
-                }
-            }
-            if (_netVelocity.y > 0f)
-            {
-                if (_collisionData.y.isPositiveHit)
-                {
-                    KillAllForces();
-                }
-            }
-            if (_netVelocity.y < 0f)
-            {
-                if (!_isDashing)
-                {
-                    if (_collisionData.y.isNegativeHit)
-                    {
-                        KillAllForces();
-                    }
                 }
             }
         }

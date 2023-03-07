@@ -70,6 +70,7 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
+        // _fighter.Events.onLandedNeutral += LayerResetTest;
         _fighter.Events.wallBounce += WallWave;
     }
     
@@ -93,6 +94,9 @@ public class CharacterVFXManager : MonoBehaviour
     void JumpSmoke(InputManager.Action action) {
         _vfxSpawnManager.InitializeVFX(VFXGraphs.JUMP_SMOKE, transform.localPosition + new Vector3(0f, 
             jumpSmokeGroundOffset, 0f), GetComponent<Fighter>());
+        
+        // layer culling
+        // Services.CameraManager.SetPlayerInFront(true);
     }
 
     void BlockGlow(Dictionary<string, object> d)
@@ -120,6 +124,15 @@ public class CharacterVFXManager : MonoBehaviour
     void GroundWave()
     {
         _vfxSpawnManager.InitializeVFX(VFXGraphs.GROUND_WAVE, transform.localPosition + new Vector3(0, .3f, 0));
+        
+        // layer culling
+        // Services.CameraManager.SetPlayerInFront(false);
+    }
+    
+    void LayerResetTest()
+    {
+        // layer culling
+        // Services.CameraManager.SetPlayerInFront(false);
     }
 
     void WallWave()
