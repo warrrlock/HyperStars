@@ -20,7 +20,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _minFightersDistanceY;
     [SerializeField] private float _maxFightersDistanceY;
     [SerializeField] private float _cameraCatchUpSpeedX; //how quickly the camera to catch up to its target horizontally
-    [SerializeField] private float _cameraCatchUpSpeedY; //how quickly the camera to catch up to its target vertically
+    [SerializeField] private float _cameraCatchUpSpeedUp; //how quickly the camera to catch up to its target while going up
+    [SerializeField] private float _cameraCatchUpSpeedDown; //how quickly the camera to catch up to its target while going down
     [SerializeField] private float _cameraCatchUpSpeedZ; //how quickly the camera to catch up to its target forward
 
     private Camera _camera;
@@ -88,11 +89,11 @@ public class CameraManager : MonoBehaviour
         float fightersDistanceY = Mathf.Abs(_targets[1].position.y - _targets[0].position.y);
         if (fightersDistanceY > _minFightersDistanceY && fightersDistanceY < _maxFightersDistanceY)
         {
-            _destination.z += -fightersDistanceY * 1.5f;
+            _destination.z -= fightersDistanceY * 1.5f;
         }
         else
         {
-            _destination.z -= -fightersDistanceY * 1.5f;
+            _destination.z += fightersDistanceY * 1.5f;
         }
         _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _maxCameraZ);
     }
@@ -103,7 +104,8 @@ public class CameraManager : MonoBehaviour
         //_camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, _destination, _cameraCatchUpSpeedX * Time.deltaTime);
         Vector3 newCameraPosition = new();
         newCameraPosition.x = Mathf.Lerp(_camera.transform.localPosition.x, _destination.x, _cameraCatchUpSpeedX * Time.deltaTime);
-        newCameraPosition.y = Mathf.Lerp(_camera.transform.localPosition.y, _destination.y, _cameraCatchUpSpeedY * Time.deltaTime);
+        float cameraCatchUpY = _destination.y > _camera.transform.localPosition.y ? _cameraCatchUpSpeedUp : _cameraCatchUpSpeedDown;
+        newCameraPosition.y = Mathf.Lerp(_camera.transform.localPosition.y, _destination.y, cameraCatchUpY * Time.deltaTime);
         newCameraPosition.z = Mathf.Lerp(_camera.transform.localPosition.z, _destination.z, _cameraCatchUpSpeedZ * Time.deltaTime);
         _camera.transform.localPosition = newCameraPosition;
     }
