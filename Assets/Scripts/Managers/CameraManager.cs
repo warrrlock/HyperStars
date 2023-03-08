@@ -82,18 +82,19 @@ public class CameraManager : MonoBehaviour
         _targetsMidPointY += _defaultY;
         _destination = new Vector3(_targetsMidPointX, _targetsMidPointY, _camera.transform.position.z);
         float fightersDistanceX = Mathf.Abs(_targets[1].position.x - _targets[0].position.x);
-        if (fightersDistanceX < _maxFightersDistanceX)
-        {
-            _destination.z = -fightersDistanceX * 1.5f;
-        }
+        //if (fightersDistanceX < _maxFightersDistanceX)
+        //{
+        //    _destination.z = -fightersDistanceX * 1.5f;
+        //}
+        _destination.z = -fightersDistanceX * 1.5f;
         float fightersDistanceY = Mathf.Abs(_targets[1].position.y - _targets[0].position.y);
         if (fightersDistanceY > _minFightersDistanceY && fightersDistanceY < _maxFightersDistanceY)
         {
-            _destination.z -= fightersDistanceY * 1.5f;
+            _destination.z += fightersDistanceY;
         }
         else
         {
-            _destination.z += fightersDistanceY * 1.5f;
+            _destination.z -= fightersDistanceY;
         }
         _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _maxCameraZ);
     }
