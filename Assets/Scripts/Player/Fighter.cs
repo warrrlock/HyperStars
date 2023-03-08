@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(FighterHealth))]
 [RequireComponent(typeof(InputManager))]
 [RequireComponent(typeof(BaseStateMachine))]
+[RequireComponent(typeof(OverlapDetector))]
 public class Fighter : MonoBehaviour
 {
     public enum Direction { Left, Right }
@@ -27,6 +28,7 @@ public class Fighter : MonoBehaviour
     public BaseStateMachine BaseStateMachine { get; private set; }
     public FighterEvents Events { get; private set; }
     public SpecialMeterManager SpecialMeterManager { get; private set; }
+    public OverlapDetector OverlapDetector { get; private set; }
 
     public int PlayerId { get; private set; }
     public bool Parried { get; set; }
@@ -89,6 +91,7 @@ public class Fighter : MonoBehaviour
         PlayerInput = transform.parent.GetComponent<PlayerInput>();
         BaseStateMachine = GetComponent<BaseStateMachine>();
         SpecialMeterManager = GetComponent<SpecialMeterManager>();
+        OverlapDetector = GetComponent<OverlapDetector>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
