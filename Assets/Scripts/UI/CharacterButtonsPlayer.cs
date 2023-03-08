@@ -33,7 +33,7 @@ public class CharacterButtonsPlayer: MonoBehaviour
 
     public void SetPlayer(Player p)
     {
-        if (Player) p.onReady -= UpdateReadyVisuals;
+        if (Player) Player.onReady -= UpdateReadyVisuals;
         Player = p;
         Player.onReady += UpdateReadyVisuals;
     }
@@ -67,7 +67,8 @@ public class CharacterButtonsPlayer: MonoBehaviour
 
     private void UpdateReadyVisuals()
     {
-        if (_readyVisual) _readyVisual.SetActive(true); //TODO: replace with animations/ui input module change
+        if (_readyVisual)
+            _readyVisual.SetActive(Player.Ready ? true : false); //TODO: replace with animations/ui input module change}
     }
     
     public void GetReady()
