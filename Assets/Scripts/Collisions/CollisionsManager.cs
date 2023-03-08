@@ -33,6 +33,7 @@ public class CollisionsManager : MonoBehaviour
         {
             _terrainDetecors[i].Initialize(this);
         }
+        _groundDetector.Initialize(this);
         //_allOverlapDetectors = FindObjectsOfType<OverlapDetector>();
     }
 
@@ -47,19 +48,36 @@ public class CollisionsManager : MonoBehaviour
         {
             _terrainDetecors[i].CheckOverlaps(_terrainMask);
         }
+        _groundDetector.CheckOverlaps(_terrainMask);
         //RemoveDoubleOverlapInfos();
         OverlapInfo[] overlapInfos = new List<OverlapInfo>(_overlapInfos).ToArray();
-        _overlapInfos.Clear();
+        _overlapInfos.Clear(); //to prevent the list from being changed while we iterate through it
         foreach (OverlapInfo overlapInfo in overlapInfos)
         {
-            //if (overlapInfo.detector == _groundDetector && Array.Exists(fighterDetectors, x => x == overlapInfo.other))
-            //{
-            //    overlapInfo.other.MovementController.ResetToStartingY();
-            //    overlapInfo.other.MovementController.overlapResolutionVelocity = Vector3.zero;
-            //    continue;
-            //}
+            if (overlapInfo.detector.TerrainType == OverlapDetector.Terrain.Ground && overlapInfo.other.TerrainType != OverlapDetector.Terrain.Wall)
+            {
+                overlapInfo.other.MovementController.ResetToStartingY();
+                overlapInfo.other.MovementController.overlapResolutionVelocity = Vector3.zero;
+                continue;
+            }
             if (!overlapInfo.other.IsMoveable)
             {
+                continue;
+            }
+            if (overlapInfo.detector.TerrainType == OverlapDetector.Terrain.Wall)
+            {
+                if (overlapInfo.other.TerrainType == OverlapDetector.Terrain.Wall)
+                {
+                    continue;
+                }
+                if (overlapInfo.other.TerrainType == OverlapDetector.Terrain.Ground)
+                {
+                    continue;
+                }
+                float newX = overlapInfo.otherPushDirection == OverlapInfo.Direction.Right ?
+                    overlapInfo.detector.EdgeX + overlapInfo.other.HalfWidth + overlapInfo.detector.SkinWidth * 3f :
+                    overlapInfo.detector.EdgeX - overlapInfo.other.HalfWidth - overlapInfo.detector.SkinWidth * 3f; //TODO: magic number
+                overlapInfo.other.MovementController.MoveToX(newX);
                 continue;
             }
             if (_nonOverlappedDetectors.Contains(overlapInfo.other))
@@ -81,7 +99,6 @@ public class CollisionsManager : MonoBehaviour
                     break;
                 case OverlapInfo.Direction.Right:
                     overlapResolutionVelocity = Vector3.right;
-                    Debug.Log("penis");
                     break;
             }
             overlapResolutionVelocity *= _overlapResolutionSpeed;
