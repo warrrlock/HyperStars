@@ -36,6 +36,7 @@ public class CameraManager : MonoBehaviour
     private float _defaultTargetY;
     private float _defaultFov;
     private Vector3 _defaultRotation;
+    private float _lastDistanceY = -Mathf.Infinity;
     
     [Header("Camera Effects")]
     [SerializeField] private Material ieMaterial;
@@ -69,7 +70,7 @@ public class CameraManager : MonoBehaviour
         _defaultRotation = transform.eulerAngles;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _targetsMidPointX = (_targets[0].position.x + _targets[1].position.x) / 2f;
         _targetsMidPointY = ((_targets[0].position.y + _targets[1].position.y) / 2f) - _defaultTargetY;
@@ -86,16 +87,38 @@ public class CameraManager : MonoBehaviour
         //{
         //    _destination.z = -fightersDistanceX * 1.5f;
         //}
-        _destination.z = -fightersDistanceX * 1.5f;
+        //_destination.z = -fightersDistanceX * 1.5f;
+        float xZdest = -fightersDistanceX * 1.5f;
         float fightersDistanceY = Mathf.Abs(_targets[1].position.y - _targets[0].position.y);
-        if (fightersDistanceY > _minFightersDistanceY && fightersDistanceY < _maxFightersDistanceY)
+        if (_lastDistanceY <= -Mathf.Infinity)
         {
-            _destination.z += fightersDistanceY;
+            _lastDistanceY = fightersDistanceY;
         }
-        else
+        float multiplier = Mathf.Lerp(3f, 0f, fightersDistanceX / 20f);
+        //float multiplier = 10f / fightersDistanceX;
+        //if (fightersDistanceY > _minFightersDistanceY && fightersDistanceY < _maxFightersDistanceY)
+        //{
+        //    _destination.z += fightersDistanceY * multiplier;
+        //}
+        //else
+        //{
+        //    _destination.z -= fightersDistanceY * multiplier;
+        //}
+        //float zDelta = fightersDistanceY - _lastDistanceY;
+        float yZdest = 0f;
+        if (fightersDistanceY > _lastDistanceY)
         {
-            _destination.z -= fightersDistanceY;
+            //Debug.Log("zdelta: " + zDelta);
+            //_destination.z -= zDelta * 100f;
+            yZdest = -fightersDistanceY * multiplier;
         }
+        else if (fightersDistanceY < _lastDistanceY)
+        {
+            //_destination.z -= zDelta * 100f;
+            yZdest = fightersDistanceY * multiplier;
+        }
+        _lastDistanceY = fightersDistanceY;
+        _destination.z = xZdest + yZdest;
         _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _maxCameraZ);
     }
 
@@ -109,13 +132,6 @@ public class CameraManager : MonoBehaviour
         newCameraPosition.y = Mathf.Lerp(_camera.transform.localPosition.y, _destination.y, cameraCatchUpY * Time.deltaTime);
         newCameraPosition.z = Mathf.Lerp(_camera.transform.localPosition.z, _destination.z, _cameraCatchUpSpeedZ * Time.deltaTime);
         _camera.transform.localPosition = newCameraPosition;
-    }
-
-    public void ReframeFighters()
-    {
-        //rotate
-
-        //translate
     }
 
     public void RotateCamera(Vector3 rotation)
