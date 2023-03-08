@@ -417,6 +417,7 @@ public class MovementController : MonoBehaviour
     public void ResetValues()
     {
         StopMoving();
+        ResetVelocityY();
     }
 
     private void KillAllForces()
