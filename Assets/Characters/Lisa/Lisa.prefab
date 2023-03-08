@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 3013315635892402694}
   - component: {fileID: 4663626311462973836}
   - component: {fileID: 7411884658590553160}
+  - component: {fileID: 1167637606503559226}
   m_Layer: 9
   m_Name: Lisa
   m_TagString: Untagged
@@ -642,6 +643,7 @@ MonoBehaviour:
     m_Bits: 512
   _drawDebugRays: 1
   _overlapResolutionSpeed: 15
+  overlapResolutionVelocity: {x: 0, y: 0, z: 0}
   _mass: 1
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
   _yMask:
@@ -857,6 +859,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6cfa16c53b469448c01efef33fd715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1167637606503559226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5751411094791522315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5243a32046e4a249abf5500aa16c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementController: {fileID: 5751411094791522316}
+  _pushAxis: 0
+  _pushType: 0
+  _skinWidth: 0.1
+  _isMoveable: 1
+  _rayCount: 3
 --- !u!1 &5751411094795848295
 GameObject:
   m_ObjectHideFlags: 0

@@ -110,6 +110,7 @@ public class MovementController : MonoBehaviour
     private bool _isGravityApplied = true;
     [SerializeField] private float _overlapResolutionSpeed;
     private bool _isResolvingOverlap = false;
+    public Vector3 overlapResolutionVelocity = Vector3.zero;
     private Vector3 _overlapResolutionVelocity = Vector3.zero;
     private bool _isJumping;
     public Fighter.Direction MovingDirection { get; private set; }
@@ -342,7 +343,8 @@ public class MovementController : MonoBehaviour
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
         }
-        _netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
+        //_netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
+        _netVelocity = _unforcedVelocity + _forceVelocity + overlapResolutionVelocity;
         Move(_netVelocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
@@ -397,6 +399,19 @@ public class MovementController : MonoBehaviour
     public void ResetVelocityY()
     {
         _unforcedVelocity.y = 0f;
+    }
+
+    public void ResetToStartingY()
+    {
+        //float newY = _fighter.PlayerId == 0 ? _fighter.FightersManager.player1StartPosition.y : _fighter.FightersManager.player2StartPosition.y;
+        //transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+        ResetVelocityY();
+    }
+
+    public void MoveToX(float x)
+    {
+        transform.position = new Vector3(x, transform.position.y, transform.position.z);
     }
 
     public void ResetValues()
@@ -1003,17 +1018,17 @@ public class MovementController : MonoBehaviour
                     collisionAxis.isPositiveHit = axisDirection == 1f;
                 }
 
-                if (axis == Axis.y)
-                {
-                    if(Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit overlapHit, rayLength, _playerMask))
-                    {
-                        if (!_isResolvingOverlap)
-                        {
-                            StartCoroutine(ResolveOverlap());
-                            StartCoroutine(_fighter.OpposingFighter.MovementController.ResolveOverlap());
-                        }
-                    }
-                }
+                //if (axis == Axis.y)
+                //{
+                //    if(Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit overlapHit, rayLength, _playerMask))
+                //    {
+                //        if (!_isResolvingOverlap)
+                //        {
+                //            StartCoroutine(ResolveOverlap());
+                //            StartCoroutine(_fighter.OpposingFighter.MovementController.ResolveOverlap());
+                //        }
+                //    }
+                //}
 
                 if (_drawDebugRays)
                 {
@@ -1218,11 +1233,13 @@ public class MovementController : MonoBehaviour
                     {
                         //RemoveCollisionLayer(ref _xMask, 9);
                         StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                        StartCoroutine(DisableOverlapXLayers(_dashDuration, 9));
                     }
                     else if (transform.position.x + _dashDistance > _fighter.OpposingFighter.transform.position.x + _dashMinimumOverlap)
                     {
                         //RemoveCollisionLayer(ref _xMask, 9);
                         StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                        StartCoroutine(DisableOverlapXLayers(_dashDuration, 9));
                         //if (!_isResolvingOverlap)
                         //{
                         //    StartCoroutine(ResolveOverlap());
@@ -1238,11 +1255,13 @@ public class MovementController : MonoBehaviour
                     {
                         //RemoveCollisionLayer(ref _xMask, 9);
                         StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                        StartCoroutine(DisableOverlapXLayers(_dashDuration, 9));
                     }
                     else if (transform.position.x - _dashDistance < _fighter.OpposingFighter.transform.position.x - _dashMinimumOverlap)
                     {
                         //RemoveCollisionLayer(ref _xMask, 9);
                         StartCoroutine(DisableXCollisionLayers(_dashDuration, 9));
+                        StartCoroutine(DisableOverlapXLayers(_dashDuration, 9));
                         //if (!_isResolvingOverlap)
                         //{
                         //    StartCoroutine(ResolveOverlap());
@@ -1306,6 +1325,7 @@ public class MovementController : MonoBehaviour
             {
                 ApplyForce(_sideJumpInputVector, _horizontalJumpForce, _jumpDuration * 2f, false);
                 StartCoroutine(DisableXCollisionLayers(_jumpDuration, 9));
+                StartCoroutine(DisableOverlapXLayers(_jumpDuration / 2, 9));
                 yield break;
             }
             timer += Time.fixedDeltaTime;
@@ -1383,6 +1403,15 @@ public class MovementController : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         AddCollisionLayer(ref _xMask, layer);
+        yield break;
+    }
+
+    private IEnumerator DisableOverlapXLayers(float duration, int layer)
+    {
+        RemoveCollisionLayer(ref Services.CollisionsManager.fightersMask, layer);
+        yield return new WaitForSeconds(duration);
+
+        AddCollisionLayer(ref Services.CollisionsManager.fightersMask, layer);
         yield break;
     }
 
