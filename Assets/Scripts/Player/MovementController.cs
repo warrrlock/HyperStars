@@ -71,8 +71,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private LayerMask _playerMask;
     [Tooltip("How many rays should be shot out horizontally?")]
     private int _xAxisRayCount = 3;
-    [Tooltip("How many rays should be shot out forward?")]
-    private int _zAxisRayCount = 3;
+    //[Tooltip("How many rays should be shot out forward?")]
+    //private int _zAxisRayCount = 3;
     [Tooltip("How many rays should be shot out vertically?")]
     private int _yAxisRayCount = 3;
     [Tooltip("Should debug rays be drawn?")]
@@ -89,7 +89,7 @@ public class MovementController : MonoBehaviour
     private float _minJumpVelocity;
     private Vector2 _xAxisRaySpacing;
     private Vector2 _yAxisRaySpacing;
-    private Vector2 _zAxisRaySpacing;
+    //private Vector2 _zAxisRaySpacing;
     private Vector3 _forceVelocity;
 
     //private float _sidestepForce = 10f;
@@ -167,7 +167,7 @@ public class MovementController : MonoBehaviour
     private struct RaycastOrigins
     {
         public Axis x;
-        public Axis z;
+        //public Axis z;
         public Axis y;
 
         public struct Axis
@@ -180,11 +180,11 @@ public class MovementController : MonoBehaviour
     public struct CollisionInfo
     {
         public Axis x;
-        public Axis z;
+        //public Axis z;
         public Axis y;
         public bool isAnyHit
         {
-            get => x.isNegativeHit || x.isPositiveHit || z.isNegativeHit || z.isPositiveHit || y.isNegativeHit || y.isPositiveHit;
+            get => x.isNegativeHit || x.isPositiveHit || y.isNegativeHit || y.isPositiveHit;
         }
 
         public struct Axis
@@ -197,7 +197,7 @@ public class MovementController : MonoBehaviour
 
         public void Reset()
         {
-            x.isNegativeHit = x.isPositiveHit = z.isNegativeHit = z.isPositiveHit = y.isNegativeHit = y.isPositiveHit = false;
+            x.isNegativeHit = x.isPositiveHit = y.isNegativeHit = y.isPositiveHit = false;
         }
     }
 
@@ -337,7 +337,7 @@ public class MovementController : MonoBehaviour
                 }
             }
         }
-
+        Vector3 preGravityVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
         if (_isGravityApplied)
         {
             _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
@@ -357,35 +357,32 @@ public class MovementController : MonoBehaviour
         }
         if (!_isWallBounceable)
         {
-            if (_netVelocity.x > 0f)
+            //if (_netVelocity.x > 0f)
+            //{
+            //    if (_collisionData.x.isPositiveHit)
+            //    {
+            //        KillAllForces();
+            //    }
+            //}
+            //if (_netVelocity.x < 0f)
+            //{
+            //    if (_collisionData.x.isNegativeHit)
+            //    {
+            //        KillAllForces();
+            //    }
+            //}
+            //if (_netVelocity.y > 0f)
+            //{
+            //    if (_collisionData.y.isPositiveHit)
+            //    {
+            //        KillAllForces();
+            //    }
+            //}
+            if (preGravityVelocity.y < 0f)
             {
-                if (_collisionData.x.isPositiveHit)
+                if (_collisionData.y.isNegativeHit)
                 {
                     KillAllForces();
-                }
-            }
-            if (_netVelocity.x < 0f)
-            {
-                if (_collisionData.x.isNegativeHit)
-                {
-                    KillAllForces();
-                }
-            }
-            if (_netVelocity.y > 0f)
-            {
-                if (_collisionData.y.isPositiveHit)
-                {
-                    KillAllForces();
-                }
-            }
-            if (_netVelocity.y < 0f)
-            {
-                if (!_isDashing)
-                {
-                    if (_collisionData.y.isNegativeHit)
-                    {
-                        KillAllForces();
-                    }
                 }
             }
         }
@@ -566,18 +563,18 @@ public class MovementController : MonoBehaviour
                         }
                         direction.x *= -1f;
                     }
-                    if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
-                    {
-                        ResetVelocityY();
-                        if (_wallBounceDistance != 0f)
-                        {
-                            Vector3 bounceDirection = Mathf.Sign(direction.z) == 1f ? _wallBounceDirection : new Vector3(_wallBounceDirection.x, _wallBounceDirection.y, -_wallBounceDirection.z);
-                            float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
-                            StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
-                            yield break;
-                        }
-                        direction.z *= -1f;
-                    }
+                    //if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
+                    //{
+                    //    ResetVelocityY();
+                    //    if (_wallBounceDistance != 0f)
+                    //    {
+                    //        Vector3 bounceDirection = Mathf.Sign(direction.z) == 1f ? _wallBounceDirection : new Vector3(_wallBounceDirection.x, _wallBounceDirection.y, -_wallBounceDirection.z);
+                    //        float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
+                    //        StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
+                    //        yield break;
+                    //    }
+                    //    direction.z *= -1f;
+                    //}
                 }
                 if (_isGroundBounceable)
                 {
@@ -825,13 +822,13 @@ public class MovementController : MonoBehaviour
         internalBounds.Expand(_skinWidth * -2f);
 
         _xAxisRayCount = Mathf.Clamp(_xAxisRayCount, 2, int.MaxValue);
-        _zAxisRayCount = Mathf.Clamp(_zAxisRayCount, 2, int.MaxValue);
+        //_zAxisRayCount = Mathf.Clamp(_zAxisRayCount, 2, int.MaxValue);
         _yAxisRayCount = Mathf.Clamp(_yAxisRayCount, 2, int.MaxValue);
 
         _xAxisRaySpacing.x = internalBounds.size.z / (_xAxisRayCount - 1);
         _xAxisRaySpacing.y = internalBounds.size.y / (_xAxisRayCount - 1);
-        _zAxisRaySpacing.x = internalBounds.size.x / (_zAxisRayCount - 1);
-        _zAxisRaySpacing.y = internalBounds.size.y / (_zAxisRayCount - 1);
+        //_zAxisRaySpacing.x = internalBounds.size.x / (_zAxisRayCount - 1);
+        //_zAxisRaySpacing.y = internalBounds.size.y / (_zAxisRayCount - 1);
         _yAxisRaySpacing.x = internalBounds.size.x / (_yAxisRayCount - 1);
         _yAxisRaySpacing.y = internalBounds.size.z / (_yAxisRayCount - 1);
     }
@@ -845,10 +842,10 @@ public class MovementController : MonoBehaviour
         {
             CalculateCollisions(ref velocity, ref _collisionData.x, Axis.x);
         }
-        if (velocity.z != 0)
-        {
-            CalculateCollisions(ref velocity, ref _collisionData.z, Axis.z);
-        }
+        //if (velocity.z != 0)
+        //{
+        //    CalculateCollisions(ref velocity, ref _collisionData.z, Axis.z);
+        //}
         if (velocity.y != 0)
         {
             CalculateCollisions(ref velocity, ref _collisionData.y, Axis.y);
@@ -863,12 +860,12 @@ public class MovementController : MonoBehaviour
         Bounds internalBounds = bounds;
         internalBounds.Expand(_skinWidth * -2f);
 
-        _raycastOrigins.x.negative = new Vector3(internalBounds.min.x, bounds.min.y, bounds.min.z);
-        _raycastOrigins.x.positive = new Vector3(internalBounds.max.x, bounds.min.y, bounds.min.z);
-        _raycastOrigins.z.negative = new Vector3(bounds.min.x, bounds.min.y, internalBounds.min.z);
-        _raycastOrigins.z.positive = new Vector3(bounds.min.x, bounds.min.y, internalBounds.max.z);
-        _raycastOrigins.y.negative = new Vector3(internalBounds.min.x, internalBounds.min.y, internalBounds.min.z);
-        _raycastOrigins.y.positive = new Vector3(internalBounds.min.x, internalBounds.max.y, internalBounds.min.z);
+        _raycastOrigins.x.negative = new Vector3(internalBounds.min.x, bounds.min.y, bounds.center.z);
+        _raycastOrigins.x.positive = new Vector3(internalBounds.max.x, bounds.min.y, bounds.center.z);
+        //_raycastOrigins.z.negative = new Vector3(bounds.min.x, bounds.min.y, internalBounds.min.z);
+        //_raycastOrigins.z.positive = new Vector3(bounds.min.x, bounds.min.y, internalBounds.max.z);
+        _raycastOrigins.y.negative = new Vector3(internalBounds.min.x, internalBounds.min.y, internalBounds.center.z);
+        _raycastOrigins.y.positive = new Vector3(internalBounds.min.x, internalBounds.max.y, internalBounds.center.z);
     }
 
     /// <summary>
@@ -905,18 +902,6 @@ public class MovementController : MonoBehaviour
                 collisionAxis = _collisionData.x;
                 collisionMask = _xMask;
                 break;
-            case Axis.z:
-                axisVelocity = velocity.z;
-                jOffset = velocity.x;
-                rayCount = _zAxisRayCount;
-                raySpacing = _zAxisRaySpacing;
-                originAxis = _raycastOrigins.z;
-                iDirection = Vector3.up;
-                jDirection = Vector3.right;
-                rayDirection = Vector3.forward;
-                collisionAxis = _collisionData.z;
-                collisionMask = _xMask;
-                break;
             case Axis.y:
                 axisVelocity = velocity.y;
                 iOffset = velocity.z;
@@ -924,8 +909,8 @@ public class MovementController : MonoBehaviour
                 rayCount = _yAxisRayCount;
                 raySpacing = _yAxisRaySpacing;
                 originAxis = _raycastOrigins.y;
-                iDirection = Vector3.forward;
-                jDirection = Vector3.right;
+                iDirection = Vector3.right;
+                jDirection = Vector3.forward;
                 rayDirection = Vector3.up;
                 collisionAxis = _collisionData.y;
                 collisionMask = _yMask;
@@ -950,7 +935,7 @@ public class MovementController : MonoBehaviour
 
         for (int i = 0; i < rayCount; i++)
         {
-            for (int j = 0; j < rayCount; j++)
+            for (int j = 0; j < 1; j++)
             {
                 Vector3 rayOrigin = axisDirection == -1f ? originAxis.negative : originAxis.positive;
                 rayOrigin += iDirection * (raySpacing.y * i + iOffset) + jDirection * (raySpacing.x * j + jOffset);
