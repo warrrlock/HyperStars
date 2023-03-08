@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: BLUK_Air Light
   m_EditorClassIdentifier: 
   characterSelection: 2
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -40,7 +42,10 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: -1, z: 0}
-    hitStunDuration: 0.25
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0.15
     causesWallBounce: 0
     hitStopDuration: 0.15
     wallBounceDuration: 0

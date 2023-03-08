@@ -78,14 +78,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackInfo:
-    attackType: 2
+    attackType: 3
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.8
-    knockbackDistance: 15
-    knockbackDirection: {x: 0, y: 1, z: 0}
+    knockbackDistance: 12
+    knockbackDirection: {x: 0.2, y: 1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1
     causesWallBounce: 0
     hitStopDuration: 10

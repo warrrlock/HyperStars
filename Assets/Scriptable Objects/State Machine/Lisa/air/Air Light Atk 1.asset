@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Air Light Atk 1
   m_EditorClassIdentifier: 
   characterSelection: 1
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -44,9 +46,12 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 0.5
     knockbackDirection: {x: 0.5, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.5
     causesWallBounce: 0
-    hitStopDuration: 0.15
+    hitStopDuration: 0.1
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
@@ -56,7 +61,7 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.3
+    hangTime: 0.2
     favorReward: 4
     knockbackForce: {x: 0, y: 56.063454}
     incrementBarAmount: 0.2
