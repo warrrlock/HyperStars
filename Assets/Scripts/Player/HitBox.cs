@@ -88,6 +88,8 @@ public class HitBox : MonoBehaviour
 
         hitFighter.invulnerabilityCount++;
         // Debug.Log(hitFighter.invulnerabilityCount);
+
+        AttackInfoManager.Values attackInfoValues = Services.AttackInfoManager.values[attackInfo.Id];
         
         StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
             !hitFighter.MovementController.CollisionData.y.isNegativeHit 
@@ -95,7 +97,7 @@ public class HitBox : MonoBehaviour
             : (attackInfo.knockbackForce.x is > 0f and < 180f 
                 ? KeyHurtStatePair.HurtStateName.KnockBack 
                 : KeyHurtStatePair.HurtStateName.HitStun)
-            , attackInfo.OutputHitStunDuration));
+            , attackInfoValues.outputHitStunDuration));
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
@@ -137,9 +139,9 @@ public class HitBox : MonoBehaviour
         }
         //StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
         //Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
-        Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfo.OutputReward);
+        Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfoValues.outputReward);
 
-        StartCoroutine(attackInfo.Decay());
+        StartCoroutine(Services.AttackInfoManager.DecayValues(attackInfo));
 
         StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
     }

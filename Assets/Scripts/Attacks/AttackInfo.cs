@@ -5,6 +5,9 @@ using UnityEngine;
 [Serializable]
 public class AttackInfo
 {
+    public int Id { get; private set; }
+    private AttackInfoManager _manager;
+
     public enum AttackType {None, Light, Medium, Heavy, Special}
     public AttackType attackType = AttackType.None;
 
@@ -42,8 +45,8 @@ public class AttackInfo
     [Tooltip("How much favor is gained upon hitting the opponent.")]
     public float favorReward;
 
-    [NonSerialized] public float OutputReward = 1;
-    public float OutputHitStunDuration { get; private set; }
+    //[NonSerialized] public float outputReward = 1;
+    //public float outputHitStunDuration;
 
     [PolarArrow(100f)]
     [Tooltip("X is the force angle in degrees. Y is the force magnitude.")]
@@ -53,26 +56,30 @@ public class AttackInfo
     [Tooltip("Referenced is a single bar. For example, 0.2 means this state increments special bar by 0.2 bars.")]
     public float incrementBarAmount;
 
-    public void Initialize()
+    public void Initialize(AttackInfoManager manager, int id)
     {
-        OutputReward = favorReward;
-        OutputHitStunDuration = hitStunDuration;
+        _manager = manager;
+        Id = id;
+        //outputReward = favorReward;
+        //outputHitStunDuration = hitStunDuration;
+        manager.values[id] = new(favorReward, hitStunDuration);
     }
 
-    public IEnumerator Decay()
-    {
-        float preDecayReward = OutputReward;
-        OutputReward = Mathf.Clamp(OutputReward - (favorReward * Services.FavorManager.DecayValue), 0f, favorReward);
-        OutputHitStunDuration = Mathf.Clamp(OutputHitStunDuration - (hitStunDuration * Services.FavorManager.DecayValue), 0f, hitStunDuration);
-        float timer = 0f;
-        float timerDelta = Time.fixedDeltaTime / Services.FavorManager.DecayResetDuration;
-        while (OutputReward < preDecayReward && timer < Services.FavorManager.DecayResetDuration)
-        {
-            OutputReward += favorReward * Services.FavorManager.DecayValue * timerDelta;
-            OutputHitStunDuration += hitStunDuration * Services.FavorManager.DecayValue * timerDelta;
-            timer += Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
-        }
-        yield break;
-    }
+    ////[SerializeField]
+    //public IEnumerator Decay()
+    //{
+    //    float preDecayReward = OutputReward;
+    //    OutputReward = Mathf.Clamp(OutputReward - (favorReward * Services.FavorManager.DecayValue), 0f, favorReward);
+    //    OutputHitStunDuration = Mathf.Clamp(OutputHitStunDuration - (hitStunDuration * Services.FavorManager.DecayValue), 0f, hitStunDuration);
+    //    float timer = 0f;
+    //    float timerDelta = Time.fixedDeltaTime / Services.FavorManager.DecayResetDuration;
+    //    while (OutputReward < preDecayReward && timer < Services.FavorManager.DecayResetDuration)
+    //    {
+    //        OutputReward += favorReward * Services.FavorManager.DecayValue * timerDelta;
+    //        OutputHitStunDuration += hitStunDuration * Services.FavorManager.DecayValue * timerDelta;
+    //        timer += Time.fixedDeltaTime;
+    //        yield return new WaitForFixedUpdate();
+    //    }
+    //    yield break;
+    //}
 }
