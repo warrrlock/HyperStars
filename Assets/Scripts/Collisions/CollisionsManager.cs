@@ -85,7 +85,7 @@ public class CollisionsManager : MonoBehaviour
                 _nonOverlappedDetectors.Remove(overlapInfo.other);
             }
             Vector3 overlapResolutionVelocity = Vector3.zero;
-            Debug.Log(overlapInfo.otherPushDirection);
+            //Debug.Log(overlapInfo.otherPushDirection);
             switch (overlapInfo.otherPushDirection)
             {
                 case OverlapInfo.Direction.Up:

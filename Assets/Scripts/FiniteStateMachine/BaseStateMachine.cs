@@ -565,9 +565,10 @@ namespace FiniteStateMachine {
 
         private IEnumerator HandleDisableTime()
         {
-            float time = Time.fixedTime;
-            while (Time.fixedTime - time < DisableTime)
+            float time = DisableTime;
+            while (time > 0)
             {
+                time -= Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
             _isDisabled = false;
