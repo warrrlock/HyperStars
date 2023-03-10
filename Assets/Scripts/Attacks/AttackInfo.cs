@@ -5,8 +5,7 @@ using UnityEngine;
 [Serializable]
 public class AttackInfo
 {
-    public int Id { get; private set; }
-    private AttackInfoManager _manager;
+    public int Id;
 
     public enum AttackType {None, Light, Medium, Heavy, Special}
     public AttackType attackType = AttackType.None;
@@ -58,11 +57,12 @@ public class AttackInfo
 
     public void Initialize(AttackInfoManager manager, int id)
     {
-        _manager = manager;
         Id = id;
         //outputReward = favorReward;
         //outputHitStunDuration = hitStunDuration;
-        manager.values[id] = new(favorReward, hitStunDuration);
+        //manager.values[id] = new(favorReward, hitStunDuration);
+        manager.values[Id].outputReward = favorReward;
+        manager.values[Id].outputHitStunDuration = hitStunDuration;
     }
 
     ////[SerializeField]
