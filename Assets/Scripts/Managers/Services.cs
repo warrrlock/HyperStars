@@ -14,4 +14,5 @@ public static class Services
     public static CameraManager CameraManager;
     public static RoundTimer RoundTimer;
     public static CollisionsManager CollisionsManager;
+    public static AttackInfoManager AttackInfoManager;
 }

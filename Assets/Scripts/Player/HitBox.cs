@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,18 @@ public class HitBox : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (_fighter.OpposingFighter.Parried) return;
-        AttackInfo attackInfo = _baseStateMachine.AttackInfo;
+        AttackInfo attackInfoSO = _baseStateMachine.AttackInfo;
+
+        AttackInfo attackInfo;
+        if (_fighter.PlayerId == 0)
+        {
+            attackInfo = Services.AttackInfoManager.attackInfos0.Find(x => x.attackType == attackInfoSO.attackType && x.hitStunDuration == attackInfoSO.hitStunDuration && x.favorReward == attackInfoSO.favorReward && x.knockbackDirection == attackInfoSO.knockbackDirection);
+        }
+        else
+        {
+            attackInfo = Services.AttackInfoManager.attackInfos1.Find(x => x.attackType == attackInfoSO.attackType && x.hitStunDuration == attackInfoSO.hitStunDuration && x.favorReward == attackInfoSO.favorReward && x.knockbackDirection == attackInfoSO.knockbackDirection);
+        }
+
         Vector3 hitPoint = other.ClosestPoint(transform.position);
         Fighter hitFighter = _fighter.OpposingFighter;
         
@@ -55,7 +67,7 @@ public class HitBox : MonoBehaviour
                     {"hit point", hitPoint},
                     {"attacker input", hitFighter.BaseStateMachine.LastExecutedInput},
                     {"attack info", parryInfo},
-                    {"attack type", attackInfo.attackType},
+                    {"attack type", attackInfoSO.attackType},
                 }
             );
             return;
@@ -66,7 +78,7 @@ public class HitBox : MonoBehaviour
             return;
         }
         
-        if (hitFighter.invulnerabilityCount > 0f || attackInfo == null)
+        if (hitFighter.invulnerabilityCount > 0f || attackInfoSO == null)
         {
             return;
         }
@@ -80,38 +92,40 @@ public class HitBox : MonoBehaviour
                 {"attacked", hitFighter}, 
                 {"hit point", hitPoint},
                 {"attacker input", _fighter.BaseStateMachine.LastExecutedInput},
-                {"attack info", attackInfo},
-                {"attack type", attackInfo.attackType},
+                {"attack info", attackInfoSO},
+                {"attack type", attackInfoSO.attackType},
             }
         );
         //hitFighter.FighterHealth.ApplyDamage(attackInfo.damage);
 
         hitFighter.invulnerabilityCount++;
         // Debug.Log(hitFighter.invulnerabilityCount);
+
+        AttackInfoManager.Values attackInfoValues = Services.AttackInfoManager.values[attackInfo.Id];
         
         StartCoroutine(hitFighter.BaseStateMachine.SetHurtState(
             !hitFighter.MovementController.CollisionData.y.isNegativeHit 
             ? KeyHurtStatePair.HurtStateName.AirKnockBack
-            : (attackInfo.knockbackForce.x is > 0f and < 180f 
+            : (attackInfoSO.knockbackForce.x is > 0f and < 180f 
                 ? KeyHurtStatePair.HurtStateName.KnockBack 
                 : KeyHurtStatePair.HurtStateName.HitStun)
-            , attackInfo.OutputHitStunDuration));
+            , attackInfoValues.outputHitStunDuration));
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
-        float forceMagnitude = (attackInfo.knockbackDistance * 2f) / (attackInfo.knockbackDuration + Time.fixedDeltaTime);
-        Vector3 forceDirection = attackInfo.knockbackDirection;
+        float forceMagnitude = (attackInfoSO.knockbackDistance * 2f) / (attackInfoSO.knockbackDuration + Time.fixedDeltaTime);
+        Vector3 forceDirection = attackInfoSO.knockbackDirection;
 
-        float reverseForceMagnitude = (attackInfo.reverseKnockbackDistance * 2f) / (attackInfo.reverseKnockbackDuration + Time.fixedDeltaTime);
-        Vector3 reverseForceDirection = attackInfo.reverseKnockbackDirection;
+        float reverseForceMagnitude = (attackInfoSO.reverseKnockbackDistance * 2f) / (attackInfoSO.reverseKnockbackDuration + Time.fixedDeltaTime);
+        Vector3 reverseForceDirection = attackInfoSO.reverseKnockbackDirection;
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
         reverseForceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
-        hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfo.knockbackDuration, true);
-        if (attackInfo.reverseKnockbackDistance > 0f)
+        hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfoSO.knockbackDuration, true);
+        if (attackInfoSO.reverseKnockbackDistance > 0f)
         {
-            _fighter.MovementController.ApplyForce(reverseForceDirection, reverseForceMagnitude, attackInfo.reverseKnockbackDuration, true);
+            _fighter.MovementController.ApplyForce(reverseForceDirection, reverseForceMagnitude, attackInfoSO.reverseKnockbackDuration, true);
         }
         //StartCoroutine(hitFighter.MovementController.ApplyForce(forceDirection, attackInfo.knockbackForce.y, attackInfo.knockbackDuration));
 
@@ -123,24 +137,28 @@ public class HitBox : MonoBehaviour
         //StartCoroutine(hitFighter.InputManager.Disable(attackInfo.hitStunDuration, hitFighter.InputManager.Actions["Move"]));
         hitFighter.MovementController.ResetVelocityY();
         //_fighter.MovementController.ResetVelocityY();
-        if (attackInfo.causesWallBounce)
+        if (attackInfoSO.causesWallBounce)
         {
-            StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfo.wallBounceDistance, attackInfo.wallBounceDuration, attackInfo.wallBounceDirection, attackInfo.wallBounceHitStopDuration));
+            StartCoroutine(hitFighter.MovementController.EnableWallBounce(attackInfoSO.wallBounceDistance, attackInfoSO.wallBounceDuration, attackInfoSO.wallBounceDirection, attackInfoSO.wallBounceHitStopDuration));
         }
-        if (attackInfo.causesGroundBounce)
+        if (attackInfoSO.causesGroundBounce)
         {
-            StartCoroutine(hitFighter.MovementController.EnableGroundBounce(attackInfo.groundBounceDistance, attackInfo.groundBounceDuration, attackInfo.groundBounceDirection, attackInfo.groundBounceHitStopDuration));
+            StartCoroutine(hitFighter.MovementController.EnableGroundBounce(attackInfoSO.groundBounceDistance, attackInfoSO.groundBounceDuration, attackInfoSO.groundBounceDirection, attackInfoSO.groundBounceHitStopDuration));
         }
         if (forceDirection.y > 0f || !hitFighter.MovementController.IsGrounded)
         {
-            StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
+            StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfoSO.hangTime));
         }
         //StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
         //Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
-        Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfo.OutputReward);
+        Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfoValues.outputReward);
+        //num++;
+        //Services.AttackInfoManager.debugText.text = num.ToString();
 
-        StartCoroutine(attackInfo.Decay());
+        StartCoroutine(Services.AttackInfoManager.DecayValues(attackInfoSO));
 
-        StartCoroutine(Juice.FreezeTime(attackInfo.hitStopDuration));
+        StartCoroutine(Juice.FreezeTime(attackInfoSO.hitStopDuration));
     }
+
+    //static int num = 0;
 }
