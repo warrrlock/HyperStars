@@ -61,16 +61,16 @@ MonoBehaviour:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
-    knockbackDuration: 0.5
-    knockbackDistance: 4
-    knockbackDirection: {x: 0, y: -1, z: 0}
-    hitStunDuration: 0.35
-    causesWallBounce: 0
+    knockbackDuration: 0.2
+    knockbackDistance: 10
+    knockbackDirection: {x: 1, y: -1, z: 0}
+    hitStunDuration: 0.5
+    causesWallBounce: 1
     hitStopDuration: 0.3
-    wallBounceDuration: 0
-    wallBounceDistance: 0
-    wallBounceDirection: {x: 0, y: 0, z: 0}
-    wallBounceHitStopDuration: 0
+    wallBounceDuration: 1
+    wallBounceDistance: 20
+    wallBounceDirection: {x: -1, y: 2, z: 0}
+    wallBounceHitStopDuration: 0.1
     causesGroundBounce: 0
     groundBounceDuration: 0.6
     groundBounceDistance: 15
@@ -197,7 +197,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 12
+    favorReward: 8
     knockbackForce: {x: 358.9053, y: 100}
     incrementBarAmount: 0.2
   - attackType: 1
@@ -208,7 +208,7 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 1
     knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 0.4
+    hitStunDuration: 0.2
     causesWallBounce: 0
     hitStopDuration: 0.12
     wallBounceDuration: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 6
+    favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
   - attackType: 2
@@ -236,16 +236,16 @@ MonoBehaviour:
     causesWallBounce: 1
     hitStopDuration: 0.2
     wallBounceDuration: 1
-    wallBounceDistance: 20
+    wallBounceDistance: 12
     wallBounceDirection: {x: -1, y: 2, z: 0}
-    wallBounceHitStopDuration: 0.1
+    wallBounceHitStopDuration: 0.2
     causesGroundBounce: 0
     groundBounceDuration: 0
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 10
+    favorReward: 6
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0
   - attackType: 0
@@ -341,7 +341,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 10
+    favorReward: 6
     knockbackForce: {x: 167.55, y: 100}
     incrementBarAmount: 0.25
   - attackType: 3
@@ -365,7 +365,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 8
+    favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
   - attackType: 0
@@ -437,7 +437,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 10
+    favorReward: 6
     knockbackForce: {x: 358.65738, y: 100}
     incrementBarAmount: 0.3
   - attackType: 0
@@ -461,8 +461,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 0
+    favorReward: 6
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.3
   _indicatorSprite: {fileID: 21300000, guid: ddd2dcfe3eb124efabd38a477f5616e9, type: 3}
   _indicatorGlowSprite: {fileID: 21300000, guid: 58bc41eaf1d9643d7924027dc964a6c0, type: 3}
+  _characterPortrait:
+  - {fileID: 21300000, guid: 4f4b38570f494457ca3a36e205f2c47c, type: 3}
+  - {fileID: 21300000, guid: 554348c961783474aadc61247492fdb6, type: 3}

@@ -29,7 +29,7 @@ public class RoundManager : MonoBehaviour
     private List<Image[]> _roundUI;
     private Image[] _p0RoundUI;
     private Image[] _p1RoundUI;
-    
+
     // [SerializeField] List<Sprite> _backgrounds; //TODO: add when we have changing backgrounds
     
     private int _round;

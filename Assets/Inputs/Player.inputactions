@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Side Jump",
+                    "type": "Value",
+                    "id": "194a5f28-2ac3-4996-90b8-80fb7e91abf2",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": "Joystick(pressPoint=0.5)",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Sidestep",
                     "type": "Value",
                     "id": "6a54479f-c152-4dfa-94d7-bb587224393d",
@@ -1092,6 +1101,61 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Heavy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WD",
+                    "id": "8f295876-a1f1-49d7-ab33-e4768dd31824",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Side Jump",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "55b37c71-6aaf-41e9-ac02-80b5915dcc62",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Side Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "435cdb01-39e0-4a7a-91c1-094c6b808940",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Side Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "c936aa28-d4a8-4761-9d23-ba7b090c7dcb",
+                    "path": "<Gamepad>/leftStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Side Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "025cafe2-622e-4c75-b3ec-63362638a879",
+                    "path": "<Gamepad>/dpad/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Side Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

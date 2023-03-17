@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Medium Atk 1
   m_EditorClassIdentifier: 
   characterSelection: 1
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -37,7 +39,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
   _defaultCombo: 0
-  _alwaysHitConfirm: 0
   _attackInfo:
     attackType: 2
     hitSfxEvent:
@@ -47,7 +48,10 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 2.5
     knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 0.35
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0.25
     causesWallBounce: 0
     hitStopDuration: 0.2
     wallBounceDuration: 0

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Air Special Atk
   m_EditorClassIdentifier: 
   characterSelection: 1
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 1
   _specialBarCost: 1
@@ -34,15 +36,22 @@ MonoBehaviour:
   _alwaysExecute: 0
   _attackInfo:
     attackType: 2
-    knockbackDuration: 0.8
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.65
     knockbackDistance: 13
     knockbackDirection: {x: 0.2, y: 1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1
     causesWallBounce: 0
-    hitStopDuration: 0.4
-    wallBounceDuration: 0
-    wallBounceDistance: 0
-    wallBounceDirection: {x: 0, y: 0, z: 0}
+    hitStopDuration: 0.3
+    wallBounceDuration: 0.4
+    wallBounceDistance: 1
+    wallBounceDirection: {x: -1, y: 0, z: 0}
     wallBounceHitStopDuration: 0
     causesGroundBounce: 0
     groundBounceDuration: 0
