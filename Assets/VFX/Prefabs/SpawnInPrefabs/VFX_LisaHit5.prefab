@@ -42,7 +42,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9197529569700219498}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: b69fac5ccdd0bc14190019ef66cafddd, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 38c1d98b13f4628498766f6a99091189, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -54,8 +54,14 @@ VisualEffect:
       - m_Value: 1
         m_Name: Life
         m_Overridden: 1
+      - m_Value: 10
+        m_Name: Size
+        m_Overridden: 1
     m_Vector2f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 5, y: 1}
+        m_Name: FlipbookSize
+        m_Overridden: 1
     m_Vector3f:
       m_Array: []
     m_Vector4f:
@@ -72,8 +78,8 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 7.121568, g: 0.8202853, b: 2.833713, a: 1}
-          key1: {r: 7.999999, g: 0.5026177, b: 0.75392663, a: 1}
+          key0: {r: 0.4087125, g: 0.7736869, b: 3.7672622, a: 1}
+          key1: {r: 0.14405377, g: 0.062745094, b: 1, a: 1}
           key2: {r: 0, g: 0, b: 0, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
@@ -103,8 +109,8 @@ VisualEffect:
         m_Overridden: 1
       - m_Value:
           serializedVersion: 2
-          key0: {r: 0.4087125, g: 0.7736869, b: 3.7672622, a: 1}
-          key1: {r: 7.999999, g: 7.329842, b: 1.2565444, a: 1}
+          key0: {r: 5.0295906, g: 5.0295906, b: 5.0295906, a: 1}
+          key1: {r: 10.680627, g: 10.680627, b: 10.680627, a: 1}
           key2: {r: 0, g: 0, b: 0, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
@@ -136,7 +142,7 @@ VisualEffect:
       m_Array:
       - m_Value: {fileID: 2800000, guid: a75445bb16444f14f96fdf9c734945cc, type: 3}
         m_Name: MainTex2D
-        m_Overridden: 0
+        m_Overridden: 1
     m_Bool:
       m_Array:
       - m_Value: 1
