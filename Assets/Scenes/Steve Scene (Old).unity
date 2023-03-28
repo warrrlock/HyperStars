@@ -686,6 +686,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualEffectPrefabs: []
   skyboxRotationSpeed: 0
+  turnOnSilhouetteOnLightAttacks: 0
+  turnOnSilhouetteOnMediumAttacks: 0
 --- !u!1 &701406902
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,6 +886,10 @@ PrefabInstance:
       propertyPath: m_Actions
       value: 
       objectReference: {fileID: -944628639613478452, guid: 7e3460f30c718466ebb5637179a5e57f, type: 3}
+    - target: {fileID: 5751411094791523315, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
 --- !u!1 &1124559861
@@ -1423,7 +1429,7 @@ PrefabInstance:
     - target: {fileID: 5751411094791522312, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e2b31f34e1d21154c886ada32a309b6d, type: 3}
+      objectReference: {fileID: 21300000, guid: d4310b584e11f454abea9e2944fc1ced, type: 3}
     - target: {fileID: 5751411094791522312, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Enabled
       value: 1

@@ -9,8 +9,8 @@ public class VFXCleanUp : MonoBehaviour
 {
     private VisualEffect _vfx;
     private float _lifeTime;
-    [HideInInspector] public Fighter sender;
-    [HideInInspector] public Fighter receiver;
+    [HideInInspector] public Fighter f;
+    private bool isMoveBased;
 
     void Start()
     {
@@ -18,19 +18,20 @@ public class VFXCleanUp : MonoBehaviour
         // _lifeTime = _vfx.GetFloat("Life");
         // all vfx destroy after one second
         Destroy(gameObject, 1);
+        isMoveBased = name == "VFX_DashSmoke(Clone)";
     }
 
     void Update() {
-        if (sender)
+        if (f)
         {
-            _vfx.SetBool("FaceLeft", sender.MovingDirection == Fighter.Direction.Left);
+            _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
             ChangeColor();
         }
     }
 
     void ChangeColor()
     {
-        switch (sender.PlayerId)
+        switch (f.PlayerId)
         {
             case 0:
                 break;
