@@ -148,4 +148,9 @@ public class VFXSpawnManager : MonoBehaviour
             Debug.Log("key was not found in dictionary.");
         }
     }
+
+    private void OnDisable()
+    {
+        RenderSettings.skybox.SetFloat("_Rotation", 0);
+    }
 }
