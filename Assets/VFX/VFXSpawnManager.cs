@@ -64,13 +64,13 @@ public class VFXSpawnManager : MonoBehaviour
         // newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
     }
     
-    public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter sender)
+    public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter triggerFighter)
     {
         VisualEffect newVFX = Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
         // VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
         // newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
         // if (graphIndex == VFXGraphs.LISA_HIT_5) newVFX.SetFloat("Size", vfxSize);
-        newVFX.GetComponent<VFXCleanUp>().sender = sender;
+        newVFX.GetComponent<VFXCleanUp>().f = triggerFighter;
     }
 
     void PlayHitVFX(Dictionary<string, object> message)
@@ -83,9 +83,9 @@ public class VFXSpawnManager : MonoBehaviour
             AttackInfo attackInfo = (AttackInfo)message["attack info"];
 
             CameraManager cam = Services.CameraManager;
-            
+
             InitializeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
-            InitializeVFX(VFXGraphs.LISA_HIT_5, hitPos, sender);
+            InitializeVFX(VFXGraphs.TWT_HIT, hitPos, sender);
             InitializeVFX(VFXGraphs.RAND_NUTS, hitPos, receiver);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
             // camera based on hits
@@ -97,7 +97,8 @@ public class VFXSpawnManager : MonoBehaviour
                     {
                         Material[] mats =
                         {
-                            sender.GetComponent<SpriteRenderer>().material, receiver.GetComponent<SpriteRenderer>().material
+                            sender.GetComponent<SpriteRenderer>().material, 
+                            receiver.GetComponent<SpriteRenderer>().material
                         };
                         cam.SilhouetteToggle(true, mats);
                     }
@@ -107,7 +108,8 @@ public class VFXSpawnManager : MonoBehaviour
                     {
                         Material[] mats =
                         {
-                            sender.GetComponent<SpriteRenderer>().material, receiver.GetComponent<SpriteRenderer>().material
+                            sender.GetComponent<SpriteRenderer>().material, 
+                            receiver.GetComponent<SpriteRenderer>().material
                         };
                         cam.SilhouetteToggle(true, mats);
                     }
@@ -133,7 +135,6 @@ public class VFXSpawnManager : MonoBehaviour
     
     void PlayBlockVFX(Dictionary<string, object> message)
     {
-        Debug.Log("PARRY VFX");
         try
         {
             Vector3 hitPos = (Vector3) message["hit point"];
