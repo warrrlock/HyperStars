@@ -56,7 +56,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e91327a451f98794f8b895020734fd45, type: 2}
   - {fileID: 11400000, guid: fad8b2dc7ee33fb4fa6e2747fc368378, type: 2}
   _attackInfo:
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -64,6 +65,9 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 10
     knockbackDirection: {x: 1, y: -1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.5
     causesWallBounce: 1
     hitStopDuration: 0.3
@@ -80,7 +84,8 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 270.29382, y: 100}
     incrementBarAmount: 0.4
-  - attackType: 1
+  - Id: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -88,7 +93,10 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: -1, z: 0}
-    hitStunDuration: 0.25
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0.15
     causesWallBounce: 0
     hitStopDuration: 0.15
     wallBounceDuration: 0
@@ -104,7 +112,8 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 0, y: 56.063454}
     incrementBarAmount: 0.2
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -112,6 +121,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 4
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.35
     causesWallBounce: 1
     hitStopDuration: 0.15
@@ -128,7 +140,8 @@ MonoBehaviour:
     favorReward: 6
     knockbackForce: {x: 0, y: 100}
     incrementBarAmount: 0.4
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -136,6 +149,9 @@ MonoBehaviour:
     knockbackDuration: 1
     knockbackDistance: 17
     knockbackDirection: {x: 0.1, y: 1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1
     causesWallBounce: 0
     hitStopDuration: 0.3
@@ -152,7 +168,8 @@ MonoBehaviour:
     favorReward: 10
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -160,6 +177,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -176,7 +196,8 @@ MonoBehaviour:
     favorReward: 10
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - attackType: 1
+  - Id: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -184,6 +205,9 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 0.5
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.3
     causesWallBounce: 0
     hitStopDuration: 0.5
@@ -200,7 +224,8 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 358.9053, y: 100}
     incrementBarAmount: 0.2
-  - attackType: 1
+  - Id: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -208,6 +233,9 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 1
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.2
     causesWallBounce: 0
     hitStopDuration: 0.12
@@ -224,7 +252,8 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -232,7 +261,10 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 15
     knockbackDirection: {x: 1, y: 1, z: 0}
-    hitStunDuration: 1
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 1.2
     causesWallBounce: 1
     hitStopDuration: 0.2
     wallBounceDuration: 1
@@ -248,7 +280,8 @@ MonoBehaviour:
     favorReward: 6
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -256,6 +289,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -272,14 +308,18 @@ MonoBehaviour:
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.3
-    knockbackDistance: 0.8
+    knockbackDistance: 1
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.3
     causesWallBounce: 0
     hitStopDuration: 0.5
@@ -296,7 +336,8 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - attackType: 1
+  - Id: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -304,7 +345,10 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 0.45
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0.25
     causesWallBounce: 0
     hitStopDuration: 0.1
     wallBounceDuration: 0
@@ -320,14 +364,18 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.5
     knockbackDistance: 12
-    knockbackDirection: {x: 1, y: 0.8, z: 0}
+    knockbackDirection: {x: 1.5, y: 1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.8
     causesWallBounce: 0
     hitStopDuration: 0.28
@@ -340,11 +388,12 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0
+    hangTime: 0.1
     favorReward: 6
     knockbackForce: {x: 167.55, y: 100}
     incrementBarAmount: 0.25
-  - attackType: 3
+  - Id: 0
+    attackType: 3
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -352,6 +401,9 @@ MonoBehaviour:
     knockbackDuration: 0.3
     knockbackDistance: 0.8
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.3
     causesWallBounce: 1
     hitStopDuration: 0.1
@@ -368,7 +420,8 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -376,6 +429,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -392,7 +448,8 @@ MonoBehaviour:
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -400,6 +457,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -416,7 +476,8 @@ MonoBehaviour:
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - attackType: 1
+  - Id: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -424,6 +485,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1
     causesWallBounce: 0
     hitStopDuration: 0.5
@@ -440,7 +504,8 @@ MonoBehaviour:
     favorReward: 6
     knockbackForce: {x: 358.65738, y: 100}
     incrementBarAmount: 0.3
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -448,6 +513,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.8
     causesWallBounce: 0
     hitStopDuration: 0
@@ -469,3 +537,4 @@ MonoBehaviour:
   _characterPortrait:
   - {fileID: 21300000, guid: 4f4b38570f494457ca3a36e205f2c47c, type: 3}
   - {fileID: 21300000, guid: 554348c961783474aadc61247492fdb6, type: 3}
+  _loseState: {fileID: 11400000, guid: 5ff41f2c97c86c542aa3499ac6960bab, type: 2}
