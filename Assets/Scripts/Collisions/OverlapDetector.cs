@@ -63,6 +63,15 @@ public class OverlapDetector : MonoBehaviour
         }
     }
 
+    public void ReassignFighter()
+    {
+        if (TryGetComponent<Fighter>(out Fighter fighter))
+        {
+            Services.CollisionsManager.fighterDetectors[fighter.PlayerId] = this;
+            Initialize(Services.CollisionsManager);
+        }
+    }
+
     public void Initialize(CollisionsManager collisionsManager)
     {
         AssignComponents();
