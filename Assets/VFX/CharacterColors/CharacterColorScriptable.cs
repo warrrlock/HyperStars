@@ -17,4 +17,5 @@ public class CharacterColorScriptable : ScriptableObject
     [field: SerializeField] public Color Color4 { private set; get; }
     [field: SerializeField] public Color Color5 { private set; get; }
     [field: SerializeField] public Color Color6 { private set; get; }
+    [field: SerializeField] public Gradient EffectColor { private set; get; }
 }
