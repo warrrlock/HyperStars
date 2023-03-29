@@ -37,6 +37,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28def05a8539a2f42bddb2ecc2f80f15, type: 2}
   _defaultCombo: 1
   _attackInfo:
+    Id: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -44,7 +45,10 @@ MonoBehaviour:
       WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.5
     knockbackDistance: 12
-    knockbackDirection: {x: 1, y: 0.9, z: 0}
+    knockbackDirection: {x: 1.5, y: 1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.8
     causesWallBounce: 0
     hitStopDuration: 0.28

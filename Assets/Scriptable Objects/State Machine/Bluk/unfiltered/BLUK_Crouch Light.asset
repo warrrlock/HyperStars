@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: BLUK_Crouch Light
   m_EditorClassIdentifier: 
   characterSelection: 2
+  _bypassQueueAtEnd: 0
+  _bypassHitConfirm: 0
   _isCrouchState: 1
   _isSpecial: 0
   _specialBarCost: 0
@@ -31,8 +33,10 @@ MonoBehaviour:
   _transitions:
   - {fileID: 11400000, guid: 167c34ec0b492bc4eb9d761a1d0d3628, type: 2}
   - {fileID: 11400000, guid: 9c89effee232ca54a942cfb1537ce38b, type: 2}
+  - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
   _defaultCombo: 1
   _attackInfo:
+    Id: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -41,6 +45,9 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 1
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.2
     causesWallBounce: 0
     hitStopDuration: 0.12
