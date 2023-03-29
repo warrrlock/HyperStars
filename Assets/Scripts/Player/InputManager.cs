@@ -10,6 +10,7 @@ using static InputManager;
 // [RequireComponent(typeof(PlayerInput))]
 public class InputManager : MonoBehaviour
 {
+    public bool IgnoreQueuePerform { get; set; }
     [Tooltip("How long (in secs) after pressing jump in midair should it be queued to perform upon landing?")]
     private float _jumpQueueTime = 0.1f;
 
@@ -109,6 +110,7 @@ public class InputManager : MonoBehaviour
     public void ResetValues()
     {
         StopAllCoroutines();
+        IgnoreQueuePerform = false;
         EnableAll();
     }
 
@@ -156,7 +158,7 @@ public class InputManager : MonoBehaviour
                     }
                     else if (action.disabledCount > 0)
                     {
-                        if (!action.isPerformQueued)
+                        if (!action.isPerformQueued && !IgnoreQueuePerform)
                         {
                             action.queuePerform = QueuePerform(action);
                             StartCoroutine(action.queuePerform);
