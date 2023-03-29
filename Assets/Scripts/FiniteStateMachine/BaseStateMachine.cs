@@ -241,11 +241,6 @@ namespace FiniteStateMachine {
                     // Debug.Log($"queue execute {action.name}, current state: {CurrentState.name}, return state: {_returnState.name}");
                     _returnState.QueueExecute(this, action.name);
                 }
-                if(CurrentState.BypassQueueAtEnd)
-                {
-                    ClearQueues();
-                    _returnState.Execute(this, action.name);
-                }
             }
 
             if (action.name == "Crouch")

@@ -13,6 +13,8 @@ namespace FiniteStateMachine
     {
         enum FalseState { DoNothing, CustomFalseState }
         [SerializeField] private bool _ignoreHitConfirm;
+        [SerializeField] protected bool _bypassQueueAtEnd;
+
         [SerializeField] private String _inputActionName;
         [SerializeField] private String _inputActionName2; //TODO: fix issue of player invoking the wrong input when some inputs are supposed to be disabled
         [Tooltip("If the State allows for combos, the true State is if the combo is successful, " +
@@ -59,6 +61,7 @@ namespace FiniteStateMachine
                     return true;
                 }
                 SetTrueStatePassValues(stateMachine, inputName);
+                if (_bypassQueueAtEnd) stateMachine.ExecuteQueuedState();
             }
             else
             {
@@ -92,7 +95,7 @@ namespace FiniteStateMachine
                     return true;
                 }
                 SetTrueStatePassValues(stateMachine, inputName, queueAtEndOfAnim);
-                if (!queueAtEndOfAnim) stateMachine.ExecuteQueuedState();
+                if (!queueAtEndOfAnim || _bypassQueueAtEnd) stateMachine.ExecuteQueuedState();
                 return true;
             }
             else if (_customFalseState && !queueAtEndOfAnim)

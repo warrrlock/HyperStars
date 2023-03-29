@@ -237,7 +237,13 @@ public class RoundManager : MonoBehaviour
     {
         _disabledInput = true;
         foreach (Fighter fighter in Services.Fighters)
-            StartCoroutine(fighter.DisableAllInput(() => _disabledInput == false));
+        {
+            fighter.InputManager.IgnoreQueuePerform = true;
+            StartCoroutine(fighter.DisableAllInput(
+                () => _disabledInput == false, 
+                () => { fighter.InputManager.IgnoreQueuePerform = false; }
+                ));
+        }
     }
 
     private void EnableAllInput()
