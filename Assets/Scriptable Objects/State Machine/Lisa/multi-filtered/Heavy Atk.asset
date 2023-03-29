@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Heavy Atk
   m_EditorClassIdentifier: 
   characterSelection: 1
-  _bypassQueueAtEnd: 0
-  _bypassHitConfirm: 0
+  _bypassQueueAtEnd: 1
+  _bypassHitConfirm: 1
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -43,14 +43,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
   _defaultCombo: 0
   _attackInfo:
+    Id: 0
     attackType: 3
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.5
-    knockbackDistance: 15
-    knockbackDirection: {x: 1, y: 0.2, z: 0}
+    knockbackDistance: 10
+    knockbackDirection: {x: 1, y: 1, z: 0}
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}

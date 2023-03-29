@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3628714835826469584}
   - component: {fileID: 3628714835826469599}
   m_Layer: 12
-  m_Name: VFX_LisaHit1
+  m_Name: VFX_TwtDef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,10 @@ VisualEffect:
     m_Float:
       m_Array: []
     m_Vector2f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 3, y: 2}
+        m_Name: FlipbookSize
+        m_Overridden: 1
     m_Vector3f:
       m_Array: []
     m_Vector4f:
@@ -131,9 +134,9 @@ VisualEffect:
         m_Overridden: 1
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: 2bd8fe6fbd1cb684c95cb290b35ca571, type: 3}
+      - m_Value: {fileID: 2800000, guid: a82783d843479d343a862a88bff7b7c0, type: 3}
         m_Name: MainTex2D
-        m_Overridden: 0
+        m_Overridden: 1
     m_Bool:
       m_Array:
       - m_Value: 1
