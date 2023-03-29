@@ -72,6 +72,7 @@ public class Fighter : MonoBehaviour
         transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
         BaseStateMachine.ResetStateMachine();
         MovementController.ResetValues();
+        OverlapDetector.ReassignFighter();
     }
 
     private void OnDestroy()
