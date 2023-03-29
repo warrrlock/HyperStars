@@ -85,31 +85,36 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 59e69afcb66764c8ebdbba09ad2e1f75, type: 2}
   - {fileID: 11400000, guid: 08cc7450946dea54bb3bb9b14caf666e, type: 2}
   _attackInfo:
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
-    knockbackDuration: 0.3
+    knockbackDuration: 0.65
     knockbackDistance: 10
     knockbackDirection: {x: 0, y: -1, z: 0}
-    hitStunDuration: 1
-    causesWallBounce: 1
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0.8
+    causesWallBounce: 0
     hitStopDuration: 0.4
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
     causesGroundBounce: 0
-    groundBounceDuration: 0.4
-    groundBounceDistance: 10
+    groundBounceDuration: 0.8
+    groundBounceDistance: 25
     groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0.2
-    hangTime: 0
+    hangTime: 0.2
     favorReward: 6
-    knockbackForce: {x: 0, y: 100}
+    knockbackForce: {x: 90.45471, y: 100}
     incrementBarAmount: 0.4
-  - attackType: 1
+  - Id: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -117,6 +122,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 0.5
     knockbackDirection: {x: 0.5, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.5
     causesWallBounce: 0
     hitStopDuration: 0.15
@@ -133,7 +141,8 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 0, y: 56.063454}
     incrementBarAmount: 0.2
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -141,6 +150,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 1
     knockbackDirection: {x: 0.5, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.35
     causesWallBounce: 1
     hitStopDuration: 0.2
@@ -157,7 +169,8 @@ MonoBehaviour:
     favorReward: 6
     knockbackForce: {x: 0, y: 100}
     incrementBarAmount: 0.4
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -165,6 +178,9 @@ MonoBehaviour:
     knockbackDuration: 0.8
     knockbackDistance: 13
     knockbackDirection: {x: 0.2, y: 1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1
     causesWallBounce: 0
     hitStopDuration: 0.4
@@ -181,7 +197,8 @@ MonoBehaviour:
     favorReward: 10
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -189,6 +206,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -205,7 +225,8 @@ MonoBehaviour:
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -213,6 +234,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 16
     knockbackDirection: {x: 0.5, y: 2, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.5
     causesWallBounce: 0
     hitStopDuration: 0.3
@@ -229,7 +253,8 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0.25
-  - attackType: 1
+  - Id: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -237,6 +262,9 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.2
     causesWallBounce: 0
     hitStopDuration: 0.1
@@ -253,7 +281,8 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -261,6 +290,9 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 2
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.4
     causesWallBounce: 0
     hitStopDuration: 0.1
@@ -277,7 +309,8 @@ MonoBehaviour:
     favorReward: 6
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.4
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -285,6 +318,9 @@ MonoBehaviour:
     knockbackDuration: 1
     knockbackDistance: 17
     knockbackDirection: {x: 0.1, y: 1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1
     causesWallBounce: 0
     hitStopDuration: 0.3
@@ -301,7 +337,8 @@ MonoBehaviour:
     favorReward: 10
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -309,6 +346,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.8
     causesWallBounce: 0
     hitStopDuration: 0
@@ -325,7 +365,8 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.3
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -333,6 +374,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 2.5
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.35
     causesWallBounce: 0
     hitStopDuration: 0.2
@@ -349,7 +393,8 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -357,6 +402,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 10
     knockbackDirection: {x: 1, y: 1.5, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1.5
     causesWallBounce: 1
     hitStopDuration: 0.25
@@ -373,7 +421,8 @@ MonoBehaviour:
     favorReward: 16
     knockbackForce: {x: 53.226723, y: 100}
     incrementBarAmount: 0.4
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -381,6 +430,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 15
     knockbackDirection: {x: 1, y: 0.2, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.8
     causesWallBounce: 1
     hitStopDuration: 0.28
@@ -397,7 +449,8 @@ MonoBehaviour:
     favorReward: 10
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0.25
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -405,6 +458,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -421,7 +477,8 @@ MonoBehaviour:
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -429,6 +486,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -445,7 +505,8 @@ MonoBehaviour:
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - attackType: 1
+  - Id: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -453,6 +514,9 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 1
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.225
     causesWallBounce: 0
     hitStopDuration: 0.1
@@ -469,7 +533,8 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -477,6 +542,9 @@ MonoBehaviour:
     knockbackDuration: 0.3
     knockbackDistance: 2
     knockbackDirection: {x: 5, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.3
     causesWallBounce: 0
     hitStopDuration: 0.2
@@ -493,7 +561,8 @@ MonoBehaviour:
     favorReward: 6
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -501,6 +570,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 20
     knockbackDirection: {x: 2, y: -1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.5
     causesWallBounce: 0
     hitStopDuration: 0.3
@@ -508,16 +580,17 @@ MonoBehaviour:
     wallBounceDistance: 5
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
-    causesGroundBounce: 0
+    causesGroundBounce: 1
     groundBounceDuration: 1
-    groundBounceDistance: 10
+    groundBounceDistance: 20
     groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0.3
     hangTime: 0
     favorReward: 6
     knockbackForce: {x: 8.50458, y: 100}
     incrementBarAmount: 0.25
-  - attackType: 3
+  - Id: 0
+    attackType: 3
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -525,6 +598,9 @@ MonoBehaviour:
     knockbackDuration: 1
     knockbackDistance: 5
     knockbackDirection: {x: 0.2, y: 1, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1
     causesWallBounce: 0
     hitStopDuration: 0.05
@@ -541,7 +617,8 @@ MonoBehaviour:
     favorReward: 12
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0
-  - attackType: 1
+  - Id: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -549,6 +626,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1
     causesWallBounce: 0
     hitStopDuration: 0.5
@@ -565,7 +645,8 @@ MonoBehaviour:
     favorReward: 10
     knockbackForce: {x: 358.65738, y: 100}
     incrementBarAmount: 0.3
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -573,6 +654,9 @@ MonoBehaviour:
     knockbackDuration: 0.1
     knockbackDistance: 0.1
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -589,7 +673,8 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - attackType: 2
+  - Id: 0
+    attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -597,6 +682,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -613,7 +701,8 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.25
-  - attackType: 0
+  - Id: 0
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -621,6 +710,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -642,3 +734,4 @@ MonoBehaviour:
   _characterPortrait:
   - {fileID: 21300000, guid: 15838ea20e92a42de905155d468d48a6, type: 3}
   - {fileID: 21300000, guid: 35ffb69bd9aad451cb33fb0ddf2059eb, type: 3}
+  _loseState: {fileID: 11400000, guid: 96e613e3f0a8b480289846778927ba33, type: 2}
