@@ -444,7 +444,7 @@ namespace FiniteStateMachine {
                 ExecuteDisableTime();
             }
             ForceSetState(hurtState);
-            if (duration > 0) DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right"}, 
+            if (duration > 0) DisableInputs(new List<string>{"Move", "Dash", "Jump", "Dash Left", "Dash Right", "Crouch"}, 
                 () => IsIdle, false);
         }
         
@@ -573,6 +573,11 @@ namespace FiniteStateMachine {
             }
             _isDisabled = false;
             _disableCoroutine = null;
+            if (_holdingCrouch)
+            {
+                SetReturnState(_crouchState);
+                // Debug.Log($"player {Fighter.PlayerId} is still holding crouch");
+            }
         }
 
         private void CancelDisableTime()
