@@ -113,12 +113,15 @@ namespace Managers
         private void CreateAttackInfoList()
         {
             _attackInfo = new List<AttackInfo>();
+            int idSO = 0;
             foreach (BaseState _state in _states)
             {
                 AttackInfo attackInfo = _state.GetAttackInfo();
                 if (attackInfo != null)
                 {
                     // Debug.Log($"{_state.name} of {_state.GetType()} has attackInfo");
+                    attackInfo.idSO = idSO;
+                    idSO++;
                     _attackInfo.Add(attackInfo);
                 }
             }

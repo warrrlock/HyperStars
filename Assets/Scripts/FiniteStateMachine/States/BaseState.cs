@@ -21,12 +21,11 @@ namespace FiniteStateMachine
     {
         [Header("Meta")]
         [FormerlySerializedAs("character")] public CharacterManager.CharacterSelection characterSelection = CharacterManager.CharacterSelection.None;
-        [SerializeField] protected bool _bypassQueueAtEnd;
+        [Tooltip("allow this state to ignore hit confirming, and always animation cancel when possible.")]
         [SerializeField] protected bool _bypassHitConfirm;
         [SerializeField] private bool _isCrouchState;
         public bool IsCrouchState => _isCrouchState;
-        public bool BypassQueueAtEnd => _bypassQueueAtEnd;
-        
+
         [Header("Special")]
         [SerializeField] private bool _isSpecial;
         [Tooltip("number of bars the special costs. 1 means 1 bar.")]
