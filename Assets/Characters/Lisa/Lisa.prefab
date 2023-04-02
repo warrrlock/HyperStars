@@ -476,6 +476,7 @@ GameObject:
   - component: {fileID: 4663626311462973836}
   - component: {fileID: 7411884658590553160}
   - component: {fileID: 1167637606503559226}
+  - component: {fileID: 5717705650131357226}
   m_Layer: 9
   m_Name: Lisa
   m_TagString: Untagged
@@ -491,7 +492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5751411094791522315}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.71, y: -0.1, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -545,7 +546,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 6053bde84d385c74a991dfc0455b5d2e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4310b584e11f454abea9e2944fc1ced, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -877,6 +878,22 @@ MonoBehaviour:
   _skinWidth: 0.1
   _isMoveable: 1
   _rayCount: 3
+  _terrainType: 0
+--- !u!114 &5717705650131357226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5751411094791522315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e5d47582199c8468f8c98d79400d34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterSprite: {fileID: 5751411094791522312}
+  currentColorIndex: 1
+  characterColors: {fileID: 11400000, guid: 948c02293ac922d4d919f20538668fda, type: 2}
 --- !u!1 &5751411094795848295
 GameObject:
   m_ObjectHideFlags: 0

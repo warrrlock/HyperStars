@@ -31,6 +31,8 @@ namespace FiniteStateMachine {
     [RequireComponent(typeof(Fighter))] 
     public class BaseStateMachine : MonoBehaviour
     {
+        //Meta info
+        public bool IgnoreExecuteState { get; set; }
         public SerializedDictionary<BaseState, StateEvent> States;
 
         public BaseState CurrentState {get; private set;}
@@ -156,17 +158,21 @@ namespace FiniteStateMachine {
         
         public void ResetStateMachine()
         {
-            StopAllCoroutines();
+            IgnoreExecuteState = false;
             _airCoroutine = null;
             _waitToAnimateRoutine = null;
-            _disableCoroutine = null;
-            _isDisabled = false;
+            CancelDisableTime();
             
             CurrentState = _initialState;
             _returnState = _initialState;
 
             ClearQueues();
             CurrentState.Execute(this, "");
+        }
+
+        public void BypassQueuing(BaseState state)
+        {
+            CurrentState = _initialState;
         }
         
         private void SubscribeActions()
@@ -232,13 +238,8 @@ namespace FiniteStateMachine {
             {
                 if (!InAir && (CanInputQueue || action.name == "Crouch"))
                 {
-                    Debug.Log($"queue execute {action.name}, current state: {CurrentState.name}, return state: {_returnState.name}");
+                    // Debug.Log($"queue execute {action.name}, current state: {CurrentState.name}, return state: {_returnState.name}");
                     _returnState.QueueExecute(this, action.name);
-                }
-                if(CurrentState.BypassQueueAtEnd)
-                {
-                    ClearQueues();
-                    _returnState.Execute(this, action.name);
                 }
             }
 
@@ -324,6 +325,7 @@ namespace FiniteStateMachine {
         /// </summary>
         public void ExecuteQueuedState()
         {
+            if (IgnoreExecuteState) return;
             if (!_queuedState) return;
             // Debug.LogError($"executing queued state {_queuedState.name}" +
             //                $"\nwith queued state: {_queuedState?.name}\nand queued at end: {_queuedAtEndState?.name}");
@@ -499,14 +501,14 @@ namespace FiniteStateMachine {
             _airCoroutine = StartCoroutine(HandleExitInAir(onGroundAction));
             
             StartCoroutine(Fighter.InputManager.Disable(
-                () => Fighter.MovementController.CollisionData.y.isNegativeHit, 
+                () => Fighter.MovementController.IsGrounded, 
                 Fighter.InputManager.Actions["Crouch"]));
         }
 
         private IEnumerator HandleExitInAir(Action onGroundAction)
         {
             yield return new WaitForFixedUpdate();
-            yield return new WaitUntil(() => Fighter.MovementController.CollisionData.y.isNegativeHit);
+            yield return new WaitUntil(() => Fighter.MovementController.IsGrounded);
             SetReturnState();
             
             if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
@@ -529,21 +531,19 @@ namespace FiniteStateMachine {
 
         public void WaitToAnimate(int nextAnimation = -1, Func<bool> condition = null)
         {
+            Debug.Log("wait to animate, wait to move");
             if (_waitToAnimateRoutine != null) StopCoroutine(_waitToAnimateRoutine);
             _waitToAnimateRoutine = StartCoroutine(HandleWaitToMove(nextAnimation, condition));
         }
 
-        private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> condition, bool stateExit = false)
+        private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> condition)
         {
+            Debug.Log("handle animate, wait to move");
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
             yield return new WaitUntil(condition ?? (() => !_isDisabled && Fighter.MovementController.IsGrounded));
 
             _waitToAnimateRoutine = null;
-            if (stateExit) HandleStateExit();
-            else
-            {
-                HandleAnimationExit();
-            }
+            HandleAnimationExit();
         }
 
         public void DisableInputs(List<string> inputs, Func<bool> condition, bool returnToIdle = true)
@@ -571,6 +571,13 @@ namespace FiniteStateMachine {
                 time -= Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
+            _isDisabled = false;
+            _disableCoroutine = null;
+        }
+
+        private void CancelDisableTime()
+        {
+            if (_disableCoroutine != null) StopCoroutine(_disableCoroutine);
             _isDisabled = false;
             _disableCoroutine = null;
         }

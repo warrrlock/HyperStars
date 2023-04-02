@@ -42,7 +42,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051750636586778460}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 6e2f8fadbbc11464cbaff317b5f42ed4, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 38c1d98b13f4628498766f6a99091189, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -51,11 +51,20 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 1
+      - m_Value: 0.4
         m_Name: Life
         m_Overridden: 1
+      - m_Value: 4
+        m_Name: Size
+        m_Overridden: 1
+      - m_Value: 20
+        m_Name: Frame Rate
+        m_Overridden: 1
     m_Vector2f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 7, y: 1}
+        m_Name: FlipbookSize
+        m_Overridden: 1
     m_Vector3f:
       m_Array: []
     m_Vector4f:
@@ -72,8 +81,8 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 7.121568, g: 0.8202853, b: 2.833713, a: 1}
-          key1: {r: 7.999999, g: 0.5026177, b: 0.75392663, a: 1}
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
           key2: {r: 0, g: 0, b: 0, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
@@ -96,15 +105,15 @@ VisualEffect:
           atime5: 0
           atime6: 0
           atime7: 0
-          m_Mode: 0
+          m_Mode: 1
           m_NumColorKeys: 2
           m_NumAlphaKeys: 2
         m_Name: P2Gradient
         m_Overridden: 1
       - m_Value:
           serializedVersion: 2
-          key0: {r: 0.4087125, g: 0.7736869, b: 3.7672622, a: 1}
-          key1: {r: 7.999999, g: 7.329842, b: 1.2565444, a: 1}
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
           key2: {r: 0, g: 0, b: 0, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
@@ -136,7 +145,7 @@ VisualEffect:
       m_Array:
       - m_Value: {fileID: 2800000, guid: 9fcb2c73cf7612948915ed6dd4d6d429, type: 3}
         m_Name: MainTex2D
-        m_Overridden: 0
+        m_Overridden: 1
     m_Bool:
       m_Array:
       - m_Value: 1
@@ -194,5 +203,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293945289a94e9846a31a179ba4454f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sender: {fileID: 0}
-  receiver: {fileID: 0}
+  f: {fileID: 0}

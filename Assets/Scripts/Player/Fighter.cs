@@ -62,7 +62,7 @@ public class Fighter : MonoBehaviour
         invulnerabilityCount = 0;
         SubscribeActions();
         //transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
-        GetComponent<SpriteRenderer>().color = PlayerId == 0 ? FightersManager.player1Color : FightersManager.player2Color;
+        //GetComponent<SpriteRenderer>().color = PlayerId == 0 ? FightersManager.player1Color : FightersManager.player2Color;
         //FacingDirection = OpposingFighter.transform.position.x > transform.position.x ? Direction.Right : Direction.Left;
         ResetValues();
     }
@@ -72,6 +72,7 @@ public class Fighter : MonoBehaviour
         transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
         BaseStateMachine.ResetStateMachine();
         MovementController.ResetValues();
+        OverlapDetector.ReassignFighter();
     }
 
     private void OnDestroy()

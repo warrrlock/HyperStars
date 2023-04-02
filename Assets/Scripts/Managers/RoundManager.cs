@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FiniteStateMachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
@@ -15,7 +16,11 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private GameEvent _roundStartEvent;
     [SerializeField] private GameObject _buttons;
     [SerializeField] private int _neededWins;
-    
+    [Tooltip("time to wait in slow motion.")]
+    [SerializeField] private float _slomoTime;
+    [Tooltip("Float between 0 and 1, where 1 is normal time, and 0 is paused.")]
+    [SerializeField] private float _slomoSpeed = 1;
+
     [Header("Text Info")]
     [SerializeField] private TextMeshProUGUI _roundText;
     [SerializeField] private string _startText;
@@ -58,37 +63,30 @@ public class RoundManager : MonoBehaviour
     //used in event (inspector)
     public void OnRoundEnd(Dictionary<string, object> data)
     {
-        Debug.Log("round ended");
         if (_roundEnded) return;
+        Debug.Log("round ended");
         _roundEnded = true;
-        //disable movement
+        
         DisableAllInput();
         
-        //TODO: should player's queues be cleared? so that if a player has queued another attack, it doesn't play
+        data.TryGetValue("winnerId", out object winnerId);
+        int winner = winnerId == null ? -1 : (int)winnerId;
+
+        StartCoroutine(HandleRoundEnd(winner));
+    }
+
+    private IEnumerator HandleRoundEnd(int winner)
+    {
+        yield return new WaitForEndOfFrame();
+        //if a player has queued another attack, it doesn't play
         foreach (Fighter fighter in Services.Fighters)
         {
             fighter.BaseStateMachine.ClearQueues();
         }
         
-        data.TryGetValue("winnerId", out object winnerId);
-        int winner = winnerId == null ? -1 : (int)winnerId;
-
         HandleAddWinTo(winner);
-        RoundInformation.SetIfMatchPoint(_neededWins, winner);
-        
-        if (RoundInformation.CheckWinner(_neededWins, winner))
-        {
-            EndGame();
-            return;
-        }
-
-        if (_roundText)
-        {
-            _roundText.gameObject.SetActive(true);
-            _roundText.text = winner == -1 ? "Tie!" : $"Player{winner+1} won the round!";
-        }
-
-        StartCoroutine(HandleStartNextRound());
+        HandleLoseAnimation(winner^1);
+        StartCoroutine(HandleSlomoSequence(winner));
     }
     
     //for use in animation
@@ -127,12 +125,27 @@ public class RoundManager : MonoBehaviour
         _roundUI[player][RoundInformation.Wins[player]-1].color = _fightersManager.playerColors[player];
     }
 
+    private void HandleLoseAnimation(int player)
+    {
+        BaseStateMachine machine = Services.Fighters[player].BaseStateMachine;
+        machine.DisableTime = _slomoTime;
+        machine.ExecuteDisableTime();
+        machine.IgnoreExecuteState = true;
+        
+        if (machine.CurrentState is HurtState { HurtType: KeyHurtStatePair.HurtStateName.HitStun })
+        {
+            machine.BypassQueuing(Services.Characters[player].LoseState);
+            Services.Fighters[player].MovementController.ApplyForce(Vector3.up, 30f, 1f, true);
+            Services.Characters[player].LoseState.Execute(machine, "");
+        }
+    }
+
     private IEnumerator HandleStartNextRound()
     {
         //TODO: any ui updates
         SetNewRoundVariables();
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         SceneReloader.Instance?.ReloadScene();
     }
 
@@ -183,6 +196,35 @@ public class RoundManager : MonoBehaviour
         StartCoroutine(HandleRoundStart());
     }
 
+    private IEnumerator HandleSlomoSequence(int winner)
+    {
+        float time = _slomoTime;
+        
+        while (time > 0)
+        {
+            Time.timeScale = _slomoSpeed; //TODO: fix timescale getting reset somewhere during hit (cancel that)
+            time -= Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Time.timeScale = 1;
+        
+        RoundInformation.SetIfMatchPoint(_neededWins, winner);
+        if (RoundInformation.CheckWinner(_neededWins, winner))
+        {
+            EndGame();
+            yield break;
+        }
+        
+        if (_roundText)
+        {
+            _roundText.gameObject.SetActive(true);
+            _roundText.text = winner == -1 ? "Tie!" : $"Player{winner+1} won the round!";
+        }
+        
+        StartCoroutine(HandleStartNextRound());
+    }
+
     private IEnumerator HandleRoundStart()
     {
         _roundStartEvent.Raise(new Dictionary<string, object>());
@@ -195,7 +237,13 @@ public class RoundManager : MonoBehaviour
     {
         _disabledInput = true;
         foreach (Fighter fighter in Services.Fighters)
-            StartCoroutine(fighter.DisableAllInput(() => _disabledInput == false));
+        {
+            fighter.InputManager.IgnoreQueuePerform = true;
+            StartCoroutine(fighter.DisableAllInput(
+                () => _disabledInput == false, 
+                () => { fighter.InputManager.IgnoreQueuePerform = false; }
+                ));
+        }
     }
 
     private void EnableAllInput()

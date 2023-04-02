@@ -37,31 +37,81 @@ public class AttackInfoManager : MonoBehaviour
         //attackInfos1 = new(Services.Characters[1].AttackInfos);
 
         attackInfos0 = new List<AttackInfo>();
-        foreach (AttackInfo info in Services.Characters[0].AttackInfos)
-        {
-            attackInfos0.Add(new AttackInfo
-            {
-                attackType = info.attackType,
-                hitStunDuration = info.hitStunDuration,
-                favorReward = info.favorReward,
-                knockbackDirection = info.knockbackDirection
-            });
-        }
+        //foreach (AttackInfo info in Services.Characters[0].AttackInfos)
+        //{
+        //    attackInfos0.Add(new AttackInfo
+        //    {
+        //        attackType = info.attackType,
+        //        hitStunDuration = info.hitStunDuration,
+        //        favorReward = info.favorReward,
+        //        knockbackDirection = info.knockbackDirection
+        //    });
+        //}
 
         attackInfos1 = new List<AttackInfo>();
-        foreach (AttackInfo info in Services.Characters[1].AttackInfos)
+        //foreach (AttackInfo info in Services.Characters[1].AttackInfos)
+        //{
+        //    attackInfos1.Add(new AttackInfo
+        //    {
+        //        attackType = info.attackType,
+        //        hitStunDuration = info.hitStunDuration,
+        //        favorReward = info.favorReward,
+        //        knockbackDirection = info.knockbackDirection
+        //    });
+        //}
+
+        values = new Values[Services.Characters[0].AttackInfos.Count + Services.Characters[1].AttackInfos.Count];
+
+        for (int i = 0; i < Services.Characters[0].AttackInfos.Count; i++)
         {
-            attackInfos1.Add(new AttackInfo
+            int idSO = Services.Characters[0].AttackInfos[i].idSO;
+            AttackInfo newInfo = new AttackInfo
             {
-                attackType = info.attackType,
-                hitStunDuration = info.hitStunDuration,
-                favorReward = info.favorReward,
-                knockbackDirection = info.knockbackDirection
-            });
+                idSO = idSO,
+                idManager = _nextInfoId,
+                hitStunDuration = Services.Characters[0].AttackInfos[i].hitStunDuration,
+                favorReward = Services.Characters[0].AttackInfos[i].favorReward
+            };
+            //attackInfos0.Add(new AttackInfo
+            //    {
+            //        idSO = idSO,
+            //        idManager = _nextInfoId,
+            //        hitStunDuration = Services.Characters[0].AttackInfos[i].hitStunDuration,
+            //        favorReward = Services.Characters[0].AttackInfos[i].favorReward
+            //    });
+            attackInfos0.Add(newInfo);
+            values[_nextInfoId] = new();
+            values[_nextInfoId].outputReward = newInfo.favorReward;
+            values[_nextInfoId].outputHitStunDuration = newInfo.hitStunDuration;
+            _nextInfoId++;
+        }
+
+        for (int i = 0; i < Services.Characters[1].AttackInfos.Count; i++)
+        {
+            int idSO = Services.Characters[1].AttackInfos[i].idSO;
+            AttackInfo newInfo = new AttackInfo
+            {
+                idSO = idSO,
+                idManager = _nextInfoId,
+                hitStunDuration = Services.Characters[0].AttackInfos[i].hitStunDuration,
+                favorReward = Services.Characters[0].AttackInfos[i].favorReward
+            };
+            //attackInfos1.Add(new AttackInfo
+            //{
+            //    idSO = idSO,
+            //    idManager = _nextInfoId,
+            //    hitStunDuration = Services.Characters[1].AttackInfos[i].hitStunDuration,
+            //    favorReward = Services.Characters[1].AttackInfos[i].favorReward
+            //});
+            attackInfos1.Add(newInfo);
+            values[_nextInfoId] = new();
+            values[_nextInfoId].outputReward = newInfo.favorReward;
+            values[_nextInfoId].outputHitStunDuration = newInfo.hitStunDuration;
+            _nextInfoId++;
         }
 
 
-        values = new Values[attackInfos0.Count + attackInfos1.Count];
+        //values = new Values[attackInfos0.Count + attackInfos1.Count];
 
         //for (int i = 0; i < 2; i++)
         //{
@@ -77,22 +127,22 @@ public class AttackInfoManager : MonoBehaviour
         //    }
         //}
 
-        for (int i = 0; i < attackInfos0.Count; i++)
-        {
-            values[_nextInfoId] = new();
-            attackInfos0[i].Id = _nextInfoId;
-            values[_nextInfoId].outputReward = attackInfos0[i].favorReward;
-            values[_nextInfoId].outputHitStunDuration = attackInfos0[i].hitStunDuration;
-            _nextInfoId++;
-        }
-        for (int i = 0; i < attackInfos1.Count; i++)
-        {
-            values[_nextInfoId] = new();
-            attackInfos1[i].Id = _nextInfoId;
-            values[_nextInfoId].outputReward = attackInfos1[i].favorReward;
-            values[_nextInfoId].outputHitStunDuration = attackInfos1[i].hitStunDuration;
-            _nextInfoId++;
-        }
+        //for (int i = 0; i < attackInfos0.Count; i++)
+        //{
+        //    values[_nextInfoId] = new();
+        //    attackInfos0[i].Id = _nextInfoId;
+        //    values[_nextInfoId].outputReward = attackInfos0[i].favorReward;
+        //    values[_nextInfoId].outputHitStunDuration = attackInfos0[i].hitStunDuration;
+        //    _nextInfoId++;
+        //}
+        //for (int i = 0; i < attackInfos1.Count; i++)
+        //{
+        //    values[_nextInfoId] = new();
+        //    attackInfos1[i].Id = _nextInfoId;
+        //    values[_nextInfoId].outputReward = attackInfos1[i].favorReward;
+        //    values[_nextInfoId].outputHitStunDuration = attackInfos1[i].hitStunDuration;
+        //    _nextInfoId++;
+        //}
 
         //if (debugText)
         //{
@@ -107,49 +157,14 @@ public class AttackInfoManager : MonoBehaviour
 
     public IEnumerator DecayValues(AttackInfo attackInfo)
     {
-        int id = attackInfo.Id;
+        int id = attackInfo.idManager;
         //debugText.text = "id:"+id+ "info:"+attackInfo.hitStunDuration + "values:"+ values[id].outputHitStunDuration;
 
         float preDecayReward = Mathf.Clamp(values[id].outputReward, 0f, attackInfo.favorReward);
         float preOutputHitStun = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
 
-        //if (values[id].outputReward > attackInfo.favorReward)
-        //{
-        //    values[id].outputReward = attackInfo.favorReward;
-        //}
-        //else if (values[id].outputHitStunDuration < 0f)
-        //{
-        //    values[id].outputReward = 0f;
-        //}
-
-        //if (values[id].outputHitStunDuration > attackInfo.hitStunDuration)
-        //{
-        //    values[id].outputHitStunDuration = attackInfo.hitStunDuration;
-        //}
-        //else if (values[id].outputHitStunDuration < 0f)
-        //{
-        //    values[id].outputHitStunDuration = 0f;
-        //}
-
-        //float preDecayReward = values[id].outputReward;
-        //float preOutputHitStun = values[id].outputHitStunDuration;
-
-        //Debug.Log("predecay: " + preDecayReward);
-
         values[id].outputReward = Mathf.Clamp(preDecayReward - (attackInfo.favorReward * Services.FavorManager.DecayValue), 0f, attackInfo.favorReward);
         values[id].outputHitStunDuration = Mathf.Clamp(preOutputHitStun - (attackInfo.hitStunDuration * Services.FavorManager.DecayValue), 0f, attackInfo.hitStunDuration);
-
-        //values[id].outputReward -= preDecayReward * Services.FavorManager.DecayValue;
-        //values[id].outputHitStunDuration -= preOutputHitStun * Services.FavorManager.DecayValue;
-
-        //if (values[id].outputReward < 0f)
-        //{
-        //    values[id].outputReward = 0f;
-        //}
-        //if (values[id].outputHitStunDuration < 0f)
-        //{
-        //    values[id].outputHitStunDuration = 0f;
-        //}
 
         //debugText.text = attackInfo.hitStunDuration.ToString();
         //Debug.Log("postdecay:" + values[id].outputReward);
@@ -171,24 +186,6 @@ public class AttackInfoManager : MonoBehaviour
         }
         //values[id].outputReward = preDecayReward;
         //values[id].outputHitStunDuration = preOutputHitStun;
-
-        //if (values[id].outputReward > attackInfo.favorReward)
-        //{
-        //    values[id].outputReward = attackInfo.favorReward;
-        //}
-        //else if (values[id].outputHitStunDuration < 0f)
-        //{
-        //    values[id].outputReward = 0f;
-        //}
-
-        //if (values[id].outputHitStunDuration > attackInfo.hitStunDuration)
-        //{
-        //    values[id].outputHitStunDuration = attackInfo.hitStunDuration;
-        //}
-        //else if (values[id].outputHitStunDuration < 0f)
-        //{
-        //    values[id].outputHitStunDuration = 0f;
-        //}
 
         values[id].outputReward = Mathf.Clamp(values[id].outputReward, 0f, attackInfo.favorReward);
         values[id].outputHitStunDuration = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
