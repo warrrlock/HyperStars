@@ -50,7 +50,7 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void Update() {
-        SpriteUpdate();
+        AfterImageUpdate();
     }
 
     private void OnDestroy()
@@ -70,7 +70,6 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
-        // _fighter.Events.onLandedNeutral += LayerResetTest;
         _fighter.Events.wallBounce += WallWave;
     }
     
@@ -86,17 +85,14 @@ public class CharacterVFXManager : MonoBehaviour
     void DashSmoke() {
         if (_fighter.MovementController.IsGrounded)
         {
-            _vfxSpawnManager.InitializeVFX(VFXGraphs.DASH_SMOKE, transform.localPosition + new Vector3(0f, 
+            _vfxSpawnManager.InitializeVFX(VFXGraphs.SMOKE_DASH, transform.localPosition + new Vector3(0f, 
                         dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
         }
     }
     
     void JumpSmoke(InputManager.Action action) {
-        _vfxSpawnManager.InitializeVFX(VFXGraphs.JUMP_SMOKE, transform.localPosition + new Vector3(0f, 
+        _vfxSpawnManager.InitializeVFX(VFXGraphs.SMOKE_JUMP, transform.localPosition + new Vector3(0f, 
             jumpSmokeGroundOffset, 0f), GetComponent<Fighter>());
-        
-        // layer culling
-        // Services.CameraManager.SetPlayerInFront(true);
     }
 
     void BlockGlow(Dictionary<string, object> d)
@@ -123,7 +119,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     void GroundWave()
     {
-        _vfxSpawnManager.InitializeVFX(VFXGraphs.GROUND_WAVE, transform.localPosition + new Vector3(0, .3f, 0));
+        _vfxSpawnManager.InitializeVFX(VFXGraphs.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
         
         // layer culling
         // Services.CameraManager.SetPlayerInFront(false);
@@ -137,7 +133,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     void WallWave()
     {
-        _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphs.WALL_WAVE_RIGHT : VFXGraphs.WALL_WAVE_LEFT,
+        _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphs.WAVE_WALL_RIGHT : VFXGraphs.WAVE_WALL_LEFT,
             transform.localPosition + new Vector3(0, 0f, 0));
     }
     /// <summary>
@@ -173,7 +169,7 @@ public class CharacterVFXManager : MonoBehaviour
         sr.material.SetFloat("_Vertical_Shake_Trigger", 0f);
     }
 
-    void SpriteUpdate() {
+    void AfterImageUpdate() {
         if (_hasDelay)
         {
             if (_delayTimer > 0)
@@ -190,8 +186,7 @@ public class CharacterVFXManager : MonoBehaviour
         {
             visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
         }
-        
-        
+
         visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 
@@ -201,11 +196,9 @@ public class CharacterVFXManager : MonoBehaviour
         visualEffect.SendEvent("OnStop");
         foreach (BaseState wantedState in _afterImageStates)
         {
-            if (s == wantedState)
-            {
-                visualEffect.SendEvent("OnDash");
-                break;
-            }
+            if (s != wantedState) continue;
+            visualEffect.SendEvent("OnDash");
+            break;
         }
 
         // spawn blur
