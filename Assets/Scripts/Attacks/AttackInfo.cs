@@ -5,7 +5,8 @@ using UnityEngine;
 [Serializable]
 public class AttackInfo
 {
-    public int Id;
+    public int idSO;
+    public int idManager;
 
     public enum AttackType {None, Light, Medium, Heavy, Special}
     public AttackType attackType = AttackType.None;
@@ -55,15 +56,21 @@ public class AttackInfo
     [Tooltip("Referenced is a single bar. For example, 0.2 means this state increments special bar by 0.2 bars.")]
     public float incrementBarAmount;
 
-    public void Initialize(AttackInfoManager manager, int id)
-    {
-        Id = id;
-        //outputReward = favorReward;
-        //outputHitStunDuration = hitStunDuration;
-        //manager.values[id] = new(favorReward, hitStunDuration);
-        manager.values[Id].outputReward = favorReward;
-        manager.values[Id].outputHitStunDuration = hitStunDuration;
-    }
+    [Header("Multi-Hit")]
+    [Tooltip("Set >1 to create multi-hit attack.")]
+    public int multiHitCount;
+    [Tooltip("The duration between multi-hits.")]
+    public float multiHitInterval;
+
+    //public void Initialize(AttackInfoManager manager, int id)
+    //{
+    //    idSO = id;
+    //    //outputReward = favorReward;
+    //    //outputHitStunDuration = hitStunDuration;
+    //    //manager.values[id] = new(favorReward, hitStunDuration);
+    //    manager.values[idSO].outputReward = favorReward;
+    //    manager.values[idSO].outputHitStunDuration = hitStunDuration;
+    //}
 
     ////[SerializeField]
     //public IEnumerator Decay()
