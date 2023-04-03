@@ -6,16 +6,15 @@ public class DolphinAnimation : MonoBehaviour
 {
     public Animator anim;
     public int ranNumb;
-    // Start is called before the first frame update
+
     void Start()
     {
         StartCoroutine(checkDolphin());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        StopAllCoroutines();
     }
 
     IEnumerator checkDolphin()
