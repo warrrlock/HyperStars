@@ -50,7 +50,7 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void Update() {
-        SpriteUpdate();
+        AfterImageUpdate();
     }
 
     private void OnDestroy()
@@ -70,7 +70,6 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
-        // _fighter.Events.onLandedNeutral += LayerResetTest;
         _fighter.Events.wallBounce += WallWave;
     }
     
@@ -94,9 +93,6 @@ public class CharacterVFXManager : MonoBehaviour
     void JumpSmoke(InputManager.Action action) {
         _vfxSpawnManager.InitializeVFX(VFXGraphs.JUMP_SMOKE, transform.localPosition + new Vector3(0f, 
             jumpSmokeGroundOffset, 0f), GetComponent<Fighter>());
-        
-        // layer culling
-        // Services.CameraManager.SetPlayerInFront(true);
     }
 
     void BlockGlow(Dictionary<string, object> d)
@@ -173,7 +169,7 @@ public class CharacterVFXManager : MonoBehaviour
         sr.material.SetFloat("_Vertical_Shake_Trigger", 0f);
     }
 
-    void SpriteUpdate() {
+    void AfterImageUpdate() {
         if (_hasDelay)
         {
             if (_delayTimer > 0)
@@ -190,8 +186,7 @@ public class CharacterVFXManager : MonoBehaviour
         {
             visualEffect.SetTexture("MainTex2D", _spriteRenderer.sprite.texture);
         }
-        
-        
+
         visualEffect.SetBool("FaceLeft", _fighter.FacingDirection == Fighter.Direction.Left);
     }
 
@@ -201,11 +196,9 @@ public class CharacterVFXManager : MonoBehaviour
         visualEffect.SendEvent("OnStop");
         foreach (BaseState wantedState in _afterImageStates)
         {
-            if (s == wantedState)
-            {
-                visualEffect.SendEvent("OnDash");
-                break;
-            }
+            if (s != wantedState) continue;
+            visualEffect.SendEvent("OnDash");
+            break;
         }
 
         // spawn blur

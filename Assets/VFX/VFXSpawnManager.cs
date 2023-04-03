@@ -6,8 +6,13 @@ using UnityEngine.VFX;
 
 public enum VFXGraphs
 {
-    LISA_HIT_1, LISA_HIT_5, LISA_HIT_PARRY, DASH_SMOKE, JUMP_SMOKE, GROUND_WAVE, WALL_WAVE_RIGHT, WALL_WAVE_LEFT, RAND_NUTS,
+    LISA_HIT, BLUK_HIT, LISA_HIT_PARRY, DASH_SMOKE, JUMP_SMOKE, GROUND_WAVE, WALL_WAVE_RIGHT, WALL_WAVE_LEFT, RAND_NUTS,
     TWT_HIT, TWT_DEF
+}
+
+public enum VFXTypes
+{
+    Hit_Base, Hit_Character, Hit_Special, Combat_Neutral
 }
 
 public class VFXSpawnManager : MonoBehaviour
@@ -59,18 +64,42 @@ public class VFXSpawnManager : MonoBehaviour
 
     public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
     {
-        VisualEffect newVFX = Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        // VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        // newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
+        Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
     }
     
     public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter triggerFighter)
     {
         VisualEffect newVFX = Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        // VisualEffect newVFX = Instantiate(spawnedVfxObject, spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
-        // newVFX.visualEffectAsset = visualEffectAssets[(int)graphIndex];
-        // if (graphIndex == VFXGraphs.LISA_HIT_5) newVFX.SetFloat("Size", vfxSize);
         newVFX.GetComponent<VFXCleanUp>().f = triggerFighter;
+    }
+
+    public void InitializeVFX(VFXTypes type, Vector3 spawnPos, Fighter triggerFighter)
+    {
+        VFXGraphs vfxGraph = VFXGraphs.TWT_HIT;
+        string charName = Services.Characters[triggerFighter.PlayerId].name;
+        switch (type)
+        {
+            case VFXTypes.Hit_Character:
+                vfxGraph = CharacterVFXPickerLight(charName);
+                break;
+            case VFXTypes.Hit_Special:
+                vfxGraph = CharacterVFXPickerLight(charName);
+                break;
+        }
+        InitializeVFX(vfxGraph, spawnPos, triggerFighter);
+    }
+
+    public VFXGraphs CharacterVFXPickerLight(string charName)
+    {
+        switch (charName)
+        {
+            case "Lisa":
+                return VFXGraphs.LISA_HIT;
+            case "BLUK":
+                return VFXGraphs.BLUK_HIT;
+        }
+
+        return VFXGraphs.TWT_HIT;
     }
 
     void PlayHitVFX(Dictionary<string, object> message)
@@ -83,8 +112,7 @@ public class VFXSpawnManager : MonoBehaviour
             AttackInfo attackInfo = (AttackInfo)message["attack info"];
 
             CameraManager cam = Services.CameraManager;
-
-            InitializeVFX(VFXGraphs.LISA_HIT_1, hitPos, sender);
+            
             InitializeVFX(VFXGraphs.TWT_HIT, hitPos, sender);
             InitializeVFX(VFXGraphs.RAND_NUTS, hitPos, receiver);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
@@ -104,6 +132,7 @@ public class VFXSpawnManager : MonoBehaviour
                     }
                     break;
                 case AttackInfo.AttackType.Medium:
+                    InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
                     if (turnOnSilhouetteOnMediumAttacks)
                     {
                         Material[] mats =
@@ -148,9 +177,10 @@ public class VFXSpawnManager : MonoBehaviour
             Debug.Log("key was not found in dictionary.");
         }
     }
-
+    
     private void OnDisable()
     {
+        // skybox rotation reset
         RenderSettings.skybox.SetFloat("_Rotation", 0);
     }
 }
