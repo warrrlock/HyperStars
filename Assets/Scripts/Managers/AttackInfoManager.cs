@@ -93,8 +93,8 @@ public class AttackInfoManager : MonoBehaviour
             {
                 idSO = idSO,
                 idManager = _nextInfoId,
-                hitStunDuration = Services.Characters[0].AttackInfos[i].hitStunDuration,
-                favorReward = Services.Characters[0].AttackInfos[i].favorReward
+                hitStunDuration = Services.Characters[1].AttackInfos[i].hitStunDuration,
+                favorReward = Services.Characters[1].AttackInfos[i].favorReward
             };
             //attackInfos1.Add(new AttackInfo
             //{

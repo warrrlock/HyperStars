@@ -45,8 +45,8 @@ public class Fighter : MonoBehaviour
     private void Awake()
     {
         AssignComponents();
-        //PlayerId = PlayerInput.playerIndex;
-        PlayerId = PlayerInput.playerIndex == 0 ? 1 : 0;
+        PlayerId = PlayerInput.playerIndex;
+        //PlayerId = PlayerInput.playerIndex == 0 ? 1 : 0;
         //Debug.Log(PlayerId);
 
         Services.Fighters[PlayerId] = this;
