@@ -137,7 +137,8 @@ public class CharacterVFXManager : MonoBehaviour
 
     void WallWave()
     {
-        _vfxSpawnManager.InitializeVFX(VFXGraphs.WALL_WAVE, transform.localPosition + new Vector3(0, 4.5f, 0));
+        _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphs.WALL_WAVE_RIGHT : VFXGraphs.WALL_WAVE_LEFT,
+            transform.localPosition + new Vector3(0, 0f, 0));
     }
     /// <summary>
     /// Coroutine for shaking the character during hit stop
