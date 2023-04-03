@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Crouch Special
   m_EditorClassIdentifier: 
   characterSelection: 1
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 0
   _isCrouchState: 1
   _isSpecial: 1
@@ -37,6 +36,8 @@ MonoBehaviour:
   _transitions: []
   _defaultCombo: 0
   _attackInfo:
+    idSO: 8
+    idManager: 0
     attackType: 3
     hitSfxEvent:
       idInternal: 0
@@ -48,7 +49,7 @@ MonoBehaviour:
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 1
+    hitStunDuration: 1.8
     causesWallBounce: 0
     hitStopDuration: 0.3
     wallBounceDuration: 0
@@ -64,4 +65,6 @@ MonoBehaviour:
     favorReward: 10
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 0}
