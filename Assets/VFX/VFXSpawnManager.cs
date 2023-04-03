@@ -6,8 +6,11 @@ using UnityEngine.VFX;
 
 public enum VFXGraphs
 {
-    LISA_HIT, BLUK_HIT, LISA_HIT_PARRY, DASH_SMOKE, JUMP_SMOKE, GROUND_WAVE, WALL_WAVE_RIGHT, WALL_WAVE_LEFT, RAND_NUTS,
-    TWT_HIT, TWT_DEF
+    HIT_BASE, HIT_LISA_HEART, HIT_BLUK_TEMP, 
+    PARRY, PARRY_TWT,
+    SMOKE_DASH, SMOKE_JUMP, 
+    WAVE_GROUND, WAVE_WALL_RIGHT, WAVE_WALL_LEFT, 
+    RAND_NUTS,
 }
 
 public enum VFXTypes
@@ -75,7 +78,7 @@ public class VFXSpawnManager : MonoBehaviour
 
     public void InitializeVFX(VFXTypes type, Vector3 spawnPos, Fighter triggerFighter)
     {
-        VFXGraphs vfxGraph = VFXGraphs.TWT_HIT;
+        VFXGraphs vfxGraph = VFXGraphs.HIT_BASE;
         string charName = Services.Characters[triggerFighter.PlayerId].name;
         switch (type)
         {
@@ -94,12 +97,12 @@ public class VFXSpawnManager : MonoBehaviour
         switch (charName)
         {
             case "Lisa":
-                return VFXGraphs.LISA_HIT;
+                return VFXGraphs.HIT_LISA_HEART;
             case "BLUK":
-                return VFXGraphs.BLUK_HIT;
+                return VFXGraphs.HIT_BLUK_TEMP;
         }
 
-        return VFXGraphs.TWT_HIT;
+        return VFXGraphs.HIT_BASE;
     }
 
     void PlayHitVFX(Dictionary<string, object> message)
@@ -113,7 +116,7 @@ public class VFXSpawnManager : MonoBehaviour
 
             CameraManager cam = Services.CameraManager;
             
-            InitializeVFX(VFXGraphs.TWT_HIT, hitPos, sender);
+            InitializeVFX(VFXGraphs.HIT_BASE, hitPos, sender);
             InitializeVFX(VFXGraphs.RAND_NUTS, hitPos, receiver);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
             // camera based on hits
@@ -145,9 +148,11 @@ public class VFXSpawnManager : MonoBehaviour
                     StartCoroutine(cam.CameraShake(.2f, .08f));
                     break;
                 case AttackInfo.AttackType.Heavy:
+                    InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
                     StartCoroutine(cam.CameraShake(.3f, .19f));
                     break;
                 case AttackInfo.AttackType.Special:
+                    InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
                     StartCoroutine(cam.CameraZoom(.2f, 36f, .16f, -.45f));
                     StartCoroutine(cam.CameraShake(.3f, .19f));
                     break;
@@ -169,7 +174,7 @@ public class VFXSpawnManager : MonoBehaviour
             Vector3 hitPos = (Vector3) message["hit point"];
             Fighter sender = (Fighter) message["attacker"];
             Fighter receiver = (Fighter) message["attacked"];
-            InitializeVFX(VFXGraphs.TWT_DEF, hitPos, sender);
+            InitializeVFX(VFXGraphs.PARRY_TWT, hitPos, sender);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(sender, 98f, 2f, .5f));
         }
         catch (KeyNotFoundException)
