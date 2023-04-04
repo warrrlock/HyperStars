@@ -93,8 +93,13 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         AssignComponents();
-        SubscribeActions();
         CreateDictionary();
+        SubscribeActions();
+    }
+
+    private void Start()
+    {
+        Disable(Actions["Roll"]); //TODO: better way to do this?
     }
 
     private void OnDestroy()
@@ -112,6 +117,7 @@ public class InputManager : MonoBehaviour
         StopAllCoroutines();
         IgnoreQueuePerform = false;
         EnableAll();
+        Disable(Actions["Roll"]); //TODO: better way to do this?
     }
 
     private void AssignComponents()
@@ -156,9 +162,13 @@ public class InputManager : MonoBehaviour
                     {
                         action.perform?.Invoke(action);
                     }
+                    else if (action == Actions["Roll"])
+                    {
+                        //Debug.Log("can't roll");
+                    }
                     else if (action.disabledCount > 0)
                     {
-                        if (!action.isPerformQueued && !IgnoreQueuePerform)
+                        if (!action.isPerformQueued)
                         {
                             action.queuePerform = QueuePerform(action);
                             StartCoroutine(action.queuePerform);
@@ -244,6 +254,18 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void Disable(params Action[] actionsToDisable)
+    {
+        foreach (InputManager.Action action in actionsToDisable)
+        {
+            action.disabledCount = int.MaxValue;
+        }
+        //for (int i = 0; i < actionsToDisable.Length; i++)
+        //{
+        //    actionsToDisable[i].disabledCount = 1;
+        //}
+    }
+
     public IEnumerator Disable(float duration, params Action[] actionsToDisable)
     {
         foreach (InputManager.Action action in actionsToDisable)
@@ -300,6 +322,21 @@ public class InputManager : MonoBehaviour
             if (action.disabledCount > 0) action.disabledCount--;
         }
         yield break;
+    }
+
+    public void EnableOneShot(params Action[] actionsToEnable)
+    {
+        foreach (InputManager.Action action in actionsToEnable)
+        {
+            StartCoroutine(OneShot(action));
+        }
+
+        IEnumerator OneShot(Action actionToEnable)
+        {
+            actionToEnable.disabledCount = 0;
+            yield return new WaitUntil(() => actionToEnable.isBeingPerformed);
+            Disable(actionToEnable);
+        }
     }
 
     public IEnumerator DisableAll(float duration)
