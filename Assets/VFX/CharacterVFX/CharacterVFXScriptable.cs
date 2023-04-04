@@ -6,5 +6,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Character VFX Set")]
 public class CharacterVFXScriptable : ScriptableObject
 {
-    [field: SerializeField] public GameObject[] VFXSet { private set; get; }
+    [field: SerializeField] public GameObject[] VFXSet { get; private set; }
 }

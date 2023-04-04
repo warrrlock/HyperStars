@@ -75,7 +75,7 @@ public class VFXSpawnManager : MonoBehaviour
 
     public void InitializeVFX(VFXGraphsNeutral graphIndex, Vector3 spawnPos)
     {
-        Instantiate(visualEffectPrefabsNeutral[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        Instantiate(visualEffectPrefabsNeutral[(int)graphIndex], spawnPos, Quaternion.identity);
     }
     
     public void InitializeVFX(VFXGraphsNeutral graphIndex, Vector3 spawnPos, Fighter triggerFighter)
@@ -160,10 +160,12 @@ public class VFXSpawnManager : MonoBehaviour
                 case AttackInfo.AttackType.Heavy:
                     InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
                     StartCoroutine(cam.CameraShake(.3f, .19f));
+                    StartCoroutine(cam.CameraZoom(.2f, 39f, .1f, -.02f));
+                    StartCoroutine(cam.CameraRipple(hitPos));
                     break;
                 case AttackInfo.AttackType.Special:
                     InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
-                    StartCoroutine(cam.CameraZoom(.2f, 36f, .16f, -.45f));
+                    StartCoroutine(cam.CameraZoom(.2f, 36f, .16f, -.02f));
                     StartCoroutine(cam.CameraShake(.3f, .19f));
                     break;
                 default:
@@ -192,7 +194,7 @@ public class VFXSpawnManager : MonoBehaviour
             Debug.Log("key was not found in dictionary.");
         }
     }
-    
+
     private void OnDisable()
     {
         // skybox rotation reset

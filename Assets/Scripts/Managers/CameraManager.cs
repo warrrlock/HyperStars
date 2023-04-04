@@ -42,11 +42,9 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Material ieMaterial;
     private float defaultDistortion;
     [SerializeField] private GameObject blurFilterPrefab;
-    [SerializeField] private Shader blurShader;
     [SerializeField] private Material silhouetteMaterial;
     [SerializeField] private Camera silhouetteCamera;
-    [SerializeField] private Camera uiCamera;
-    [SerializeField] private Canvas favorCanvas;
+    [SerializeField] private Material rippleMaterial;
 
     private void Awake()
     {
@@ -209,6 +207,8 @@ public class CameraManager : MonoBehaviour
     private void OnDisable()
     {
         ieMaterial.SetFloat("_distortion", defaultDistortion);
+        rippleMaterial.SetFloat("_RippleStrength", 0);
+        rippleMaterial.SetVector("_RipplePos", Vector4.zero);
     }
 
     /// <summary>
@@ -222,9 +222,7 @@ public class CameraManager : MonoBehaviour
         var dir = sender.gameObject.transform.position - transform.position;
         var r = new Ray(transform.position, dir);
         var spawnedBlurFilter = Instantiate(blurFilterPrefab, r.GetPoint(2), Quaternion.identity, transform);
-        // Material blurMaterial = new Material(blurShader);
-        // spawnedBlurFilter.GetComponent<MeshRenderer>().material = blurMaterial;
-        
+
         // lerp to blur
         var blurElapsed = 0f;
         while (blurElapsed < .05f)
@@ -248,6 +246,37 @@ public class CameraManager : MonoBehaviour
 
         yield return new WaitForFixedUpdate();
         Destroy(spawnedBlurFilter);
+    }
+
+    /// <summary>
+    /// Camera ripple effect
+    /// </summary>
+    /// <param name="hitPos"></param>
+    /// <returns></returns>
+    public IEnumerator CameraRipple(Vector3 hitPos)
+    {
+        rippleMaterial.SetVector("_RipplePos", GetScreenPoint(hitPos));
+        
+        // lerp to ripple
+        var rippleElapsed = 0f;
+        while (rippleElapsed < .05f)
+        {
+            rippleMaterial.SetFloat("_RippleStrength", Mathf.Lerp(rippleMaterial.GetFloat("_RippleStrength"), .09f, rippleElapsed / .05f));
+            rippleElapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(.2f);
+        // lerp to unripple
+        var unrippleElapsed = 0f;
+        while (unrippleElapsed < .02f)
+        {
+            rippleMaterial.SetFloat("_RippleStrength", Mathf.Lerp(rippleMaterial.GetFloat("_RippleStrength"), 0f, unrippleElapsed / .05f));
+            unrippleElapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForFixedUpdate();
+        rippleMaterial.SetFloat("_RippleStrength", 0);
     }
 
     private Material[] bothMats;
@@ -277,26 +306,10 @@ public class CameraManager : MonoBehaviour
         LayerCullingHide(silhouetteCamera, "Player");
     }
 
-    /// <summary>
-    /// testing player in front of UI
-    /// </summary>
-    public void SetPlayerInFront(bool isFront)
+    public static Vector2 GetScreenPoint(Vector3 targetPos)
     {
-        if (isFront)
-        {
-            // LayerCullingShow(uiCamera, "Player");
-            // LayerCullingShow(uiCamera, "UI");
-            LayerCullingHide(uiCamera, "UI");
-            LayerCullingShow(Camera.main, "UI");
-            favorCanvas.worldCamera = Camera.main;
-        }
-        else
-        {
-            // LayerCullingHide(uiCamera, "Player");
-            // LayerCullingShow(uiCamera, "UI");
-            LayerCullingShow(uiCamera, "UI");
-            LayerCullingHide(Camera.main, "UI");
-            favorCanvas.worldCamera = uiCamera;
-        }
+        Camera cam = Camera.main;
+        Vector3 screenPos = cam.WorldToScreenPoint(targetPos);
+        return new Vector2(screenPos.x / cam.pixelWidth, screenPos.y / cam.pixelHeight);
     }
 }
