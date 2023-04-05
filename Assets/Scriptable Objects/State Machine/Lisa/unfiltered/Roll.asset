@@ -10,67 +10,57 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19cdf54f2bde4cdda17ed939e8e2f52f, type: 3}
-  m_Name: Heavy Atk
+  m_Name: Roll
   m_EditorClassIdentifier: 
   characterSelection: 1
-  _bypassHitConfirm: 1
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
-  _animationName: HeavyAtk
-  _animationHash: 95592480
+  _animationName: Roll Getup
+  _animationHash: -1496229554
   NodeInfo:
     rect:
       serializedVersion: 2
-      x: -312
-      y: 392
-      width: 150
-      height: 50
-  _filters:
-  - filterName: attack
-    color: {r: 0.8773585, g: 0.84613436, b: 0.27727836, a: 1}
-    focus: 0
-    edit: 0
-  - filterName: special
-    color: {r: 0.21698113, g: 0.8014701, b: 0.8679245, a: 1}
-    focus: 0
-    edit: 0
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+  _filters: []
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
-  _transitions:
-  - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
-  - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
+  _transitions: []
   _defaultCombo: 0
   _attackInfo:
-    idSO: 12
+    idSO: 23
     idManager: 0
-    attackType: 3
+    attackType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
-    knockbackDuration: 0.5
-    knockbackDistance: 10
-    knockbackDirection: {x: 1, y: 1, z: 0}
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 1.8
-    causesWallBounce: 1
-    hitStopDuration: 0.28
-    wallBounceDuration: 2
-    wallBounceDistance: 35
-    wallBounceDirection: {x: -1, y: 2, z: 0}
-    wallBounceHitStopDuration: 0.28
+    hitStunDuration: 0
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
     causesGroundBounce: 0
     groundBounceDuration: 0
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.2
-    favorReward: 10
-    knockbackForce: {x: 30.8089, y: 100}
-    incrementBarAmount: 0.25
+    hangTime: 0
+    favorReward: 0
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0
     multiHitCount: 0
     multiHitInterval: 0
   _projectilePrefab: {fileID: 0}
