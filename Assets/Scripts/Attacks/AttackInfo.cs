@@ -41,7 +41,14 @@ public class AttackInfo
     public Vector3 groundBounceDirection;
     public float groundBounceHitStopDuration;
 
-    public float hangTime;
+    [Header("Gravity Modifiers")]
+    public float hangTime; //TODO: should this just be replaced with gravity augment?
+    [Tooltip("The percentage by which to augment gravity when the hit opponent starts falling. Ex: 0.25 will cause gravity to be quartered.")]
+    [Range(0f, 1f)] public float gravityAugmentFactor = 1f;
+    [Tooltip("The duration to augment hit opponent gravity for.")]
+    public float gravityAugmentDuration;
+
+    [Header("Favor Meter")]
     [Tooltip("How much favor is gained upon hitting the opponent.")]
     public float favorReward;
 
