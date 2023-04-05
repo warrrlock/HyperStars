@@ -1109,6 +1109,33 @@ public class MovementController : MonoBehaviour
         _fighter.OpposingFighter.MovementController._gravityModifier = 1f;
     }
 
+    private IEnumerator _gravityAugmenter;
+    private bool _isGravityAugmenting = false;
+
+    public void AugmentGravity(float factor, float duration)
+    {
+        if (_isGravityAugmenting)
+        {
+            StopCoroutine(_gravityAugmenter);
+        }
+        _gravityAugmenter = GravityAugmenter(factor, duration);
+        StartCoroutine(_gravityAugmenter);
+    }
+
+    private IEnumerator GravityAugmenter(float factor, float duration)
+    {
+        Debug.Log("p");
+        _isGravityAugmenting = true;
+        yield return new WaitUntil(() => _netVelocity.y < 0f);
+        Debug.Log("e");
+        _gravityModifier = factor;
+        yield return new WaitForSeconds(duration);
+        Debug.Log("n");
+        _gravityModifier = 1f; //TODO: only reset this if they're not being augmented elsewhere
+        _isGravityAugmenting = false;
+        yield break;
+    }
+
     private Vector3 _dashDirection = Vector3.zero;
     private bool _isDashing = false;
 
