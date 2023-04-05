@@ -36,7 +36,7 @@ namespace FiniteStateMachine {
         public SerializedDictionary<BaseState, StateEvent> States;
 
         public BaseState CurrentState {get; private set;}
-        public bool CanCombo(bool alwaysHitConfirm = false) => _canCombo && (_hitOpponent || alwaysHitConfirm);
+        public bool CanCombo(bool alwaysHitConfirm = false) => _canCombo && (HitOpponent || alwaysHitConfirm);
         private bool _canCombo;
         private bool CanInputQueue { get; set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
@@ -82,7 +82,7 @@ namespace FiniteStateMachine {
         private bool _isAttacking;
         private bool _holdingCrouch;
 
-        private bool _hitOpponent;
+        public bool HitOpponent { get; private set; }
 
         // private bool _queueJumpOnGround;
 
@@ -291,7 +291,7 @@ namespace FiniteStateMachine {
         
         private void SetHitOpponent(Dictionary<string, Object> message)
         {
-            _hitOpponent = true;
+            HitOpponent = true;
         }
 
         public void ClearQueues()
@@ -370,7 +370,7 @@ namespace FiniteStateMachine {
             // Debug.Log("handling state animation");
             if (States.ContainsKey(CurrentState)) States[CurrentState].stop?.Invoke();
             _currentAnimation = -1;
-            _hitOpponent = false;
+            HitOpponent = false;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();
         }

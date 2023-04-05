@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Roll",
+                    "type": "Value",
+                    "id": "915d808a-3ad3-4cc0-bf48-20b36f61f7de",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": "Joystick(pressPoint=0.5)",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Side Jump",
                     "type": "Value",
                     "id": "194a5f28-2ac3-4996-90b8-80fb7e91abf2",
@@ -1156,6 +1165,61 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Side Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WD",
+                    "id": "f7c4a781-2c11-4e80-9b03-c72072a238fd",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "02eb1408-0f48-47b5-91a7-a4bc34cc3450",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "dd9d6c4b-d82f-4d81-9517-46774a0a66aa",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "26eb3eb1-f074-4b58-bbca-302454795ae6",
+                    "path": "<Gamepad>/leftStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "29ebf2af-9a56-40d7-9de4-6622613eeb77",
+                    "path": "<Gamepad>/dpad/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
