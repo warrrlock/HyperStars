@@ -37,6 +37,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private Vector2 _jumpDistance;
     [SerializeField] private float _jumpDuration;
     [SerializeField] private float _gravity;
+    private float _gravityModifier = 1f;
     private float _diagonalJumpDistance;
     private float _verticalJumpForce;
     private float _horizontalJumpForce;
@@ -347,7 +348,7 @@ public class MovementController : MonoBehaviour
         Vector3 preGravityVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
         if (_isGravityApplied)
         {
-            _unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
+            _unforcedVelocity.y -= _gravity * _gravityModifier * Time.fixedDeltaTime;
         }
         //_netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
         _netVelocity = _unforcedVelocity + _forceVelocity + overlapResolutionVelocity;
@@ -424,6 +425,7 @@ public class MovementController : MonoBehaviour
     {
         StopMoving();
         ResetVelocityY();
+        RestoreDefaultGravity();
     }
 
     private void KillAllForces()
@@ -866,10 +868,6 @@ public class MovementController : MonoBehaviour
         {
             CalculateCollisions(ref velocity, ref _collisionData.x, Axis.x);
         }
-        //if (velocity.z != 0)
-        //{
-        //    CalculateCollisions(ref velocity, ref _collisionData.z, Axis.z);
-        //}
         if (velocity.y != 0)
         {
             CalculateCollisions(ref velocity, ref _collisionData.y, Axis.y);
@@ -951,12 +949,6 @@ public class MovementController : MonoBehaviour
 
         float rayLength = Mathf.Abs(axisVelocity) + _skinWidth;
 
-        //if (axis == Axis.y)
-        //{
-        //    //_collisionMask.RemoveLayers(9);
-        //    RemoveCollisionLayer(9);
-        //}
-
         for (int i = 0; i < rayCount; i++)
         {
             for (int j = 0; j < 1; j++)
@@ -1027,30 +1019,12 @@ public class MovementController : MonoBehaviour
                     collisionAxis.isPositiveHit = axisDirection == 1f;
                 }
 
-                //if (axis == Axis.y)
-                //{
-                //    if(Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit overlapHit, rayLength, _playerMask))
-                //    {
-                //        if (!_isResolvingOverlap)
-                //        {
-                //            StartCoroutine(ResolveOverlap());
-                //            StartCoroutine(_fighter.OpposingFighter.MovementController.ResolveOverlap());
-                //        }
-                //    }
-                //}
-
                 if (_drawDebugRays)
                 {
                     Debug.DrawRay(rayOrigin, axisDirection * rayLength * rayDirection, Color.red);
                 }
             }
         }
-
-        //if (axis == Axis.y)
-        //{
-        //    //_collisionMask.AddLayers(9);
-        //    //AddCollisionLayer(9);
-        //}
     }
 
     public IEnumerator GetPushedByOpponent(float speed, int axisDirection, Func<bool> stopCondition)
@@ -1064,6 +1038,7 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
+    //TODO: this is deprecated
     public IEnumerator ResolveOverlap()
     {
         _isResolvingOverlap = true;
@@ -1087,71 +1062,51 @@ public class MovementController : MonoBehaviour
 
     private void StartMoving()
     {
-        //if (_isJumping)
-        //{
-        //    if (!_canDiagonalJump)
-        //    {
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        ApplyForce(inputVector, _horizontalJumpForce, _jumpDuration * 2f, false);
-        //        _canDiagonalJump = false;
-        //    }
-        //}
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
         inputVector *= _moveSpeed;
         _unforcedVelocity.x = inputVector.x;
-        //if (_isFlipQueued)
-        //{
-        //    if (inputVector == Vector2.left && _nextFlipDirection == Fighter.Direction.Left)
-        //    {
-        //        StopCoroutine(_flipCoroutine);
-        //        _fighter.FlipCharacter(_nextFlipDirection);
-        //        _isFlipQueued = false;
-        //    }
-        //    if (inputVector == Vector2.right && _nextFlipDirection == Fighter.Direction.Right)
-        //    {
-        //        StopCoroutine(_flipCoroutine);
-        //        _fighter.FlipCharacter(_nextFlipDirection);
-        //        _isFlipQueued = false;
-        //    }
-        //}
     }
 
     private void StopMoving()
     {
-        //if (!_isJumping)
-        //{
-        //    _unforcedVelocity.x = 0f;
-        //    _unforcedVelocity.z = 0f;
-        //}
         _unforcedVelocity.x = 0f;
         _unforcedVelocity.z = 0f;
-        //else if (!_landingIsAwaited)
-        //{
-        //    StartCoroutine(AwaitLanding());
-        //}
     }
 
     private bool _landingIsAwaited = false;
-
-    //private IEnumerator AwaitLanding()
-    //{
-    //    _landingIsAwaited = true;
-    //    yield return new WaitUntil(() => !_isJumping);
-
-    //    _unforcedVelocity.x = 0f;
-    //    _unforcedVelocity.z = 0f;
-    //    _landingIsAwaited = false;
-    //    yield break;
-    //}
 
     public void Push(float duration)
     {
         float magnitude = (pushDistance * 2f) / (duration + Time.fixedDeltaTime);
         Vector3 direction = _fighter.FacingDirection == Fighter.Direction.Right ? pushDirection : new Vector3(-pushDirection.x, pushDirection.y, pushDirection.z);
         ApplyForce(direction, magnitude, duration, true);
+    }
+
+    public void AugmentOpponentGravity(float factor)
+    {
+        _awaitHitOpponent = AwaitHitOpponent(factor);
+        StartCoroutine(_awaitHitOpponent);
+    }
+
+    private bool _isAwaitingHit = false;
+    private IEnumerator _awaitHitOpponent;
+
+    private IEnumerator AwaitHitOpponent(float factor) //TODO: needs a better name
+    {
+        _isAwaitingHit = true;
+        yield return new WaitUntil(() => _fighter.BaseStateMachine.HitOpponent);
+        _fighter.OpposingFighter.MovementController._gravityModifier = factor;
+        _isAwaitingHit = false;
+        yield break;
+    }
+
+    public void RestoreDefaultGravity()
+    {
+        if (_isAwaitingHit)
+        {
+            StopCoroutine(_awaitHitOpponent);
+        }
+        _fighter.OpposingFighter.MovementController._gravityModifier = 1f;
     }
 
     private Vector3 _dashDirection = Vector3.zero;
