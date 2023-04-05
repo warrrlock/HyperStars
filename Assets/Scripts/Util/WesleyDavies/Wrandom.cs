@@ -25,6 +25,21 @@ namespace WesleyDavies
             return total;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="percentage">Ex. "15" is 15%.</param>
+        /// <returns></returns>
+        public static bool RollPercentChance(float percentage) //TODO: this only works with whole number percentages
+        {
+            int result = RollDie(100, false);
+            if (result <= percentage)
+            {
+                return true;
+            }
+            return false;
+        }
+
         //public static int RollDiceAsymmetric(bool isZeroBased = true, params int[] sideCounts)
         //{
 

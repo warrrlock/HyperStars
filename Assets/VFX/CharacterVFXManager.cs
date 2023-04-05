@@ -67,6 +67,7 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXSubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
+        _inputManager.Actions["Parry"].perform += BlockGlow;
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
@@ -76,6 +77,7 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
+        _inputManager.Actions["Parry"].perform -= BlockGlow;
         _fighter.Events.onBlockHit -= BlockGlow;
         _fighter.Events.onStateChange -= SpawnOnStateChange;
         _fighter.Events.onLandedHurt -= GroundWave;
@@ -85,16 +87,16 @@ public class CharacterVFXManager : MonoBehaviour
     void DashSmoke() {
         if (_fighter.MovementController.IsGrounded)
         {
-            _vfxSpawnManager.InitializeVFX(VFXGraphs.SMOKE_DASH, transform.localPosition + new Vector3(0f, 
+            _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_DASH, transform.localPosition + new Vector3(0f, 
                         dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
         }
     }
     
     void JumpSmoke(InputManager.Action action) {
-        _vfxSpawnManager.InitializeVFX(VFXGraphs.SMOKE_JUMP, transform.localPosition + new Vector3(0f, 
+        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_JUMP, transform.localPosition + new Vector3(0f, 
             jumpSmokeGroundOffset, 0f), GetComponent<Fighter>());
     }
-
+    
     void BlockGlow(Dictionary<string, object> d)
     {
         try
@@ -102,24 +104,37 @@ public class CharacterVFXManager : MonoBehaviour
             Fighter attacked = d["attacked"] as Fighter;
             Fighter attacker = d["attacker"] as Fighter;
             if (!attacker || !attacked) return;
-            StartCoroutine(ParryGlow(attacked));
+            TriggerParry(attacked);
         }
         catch (KeyNotFoundException)
         {
             Debug.Log("blocker not found");
         }
     }
+    
+    void BlockGlow(InputManager.Action action)
+    {
+        TriggerParry(_fighter);
+    }
+
+    private Coroutine parryRoutine;
+    void TriggerParry(Fighter f)
+    {
+        if (parryRoutine != null) StopCoroutine(parryRoutine);
+        parryRoutine = StartCoroutine(ParryGlow(f));
+    }
 
     IEnumerator ParryGlow(Fighter f)
     {
-        f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 1f);
+        SpriteRenderer sr = f.GetComponent<SpriteRenderer>();
+        sr.material.SetFloat("_Parry_Trigger", 1f);
         yield return new WaitForSeconds(.35f);
-        f.GetComponent<SpriteRenderer>().material.SetFloat("_Parry_Trigger", 0f);
+        sr.material.SetFloat("_Parry_Trigger", 0f);
     }
 
     void GroundWave()
     {
-        _vfxSpawnManager.InitializeVFX(VFXGraphs.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
+        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
         
         // layer culling
         // Services.CameraManager.SetPlayerInFront(false);
@@ -133,7 +148,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     void WallWave()
     {
-        _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphs.WAVE_WALL_RIGHT : VFXGraphs.WAVE_WALL_LEFT,
+        _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphsNeutral.WAVE_WALL_RIGHT : VFXGraphsNeutral.WAVE_WALL_LEFT,
             transform.localPosition + new Vector3(0, 0f, 0));
     }
     /// <summary>

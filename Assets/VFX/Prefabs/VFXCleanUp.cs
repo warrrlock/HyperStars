@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -19,9 +20,6 @@ public class VFXCleanUp : MonoBehaviour
         // _lifeTime = _vfx.GetFloat("Life");
         // all vfx destroy after one second
         Destroy(gameObject, 1);
-    }
-
-    void Update() {
         if (f)
         {
             _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
@@ -31,6 +29,14 @@ public class VFXCleanUp : MonoBehaviour
                     ChangeColor();
                     break;
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (f)
+        {
+            _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
         }
     }
 
