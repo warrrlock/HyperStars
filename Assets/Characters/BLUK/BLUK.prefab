@@ -761,6 +761,7 @@ GameObject:
   - component: {fileID: 5316298007501784491}
   - component: {fileID: 8044416736526442607}
   - component: {fileID: 9090122732639109947}
+  - component: {fileID: 7742598783956326620}
   m_Layer: 9
   m_Name: BLUK
   m_TagString: Untagged
@@ -1148,6 +1149,22 @@ MonoBehaviour:
   _skinWidth: 0.1
   _isMoveable: 1
   _rayCount: 3
+  _terrainType: 0
+--- !u!114 &7742598783956326620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093239530658642988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e5d47582199c8468f8c98d79400d34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterSprite: {fileID: 5093239530658642991}
+  currentColorIndex: 0
+  characterColors: {fileID: 11400000, guid: 115319a39d5032b43bf6b8649eab75aa, type: 2}
 --- !u!1 &5093239531031058998
 GameObject:
   m_ObjectHideFlags: 0

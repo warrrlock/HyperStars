@@ -46,8 +46,9 @@ public class Fighter : MonoBehaviour
     {
         AssignComponents();
         PlayerId = PlayerInput.playerIndex;
-        Debug.Log(PlayerId);
-        
+        //PlayerId = PlayerInput.playerIndex == 0 ? 1 : 0;
+        //Debug.Log(PlayerId);
+
         Services.Fighters[PlayerId] = this;
         Events = new FighterEvents();
     }

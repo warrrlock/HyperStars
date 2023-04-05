@@ -10,7 +10,7 @@ public class MusicManager : MonoBehaviour
     public AK.Wwise.Event CrowdLoop;
     public AK.Wwise.Event CrowdHype;
     
-    [HideInInspector] public static GameObject ourMusicManager;
+    [HideInInspector] public static MusicManager ourMusicManager;
     [Range(1, 3)]
     public int Intensity;
     [Range(0, 1)]
@@ -50,7 +50,7 @@ public class MusicManager : MonoBehaviour
     void Start()
     {
         //Set our Music Manager
-        ourMusicManager = gameObject;
+        ourMusicManager = this;
         foreach (Fighter fighter in Services.Fighters)
         {
             MusicEffector effector = fighter.GetComponent<MusicEffector>();
@@ -87,7 +87,7 @@ public class MusicManager : MonoBehaviour
 
         if (Impressed && !impressionCalled)
         {
-            StartChorus(gameObject);
+            StartChorus(this);
             impressionCalled = true;
         }
 
@@ -105,7 +105,7 @@ public class MusicManager : MonoBehaviour
         MusicStop.Post(gameObject);
     }
 
-    public static void StartChorus(GameObject musicManager)
+    public static void StartChorus(MusicManager musicManager)
     {
         if (lockedOut)
         {
@@ -113,19 +113,19 @@ public class MusicManager : MonoBehaviour
         }
         else
         {
-            AkSoundEngine.SetSwitch("MusicState", "chorus", musicManager); //Set which section to play
+            AkSoundEngine.SetSwitch("MusicState", "chorus", musicManager.gameObject); //Set which section to play
             //Declare our music manager
-            MusicManager ourMusicComponent = musicManager.GetComponent<MusicManager>();
+            //MusicManager ourMusicComponent = musicManager.GetComponent<MusicManager>();
             //Set Values
-            ourMusicComponent.inVerse = false;
-            ourMusicComponent.inChorus = true;
+            musicManager.inVerse = false;
+            musicManager.inChorus = true;
 
             if (increaseIntensityAfterChorus)
             {
-                if (ourMusicComponent.Intensity < 3 && !ourMusicComponent.intensityIncremented)
+                if (musicManager.Intensity < 3 && !musicManager.intensityIncremented)
                 {
-                    ourMusicComponent.Intensity++;
-                    ourMusicComponent.intensityIncremented = true;
+                    musicManager.Intensity++;
+                    musicManager.intensityIncremented = true;
                 }
             }
         }
