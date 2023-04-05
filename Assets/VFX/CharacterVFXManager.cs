@@ -13,6 +13,9 @@ public enum vfxAssets {AfterImage, };
 [RequireComponent(typeof(InputManager))]
 public class CharacterVFXManager : MonoBehaviour
 {
+    [Header("Config")]
+    [SerializeField] public VFXConfig vfxConfig;
+    [Header("Character Based VFX")]
     [SerializeField] private VisualEffect visualEffect;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
@@ -73,7 +76,6 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.onLandedHurt += GroundWave;
         _fighter.Events.wallBounce += WallWave;
     }
-    
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
@@ -135,15 +137,6 @@ public class CharacterVFXManager : MonoBehaviour
     void GroundWave()
     {
         _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
-        
-        // layer culling
-        // Services.CameraManager.SetPlayerInFront(false);
-    }
-    
-    void LayerResetTest()
-    {
-        // layer culling
-        // Services.CameraManager.SetPlayerInFront(false);
     }
 
     void WallWave()
@@ -151,6 +144,7 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphsNeutral.WAVE_WALL_RIGHT : VFXGraphsNeutral.WAVE_WALL_LEFT,
             transform.localPosition + new Vector3(0, 0f, 0));
     }
+    
     /// <summary>
     /// Coroutine for shaking the character during hit stop
     /// </summary>
