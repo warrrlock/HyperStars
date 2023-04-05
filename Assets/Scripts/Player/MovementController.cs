@@ -425,7 +425,7 @@ public class MovementController : MonoBehaviour
     {
         StopMoving();
         ResetVelocityY();
-        RestoreDefaultGravity();
+        RestoreOpponentGravity();
     }
 
     private void KillAllForces()
@@ -1100,7 +1100,7 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
-    public void RestoreDefaultGravity()
+    public void RestoreOpponentGravity()
     {
         if (_isAwaitingHit)
         {
