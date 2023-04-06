@@ -492,7 +492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5751411094791522315}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.228, y: 1.418, z: 0}
+  m_LocalPosition: {x: 0.46, y: 1.41, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -635,6 +635,8 @@ MonoBehaviour:
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
+  _rollDistance: 5
+  _rollDuration: 0.2
   _secondaryForcePercentage: 0
   _collisionMask:
     serializedVersion: 2
@@ -712,6 +714,8 @@ MonoBehaviour:
   _jumpLandState: {fileID: 11400000, guid: 59e69afcb66764c8ebdbba09ad2e1f75, type: 2}
   _crouchState: {fileID: 11400000, guid: a8e7dbf3197ad40868cb8387c3b1e95e, type: 2}
   _crouchUpState: {fileID: 11400000, guid: db90a504a47474dc6a9234f5c5a81425, type: 2}
+  _hurtRollState: {fileID: 11400000, guid: c964a7f57a55b4e448b0111f5aae4fb3, type: 2}
+  _getUpState: {fileID: 11400000, guid: 08cc7450946dea54bb3bb9b14caf666e, type: 2}
   _noEndEventClips:
   - {fileID: 7400000, guid: 238dbacff5646c64ca7becf136e5bd33, type: 2}
   - {fileID: 7400000, guid: 7c9d4ad39c15f3645a0d0a706c89b88b, type: 2}
@@ -755,6 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98fadf1de1d3914caed4988ca46638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxConfig: {fileID: 11400000, guid: 5ffa1ed976f1ddd418d679ace77d78e4, type: 2}
   visualEffect: {fileID: 150122307463432837}
   dashSmokeGroundOffset: 2.5
   jumpSmokeGroundOffset: 1.95

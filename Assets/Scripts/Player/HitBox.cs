@@ -179,6 +179,12 @@ public class HitBox : MonoBehaviour
         {
             StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfoSO.hangTime));
         }
+
+        if (attackInfoSO.gravityAugmentDuration > 0f)
+        {
+            hitFighter.MovementController.AugmentGravity(attackInfoSO.gravityAugmentFactor, attackInfoSO.gravityAugmentDuration);
+        }
+
         //StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
         //Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
         Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfoValues.outputReward);
