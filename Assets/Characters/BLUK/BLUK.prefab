@@ -905,9 +905,9 @@ MonoBehaviour:
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 9
   _opponentPushSpeed: 2
-  _jumpDistance: {x: 18, y: 40}
-  _jumpDuration: 0.8
-  _gravity: 93.74999
+  _jumpDistance: {x: 36, y: 80}
+  _jumpDuration: 1.8
+  _gravity: 130.6122
   _dashDistance: 8
   _dashDuration: 0.35
   _shortDashDistance: 4
@@ -921,8 +921,8 @@ MonoBehaviour:
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
-  _rollDistance: 0
-  _rollDuration: 0
+  _rollDistance: 5
+  _rollDuration: 0.2
   _secondaryForcePercentage: 0
   _collisionMask:
     serializedVersion: 2
@@ -998,6 +998,8 @@ MonoBehaviour:
   _jumpLandState: {fileID: 0}
   _crouchState: {fileID: 11400000, guid: b6d5ab85d502ea240859cb8ffe110397, type: 2}
   _crouchUpState: {fileID: 11400000, guid: e140687ecff99a942a0510120742e5b1, type: 2}
+  _hurtRollState: {fileID: 11400000, guid: 9de0be882bc3d2645bf3b6989b32d7aa, type: 2}
+  _getUpState: {fileID: 11400000, guid: 28d599a337b69014fa270ee49718104e, type: 2}
   _noEndEventClips:
   - {fileID: 7400000, guid: e971c3ff527e8ea46b4cb858705c413b, type: 2}
   - {fileID: 7400000, guid: bfa9738f2f5c3174f8e3ad090a315f9b, type: 2}
