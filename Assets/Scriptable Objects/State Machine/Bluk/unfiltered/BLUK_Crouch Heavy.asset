@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: BLUK_Crouch Heavy
   m_EditorClassIdentifier: 
   characterSelection: 2
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 0
   _isCrouchState: 1
   _isSpecial: 0
@@ -32,9 +31,12 @@ MonoBehaviour:
   _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
+  - {fileID: 11400000, guid: 28def05a8539a2f42bddb2ecc2f80f15, type: 2}
   - {fileID: 11400000, guid: be1c8f75bc88f7446a7c574b0e93dfe9, type: 2}
   _defaultCombo: 1
   _attackInfo:
+    idSO: 5
+    idManager: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -43,6 +45,9 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 0.5
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.3
     causesWallBounce: 0
     hitStopDuration: 0.5
@@ -56,7 +61,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 8
     knockbackForce: {x: 358.9053, y: 100}
     incrementBarAmount: 0.2
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 5765926104683114581, guid: 0f547707bd0f66e42bf6581aff28a1a8, type: 3}
