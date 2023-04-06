@@ -921,6 +921,8 @@ MonoBehaviour:
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
+  _rollDistance: 0
+  _rollDuration: 0
   _secondaryForcePercentage: 0
   _collisionMask:
     serializedVersion: 2
@@ -1039,6 +1041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98fadf1de1d3914caed4988ca46638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxConfig: {fileID: 11400000, guid: dc3ad613f39753f4fa18e5e9de7a7e8f, type: 2}
   visualEffect: {fileID: 822637850931560098}
   dashSmokeGroundOffset: 2.5
   jumpSmokeGroundOffset: 1.95

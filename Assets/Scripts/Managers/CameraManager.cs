@@ -208,7 +208,7 @@ public class CameraManager : MonoBehaviour
     {
         ieMaterial.SetFloat("_distortion", defaultDistortion);
         rippleMaterial.SetFloat("_RippleStrength", 0);
-        rippleMaterial.SetVector("_RipplePos", Vector4.zero);
+        rippleMaterial.SetVector("_RipplePos", new Vector4(.5f, .5f, 0f, 0f));
     }
 
     /// <summary>
@@ -259,18 +259,18 @@ public class CameraManager : MonoBehaviour
         
         // lerp to ripple
         var rippleElapsed = 0f;
-        while (rippleElapsed < .05f)
+        while (rippleElapsed < .15f)
         {
-            rippleMaterial.SetFloat("_RippleStrength", Mathf.Lerp(rippleMaterial.GetFloat("_RippleStrength"), .09f, rippleElapsed / .05f));
+            rippleMaterial.SetFloat("_RippleStrength", Mathf.Lerp(rippleMaterial.GetFloat("_RippleStrength"), .6f, rippleElapsed / .15f));
             rippleElapsed += Time.unscaledDeltaTime;
             yield return null;
         }
-        yield return new WaitForSecondsRealtime(.2f);
+        yield return new WaitForSecondsRealtime(.5f);
         // lerp to unripple
         var unrippleElapsed = 0f;
-        while (unrippleElapsed < .02f)
+        while (unrippleElapsed < .13f)
         {
-            rippleMaterial.SetFloat("_RippleStrength", Mathf.Lerp(rippleMaterial.GetFloat("_RippleStrength"), 0f, unrippleElapsed / .05f));
+            rippleMaterial.SetFloat("_RippleStrength", Mathf.Lerp(rippleMaterial.GetFloat("_RippleStrength"), 0f, unrippleElapsed / .13f));
             unrippleElapsed += Time.unscaledDeltaTime;
             yield return null;
         }

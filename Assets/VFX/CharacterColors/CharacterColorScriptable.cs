@@ -11,6 +11,8 @@ public class CharacterColorScriptable : ScriptableObject
 
 [Serializable] public class ColorSix
 {
+    [field: SerializeField] public Color SelectMenuColor { private set; get; }
+    [field: Space(10)]
     [field: SerializeField] public Color Color1 { private set; get; }
     [field: SerializeField] public Color Color2 { private set; get; }
     [field: SerializeField] public Color Color3 { private set; get; }
