@@ -227,7 +227,7 @@ namespace FiniteStateMachine {
             if (_rejectInput) return;
             if (CurrentState is HurtState)
             {
-                if (_canRecover)
+                if (_canRecover && action.name == "Roll")
                 {
                     // Debug.Log("setting roll state.");
                     ForceSetState(_hurtRollState);
