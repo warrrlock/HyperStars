@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Light Atk 2
   m_EditorClassIdentifier: 
   characterSelection: 1
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
@@ -47,7 +46,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   _defaultCombo: 0
   _attackInfo:
-    Id: 0
+    idSO: 16
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -72,7 +72,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.2
-    favorReward: 6
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 2
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 0}

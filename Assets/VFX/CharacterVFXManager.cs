@@ -8,8 +8,6 @@ using UnityEngine.ProBuilder;
 using UnityEngine.VFX;
 using UnityEngine.Rendering;
 
-public enum vfxAssets {AfterImage, };
-
 [RequireComponent(typeof(InputManager))]
 public class CharacterVFXManager : MonoBehaviour
 {
