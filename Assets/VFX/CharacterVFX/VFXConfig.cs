@@ -6,26 +6,55 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/VFX Config")]
 public class VFXConfig : ScriptableObject
 {
-    [field: SerializeField] public GameObject[] VFXSet { get; private set; }
+    [field: SerializeField] public GameObject[] VFXSet;
+
     [field: Space(10)]
-    [field: SerializeField] public VFXHitData LightHit { private set; get; }
-    [field: SerializeField] public VFXHitData MediumHit { private set; get; }
-    [field: SerializeField] public VFXHitData HeavyHit { private set; get; }
-    [field: SerializeField] public VFXHitData SpecialHit { private set; get; }
+    [field: SerializeField] public VFXHitData LightHit;
+    [field: SerializeField] public VFXHitData MediumHit;
+    [field: SerializeField] public VFXHitData HeavyHit;
+    [field: SerializeField] public VFXHitData SpecialHit;
 }
 
 [Serializable] public class VFXHitData
 {
-    [Header("Camera Shake")]
-    [field: SerializeField] public bool hasCameraShake;
-    [field: SerializeField] [Range(0, 0.3f)] public float cameraShakeDuration;
-    [field: SerializeField] [Range(0, 0.2f)] public float cameraShakeMagnitude;
-    [Header("Distortion Zoom")]
-    [field: SerializeField] public bool hasDistortionZoom;
-    [field: SerializeField] public float zoomFov;
-    [field: SerializeField] public float zoomDistortion;
-    [Header("Ripple")]
+    [field: SerializeField] public CameraShakeType cameraShake;
+    public float cameraShakeDuration
+    {
+        get
+        {
+            return cameraShake switch
+            {
+                CameraShakeType.LightShake => .2f,
+                CameraShakeType.MediumShake or CameraShakeType.HeavyShake => .3f,
+            };
+        }
+    }
+    public float cameraShakeMagnitude
+    {
+        get
+        {
+            return cameraShake switch
+            {
+                CameraShakeType.LightShake => .03f,
+                CameraShakeType.MediumShake => .06f,
+                CameraShakeType.HeavyShake => .19f,
+            };
+        }
+    }
+    [field: SerializeField] public Optional<DistortionZoomSettings> zoomSettings;
     [field: SerializeField] public bool hasRipple;
-    [Header("Silhouette")]
     [field: SerializeField] public bool hasSilhouette;
+}
+
+public enum CameraShakeType
+{
+    NoShake, LightShake, MediumShake, HeavyShake
+}
+
+[Serializable] public struct DistortionZoomSettings
+{
+    [Range(0f, .3f)] [Tooltip("Recommended: 0.2")] public float zoomSpeed;
+    [Range(32, 41)] [Tooltip("Default: 41")] public float zoomFov;
+    [Range(0f, .2f)] [Tooltip("Recommended: 0.1")] public float zoomHoldTime;
+    [Range(-.21f, .21f)] [Tooltip("Default: 0.21")] public float zoomDistortion;
 }
