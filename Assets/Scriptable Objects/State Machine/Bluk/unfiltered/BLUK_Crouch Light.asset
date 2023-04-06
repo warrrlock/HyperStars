@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: BLUK_Crouch Light
   m_EditorClassIdentifier: 
   characterSelection: 2
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 0
   _isCrouchState: 1
   _isSpecial: 0
@@ -36,7 +35,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
   _defaultCombo: 1
   _attackInfo:
-    Id: 0
+    idSO: 6
+    idManager: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -61,7 +61,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 0}
