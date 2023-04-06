@@ -56,6 +56,7 @@ namespace FiniteStateMachine {
         [SerializeField] private BaseState _crouchState;
         [SerializeField] private BaseState _crouchUpState;
         [SerializeField] private BaseState _hurtRollState;
+        [SerializeField] private BaseState _getUpState;
         public bool IsIdle => CurrentState == _initialState;
         public bool IsCrouch => CurrentState == _crouchState;
         private bool InAir => CurrentState is InAirState;
@@ -385,6 +386,7 @@ namespace FiniteStateMachine {
             HitOpponent = false;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();
+            if (_canRecover && CurrentState != _getUpState) DisableRecovery();
         }
 
         //ANIMATION USE
