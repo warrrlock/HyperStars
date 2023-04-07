@@ -8,11 +8,12 @@ using UnityEngine.ProBuilder;
 using UnityEngine.VFX;
 using UnityEngine.Rendering;
 
-public enum vfxAssets {AfterImage, };
-
 [RequireComponent(typeof(InputManager))]
 public class CharacterVFXManager : MonoBehaviour
 {
+    [Header("Config")]
+    [SerializeField] public VFXConfig vfxConfig;
+    [Header("Character Based VFX")]
     [SerializeField] private VisualEffect visualEffect;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
@@ -73,7 +74,6 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.onLandedHurt += GroundWave;
         _fighter.Events.wallBounce += WallWave;
     }
-    
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
@@ -87,13 +87,13 @@ public class CharacterVFXManager : MonoBehaviour
     void DashSmoke() {
         if (_fighter.MovementController.IsGrounded)
         {
-            _vfxSpawnManager.InitializeVFX(VFXGraphs.SMOKE_DASH, transform.localPosition + new Vector3(0f, 
+            _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_DASH, transform.localPosition + new Vector3(0f, 
                         dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
         }
     }
     
     void JumpSmoke(InputManager.Action action) {
-        _vfxSpawnManager.InitializeVFX(VFXGraphs.SMOKE_JUMP, transform.localPosition + new Vector3(0f, 
+        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_JUMP, transform.localPosition + new Vector3(0f, 
             jumpSmokeGroundOffset, 0f), GetComponent<Fighter>());
     }
     
@@ -134,23 +134,15 @@ public class CharacterVFXManager : MonoBehaviour
 
     void GroundWave()
     {
-        _vfxSpawnManager.InitializeVFX(VFXGraphs.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
-        
-        // layer culling
-        // Services.CameraManager.SetPlayerInFront(false);
-    }
-    
-    void LayerResetTest()
-    {
-        // layer culling
-        // Services.CameraManager.SetPlayerInFront(false);
+        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
     }
 
     void WallWave()
     {
-        _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphs.WAVE_WALL_RIGHT : VFXGraphs.WAVE_WALL_LEFT,
+        _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphsNeutral.WAVE_WALL_RIGHT : VFXGraphsNeutral.WAVE_WALL_LEFT,
             transform.localPosition + new Vector3(0, 0f, 0));
     }
+    
     /// <summary>
     /// Coroutine for shaking the character during hit stop
     /// </summary>

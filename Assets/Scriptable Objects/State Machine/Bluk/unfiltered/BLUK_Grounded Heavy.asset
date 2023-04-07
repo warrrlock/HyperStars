@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BLUK_Grounded Heavy
   m_EditorClassIdentifier: 
   characterSelection: 2
-  _bypassHitConfirm: 0
+  _bypassHitConfirm: 1
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -31,6 +31,7 @@ MonoBehaviour:
   _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
+  - {fileID: 11400000, guid: 28def05a8539a2f42bddb2ecc2f80f15, type: 2}
   _defaultCombo: 0
   _attackInfo:
     idSO: 9
@@ -46,7 +47,7 @@ MonoBehaviour:
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 0.1
+    hitStunDuration: 0.25
     causesWallBounce: 0
     hitStopDuration: 0
     wallBounceDuration: 0
@@ -59,7 +60,9 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 8
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 2
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
     multiHitCount: 0

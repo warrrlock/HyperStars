@@ -96,7 +96,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -300,11 +300,9 @@ MonoBehaviour:
   _cameraCatchUpSpeedZ: 3
   ieMaterial: {fileID: 2100000, guid: 7e6e90d73f234aa438e43e011bbc310f, type: 2}
   blurFilterPrefab: {fileID: 6465136448521468304, guid: c5edd1f883d2fb14085a44542245350c, type: 3}
-  blurShader: {fileID: -6465566751694194690, guid: f652ac09ea9619648bc80e3b63361f9e, type: 3}
   silhouetteMaterial: {fileID: 2100000, guid: e9673328f8a16144c9fb7ab88a9e5c68, type: 2}
   silhouetteCamera: {fileID: 2900830252122232609}
-  uiCamera: {fileID: 3761252746864951497}
-  favorCanvas: {fileID: 0}
+  shockwaveMaterial: {fileID: 2100000, guid: 0b3d9793ec09e0342976b50f96f41364, type: 2}
 --- !u!1 &2666714687608587546
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,10 +381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce9950fc839711468d371c408d248b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualEffectPrefabs:
+  visualEffectPrefabsNeutral:
   - {fileID: 3628714835826469587, guid: 5228d0f92886b53489299ad77a172cb7, type: 3}
-  - {fileID: 3628714835826469587, guid: 449e1f557390efb48895b6ff534ce296, type: 3}
-  - {fileID: 9197529569700219498, guid: 3fdfa9fe2812dfd4b931e76c26a51e52, type: 3}
   - {fileID: 2051750636586778460, guid: 5a8f31dfacb01c544902583b990666bb, type: 3}
   - {fileID: 3628714835826469587, guid: b14d1f5901b913f409c1e0c10e04bb8a, type: 3}
   - {fileID: 8268510503734002336, guid: 929da4aced7e65f4695630b4a3bc9a25, type: 3}
@@ -394,10 +390,8 @@ MonoBehaviour:
   - {fileID: 5920357525330849687, guid: 5e512b90f2affda4b9d019a353884d6b, type: 3}
   - {fileID: 5562149180455407823, guid: 2862b8e0e0f1646468a6a69027c8a279, type: 3}
   - {fileID: 5562149180455407823, guid: f7f92281dea86eb4ea6b585d94a268b9, type: 3}
-  - {fileID: 343261081338538315, guid: ad9401d8f45bcf448b3795300460cf51, type: 3}
+  vfxConfigs: []
   skyboxRotationSpeed: 1
-  turnOnSilhouetteOnLightAttacks: 0
-  turnOnSilhouetteOnMediumAttacks: 0
 --- !u!20 &4582068668910756800
 Camera:
   m_ObjectHideFlags: 0

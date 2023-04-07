@@ -50,7 +50,13 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 7
+        m_Name: Size
+        m_Overridden: 1
+      - m_Value: 18
+        m_Name: Frame Rate
+        m_Overridden: 1
     m_Vector2f:
       m_Array:
       - m_Value: {x: 3, y: 2}
@@ -141,6 +147,9 @@ VisualEffect:
       m_Array:
       - m_Value: 1
         m_Name: FaceLeft
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: Flip Particle
         m_Overridden: 1
 --- !u!73398921 &3628714835826469584
 VFXRenderer:

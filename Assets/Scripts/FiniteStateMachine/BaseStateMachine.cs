@@ -40,6 +40,8 @@ namespace FiniteStateMachine {
         private bool _canCombo;
         private bool CanInputQueue { get; set; }
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
+        
+        private bool _canRecover;
 
         [Header("Input Queuing")] 
         [SerializeField] private int _framesBeforeEnd = 5;
@@ -53,6 +55,8 @@ namespace FiniteStateMachine {
         [SerializeField] private BaseState _jumpLandState;
         [SerializeField] private BaseState _crouchState;
         [SerializeField] private BaseState _crouchUpState;
+        [SerializeField] private BaseState _hurtRollState;
+        [SerializeField] private BaseState _getUpState;
         public bool IsIdle => CurrentState == _initialState;
         public bool IsCrouch => CurrentState == _crouchState;
         private bool InAir => CurrentState is InAirState;
@@ -221,7 +225,16 @@ namespace FiniteStateMachine {
         
         private void Invoke(InputManager.Action action)
         {
-            if (_rejectInput || CurrentState is HurtState) return;
+            if (_rejectInput) return;
+            if (CurrentState is HurtState)
+            {
+                if (_canRecover && action.name == "Roll")
+                {
+                    // Debug.Log("setting roll state.");
+                    ForceSetState(_hurtRollState);
+                }
+                return;
+            }
             LastInvokedInput = action;
 
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
@@ -373,6 +386,7 @@ namespace FiniteStateMachine {
             HitOpponent = false;
             if (_isAttacking) DisableAttackStop();
             Fighter.OpposingFighter.ResetFighterHurtboxes();
+            if (_canRecover && CurrentState != _getUpState) DisableRecovery();
         }
 
         //ANIMATION USE
@@ -413,6 +427,9 @@ namespace FiniteStateMachine {
             yield return new WaitForFixedUpdate();
             _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
             if (!newHurtState) yield break;
+            
+            _canRecover = false;
+            
             // Debug.LogWarning($"setting hurtstate to {stateName}");
             SetReturnState();
             if (CurrentState is HurtState hurtState)
@@ -488,7 +505,6 @@ namespace FiniteStateMachine {
             if (!_isAttacking) return;
             _isAttacking = false;
             Fighter.MovementController.DisableAttackStop();
-            //TODO: return to walk state upon exit, if player is still holding onto move input
         }
         
         public void StartInAir(Action onGroundAction = null, bool setJumpReturnState = true)
@@ -511,7 +527,11 @@ namespace FiniteStateMachine {
             yield return new WaitUntil(() => Fighter.MovementController.IsGrounded);
             SetReturnState();
             
-            if (CurrentState is HurtState) Fighter.Events.onLandedHurt?.Invoke();
+            if (CurrentState is HurtState)
+            {
+                Fighter.Events.onLandedHurt?.Invoke();
+                EnableRecovery();
+            }
             else
             {
                 Fighter.Events.onLandedNeutral?.Invoke();
@@ -531,14 +551,14 @@ namespace FiniteStateMachine {
 
         public void WaitToAnimate(int nextAnimation = -1, Func<bool> condition = null)
         {
-            Debug.Log("wait to animate, wait to move");
+            // Debug.Log("wait to animate, wait to move");
             if (_waitToAnimateRoutine != null) StopCoroutine(_waitToAnimateRoutine);
             _waitToAnimateRoutine = StartCoroutine(HandleWaitToMove(nextAnimation, condition));
         }
 
         private IEnumerator HandleWaitToMove(int nextAnimation, Func<bool> condition)
         {
-            Debug.Log("handle animate, wait to move");
+            // Debug.Log("handle animate, wait to move");
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
             yield return new WaitUntil(condition ?? (() => !_isDisabled && Fighter.MovementController.IsGrounded));
 
@@ -585,6 +605,20 @@ namespace FiniteStateMachine {
             if (_disableCoroutine != null) StopCoroutine(_disableCoroutine);
             _isDisabled = false;
             _disableCoroutine = null;
+            DisableRecovery();
+        }
+
+        private void EnableRecovery()
+        {
+            _canRecover = true;
+            Fighter.InputManager.EnableOneShot(Fighter.InputManager.Actions["Roll"]);
+        }
+        
+        public void DisableRecovery()
+        {
+            // Debug.Log("disabling recovery");
+            Fighter.InputManager.Disable(Fighter.InputManager.Actions["Roll"]);
+            _canRecover = false;
         }
 
         private void UpdateStateInfoText()

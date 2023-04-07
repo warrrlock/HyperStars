@@ -42,11 +42,9 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Material ieMaterial;
     private float defaultDistortion;
     [SerializeField] private GameObject blurFilterPrefab;
-    [SerializeField] private Shader blurShader;
     [SerializeField] private Material silhouetteMaterial;
     [SerializeField] private Camera silhouetteCamera;
-    [SerializeField] private Camera uiCamera;
-    [SerializeField] private Canvas favorCanvas;
+    [SerializeField] private Material shockwaveMaterial;
 
     private void Awake()
     {
@@ -68,6 +66,8 @@ public class CameraManager : MonoBehaviour
         _defaultTargetY = _targets[0].position.y;
         _defaultFov = _camera.fieldOfView;
         _defaultRotation = transform.eulerAngles;
+        // default ratio
+        shockwaveMaterial.SetFloat("_SizeRatio", Camera.main.aspect);
     }
 
     private void FixedUpdate()
@@ -209,6 +209,14 @@ public class CameraManager : MonoBehaviour
     private void OnDisable()
     {
         ieMaterial.SetFloat("_distortion", defaultDistortion);
+        ResetShockwave();
+    }
+
+    void ResetShockwave()
+    {
+        shockwaveMaterial.SetFloat("_ManualTime", .1f);
+        shockwaveMaterial.SetFloat("_Weight", 0);
+        shockwaveMaterial.SetVector("_FocalPoint", new Vector4(.5f, .5f, 0f, 0f));
     }
 
     /// <summary>
@@ -222,9 +230,7 @@ public class CameraManager : MonoBehaviour
         var dir = sender.gameObject.transform.position - transform.position;
         var r = new Ray(transform.position, dir);
         var spawnedBlurFilter = Instantiate(blurFilterPrefab, r.GetPoint(2), Quaternion.identity, transform);
-        // Material blurMaterial = new Material(blurShader);
-        // spawnedBlurFilter.GetComponent<MeshRenderer>().material = blurMaterial;
-        
+
         // lerp to blur
         var blurElapsed = 0f;
         while (blurElapsed < .05f)
@@ -248,6 +254,52 @@ public class CameraManager : MonoBehaviour
 
         yield return new WaitForFixedUpdate();
         Destroy(spawnedBlurFilter);
+    }
+
+    /// <summary>
+    /// Camera shockwave effect
+    /// </summary>
+    /// <param name="hitPos"></param>
+    /// <returns></returns>
+    public IEnumerator Camerashockwave(Vector3 hitPos, float shockwaveDuration, float shockwaveExpansionAmount)
+    {
+        shockwaveMaterial.SetVector("_FocalPoint", GetScreenPoint(hitPos));
+        // start shockwave
+        var shockwaveTime = .1f;
+        shockwaveMaterial.SetFloat("_ManualTime", shockwaveTime);
+        shockwaveMaterial.SetFloat("_Weight", 1);
+
+        bool dissolveStarted = false;
+        
+        // lerp to shockwave
+        var shockwaveElapsed = 0f;
+        while (shockwaveElapsed < shockwaveDuration)
+        {
+            shockwaveTime += Time.deltaTime * (1 / shockwaveDuration);
+            if (shockwaveTime < .99f * shockwaveExpansionAmount)
+                shockwaveMaterial.SetFloat("_ManualTime", shockwaveTime);
+            else if (!dissolveStarted)
+            {
+                StartCoroutine(shockwaveDissolve());
+                dissolveStarted = true;
+            }
+            shockwaveElapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private IEnumerator shockwaveDissolve()
+    {
+        // lerp to shockwave
+        var dissolveELapsed = 0f;
+        while (dissolveELapsed < .1f)
+        {
+            shockwaveMaterial.SetFloat("_Weight", Mathf.Lerp(shockwaveMaterial.GetFloat("_Weight"), 0, dissolveELapsed / .1f));
+            dissolveELapsed += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForFixedUpdate();
+        shockwaveMaterial.SetFloat("_Weight", 0);
     }
 
     private Material[] bothMats;
@@ -277,26 +329,10 @@ public class CameraManager : MonoBehaviour
         LayerCullingHide(silhouetteCamera, "Player");
     }
 
-    /// <summary>
-    /// testing player in front of UI
-    /// </summary>
-    public void SetPlayerInFront(bool isFront)
+    public static Vector2 GetScreenPoint(Vector3 targetPos)
     {
-        if (isFront)
-        {
-            // LayerCullingShow(uiCamera, "Player");
-            // LayerCullingShow(uiCamera, "UI");
-            LayerCullingHide(uiCamera, "UI");
-            LayerCullingShow(Camera.main, "UI");
-            favorCanvas.worldCamera = Camera.main;
-        }
-        else
-        {
-            // LayerCullingHide(uiCamera, "Player");
-            // LayerCullingShow(uiCamera, "UI");
-            LayerCullingShow(uiCamera, "UI");
-            LayerCullingHide(Camera.main, "UI");
-            favorCanvas.worldCamera = uiCamera;
-        }
+        Camera cam = Camera.main;
+        Vector3 screenPos = cam.WorldToScreenPoint(targetPos);
+        return new Vector2(screenPos.x / cam.pixelWidth, screenPos.y / cam.pixelHeight);
     }
 }

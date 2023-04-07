@@ -13,6 +13,7 @@ public class ColorPicker : MonoBehaviour
     private static readonly int Color4 = Shader.PropertyToID("_Color4");
     private static readonly int Color5 = Shader.PropertyToID("_Color5");
     private static readonly int Color6 = Shader.PropertyToID("_Color6");
+    private static readonly int Color7 = Shader.PropertyToID("_Color7");
     
     private void Awake()
     {
@@ -28,5 +29,6 @@ public class ColorPicker : MonoBehaviour
         characterSprite.material.SetColor(Color4, characterColors.Palette[index].Color4);
         characterSprite.material.SetColor(Color5, characterColors.Palette[index].Color5);
         characterSprite.material.SetColor(Color6, characterColors.Palette[index].Color6);
+        characterSprite.material.SetColor(Color7, characterColors.Palette[index].Color7);
     }
 }

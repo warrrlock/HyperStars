@@ -3,33 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using Random = UnityEngine.Random;
 
-public enum VFXGraphs
+public enum VFXGraphsNeutral
 {
-    HIT_BASE, HIT_LISA_HEART, HIT_BLUK_TEMP, 
+    HIT_BASE, 
     PARRY, PARRY_TWT,
     SMOKE_DASH, SMOKE_JUMP, 
-    WAVE_GROUND, WAVE_WALL_RIGHT, WAVE_WALL_LEFT, 
-    RAND_NUTS,
+    WAVE_GROUND, WAVE_WALL_RIGHT, WAVE_WALL_LEFT,
+}
+
+public enum VFXGraphsCharacter
+{
+    Hit_V1, Hit_V2, Hit_Special, TakeDamage_Random
 }
 
 public enum VFXTypes
 {
-    Hit_Base, Hit_Character, Hit_Special, Combat_Neutral
+    Hit_Base, Hit_Character, Hit_Special, Combat_Neutral, Hit_TakeDamage
 }
 
 public class VFXSpawnManager : MonoBehaviour
 {
-    [Header("New Prefabs")]
-    [SerializeField] public GameObject[] visualEffectPrefabs;
+    [Header("VFX Prefabs")]
+    [SerializeField] public GameObject[] visualEffectPrefabsNeutral;
 
+    [Header("VFX Configs")]
+    [SerializeField] public VFXConfig[] vfxConfigs;
+
+    [Header("Skybox")]
     private float currentRotation;
     [SerializeField] private float skyboxRotationSpeed;
-    
-    // test
-    [Header("Test")]
-    [SerializeField] private bool turnOnSilhouetteOnLightAttacks;
-    [SerializeField] private bool turnOnSilhouetteOnMediumAttacks;
 
     void Start()
     {
@@ -65,44 +69,36 @@ public class VFXSpawnManager : MonoBehaviour
         }
     }
 
-    public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos)
+    public void InitializeVFX(VFXGraphsNeutral graphIndex, Vector3 spawnPos)
     {
-        Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        Instantiate(visualEffectPrefabsNeutral[(int)graphIndex], spawnPos, Quaternion.identity);
     }
     
-    public void InitializeVFX(VFXGraphs graphIndex, Vector3 spawnPos, Fighter triggerFighter)
+    public void InitializeVFX(VFXGraphsNeutral graphIndex, Vector3 spawnPos, Fighter triggerFighter)
     {
-        VisualEffect newVFX = Instantiate(visualEffectPrefabs[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        VisualEffect newVFX = Instantiate(visualEffectPrefabsNeutral[(int)graphIndex], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
         newVFX.GetComponent<VFXCleanUp>().f = triggerFighter;
     }
 
     public void InitializeVFX(VFXTypes type, Vector3 spawnPos, Fighter triggerFighter)
     {
-        VFXGraphs vfxGraph = VFXGraphs.HIT_BASE;
-        string charName = Services.Characters[triggerFighter.PlayerId].name;
+        VFXGraphsCharacter vfxGraphChar = VFXGraphsCharacter.Hit_V1;
         switch (type)
         {
             case VFXTypes.Hit_Character:
-                vfxGraph = CharacterVFXPickerLight(charName);
+                float rand = Random.Range(0f, 1f);
+                vfxGraphChar = rand < .5f ? VFXGraphsCharacter.Hit_V1 : VFXGraphsCharacter.Hit_V2;
                 break;
             case VFXTypes.Hit_Special:
-                vfxGraph = CharacterVFXPickerLight(charName);
+                vfxGraphChar = VFXGraphsCharacter.Hit_Special;
+                break;
+            case VFXTypes.Hit_TakeDamage:
+                vfxGraphChar = VFXGraphsCharacter.TakeDamage_Random;
                 break;
         }
-        InitializeVFX(vfxGraph, spawnPos, triggerFighter);
-    }
-
-    public VFXGraphs CharacterVFXPickerLight(string charName)
-    {
-        switch (charName)
-        {
-            case "Lisa":
-                return VFXGraphs.HIT_LISA_HEART;
-            case "BLUK":
-                return VFXGraphs.HIT_BLUK_TEMP;
-        }
-
-        return VFXGraphs.HIT_BASE;
+        VFXConfig triggerConfig = triggerFighter.GetComponent<CharacterVFXManager>().vfxConfig;
+        VisualEffect newVFX = Instantiate(triggerConfig.VFXSet[(int)vfxGraphChar], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        newVFX.GetComponent<VFXCleanUp>().f = triggerFighter;
     }
 
     void PlayHitVFX(Dictionary<string, object> message)
@@ -115,46 +111,28 @@ public class VFXSpawnManager : MonoBehaviour
             AttackInfo attackInfo = (AttackInfo)message["attack info"];
 
             CameraManager cam = Services.CameraManager;
+            VFXConfig senderConfig = sender.GetComponent<CharacterVFXManager>().vfxConfig;
             
-            InitializeVFX(VFXGraphs.HIT_BASE, hitPos, sender);
-            InitializeVFX(VFXGraphs.RAND_NUTS, hitPos, receiver);
+            InitializeVFX(VFXGraphsNeutral.HIT_BASE, hitPos, sender);
+            InitializeVFX(VFXTypes.Hit_TakeDamage, hitPos, receiver);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
             // camera based on hits
             switch (attackInfo.attackType)
             {
                 case AttackInfo.AttackType.Light:
-                    StartCoroutine(cam.CameraShake(.2f, .05f));
-                    if (turnOnSilhouetteOnLightAttacks)
-                    {
-                        Material[] mats =
-                        {
-                            sender.GetComponent<SpriteRenderer>().material, 
-                            receiver.GetComponent<SpriteRenderer>().material
-                        };
-                        cam.SilhouetteToggle(true, mats);
-                    }
+                    AssignHitVFXStyle(senderConfig.LightHit, hitPos, sender, receiver);
                     break;
                 case AttackInfo.AttackType.Medium:
                     InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
-                    if (turnOnSilhouetteOnMediumAttacks)
-                    {
-                        Material[] mats =
-                        {
-                            sender.GetComponent<SpriteRenderer>().material, 
-                            receiver.GetComponent<SpriteRenderer>().material
-                        };
-                        cam.SilhouetteToggle(true, mats);
-                    }
-                    StartCoroutine(cam.CameraShake(.2f, .08f));
+                    AssignHitVFXStyle(senderConfig.MediumHit, hitPos, sender, receiver);
                     break;
                 case AttackInfo.AttackType.Heavy:
                     InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
-                    StartCoroutine(cam.CameraShake(.3f, .19f));
+                    AssignHitVFXStyle(senderConfig.HeavyHit, hitPos, sender, receiver);
                     break;
                 case AttackInfo.AttackType.Special:
                     InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
-                    StartCoroutine(cam.CameraZoom(.2f, 36f, .16f, -.45f));
-                    StartCoroutine(cam.CameraShake(.3f, .19f));
+                    AssignHitVFXStyle(senderConfig.SpecialHit, hitPos, sender, receiver);
                     break;
                 default:
                     StartCoroutine(cam.CameraShake(.1f, .04f));
@@ -166,6 +144,35 @@ public class VFXSpawnManager : MonoBehaviour
             Debug.Log("key was not found in dictionary.");
         }
     }
+
+    void AssignHitVFXStyle(VFXHitData configData, Vector3 hitPos, Fighter sender, Fighter receiver)
+    {
+        CameraManager cam = Services.CameraManager;
+        
+        if (configData.cameraShake != CameraShakeType.NoShake)
+        {
+            StartCoroutine(cam.CameraShake(configData.cameraShakeDuration, configData.cameraShakeMagnitude));
+        }
+        if (configData.distortionZoom)
+        {
+            DistortionZoomSettings s = configData.distortionZoom.Value;
+            StartCoroutine(cam.CameraZoom(s.zoomSpeed, s.zoomFov, s.zoomHoldTime, s.zoomDistortion));
+        }
+        if (configData.shockwave)
+        {
+            ShockwaveSettings s = configData.shockwave.Value;
+            StartCoroutine(cam.Camerashockwave(hitPos, s.shockwaveDuration, s.shockwavePercentage));
+        }
+        if (configData.hasSilhouette)
+        {
+            Material[] mats =
+            {
+                sender.GetComponent<SpriteRenderer>().material, 
+                receiver.GetComponent<SpriteRenderer>().material
+            };
+            cam.SilhouetteToggle(true, mats);
+        }
+    }
     
     void PlayBlockVFX(Dictionary<string, object> message)
     {
@@ -174,7 +181,7 @@ public class VFXSpawnManager : MonoBehaviour
             Vector3 hitPos = (Vector3) message["hit point"];
             Fighter sender = (Fighter) message["attacker"];
             Fighter receiver = (Fighter) message["attacked"];
-            InitializeVFX(VFXGraphs.PARRY_TWT, hitPos, sender);
+            InitializeVFX(VFXGraphsNeutral.PARRY_TWT, hitPos, sender);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(sender, 98f, 2f, .5f));
         }
         catch (KeyNotFoundException)
@@ -182,7 +189,7 @@ public class VFXSpawnManager : MonoBehaviour
             Debug.Log("key was not found in dictionary.");
         }
     }
-    
+
     private void OnDisable()
     {
         // skybox rotation reset
