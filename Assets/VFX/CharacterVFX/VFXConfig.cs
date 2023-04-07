@@ -50,8 +50,8 @@ public class VFXConfig : ScriptableObject
             };
         }
     }
-    [field: SerializeField] public Optional<DistortionZoomSettings> zoomSettings;
-    [field: SerializeField] public bool hasRipple;
+    [field: SerializeField] public Optional<DistortionZoomSettings> distortionZoom;
+    [field: SerializeField] public Optional<ShockwaveSettings> shockwave;
     [field: SerializeField] public bool hasSilhouette;
 }
 
@@ -72,4 +72,10 @@ public enum CameraShakeType
     [Range(32, 41)] [Tooltip("Default: 41")] public float zoomFov;
     [Range(0f, .2f)] [Tooltip("Recommended: 0.1")] public float zoomHoldTime;
     [Range(-.21f, .21f)] [Tooltip("Default: 0.21")] public float zoomDistortion;
+}
+
+[Serializable] public struct ShockwaveSettings
+{
+    [Range(0f, 1f)] [Tooltip("Recommended: 0.3")] public float shockwaveDuration;
+    [Range(0f, 1f)] [Tooltip("Recommended: 0.6")] public float shockwavePercentage;
 }
