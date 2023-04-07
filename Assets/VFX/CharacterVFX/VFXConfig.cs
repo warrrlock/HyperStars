@@ -18,10 +18,15 @@ public class VFXConfig : ScriptableObject
 [Serializable] public class VFXHitData
 {
     [field: SerializeField] public CameraShakeType cameraShake;
+    [field: SerializeField] public Optional<CameraShakeSettings> cameraShakeSettingsOverride;
     public float cameraShakeDuration
     {
         get
         {
+            if (cameraShakeSettingsOverride)
+            {
+                return cameraShakeSettingsOverride.Value.cameraShakeDuration;
+            }
             return cameraShake switch
             {
                 CameraShakeType.LightShake => .2f,
@@ -33,6 +38,10 @@ public class VFXConfig : ScriptableObject
     {
         get
         {
+            if (cameraShakeSettingsOverride)
+            {
+                return cameraShakeSettingsOverride.Value.cameraShakeMagnitude;
+            }
             return cameraShake switch
             {
                 CameraShakeType.LightShake => .03f,
@@ -49,6 +58,12 @@ public class VFXConfig : ScriptableObject
 public enum CameraShakeType
 {
     NoShake, LightShake, MediumShake, HeavyShake
+}
+
+[Serializable] public struct CameraShakeSettings
+{
+    [Range(0f, .3f)] public float cameraShakeDuration;
+    [Range(0f, .2f)] public float cameraShakeMagnitude;
 }
 
 [Serializable] public struct DistortionZoomSettings
