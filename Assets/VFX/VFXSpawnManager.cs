@@ -153,14 +153,15 @@ public class VFXSpawnManager : MonoBehaviour
         {
             StartCoroutine(cam.CameraShake(configData.cameraShakeDuration, configData.cameraShakeMagnitude));
         }
-        if (configData.zoomSettings)
+        if (configData.distortionZoom)
         {
-            DistortionZoomSettings zoomSettings = configData.zoomSettings.Value;
-            StartCoroutine(cam.CameraZoom(zoomSettings.zoomSpeed, zoomSettings.zoomFov, zoomSettings.zoomHoldTime, zoomSettings.zoomDistortion));
+            DistortionZoomSettings s = configData.distortionZoom.Value;
+            StartCoroutine(cam.CameraZoom(s.zoomSpeed, s.zoomFov, s.zoomHoldTime, s.zoomDistortion));
         }
-        if (configData.hasRipple)
+        if (configData.shockwave)
         {
-            StartCoroutine(cam.CameraRipple(hitPos));
+            ShockwaveSettings s = configData.shockwave.Value;
+            StartCoroutine(cam.Camerashockwave(hitPos, s.shockwaveDuration, s.shockwavePercentage));
         }
         if (configData.hasSilhouette)
         {
