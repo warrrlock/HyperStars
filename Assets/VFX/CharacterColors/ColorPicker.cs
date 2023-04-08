@@ -1,19 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ColorSetter))]
 public class ColorPicker : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer characterSprite;
+    [SerializeField] public SpriteRenderer characterSprite;
     [SerializeField] public int currentColorIndex;
     [SerializeField] public CharacterColorScriptable characterColors;
-    private static readonly int Color1 = Shader.PropertyToID("_Color1");
-    private static readonly int Color2 = Shader.PropertyToID("_Color2");
-    private static readonly int Color3 = Shader.PropertyToID("_Color3");
-    private static readonly int Color4 = Shader.PropertyToID("_Color4");
-    private static readonly int Color5 = Shader.PropertyToID("_Color5");
-    private static readonly int Color6 = Shader.PropertyToID("_Color6");
-    private static readonly int Color7 = Shader.PropertyToID("_Color7");
+    public static readonly int Color1 = Shader.PropertyToID("_Color1");
+    public static readonly int Color2 = Shader.PropertyToID("_Color2");
+    public static readonly int Color3 = Shader.PropertyToID("_Color3");
+    public static readonly int Color4 = Shader.PropertyToID("_Color4");
+    public static readonly int Color5 = Shader.PropertyToID("_Color5");
+    public static readonly int Color6 = Shader.PropertyToID("_Color6");
+    public static readonly int Color7 = Shader.PropertyToID("_Color7");
     
     private void Awake()
     {
