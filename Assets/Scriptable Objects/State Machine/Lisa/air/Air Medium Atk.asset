@@ -34,6 +34,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 11400000, guid: cd6f2fc49e7685e48ae14ca94e31fee4, type: 2}
   - {fileID: 11400000, guid: 6510bab3ecc12874a89610607511bc29, type: 2}
+  - {fileID: 11400000, guid: a8f34c85d82c834418d49b1bb3f84b9d, type: 2}
   _alwaysExecute: 0
   _attackInfo:
     idSO: 2
@@ -46,9 +47,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 0.5
     knockbackDirection: {x: 0.5, y: 0, z: 0}
-    reverseKnockbackDuration: 0
-    reverseKnockbackDistance: 0
-    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 1
+    reverseKnockbackDistance: 20
+    reverseKnockbackDirection: {x: 1, y: 1.5, z: 0}
     hitStunDuration: 0.25
     causesWallBounce: 0
     hitStopDuration: 0.2
@@ -61,9 +62,9 @@ MonoBehaviour:
     groundBounceDistance: 15
     groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0.1
-    hangTime: 0
-    gravityAugmentFactor: 1
-    gravityAugmentDuration: 0
+    hangTime: 0.3
+    gravityAugmentFactor: 0.216
+    gravityAugmentDuration: 0.5
     favorReward: 4
     knockbackForce: {x: 0, y: 100}
     incrementBarAmount: 0.1
