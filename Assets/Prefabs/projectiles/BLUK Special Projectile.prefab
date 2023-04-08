@@ -80,7 +80,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackInfo:
-    attackType: 3
+    idSO: 0
+    idManager: 0
+    attackType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -104,9 +106,13 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.5
-    favorReward: 5
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 6
     knockbackForce: {x: 124.7488, y: 100}
     incrementBarAmount: 0
+    multiHitCount: 0
+    multiHitInterval: 0
   _spawnDirection: 2
   _onSpawnActions: []
   _onTriggerEnterActions: []
