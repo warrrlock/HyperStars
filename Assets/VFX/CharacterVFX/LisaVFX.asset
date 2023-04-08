@@ -19,7 +19,12 @@ MonoBehaviour:
   - {fileID: 343261081338538315, guid: ad9401d8f45bcf448b3795300460cf51, type: 3}
   LightHit:
     cameraShake: 1
-    zoomSettings:
+    cameraShakeSettingsOverride:
+      enabled: 0
+      value:
+        cameraShakeDuration: 0
+        cameraShakeMagnitude: 0
+    distortionZoom:
       enabled: 0
       value:
         zoomSpeed: 0
@@ -30,7 +35,12 @@ MonoBehaviour:
     hasSilhouette: 0
   MediumHit:
     cameraShake: 2
-    zoomSettings:
+    cameraShakeSettingsOverride:
+      enabled: 0
+      value:
+        cameraShakeDuration: 0
+        cameraShakeMagnitude: 0
+    distortionZoom:
       enabled: 0
       value:
         zoomSpeed: 0
@@ -41,23 +51,33 @@ MonoBehaviour:
     hasSilhouette: 0
   HeavyHit:
     cameraShake: 3
-    zoomSettings:
-      enabled: 1
+    cameraShakeSettingsOverride:
+      enabled: 0
       value:
-        zoomSpeed: 0.2
-        zoomFov: 38
-        zoomHoldTime: 0.1
-        zoomDistortion: 0.21
-    hasRipple: 0
+        cameraShakeDuration: 0
+        cameraShakeMagnitude: 0
+    distortionZoom:
+      enabled: 0
+      value:
+        zoomSpeed: 0
+        zoomFov: 0
+        zoomHoldTime: 0
+        zoomDistortion: 0
+    hasRipple: 1
     hasSilhouette: 0
   SpecialHit:
     cameraShake: 3
-    zoomSettings:
-      enabled: 1
+    cameraShakeSettingsOverride:
+      enabled: 0
       value:
-        zoomSpeed: 0.2
-        zoomFov: 38
-        zoomHoldTime: 0.1
-        zoomDistortion: 0.21
+        cameraShakeDuration: 0
+        cameraShakeMagnitude: 0
+    distortionZoom:
+      enabled: 0
+      value:
+        zoomSpeed: 0
+        zoomFov: 0
+        zoomHoldTime: 0
+        zoomDistortion: 0
     hasRipple: 0
     hasSilhouette: 1

@@ -151,7 +151,7 @@ public class HitBox : MonoBehaviour
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
-        reverseForceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
+        reverseForceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? reverseForceDirection.x : -reverseForceDirection.x;
         hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfoSO.knockbackDuration, true);
         if (attackInfoSO.reverseKnockbackDistance > 0f)
         {
