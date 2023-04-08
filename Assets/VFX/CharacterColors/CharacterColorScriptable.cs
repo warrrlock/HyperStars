@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Character Colors")]
 public class CharacterColorScriptable : ScriptableObject
 {
-    [field: SerializeField] public ColorSeven[] Palette { private set; get; }
+    [field: SerializeField] public List<ColorSeven> Palette { private set; get; }
 }
 
 [Serializable] public class ColorSeven
