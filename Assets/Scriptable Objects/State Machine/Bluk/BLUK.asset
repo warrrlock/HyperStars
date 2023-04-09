@@ -52,18 +52,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af7e6307898f336448c7f6558d4bab97, type: 2}
   - {fileID: 11400000, guid: c1a554cf6dec92e4c9df07dda450973d, type: 2}
   - {fileID: 11400000, guid: aea48d41f887b1843a80f70b14807bdb, type: 2}
+  - {fileID: 11400000, guid: 9de0be882bc3d2645bf3b6989b32d7aa, type: 2}
   - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
   - {fileID: 11400000, guid: e91327a451f98794f8b895020734fd45, type: 2}
   - {fileID: 11400000, guid: fad8b2dc7ee33fb4fa6e2747fc368378, type: 2}
   _attackInfo:
-  - Id: 0
+  - idSO: 0
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.2
-    knockbackDistance: 10
+    knockbackDistance: 13
     knockbackDirection: {x: 1, y: -1, z: 0}
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
@@ -81,10 +83,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0.1
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 8
     knockbackForce: {x: 270.29382, y: 100}
     incrementBarAmount: 0.4
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 1
+    idManager: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -109,10 +116,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.3
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 4
     knockbackForce: {x: 0, y: 56.063454}
     incrementBarAmount: 0.2
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 2
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -137,10 +149,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0.1
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 6
     knockbackForce: {x: 0, y: 100}
     incrementBarAmount: 0.4
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 3
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -165,10 +182,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.4
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 10
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 4
+    idManager: 0
     attackType: 0
     hitSfxEvent:
       idInternal: 0
@@ -193,10 +215,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 10
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 5
+    idManager: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -221,10 +248,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 8
     knockbackForce: {x: 358.9053, y: 100}
     incrementBarAmount: 0.2
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 6
+    idManager: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -249,10 +281,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 7
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -276,11 +313,16 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0
+    hangTime: 0.25
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 6
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 8
+    idManager: 0
     attackType: 0
     hitSfxEvent:
       idInternal: 0
@@ -305,10 +347,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 9
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -320,9 +367,9 @@ MonoBehaviour:
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 0.3
+    hitStunDuration: 0.25
     causesWallBounce: 0
-    hitStopDuration: 0.5
+    hitStopDuration: 0
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
@@ -333,10 +380,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 8
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 2
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 10
+    idManager: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -361,10 +413,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.2
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 11
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -389,10 +446,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.1
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 6
     knockbackForce: {x: 167.55, y: 100}
     incrementBarAmount: 0.25
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 12
+    idManager: 0
     attackType: 3
     hitSfxEvent:
       idInternal: 0
@@ -417,10 +479,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 13
+    idManager: 0
     attackType: 0
     hitSfxEvent:
       idInternal: 0
@@ -445,10 +512,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 14
+    idManager: 0
     attackType: 0
     hitSfxEvent:
       idInternal: 0
@@ -473,10 +545,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 15
+    idManager: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -501,10 +578,15 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 6
     knockbackForce: {x: 358.65738, y: 100}
     incrementBarAmount: 0.3
-  - Id: 0
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 16
+    idManager: 0
     attackType: 0
     hitSfxEvent:
       idInternal: 0
@@ -529,12 +611,50 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 6
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.3
+    multiHitCount: 0
+    multiHitInterval: 0
+  - idSO: 17
+    idManager: 0
+    attackType: 0
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0
+    knockbackDistance: 0
+    knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0
+    causesWallBounce: 0
+    hitStopDuration: 0
+    wallBounceDuration: 0
+    wallBounceDistance: 0
+    wallBounceDirection: {x: 0, y: 0, z: 0}
+    wallBounceHitStopDuration: 0
+    causesGroundBounce: 0
+    groundBounceDuration: 0
+    groundBounceDistance: 0
+    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceHitStopDuration: 0
+    hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 0
+    knockbackForce: {x: 0, y: 0}
+    incrementBarAmount: 0
+    multiHitCount: 0
+    multiHitInterval: 0
   _indicatorSprite: {fileID: 21300000, guid: ddd2dcfe3eb124efabd38a477f5616e9, type: 3}
   _indicatorGlowSprite: {fileID: 21300000, guid: 58bc41eaf1d9643d7924027dc964a6c0, type: 3}
   _characterPortrait:
-  - {fileID: 21300000, guid: 4f4b38570f494457ca3a36e205f2c47c, type: 3}
-  - {fileID: 21300000, guid: 554348c961783474aadc61247492fdb6, type: 3}
+  - {fileID: 21300000, guid: 132cbfeeb0c374ada930e637ff1b6a9f, type: 3}
+  - {fileID: 21300000, guid: 6c7dac4aee3574570a6a8f393381ec84, type: 3}
+  <CharacterPalettes>k__BackingField: {fileID: 11400000, guid: 115319a39d5032b43bf6b8649eab75aa, type: 2}
   _loseState: {fileID: 11400000, guid: 5ff41f2c97c86c542aa3499ac6960bab, type: 2}

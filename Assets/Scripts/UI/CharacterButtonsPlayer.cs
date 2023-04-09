@@ -62,7 +62,7 @@ public class CharacterButtonsPlayer: MonoBehaviour
         SelectionSpritePair selectionSpritePair = _images.Find(pair => 
             pair.character.ToString().Equals(character, StringComparison.OrdinalIgnoreCase));
         if (_characterSelectionImage) _characterSelectionImage.sprite = selectionSpritePair.image;
-        if (_selectionManager) _selectionManager.UpdateSelection(selectionSpritePair.character, _playerId);
+        if (_selectionManager) _selectionManager.UpdateSelection(character, selectionSpritePair.character, _playerId);
     }
 
     private void UpdateReadyVisuals()
