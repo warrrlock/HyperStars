@@ -908,21 +908,21 @@ MonoBehaviour:
   _jumpDistance: {x: 36, y: 80}
   _jumpDuration: 1.8
   _gravity: 130.6122
-  _dashDistance: 8
-  _dashDuration: 0.35
-  _shortDashDistance: 4
-  _shortDashDuration: 0.28
-  _dashHangTime: 0.1
+  _dashDistance: 7
+  _dashDuration: 0.3
+  _shortDashDistance: 5
+  _shortDashDuration: 0.25
+  _dashHangTime: 0.28
   _dashToZero: 1
   _shortDashCooldownDuration: 0
   _superDashCooldownDuration: 0
   _dashEasing: 0
-  _dashMinimumOverlap: 1
+  _dashMinimumOverlap: 2
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
-  _rollDistance: 5
-  _rollDuration: 0.2
+  _rollDistance: 4
+  _rollDuration: 0.35
   _secondaryForcePercentage: 0
   _collisionMask:
     serializedVersion: 2
@@ -941,7 +941,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
-  _flipDelayTime: 0.1
+  _flipDelayTime: 0.05
   _move: {fileID: 11400000, guid: e91327a451f98794f8b895020734fd45, type: 2}
   _dashes:
   - {fileID: 11400000, guid: f2ea8141c9b535541a3a45800fe8656a, type: 2}
@@ -995,7 +995,7 @@ MonoBehaviour:
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
   _jumpState: {fileID: 11400000, guid: 043a0370e95e9a5418231450d0db9a54, type: 2}
-  _jumpLandState: {fileID: 0}
+  _jumpLandState: {fileID: 11400000, guid: a032fe7c6e919324bbe67da353c7e97b, type: 2}
   _crouchState: {fileID: 11400000, guid: b6d5ab85d502ea240859cb8ffe110397, type: 2}
   _crouchUpState: {fileID: 11400000, guid: e140687ecff99a942a0510120742e5b1, type: 2}
   _hurtRollState: {fileID: 11400000, guid: 9de0be882bc3d2645bf3b6989b32d7aa, type: 2}
