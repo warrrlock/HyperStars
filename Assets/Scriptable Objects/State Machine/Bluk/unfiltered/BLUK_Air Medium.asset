@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BLUK_Air Medium
   m_EditorClassIdentifier: 
   characterSelection: 2
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -29,6 +30,8 @@ MonoBehaviour:
   _transitions: []
   _alwaysExecute: 0
   _attackInfo:
+    idSO: 2
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -37,6 +40,9 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 4
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 1
+    reverseKnockbackDistance: 30
+    reverseKnockbackDirection: {x: 0.5, y: 2, z: 0}
     hitStunDuration: 0.35
     causesWallBounce: 1
     hitStopDuration: 0.15
@@ -50,6 +56,10 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0.1
     hangTime: 0
-    favorReward: 6
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 4
     knockbackForce: {x: 0, y: 100}
-    incrementBarAmount: 0.4
+    incrementBarAmount: 0.2
+    multiHitCount: 0
+    multiHitInterval: 0
