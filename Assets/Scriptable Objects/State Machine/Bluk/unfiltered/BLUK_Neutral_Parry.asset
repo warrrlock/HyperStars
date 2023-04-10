@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: BLUK_Neutral_Parry
   m_EditorClassIdentifier: 
   characterSelection: 2
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 1
   _isCrouchState: 0
   _isSpecial: 0
@@ -39,6 +38,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e82ba32029d8386489e7cf18528ba4d2, type: 2}
   _defaultCombo: 0
   _attackInfo:
+    idSO: 15
+    idManager: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -63,7 +64,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 6
     knockbackForce: {x: 358.65738, y: 100}
     incrementBarAmount: 0.3
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 0}
