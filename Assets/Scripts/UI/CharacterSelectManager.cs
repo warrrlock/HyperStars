@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -18,6 +19,7 @@ namespace UI
 
     public class CharacterSelectManager: MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI[] _playerCharacterNames;
         [SerializeField] private CharacterButtonsPlayer[] _playerButtons = new CharacterButtonsPlayer[2];
         [SerializeField] private Sprite[] _singleSelectSprites = new Sprite[2];
         [SerializeField] private Sprite _doubleSelectSprite;
@@ -43,8 +45,9 @@ namespace UI
             }
         }
 
-        public void UpdateSelection(CharacterManager.CharacterSelection button, int player)
+        public void UpdateSelection(string character, CharacterManager.CharacterSelection button, int player)
         {
+            _playerCharacterNames[player].text = character;
             CharacterButtonPair buttonPair = _characterButtons.Find(c => c.character == button);
             buttonPair.button.animator.Play("Selected");
             
