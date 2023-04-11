@@ -78,7 +78,7 @@ public class CharacterButtonsPlayer: MonoBehaviour
     
     public void GetReady()
     {
-        Debug.Log("get ready");
+        // Debug.Log("get ready");
         StartCoroutine(Player.GetReady());
     }
 }

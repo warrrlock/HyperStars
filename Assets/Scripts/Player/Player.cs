@@ -118,7 +118,7 @@ public class Player: MonoBehaviour
     public IEnumerator GetReady()
     {
         yield return new WaitForFixedUpdate();
-        Debug.Log($"{PlayerInput.playerIndex} is ready");
+        // Debug.Log($"{PlayerInput.playerIndex} is ready");
         _ready = true;
         onReady?.Invoke();
     }
@@ -147,7 +147,7 @@ public class Player: MonoBehaviour
         _ready = false;
         CharacterSelected = false;
         Services.Characters[PlayerInput.playerIndex] = null;
-        Services.Fighters[PlayerInput.playerIndex] = null;
+        // Services.Fighters[PlayerInput.playerIndex] = null;
     }
 
     private void SetSelectionUI()
@@ -173,19 +173,19 @@ public class Player: MonoBehaviour
 
     private void SetSelectionSceneValues()
     {
-        Debug.Log("setting selection values");
+        // Debug.Log("setting selection values");
         SetSelectionUI();
 
         _palettePickerManager = FindObjectOfType<PalettePickerManager>();
         
         PlayerInput.SwitchCurrentActionMap("UI");
         UIInputManager[] inputManagers = FindObjectsOfType<UIInputManager>();
-        Debug.Log($"has {inputManagers.Length} input managers");
+        // Debug.Log($"has {inputManagers.Length} input managers");
         foreach (var inputManager in inputManagers)
         {
             if (inputManager.PlayerId == PlayerInput.playerIndex)
             {
-                Debug.Log($"setting input manager {inputManager.name}, {inputManager.PlayerId}; {PlayerInput.playerIndex}");
+                // Debug.Log($"setting input manager {inputManager.name}, {inputManager.PlayerId}; {PlayerInput.playerIndex}");
                 _uiInputManager = inputManager;
                 inputManager.Initialize(this);
             }
@@ -209,6 +209,7 @@ public class Player: MonoBehaviour
         }
         else if (scene.buildIndex == _indices.gameScene || scene.buildIndex == _indices.trainingScene)
         {
+            Debug.Log("in game scene, readying game");
             PlayerInput.SwitchCurrentActionMap(PlayerInput.defaultActionMap);
             ReadyStartingGame();
         }

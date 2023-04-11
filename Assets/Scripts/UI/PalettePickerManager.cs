@@ -29,14 +29,14 @@ namespace UI
 
         private IEnumerator TrySetColour(int player, int wanted, int direction, int size)
         {
-            Debug.Log($"trying to set colour player:{player}, wanted:{wanted}");
+            // Debug.Log($"trying to set colour player:{player}, wanted:{wanted}");
             if (_lock)
             {
                 _waitingPaletteSwap = Services.Players[player].PaletteIndex;
                 yield return new WaitUntil(() => !_lock);
             }
             _lock = true;
-            Debug.Log($"unlocked trying to set colour player:{player}, wanted:{wanted}");
+            // Debug.Log($"unlocked trying to set colour player:{player}, wanted:{wanted}");
             
             int index = wanted;
             bool sameChar = Services.Characters[player ^ 1] == Services.Characters[player];

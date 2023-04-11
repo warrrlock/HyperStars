@@ -21,7 +21,7 @@ namespace UI
 
         public void SetupVisuals(CharacterColorScriptable characterPalette)
         {
-            Debug.Log($"setting up visuals for {characterPalette.name}");
+            // Debug.Log($"setting up visuals for {characterPalette.name}");
             _characterPalette = characterPalette;
             _paletteAnimation.Play("show_palette");
         }
@@ -112,7 +112,8 @@ namespace UI
         private static readonly int Color7 = Shader.PropertyToID("_Color7");
         private void SetMaterialColours(int index)
         {
-            Debug.Log($"checking null: image{_characterImage}, palette: {_characterPalette}");
+            if (!_characterPalette) return;
+            // Debug.Log($"checking null: image{_characterImage}, palette: {_characterPalette}");
             _characterImage.material.SetColor(Color1, _characterPalette.Palette[index].Color1);
             _characterImage.material.SetColor(Color2, _characterPalette.Palette[index].Color2);
             _characterImage.material.SetColor(Color3, _characterPalette.Palette[index].Color3);

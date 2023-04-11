@@ -33,13 +33,11 @@ namespace UI
 
         private void Subscribe()
         {
-            Debug.Log($"{_player.name} subscribed");
             _player.PlayerInput.onActionTriggered += ResolveActions;
         }
 
         private void UnSubscribe()
         {
-            Debug.Log($"{_player.name} unsubscribed");
             _player.PlayerInput.onActionTriggered -= ResolveActions;
         }
 
@@ -85,13 +83,10 @@ namespace UI
                         
                         int size = Services.Characters[PlayerId].CharacterPalettes.Palette.Count;
                         int index = (player.PaletteIndex + yDirection + size) % size;
-                        Debug.Log($"yDir: {yDirection} and wanted: {index}");
                         _paletteManager.SetColour(_selectingForBot ? PlayerId ^ 1 : PlayerId, index, yDirection, size);
-                        Debug.Log($"navigate {index}");
                         break;
 
                     case "Submit":
-                        Debug.Log("submitted colour");
                         _paletteManager.ConfirmColour(_selectingForBot ? PlayerId ^ 1 : PlayerId);
                         break;
 

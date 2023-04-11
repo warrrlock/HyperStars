@@ -82,7 +82,7 @@ namespace UI
 
         private void SetBotSelection()
         {
-            Debug.Log("set bot selection");
+            // Debug.Log("set bot selection");
             _playerInputManagers[0].SetBotSelection();
             CharacterButtonsPlayer selection = _playerButtons[1];
             selection.SetPlayer(Services.Players[0]);
