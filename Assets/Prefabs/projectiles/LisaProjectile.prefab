@@ -241,6 +241,8 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
@@ -252,7 +254,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 31bb4efc467b94f70a9cc166273d2b3c, type: 2}
   _onInvisibleActions:
   - {fileID: 11400000, guid: 31bb4efc467b94f70a9cc166273d2b3c, type: 2}
-  _speed: 9
+  _speed: 15
   _angle: 0
 --- !u!198 &3880273180285831385
 ParticleSystem:
