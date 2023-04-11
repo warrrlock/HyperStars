@@ -16,6 +16,10 @@ namespace AK
         static const AkUniqueID PLAY_AIR_SPECIAL_LAUNCH = 1673194572U;
         static const AkUniqueID PLAY_AREA_BLAST_HIT = 1385366132U;
         static const AkUniqueID PLAY_AREA_BLAST_SWING = 748205809U;
+        static const AkUniqueID PLAY_BLUK_DASH = 3047339195U;
+        static const AkUniqueID PLAY_BLUK_JUMP = 2375325323U;
+        static const AkUniqueID PLAY_BLUK_LAND = 1242285672U;
+        static const AkUniqueID PLAY_BLUK_SPECIAL_TRIPLE = 790653515U;
         static const AkUniqueID PLAY_CROWD_CHEERS = 3617758906U;
         static const AkUniqueID PLAY_CROWD_HYPE_SHORT = 1227494039U;
         static const AkUniqueID PLAY_DASHVO = 2540994183U;
@@ -113,6 +117,7 @@ namespace AK
     {
         static const AkUniqueID ATTACKHITBUS = 534946722U;
         static const AkUniqueID ATTACKSWINGBUS = 4276455557U;
+        static const AkUniqueID BLUKSPECIALSBUS = 412313871U;
         static const AkUniqueID BLUKVOICELINESBUS = 259737002U;
         static const AkUniqueID COMBATUIBUS = 1862777451U;
         static const AkUniqueID CROWDBUS = 1975785326U;

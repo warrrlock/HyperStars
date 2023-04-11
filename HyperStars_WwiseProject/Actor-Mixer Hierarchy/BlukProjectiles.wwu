@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{EA8AE84D-1018-4F87-981E-B0BEDD316341}" SchemaVersion="103" RootDocumentID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}" ParentDocumentID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}">
+	<AudioObjects>
+		<WorkUnit Name="BlukProjectiles" ID="{EA8AE84D-1018-4F87-981E-B0BEDD316341}" OwnerID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}" PersistMode="Nested">
+			<ChildrenList>
+				<Sound Name="Bluk Projectile Girder" ID="{303EA2CD-B6F8-4A0F-964D-95C147C85BEB}" ShortID="880836788">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="Bluk Projectile Girder" ID="{D1F62E3C-0E8D-4293-9AD1-4AF5DC888D66}">
+							<Language>SFX</Language>
+							<AudioFile>Bluk Projectile Girder.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="919943888"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="Bluk Projectile Girder" ID="{D1F62E3C-0E8D-4293-9AD1-4AF5DC888D66}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
