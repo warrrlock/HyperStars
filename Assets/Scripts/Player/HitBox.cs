@@ -175,7 +175,7 @@ public class HitBox : MonoBehaviour
         {
             StartCoroutine(hitFighter.MovementController.EnableGroundBounce(attackInfoSO.groundBounceDistance, attackInfoSO.groundBounceDuration, attackInfoSO.groundBounceDirection, attackInfoSO.groundBounceHitStopDuration));
         }
-        if (forceDirection.y > 0f || !hitFighter.MovementController.IsGrounded)
+        if (attackInfoSO.hangTime > 0f && (forceDirection.y > 0f || !hitFighter.MovementController.IsGrounded))
         {
             StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfoSO.hangTime));
         }

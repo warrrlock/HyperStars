@@ -588,7 +588,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 11.140398, y: 14.310825, z: 6.3329177}
+  m_Size: {x: 13.74, y: 14.310825, z: 6.3329177}
   m_Center: {x: -0.7723987, y: 7.1554127, z: 0}
 --- !u!114 &5751411094791523312
 MonoBehaviour:
@@ -655,7 +655,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
-  _flipDelayTime: 0.05
+  _flipDelayTime: 0.1
   _move: {fileID: 11400000, guid: 54a328f9757a9b44dab1b073a8671943, type: 2}
   _dashes:
   - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
@@ -779,6 +779,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ca6fcb0bea23ddb47a46ae29c0cbea0c, type: 2}
   - {fileID: 11400000, guid: 74a5f87d10931f14b9b0401fabb9f0ac, type: 2}
   - {fileID: 11400000, guid: 02b24582db4fc444e898f51147987132, type: 2}
+  _parryStates:
+  - {fileID: 11400000, guid: e84ebc7331cc3e449825451ba468df15, type: 2}
+  - {fileID: 11400000, guid: 390f6bc58f281d64e9bfd052080baf1e, type: 2}
 --- !u!114 &3013315635892402694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -896,9 +899,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterSprite: {fileID: 5751411094791522312}
   characterColors: {fileID: 11400000, guid: 948c02293ac922d4d919f20538668fda, type: 2}
-  currentColorIndex: 4
+  currentColorIndex: 5
   newColor:
-    <SelectMenuColor>k__BackingField: {r: 0.8313726, g: 0.90196085, b: 0.6431373, a: 1}
+    <SelectMenuBaseColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <SelectMenuHighlightColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
     <Color1>k__BackingField: {r: 0.18823531, g: 0.19215688, b: 0.30588236, a: 1}
     <Color2>k__BackingField: {r: 0.5803922, g: 0.62352943, b: 0.8117648, a: 1}
     <Color3>k__BackingField: {r: 0.8313726, g: 0.90196085, b: 0.6431373, a: 1}
