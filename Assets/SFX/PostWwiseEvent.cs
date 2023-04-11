@@ -56,7 +56,7 @@ public class PostWwiseEvent : MonoBehaviour
         }
     }
     
-    private void Wwise_PlaySingle(AK.Wwise.Event e)
+    public void Wwise_PlaySingle(AK.Wwise.Event e)
     {
         e.Post(gameObject);
     }

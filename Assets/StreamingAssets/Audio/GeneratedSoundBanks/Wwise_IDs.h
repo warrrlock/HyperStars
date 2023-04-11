@@ -19,14 +19,15 @@ namespace AK
         static const AkUniqueID PLAY_BLUK_DASH = 3047339195U;
         static const AkUniqueID PLAY_BLUK_JUMP = 2375325323U;
         static const AkUniqueID PLAY_BLUK_LAND = 1242285672U;
+        static const AkUniqueID PLAY_BLUK_PROJECTILE_GIRDER = 1597764638U;
         static const AkUniqueID PLAY_BLUK_SPECIAL_TRIPLE = 790653515U;
+        static const AkUniqueID PLAY_BLUK_SUPER_DASH = 2859284271U;
         static const AkUniqueID PLAY_CROWD_CHEERS = 3617758906U;
         static const AkUniqueID PLAY_CROWD_HYPE_SHORT = 1227494039U;
         static const AkUniqueID PLAY_DASHVO = 2540994183U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_HIT = 2124280636U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_SWING = 2525681113U;
         static const AkUniqueID PLAY_FAVORLOCKBREAK = 3727876332U;
-        static const AkUniqueID PLAY_GROUND_HIT = 348820993U;
         static const AkUniqueID PLAY_GROUND_SPLAT_FOLEY_MAT = 2109586569U;
         static const AkUniqueID PLAY_HEAVY_HIT = 2944971053U;
         static const AkUniqueID PLAY_HEAVYPAINVO = 2810545614U;
@@ -49,7 +50,6 @@ namespace AK
         static const AkUniqueID PLAY_LISA_DASH = 936983702U;
         static const AkUniqueID PLAY_LISA_DASH_BETA = 2809825743U;
         static const AkUniqueID PLAY_LISA_FOOTSTEPS = 431785379U;
-        static const AkUniqueID PLAY_LISA_HITS = 3751620944U;
         static const AkUniqueID PLAY_LISA_JUMP = 28555886U;
         static const AkUniqueID PLAY_LISA_JUMP_BETA = 10510631U;
         static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
@@ -67,7 +67,6 @@ namespace AK
         static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;
         static const AkUniqueID PLAY_SIDE_LAUNCH_SWING = 2955565060U;
         static const AkUniqueID PLAY_WALL_BOUNCE_FOLEY_MAT = 2769098130U;
-        static const AkUniqueID PLAY_WALL_HIT = 625690868U;
         static const AkUniqueID STOP_LISATHEME = 564764656U;
         static const AkUniqueID STOP_SWINGS = 3063666669U;
     } // namespace EVENTS
