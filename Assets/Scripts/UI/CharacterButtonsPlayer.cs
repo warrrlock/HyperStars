@@ -29,13 +29,18 @@ public class CharacterButtonsPlayer: MonoBehaviour
     private void OnDestroy()
     {
         Player.onReady -= UpdateReadyVisuals;
+        Player.unReady -= UpdateReadyVisuals;
     }
 
     public void SetPlayer(Player p)
     {
-        if (Player) Player.onReady -= UpdateReadyVisuals;
+        if (!Player)
+        {
+            p.onReady += UpdateReadyVisuals;
+            p.unReady += UpdateReadyVisuals;
+        }
         Player = p;
-        Player.onReady += UpdateReadyVisuals;
+        
     }
     
     public void SelectLisa()
@@ -68,11 +73,12 @@ public class CharacterButtonsPlayer: MonoBehaviour
     private void UpdateReadyVisuals()
     {
         if (_readyVisual)
-            _readyVisual.SetActive(Player.Ready ? true : false); //TODO: replace with animations/ui input module change}
+            _readyVisual.SetActive(Player.Ready); //TODO: replace with animations/ui input module change}
     }
     
     public void GetReady()
     {
+        Debug.Log("get ready");
         StartCoroutine(Player.GetReady());
     }
 }
