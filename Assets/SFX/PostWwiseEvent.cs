@@ -42,6 +42,8 @@ public class PostWwiseEvent : MonoBehaviour
         // environment hits
         _fighter.Events.wallBounce += () => Wwise_PlaySingle(SoundManagerCombat.Instance.environmentHits[(int)Wwise_CombatEnvironmentSounds.WallBounce]);
         _fighter.Events.onLandedHurt += () => Wwise_PlaySingle(SoundManagerCombat.Instance.environmentHits[(int)Wwise_CombatEnvironmentSounds.GroundSplat]);
+        // jump
+        GetComponent<InputManager>().Actions["Jump"].perform += ctx => Wwise_PlaySingle(movements[(int)Wwise_MovementEvents.Jump]);
         // land
         _fighter.Events.onLandedNeutral += () => Wwise_PlaySingle(movements[(int)Wwise_MovementEvents.Land]);
         foreach (var normalDash in normalDashes)
@@ -88,7 +90,8 @@ public class PostWwiseEvent : MonoBehaviour
     
     private void Wwise_PlayHitSound(Dictionary<string, object> message)
     {
-        
+        AttackInfo attackInfo = (AttackInfo)message["attack info"];
+        attackInfo.hitSfxEvent.Post(gameObject);
         //Play Character Hit Sound
         Fighter receiver = (Fighter)message["attacked"];
         AttackInfo.AttackType type = (AttackInfo.AttackType)message["attack type"];

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Mac\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
+		<ProjectRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Mac\</SourceFilesRoot>
+		<SoundBanksRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="374987273" Language="SFX" Hash="3942121146">
+		<SoundBank Id="374987273" Language="SFX" Hash="3391988937">
 			<ObjectPath>\SoundBanks\MusicSoundBanks\MusicMain</ObjectPath>
 			<ShortName>MusicMain</ShortName>
 			<Path>MusicMain.bnk</Path>
@@ -155,7 +155,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Language="SFX" Hash="515948437">
+		<SoundBank Id="1355168291" Language="SFX" Hash="3320550506">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
@@ -168,7 +168,7 @@
 				<GameParameter Id="2346531308" Name="MusicVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MusicVolume"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="3725967510">
+		<SoundBank Id="3161908922" Language="SFX" Hash="2563093693">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -199,6 +199,41 @@
 					<ActionPostEvent>
 						<ActionPostEventEntry Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO"/>
 					</ActionPostEvent>
+				</Event>
+				<Event Id="3047339195" Name="Play_Bluk_Dash" ObjectPath="\Events\BlukEvents\BlukMovements\Play_Bluk_Dash" DurationType="OneShot" DurationMin="0.710658" DurationMax="0.710658">
+					<IncludedMemoryFiles>
+						<File Id="706929399" Language="SFX">
+							<ShortName>Bluk Dash.wav</ShortName>
+							<Path>SFX\Bluk Dash_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2375325323" Name="Play_Bluk_Jump" ObjectPath="\Events\BlukEvents\BlukMovements\Play_Bluk_Jump" DurationType="OneShot" DurationMin="0.578322" DurationMax="0.578322">
+					<IncludedMemoryFiles>
+						<File Id="733514390" Language="SFX">
+							<ShortName>Bluk Jump.wav</ShortName>
+							<Path>SFX\Bluk Jump_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="1683057335" Name="Play_JumpVO" ObjectPath="\Events\VOWorkUnit\Play_JumpVO"/>
+					</ActionPostEvent>
+				</Event>
+				<Event Id="1242285672" Name="Play_Bluk_Land" ObjectPath="\Events\BlukEvents\BlukMovements\Play_Bluk_Land" DurationType="OneShot" DurationMin="0.886757" DurationMax="0.886757">
+					<IncludedMemoryFiles>
+						<File Id="765691710" Language="SFX">
+							<ShortName>Bluk Land.wav</ShortName>
+							<Path>SFX\Bluk Land_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="790653515" Name="Play_Bluk_Special_Triple" ObjectPath="\Events\BlukEvents\BlukSpecials\Play_Bluk_Special_Triple" DurationType="OneShot" DurationMin="0.921504" DurationMax="0.921504">
+					<IncludedMemoryFiles>
+						<File Id="322275671" Language="SFX">
+							<ShortName>Bluk Special Triple.wav</ShortName>
+							<Path>SFX\Bluk Special Triple_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="3617758906" Name="Play_Crowd_Cheers" ObjectPath="\Events\Ambiance\CrowdAmbiance\Play_Crowd_Cheers" DurationType="Infinite">
 					<IncludedMemoryFiles>
@@ -302,8 +337,12 @@
 						<ActionPostEventEntry Id="3063666669" Name="Stop_Swings" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\Stop_Swings"/>
 					</ActionPostEvent>
 				</Event>
-				<Event Id="2810545614" Name="Play_HeavyPainVO" ObjectPath="\Events\VOWorkUnit\Play_HeavyPainVO" DurationType="OneShot" DurationMin="0.393128" DurationMax="0.652242">
+				<Event Id="2810545614" Name="Play_HeavyPainVO" ObjectPath="\Events\VOWorkUnit\Play_HeavyPainVO" DurationType="OneShot" DurationMin="0.340272" DurationMax="0.652242">
 					<IncludedMemoryFiles>
+						<File Id="17996906" Language="SFX">
+							<ShortName>BlukPainHeavy1.wav</ShortName>
+							<Path>SFX\BlukPainHeavy1_10C4C929.wem</Path>
+						</File>
 						<File Id="158946141" Language="SFX">
 							<ShortName>LisaPainHeavy4.wav</ShortName>
 							<Path>SFX\LisaPainHeavy4_10C4C929.wem</Path>
@@ -316,6 +355,18 @@
 							<ShortName>LisaPainHeavy2.wav</ShortName>
 							<Path>SFX\LisaPainHeavy2_10C4C929.wem</Path>
 						</File>
+						<File Id="697238966" Language="SFX">
+							<ShortName>BlukPainHeavy2.wav</ShortName>
+							<Path>SFX\BlukPainHeavy2_10C4C929.wem</Path>
+						</File>
+						<File Id="815886259" Language="SFX">
+							<ShortName>BlukPainHeavy3.wav</ShortName>
+							<Path>SFX\BlukPainHeavy3_10C4C929.wem</Path>
+						</File>
+						<File Id="927813273" Language="SFX">
+							<ShortName>BlukPainMedium1.wav</ShortName>
+							<Path>SFX\BlukPainMedium1_10C4C929.wem</Path>
+						</File>
 						<File Id="933610410" Language="SFX">
 							<ShortName>LisaPainHeavy1.wav</ShortName>
 							<Path>SFX\LisaPainHeavy1_10C4C929.wem</Path>
@@ -324,6 +375,14 @@
 							<ShortName>LisaPainHeavy6.wav</ShortName>
 							<Path>SFX\LisaPainHeavy6_10C4C929.wem</Path>
 						</File>
+						<File Id="996391768" Language="SFX">
+							<ShortName>BlukPainHeavy4.wav</ShortName>
+							<Path>SFX\BlukPainHeavy4_10C4C929.wem</Path>
+						</File>
+						<File Id="1067101505" Language="SFX">
+							<ShortName>BlukPainMedium2.wav</ShortName>
+							<Path>SFX\BlukPainMedium2_10C4C929.wem</Path>
+						</File>
 						<File Id="1073479553" Language="SFX">
 							<ShortName>LisaPainHeavy3.wav</ShortName>
 							<Path>SFX\LisaPainHeavy3_10C4C929.wem</Path>
@@ -331,6 +390,16 @@
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
 					<SwitchContainers>
+						<SwitchContainer SwitchValue="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}">
+							<Media>
+								<File Id="17996906"/>
+								<File Id="697238966"/>
+								<File Id="815886259"/>
+								<File Id="927813273"/>
+								<File Id="996391768"/>
+								<File Id="1067101505"/>
+							</Media>
+						</SwitchContainer>
 						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
 							<Media>
 								<File Id="158946141"/>
@@ -343,11 +412,23 @@
 						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
-				<Event Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO" DurationType="OneShot" DurationMin="0.215396" DurationMax="0.362">
+				<Event Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO" DurationType="OneShot" DurationMin="0.215396" DurationMax="0.562426">
 					<IncludedMemoryFiles>
+						<File Id="42732967" Language="SFX">
+							<ShortName>BlukSwingHeavy1.wav</ShortName>
+							<Path>SFX\BlukSwingHeavy1_10C4C929.wem</Path>
+						</File>
+						<File Id="229990855" Language="SFX">
+							<ShortName>BlukSwingHeavy2.wav</ShortName>
+							<Path>SFX\BlukSwingHeavy2_10C4C929.wem</Path>
+						</File>
 						<File Id="285774774" Language="SFX">
 							<ShortName>LisaSwingHeavy3.wav</ShortName>
 							<Path>SFX\LisaSwingHeavy3_10C4C929.wem</Path>
+						</File>
+						<File Id="378022392" Language="SFX">
+							<ShortName>BlukSwingHeavy3.wav</ShortName>
+							<Path>SFX\BlukSwingHeavy3_10C4C929.wem</Path>
 						</File>
 						<File Id="815807655" Language="SFX">
 							<ShortName>LisaSwingHeavy1.wav</ShortName>
@@ -360,6 +441,13 @@
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
 					<SwitchContainers>
+						<SwitchContainer SwitchValue="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}">
+							<Media>
+								<File Id="42732967"/>
+								<File Id="229990855"/>
+								<File Id="378022392"/>
+							</Media>
+						</SwitchContainer>
 						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
 							<Media>
 								<File Id="285774774"/>
@@ -369,11 +457,19 @@
 						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
-				<Event Id="1683057335" Name="Play_JumpVO" ObjectPath="\Events\VOWorkUnit\Play_JumpVO" DurationType="OneShot" DurationMin="0." DurationMax="0.248542">
+				<Event Id="1683057335" Name="Play_JumpVO" ObjectPath="\Events\VOWorkUnit\Play_JumpVO" DurationType="OneShot" DurationMin="0." DurationMax="0.443288">
 					<IncludedMemoryFiles>
+						<File Id="54730189" Language="SFX">
+							<ShortName>BlukSwingLight2.wav</ShortName>
+							<Path>SFX\BlukSwingLight2_10C4C929.wem</Path>
+						</File>
 						<File Id="126881099" Language="SFX">
 							<ShortName>LisaJump2.wav</ShortName>
 							<Path>SFX\LisaJump2_10C4C929.wem</Path>
+						</File>
+						<File Id="253180751" Language="SFX">
+							<ShortName>BlukSwingLight1.wav</ShortName>
+							<Path>SFX\BlukSwingLight1_10C4C929.wem</Path>
 						</File>
 						<File Id="623112627" Language="SFX">
 							<ShortName>LisaJump1.wav</ShortName>
@@ -387,9 +483,20 @@
 							<ShortName>LisaJump3.wav</ShortName>
 							<Path>SFX\LisaJump3_10C4C929.wem</Path>
 						</File>
+						<File Id="1031417621" Language="SFX">
+							<ShortName>BlukSwingLight3.wav</ShortName>
+							<Path>SFX\BlukSwingLight3_10C4C929.wem</Path>
+						</File>
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
 					<SwitchContainers>
+						<SwitchContainer SwitchValue="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}">
+							<Media>
+								<File Id="54730189"/>
+								<File Id="253180751"/>
+								<File Id="1031417621"/>
+							</Media>
+						</SwitchContainer>
 						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
 							<Media>
 								<File Id="126881099"/>
@@ -434,11 +541,15 @@
 						<ActionPostEventEntry Id="3063666669" Name="Stop_Swings" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\Stop_Swings"/>
 					</ActionPostEvent>
 				</Event>
-				<Event Id="2753477471" Name="Play_LightPainVO" ObjectPath="\Events\VOWorkUnit\Play_LightPainVO" DurationType="OneShot" DurationMin="0.254604" DurationMax="0.432604">
+				<Event Id="2753477471" Name="Play_LightPainVO" ObjectPath="\Events\VOWorkUnit\Play_LightPainVO" DurationType="OneShot" DurationMin="0.254604" DurationMax="0.494853">
 					<IncludedMemoryFiles>
 						<File Id="232818191" Language="SFX">
 							<ShortName>LisaPainLight5.wav</ShortName>
 							<Path>SFX\LisaPainLight5_10C4C929.wem</Path>
+						</File>
+						<File Id="245253941" Language="SFX">
+							<ShortName>BlukPainLight4.wav</ShortName>
+							<Path>SFX\BlukPainLight4_10C4C929.wem</Path>
 						</File>
 						<File Id="443231741" Language="SFX">
 							<ShortName>LisaPainLight6.wav</ShortName>
@@ -448,9 +559,25 @@
 							<ShortName>LisaPainLight1.wav</ShortName>
 							<Path>SFX\LisaPainLight1_10C4C929.wem</Path>
 						</File>
+						<File Id="585174335" Language="SFX">
+							<ShortName>BlukPainLight1.wav</ShortName>
+							<Path>SFX\BlukPainLight1_10C4C929.wem</Path>
+						</File>
+						<File Id="595486195" Language="SFX">
+							<ShortName>BlukPainLight5.wav</ShortName>
+							<Path>SFX\BlukPainLight5_10C4C929.wem</Path>
+						</File>
+						<File Id="664955467" Language="SFX">
+							<ShortName>BlukPainLight2.wav</ShortName>
+							<Path>SFX\BlukPainLight2_10C4C929.wem</Path>
+						</File>
 						<File Id="739367922" Language="SFX">
 							<ShortName>LisaPainLight4.wav</ShortName>
 							<Path>SFX\LisaPainLight4_10C4C929.wem</Path>
+						</File>
+						<File Id="812111047" Language="SFX">
+							<ShortName>BlukPainLight3.wav</ShortName>
+							<Path>SFX\BlukPainLight3_10C4C929.wem</Path>
 						</File>
 						<File Id="852130968" Language="SFX">
 							<ShortName>LisaPainLight7.wav</ShortName>
@@ -463,6 +590,15 @@
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
 					<SwitchContainers>
+						<SwitchContainer SwitchValue="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}">
+							<Media>
+								<File Id="245253941"/>
+								<File Id="585174335"/>
+								<File Id="595486195"/>
+								<File Id="664955467"/>
+								<File Id="812111047"/>
+							</Media>
+						</SwitchContainer>
 						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
 							<Media>
 								<File Id="232818191"/>
@@ -475,8 +611,16 @@
 						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
-				<Event Id="2258955033" Name="Play_LightSwingVO" ObjectPath="\Events\VOWorkUnit\Play_LightSwingVO" DurationType="OneShot" DurationMin="0.169292" DurationMax="0.517563">
+				<Event Id="2258955033" Name="Play_LightSwingVO" ObjectPath="\Events\VOWorkUnit\Play_LightSwingVO" DurationType="OneShot" DurationMin="0.169292" DurationMax="0.517551">
 					<IncludedMemoryFiles>
+						<File Id="32308844" Language="SFX">
+							<ShortName>BlukSwingLight4.wav</ShortName>
+							<Path>SFX\BlukSwingLight4_10C4C929.wem</Path>
+						</File>
+						<File Id="54730189" Language="SFX">
+							<ShortName>BlukSwingLight2.wav</ShortName>
+							<Path>SFX\BlukSwingLight2_10C4C929.wem</Path>
+						</File>
 						<File Id="93031113" Language="SFX">
 							<ShortName>LisaSwingLight4.wav</ShortName>
 							<Path>SFX\LisaSwingLight4_10C4C929.wem</Path>
@@ -485,9 +629,9 @@
 							<ShortName>LisaSwingLight2.wav</ShortName>
 							<Path>SFX\LisaSwingLight2_10C4C929.wem</Path>
 						</File>
-						<File Id="245253941" Language="SFX">
-							<ShortName>BlukPainLight4.wav</ShortName>
-							<Path>SFX\BlukPainLight4_10C4C929.wem</Path>
+						<File Id="253180751" Language="SFX">
+							<ShortName>BlukSwingLight1.wav</ShortName>
+							<Path>SFX\BlukSwingLight1_10C4C929.wem</Path>
 						</File>
 						<File Id="382170641" Language="SFX">
 							<ShortName>LisaSwingLight8.wav</ShortName>
@@ -505,40 +649,32 @@
 							<ShortName>LisaSwingLight3.wav</ShortName>
 							<Path>SFX\LisaSwingLight3_10C4C929.wem</Path>
 						</File>
-						<File Id="585174335" Language="SFX">
-							<ShortName>BlukPainLight1.wav</ShortName>
-							<Path>SFX\BlukPainLight1_10C4C929.wem</Path>
-						</File>
-						<File Id="595486195" Language="SFX">
-							<ShortName>BlukPainLight5.wav</ShortName>
-							<Path>SFX\BlukPainLight5_10C4C929.wem</Path>
-						</File>
 						<File Id="604298463" Language="SFX">
 							<ShortName>LisaSwingLight1.wav</ShortName>
 							<Path>SFX\LisaSwingLight1_10C4C929.wem</Path>
 						</File>
-						<File Id="664955467" Language="SFX">
-							<ShortName>BlukPainLight2.wav</ShortName>
-							<Path>SFX\BlukPainLight2_10C4C929.wem</Path>
-						</File>
-						<File Id="812111047" Language="SFX">
-							<ShortName>BlukPainLight3.wav</ShortName>
-							<Path>SFX\BlukPainLight3_10C4C929.wem</Path>
+						<File Id="755348386" Language="SFX">
+							<ShortName>BlukSwingLight5.wav</ShortName>
+							<Path>SFX\BlukSwingLight5_10C4C929.wem</Path>
 						</File>
 						<File Id="830684219" Language="SFX">
 							<ShortName>LisaSwingLight7.wav</ShortName>
 							<Path>SFX\LisaSwingLight7_10C4C929.wem</Path>
+						</File>
+						<File Id="1031417621" Language="SFX">
+							<ShortName>BlukSwingLight3.wav</ShortName>
+							<Path>SFX\BlukSwingLight3_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
 					<SwitchContainers>
 						<SwitchContainer SwitchValue="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}">
 							<Media>
-								<File Id="245253941"/>
-								<File Id="585174335"/>
-								<File Id="595486195"/>
-								<File Id="664955467"/>
-								<File Id="812111047"/>
+								<File Id="32308844"/>
+								<File Id="54730189"/>
+								<File Id="253180751"/>
+								<File Id="755348386"/>
+								<File Id="1031417621"/>
 							</Media>
 						</SwitchContainer>
 						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
@@ -785,7 +921,7 @@
 						<ActionPostEventEntry Id="3063666669" Name="Stop_Swings" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\Stop_Swings"/>
 					</ActionPostEvent>
 				</Event>
-				<Event Id="1501759178" Name="Play_MediumSwingVO" ObjectPath="\Events\VOWorkUnit\Play_MediumSwingVO" DurationType="OneShot" DurationMin="0.208146" DurationMax="0.326625">
+				<Event Id="1501759178" Name="Play_MediumSwingVO" ObjectPath="\Events\VOWorkUnit\Play_MediumSwingVO" DurationType="OneShot" DurationMin="0.208146" DurationMax="0.783673">
 					<IncludedMemoryFiles>
 						<File Id="71251293" Language="SFX">
 							<ShortName>LisaSwingMedium2.wav</ShortName>
@@ -794,6 +930,10 @@
 						<File Id="96103633" Language="SFX">
 							<ShortName>LisaSwingMedium3.wav</ShortName>
 							<Path>SFX\LisaSwingMedium3_10C4C929.wem</Path>
+						</File>
+						<File Id="102071599" Language="SFX">
+							<ShortName>BlukSwingMedium4.wav</ShortName>
+							<Path>SFX\BlukSwingMedium4_10C4C929.wem</Path>
 						</File>
 						<File Id="410631971" Language="SFX">
 							<ShortName>LisaSwingMedium4.wav</ShortName>
@@ -807,9 +947,29 @@
 							<ShortName>LisaSwingMedium1.wav</ShortName>
 							<Path>SFX\LisaSwingMedium1_10C4C929.wem</Path>
 						</File>
+						<File Id="686082380" Language="SFX">
+							<ShortName>BlukSwingMedium1.wav</ShortName>
+							<Path>SFX\BlukSwingMedium1_10C4C929.wem</Path>
+						</File>
+						<File Id="939445600" Language="SFX">
+							<ShortName>BlukSwingMedium3.wav</ShortName>
+							<Path>SFX\BlukSwingMedium3_10C4C929.wem</Path>
+						</File>
+						<File Id="1011263189" Language="SFX">
+							<ShortName>BlukSwingMedium2.wav</ShortName>
+							<Path>SFX\BlukSwingMedium2_10C4C929.wem</Path>
+						</File>
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
 					<SwitchContainers>
+						<SwitchContainer SwitchValue="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}">
+							<Media>
+								<File Id="102071599"/>
+								<File Id="686082380"/>
+								<File Id="939445600"/>
+								<File Id="1011263189"/>
+							</Media>
+						</SwitchContainer>
 						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
 							<Media>
 								<File Id="71251293"/>

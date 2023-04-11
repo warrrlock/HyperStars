@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{0BFBA0F6-074B-40E1-BF3A-36AD8CC36EA1}" SchemaVersion="103" RootDocumentID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}" ParentDocumentID="{4A67C3BE-DFE5-4102-BF28-75DF83B62E58}">
+	<AudioObjects>
+		<WorkUnit Name="Bluk Dashes" ID="{0BFBA0F6-074B-40E1-BF3A-36AD8CC36EA1}" OwnerID="{4A67C3BE-DFE5-4102-BF28-75DF83B62E58}" PersistMode="Nested">
+			<ChildrenList>
+				<ActorMixer Name="BlukDashes" ID="{0C9A5D24-437D-4437-91FF-275346FFB16E}" ShortID="1028168139">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Bluk Dash" ID="{CAF08A41-95C7-4141-B762-283A16830A0E}" ShortID="393007843">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Bluk Dash" ID="{2BFEC331-160A-4E75-B904-DC7819190329}">
+									<Language>SFX</Language>
+									<AudioFile>Bluk Dash.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="706929399"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="Bluk Dash" ID="{2BFEC331-160A-4E75-B904-DC7819190329}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
