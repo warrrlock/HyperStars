@@ -408,8 +408,16 @@ public class MovementController : MonoBehaviour
         KillAllForces();
         StopMoving();
         ResetVelocityY();
+        ResetAllVelocities();
         //RestoreOpponentGravity();
         RestoreGravity();
+    }
+
+    private void ResetAllVelocities()
+    {
+        _unforcedVelocity = Vector3.zero;
+        _forceVelocity = Vector3.zero;
+        overlapResolutionVelocity = Vector3.zero;
     }
 
     private void KillAllForces()
