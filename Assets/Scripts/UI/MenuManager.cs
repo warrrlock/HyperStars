@@ -35,8 +35,8 @@ public class MenuManager: MonoBehaviour
 
     private void ShowStartGame()
     {
-        if (CheckReady())
-            if (_playersReadyVisual) _playersReadyVisual.SetActive(true);
+        if (!CheckReady()) return;
+        if (_playersReadyVisual) _playersReadyVisual.SetActive(true);
     }
 
     private bool CheckReady()
