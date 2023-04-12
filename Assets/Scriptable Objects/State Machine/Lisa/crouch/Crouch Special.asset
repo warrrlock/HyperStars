@@ -33,7 +33,8 @@ MonoBehaviour:
     edit: 0
   _onInputPlayOrStopActions: []
   _onInputInvokeActions: []
-  _transitions: []
+  _transitions:
+  - {fileID: 11400000, guid: 935cfa0097e7c473a89d61b7f7b4df60, type: 2}
   _defaultCombo: 0
   _attackInfo:
     idSO: 8
@@ -44,14 +45,14 @@ MonoBehaviour:
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
     knockbackDuration: 1
-    knockbackDistance: 15
+    knockbackDistance: 18
     knockbackDirection: {x: 0.1, y: 1, z: 0}
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1.8
     causesWallBounce: 0
-    hitStopDuration: 0.3
+    hitStopDuration: 0.08
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
@@ -61,10 +62,12 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.4
-    favorReward: 10
+    hangTime: 0.3
+    gravityAugmentFactor: 0.52
+    gravityAugmentDuration: 2
+    favorReward: 2
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
-    multiHitCount: 0
-    multiHitInterval: 0
+    multiHitCount: 3
+    multiHitInterval: 0.01
   _projectilePrefab: {fileID: 0}

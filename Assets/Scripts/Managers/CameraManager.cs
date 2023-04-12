@@ -44,7 +44,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject blurFilterPrefab;
     [SerializeField] private Material silhouetteMaterial;
     [SerializeField] private Camera silhouetteCamera;
-    [SerializeField] private Material rippleMaterial;
+    [SerializeField] private Material shockwaveMaterial;
 
     private void Awake()
     {
@@ -66,6 +66,8 @@ public class CameraManager : MonoBehaviour
         _defaultTargetY = _targets[0].position.y;
         _defaultFov = _camera.fieldOfView;
         _defaultRotation = transform.eulerAngles;
+        // default ratio
+        shockwaveMaterial.SetFloat("_SizeRatio", Camera.main.aspect);
     }
 
     private void FixedUpdate()
@@ -207,8 +209,14 @@ public class CameraManager : MonoBehaviour
     private void OnDisable()
     {
         ieMaterial.SetFloat("_distortion", defaultDistortion);
-        rippleMaterial.SetFloat("_RippleStrength", 0);
-        rippleMaterial.SetVector("_RipplePos", Vector4.zero);
+        ResetShockwave();
+    }
+
+    void ResetShockwave()
+    {
+        shockwaveMaterial.SetFloat("_ManualTime", .1f);
+        shockwaveMaterial.SetFloat("_Weight", 0);
+        shockwaveMaterial.SetVector("_FocalPoint", new Vector4(.5f, .5f, 0f, 0f));
     }
 
     /// <summary>
@@ -249,34 +257,49 @@ public class CameraManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Camera ripple effect
+    /// Camera shockwave effect
     /// </summary>
     /// <param name="hitPos"></param>
     /// <returns></returns>
-    public IEnumerator CameraRipple(Vector3 hitPos)
+    public IEnumerator Camerashockwave(Vector3 hitPos, float shockwaveDuration, float shockwaveExpansionAmount)
     {
-        rippleMaterial.SetVector("_RipplePos", GetScreenPoint(hitPos));
-        
-        // lerp to ripple
-        var rippleElapsed = 0f;
-        while (rippleElapsed < .05f)
-        {
-            rippleMaterial.SetFloat("_RippleStrength", Mathf.Lerp(rippleMaterial.GetFloat("_RippleStrength"), .09f, rippleElapsed / .05f));
-            rippleElapsed += Time.unscaledDeltaTime;
-            yield return null;
-        }
-        yield return new WaitForSecondsRealtime(.2f);
-        // lerp to unripple
-        var unrippleElapsed = 0f;
-        while (unrippleElapsed < .02f)
-        {
-            rippleMaterial.SetFloat("_RippleStrength", Mathf.Lerp(rippleMaterial.GetFloat("_RippleStrength"), 0f, unrippleElapsed / .05f));
-            unrippleElapsed += Time.unscaledDeltaTime;
-            yield return null;
-        }
+        shockwaveMaterial.SetVector("_FocalPoint", GetScreenPoint(hitPos));
+        // start shockwave
+        var shockwaveTime = .1f;
+        shockwaveMaterial.SetFloat("_ManualTime", shockwaveTime);
+        shockwaveMaterial.SetFloat("_Weight", 1);
 
+        bool dissolveStarted = false;
+        
+        // lerp to shockwave
+        var shockwaveElapsed = 0f;
+        while (shockwaveElapsed < shockwaveDuration)
+        {
+            shockwaveTime += Time.deltaTime * (1 / shockwaveDuration);
+            if (shockwaveTime < .99f * shockwaveExpansionAmount)
+                shockwaveMaterial.SetFloat("_ManualTime", shockwaveTime);
+            else if (!dissolveStarted)
+            {
+                StartCoroutine(shockwaveDissolve());
+                dissolveStarted = true;
+            }
+            shockwaveElapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private IEnumerator shockwaveDissolve()
+    {
+        // lerp to shockwave
+        var dissolveELapsed = 0f;
+        while (dissolveELapsed < .1f)
+        {
+            shockwaveMaterial.SetFloat("_Weight", Mathf.Lerp(shockwaveMaterial.GetFloat("_Weight"), 0, dissolveELapsed / .1f));
+            dissolveELapsed += Time.deltaTime;
+            yield return null;
+        }
         yield return new WaitForFixedUpdate();
-        rippleMaterial.SetFloat("_RippleStrength", 0);
+        shockwaveMaterial.SetFloat("_Weight", 0);
     }
 
     private Material[] bothMats;

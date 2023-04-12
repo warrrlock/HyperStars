@@ -215,12 +215,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackInfo:
-    attackType: 1
-    knockbackDuration: 0.2
-    knockbackDistance: 2
-    knockbackDirection: {x: 1, y: 0, z: 0}
-    hitStunDuration: 0.2
-    damage: 0
+    idSO: 0
+    idManager: 0
+    attackType: 2
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    knockbackDuration: 0.5
+    knockbackDistance: 8
+    knockbackDirection: {x: 1, y: 2, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    hitStunDuration: 0.5
     causesWallBounce: 0
     hitStopDuration: 0.1
     wallBounceDuration: 0
@@ -233,16 +241,20 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 4
-    knockbackForce: {x: 0, y: 0}
+    knockbackForce: {x: 88.673386, y: 100}
     incrementBarAmount: 0.2
+    multiHitCount: 0
+    multiHitInterval: 0
   _spawnDirection: 0
   _onSpawnActions: []
   _onTriggerEnterActions:
   - {fileID: 11400000, guid: 31bb4efc467b94f70a9cc166273d2b3c, type: 2}
   _onInvisibleActions:
   - {fileID: 11400000, guid: 31bb4efc467b94f70a9cc166273d2b3c, type: 2}
-  _speed: 7.5
+  _speed: 15
   _angle: 0
 --- !u!198 &3880273180285831385
 ParticleSystem:

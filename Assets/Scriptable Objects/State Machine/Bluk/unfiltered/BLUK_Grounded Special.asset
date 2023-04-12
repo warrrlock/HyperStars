@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: BLUK_Grounded Special
   m_EditorClassIdentifier: 
   characterSelection: 2
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 1
@@ -34,6 +33,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
   _defaultCombo: 0
   _attackInfo:
+    idSO: 12
+    idManager: 0
     attackType: 3
     hitSfxEvent:
       idInternal: 0
@@ -42,6 +43,9 @@ MonoBehaviour:
     knockbackDuration: 0.3
     knockbackDistance: 0.8
     knockbackDirection: {x: 1, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0.3
     causesWallBounce: 1
     hitStopDuration: 0.1
@@ -55,7 +59,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 4
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 2
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 5765926104683114581, guid: bcde11a2cc55e5a43b9335e646db8f4c, type: 3}

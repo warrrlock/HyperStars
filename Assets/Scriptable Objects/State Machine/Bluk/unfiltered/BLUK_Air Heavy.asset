@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: BLUK_Air Heavy
   m_EditorClassIdentifier: 
   characterSelection: 2
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
@@ -33,21 +32,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 611154cadee928c49b142d63bb9f171b, type: 2}
   _alwaysExecute: 0
   _attackInfo:
-    Id: 0
-    attackType: 2
+    idSO: 0
+    idManager: 0
+    attackType: 3
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
-    knockbackDuration: 0.2
+    knockbackDuration: 0.4
     knockbackDistance: 13
     knockbackDirection: {x: 1, y: -1, z: 0}
-    reverseKnockbackDuration: 0
-    reverseKnockbackDistance: 0
-    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 3
+    reverseKnockbackDistance: 15
+    reverseKnockbackDirection: {x: -1, y: 2, z: 0}
     hitStunDuration: 0.5
     causesWallBounce: 1
-    hitStopDuration: 0.3
+    hitStopDuration: 0.25
     wallBounceDuration: 1
     wallBounceDistance: 20
     wallBounceDirection: {x: -1, y: 2, z: 0}
@@ -58,6 +58,10 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0.1
     hangTime: 0
-    favorReward: 8
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 6
     knockbackForce: {x: 270.29382, y: 100}
     incrementBarAmount: 0.4
+    multiHitCount: 0
+    multiHitInterval: 0

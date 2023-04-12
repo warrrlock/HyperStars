@@ -591,7 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5dbaaf1d41d7345bfa2beda1525c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionBoxColor: {r: 0.17895675, g: 1, b: 0, a: 0.5176471}
+  collisionBoxColor: {r: 0.17895675, g: 1, b: 0, a: 0.3137255}
   showGizmos: 1
 --- !u!1 &5093239530593725847
 GameObject:
@@ -874,7 +874,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.706833, y: 12.502292, z: 6.3329177}
+  m_Size: {x: 10.88, y: 12.502292, z: 6.3329177}
   m_Center: {x: -1.3435178, y: 6.251146, z: 0}
 --- !u!114 &5093239530658643927
 MonoBehaviour:
@@ -905,22 +905,24 @@ MonoBehaviour:
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 9
   _opponentPushSpeed: 2
-  _jumpDistance: {x: 18, y: 40}
-  _jumpDuration: 0.8
-  _gravity: 93.74999
-  _dashDistance: 8
-  _dashDuration: 0.35
-  _shortDashDistance: 4
-  _shortDashDuration: 0.28
-  _dashHangTime: 0.1
+  _jumpDistance: {x: 36, y: 80}
+  _jumpDuration: 1.8
+  _gravity: 130.6122
+  _dashDistance: 6
+  _dashDuration: 0.25
+  _shortDashDistance: 5
+  _shortDashDuration: 0.25
+  _dashHangTime: 0.28
   _dashToZero: 1
   _shortDashCooldownDuration: 0
   _superDashCooldownDuration: 0
   _dashEasing: 0
-  _dashMinimumOverlap: 1
+  _dashMinimumOverlap: 2
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
+  _rollDistance: 4
+  _rollDuration: 0.35
   _secondaryForcePercentage: 0
   _collisionMask:
     serializedVersion: 2
@@ -993,9 +995,11 @@ MonoBehaviour:
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: b59d2315b88d5e54abfc37bdc477734a, type: 2}
   _jumpState: {fileID: 11400000, guid: 043a0370e95e9a5418231450d0db9a54, type: 2}
-  _jumpLandState: {fileID: 0}
+  _jumpLandState: {fileID: 11400000, guid: a032fe7c6e919324bbe67da353c7e97b, type: 2}
   _crouchState: {fileID: 11400000, guid: b6d5ab85d502ea240859cb8ffe110397, type: 2}
   _crouchUpState: {fileID: 11400000, guid: e140687ecff99a942a0510120742e5b1, type: 2}
+  _hurtRollState: {fileID: 11400000, guid: 9de0be882bc3d2645bf3b6989b32d7aa, type: 2}
+  _getUpState: {fileID: 11400000, guid: 28d599a337b69014fa270ee49718104e, type: 2}
   _noEndEventClips:
   - {fileID: 7400000, guid: e971c3ff527e8ea46b4cb858705c413b, type: 2}
   - {fileID: 7400000, guid: bfa9738f2f5c3174f8e3ad090a315f9b, type: 2}
@@ -1039,6 +1043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98fadf1de1d3914caed4988ca46638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxConfig: {fileID: 11400000, guid: dc3ad613f39753f4fa18e5e9de7a7e8f, type: 2}
   visualEffect: {fileID: 822637850931560098}
   dashSmokeGroundOffset: 2.5
   jumpSmokeGroundOffset: 1.95
@@ -1052,6 +1057,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
   _blurStates:
   - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
+  _parryStates:
+  - {fileID: 11400000, guid: c1a554cf6dec92e4c9df07dda450973d, type: 2}
+  - {fileID: 11400000, guid: aea48d41f887b1843a80f70b14807bdb, type: 2}
 --- !u!114 &2355027661028822561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1163,8 +1171,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSprite: {fileID: 5093239530658642991}
-  currentColorIndex: 0
   characterColors: {fileID: 11400000, guid: 115319a39d5032b43bf6b8649eab75aa, type: 2}
+  currentColorIndex: 0
+  newColor:
+    <SelectMenuBaseColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <SelectMenuHighlightColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Color1>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Color2>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Color3>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Color4>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Color5>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Color6>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Color7>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <EffectColor>k__BackingField:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
 --- !u!1 &5093239531031058998
 GameObject:
   m_ObjectHideFlags: 0

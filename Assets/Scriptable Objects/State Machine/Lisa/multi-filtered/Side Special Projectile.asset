@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Side Special Projectile
   m_EditorClassIdentifier: 
   characterSelection: 1
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 1
@@ -42,6 +41,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
   _defaultCombo: 0
   _attackInfo:
+    idSO: 20
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -50,6 +51,9 @@ MonoBehaviour:
     knockbackDuration: 0.1
     knockbackDistance: 0.1
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -63,7 +67,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 8
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.2
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 3747411656380514564, guid: 1e9d82dc1074fa848b7666207786af92, type: 3}

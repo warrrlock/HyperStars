@@ -28,16 +28,12 @@ public class VFXSpawnManager : MonoBehaviour
     [Header("VFX Prefabs")]
     [SerializeField] public GameObject[] visualEffectPrefabsNeutral;
 
-    [Header("VFX Characters")] [SerializeField]
-    public CharacterVFXScriptable[] visualEffectPrefabsCharacter;
+    [Header("VFX Configs")]
+    [SerializeField] public VFXConfig[] vfxConfigs;
 
+    [Header("Skybox")]
     private float currentRotation;
     [SerializeField] private float skyboxRotationSpeed;
-    
-    // test
-    [Header("Test")]
-    [SerializeField] private bool turnOnSilhouetteOnLightAttacks;
-    [SerializeField] private bool turnOnSilhouetteOnMediumAttacks;
 
     void Start()
     {
@@ -87,17 +83,6 @@ public class VFXSpawnManager : MonoBehaviour
     public void InitializeVFX(VFXTypes type, Vector3 spawnPos, Fighter triggerFighter)
     {
         VFXGraphsCharacter vfxGraphChar = VFXGraphsCharacter.Hit_V1;
-        string charName = Services.Characters[triggerFighter.PlayerId].name;
-        int charIndex = 0;
-        switch (charName)
-        {
-            case "Lisa":
-                charIndex = 0;
-                break;
-            case "BLUK":
-                charIndex = 1;
-                break;
-        }
         switch (type)
         {
             case VFXTypes.Hit_Character:
@@ -111,7 +96,8 @@ public class VFXSpawnManager : MonoBehaviour
                 vfxGraphChar = VFXGraphsCharacter.TakeDamage_Random;
                 break;
         }
-        VisualEffect newVFX = Instantiate(visualEffectPrefabsCharacter[charIndex].VFXSet[(int)vfxGraphChar], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
+        VFXConfig triggerConfig = triggerFighter.GetComponent<CharacterVFXManager>().vfxConfig;
+        VisualEffect newVFX = Instantiate(triggerConfig.VFXSet[(int)vfxGraphChar], spawnPos, Quaternion.identity).GetComponent<VisualEffect>();
         newVFX.GetComponent<VFXCleanUp>().f = triggerFighter;
     }
 
@@ -125,6 +111,7 @@ public class VFXSpawnManager : MonoBehaviour
             AttackInfo attackInfo = (AttackInfo)message["attack info"];
 
             CameraManager cam = Services.CameraManager;
+            VFXConfig senderConfig = sender.GetComponent<CharacterVFXManager>().vfxConfig;
             
             InitializeVFX(VFXGraphsNeutral.HIT_BASE, hitPos, sender);
             InitializeVFX(VFXTypes.Hit_TakeDamage, hitPos, receiver);
@@ -133,40 +120,19 @@ public class VFXSpawnManager : MonoBehaviour
             switch (attackInfo.attackType)
             {
                 case AttackInfo.AttackType.Light:
-                    StartCoroutine(cam.CameraShake(.2f, .05f));
-                    if (turnOnSilhouetteOnLightAttacks)
-                    {
-                        Material[] mats =
-                        {
-                            sender.GetComponent<SpriteRenderer>().material, 
-                            receiver.GetComponent<SpriteRenderer>().material
-                        };
-                        cam.SilhouetteToggle(true, mats);
-                    }
+                    AssignHitVFXStyle(senderConfig.LightHit, hitPos, sender, receiver);
                     break;
                 case AttackInfo.AttackType.Medium:
                     InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
-                    if (turnOnSilhouetteOnMediumAttacks)
-                    {
-                        Material[] mats =
-                        {
-                            sender.GetComponent<SpriteRenderer>().material, 
-                            receiver.GetComponent<SpriteRenderer>().material
-                        };
-                        cam.SilhouetteToggle(true, mats);
-                    }
-                    StartCoroutine(cam.CameraShake(.2f, .08f));
+                    AssignHitVFXStyle(senderConfig.MediumHit, hitPos, sender, receiver);
                     break;
                 case AttackInfo.AttackType.Heavy:
                     InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
-                    StartCoroutine(cam.CameraShake(.3f, .19f));
-                    StartCoroutine(cam.CameraZoom(.2f, 39f, .1f, -.02f));
-                    StartCoroutine(cam.CameraRipple(hitPos));
+                    AssignHitVFXStyle(senderConfig.HeavyHit, hitPos, sender, receiver);
                     break;
                 case AttackInfo.AttackType.Special:
                     InitializeVFX(VFXTypes.Hit_Character, hitPos, sender);
-                    StartCoroutine(cam.CameraZoom(.2f, 36f, .16f, -.02f));
-                    StartCoroutine(cam.CameraShake(.3f, .19f));
+                    AssignHitVFXStyle(senderConfig.SpecialHit, hitPos, sender, receiver);
                     break;
                 default:
                     StartCoroutine(cam.CameraShake(.1f, .04f));
@@ -176,6 +142,35 @@ public class VFXSpawnManager : MonoBehaviour
         catch (KeyNotFoundException)
         {
             Debug.Log("key was not found in dictionary.");
+        }
+    }
+
+    void AssignHitVFXStyle(VFXHitData configData, Vector3 hitPos, Fighter sender, Fighter receiver)
+    {
+        CameraManager cam = Services.CameraManager;
+        
+        if (configData.cameraShake != CameraShakeType.NoShake)
+        {
+            StartCoroutine(cam.CameraShake(configData.cameraShakeDuration, configData.cameraShakeMagnitude));
+        }
+        if (configData.distortionZoom)
+        {
+            DistortionZoomSettings s = configData.distortionZoom.Value;
+            StartCoroutine(cam.CameraZoom(s.zoomSpeed, s.zoomFov, s.zoomHoldTime, s.zoomDistortion));
+        }
+        if (configData.shockwave)
+        {
+            ShockwaveSettings s = configData.shockwave.Value;
+            StartCoroutine(cam.Camerashockwave(hitPos, s.shockwaveDuration, s.shockwavePercentage));
+        }
+        if (configData.hasSilhouette)
+        {
+            Material[] mats =
+            {
+                sender.GetComponent<SpriteRenderer>().material, 
+                receiver.GetComponent<SpriteRenderer>().material
+            };
+            cam.SilhouetteToggle(true, mats);
         }
     }
     

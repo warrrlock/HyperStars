@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184424c4eb235514686a74058171cbc8, type: 3}
+  m_Name: BlukVFX
+  m_EditorClassIdentifier: 
+  VFXSet:
+  - {fileID: 9197529569700219498, guid: 3fdfa9fe2812dfd4b931e76c26a51e52, type: 3}
+  - {fileID: 9197529569700219498, guid: 3fdfa9fe2812dfd4b931e76c26a51e52, type: 3}
+  - {fileID: 0}
+  - {fileID: 343261081338538315, guid: ad9401d8f45bcf448b3795300460cf51, type: 3}
+  LightHit:
+    cameraShake: 1
+    cameraShakeSettingsOverride:
+      enabled: 0
+      value:
+        cameraShakeDuration: 0
+        cameraShakeMagnitude: 0
+    distortionZoom:
+      enabled: 0
+      value:
+        zoomSpeed: 0
+        zoomFov: 0
+        zoomHoldTime: 0
+        zoomDistortion: 0
+    shockwave:
+      enabled: 0
+      value:
+        shockwaveDuration: 0.229
+        shockwavePercentage: 0.766
+    hasSilhouette: 0
+  MediumHit:
+    cameraShake: 2
+    cameraShakeSettingsOverride:
+      enabled: 0
+      value:
+        cameraShakeDuration: 0
+        cameraShakeMagnitude: 0
+    distortionZoom:
+      enabled: 0
+      value:
+        zoomSpeed: 0
+        zoomFov: 0
+        zoomHoldTime: 0
+        zoomDistortion: 0
+    shockwave:
+      enabled: 0
+      value:
+        shockwaveDuration: 0
+        shockwavePercentage: 0
+    hasSilhouette: 0
+  HeavyHit:
+    cameraShake: 3
+    cameraShakeSettingsOverride:
+      enabled: 0
+      value:
+        cameraShakeDuration: 0
+        cameraShakeMagnitude: 0
+    distortionZoom:
+      enabled: 0
+      value:
+        zoomSpeed: 0
+        zoomFov: 0
+        zoomHoldTime: 0
+        zoomDistortion: 0
+    shockwave:
+      enabled: 1
+      value:
+        shockwaveDuration: 0.289
+        shockwavePercentage: 0.672
+    hasSilhouette: 0
+  SpecialHit:
+    cameraShake: 3
+    cameraShakeSettingsOverride:
+      enabled: 0
+      value:
+        cameraShakeDuration: 0
+        cameraShakeMagnitude: 0
+    distortionZoom:
+      enabled: 0
+      value:
+        zoomSpeed: 0
+        zoomFov: 0
+        zoomHoldTime: 0
+        zoomDistortion: 0
+    shockwave:
+      enabled: 0
+      value:
+        shockwaveDuration: 0
+        shockwavePercentage: 0
+    hasSilhouette: 1

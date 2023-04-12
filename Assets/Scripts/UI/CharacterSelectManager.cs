@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -18,10 +19,17 @@ namespace UI
 
     public class CharacterSelectManager: MonoBehaviour
     {
-        [SerializeField] private CharacterButtonsPlayer[] _playerButtons = new CharacterButtonsPlayer[2];
+        [Header("Visuals")]
+        [SerializeField] private TextMeshProUGUI[] _playerCharacterNames;
         [SerializeField] private Sprite[] _singleSelectSprites = new Sprite[2];
         [SerializeField] private Sprite _doubleSelectSprite;
+        
+
+        [Header("References")]
+        [SerializeField] private UIInputManager[] _playerInputManagers;
+        [SerializeField] private CharacterButtonsPlayer[] _playerButtons = new CharacterButtonsPlayer[2];
         [SerializeField] private List<CharacterButtonPair> _characterButtons;
+        
         private CharacterButtonAssets[] _currentSelectedButton = new CharacterButtonAssets[2];
         [SerializeField] private BuildSettingIndices _indices;
         private bool _isTraining;
@@ -43,8 +51,9 @@ namespace UI
             }
         }
 
-        public void UpdateSelection(CharacterManager.CharacterSelection button, int player)
+        public void UpdateSelection(string character, CharacterManager.CharacterSelection button, int player)
         {
+            _playerCharacterNames[player].text = character;
             CharacterButtonPair buttonPair = _characterButtons.Find(c => c.character == button);
             buttonPair.button.animator.Play("Selected");
             
@@ -73,7 +82,8 @@ namespace UI
 
         private void SetBotSelection()
         {
-            Debug.Log("set bot selection");
+            // Debug.Log("set bot selection");
+            _playerInputManagers[0].SetBotSelection();
             CharacterButtonsPlayer selection = _playerButtons[1];
             selection.SetPlayer(Services.Players[0]);
             Services.Players[0].PlayerInput.uiInputModule = selection.GetComponent<InputSystemUIInputModule>();

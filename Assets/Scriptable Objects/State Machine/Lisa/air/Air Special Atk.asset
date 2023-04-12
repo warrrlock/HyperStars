@@ -36,7 +36,7 @@ MonoBehaviour:
   _attackInfo:
     idSO: 3
     idManager: 0
-    attackType: 2
+    attackType: 3
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -44,9 +44,9 @@ MonoBehaviour:
     knockbackDuration: 0.65
     knockbackDistance: 13
     knockbackDirection: {x: 0.2, y: 1, z: 0}
-    reverseKnockbackDuration: 0
-    reverseKnockbackDistance: 0
-    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0.6
+    reverseKnockbackDistance: 20
+    reverseKnockbackDirection: {x: -0.5, y: 2, z: 0}
     hitStunDuration: 1.8
     causesWallBounce: 0
     hitStopDuration: 0.3
@@ -60,7 +60,9 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.3
-    favorReward: 10
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 8
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0
     multiHitCount: 0

@@ -151,7 +151,7 @@ public class HitBox : MonoBehaviour
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
-        reverseForceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
+        reverseForceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? reverseForceDirection.x : -reverseForceDirection.x;
         hitFighter.MovementController.ApplyForce(forceDirection, forceMagnitude, attackInfoSO.knockbackDuration, true);
         if (attackInfoSO.reverseKnockbackDistance > 0f)
         {
@@ -175,10 +175,16 @@ public class HitBox : MonoBehaviour
         {
             StartCoroutine(hitFighter.MovementController.EnableGroundBounce(attackInfoSO.groundBounceDistance, attackInfoSO.groundBounceDuration, attackInfoSO.groundBounceDirection, attackInfoSO.groundBounceHitStopDuration));
         }
-        if (forceDirection.y > 0f || !hitFighter.MovementController.IsGrounded)
+        if (attackInfoSO.hangTime > 0f && (forceDirection.y > 0f || !hitFighter.MovementController.IsGrounded))
         {
             StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfoSO.hangTime));
         }
+
+        if (attackInfoSO.gravityAugmentDuration > 0f)
+        {
+            hitFighter.MovementController.AugmentGravity(attackInfoSO.gravityAugmentFactor, attackInfoSO.gravityAugmentDuration);
+        }
+
         //StartCoroutine(hitFighter.MovementController.DisableGravity(attackInfo.hangTime));
         //Services.FavorManager?.IncreaseFavor(_fighter.PlayerId, attackInfo.favorReward);
         Services.FavorManager.IncreaseFavor(_fighter.PlayerId, attackInfoValues.outputReward);

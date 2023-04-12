@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BLUK_Grounded Heavy
   m_EditorClassIdentifier: 
   characterSelection: 2
-  _bypassHitConfirm: 0
+  _bypassHitConfirm: 1
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -31,36 +31,39 @@ MonoBehaviour:
   _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
+  - {fileID: 11400000, guid: 28def05a8539a2f42bddb2ecc2f80f15, type: 2}
   _defaultCombo: 0
   _attackInfo:
     idSO: 9
     idManager: 0
-    attackType: 2
+    attackType: 3
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
-    knockbackDuration: 0.3
-    knockbackDistance: 1
-    knockbackDirection: {x: 1, y: 0, z: 0}
-    reverseKnockbackDuration: 0
-    reverseKnockbackDistance: 0
-    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 0.1
+    knockbackDuration: 0.5
+    knockbackDistance: 8
+    knockbackDirection: {x: 1, y: 2, z: 0}
+    reverseKnockbackDuration: 0.3
+    reverseKnockbackDistance: 2
+    reverseKnockbackDirection: {x: -1, y: 0, z: 0}
+    hitStunDuration: 0.5
     causesWallBounce: 0
-    hitStopDuration: 0
+    hitStopDuration: 0.1
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
     causesGroundBounce: 0
-    groundBounceDuration: 0
-    groundBounceDistance: 0
-    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceDuration: 1
+    groundBounceDistance: 50
+    groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 8
-    knockbackForce: {x: 0, y: 0}
+    gravityAugmentFactor: 0.558
+    gravityAugmentDuration: 0.4
+    favorReward: 2
+    knockbackForce: {x: 47.531414, y: 100}
     incrementBarAmount: 0.2
     multiHitCount: 0
     multiHitInterval: 0

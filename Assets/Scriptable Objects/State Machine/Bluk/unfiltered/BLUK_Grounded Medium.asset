@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: BLUK_Grounded Medium
   m_EditorClassIdentifier: 
   characterSelection: 2
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
@@ -32,12 +31,13 @@ MonoBehaviour:
   _onInputInvokeActions: []
   _transitions:
   - {fileID: 11400000, guid: e727b62ca81b0154ea07754e32adcf21, type: 2}
+  - {fileID: 11400000, guid: 28def05a8539a2f42bddb2ecc2f80f15, type: 2}
   - {fileID: 11400000, guid: e82ba32029d8386489e7cf18528ba4d2, type: 2}
   - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
-  - {fileID: 11400000, guid: 28def05a8539a2f42bddb2ecc2f80f15, type: 2}
   _defaultCombo: 1
   _attackInfo:
-    Id: 0
+    idSO: 11
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -46,12 +46,12 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 12
     knockbackDirection: {x: 1.5, y: 1, z: 0}
-    reverseKnockbackDuration: 0
-    reverseKnockbackDistance: 0
-    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0.1
+    reverseKnockbackDistance: 3
+    reverseKnockbackDirection: {x: -1, y: 0, z: 0}
     hitStunDuration: 0.8
     causesWallBounce: 0
-    hitStopDuration: 0.28
+    hitStopDuration: 0.3
     wallBounceDuration: 1
     wallBounceDistance: 18
     wallBounceDirection: {x: -0.5, y: 2, z: 0}
@@ -62,7 +62,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.1
-    favorReward: 6
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 3
     knockbackForce: {x: 167.55, y: 100}
-    incrementBarAmount: 0.25
+    incrementBarAmount: 0.2
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 0}

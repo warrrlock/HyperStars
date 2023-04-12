@@ -8,11 +8,12 @@ using UnityEngine.ProBuilder;
 using UnityEngine.VFX;
 using UnityEngine.Rendering;
 
-public enum vfxAssets {AfterImage, };
-
 [RequireComponent(typeof(InputManager))]
 public class CharacterVFXManager : MonoBehaviour
 {
+    [Header("Config")]
+    [SerializeField] public VFXConfig vfxConfig;
+    [Header("Character Based VFX")]
     [SerializeField] private VisualEffect visualEffect;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
@@ -37,6 +38,7 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private List<BaseState> _afterImageStates;
     [Tooltip("For spawning camera blur.")]
     [SerializeField] private BaseState[] _blurStates;
+    [SerializeField] private BaseState[] _parryStates;
     
     
     void Awake()
@@ -67,17 +69,16 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXSubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
-        _inputManager.Actions["Parry"].perform += BlockGlow;
+        // _inputManager.Actions["Parry"].perform += BlockGlow;
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
         _fighter.Events.wallBounce += WallWave;
     }
-    
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
-        _inputManager.Actions["Parry"].perform -= BlockGlow;
+        // _inputManager.Actions["Parry"].perform -= BlockGlow;
         _fighter.Events.onBlockHit -= BlockGlow;
         _fighter.Events.onStateChange -= SpawnOnStateChange;
         _fighter.Events.onLandedHurt -= GroundWave;
@@ -135,15 +136,6 @@ public class CharacterVFXManager : MonoBehaviour
     void GroundWave()
     {
         _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
-        
-        // layer culling
-        // Services.CameraManager.SetPlayerInFront(false);
-    }
-    
-    void LayerResetTest()
-    {
-        // layer culling
-        // Services.CameraManager.SetPlayerInFront(false);
     }
 
     void WallWave()
@@ -151,6 +143,7 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphsNeutral.WAVE_WALL_RIGHT : VFXGraphsNeutral.WAVE_WALL_LEFT,
             transform.localPosition + new Vector3(0, 0f, 0));
     }
+    
     /// <summary>
     /// Coroutine for shaking the character during hit stop
     /// </summary>
@@ -223,6 +216,16 @@ public class CharacterVFXManager : MonoBehaviour
             {
                 StartCoroutine(Services.CameraManager.CameraBlur(_fighter, .35f));
                 StartCoroutine(Services.CameraManager.CameraZoom(.1f, 38f, .2f, .12f));
+                break;
+            }
+        }
+        
+        // spawn parry flash
+        foreach (BaseState wantedState in _parryStates)
+        {
+            if (s == wantedState)
+            {
+                TriggerParry(_fighter);
                 break;
             }
         }

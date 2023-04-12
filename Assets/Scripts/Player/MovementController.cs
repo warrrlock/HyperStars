@@ -117,7 +117,6 @@ public class MovementController : MonoBehaviour
     private bool _isResolvingOverlap = false;
     public Vector3 overlapResolutionVelocity = Vector3.zero;
     private Vector3 _overlapResolutionVelocity = Vector3.zero;
-    private bool _isJumping;
     public Fighter.Direction MovingDirection { get; private set; }
 
     [SerializeField] private float _mass = 1f;
@@ -168,6 +167,9 @@ public class MovementController : MonoBehaviour
     [SerializeField] private BaseState _move;
     [SerializeField] private BaseState[] _dashes;
     [SerializeField] private BaseState _jump;
+
+    public enum AugmentType { None, Self, Hit }
+    private AugmentType _gravityAugmentType = AugmentType.None;
     
     
     private struct RaycastOrigins
@@ -292,24 +294,6 @@ public class MovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //switch (_fighter.FacingDirection)
-        //{
-        //    case Fighter.Direction.Left:
-        //        if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
-        //        {
-        //            _flipCoroutine = QueueFlip(Fighter.Direction.Right);
-        //            StartCoroutine(_flipCoroutine);
-        //        }
-        //        break;
-        //    case Fighter.Direction.Right:
-        //        if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
-        //        {
-        //            _flipCoroutine = QueueFlip(Fighter.Direction.Left);
-        //            StartCoroutine(_flipCoroutine);
-        //        }
-        //        break;
-        //}
-
         SpaceRays();
 
         switch (_fighter.FacingDirection)
@@ -349,19 +333,17 @@ public class MovementController : MonoBehaviour
         if (_isGravityApplied)
         {
             _unforcedVelocity.y -= _gravity * _gravityModifier * Time.fixedDeltaTime;
+            //_unforcedVelocity.y -= _gravity * Time.fixedDeltaTime;
         }
-        //_netVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
         _netVelocity = _unforcedVelocity + _forceVelocity + overlapResolutionVelocity;
+        _netVelocity.y *= _gravityModifier;
         Move(_netVelocity * Time.fixedDeltaTime);
         if (_collisionData.y.isNegativeHit || _collisionData.y.isPositiveHit)
         {
             ResetVelocityY();
-        }
-        if (_collisionData.y.isNegativeHit)
-        {
-            if (_isJumping)
+            if (_gravityModifier != 1f)
             {
-                _isJumping = false;
+                RestoreGravity();
             }
         }
         if (!_isWallBounceable)
@@ -423,9 +405,19 @@ public class MovementController : MonoBehaviour
 
     public void ResetValues()
     {
+        KillAllForces();
         StopMoving();
         ResetVelocityY();
-        RestoreOpponentGravity();
+        ResetAllVelocities();
+        //RestoreOpponentGravity();
+        RestoreGravity();
+    }
+
+    private void ResetAllVelocities()
+    {
+        _unforcedVelocity = Vector3.zero;
+        _forceVelocity = Vector3.zero;
+        overlapResolutionVelocity = Vector3.zero;
     }
 
     private void KillAllForces()
@@ -441,6 +433,10 @@ public class MovementController : MonoBehaviour
 
     private void StateChange(BaseState state)
     {
+        if (_gravityAugmentType == AugmentType.Self)
+        {
+            RestoreGravity();
+        }
         if (_canFlip)
         {
             _canFlip = false;
@@ -502,6 +498,7 @@ public class MovementController : MonoBehaviour
 
     public IEnumerator DisableGravity(float duration)
     {
+        Debug.Log("Time");
         _isGravityApplied = false;
         yield return new WaitForSeconds(duration);
 
@@ -511,6 +508,7 @@ public class MovementController : MonoBehaviour
 
     public IEnumerator DisableGravity(Func<bool> enableCondition)
     {
+        Debug.Log("Func");
         _isGravityApplied = false;
         yield return new WaitUntil(enableCondition);
 
@@ -627,7 +625,7 @@ public class MovementController : MonoBehaviour
             if (!_inputManager.Actions["Move"].isBeingPerformed)
             {
                 _unforcedVelocity.x = 0f;
-                _unforcedVelocity.z = 0f;
+                //_unforcedVelocity.z = 0f;
             }
             else
             {
@@ -1070,7 +1068,7 @@ public class MovementController : MonoBehaviour
     private void StopMoving()
     {
         _unforcedVelocity.x = 0f;
-        _unforcedVelocity.z = 0f;
+        //_unforcedVelocity.z = 0f;
     }
 
     private bool _landingIsAwaited = false;
@@ -1082,31 +1080,75 @@ public class MovementController : MonoBehaviour
         ApplyForce(direction, magnitude, duration, true);
     }
 
-    public void AugmentOpponentGravity(float factor)
-    {
-        _awaitHitOpponent = AwaitHitOpponent(factor);
-        StartCoroutine(_awaitHitOpponent);
-    }
+    //public void AugmentOpponentGravity(float factor)
+    //{
+    //    _awaitHitOpponent = AwaitHitOpponent(factor);
+    //    StartCoroutine(_awaitHitOpponent);
+    //}
 
     private bool _isAwaitingHit = false;
     private IEnumerator _awaitHitOpponent;
 
-    private IEnumerator AwaitHitOpponent(float factor) //TODO: needs a better name
+    //private IEnumerator AwaitHitOpponent(float factor) //TODO: needs a better name
+    //{
+    //    _isAwaitingHit = true;
+    //    yield return new WaitUntil(() => _fighter.BaseStateMachine.HitOpponent);
+    //    _fighter.OpposingFighter.MovementController._gravityModifier = factor;
+    //    _isAwaitingHit = false;
+    //    yield break;
+    //}
+
+    //public void RestoreOpponentGravity()
+    //{
+    //    if (_isAwaitingHit)
+    //    {
+    //        StopCoroutine(_awaitHitOpponent);
+    //    }
+    //    _fighter.OpposingFighter.MovementController._gravityModifier = 1f;
+    //}
+
+    private IEnumerator _gravityAugmenter;
+
+    public void AugmentGravity(float factor)
     {
-        _isAwaitingHit = true;
-        yield return new WaitUntil(() => _fighter.BaseStateMachine.HitOpponent);
-        _fighter.OpposingFighter.MovementController._gravityModifier = factor;
-        _isAwaitingHit = false;
-        yield break;
+        AugmentGravity(factor, Mathf.Infinity, AugmentType.Self, false);
     }
 
-    public void RestoreOpponentGravity()
+    public void RestoreGravity()
     {
-        if (_isAwaitingHit)
+        if (_gravityAugmentType != AugmentType.None)
         {
-            StopCoroutine(_awaitHitOpponent);
+            StopCoroutine(_gravityAugmenter);
+            _gravityAugmentType = AugmentType.None;
         }
-        _fighter.OpposingFighter.MovementController._gravityModifier = 1f;
+        _gravityModifier = 1f;
+    }
+
+    public void AugmentGravity(float factor, float duration, AugmentType gravityAugmentType = AugmentType.Hit, bool isComingFromGround = true)
+    {
+        if (_gravityAugmentType != AugmentType.None)
+        {
+            StopCoroutine(_gravityAugmenter);
+            _gravityAugmentType = AugmentType.None;
+        }
+        _gravityAugmenter = GravityAugmenter(factor, duration, gravityAugmentType, isComingFromGround);
+        StartCoroutine(_gravityAugmenter);
+    }
+
+    private IEnumerator GravityAugmenter(float factor, float duration, AugmentType gravityAugmentType, bool isComingFromGround)
+    {
+        _gravityAugmentType = gravityAugmentType;
+        if (isComingFromGround)
+        {
+            yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate();
+            yield return new WaitUntil(() => _netVelocity.y < 0f);
+        }
+        _gravityModifier = factor;
+        yield return new WaitForSeconds(duration);
+        _gravityModifier = 1f; //TODO: maybe only reset this if they're not being augmented elsewhere
+        _gravityAugmentType = AugmentType.None;
+        yield break;
     }
 
     private Vector3 _dashDirection = Vector3.zero;
@@ -1135,7 +1177,7 @@ public class MovementController : MonoBehaviour
                 if (_dashToZero)
                 {
                     _unforcedVelocity.x = 0f;
-                    _unforcedVelocity.z = 0f;
+                    //_unforcedVelocity.z = 0f;
                 }
             }
             else
@@ -1259,8 +1301,8 @@ public class MovementController : MonoBehaviour
 
     private void Jump(InputManager.Action action)
     {
-        _isJumping = true;
         //_unforcedVelocity.y = _maxJumpVelocity;
+        StartCoroutine(DisableGravity(0f));
         ApplyForce(Vector3.up, _verticalJumpForce, _jumpDuration, true);
         StartCoroutine(CheckSideJump());
         StartCoroutine(_inputManager.Disable(() => _collisionData.y.isNegativeHit, _inputManager.Actions["Jump"], _inputManager.Actions["Move"]));
@@ -1307,10 +1349,10 @@ public class MovementController : MonoBehaviour
 
     private void StopJumping(InputManager.Action action)
     {
-        if (_unforcedVelocity.y > _minJumpVelocity)
-        {
-            _unforcedVelocity.y = _minJumpVelocity;
-        }
+        //if (_unforcedVelocity.y > _minJumpVelocity)
+        //{
+        //    _unforcedVelocity.y = _minJumpVelocity;
+        //}
     }
 
     private IEnumerator Dash(InputManager.Action action, float duration, bool isSuperDash)

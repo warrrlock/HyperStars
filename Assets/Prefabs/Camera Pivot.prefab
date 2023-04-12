@@ -96,7 +96,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -292,17 +292,17 @@ MonoBehaviour:
   _cameraDefaultTransform: {fileID: 2666714687243223780}
   _maxCameraZ: -15
   _maxFightersDistanceX: 40
-  _minFightersDistanceY: 2
+  _minFightersDistanceY: 4
   _maxFightersDistanceY: 10
   _cameraCatchUpSpeedX: 15
-  _cameraCatchUpSpeedUp: 4.5
+  _cameraCatchUpSpeedUp: 2
   _cameraCatchUpSpeedDown: 11
-  _cameraCatchUpSpeedZ: 3
+  _cameraCatchUpSpeedZ: 1
   ieMaterial: {fileID: 2100000, guid: 7e6e90d73f234aa438e43e011bbc310f, type: 2}
   blurFilterPrefab: {fileID: 6465136448521468304, guid: c5edd1f883d2fb14085a44542245350c, type: 3}
   silhouetteMaterial: {fileID: 2100000, guid: e9673328f8a16144c9fb7ab88a9e5c68, type: 2}
   silhouetteCamera: {fileID: 2900830252122232609}
-  rippleMaterial: {fileID: 2100000, guid: 22e7ca39176d23f4faf4d2eca8f63532, type: 2}
+  shockwaveMaterial: {fileID: 2100000, guid: 0b3d9793ec09e0342976b50f96f41364, type: 2}
 --- !u!1 &2666714687608587546
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,12 +390,8 @@ MonoBehaviour:
   - {fileID: 5920357525330849687, guid: 5e512b90f2affda4b9d019a353884d6b, type: 3}
   - {fileID: 5562149180455407823, guid: 2862b8e0e0f1646468a6a69027c8a279, type: 3}
   - {fileID: 5562149180455407823, guid: f7f92281dea86eb4ea6b585d94a268b9, type: 3}
-  visualEffectPrefabsCharacter:
-  - {fileID: 11400000, guid: fb1520f27743a4f498e7a0f59aada8ef, type: 2}
-  - {fileID: 11400000, guid: 1fb6ae7697b71f7498d56dc53b521318, type: 2}
+  vfxConfigs: []
   skyboxRotationSpeed: 1
-  turnOnSilhouetteOnLightAttacks: 0
-  turnOnSilhouetteOnMediumAttacks: 0
 --- !u!20 &4582068668910756800
 Camera:
   m_ObjectHideFlags: 0

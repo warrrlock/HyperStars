@@ -39,6 +39,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 565ee919680260045b2797b0803ce714, type: 2}
   - {fileID: 11400000, guid: 4bcf3947c18ebb44fb4eb1d7f129c16f, type: 2}
   - {fileID: 11400000, guid: 935cfa0097e7c473a89d61b7f7b4df60, type: 2}
+  - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
   _defaultCombo: 1
   _attackInfo:
     idSO: 6
@@ -51,9 +52,9 @@ MonoBehaviour:
     knockbackDuration: 0.2
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: 0, z: 0}
-    reverseKnockbackDuration: 0
-    reverseKnockbackDistance: 0
-    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0.2
+    reverseKnockbackDistance: 1
+    reverseKnockbackDirection: {x: -1, y: 0, z: 0}
     hitStunDuration: 0.2
     causesWallBounce: 0
     hitStopDuration: 0.1
@@ -67,9 +68,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 4
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 2
     knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0.2
+    incrementBarAmount: 0.1
     multiHitCount: 0
     multiHitInterval: 0
   _projectilePrefab: {fileID: 0}

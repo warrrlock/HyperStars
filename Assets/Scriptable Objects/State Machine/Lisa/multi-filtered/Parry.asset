@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Parry
   m_EditorClassIdentifier: 
   characterSelection: 1
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 1
   _isCrouchState: 0
   _isSpecial: 0
@@ -48,6 +47,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}
   _defaultCombo: 0
   _attackInfo:
+    idSO: 19
+    idManager: 0
     attackType: 1
     hitSfxEvent:
       idInternal: 0
@@ -59,7 +60,7 @@ MonoBehaviour:
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 0.6
+    hitStunDuration: 0.8
     causesWallBounce: 0
     hitStopDuration: 0.5
     wallBounceDuration: 0
@@ -72,7 +73,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    favorReward: 10
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 6
     knockbackForce: {x: 358.65738, y: 100}
-    incrementBarAmount: 0.3
+    incrementBarAmount: 0.2
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 0}
