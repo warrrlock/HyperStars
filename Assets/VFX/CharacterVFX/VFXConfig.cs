@@ -78,4 +78,5 @@ public enum CameraShakeType
 {
     [Range(0f, 1f)] [Tooltip("Recommended: 0.3")] public float shockwaveDuration;
     [Range(0f, 1f)] [Tooltip("Recommended: 0.6")] public float shockwavePercentage;
+    public bool useUnscaledTime;
 }

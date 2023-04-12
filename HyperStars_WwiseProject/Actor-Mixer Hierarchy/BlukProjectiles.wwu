@@ -3,7 +3,24 @@
 	<AudioObjects>
 		<WorkUnit Name="BlukProjectiles" ID="{EA8AE84D-1018-4F87-981E-B0BEDD316341}" OwnerID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}" PersistMode="Nested">
 			<ChildrenList>
-				<Sound Name="Bluk Projectile Girder" ID="{303EA2CD-B6F8-4A0F-964D-95C147C85BEB}" ShortID="880836788">
+				<Sound Name="Bluk Girder" ID="{0C5CAACE-2697-4AF1-BCCE-3527B866D3E3}" ShortID="19594320">
+					<PropertyList>
+						<Property Name="Highpass" Type="int16">
+							<ValueList>
+								<Value>5</Value>
+							</ValueList>
+						</Property>
+						<Property Name="Lowpass" Type="int16">
+							<ValueList>
+								<Value>20</Value>
+							</ValueList>
+						</Property>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>-4</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -13,17 +30,17 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<AudioFileSource Name="Bluk Projectile Girder" ID="{D1F62E3C-0E8D-4293-9AD1-4AF5DC888D66}">
+						<AudioFileSource Name="Bluk Girder" ID="{1E399015-F547-4B6D-B612-07BDDC308EB3}">
 							<Language>SFX</Language>
-							<AudioFile>Bluk Projectile Girder.wav</AudioFile>
+							<AudioFile>Bluk Girder.wav</AudioFile>
 							<MediaIDList>
-								<MediaID ID="919943888"/>
+								<MediaID ID="272035671"/>
 							</MediaIDList>
 						</AudioFileSource>
 					</ChildrenList>
 					<ObjectLists/>
 					<ActiveSourceList>
-						<ActiveSource Name="Bluk Projectile Girder" ID="{D1F62E3C-0E8D-4293-9AD1-4AF5DC888D66}" Platform="Linked"/>
+						<ActiveSource Name="Bluk Girder" ID="{1E399015-F547-4B6D-B612-07BDDC308EB3}" Platform="Linked"/>
 					</ActiveSourceList>
 				</Sound>
 			</ChildrenList>

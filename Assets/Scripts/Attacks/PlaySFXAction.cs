@@ -14,6 +14,7 @@ namespace Attacks
         {
             //Fighter: projectile.Owner
             //play sound here
+            projectile.Owner.GetComponent<PostWwiseEvent>().Wwise_PlaySingle(sfxEvent);
         }
 
         public override void Stop(Projectile projectile)

@@ -161,7 +161,7 @@ public class VFXSpawnManager : MonoBehaviour
         if (configData.shockwave)
         {
             ShockwaveSettings s = configData.shockwave.Value;
-            StartCoroutine(cam.Camerashockwave(hitPos, s.shockwaveDuration, s.shockwavePercentage));
+            StartCoroutine(cam.CameraShockwave(hitPos, s.shockwaveDuration, s.shockwavePercentage, s.useUnscaledTime));
         }
         if (configData.hasSilhouette)
         {
