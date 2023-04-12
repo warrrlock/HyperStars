@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using FiniteStateMachine;
 using TMPro;
 using UI;
+using WesleyDavies;
 
 public class FavorManager : MonoBehaviour
 {
@@ -73,6 +74,31 @@ public class FavorManager : MonoBehaviour
 
     private bool _isRoundOver = false;
 
+    [SerializeField] private float _chipDuration;
+    [SerializeField] private RectTransform _p1ChipShrinkMask;
+    [SerializeField] private RectTransform _p2ChipShrinkMask;
+    [SerializeField] private Image _p1ChipMask;
+    [SerializeField] private Image _p1ChipRect;
+    [SerializeField] private Image _p2ChipMask;
+    [SerializeField] private Image _p2ChipRect;
+    private IEnumerator _p1ChipEffect;
+    private IEnumerator _p2ChipEffect;
+    private bool _isP1Chipping = false;
+    private bool _isP2Chipping = false;
+
+    //[SerializeField] private float _indicatorFlipDuration;
+
+    private float _maxIndicatorX;
+    private float _minIndicatorX;
+    private float _maxChipX;
+    private float _minChipX;
+    private float _p1ChipFill = 0f;
+    private float _p2ChipFill = 0f;
+    private float _indicatorWidthOffsetLeft;
+    private float _indicatorWidthOffsetRight;
+    private float _p1ChipFillDestination;
+    private float _p2ChipFillDestination;
+
     private void Awake()
     {
         Services.FavorManager = this;
@@ -91,6 +117,13 @@ public class FavorManager : MonoBehaviour
 
         _barMaximum = _p1Mask.rect.width;
         _outlineMaximum = _outline.rect.width;
+
+        _minIndicatorX = -_initialWidth * _multiplier;
+        _maxIndicatorX = _initialWidth * _multiplier;
+        _minChipX = -_initialWidth / 2f;
+        _maxChipX = _initialWidth / 2f;
+        _indicatorWidthOffsetLeft = _favorMeterIndicatorGlow.rectTransform.rect.width / 2f - 2f;
+        _indicatorWidthOffsetRight = _favorMeterIndicatorGlow.rectTransform.rect.width / 2f - 7f;
         UpdateFavorMeter();
     }
 
@@ -123,7 +156,6 @@ public class FavorManager : MonoBehaviour
                     {"winnerId", playerId}
                 };
                 if (_winConditionEvent) _winConditionEvent.Raise(result);
-                // SceneReloader.Instance.ReloadScene();
             }
         }
         switch (_favoredPlayer)
@@ -150,27 +182,11 @@ public class FavorManager : MonoBehaviour
         }
         _favor += value;
         _favor = Mathf.Clamp(_favor, -MaxFavor, MaxFavor);
-        if (Mathf.Abs(_favor) == MaxFavor)
-        {
-            //give golden goal
-        }
         //if (_favor > _peakFavors[playerId])
         //{
         //    _peakFavors[playerId] = _favor;
         //}
-        UpdateFavorMeter();
-        //_favourMeter.UpdateFavorMeter(playerId == 0, Math.Abs(value)/_maxFavor, _favorMultiplier);
-    }
-
-    public IEnumerator CooldownFavor(ComboState attack, float duration)
-    {
-        float timer = 0f;
-        while (timer < duration)
-        {
-            yield return new WaitForFixedUpdate();
-
-            timer += Time.fixedDeltaTime;
-        }
+        UpdateFavorMeter(true);
     }
 
     public void ResizeFavorMeter(float factor)
@@ -180,19 +196,27 @@ public class FavorManager : MonoBehaviour
         UpdateFavorMeter();
     }
 
-    private void UpdateFavorMeter()
+    private void UpdateFavorMeter(bool shouldChip = false)
     {
         _p1Mask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _barMaximum);
         _p2Mask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _barMaximum);
         _outline.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _outlineMaximum);
+        _p1ChipShrinkMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _outlineMaximum);
+        _p2ChipShrinkMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _outlineMaximum);
 
         //_p1Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f)));
         //_p2Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor + _maxFavorInitial) / (_maxFavorInitial * 2f)));
         _p1Bar.fillAmount = Mathf.Lerp(0f, 1f, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f));
         _p2Bar.fillAmount = Mathf.Lerp(0f, 1f, Mathf.Abs(_favor + _maxFavorInitial) / (_maxFavorInitial * 2f));
-        float indicatorX = Mathf.Lerp(-_initialWidth * _multiplier,
-            _initialWidth * _multiplier, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f));
-        indicatorX = Mathf.Clamp(indicatorX, -_initialWidth * _multiplier * (MaxFavor / _maxFavorInitial), _initialWidth * _multiplier * (MaxFavor / _maxFavorInitial));
+
+        float previousIndicatorX = 0f;
+        if (shouldChip)
+        {
+            previousIndicatorX = _favorMeterIndicatorGlow.rectTransform.anchoredPosition.x;
+        }
+
+        float indicatorX = Mathf.Lerp(_minIndicatorX, _maxIndicatorX, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f));
+        indicatorX = Mathf.Clamp(indicatorX, _minIndicatorX * (MaxFavor / _maxFavorInitial), _maxIndicatorX * (MaxFavor / _maxFavorInitial));
         _favorMeterIndicatorGlow.rectTransform.anchoredPosition = new Vector3(indicatorX, _favorMeterIndicatorGlow.rectTransform.anchoredPosition.y, 0f);
         if (_favoredPlayer > -1)
         {
@@ -207,9 +231,183 @@ public class FavorManager : MonoBehaviour
             _favorMeterIndicatorGlow.color = _glowColors[0];
         }
 
-        if (_multiplierText)
+        if (shouldChip)
         {
-            _multiplierText.text = "x" + Math.Round(_favorMultiplier, 1);
+            //float chipX = Mathw.Average(previousIndicatorX, indicatorX);
+            //chipX -= _favorMeterIndicatorGlow.rectTransform.rect.width / 1.5f;
+            //chipX = ConvertFromWorldRectToLocal(chipX);
+            //Debug.Log(chipX);
+            //Image chipRect = _favoredPlayer == 0 ? _p1ChipRect : _p2ChipRect;
+            //Image chipMask = _favoredPlayer == 0 ? _p1ChipMask : _p2ChipMask;
+            //Vector2 chipPosition = chipRect.rectTransform.InverseTransformPoint(_favorMeterIndicatorGlow.rectTransform.TransformPoint(new Vector2(chipX, 0f)));
+            //float chipWidth = Mathf.Abs(indicatorX - previousIndicatorX); //TODO: /2 is most accurate, but looks too small
+            //_chipEffect = ChipEffect(chipX, chipWidth);
+            Side originSide;
+            float previousFill;
+            float previousIndicatorXOffset;
+            float indicatorXOffset;
+            switch (_favoredPlayer)
+            {
+                case 0:
+                    originSide = Side.Right;
+                    previousFill = _p1ChipFill;
+                    previousIndicatorXOffset = previousIndicatorX - _indicatorWidthOffsetLeft;
+                    indicatorXOffset = indicatorX - _indicatorWidthOffsetLeft;
+                    _p1ChipMask.fillAmount = GetXPercent(indicatorX, Side.Left);
+                    break;
+                case 1:
+                    originSide = Side.Left;
+                    previousFill = _p2ChipFill;
+                    previousIndicatorXOffset = previousIndicatorX + _indicatorWidthOffsetRight;
+                    indicatorXOffset = indicatorX + _indicatorWidthOffsetRight;
+                    _p2ChipMask.fillAmount = GetXPercent(indicatorX, Side.Right);
+                    break;
+                default:
+                    throw new Exception("Favored player is neither 0 nor 1.");
+            }
+            float previousXPercent = GetXPercent(previousIndicatorXOffset, originSide);
+            float startXPercent = previousXPercent > previousFill ? previousXPercent : previousFill;
+            float newXPercent = GetXPercent(indicatorXOffset, originSide);
+            switch (_favoredPlayer)
+            {
+                case 0:
+                    if (_isP1Chipping)
+                    {
+                        StopCoroutine(_p1ChipEffect);
+                    }
+                    _p2ChipMask.fillAmount = GetXPercent(indicatorX + _indicatorWidthOffsetRight, Side.Right);
+                    if (_isP2Chipping)
+                    {
+                        StopCoroutine(_p2ChipEffect);
+                        FastForwardChip(1, _p2ChipFillDestination);
+                    }
+                    _p1ChipFillDestination = newXPercent;
+                    _p1ChipEffect = ChipEffect(startXPercent, _p1ChipFillDestination);
+                    StartCoroutine(_p1ChipEffect);
+                    break;
+                case 1:
+                    if (_isP2Chipping)
+                    {
+                        StopCoroutine(_p2ChipEffect);
+                    }
+                    _p1ChipMask.fillAmount = GetXPercent(indicatorX - _indicatorWidthOffsetLeft, Side.Left);
+                    if (_isP1Chipping)
+                    {
+                        StopCoroutine(_p1ChipEffect);
+                        FastForwardChip(0, _p1ChipFillDestination);
+                    }
+                    _p2ChipFillDestination = newXPercent;
+                    _p2ChipEffect = ChipEffect(startXPercent, _p2ChipFillDestination);
+                    StartCoroutine(_p2ChipEffect);
+                    break;
+            }
         }
+
+        //if (_multiplierText)
+        //{
+        //    _multiplierText.text = "x" + Math.Round(_favorMultiplier, 1);
+        //}
+    }
+
+    private float GetXPercent(float worldX, Side originSide)
+    {
+        float startPercent = originSide == Side.Left ? 0f : 1f;
+        float destinationPercent = originSide == Side.Left ? 1f : 0f;
+        float xPercent = Mathf.Lerp(startPercent, destinationPercent, (worldX - _minIndicatorX) / (_maxIndicatorX - _minIndicatorX)); //TODO: maybe mathf.abs(min) looks better than -min?
+        return xPercent;
+    }
+
+    private float ConvertFromWorldRectToLocal(float worldX)
+    {
+        float xPercent = Mathf.Lerp(0f, 1f, (worldX - _minIndicatorX) / (_maxIndicatorX - _minIndicatorX)); //TODO: maybe mathf.abs(min) looks better than -min?
+        return Mathf.Lerp(_minChipX, _maxChipX, xPercent);
+    }
+
+    private IEnumerator ChipEffect(float startFill, float destinationFill)
+    {
+        //_isChipping = true;
+        //Easing function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+        //Image chipRect = _favoredPlayer == 0 ? _p1ChipRect : _p2ChipRect;
+        //chipRect.rectTransform.anchoredPosition = new Vector3(xPosition, chipRect.rectTransform.anchoredPosition.y, 0f);
+        //chipRect.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        //float timer = 0f;
+        //while (timer <= _chipDuration)
+        //{
+        //    yield return new WaitForFixedUpdate();
+        //    timer += Time.fixedDeltaTime;
+        //    chipRect.fillAmount = function.Ease(1f, 0f, timer / _chipDuration);
+        //}
+        //_isChipping = false;
+        //yield break;
+
+        switch (_favoredPlayer)
+        {
+            case 0:
+                _isP1Chipping = true;
+                break;
+            case 1:
+                _isP2Chipping = true;
+                break;
+        }
+        Easing function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+        Image chipRect = _favoredPlayer == 0 ? _p1ChipRect : _p2ChipRect;
+        float timer = 0f;
+        while (timer <= _chipDuration)
+        {
+            yield return new WaitForFixedUpdate();
+            timer += Time.fixedDeltaTime;
+            chipRect.fillAmount = function.Ease(startFill, destinationFill, timer / _chipDuration);
+            switch (_favoredPlayer)
+            {
+                case 0:
+                    _p1ChipFill = chipRect.fillAmount;
+                    break;
+                case 1:
+                    _p2ChipFill = chipRect.fillAmount;
+                    break;
+                default:
+                    throw new Exception("Favored player is neither 0 nor 1.");
+            }
+        }
+        chipRect.fillAmount = destinationFill;
+        switch (_favoredPlayer)
+        {
+            case 0:
+                _p1ChipFill = chipRect.fillAmount;
+                break;
+            case 1:
+                _p2ChipFill = chipRect.fillAmount;
+                break;
+            default:
+                throw new Exception("Favored player is neither 0 nor 1.");
+        }
+        switch (_favoredPlayer)
+        {
+            case 0:
+                _isP1Chipping = false;
+                break;
+            case 1:
+                _isP2Chipping = false;
+                break;
+        }
+        yield break;
+    }
+
+    private void FastForwardChip(int chipPlayer, float destinationFill)
+    {
+        switch (_favoredPlayer)
+        {
+            case 0:
+                _p1ChipFill = destinationFill;
+                break;
+            case 1:
+                _p2ChipFill = destinationFill;
+                break;
+        }
+    }
+
+    private IEnumerator FlipIndicator()
+    {
+        yield break;
     }
 }

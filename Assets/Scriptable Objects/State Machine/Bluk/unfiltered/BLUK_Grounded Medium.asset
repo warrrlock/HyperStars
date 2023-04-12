@@ -46,12 +46,12 @@ MonoBehaviour:
     knockbackDuration: 0.5
     knockbackDistance: 12
     knockbackDirection: {x: 1.5, y: 1, z: 0}
-    reverseKnockbackDuration: 0
-    reverseKnockbackDistance: 0
-    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0.1
+    reverseKnockbackDistance: 3
+    reverseKnockbackDirection: {x: -1, y: 0, z: 0}
     hitStunDuration: 0.8
     causesWallBounce: 0
-    hitStopDuration: 0.28
+    hitStopDuration: 0.3
     wallBounceDuration: 1
     wallBounceDistance: 18
     wallBounceDirection: {x: -0.5, y: 2, z: 0}
@@ -64,9 +64,9 @@ MonoBehaviour:
     hangTime: 0.1
     gravityAugmentFactor: 1
     gravityAugmentDuration: 0
-    favorReward: 6
+    favorReward: 3
     knockbackForce: {x: 167.55, y: 100}
-    incrementBarAmount: 0.25
+    incrementBarAmount: 0.2
     multiHitCount: 0
     multiHitInterval: 0
   _projectilePrefab: {fileID: 0}

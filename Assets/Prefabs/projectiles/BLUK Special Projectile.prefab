@@ -80,6 +80,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackInfo:
+    idSO: 0
+    idManager: 0
     attackType: 3
     hitSfxEvent:
       idInternal: 0
@@ -93,7 +95,7 @@ MonoBehaviour:
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 1
     causesWallBounce: 1
-    hitStopDuration: 0.45
+    hitStopDuration: 0.6
     wallBounceDuration: 1
     wallBounceDistance: 18
     wallBounceDirection: {x: -0.5, y: 2, z: 0}
@@ -104,9 +106,13 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.5
-    favorReward: 5
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 3
     knockbackForce: {x: 124.7488, y: 100}
     incrementBarAmount: 0
+    multiHitCount: 0
+    multiHitInterval: 0
   _spawnDirection: 2
   _onSpawnActions: []
   _onTriggerEnterActions: []

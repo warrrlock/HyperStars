@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: BLUK_Air Heavy
   m_EditorClassIdentifier: 
   characterSelection: 2
-  _bypassQueueAtEnd: 0
   _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
@@ -33,7 +32,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 611154cadee928c49b142d63bb9f171b, type: 2}
   _alwaysExecute: 0
   _attackInfo:
-    Id: 0
+    idSO: 0
+    idManager: 0
     attackType: 2
     hitSfxEvent:
       idInternal: 0
@@ -58,6 +58,10 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0.1
     hangTime: 0
-    favorReward: 8
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
+    favorReward: 6
     knockbackForce: {x: 270.29382, y: 100}
     incrementBarAmount: 0.4
+    multiHitCount: 0
+    multiHitInterval: 0

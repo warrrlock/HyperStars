@@ -11,6 +11,7 @@ namespace UI
         [SerializeField] public int PlayerId;
         [SerializeField] private MenuManager _menu;
         private Player _player;
+        [SerializeField] private PalettePickerManager _paletteManager;
 
         private void OnDestroy()
         {
@@ -41,7 +42,7 @@ namespace UI
                 return;
             }
 
-            if (!context.performed) return;
+            if (!context.action.WasPerformedThisFrame()) return;
             
             switch (context.action.name)
             {
@@ -54,6 +55,19 @@ namespace UI
                     // Debug.Log("cancelling");
                     if (_player.Ready) _player.UnReady();
                     else _menu.StartMainMenu();
+                    break;
+            }
+
+            if (!_player.Ready) return;
+            switch (context.action.name)
+            {
+                case "Navigate":
+                    int yDirection = (int)context.action.ReadValue<Vector2>().y;
+                    if (yDirection == 0) return;
+                    int size = Services.Characters[PlayerId].CharacterPalettes.Palette.Count;
+                    int index = (_player.PaletteIndex + yDirection + size) % size;
+                    _paletteManager.SetColour(PlayerId, index);
+                    Debug.Log($"navigate {index}");
                     break;
             }
         }

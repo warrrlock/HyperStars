@@ -18,10 +18,13 @@ public class Player: MonoBehaviour
     public PlayerInput PlayerInput { get; private set; }
     public bool Ready => _ready;
     public Action onReady;
+    public int PaletteIndex { get; set; }
     
     [SerializeField] private Character _character;
     [SerializeField] private bool _ready;
     [SerializeField] private BuildSettingIndices _indices;
+
+    private PalettePickerManager _palettePickerManager;
     
     public GameObject FighterObject { get; set; }
 
@@ -79,6 +82,9 @@ public class Player: MonoBehaviour
         _ready = true;
         onReady?.Invoke();
         //TODO: move input to character colours
+        UnsetSelectionUI();
+        _palettePickerManager.PalettePickers[PlayerInput.playerIndex].SetupVisuals(_character.CharacterPalettes);
+        _palettePickerManager.SetColour(PlayerInput.playerIndex, 0);
     }
     
     public void UnReady()
@@ -86,6 +92,8 @@ public class Player: MonoBehaviour
         _ready = false;
         onReady?.Invoke();
         //TODO: move input to character selection
+        SetSelectionUI();
+        _palettePickerManager.PalettePickers[PlayerInput.playerIndex].UnsetVisuals();
     }
     
     public void SelectBot(Character character)
@@ -109,7 +117,7 @@ public class Player: MonoBehaviour
         _ready = false;
     }
 
-    private void SetSelectionSceneValues()
+    private void SetSelectionUI()
     {
         CharacterButtonsPlayer[] selections = FindObjectsOfType<CharacterButtonsPlayer>();
         foreach (var selection in selections)
@@ -121,6 +129,18 @@ public class Player: MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void UnsetSelectionUI()
+    {
+        PlayerInput.uiInputModule = null;
+    }
+    
+    private void SetSelectionSceneValues()
+    {
+        SetSelectionUI();
+
+        _palettePickerManager = FindObjectOfType<PalettePickerManager>();
         
         PlayerInput.SwitchCurrentActionMap("UI");
         UIInputManager[] inputManagers = FindObjectsOfType<UIInputManager>();
