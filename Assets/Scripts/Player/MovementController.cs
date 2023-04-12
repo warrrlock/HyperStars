@@ -498,7 +498,6 @@ public class MovementController : MonoBehaviour
 
     public IEnumerator DisableGravity(float duration)
     {
-        Debug.Log("Time");
         _isGravityApplied = false;
         yield return new WaitForSeconds(duration);
 
