@@ -38,6 +38,7 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private List<BaseState> _afterImageStates;
     [Tooltip("For spawning camera blur.")]
     [SerializeField] private BaseState[] _blurStates;
+    [SerializeField] private BaseState[] _parryStates;
     
     
     void Awake()
@@ -68,7 +69,7 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXSubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
-        _inputManager.Actions["Parry"].perform += BlockGlow;
+        // _inputManager.Actions["Parry"].perform += BlockGlow;
         _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
@@ -77,7 +78,7 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
-        _inputManager.Actions["Parry"].perform -= BlockGlow;
+        // _inputManager.Actions["Parry"].perform -= BlockGlow;
         _fighter.Events.onBlockHit -= BlockGlow;
         _fighter.Events.onStateChange -= SpawnOnStateChange;
         _fighter.Events.onLandedHurt -= GroundWave;
@@ -215,6 +216,16 @@ public class CharacterVFXManager : MonoBehaviour
             {
                 StartCoroutine(Services.CameraManager.CameraBlur(_fighter, .35f));
                 StartCoroutine(Services.CameraManager.CameraZoom(.1f, 38f, .2f, .12f));
+                break;
+            }
+        }
+        
+        // spawn parry flash
+        foreach (BaseState wantedState in _parryStates)
+        {
+            if (s == wantedState)
+            {
+                TriggerParry(_fighter);
                 break;
             }
         }

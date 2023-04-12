@@ -36,6 +36,7 @@ MonoBehaviour:
       value:
         shockwaveDuration: 0.229
         shockwavePercentage: 0.766
+        useUnscaledTime: 0
     hasSilhouette: 0
   MediumHit:
     cameraShake: 2
@@ -56,6 +57,7 @@ MonoBehaviour:
       value:
         shockwaveDuration: 0
         shockwavePercentage: 0
+        useUnscaledTime: 0
     hasSilhouette: 0
   HeavyHit:
     cameraShake: 3
@@ -72,10 +74,11 @@ MonoBehaviour:
         zoomHoldTime: 0
         zoomDistortion: 0
     shockwave:
-      enabled: 0
+      enabled: 1
       value:
-        shockwaveDuration: 0
-        shockwavePercentage: 0
+        shockwaveDuration: 0.335
+        shockwavePercentage: 0.672
+        useUnscaledTime: 0
     hasSilhouette: 0
   SpecialHit:
     cameraShake: 3
@@ -96,4 +99,5 @@ MonoBehaviour:
       value:
         shockwaveDuration: 0
         shockwavePercentage: 0
+        useUnscaledTime: 0
     hasSilhouette: 1

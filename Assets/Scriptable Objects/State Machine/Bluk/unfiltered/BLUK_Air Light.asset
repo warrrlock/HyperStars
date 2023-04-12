@@ -28,6 +28,7 @@ MonoBehaviour:
       height: 50
   _filters: []
   _transitions:
+  - {fileID: 11400000, guid: 7aed028eeacba9146a8e10a7c1a03c5e, type: 2}
   - {fileID: 11400000, guid: 068030f1346abde4aa3d46bf16d5c03e, type: 2}
   - {fileID: 11400000, guid: a87587a48f8a59e4692696e58ed65450, type: 2}
   _alwaysExecute: 0
@@ -40,11 +41,11 @@ MonoBehaviour:
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0.5
-    knockbackDistance: 0.5
-    knockbackDirection: {x: 1, y: -1, z: 0}
+    knockbackDistance: 1
+    knockbackDirection: {x: 0.2, y: 0, z: 0}
     reverseKnockbackDuration: 0.8
-    reverseKnockbackDistance: 20
-    reverseKnockbackDirection: {x: -0.3, y: 3, z: 0}
+    reverseKnockbackDistance: 17
+    reverseKnockbackDirection: {x: -0.2, y: 3, z: 0}
     hitStunDuration: 0.15
     causesWallBounce: 0
     hitStopDuration: 0.15
@@ -57,9 +58,9 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0
-    gravityAugmentFactor: 0.319
-    gravityAugmentDuration: 0.5
+    hangTime: 0.3
+    gravityAugmentFactor: 0.873
+    gravityAugmentDuration: 2
     favorReward: 2
     knockbackForce: {x: 0, y: 56.063454}
     incrementBarAmount: 0.1

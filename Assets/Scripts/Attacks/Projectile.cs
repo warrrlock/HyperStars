@@ -19,6 +19,7 @@ public class Projectile : MonoBehaviour
     [Tooltip("Angle of 0 is horizontal, angle of -90 is up, 90 down.")] [Range(-90, 90)]
     [SerializeField] private int _angle;
 
+    public Fighter Owner => _owner;
     private Fighter _owner;
     private string _input;
     private int _xDirection;

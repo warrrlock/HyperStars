@@ -93,7 +93,7 @@ MonoBehaviour:
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 1
+    hitStunDuration: 1.5
     causesWallBounce: 1
     hitStopDuration: 0.6
     wallBounceDuration: 1
@@ -114,7 +114,8 @@ MonoBehaviour:
     multiHitCount: 0
     multiHitInterval: 0
   _spawnDirection: 2
-  _onSpawnActions: []
+  _onSpawnActions:
+  - {fileID: 11400000, guid: cd34ffaa0903047ae8aa48a47f1032ef, type: 2}
   _onTriggerEnterActions: []
   _onInvisibleActions:
   - {fileID: 11400000, guid: 31bb4efc467b94f70a9cc166273d2b3c, type: 2}
