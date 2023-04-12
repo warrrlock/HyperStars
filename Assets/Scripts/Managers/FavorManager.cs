@@ -74,6 +74,7 @@ public class FavorManager : MonoBehaviour
 
     private bool _isRoundOver = false;
 
+    [Header("Chip Effect")]
     [SerializeField] private float _chipDuration;
     [SerializeField] private RectTransform _p1ChipShrinkMask;
     [SerializeField] private RectTransform _p2ChipShrinkMask;
@@ -86,7 +87,11 @@ public class FavorManager : MonoBehaviour
     private bool _isP1Chipping = false;
     private bool _isP2Chipping = false;
 
-    //[SerializeField] private float _indicatorFlipDuration;
+    [SerializeField] private float _indicatorFlipDuration;
+    private float _indicatorFlipSpeed;
+    private float _indicatorScaleDefault;
+    private bool _isIndicatorFlipping = false;
+    private IEnumerator _indicatorFlip;
 
     private float _maxIndicatorX;
     private float _minIndicatorX;
@@ -124,6 +129,8 @@ public class FavorManager : MonoBehaviour
         _maxChipX = _initialWidth / 2f;
         _indicatorWidthOffsetLeft = _favorMeterIndicatorGlow.rectTransform.rect.width / 2f - 2f;
         _indicatorWidthOffsetRight = _favorMeterIndicatorGlow.rectTransform.rect.width / 2f - 7f;
+        _indicatorScaleDefault = _favorMeterIndicatorGlow.rectTransform.localScale.x;
+        _indicatorFlipSpeed = _indicatorScaleDefault * 2f / _indicatorFlipDuration;
         UpdateFavorMeter();
     }
 
@@ -162,6 +169,8 @@ public class FavorManager : MonoBehaviour
         {
             case < 0:
                 _favoredPlayer = playerId;
+                _indicatorFlip = FlipIndicator(_favoredPlayer);
+                StartCoroutine(_indicatorFlip);
                 break;
             case 0:
                 if (_favor + value > _favor)
@@ -169,6 +178,13 @@ public class FavorManager : MonoBehaviour
                     //reverse favor
                     _favorMultiplier += _favorMultiplierDelta;
                     _favoredPlayer = playerId;
+                    if (_isIndicatorFlipping)
+                    {
+                        StopCoroutine(_indicatorFlip);
+                        _isIndicatorFlipping = false;
+                    }
+                    _indicatorFlip = FlipIndicator(_favoredPlayer);
+                    StartCoroutine(_indicatorFlip);
                 }
                 break;
             case 1:
@@ -177,6 +193,13 @@ public class FavorManager : MonoBehaviour
                     //reverse favor
                     _favorMultiplier += _favorMultiplierDelta;
                     _favoredPlayer = playerId;
+                    if (_isIndicatorFlipping)
+                    {
+                        StopCoroutine(_indicatorFlip);
+                        _isIndicatorFlipping = false;
+                    }
+                    _indicatorFlip = FlipIndicator(_favoredPlayer);
+                    StartCoroutine(_indicatorFlip);
                 }
                 break;
         }
@@ -218,13 +241,20 @@ public class FavorManager : MonoBehaviour
         float indicatorX = Mathf.Lerp(_minIndicatorX, _maxIndicatorX, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f));
         indicatorX = Mathf.Clamp(indicatorX, _minIndicatorX * (MaxFavor / _maxFavorInitial), _maxIndicatorX * (MaxFavor / _maxFavorInitial));
         _favorMeterIndicatorGlow.rectTransform.anchoredPosition = new Vector3(indicatorX, _favorMeterIndicatorGlow.rectTransform.anchoredPosition.y, 0f);
-        if (_favoredPlayer > -1)
-        {
-            _favorMeterIndicator.sprite = Services.Characters[_favoredPlayer].IndicatorSprite;
-            _favorMeterIndicatorGlow.sprite = Services.Characters[_favoredPlayer].IndicatorGlowSprite;
-            _favorMeterIndicatorGlow.color = _glowColors[_favoredPlayer];
-        }
-        else
+        //if (_favoredPlayer > -1)
+        //{
+        //    _favorMeterIndicator.sprite = Services.Characters[_favoredPlayer].IndicatorSprite;
+        //    _favorMeterIndicatorGlow.sprite = Services.Characters[_favoredPlayer].IndicatorGlowSprite;
+        //    _favorMeterIndicatorGlow.color = _glowColors[_favoredPlayer];
+        //}
+        //else
+        //{
+        //    _favorMeterIndicator.sprite = Services.Characters[0].IndicatorSprite;
+        //    _favorMeterIndicatorGlow.sprite = Services.Characters[0].IndicatorGlowSprite;
+        //    _favorMeterIndicatorGlow.color = _glowColors[0];
+        //}
+
+        if (_favoredPlayer < 0)
         {
             _favorMeterIndicator.sprite = Services.Characters[0].IndicatorSprite;
             _favorMeterIndicatorGlow.sprite = Services.Characters[0].IndicatorGlowSprite;
@@ -323,23 +353,40 @@ public class FavorManager : MonoBehaviour
         return Mathf.Lerp(_minChipX, _maxChipX, xPercent);
     }
 
+    private IEnumerator FlipIndicator(int newPlayerId)
+    {
+        _isIndicatorFlipping = true;
+        int playerIdMultiplier = newPlayerId == 0 ? 1 : -1;
+        float indicatorScaleCurrent = _favorMeterIndicatorGlow.rectTransform.localScale.x;
+        bool hasIconChanged = false;
+        while (indicatorScaleCurrent * playerIdMultiplier < _indicatorScaleDefault)
+        {
+            yield return new WaitForFixedUpdate();
+            Vector3 newScale = _favorMeterIndicatorGlow.rectTransform.localScale;
+            indicatorScaleCurrent += _indicatorFlipSpeed * playerIdMultiplier * Time.fixedDeltaTime;
+            newScale.x = indicatorScaleCurrent;
+            _favorMeterIndicatorGlow.rectTransform.localScale = newScale;
+            if (hasIconChanged)
+            {
+                continue;
+            }
+            if (indicatorScaleCurrent * playerIdMultiplier > 0f)
+            {
+                _favorMeterIndicator.sprite = Services.Characters[newPlayerId].IndicatorSprite;
+                _favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
+                _favorMeterIndicatorGlow.color = _glowColors[newPlayerId];
+                hasIconChanged = true;
+            }
+        }
+        Vector3 endScale = _favorMeterIndicatorGlow.rectTransform.localScale;
+        endScale.x = _indicatorScaleDefault * playerIdMultiplier;
+        _favorMeterIndicatorGlow.rectTransform.localScale = endScale;
+        _isIndicatorFlipping = false;
+        yield break;
+    }
+
     private IEnumerator ChipEffect(float startFill, float destinationFill)
     {
-        //_isChipping = true;
-        //Easing function = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
-        //Image chipRect = _favoredPlayer == 0 ? _p1ChipRect : _p2ChipRect;
-        //chipRect.rectTransform.anchoredPosition = new Vector3(xPosition, chipRect.rectTransform.anchoredPosition.y, 0f);
-        //chipRect.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-        //float timer = 0f;
-        //while (timer <= _chipDuration)
-        //{
-        //    yield return new WaitForFixedUpdate();
-        //    timer += Time.fixedDeltaTime;
-        //    chipRect.fillAmount = function.Ease(1f, 0f, timer / _chipDuration);
-        //}
-        //_isChipping = false;
-        //yield break;
-
         switch (_favoredPlayer)
         {
             case 0:

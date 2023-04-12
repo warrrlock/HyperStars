@@ -217,6 +217,7 @@ public class CameraManager : MonoBehaviour
         shockwaveMaterial.SetFloat("_ManualTime", .1f);
         shockwaveMaterial.SetFloat("_Weight", 0);
         shockwaveMaterial.SetVector("_FocalPoint", new Vector4(.5f, .5f, 0f, 0f));
+        shockwaveMaterial.SetFloat("_SizeRatio", 1.777f);
     }
 
     /// <summary>
@@ -261,7 +262,7 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     /// <param name="hitPos"></param>
     /// <returns></returns>
-    public IEnumerator Camerashockwave(Vector3 hitPos, float shockwaveDuration, float shockwaveExpansionAmount)
+    public IEnumerator CameraShockwave(Vector3 hitPos, float shockwaveDuration, float shockwaveExpansionAmount, bool unscaled)
     {
         shockwaveMaterial.SetVector("_FocalPoint", GetScreenPoint(hitPos));
         // start shockwave
@@ -275,27 +276,27 @@ public class CameraManager : MonoBehaviour
         var shockwaveElapsed = 0f;
         while (shockwaveElapsed < shockwaveDuration)
         {
-            shockwaveTime += Time.deltaTime * (1 / shockwaveDuration);
+            shockwaveTime += (unscaled ? Time.unscaledDeltaTime : Time.deltaTime) * (1 / shockwaveDuration);
             if (shockwaveTime < .99f * shockwaveExpansionAmount)
                 shockwaveMaterial.SetFloat("_ManualTime", shockwaveTime);
             else if (!dissolveStarted)
             {
-                StartCoroutine(shockwaveDissolve());
+                StartCoroutine(ShockwaveDissolve(unscaled));
                 dissolveStarted = true;
             }
-            shockwaveElapsed += Time.deltaTime;
+            shockwaveElapsed += unscaled ? Time.unscaledDeltaTime : Time.deltaTime;
             yield return null;
         }
     }
 
-    private IEnumerator shockwaveDissolve()
+    private IEnumerator ShockwaveDissolve(bool unscaled)
     {
         // lerp to shockwave
         var dissolveELapsed = 0f;
         while (dissolveELapsed < .1f)
         {
             shockwaveMaterial.SetFloat("_Weight", Mathf.Lerp(shockwaveMaterial.GetFloat("_Weight"), 0, dissolveELapsed / .1f));
-            dissolveELapsed += Time.deltaTime;
+            dissolveELapsed += unscaled ? Time.unscaledDeltaTime : Time.deltaTime;
             yield return null;
         }
         yield return new WaitForFixedUpdate();
