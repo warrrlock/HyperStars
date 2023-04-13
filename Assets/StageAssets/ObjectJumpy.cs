@@ -72,6 +72,16 @@ public class ObjectJumpy : MonoBehaviour
         float H, S, V;
         Color col = sprRend.color;
         Color.RGBToHSV(col, out H, out S, out V);
-        sprRend.color = Color.HSVToRGB(Random.Range(0.0f,1.0f),S,V);
+        float tempcol;
+        if (Random.Range(0.0f, 1.0f) <= 0.3f)
+            tempcol = Random.Range(0f, 0.14f);
+        else tempcol = Random.Range(0.0f, 1.0f);
+        //else
+        //{
+        //    tempcol = Random.Range(0.0f, 1.0f);
+        //    if (tempcol > 0.18f && tempcol < 0.45f)
+        //        tempcol += Random.Range(-0.1f, 0.35f); // extra should go to red?
+        //}
+        sprRend.color = Color.HSVToRGB(tempcol,S,V);
     }
 }
