@@ -77,7 +77,7 @@ public class HitBox : MonoBehaviour
             //has been parried
             AttackInfo parryInfo = hitFighter.BaseStateMachine.AttackInfo;
             
-            StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun, parryInfo.hitStunDuration));
+            StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun, parryInfo.hitStunDuration, parryInfo.hardKnockdown));
 
             _fighter.Events.onBlockHit?.Invoke(new Dictionary<string, object>
                 {
@@ -139,7 +139,7 @@ public class HitBox : MonoBehaviour
             : (attackInfoSO.knockbackForce.x is > 0f and < 180f 
                 ? KeyHurtStatePair.HurtStateName.KnockBack 
                 : KeyHurtStatePair.HurtStateName.HitStun)
-            , attackInfoValues.outputHitStunDuration));
+            , attackInfoValues.outputHitStunDuration, attackInfoSO.hardKnockdown));
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
@@ -263,7 +263,7 @@ public class HitBox : MonoBehaviour
                 //has been parried
                 AttackInfo parryInfo = hitFighter.BaseStateMachine.AttackInfo;
 
-                StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun, parryInfo.hitStunDuration));
+                StartCoroutine(_baseStateMachine.SetHurtState(KeyHurtStatePair.HurtStateName.HitStun, parryInfo.hitStunDuration, parryInfo.hardKnockdown));
 
                 _fighter.Events.onBlockHit?.Invoke(new Dictionary<string, object>
                 {
@@ -320,7 +320,7 @@ public class HitBox : MonoBehaviour
                 : (attackInfoSO.knockbackForce.x is > 0f and < 180f
                     ? KeyHurtStatePair.HurtStateName.KnockBack
                     : KeyHurtStatePair.HurtStateName.HitStun)
-                , attackInfoValues.outputHitStunDuration));
+                , attackInfoValues.outputHitStunDuration, attackInfoSO.hardKnockdown));
 
             //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
             //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
