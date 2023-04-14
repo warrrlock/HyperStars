@@ -9,7 +9,9 @@ public class AttackInfo
     public int idManager;
 
     public enum AttackType {None, Light, Medium, Heavy, Special}
+    public enum SpecialType {None, Side, Neutral, Air, Crouch}
     public AttackType attackType = AttackType.None;
+    public SpecialType specialType = SpecialType.None;
 
     public AK.Wwise.Event hitSfxEvent;
 
