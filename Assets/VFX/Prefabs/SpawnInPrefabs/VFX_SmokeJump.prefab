@@ -51,14 +51,17 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0.7
+      - m_Value: 1
         m_Name: Life
         m_Overridden: 1
-      - m_Value: 16
+      - m_Value: 1.8
         m_Name: Frame Rate
         m_Overridden: 1
       - m_Value: 4
         m_Name: Size
+        m_Overridden: 1
+      - m_Value: 2
+        m_Name: Playback Rate
         m_Overridden: 1
     m_Vector2f:
       m_Array:
@@ -206,3 +209,4 @@ MonoBehaviour:
   f: {fileID: 0}
   VFXType: 3
   isMoveBased: 0
+  canUseUnscaledTime: 1
