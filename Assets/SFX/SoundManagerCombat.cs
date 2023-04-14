@@ -8,7 +8,7 @@ public enum Wwise_CombatEnvironmentSounds {
 
 public enum Wwise_CombatSwings
 {
-    LightSwing1, LightSwing2, MediumSwing1, MediumSwing2, 
+    LightSwing1, LightSwing2, MediumSwing1, MediumSwing2, ParrySwing
 }
 
 public enum Wwise_CombatHits {
