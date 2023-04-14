@@ -17,8 +17,7 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private VisualEffect visualEffect;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
-    [SerializeField] private float dashSmokeGroundOffset;
-    [SerializeField] private float jumpSmokeGroundOffset;
+    [SerializeField] private float actionSmokeGroundOffset;
 
     //
     private SpriteRenderer _spriteRenderer;
@@ -70,7 +69,7 @@ public class CharacterVFXManager : MonoBehaviour
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
         // _inputManager.Actions["Parry"].perform += BlockGlow;
-        _fighter.Events.onBlockHit += BlockGlow;
+        // _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
         _fighter.Events.wallBounce += WallWave;
@@ -79,7 +78,7 @@ public class CharacterVFXManager : MonoBehaviour
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
         // _inputManager.Actions["Parry"].perform -= BlockGlow;
-        _fighter.Events.onBlockHit -= BlockGlow;
+        // _fighter.Events.onBlockHit -= BlockGlow;
         _fighter.Events.onStateChange -= SpawnOnStateChange;
         _fighter.Events.onLandedHurt -= GroundWave;
         _fighter.Events.wallBounce -= WallWave;
@@ -89,49 +88,49 @@ public class CharacterVFXManager : MonoBehaviour
         if (_fighter.MovementController.IsGrounded)
         {
             _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_DASH, transform.localPosition + new Vector3(0f, 
-                        dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
+                actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
         }
     }
     
     void JumpSmoke(InputManager.Action action) {
         _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_JUMP, transform.localPosition + new Vector3(0f, 
-            jumpSmokeGroundOffset, 0f), GetComponent<Fighter>());
+            actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
     }
     
-    void BlockGlow(Dictionary<string, object> d)
-    {
-        try
-        {
-            Fighter attacked = d["attacked"] as Fighter;
-            Fighter attacker = d["attacker"] as Fighter;
-            if (!attacker || !attacked) return;
-            TriggerParry(attacked);
-        }
-        catch (KeyNotFoundException)
-        {
-            Debug.Log("blocker not found");
-        }
-    }
-    
-    void BlockGlow(InputManager.Action action)
-    {
-        TriggerParry(_fighter);
-    }
-
-    private Coroutine parryRoutine;
-    void TriggerParry(Fighter f)
-    {
-        if (parryRoutine != null) StopCoroutine(parryRoutine);
-        parryRoutine = StartCoroutine(ParryGlow(f));
-    }
-
-    IEnumerator ParryGlow(Fighter f)
-    {
-        SpriteRenderer sr = f.GetComponent<SpriteRenderer>();
-        sr.material.SetFloat("_Parry_Trigger", 1f);
-        yield return new WaitForSeconds(.35f);
-        sr.material.SetFloat("_Parry_Trigger", 0f);
-    }
+    // void BlockGlow(Dictionary<string, object> d)
+    // {
+    //     try
+    //     {
+    //         Fighter attacked = d["attacked"] as Fighter;
+    //         Fighter attacker = d["attacker"] as Fighter;
+    //         if (!attacker || !attacked) return;
+    //         TriggerParry(attacked);
+    //     }
+    //     catch (KeyNotFoundException)
+    //     {
+    //         Debug.Log("blocker not found");
+    //     }
+    // }
+    //
+    // void BlockGlow(InputManager.Action action)
+    // {
+    //     TriggerParry(_fighter);
+    // }
+    //
+    // private Coroutine parryRoutine;
+    // void TriggerParry(Fighter f)
+    // {
+    //     if (parryRoutine != null) StopCoroutine(parryRoutine);
+    //     parryRoutine = StartCoroutine(ParryGlow(f));
+    // }
+    //
+    // IEnumerator ParryGlow(Fighter f)
+    // {
+    //     SpriteRenderer sr = f.GetComponent<SpriteRenderer>();
+    //     sr.material.SetFloat("_Parry_Trigger", 1f);
+    //     yield return new WaitForSeconds(.35f);
+    //     sr.material.SetFloat("_Parry_Trigger", 0f);
+    // }
 
     void GroundWave()
     {
@@ -221,13 +220,24 @@ public class CharacterVFXManager : MonoBehaviour
         }
         
         // spawn parry flash
+        _spriteRenderer.material.SetFloat("_Parry_Trigger", 0f);
         foreach (BaseState wantedState in _parryStates)
         {
             if (s == wantedState)
             {
-                TriggerParry(_fighter);
+                _spriteRenderer.material.SetFloat("_Parry_Trigger", 1f);
                 break;
             }
         }
+    }
+
+    public void TurnOnParryFlash()
+    {
+        _spriteRenderer.material.SetFloat("_Parry_Trigger", 1f);
+    }
+
+    public void TurnOffParryFlash()
+    {
+        _spriteRenderer.material.SetFloat("_Parry_Trigger", 0f);
     }
 }

@@ -11,13 +11,15 @@ public class VFXCleanUp : MonoBehaviour
     private VisualEffect _vfx;
     private float _lifeTime;
     [HideInInspector] public Fighter f;
+    [HideInInspector] public bool isUnscaledTime;
     [SerializeField] private VFXTypes VFXType;
     [SerializeField] private bool isMoveBased;
+    [SerializeField] private bool canUseUnscaledTime;
 
     void Start()
     {
         _vfx = GetComponent<VisualEffect>();
-        // _lifeTime = _vfx.GetFloat("Life");
+        _lifeTime = 0;
         // all vfx destroy after one second
         Destroy(gameObject, 1);
         if (f)
@@ -37,6 +39,11 @@ public class VFXCleanUp : MonoBehaviour
         if (f)
         {
             _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
+        }
+        _lifeTime += isUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+        if (canUseUnscaledTime)
+        {
+            _vfx.SetFloat("UnscaledTime", _lifeTime);
         }
     }
 
