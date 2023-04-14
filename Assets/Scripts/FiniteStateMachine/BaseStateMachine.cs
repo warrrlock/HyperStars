@@ -42,6 +42,7 @@ namespace FiniteStateMachine {
         public AttackInfo AttackInfo => CurrentState.GetAttackInfo();
         
         private bool _canRecover;
+        private bool _allowRecover; //set in attack state
 
         [Header("Input Queuing")] 
         [SerializeField] private int _framesBeforeEnd = 5;
@@ -422,12 +423,14 @@ namespace FiniteStateMachine {
         
         //OTHER METHODS
 
-        public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName, float duration)
+        public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName, float duration, bool hardKnockdown)
         {
             yield return new WaitForFixedUpdate();
             _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
             if (!newHurtState) yield break;
-            
+
+            // Debug.Log($"{name} got hit, hardKnockdown is {hardKnockdown}");
+            _allowRecover = !hardKnockdown;
             _canRecover = false;
             
             // Debug.LogWarning($"setting hurtstate to {stateName}");
@@ -451,7 +454,7 @@ namespace FiniteStateMachine {
 
         private void UpdateHurtState(KeyHurtStatePair.HurtStateName stateName)
         {
-            StartCoroutine(SetHurtState(stateName, 0f));
+            StartCoroutine(SetHurtState(stateName, 0f, _allowRecover));
         }
 
         private void PassHurtState(HurtState hurtState, float duration)
@@ -530,7 +533,7 @@ namespace FiniteStateMachine {
             if (CurrentState is HurtState)
             {
                 Fighter.Events.onLandedHurt?.Invoke();
-                EnableRecovery();
+                TryEnableRecovery();
             }
             else
             {
@@ -608,8 +611,9 @@ namespace FiniteStateMachine {
             DisableRecovery();
         }
 
-        private void EnableRecovery()
+        private void TryEnableRecovery()
         {
+            if (!_allowRecover) return;
             _canRecover = true;
             Fighter.InputManager.EnableOneShot(Fighter.InputManager.Actions["Roll"]);
         }
