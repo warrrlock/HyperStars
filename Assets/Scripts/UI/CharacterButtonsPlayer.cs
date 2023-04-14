@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Managers;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [Serializable]
-class SelectionSpritePair
+class SelectionAssets
 {
     public CharacterManager.CharacterSelection character;
-    public Sprite image;
+    public string animStateName;
 }
 
 public class CharacterButtonsPlayer: MonoBehaviour
@@ -19,12 +20,18 @@ public class CharacterButtonsPlayer: MonoBehaviour
     [SerializeField] private CharacterSelectManager _selectionManager;
     [SerializeField] private int _playerId;
     [SerializeField] private Image _characterSelectionImage;
-    [SerializeField] private List<SelectionSpritePair> _images;
+    private Animator _charVisualAnimator;
+    [FormerlySerializedAs("_images")] [SerializeField] private List<SelectionAssets> _characterVisuals;
     [SerializeField] private GameObject _readyVisual;
     
     public Player Player { get; private set; }
     public bool IsBot => _isBot;
     public int PlayerId => _playerId;
+
+    private void Awake()
+    {
+        _charVisualAnimator = _characterSelectionImage.GetComponent<Animator>();
+    }
 
     private void OnDestroy()
     {
@@ -64,10 +71,10 @@ public class CharacterButtonsPlayer: MonoBehaviour
     
     public void UpdateCharacterSelect(string character)
     {
-        SelectionSpritePair selectionSpritePair = _images.Find(pair => 
+        SelectionAssets selectionAssets = _characterVisuals.Find(pair => 
             pair.character.ToString().Equals(character, StringComparison.OrdinalIgnoreCase));
-        if (_characterSelectionImage) _characterSelectionImage.sprite = selectionSpritePair.image;
-        if (_selectionManager) _selectionManager.UpdateSelection(character, selectionSpritePair.character, _playerId);
+        if (_characterSelectionImage) _charVisualAnimator.Play(selectionAssets.animStateName);
+        if (_selectionManager) _selectionManager.UpdateSelection(character, selectionAssets.character, _playerId);
     }
 
     private void UpdateReadyVisuals()
