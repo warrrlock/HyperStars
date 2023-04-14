@@ -11,6 +11,7 @@ public class VFXCleanUp : MonoBehaviour
     private VisualEffect _vfx;
     private float _lifeTime;
     [HideInInspector] public Fighter f;
+    [HideInInspector] public bool isUnscaledTime;
     [SerializeField] private VFXTypes VFXType;
     [SerializeField] private bool isMoveBased;
     [SerializeField] private bool canUseUnscaledTime;
@@ -39,7 +40,7 @@ public class VFXCleanUp : MonoBehaviour
         {
             _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
         }
-        _lifeTime += Time.unscaledDeltaTime;
+        _lifeTime += isUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
         if (canUseUnscaledTime)
         {
             _vfx.SetFloat("UnscaledTime", _lifeTime);

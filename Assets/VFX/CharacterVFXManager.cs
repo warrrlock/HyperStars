@@ -17,8 +17,7 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private VisualEffect visualEffect;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
-    [SerializeField] private float dashSmokeGroundOffset;
-    [SerializeField] private float jumpSmokeGroundOffset;
+    [SerializeField] private float actionSmokeGroundOffset;
 
     //
     private SpriteRenderer _spriteRenderer;
@@ -89,13 +88,13 @@ public class CharacterVFXManager : MonoBehaviour
         if (_fighter.MovementController.IsGrounded)
         {
             _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_DASH, transform.localPosition + new Vector3(0f, 
-                        dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
+                actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
         }
     }
     
     void JumpSmoke(InputManager.Action action) {
         _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_JUMP, transform.localPosition + new Vector3(0f, 
-            jumpSmokeGroundOffset, 0f), GetComponent<Fighter>());
+            actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
     }
     
     void BlockGlow(Dictionary<string, object> d)
