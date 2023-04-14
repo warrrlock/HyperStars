@@ -148,7 +148,8 @@ public class Projectile : MonoBehaviour
                 : (_attackInfo.knockbackForce.x is > 0f and < 180f 
                     ? KeyHurtStatePair.HurtStateName.KnockBack 
                     : KeyHurtStatePair.HurtStateName.HitStun)
-            , _attackInfo.hitStunDuration
+            , _attackInfo.hitStunDuration,
+            _attackInfo.hardKnockdown
         ));
 
         hitFighter.MovementController.ResetVelocityY();
