@@ -15,7 +15,7 @@ MonoBehaviour:
   characterSelection: 1
   _bypassHitConfirm: 0
   _isCrouchState: 1
-  _isSpecial: 1
+  _isSpecial: 0
   _specialBarCost: 1
   _animationName: Crouching Special
   _animationHash: 1100047811
@@ -39,11 +39,12 @@ MonoBehaviour:
   _attackInfo:
     idSO: 8
     idManager: 0
-    attackType: 3
+    attackType: 4
+    specialType: 4
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
-      WwiseObjectReference: {fileID: 0}
+      WwiseObjectReference: {fileID: 11400000, guid: 7ece7326c3ab0ff46b388b1c2fcaf60a, type: 2}
     knockbackDuration: 1
     knockbackDistance: 18
     knockbackDirection: {x: 0.1, y: 1, z: 0}
@@ -63,7 +64,7 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0.3
-    gravityAugmentFactor: 0.52
+    gravityAugmentFactor: 0.599
     gravityAugmentDuration: 2
     favorReward: 2
     knockbackForce: {x: 90, y: 100}

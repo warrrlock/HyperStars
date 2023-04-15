@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{56A1E077-3DD2-433B-BFC8-3662FBA067CA}" SchemaVersion="103" RootDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" ParentDocumentID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}">
+	<AudioObjects>
+		<WorkUnit Name="Parry Hit" ID="{56A1E077-3DD2-433B-BFC8-3662FBA067CA}" OwnerID="{58D4D320-AE26-4FEE-AE95-9BF9E9692B45}" PersistMode="Nested">
+			<ChildrenList>
+				<ActorMixer Name="Parry Hit Mixer" ID="{4FFF60BB-D287-4CDE-AAFA-39F4913F39C9}" ShortID="230582231">
+					<PropertyList>
+						<Property Name="Pitch" Type="int32">
+							<ModifierList>
+								<ModifierInfo>
+									<Modifier Name="" ID="{CA0FE6B5-69D1-48D9-8A85-EBD4DECDC19B}">
+										<PropertyList>
+											<Property Name="Enabled" Type="bool" Value="True"/>
+											<Property Name="Max" Type="Real64" Value="20"/>
+											<Property Name="Min" Type="Real64" Value="-20"/>
+										</PropertyList>
+									</Modifier>
+								</ModifierInfo>
+							</ModifierList>
+						</Property>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>2</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="AttackHitBus" ID="{D669BD02-7F47-4457-A2AE-03EE59ECA99E}" WorkUnitID="{169AB6F2-859E-4F34-886F-990D7C1028A3}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Parry Hit" ID="{229EB9BB-7A33-41F4-BCFB-3631986CD08F}" ShortID="391561745">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Parry Hit" ID="{5AB2C776-9965-4EAE-880C-6292DF9D1151}">
+									<Language>SFX</Language>
+									<AudioFile>Parry Hit.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="37913193"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="Parry Hit" ID="{5AB2C776-9965-4EAE-880C-6292DF9D1151}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

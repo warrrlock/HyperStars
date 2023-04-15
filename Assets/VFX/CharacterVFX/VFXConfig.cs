@@ -13,6 +13,7 @@ public class VFXConfig : ScriptableObject
     [field: SerializeField] public VFXHitData MediumHit;
     [field: SerializeField] public VFXHitData HeavyHit;
     [field: SerializeField] public VFXHitData SpecialHit;
+    [field: SerializeField] public VFXHitData ParryHit;
 }
 
 [Serializable] public class VFXHitData
@@ -52,7 +53,7 @@ public class VFXConfig : ScriptableObject
     }
     [field: SerializeField] public Optional<DistortionZoomSettings> distortionZoom;
     [field: SerializeField] public Optional<ShockwaveSettings> shockwave;
-    [field: SerializeField] public bool hasSilhouette;
+    [field: SerializeField] public Optional<SilhouetteSettings> silhouette;
 }
 
 public enum CameraShakeType
@@ -78,4 +79,12 @@ public enum CameraShakeType
 {
     [Range(0f, 1f)] [Tooltip("Recommended: 0.3")] public float shockwaveDuration;
     [Range(0f, 1f)] [Tooltip("Recommended: 0.6")] public float shockwavePercentage;
+    public bool useUnscaledTime;
+}
+
+[Serializable]
+public struct SilhouetteSettings
+{
+    public Color silhouetteColor;
+    [Range(0f, .3f)] [Tooltip("Recommended: 0.1")] public float silhouetteDuration;
 }

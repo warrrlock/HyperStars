@@ -36,7 +36,12 @@ MonoBehaviour:
       value:
         shockwaveDuration: 0.451
         shockwavePercentage: 0.737
-    hasSilhouette: 0
+        useUnscaledTime: 0
+    silhouette:
+      enabled: 0
+      value:
+        silhouetteColor: {r: 0, g: 0, b: 0, a: 0}
+        silhouetteDuration: 0
   MediumHit:
     cameraShake: 2
     cameraShakeSettingsOverride:
@@ -56,7 +61,12 @@ MonoBehaviour:
       value:
         shockwaveDuration: 0
         shockwavePercentage: 0
-    hasSilhouette: 0
+        useUnscaledTime: 0
+    silhouette:
+      enabled: 0
+      value:
+        silhouetteColor: {r: 0, g: 0, b: 0, a: 0}
+        silhouetteDuration: 0
   HeavyHit:
     cameraShake: 2
     cameraShakeSettingsOverride:
@@ -76,7 +86,12 @@ MonoBehaviour:
       value:
         shockwaveDuration: 0.456
         shockwavePercentage: 1
-    hasSilhouette: 0
+        useUnscaledTime: 1
+    silhouette:
+      enabled: 0
+      value:
+        silhouetteColor: {r: 0, g: 0, b: 0, a: 0}
+        silhouetteDuration: 0
   SpecialHit:
     cameraShake: 3
     cameraShakeSettingsOverride:
@@ -96,4 +111,34 @@ MonoBehaviour:
       value:
         shockwaveDuration: 0.233
         shockwavePercentage: 0.53
-    hasSilhouette: 0
+        useUnscaledTime: 0
+    silhouette:
+      enabled: 0
+      value:
+        silhouetteColor: {r: 0, g: 0, b: 0, a: 0}
+        silhouetteDuration: 0
+  ParryHit:
+    cameraShake: 0
+    cameraShakeSettingsOverride:
+      enabled: 0
+      value:
+        cameraShakeDuration: 0
+        cameraShakeMagnitude: 0
+    distortionZoom:
+      enabled: 0
+      value:
+        zoomSpeed: 0
+        zoomFov: 0
+        zoomHoldTime: 0
+        zoomDistortion: 0
+    shockwave:
+      enabled: 0
+      value:
+        shockwaveDuration: 0
+        shockwavePercentage: 0
+        useUnscaledTime: 0
+    silhouette:
+      enabled: 1
+      value:
+        silhouetteColor: {r: 0, g: 0.56368256, b: 1, a: 0}
+        silhouetteDuration: 0.133

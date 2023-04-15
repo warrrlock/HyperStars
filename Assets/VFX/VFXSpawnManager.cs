@@ -161,16 +161,16 @@ public class VFXSpawnManager : MonoBehaviour
         if (configData.shockwave)
         {
             ShockwaveSettings s = configData.shockwave.Value;
-            StartCoroutine(cam.Camerashockwave(hitPos, s.shockwaveDuration, s.shockwavePercentage));
+            StartCoroutine(cam.CameraShockwave(hitPos, s.shockwaveDuration, s.shockwavePercentage, s.useUnscaledTime));
         }
-        if (configData.hasSilhouette)
+        if (configData.silhouette)
         {
             Material[] mats =
             {
                 sender.GetComponent<SpriteRenderer>().material, 
                 receiver.GetComponent<SpriteRenderer>().material
             };
-            cam.SilhouetteToggle(true, mats);
+            cam.SilhouetteToggle(true, mats, configData.silhouette.Value.silhouetteColor, configData.silhouette.Value.silhouetteDuration);
         }
     }
     
@@ -183,6 +183,8 @@ public class VFXSpawnManager : MonoBehaviour
             Fighter receiver = (Fighter) message["attacked"];
             InitializeVFX(VFXGraphsNeutral.PARRY_TWT, hitPos, sender);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(sender, 98f, 2f, .5f));
+            VFXConfig receiverConfig = receiver.GetComponent<CharacterVFXManager>().vfxConfig;
+            AssignHitVFXStyle(receiverConfig.ParryHit, hitPos, sender, receiver);
         }
         catch (KeyNotFoundException)
         {
