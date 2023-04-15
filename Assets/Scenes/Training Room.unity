@@ -481,6 +481,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5751411094791522312, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 26e092a54dcd1334a9fb6c841610529f, type: 3}
+    - target: {fileID: 5751411094791522312, guid: 99b8d6046bfa9364596d38437b484199, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 1555373412}
@@ -1273,6 +1277,7 @@ Material:
     m_Floats:
     - _BOOLEAN: 0
     - _Noise_Speed: 30.25
+    - _OutlineThickness: 0
     - _PARRY: 0
     - _Parry: 0
     - _Parry_Trigger: 0
@@ -1293,6 +1298,7 @@ Material:
     - _Color7: {r: 1, g: 0.8981132, b: 0.7962264, a: 1}
     - _Hair_Color: {r: 0.9237344, g: 0.93333334, b: 0.21568623, a: 0}
     - _Main_Color: {r: 0.383277, g: 0.5839238, b: 0.9339623, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
     - _Pants_Color: {r: 0, g: 0, b: 0, a: 0}
     - _Skin_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 0}
   m_BuildTextureStacks: []
@@ -1401,6 +1407,7 @@ Material:
     m_Floats:
     - _BOOLEAN: 0
     - _Noise_Speed: 30.25
+    - _OutlineThickness: 0
     - _PARRY: 0
     - _Parry: 0
     - _Parry_Trigger: 0
@@ -1421,6 +1428,7 @@ Material:
     - _Color7: {r: 0, g: 0, b: 0, a: 0}
     - _Hair_Color: {r: 0.9237344, g: 0.93333334, b: 0.21568623, a: 0}
     - _Main_Color: {r: 0.383277, g: 0.5839238, b: 0.9339623, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
     - _Pants_Color: {r: 0, g: 0, b: 0, a: 0}
     - _Skin_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 0}
   m_BuildTextureStacks: []
@@ -1883,6 +1891,7 @@ Material:
     m_Floats:
     - _BOOLEAN: 0
     - _Noise_Speed: 30.25
+    - _OutlineThickness: 10
     - _PARRY: 0
     - _Parry: 0
     - _Parry_Trigger: 0
@@ -1903,6 +1912,7 @@ Material:
     - _Color7: {r: 1, g: 0.8598021, b: 0.740566, a: 1}
     - _Hair_Color: {r: 0.9237344, g: 0.93333334, b: 0.21568623, a: 0}
     - _Main_Color: {r: 0.383277, g: 0.5839238, b: 0.9339623, a: 0}
+    - _OutlineColor: {r: 0, g: 250.9804, b: 256, a: 1}
     - _Pants_Color: {r: 0, g: 0, b: 0, a: 0}
     - _Parry_Outline_Color: {r: 0.3410911, g: 0.990566, b: 0.8487069, a: 0}
     - _Skin_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 0}
@@ -1973,7 +1983,7 @@ PrefabInstance:
     - target: {fileID: 4895763656867111171, guid: b19f74dbd3dd1465faf10ffe125c91d0, type: 3}
       propertyPath: _character
       value: 
-      objectReference: {fileID: 11400000, guid: 1ff7cd23ef22a4fbe8111989290bd55d, type: 2}
+      objectReference: {fileID: 11400000, guid: 8f468b1b7dff9494e8490d72d111e4b9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b19f74dbd3dd1465faf10ffe125c91d0, type: 3}
 --- !u!1001 &1679517866
