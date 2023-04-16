@@ -21,7 +21,7 @@ public class ComboIndicator : MonoBehaviour
     [SerializeField] ShakeRect shaker;
 
     void Awake() {
-        //Global.ComboIndicator = this;
+        Global.ComboIndicator = this;
 
         //playerActions = new List<PlayerAction>(FindObjectsOfType<PlayerAction>());
         
@@ -36,11 +36,11 @@ public class ComboIndicator : MonoBehaviour
         return comboCounter;
     }
 
-    public void IncrementCombo(int numChangeBy = 1) {
+    public void IncrementCombo(int numChangeBy = 1) { //Global.ComboIndicator.IncrementCombo();
         SetCombo(comboCounter + numChangeBy);
     }
 
-    public void SetCombo(int numSetTo) {
+    public void SetCombo(int numSetTo) { //Global.ComboIndicator.SetCombo(0);
 
         comboCounter = numSetTo;
 
