@@ -14,16 +14,16 @@ public class ComboIndicator : MonoBehaviour
 
     private static int comboCounter = 0;
     private static int maxComboCountDmg = 20;//How much the combo Multiplier can apply to attacks, at most
-    private List<PlayerAction> playerActions;
+    //private List<PlayerAction> playerActions;
 
     private static float dmgMultiplier = 0.2f;
 
     [SerializeField] ShakeRect shaker;
 
     void Awake() {
-        Global.ComboIndicator = this;
+        //Global.ComboIndicator = this;
 
-        playerActions = new List<PlayerAction>(FindObjectsOfType<PlayerAction>());
+        //playerActions = new List<PlayerAction>(FindObjectsOfType<PlayerAction>());
         
         SetCombo(0);
     }
@@ -64,7 +64,7 @@ public class ComboIndicator : MonoBehaviour
             }
         }
 
-        foreach (PlayerAction action in playerActions )
+        /*foreach (PlayerAction action in playerActions )
         {
             if(action.IsComboable) {
                 action.damage = comboMultiplier(action.baseDamage);// * ((comboCounter + 1) * 1.2f);
@@ -74,7 +74,7 @@ public class ComboIndicator : MonoBehaviour
                     action.damage = action.baseDamage;
                 }
             }
-        }
+        }*/
     }
 
     public static float comboMultiplier(float inputAmt) {
