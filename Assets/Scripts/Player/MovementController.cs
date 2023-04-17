@@ -620,7 +620,8 @@ public class MovementController : MonoBehaviour
                 _forceVelocity -= force;
                 timer += Time.fixedDeltaTime;
             }
-
+            //TODO: move somewhere else?
+            _inputManager.Actions["Roll"].finish.Invoke(_inputManager.Actions["Roll"]);
             if (!_inputManager.Actions["Move"].isBeingPerformed)
             {
                 _unforcedVelocity.x = 0f;
