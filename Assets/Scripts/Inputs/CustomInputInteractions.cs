@@ -122,54 +122,54 @@ namespace UnityEngine.InputSystem.Interactions
 
         private InputControl _lastControl = null;
 
-        //public MultiTapDownInteraction()
-        //{
-        //    InputSystem.onActionChange += (action, change) =>
-        //    {
-        //        if (action.GetType() != typeof(InputAction))
-        //        {
-        //            return;
-        //        }
-        //        InputAction act = action as InputAction;
-        //        if (change != InputActionChange.ActionPerformed)
-        //        {
-        //            return;
-        //        }
+        public MultiTapDownInteraction()
+        {
+            InputSystem.onActionChange += (action, change) =>
+            {
+                if (action.GetType() != typeof(InputAction))
+                {
+                    return;
+                }
+                InputAction act = action as InputAction;
+                if (change != InputActionChange.ActionPerformed)
+                {
+                    return;
+                }
 
-        //        if (_lastControl == null)
-        //        {
-        //            Debug.Log("charles");
-        //            _lastControl = act.activeControl;
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("pratt");
-        //            Debug.Log("active control: " + act.activeControl);
-        //            if (act.activeControl == _lastControl)
-        //            {
-        //                _interruptedState = InterruptedState.Uninterrupted;
-        //                return;
-        //            }
-        //            else
-        //            {
-        //                _interruptedState = InterruptedState.Interrupted;
-        //                //_lastControl = act.activeControl;
-        //            }
-        //        }
+                if (_lastControl == null)
+                {
+                    //Debug.Log("charles");
+                    _lastControl = act.activeControl;
+                }
+                else
+                {
+                    //Debug.Log("pratt");
+                    //Debug.Log("active control: " + act.activeControl.path);
+                    if (act.activeControl == _lastControl)
+                    {
+                        _interruptedState = InterruptedState.Uninterrupted;
+                        return;
+                    }
+                    else
+                    {
+                        _interruptedState = InterruptedState.Interrupted;
+                        _lastControl = act.activeControl;
+                    }
+                }
 
-        //        //if (act.interactions.Contains("Down"))
-        //        //{
-        //        //    Debug.Log("nis");
-        //        //    _interruptedState = InterruptedState.Uninterrupted;
-        //        //    return;
-        //        //}
-        //        //_interruptedState = InterruptedState.Interrupted;
-        //        ////if (_interruptedState == InterruptedState.Base)
-        //        ////{
+                //if (act.interactions.Contains("Down"))
+                //{
+                //    Debug.Log("nis");
+                //    _interruptedState = InterruptedState.Uninterrupted;
+                //    return;
+                //}
+                //_interruptedState = InterruptedState.Interrupted;
+                ////if (_interruptedState == InterruptedState.Base)
+                ////{
 
-        //        ////}
-        //    };
-        //}
+                ////}
+            };
+        }
 
 
         /// <inheritdoc />
