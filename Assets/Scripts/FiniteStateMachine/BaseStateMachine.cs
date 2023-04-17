@@ -634,8 +634,15 @@ namespace FiniteStateMachine {
             if (!_allowRecover) return;
             Fighter.InputManager.EnableOneShot(Fighter.InputManager.Actions["Roll"]);
         }
+
+        private void EnableRecovery()
+        {
+            if (_allowRecover) return;
+            _allowRecover = true;
+            Fighter.InputManager.EnableOneShot(Fighter.InputManager.Actions["Roll"]);
+        }
         
-        public void DisableRecovery()
+        private void DisableRecovery()
         {
             // Debug.Log("disabling recovery");
             _allowRecover = false;
