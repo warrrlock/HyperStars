@@ -97,6 +97,8 @@ namespace FiniteStateMachine {
 
         public Fighter Fighter { get; private set; }
         private Animator _animator;
+        
+        public bool InfiniteEx { get; set; }
 
 
         #region Methods
@@ -162,6 +164,8 @@ namespace FiniteStateMachine {
         
         public void ResetStateMachine()
         {
+            InfiniteEx = false;
+            
             IgnoreExecuteState = false;
             _airCoroutine = null;
             _waitToAnimateRoutine = null;
