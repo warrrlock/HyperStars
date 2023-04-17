@@ -90,6 +90,11 @@ public class CharacterVFXManager : MonoBehaviour
             _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_DASH, transform.localPosition + new Vector3(0f, 
                 actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
         }
+        else
+        {
+            _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_AIRDASH, transform.localPosition + new Vector3(0f, 
+                actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
+        }
     }
     
     void JumpSmoke(InputManager.Action action) {
