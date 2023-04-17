@@ -68,9 +68,20 @@ public class Fighter : MonoBehaviour
         ResetValues();
     }
 
+    public void ResetWithPosition(Vector3 t)
+    {
+        transform.position = t;
+        ResetComponents();
+    }
+    
     private void ResetValues()
     {
         transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
+        ResetComponents();
+    }
+
+    private void ResetComponents()
+    {
         BaseStateMachine.ResetStateMachine();
         MovementController.ResetValues();
         OverlapDetector.ReassignFighter();

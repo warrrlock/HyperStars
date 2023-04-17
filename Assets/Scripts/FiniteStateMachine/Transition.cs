@@ -110,7 +110,8 @@ namespace FiniteStateMachine
         private bool CheckSpecial(BaseStateMachine stateMachine)
         {
             BaseState state = _trueState;
-            return !state ||
+            return stateMachine.InfiniteEx ||
+                    !state ||
                     state.SpecialBarCost <= 0 ||
                     !stateMachine.Fighter.SpecialMeterManager || 
                     stateMachine.Fighter.SpecialMeterManager.CheckBar(state.SpecialBarCost);

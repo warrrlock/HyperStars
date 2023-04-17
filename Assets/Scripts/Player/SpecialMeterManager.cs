@@ -41,6 +41,16 @@ public class SpecialMeterManager : MonoBehaviour
         StartPassiveIncrement();
     }
 
+    public void FillBars()
+    {
+        IncrementBar(_numberOfBars);
+    }
+
+    public void ClearBars()
+    {
+        DecrementBar(_numberOfBars);
+    }
+
     public void IncrementBar(float bars)
     {
         float amount = bars;
@@ -60,6 +70,7 @@ public class SpecialMeterManager : MonoBehaviour
 
     public void DecrementBar(int bars)
     {
+        if (_fighter.BaseStateMachine.InfiniteEx) return;
         float amount = bars;
         if (_barIndex >= _bars.Length) _barIndex = _bars.Length-1;
         while (amount > 0)
