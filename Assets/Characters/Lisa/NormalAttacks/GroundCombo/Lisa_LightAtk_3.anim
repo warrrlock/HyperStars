@@ -130,7 +130,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.43333334
+        time: 0.36666667
         value: {x: 12.35, y: 10.74, z: 0}
         inSlope: {x: Infinity, y: Infinity, z: Infinity}
         outSlope: {x: Infinity, y: Infinity, z: Infinity}
@@ -394,7 +394,7 @@ AnimationClip:
       value: {fileID: 21300000, guid: ee2e9115890f54e48bd30e16668014ba, type: 3}
     - time: 0.26666668
       value: {fileID: 21300000, guid: ee2e9115890f54e48bd30e16668014ba, type: 3}
-    - time: 0.43333334
+    - time: 0.36666667
       value: {fileID: 21300000, guid: ee498591cfe9cb24581598a267d0b839, type: 3}
     - time: 0.51666665
       value: {fileID: 21300000, guid: 691a3055f26be444893f08b4db5b9122, type: 3}
@@ -1164,7 +1164,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.43333334
+        time: 0.36666667
         value: 12.35
         inSlope: Infinity
         outSlope: Infinity
@@ -1219,7 +1219,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.43333334
+        time: 0.36666667
         value: 10.74
         inSlope: Infinity
         outSlope: Infinity
@@ -1274,7 +1274,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.43333334
+        time: 0.36666667
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -1472,18 +1472,18 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: EnableCombo
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
     functionName: Wwise_PlayAttackSwing
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1
+    messageOptions: 0
+  - time: 0
+    functionName: EnableCombo
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
     messageOptions: 0
   - time: 0.15
     functionName: Push
@@ -1492,7 +1492,7 @@ AnimationClip:
     floatParameter: 0.2
     intParameter: 0
     messageOptions: 0
-  - time: 0.45
+  - time: 0.36666667
     functionName: ExecuteQueuedState
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -1501,6 +1501,20 @@ AnimationClip:
     messageOptions: 0
   - time: 0.45
     functionName: DisableCombo
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5166666
+    functionName: EnableInputQueue
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.59999996
+    functionName: HandleAnimationExit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
