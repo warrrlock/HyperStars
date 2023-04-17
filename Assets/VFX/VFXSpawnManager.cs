@@ -121,7 +121,7 @@ public class VFXSpawnManager : MonoBehaviour
             
             InitializeHitVFX(VFXTypes.Hit_Base, hitPos, sender);
             // InitializeVFX(VFXGraphsNeutral.HIT_BASE, hitPos, sender);
-            InitializeHitVFX(VFXTypes.Hit_TakeDamage, hitPos, receiver);
+            InitializeHitVFX(VFXTypes.Hit_TakeDamage, receiver.transform.position, receiver);
             StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
             // camera based on hits
             switch (attackInfo.attackType)

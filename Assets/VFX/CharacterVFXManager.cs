@@ -18,6 +18,7 @@ public class CharacterVFXManager : MonoBehaviour
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
     [SerializeField] private float actionSmokeGroundOffset;
+    [SerializeField] private float airDashSmokeOffset;
 
     //
     private SpriteRenderer _spriteRenderer;
@@ -68,8 +69,6 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXSubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
-        // _inputManager.Actions["Parry"].perform += BlockGlow;
-        // _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
         _fighter.Events.wallBounce += WallWave;
@@ -77,8 +76,6 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
-        // _inputManager.Actions["Parry"].perform -= BlockGlow;
-        // _fighter.Events.onBlockHit -= BlockGlow;
         _fighter.Events.onStateChange -= SpawnOnStateChange;
         _fighter.Events.onLandedHurt -= GroundWave;
         _fighter.Events.wallBounce -= WallWave;
@@ -92,7 +89,8 @@ public class CharacterVFXManager : MonoBehaviour
         }
         else
         {
-            _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_AIRDASH, transform.localPosition + new Vector3(0f, 
+            _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_AIRDASH, transform.localPosition + new Vector3(
+                _fighter.MovingDirection == Fighter.Direction.Right ? airDashSmokeOffset : -airDashSmokeOffset, 
                 actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
         }
     }
@@ -101,41 +99,6 @@ public class CharacterVFXManager : MonoBehaviour
         _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_JUMP, transform.localPosition + new Vector3(0f, 
             actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
     }
-    
-    // void BlockGlow(Dictionary<string, object> d)
-    // {
-    //     try
-    //     {
-    //         Fighter attacked = d["attacked"] as Fighter;
-    //         Fighter attacker = d["attacker"] as Fighter;
-    //         if (!attacker || !attacked) return;
-    //         TriggerParry(attacked);
-    //     }
-    //     catch (KeyNotFoundException)
-    //     {
-    //         Debug.Log("blocker not found");
-    //     }
-    // }
-    //
-    // void BlockGlow(InputManager.Action action)
-    // {
-    //     TriggerParry(_fighter);
-    // }
-    //
-    // private Coroutine parryRoutine;
-    // void TriggerParry(Fighter f)
-    // {
-    //     if (parryRoutine != null) StopCoroutine(parryRoutine);
-    //     parryRoutine = StartCoroutine(ParryGlow(f));
-    // }
-    //
-    // IEnumerator ParryGlow(Fighter f)
-    // {
-    //     SpriteRenderer sr = f.GetComponent<SpriteRenderer>();
-    //     sr.material.SetFloat("_Parry_Trigger", 1f);
-    //     yield return new WaitForSeconds(.35f);
-    //     sr.material.SetFloat("_Parry_Trigger", 0f);
-    // }
 
     void GroundWave()
     {
