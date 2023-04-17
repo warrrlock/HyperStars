@@ -54,10 +54,19 @@ VisualEffect:
       - m_Value: 2
         m_Name: HorizontalOffset
         m_Overridden: 0
+      - m_Value: -30
+        m_Name: Gravity
+        m_Overridden: 1
     m_Vector2f:
       m_Array:
       - m_Value: {x: 4, y: 2}
         m_Name: Flipbook Size
+        m_Overridden: 1
+      - m_Value: {x: -1.5, y: 3}
+        m_Name: Offset
+        m_Overridden: 1
+      - m_Value: {x: 12, y: 6}
+        m_Name: HorizontalForceMinMax
         m_Overridden: 1
     m_Vector3f:
       m_Array: []
@@ -76,7 +85,10 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: FaceLeft
+        m_Overridden: 1
 --- !u!73398921 &2399563400159268607
 VFXRenderer:
   serializedVersion: 1

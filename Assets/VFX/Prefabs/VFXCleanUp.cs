@@ -36,10 +36,10 @@ public class VFXCleanUp : MonoBehaviour
 
     private void Update()
     {
-        if (f)
-        {
-            _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
-        }
+        // if (f)
+        // {
+        //     _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
+        // }
         _lifeTime += isUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
         if (canUseUnscaledTime)
         {
