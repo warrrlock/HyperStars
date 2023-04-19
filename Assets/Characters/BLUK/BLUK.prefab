@@ -921,7 +921,7 @@ MonoBehaviour:
   _maxDashCharges: 3
   _dashChargeCount: 0
   _dashRechargeTime: 0
-  _rollDistance: 3
+  _rollDistance: 4
   _rollDuration: 0.35
   _secondaryForcePercentage: 0
   _collisionMask:
@@ -1047,6 +1047,7 @@ MonoBehaviour:
   vfxConfig: {fileID: 11400000, guid: dc3ad613f39753f4fa18e5e9de7a7e8f, type: 2}
   visualEffect: {fileID: 822637850931560098}
   actionSmokeGroundOffset: 2.5
+  airDashSmokeOffset: 0
   _hasDelay: 0
   delayTime: 0.001
   _dashStates:
@@ -1174,15 +1175,15 @@ MonoBehaviour:
   characterColors: {fileID: 11400000, guid: 115319a39d5032b43bf6b8649eab75aa, type: 2}
   currentColorIndex: 0
   newColor:
-    <SelectMenuBaseColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <SelectMenuHighlightColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color1>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color2>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color3>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color4>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color5>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color6>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color7>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <SelectMenuBaseColor>k__BackingField: {r: 0.97647065, g: 0.86666673, b: 0.48235297, a: 0}
+    <SelectMenuHighlightColor>k__BackingField: {r: 0.9176471, g: 0.31764707, b: 0.17254902, a: 0}
+    <Color1>k__BackingField: {r: 0.043137256, g: 0.098039225, b: 0.21568629, a: 1}
+    <Color2>k__BackingField: {r: 0.16862746, g: 0.21568629, b: 0.34117648, a: 1}
+    <Color3>k__BackingField: {r: 0.9176471, g: 0.31764707, b: 0.17254902, a: 1}
+    <Color4>k__BackingField: {r: 0.97647065, g: 0.86666673, b: 0.48235297, a: 1}
+    <Color5>k__BackingField: {r: 0.9176471, g: 0.29411766, b: 0.24313727, a: 1}
+    <Color6>k__BackingField: {r: 0.80392164, g: 0.6039216, b: 0.33333334, a: 1}
+    <Color7>k__BackingField: {r: 0.97647065, g: 0.86666673, b: 0.48235297, a: 1}
     <EffectColor>k__BackingField:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
