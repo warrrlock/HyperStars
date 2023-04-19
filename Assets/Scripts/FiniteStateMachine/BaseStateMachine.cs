@@ -307,6 +307,7 @@ namespace FiniteStateMachine {
         public bool PlayAnimation(int animationState, bool defaultCombo = false, bool replay = false)
         {
             if (_currentAnimation == animationState && !replay) return false;
+            Fighter.OpposingFighter.ResetFighterHurtboxes();
             // Debug.Log($"playing animation for {CurrentState.name}");
             _currentAnimation = animationState;
             DisableInputQueue();
@@ -438,6 +439,7 @@ namespace FiniteStateMachine {
 
         public IEnumerator SetHurtState(KeyHurtStatePair.HurtStateName stateName, float duration, bool hardKnockdown)
         {
+            // Debug.Log($"trying to set hurtstate for {transform.parent.name}");
             yield return new WaitForFixedUpdate();
             _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
             if (!newHurtState) yield break;
