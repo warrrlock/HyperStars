@@ -138,13 +138,13 @@ namespace UnityEngine.InputSystem.Interactions
 
         //        if (_lastControl == null)
         //        {
-        //            Debug.Log("charles");
+        //            //Debug.Log("charles");
         //            _lastControl = act.activeControl;
         //        }
         //        else
         //        {
-        //            Debug.Log("pratt");
-        //            Debug.Log("active control: " + act.activeControl);
+        //            //Debug.Log("pratt");
+        //            //Debug.Log("active control: " + act.activeControl.path);
         //            if (act.activeControl == _lastControl)
         //            {
         //                _interruptedState = InterruptedState.Uninterrupted;
@@ -153,7 +153,7 @@ namespace UnityEngine.InputSystem.Interactions
         //            else
         //            {
         //                _interruptedState = InterruptedState.Interrupted;
-        //                //_lastControl = act.activeControl;
+        //                _lastControl = act.activeControl;
         //            }
         //        }
 
