@@ -18,6 +18,7 @@ public class AttackInfoManager : MonoBehaviour
     {
         public float outputReward;
         public float outputHitStunDuration;
+        public float outputKnockbackDistance;
 
         //public Values(float outputReward, float outputHitStunDuration)
         //{
@@ -70,7 +71,8 @@ public class AttackInfoManager : MonoBehaviour
                 idSO = idSO,
                 idManager = _nextInfoId,
                 hitStunDuration = Services.Characters[0].AttackInfos[i].hitStunDuration,
-                favorReward = Services.Characters[0].AttackInfos[i].favorReward
+                favorReward = Services.Characters[0].AttackInfos[i].favorReward,
+                knockbackDistance = Services.Characters[0].AttackInfos[i].knockbackDistance
             };
             //attackInfos0.Add(new AttackInfo
             //    {
@@ -83,6 +85,7 @@ public class AttackInfoManager : MonoBehaviour
             values[_nextInfoId] = new();
             values[_nextInfoId].outputReward = newInfo.favorReward;
             values[_nextInfoId].outputHitStunDuration = newInfo.hitStunDuration;
+            values[_nextInfoId].outputKnockbackDistance = newInfo.knockbackDistance;
             _nextInfoId++;
         }
 
@@ -94,7 +97,8 @@ public class AttackInfoManager : MonoBehaviour
                 idSO = idSO,
                 idManager = _nextInfoId,
                 hitStunDuration = Services.Characters[1].AttackInfos[i].hitStunDuration,
-                favorReward = Services.Characters[1].AttackInfos[i].favorReward
+                favorReward = Services.Characters[1].AttackInfos[i].favorReward,
+                knockbackDistance = Services.Characters[1].AttackInfos[i].knockbackDistance
             };
             //attackInfos1.Add(new AttackInfo
             //{
@@ -107,6 +111,7 @@ public class AttackInfoManager : MonoBehaviour
             values[_nextInfoId] = new();
             values[_nextInfoId].outputReward = newInfo.favorReward;
             values[_nextInfoId].outputHitStunDuration = newInfo.hitStunDuration;
+            values[_nextInfoId].outputKnockbackDistance = newInfo.knockbackDistance;
             _nextInfoId++;
         }
 
@@ -162,9 +167,11 @@ public class AttackInfoManager : MonoBehaviour
 
         float preDecayReward = Mathf.Clamp(values[id].outputReward, 0f, attackInfo.favorReward);
         float preOutputHitStun = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
+        float preKnockbackDistance = Mathf.Clamp(values[id].outputKnockbackDistance, 0f, attackInfo.knockbackDistance);
 
-        values[id].outputReward = Mathf.Clamp(preDecayReward - (attackInfo.favorReward * Services.FavorManager.DecayValue), 0f, attackInfo.favorReward);
-        values[id].outputHitStunDuration = Mathf.Clamp(preOutputHitStun - (attackInfo.hitStunDuration * Services.FavorManager.DecayValue), 0f, attackInfo.hitStunDuration);
+        values[id].outputReward = Mathf.Clamp(preDecayReward - (attackInfo.favorReward * Services.FavorManager.FavorDecayValue), 0f, attackInfo.favorReward);
+        values[id].outputHitStunDuration = Mathf.Clamp(preOutputHitStun - (attackInfo.hitStunDuration * Services.FavorManager.HitstunDecayValue), 0f, attackInfo.hitStunDuration);
+        values[id].outputKnockbackDistance = Mathf.Clamp(preKnockbackDistance + (attackInfo.knockbackDistance * Services.FavorManager.KnockbackDecayValue - attackInfo.knockbackDistance), attackInfo.knockbackDistance, attackInfo.knockbackDistance * Services.FavorManager.KnockbackDecayValue);
 
         //debugText.text = attackInfo.hitStunDuration.ToString();
         //Debug.Log("postdecay:" + values[id].outputReward);
@@ -180,8 +187,9 @@ public class AttackInfoManager : MonoBehaviour
         //}
         while (values[id].outputReward < preDecayReward)
         {
-            values[id].outputReward += attackInfo.favorReward * Services.FavorManager.DecayValue * timerDelta;
-            values[id].outputHitStunDuration += attackInfo.hitStunDuration * Services.FavorManager.DecayValue * timerDelta;
+            values[id].outputReward += attackInfo.favorReward * Services.FavorManager.FavorDecayValue * timerDelta;
+            values[id].outputHitStunDuration += attackInfo.hitStunDuration * Services.FavorManager.HitstunDecayValue * timerDelta;
+            values[id].outputKnockbackDistance -= (attackInfo.knockbackDistance * Services.FavorManager.KnockbackDecayValue - attackInfo.knockbackDistance) * timerDelta;
             yield return new WaitForFixedUpdate();
         }
         //values[id].outputReward = preDecayReward;
@@ -189,6 +197,7 @@ public class AttackInfoManager : MonoBehaviour
 
         values[id].outputReward = Mathf.Clamp(values[id].outputReward, 0f, attackInfo.favorReward);
         values[id].outputHitStunDuration = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
+        values[id].outputKnockbackDistance = Mathf.Clamp(values[id].outputKnockbackDistance, attackInfo.knockbackDistance, attackInfo.knockbackDistance * Services.FavorManager.KnockbackDecayValue);
 
         yield break;
     }

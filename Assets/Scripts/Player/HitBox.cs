@@ -143,7 +143,7 @@ public class HitBox : MonoBehaviour
 
         //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
         //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
-        float forceMagnitude = (attackInfoSO.knockbackDistance * 2f) / (attackInfoSO.knockbackDuration + Time.fixedDeltaTime);
+        float forceMagnitude = (attackInfoValues.outputKnockbackDistance * 2f) / (attackInfoSO.knockbackDuration + Time.fixedDeltaTime);
         Vector3 forceDirection = attackInfoSO.knockbackDirection;
 
         float reverseForceMagnitude = (attackInfoSO.reverseKnockbackDistance * 2f) / (attackInfoSO.reverseKnockbackDuration + Time.fixedDeltaTime);
@@ -324,7 +324,7 @@ public class HitBox : MonoBehaviour
 
             //Vector3 forceDirection = new Vector3(attackInfo.knockbackForce.x.ToDirection(false).x, attackInfo.knockbackForce.x.ToDirection(false).y, 0f);
             //forceDirection.x = _fighter.FacingDirection == Fighter.Direction.Right ? forceDirection.x : -forceDirection.x;
-            float forceMagnitude = (attackInfoSO.knockbackDistance * 2f) / (attackInfoSO.knockbackDuration + Time.fixedDeltaTime);
+            float forceMagnitude = (attackInfoValues.outputKnockbackDistance * 2f) / (attackInfoSO.knockbackDuration + Time.fixedDeltaTime);
             Vector3 forceDirection = attackInfoSO.knockbackDirection;
 
             float reverseForceMagnitude = (attackInfoSO.reverseKnockbackDistance * 2f) / (attackInfoSO.reverseKnockbackDuration + Time.fixedDeltaTime);
