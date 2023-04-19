@@ -27,13 +27,39 @@ public class ComboIndicator : MonoBehaviour
         
         SetCombo(0);
     }
+
+
     void Start()
     {
-
+        
     }
+
+    private void OnDestroy() {
+        UnSubscribe();
+    }
+
+
+    private void Subscribe()
+        {
+            //_fighter is a reference to fighter object
+            Services.Fighters[0].Events.onAttackHit += SubscribeCombo; //note that block is a separate event
+            Services.Fighters[1].Events.onAttackHit += SubscribeCombo; //note that block is a separate event
+        }
+        
+        private void UnSubscribe() //remember to unsubscribe when object is destroyed (OnDestroy)
+        {
+            //_fighter is a reference to fighter object
+            Services.Fighters[0].Events.onAttackHit -= SubscribeCombo; //note that block is a separate event
+            Services.Fighters[1].Events.onAttackHit -= SubscribeCombo; //note that block is a separate event
+        }
+
 
     public int GetCombo() {
         return comboCounter;
+    }
+
+    private void SubscribeCombo(Dictionary<string, object> msg){
+        IncrementCombo();
     }
 
     public void IncrementCombo(int numChangeBy = 1) { //Global.ComboIndicator.IncrementCombo();
@@ -63,6 +89,8 @@ public class ComboIndicator : MonoBehaviour
                 comboText.enabled = false;
             }
         }
+
+
 
         /*foreach (PlayerAction action in playerActions )
         {
