@@ -11,14 +11,15 @@ public class ComboIndicator : MonoBehaviour
     [SerializeField] TextMeshProUGUI [] comboTexts;
     [SerializeField] private string TextBeforeComboNum;
     [SerializeField] private string TextAfterComboNum;
+    [SerializeField] ShakeRect shaker;
 
     private static int comboCounter = 0;
     private static int maxComboCountDmg = 20;//How much the combo Multiplier can apply to attacks, at most
     //private List<PlayerAction> playerActions;
 
     private static float dmgMultiplier = 0.2f;
-
-    [SerializeField] ShakeRect shaker;
+    private bool _p1Comboing;
+    
 
     void Awake() {
         Global.ComboIndicator = this;
@@ -31,7 +32,7 @@ public class ComboIndicator : MonoBehaviour
 
     void Start()
     {
-        
+        Subscribe();
     }
 
     private void OnDestroy() {
@@ -42,15 +43,15 @@ public class ComboIndicator : MonoBehaviour
     private void Subscribe()
         {
             //_fighter is a reference to fighter object
-            Services.Fighters[0].Events.onAttackHit += SubscribeCombo; //note that block is a separate event
-            Services.Fighters[1].Events.onAttackHit += SubscribeCombo; //note that block is a separate event
+            Services.Fighters[0].Events.onAttackHit += IncrementPlayer1Combo; //note that block is a separate event
+            Services.Fighters[1].Events.onAttackHit += IncrementPlayer2Combo; //note that block is a separate event
         }
         
         private void UnSubscribe() //remember to unsubscribe when object is destroyed (OnDestroy)
         {
             //_fighter is a reference to fighter object
-            Services.Fighters[0].Events.onAttackHit -= SubscribeCombo; //note that block is a separate event
-            Services.Fighters[1].Events.onAttackHit -= SubscribeCombo; //note that block is a separate event
+            Services.Fighters[0].Events.onAttackHit -= IncrementPlayer1Combo; //note that block is a separate event
+            Services.Fighters[1].Events.onAttackHit -= IncrementPlayer2Combo; //note that block is a separate event
         }
 
 
@@ -58,7 +59,23 @@ public class ComboIndicator : MonoBehaviour
         return comboCounter;
     }
 
-    private void SubscribeCombo(Dictionary<string, object> msg){
+    private void IncrementPlayer1Combo(Dictionary<string, object> msg){
+        // Debug.Log("subscribed combo, incrementing for player 1");
+        if (!_p1Comboing)
+        {
+            _p1Comboing = true;
+            SetCombo(0);
+        }
+        IncrementCombo();
+    }
+    
+    private void IncrementPlayer2Combo(Dictionary<string, object> msg){
+        // Debug.Log("subscribed combo, incrementing for player 2");
+        if (_p1Comboing)
+        {
+            _p1Comboing = false;
+            SetCombo(0);
+        }
         IncrementCombo();
     }
 
