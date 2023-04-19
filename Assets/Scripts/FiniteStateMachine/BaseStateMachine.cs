@@ -442,9 +442,6 @@ namespace FiniteStateMachine {
             _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
             if (!newHurtState) yield break;
 
-            // Debug.Log($"{name} got hit, hardKnockdown is {hardKnockdown}");
-            _allowRecover = !hardKnockdown;
-
             // Debug.LogWarning($"setting hurtstate to {stateName}");
             SetReturnState();
             if (CurrentState is HurtState hurtState)
@@ -462,6 +459,8 @@ namespace FiniteStateMachine {
             }
             else
                 PassHurtState(newHurtState, duration);
+            // Debug.Log($"{name} got hit, hardKnockdown is {hardKnockdown}");
+            _allowRecover = !hardKnockdown;
         }
 
         private void UpdateHurtState(KeyHurtStatePair.HurtStateName stateName)
@@ -546,6 +545,7 @@ namespace FiniteStateMachine {
             if (CurrentState is HurtState)
             {
                 Fighter.Events.onLandedHurt?.Invoke();
+                // Debug.Log("exited in air, will try to enable");
                 TryEnableRecovery();
             }
             else
@@ -632,19 +632,21 @@ namespace FiniteStateMachine {
         private void TryEnableRecovery()
         {
             if (!_allowRecover) return;
+            // Debug.Log($"trying to enable recovery on {Fighter.name}");
             Fighter.InputManager.EnableOneShot(Fighter.InputManager.Actions["Roll"]);
         }
 
         private void EnableRecovery()
         {
             if (_allowRecover) return;
+            // Debug.Log("enable recovery");
             _allowRecover = true;
             Fighter.InputManager.EnableOneShot(Fighter.InputManager.Actions["Roll"]);
         }
         
         private void DisableRecovery()
         {
-            // Debug.Log("disabling recovery");
+            // Debug.Log($"disabling recovery for {Fighter.name}");
             _allowRecover = false;
             Fighter.InputManager.Disable(Fighter.InputManager.Actions["Roll"]);
         }
