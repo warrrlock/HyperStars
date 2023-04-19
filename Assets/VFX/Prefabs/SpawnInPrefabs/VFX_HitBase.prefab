@@ -50,7 +50,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 3
+        m_Name: Frame Rate
+        m_Overridden: 1
     m_Vector2f:
       m_Array:
       - m_Value: {x: 3, y: 3}
@@ -195,3 +198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f: {fileID: 0}
+  VFXType: 0
+  isMoveBased: 0
+  canUseUnscaledTime: 1

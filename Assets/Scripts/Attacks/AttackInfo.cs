@@ -15,6 +15,8 @@ public class AttackInfo
 
     public AK.Wwise.Event hitSfxEvent;
 
+    [Header("Knockback/Knockdown")] 
+    public bool hardKnockdown;
     public float knockbackDuration;
     public float knockbackDistance;
     public Vector3 knockbackDirection;

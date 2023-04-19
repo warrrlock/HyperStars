@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Light Atk 3
   m_EditorClassIdentifier: 
   characterSelection: 1
-  _bypassHitConfirm: 0
+  _bypassHitConfirm: 1
   _isCrouchState: 0
   _isSpecial: 0
   _specialBarCost: 0
@@ -46,10 +46,12 @@ MonoBehaviour:
     idSO: 17
     idManager: 0
     attackType: 2
+    specialType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
+    hardKnockdown: 0
     knockbackDuration: 0.5
     knockbackDistance: 20
     knockbackDirection: {x: 2, y: -1, z: 0}
