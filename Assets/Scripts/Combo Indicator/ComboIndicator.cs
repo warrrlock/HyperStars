@@ -76,7 +76,7 @@ public class ComboIndicator : MonoBehaviour
             _p1Comboing = false;
             SetCombo(0);
         }
-        IncrementCombo();
+        //IncrementCombo();
     }
 
     public void IncrementCombo(int numChangeBy = 1) { //Global.ComboIndicator.IncrementCombo();
@@ -92,7 +92,7 @@ public class ComboIndicator : MonoBehaviour
         builder.Append(comboCounter);
         builder.Append(TextAfterComboNum);
         if(comboCounter > 1) {
-            builder.Append('!', comboCounter - 1);
+            //builder.Append('!', comboCounter - 1);
         }
 
         foreach(TextMeshProUGUI comboText in comboTexts) {
@@ -122,13 +122,13 @@ public class ComboIndicator : MonoBehaviour
         }*/
     }
 
-    public static float comboMultiplier(float inputAmt) {
+    /*public static float comboMultiplier(float inputAmt) {
         int comboAmt = Mathf.Min(comboCounter, maxComboCountDmg);
         inputAmt = inputAmt + (comboAmt * dmgMultiplier);
         
         return inputAmt;
 
-    }
+    }*/
 
     IEnumerator ComboJuice() {
         yield return null;
