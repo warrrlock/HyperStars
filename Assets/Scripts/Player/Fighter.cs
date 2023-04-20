@@ -32,8 +32,10 @@ public class Fighter : MonoBehaviour
 
     public int PlayerId { get; private set; }
     public bool Parried { get; set; }
+    
+    public bool AlreadyHitByAttack { get; set; }
 
-    [NonSerialized] public int invulnerabilityCount;
+    // [NonSerialized] public int invulnerabilityCount;
     public FightersManager FightersManager
     {
         get => _fightersManager;
@@ -60,7 +62,7 @@ public class Fighter : MonoBehaviour
         SpecialMeterManager?.Initialize();
         //TODO: change this because not all characters will start off facing right
         FacingDirection = Direction.Right;
-        invulnerabilityCount = 0;
+        // invulnerabilityCount = 0;
         SubscribeActions();
         //transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
         //GetComponent<SpriteRenderer>().color = PlayerId == 0 ? FightersManager.player1Color : FightersManager.player2Color;
@@ -85,6 +87,7 @@ public class Fighter : MonoBehaviour
         BaseStateMachine.ResetStateMachine();
         MovementController.ResetValues();
         OverlapDetector.ReassignFighter();
+        ResetFighterHurtboxes();
     }
 
     private void OnDestroy()
@@ -117,7 +120,10 @@ public class Fighter : MonoBehaviour
 
     public void ResetFighterHurtboxes()
     {
-        if (invulnerabilityCount > 0) invulnerabilityCount--;
+        //TODO: properly reset
+        // if (invulnerabilityCount > 0) invulnerabilityCount--;
+        // Debug.Log($"resetting {transform.parent.name}");
+        AlreadyHitByAttack = false;
         Parried = false;
     }
 
