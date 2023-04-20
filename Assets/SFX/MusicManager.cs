@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,6 @@ public class MusicManager : MonoBehaviour
     public AK.Wwise.Event CrowdLoop;
     public AK.Wwise.Event CrowdHype;
     
-    [HideInInspector] public static MusicManager ourMusicManager;
     [Range(1, 3)]
     public int Intensity;
     [Range(0, 1)]
@@ -46,11 +46,15 @@ public class MusicManager : MonoBehaviour
     private int lastHit;
     private int lastSamePlayerCombo;
     private int currentSamePlayerCombo;
-    
+
+    private void Awake()
+    {
+        Services.MusicManager = this;
+    }
+
     void Start()
     {
         //Set our Music Manager
-        ourMusicManager = this;
         foreach (Fighter fighter in Services.Fighters)
         {
             MusicEffector effector = fighter.GetComponent<MusicEffector>();
@@ -165,7 +169,7 @@ public class MusicManager : MonoBehaviour
     {
         if (Input.GetKeyDown("o"))
         {
-            StartChorus(ourMusicManager);
+            StartChorus(Services.MusicManager);
         }
         
         if (Input.GetKeyDown("p"))
@@ -269,5 +273,10 @@ public class MusicManager : MonoBehaviour
         }
 
         lastHit = thisHit;
+    }
+
+    private void OnDisable()
+    {
+        StopMusic();
     }
 }
