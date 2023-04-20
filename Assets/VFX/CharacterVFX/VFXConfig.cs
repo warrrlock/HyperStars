@@ -51,6 +51,7 @@ public class VFXConfig : ScriptableObject
             };
         }
     }
+    [field: SerializeField] public Optional<CharacterShakeSettings> characterShakeOverride;
     [field: SerializeField] public Optional<DistortionZoomSettings> distortionZoom;
     [field: SerializeField] public Optional<ShockwaveSettings> shockwave;
     [field: SerializeField] public Optional<SilhouetteSettings> silhouette;
@@ -65,6 +66,12 @@ public enum CameraShakeType
 {
     [Range(0f, .3f)] public float cameraShakeDuration;
     [Range(0f, .2f)] public float cameraShakeMagnitude;
+}
+
+[Serializable] public struct CharacterShakeSettings
+{
+    [Range(0f, 1f)] public float duration;
+    [Range(0f, 2f)] [Tooltip("SMALLER = MORE SHAKE")] public float magnitude;
 }
 
 [Serializable] public struct DistortionZoomSettings
