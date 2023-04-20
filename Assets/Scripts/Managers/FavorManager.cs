@@ -20,12 +20,25 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private float _favorMultiplierDelta;
     //[Tooltip("The percentage of total favor that a fighter needs to win in order to increase the favor multiplier.")]
     //[SerializeField][Range(0f, 1f)] private float _favorSwitchPercentage;
-    public float DecayValue
+    public float FavorDecayValue
     {
-        get => _decayValue;
+        get => _favorDecayValue;
     }
     [Tooltip("What percentage of an attack gets decayed after use.")]
-    [SerializeField][Range(0f, 1f)] private float _decayValue;
+    [SerializeField][Range(0f, 1f)] private float _favorDecayValue;
+    public float HitstunDecayValue
+    {
+        get => _hitstunDecayValue;
+    }
+    [Tooltip("What percentage of an attack's hitstun gets decayed after use.")]
+    [SerializeField][Range(0f, 1f)] private float _hitstunDecayValue;
+    public float KnockbackDecayValue
+    {
+        get => _knockbackDecayValue;
+    }
+    [Tooltip("What percentage of an attack's knockback gets decayed after use.")]
+    [SerializeField][Range(1f, 2f)] private float _knockbackDecayValue;
+    //hitstun, favor, knockback
     public float DecayResetDuration
     {
         get => _decayResetDuration;
