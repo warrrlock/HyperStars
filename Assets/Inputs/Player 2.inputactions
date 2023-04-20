@@ -159,15 +159,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Roll",
-                    "type": "Button",
-                    "id": "017676b7-6b61-49d4-972e-31db68c5da52",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Side Jump",
                     "type": "Button",
                     "id": "639af03e-2d68-453b-8bc2-06b3b173b18f",
@@ -184,6 +175,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Roll",
+                    "type": "Value",
+                    "id": "94313b97-21c2-4b4f-b2fa-551eb0c6e29c",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": "Joystick(pressPoint=0.5)",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -684,17 +684,6 @@
                 },
                 {
                     "name": "",
-                    "id": "ae02537b-6e4e-4aaf-8e67-0190f57b1699",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "2d579d9e-32e5-401a-aa8c-d03272eb298c",
                     "path": "",
                     "interactions": "",
@@ -712,6 +701,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "Esc",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WD",
+                    "id": "6032f636-8bde-40c8-b0a2-b3879a2fe6b6",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "a570d5b1-1e0f-4d50-95d0-3ed1204a52dc",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "96ec6ec5-9b33-4889-ba2a-aaa151127507",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "b2e58d11-6808-4d4d-b27e-d698f815856b",
+                    "path": "<Gamepad>/leftStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e27a707-b96a-4095-899f-f056ba28b643",
+                    "path": "<Gamepad>/dpad/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
