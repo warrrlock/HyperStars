@@ -274,8 +274,8 @@ namespace FiniteStateMachine {
             if (action.name == "Crouch")
             {
                 _holdingCrouch = false;
-                SetReturnState();
                 ClearQueues();
+                if (_returnState == _crouchState) SetReturnState();
                 if (CurrentState.IsCrouchState)
                 {
                     QueueStateAtEnd(_crouchUpState);
