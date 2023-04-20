@@ -29,7 +29,7 @@ namespace UI
 
         private IEnumerator TrySetColour(int player, int wanted, int direction, int size)
         {
-            // Debug.Log($"trying to set colour player:{player}, wanted:{wanted}");
+            // Debug.Log($"trying to set colour player:{player}, wanted:{wanted}, size:{size}");
             if (_lock)
             {
                 _waitingPaletteSwap = Services.Players[player].PaletteIndex;
