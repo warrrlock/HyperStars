@@ -12,6 +12,7 @@ public class VFXCleanUp : MonoBehaviour
     private float _lifeTime;
     [HideInInspector] public Fighter f;
     [HideInInspector] public bool isUnscaledTime;
+    [SerializeField] private bool debugMode;
     [SerializeField] private VFXTypes VFXType;
     [SerializeField] private bool isMoveBased;
     [SerializeField] private bool canUseUnscaledTime;
@@ -21,7 +22,7 @@ public class VFXCleanUp : MonoBehaviour
         _vfx = GetComponent<VisualEffect>();
         _lifeTime = 0;
         // all vfx destroy after one second
-        Destroy(gameObject, 1);
+        if (!debugMode) Destroy(gameObject, 1);
         if (f)
         {
             _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
