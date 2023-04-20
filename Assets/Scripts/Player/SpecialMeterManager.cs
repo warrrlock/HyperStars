@@ -104,6 +104,30 @@ public class SpecialMeterManager : MonoBehaviour
         }
     }
 
+    private void Subscribe()
+    {
+        //_fighter is a reference to fighter object
+        _fighter.Events.onAttackHit += Example;
+    }
+    
+    private void Example(Dictionary<string, object> message)
+    {
+        try
+        {
+            //what you can get out of message:
+            //[Fighter] attacker, [Fighter] attacked,
+            //[Vector3] hit point, [string] attacker input,
+            //[AttackInfo] attack info, [AttackInfo.AttackType] attack type
+            Fighter opponent = message["attacker"] as Fighter;
+            //or
+            Vector3 hitP = (Vector3)message["hit point"];
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.LogError("wanted key was not found");
+        }
+    }
+
     private void HandleIncrement(Dictionary<string, object> message)
     {
         try
