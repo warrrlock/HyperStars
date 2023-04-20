@@ -3,10 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FiniteStateMachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.ProBuilder;
 using UnityEngine.VFX;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(InputManager))]
 public class CharacterVFXManager : MonoBehaviour
