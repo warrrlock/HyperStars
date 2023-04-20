@@ -68,6 +68,18 @@ namespace UI
             UpdateButtonVisual(_currentSelectedButton[player], player);
         }
         
+        public void SetBotSelection()
+        {
+            // Debug.Log("set bot selection");
+            _playerInputManagers[0].SetBotSelection();
+            CharacterButtonsPlayer selection = _playerButtons[1];
+            
+            selection.SetPlayer(Services.Players[0]);
+            InputSystemUIInputModule input = selection.GetComponent<InputSystemUIInputModule>();
+            input.AssignDefaultActions();
+            Services.Players[0].PlayerInput.uiInputModule = input;
+        }
+        
         private void UpdateButtonVisual(CharacterButtonAssets button, int player)
         {
             // Debug.Log($"player 0: {button.players[0]} player 1: {button.players[1]}");
@@ -78,15 +90,6 @@ namespace UI
             }
             
             button.border.sprite = (button.players[0] && button.players[1]) ? _doubleSelectSprite : _singleSelectSprites[player];
-        }
-
-        private void SetBotSelection()
-        {
-            // Debug.Log("set bot selection");
-            _playerInputManagers[0].SetBotSelection();
-            CharacterButtonsPlayer selection = _playerButtons[1];
-            selection.SetPlayer(Services.Players[0]);
-            Services.Players[0].PlayerInput.uiInputModule = selection.GetComponent<InputSystemUIInputModule>();
         }
     }
 }
