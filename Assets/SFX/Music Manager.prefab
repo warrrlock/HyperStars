@@ -69,14 +69,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d2d517d7361fc43879ed550ed95031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MusicTrack:
-    idInternal: 0
+  MusicTracks:
+  - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 9082a6ea19179104db348aa5cd6d3dfe, type: 2}
-  MusicStop:
-    idInternal: 0
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: d1e352666b437194688213b1e8cab3be, type: 2}
+  MusicStops:
+  - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 3f0e84c1bfa65b6469da46acd2933d77, type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 8d6643373b41a9941b777f769f617100, type: 2}
   CrowdLoop:
     idInternal: 0
     valueGuidInternal: 
@@ -86,7 +92,7 @@ MonoBehaviour:
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: e28aecc73745352469168c2a8b2c0cdd, type: 2}
   Intensity: 1
-  musicVolume: 0.6
+  musicVolume: 1
   crowdVolume: 0
   Impressed: 0
   increaseIntensityDuringChorus: 1

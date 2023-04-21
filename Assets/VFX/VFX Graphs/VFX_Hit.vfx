@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groupInfos: []
   stickyNoteInfos: []
-  categories: []
+  categories:
+  - name: Texture
+    collapsed: 0
   uiBounds:
     serializedVersion: 2
-    x: 164
+    x: 192
     y: -166
-    width: 1201
-    height: 1960
+    width: 1173
+    height: 1782
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -60,48 +62,6 @@ MonoBehaviour:
   m_UISuperCollapsed: 0
   m_UIInfos: {fileID: 114340500867371532}
   m_ParameterInfo:
-  - name: MainTex2D
-    path: MainTex2D
-    tooltip: 
-    sheetType: m_NamedObject
-    realType: Texture2D
-    defaultValue:
-      m_Type:
-        m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"2bd8fe6fbd1cb684c95cb290b35ca571","type":3}}'
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
-  - name: FlipbookSize
-    path: FlipbookSize
-    tooltip: 
-    sheetType: m_Vector2f
-    realType: Vector2
-    defaultValue:
-      m_Type:
-        m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":11.0,"y":1.0}'
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
-  - name: Playback Rate
-    path: Playback Rate
-    tooltip: 
-    sheetType: m_Float
-    realType: Single
-    defaultValue:
-      m_Type:
-        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
   - name: Life
     path: Life
     tooltip: 
@@ -182,6 +142,61 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
+    min: -Infinity
+    max: Infinity
+    enumValues: []
+    descendantCount: 0
+  - name: Texture
+    path: 
+    tooltip: 
+    sheetType: 
+    realType: 
+    defaultValue:
+      m_Type:
+        m_SerializableType: 
+      m_SerializableObject: 
+    min: -Infinity
+    max: Infinity
+    enumValues: []
+    descendantCount: 0
+  - name: MainTex2D
+    path: MainTex2D
+    tooltip: 
+    sheetType: m_NamedObject
+    realType: Texture2D
+    defaultValue:
+      m_Type:
+        m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"2bd8fe6fbd1cb684c95cb290b35ca571","type":3}}'
+    min: -Infinity
+    max: Infinity
+    enumValues: []
+    descendantCount: 0
+  - name: FlipbookSize
+    path: FlipbookSize
+    tooltip: 
+    sheetType: m_Vector2f
+    realType: Vector2
+    defaultValue:
+      m_Type:
+        m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: '{"x":11.0,"y":1.0}'
+    min: -Infinity
+    max: Infinity
+    enumValues: []
+    descendantCount: 0
+  - name: Playback Rate
+    path: Playback Rate
+    tooltip: 
+    sheetType: m_Float
+    realType: Single
+    defaultValue:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 2
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -958,7 +973,7 @@ MonoBehaviour:
   m_ExposedName: MainTex2D
   m_Exposed: 1
   m_Order: 0
-  m_Category: 
+  m_Category: Texture
   m_Min:
     m_Type:
       m_SerializableType: 
@@ -1220,7 +1235,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614767}
       inputSlot: {fileID: 8926484042661614769}
-    position: {x: 164, y: 704}
+    position: {x: 192, y: 707}
     expandedSlots: []
     expanded: 1
 --- !u!114 &8926484042661614767
@@ -1273,7 +1288,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 325, y: 668}
+  m_UIPosition: {x: 328, y: 707}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -1471,7 +1486,7 @@ MonoBehaviour:
   m_ExposedName: FlipbookSize
   m_Exposed: 1
   m_Order: 1
-  m_Category: 
+  m_Category: Texture
   m_Min:
     m_Type:
       m_SerializableType: 
@@ -1493,7 +1508,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661614847}
     - outputSlot: {fileID: 8926484042661614782}
       inputSlot: {fileID: 8926484042661614848}
-    position: {x: 227, y: 1481}
+    position: {x: 372, y: 1072}
     expandedSlots:
     - {fileID: 8926484042661614780}
     expanded: 1
@@ -1644,7 +1659,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614784}
       inputSlot: {fileID: 8926484042661614658}
-    position: {x: 819, y: 521}
+    position: {x: 855, y: 570}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614784
@@ -2074,7 +2089,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614810}
       inputSlot: {fileID: 8926484042661614790}
-    position: {x: 763, y: 1080}
+    position: {x: 776, y: 1080}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614810
@@ -2128,7 +2143,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
@@ -2154,7 +2169,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614815}
       inputSlot: {fileID: 8926484042661614642}
-    position: {x: 766, y: 470}
+    position: {x: 855, y: 493}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614815
@@ -2243,7 +2258,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
@@ -2251,7 +2266,7 @@ MonoBehaviour:
   m_ExposedName: Playback Rate
   m_Exposed: 1
   m_Order: 2
-  m_Category: 
+  m_Category: Texture
   m_Min:
     m_Type:
       m_SerializableType: 
@@ -2269,14 +2284,14 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614818}
       inputSlot: {fileID: 8926484042661614816}
-    position: {x: 774, y: 951}
+    position: {x: 787, y: 951}
     expandedSlots: []
     expanded: 0
   - m_Id: 2
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614818}
       inputSlot: {fileID: 8926484042661614926}
-    position: {x: 309, y: 1743}
+    position: {x: 396, y: 1274}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614818
@@ -2357,7 +2372,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614820}
       inputSlot: {fileID: 8926484042661614822}
-    position: {x: 592, y: 590}
+    position: {x: 578, y: 590}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614820
@@ -2577,7 +2592,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 534, y: 629}
+  m_UIPosition: {x: 531, y: 668}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -2672,7 +2687,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 662, y: 1600}
+  m_UIPosition: {x: 749, y: 1131}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -2842,7 +2857,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 476, y: 1558}
+  m_UIPosition: {x: 563, y: 1089}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -3041,7 +3056,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 476, y: 1676}
+  m_UIPosition: {x: 563, y: 1207}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -3179,7 +3194,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
@@ -3205,7 +3220,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614948}
       inputSlot: {fileID: 8926484042661614925}
-    position: {x: 309, y: 1696}
+    position: {x: 396, y: 1227}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614948

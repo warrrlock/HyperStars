@@ -22,6 +22,7 @@ namespace AK
         static const AkUniqueID PLAY_BLUK_PROJECTILE_GIRDER = 1597764638U;
         static const AkUniqueID PLAY_BLUK_SPECIAL_TRIPLE = 790653515U;
         static const AkUniqueID PLAY_BLUK_SUPER_DASH = 2859284271U;
+        static const AkUniqueID PLAY_BLUKTHEME = 4083361059U;
         static const AkUniqueID PLAY_CROWD_CHEERS = 3617758906U;
         static const AkUniqueID PLAY_CROWD_HYPE_SHORT = 1227494039U;
         static const AkUniqueID PLAY_DASHVO = 2540994183U;
@@ -68,6 +69,7 @@ namespace AK
         static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;
         static const AkUniqueID PLAY_SIDE_LAUNCH_SWING = 2955565060U;
         static const AkUniqueID PLAY_WALL_BOUNCE_FOLEY_MAT = 2769098130U;
+        static const AkUniqueID STOP_BLUKTHEME = 3753011029U;
         static const AkUniqueID STOP_LISATHEME = 564764656U;
         static const AkUniqueID STOP_SWINGS = 3063666669U;
     } // namespace EVENTS
