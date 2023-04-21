@@ -26,8 +26,8 @@ public class ComboIndicator : MonoBehaviour
     public float fadeSpeed = 0.1f;
     private bool fadeTime = false;
     private bool fadeBool = false;
-    private float fadeTimer = 0;
-    public float secsToWait = 4f; //number of seconds you want to wait before fading
+    private float fadeTimer = 1f;
+    public float secsToWait = 1f; //number of seconds you want to wait before fading
     
 
     void Awake() {
