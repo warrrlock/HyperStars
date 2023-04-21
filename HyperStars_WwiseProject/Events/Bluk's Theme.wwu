@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{B20BAE24-4592-4D21-A88F-8F00F9C9B024}" SchemaVersion="103" RootDocumentID="{2F98701D-CA08-4782-A029-89FF17E94E68}" ParentDocumentID="{112DBCCC-D2B6-4A9A-BF08-2CAD7CA9DDCD}">
+	<Events>
+		<WorkUnit Name="Bluk's Theme" ID="{B20BAE24-4592-4D21-A88F-8F00F9C9B024}" OwnerID="{112DBCCC-D2B6-4A9A-BF08-2CAD7CA9DDCD}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="Play_BlukTheme" ID="{0B8B4002-2341-4C9D-9827-B45F4EE4D24E}">
+					<ChildrenList>
+						<Action Name="" ID="{C2E4DC74-88C2-4B94-A150-D545464482AC}" ShortID="492115488">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="BlukThemeMain" ID="{4BA37502-F5DF-4B04-BAC5-46BC0DF0D0BE}" WorkUnitID="{220A3EA4-788A-4045-B595-802059BBD4A5}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_BlukTheme" ID="{1A1F1C9D-E5C2-4D75-B04C-A62A35608966}">
+					<ChildrenList>
+						<Action Name="" ID="{DC88C269-9BA1-4415-81EA-EC039FA90ACE}" ShortID="1037490499">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="BlukThemeMain" ID="{4BA37502-F5DF-4B04-BAC5-46BC0DF0D0BE}" WorkUnitID="{220A3EA4-788A-4045-B595-802059BBD4A5}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

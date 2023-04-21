@@ -20,6 +20,7 @@ public class CharacterButtonsPlayer: MonoBehaviour
     [SerializeField] private CharacterSelectManager _selectionManager;
     [SerializeField] private int _playerId;
     [SerializeField] private Image _characterSelectionImage;
+    [SerializeField] private PalettePicker _palettePicker;
     private Animator _charVisualAnimator;
     [FormerlySerializedAs("_images")] [SerializeField] private List<SelectionAssets> _characterVisuals;
     [SerializeField] private GameObject _readyVisual;
@@ -28,6 +29,8 @@ public class CharacterButtonsPlayer: MonoBehaviour
     public bool IsBot => _isBot;
     public int PlayerId => _playerId;
 
+    private Player _originPlayer;
+
     private void Awake()
     {
         _charVisualAnimator = _characterSelectionImage.GetComponent<Animator>();
@@ -35,19 +38,19 @@ public class CharacterButtonsPlayer: MonoBehaviour
 
     private void OnDestroy()
     {
-        Player.onReady -= UpdateReadyVisuals;
-        Player.unReady -= UpdateReadyVisuals;
+        _originPlayer.onReady -= UpdateReadyVisuals;
+        _originPlayer.unReady -= UpdateReadyVisuals;
     }
 
     public void SetPlayer(Player p)
     {
         if (!Player)
         {
-            p.onReady += UpdateReadyVisuals;
-            p.unReady += UpdateReadyVisuals;
+            _originPlayer = p;
+            _originPlayer.onReady += UpdateReadyVisuals;
+            _originPlayer.unReady += UpdateReadyVisuals;
         }
         Player = p;
-        
     }
     
     public void SelectLisa()
@@ -80,7 +83,7 @@ public class CharacterButtonsPlayer: MonoBehaviour
     private void UpdateReadyVisuals()
     {
         if (_readyVisual)
-            _readyVisual.SetActive(Player.Ready); //TODO: replace with animations/ui input module change}
+            _readyVisual.SetActive(_originPlayer.Ready); //TODO: replace with animations/ui input module change}
     }
     
     public void GetReady()
