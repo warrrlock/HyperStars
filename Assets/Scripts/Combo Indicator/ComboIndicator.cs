@@ -21,10 +21,10 @@ public class ComboIndicator : MonoBehaviour
     private bool _p1Comboing;
 
     public TextMeshProUGUI text;
-    public Color newColor;
+    private Color newColor;
     private Color normalColor;
     public float fadeSpeed = 0.1f;
-    public bool fadeTime = false;
+    private bool fadeTime = false;
     private bool fadeBool = false;
     private float fadeTimer = 0;
     public float secsToWait = 4f; //number of seconds you want to wait before fading
