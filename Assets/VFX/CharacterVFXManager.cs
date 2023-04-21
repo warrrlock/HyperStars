@@ -37,6 +37,9 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private BaseState[] _blurStates;
     [SerializeField] private BaseState[] _parryStates;
     
+    //
+    private VisualEffect dizzy;
+    
     
     void Awake()
     {
@@ -69,6 +72,8 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
         _fighter.Events.wallBounce += WallWave;
+        _fighter.Events.onHardKnockdown += Dizzy;
+        _fighter.Events.exitHardKnockdown += StopDizzy;
     }
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
@@ -76,6 +81,8 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.onStateChange -= SpawnOnStateChange;
         _fighter.Events.onLandedHurt -= GroundWave;
         _fighter.Events.wallBounce -= WallWave;
+        _fighter.Events.onHardKnockdown -= Dizzy;
+        _fighter.Events.exitHardKnockdown -= StopDizzy;
     }
 
     void DashSmoke() {
@@ -106,6 +113,17 @@ public class CharacterVFXManager : MonoBehaviour
     {
         _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphsNeutral.WAVE_WALL_RIGHT : VFXGraphsNeutral.WAVE_WALL_LEFT,
             transform.localPosition + new Vector3(0, 0f, 0));
+    }
+
+    void Dizzy()
+    {
+        dizzy = Instantiate(vfxConfig.VFXSet[(int)VFXGraphsCharacter.KnockDown_Dizzy], transform.position, Quaternion.identity).GetComponent<VisualEffect>();
+    }
+
+    void StopDizzy()
+    {
+        dizzy.SendEvent("OnStop");
+        Destroy(dizzy.gameObject, 1f);
     }
     
     /// <summary>

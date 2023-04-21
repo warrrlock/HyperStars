@@ -12,7 +12,7 @@ public class VFXCleanUp : MonoBehaviour
     private float _lifeTime;
     [HideInInspector] public Fighter f;
     [HideInInspector] public bool isUnscaledTime;
-    [SerializeField] private bool debugMode;
+    [SerializeField] private bool doNoSelfDestroy;
     [SerializeField] private VFXTypes VFXType;
     [SerializeField] private bool isMoveBased;
     [SerializeField] private bool canUseUnscaledTime;
@@ -22,7 +22,7 @@ public class VFXCleanUp : MonoBehaviour
         _vfx = GetComponent<VisualEffect>();
         _lifeTime = 0;
         // all vfx destroy after one second
-        if (!debugMode) Destroy(gameObject, 1);
+        if (!doNoSelfDestroy) Destroy(gameObject, 1);
         if (f)
         {
             _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
@@ -51,8 +51,6 @@ public class VFXCleanUp : MonoBehaviour
     void ChangeColor()
     {
         ColorPicker picker = f.GetComponent<ColorPicker>();
-        Gradient g = picker.characterColors.Palette[picker.currentColorIndex].EffectColor;
-        GradientUsageAttribute gua = new GradientUsageAttribute(true);
         _vfx.SetGradient("ParticleGradient", picker.characterColors.Palette[picker.currentColorIndex].EffectColor);
     }
 }

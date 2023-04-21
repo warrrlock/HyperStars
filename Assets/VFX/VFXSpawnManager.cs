@@ -15,7 +15,7 @@ public enum VFXGraphsNeutral
 
 public enum VFXGraphsCharacter
 {
-    Hit_V1, Hit_V2, Hit_Special, TakeDamage_Random
+    Hit_V1, Hit_V2, Hit_Special, TakeDamage_Random, KnockDown_Dizzy
 }
 
 public enum VFXTypes
