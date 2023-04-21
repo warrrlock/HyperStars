@@ -11,11 +11,19 @@
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="374987273" Language="SFX" Hash="3391988937">
+		<SoundBank Id="374987273" Language="SFX" Hash="2972488742">
 			<ObjectPath>\SoundBanks\MusicSoundBanks\MusicMain</ObjectPath>
 			<ShortName>MusicMain</ShortName>
 			<Path>MusicMain.bnk</Path>
 			<IncludedEvents>
+				<Event Id="4083361059" Name="Play_BlukTheme" ObjectPath="\Events\MusicEventsWorkUnit\MusicPlayEvents\Bluk's Theme\Play_BlukTheme" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="1054261844" Language="SFX">
+							<ShortName>Look_At_Me_Now_BlukTheme_DonovanRobinson.wav</ShortName>
+							<Path>SFX\Look_At_Me_Now_BlukTheme_DonovanRobinson_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2345669066" Name="Play_LisaTheme" ObjectPath="\Events\MusicEventsWorkUnit\MusicPlayEvents\Lisa'sTheme\Play_LisaTheme" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="25882073" Language="SFX">
@@ -138,6 +146,7 @@
 						<ActionSetSwitchEntry Id="3840766212" Name="Verse" ObjectPath="\Switches\Default Work Unit\MusicWorkUnit\MusicState\Verse"/>
 					</ActionSetSwitch>
 				</Event>
+				<Event Id="3753011029" Name="Stop_BlukTheme" ObjectPath="\Events\MusicEventsWorkUnit\MusicPlayEvents\Bluk's Theme\Stop_BlukTheme" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
 				<Event Id="564764656" Name="Stop_LisaTheme" ObjectPath="\Events\MusicEventsWorkUnit\MusicPlayEvents\Lisa'sTheme\Stop_LisaTheme" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
 			</IncludedEvents>
 			<GameParameters>

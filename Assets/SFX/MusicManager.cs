@@ -3,13 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = System.Random;
+
+public enum ThemeLists
+{
+    Lisa, Bluk
+}
 
 public class MusicManager : MonoBehaviour
 {
-    public AK.Wwise.Event MusicTrack;
-    public AK.Wwise.Event MusicStop;
+    public AK.Wwise.Event[] MusicTracks;
+    public AK.Wwise.Event[] MusicStops;
     public AK.Wwise.Event CrowdLoop;
     public AK.Wwise.Event CrowdHype;
+    
+    private AK.Wwise.Event currentMusic;
     
     [Range(1, 3)]
     public int Intensity;
@@ -54,31 +62,37 @@ public class MusicManager : MonoBehaviour
 
     void Start()
     {
+        // pick random track
+        int randomTrack = UnityEngine.Random.value < .5f ? 0 : 1;
+        Debug.Log(randomTrack);
+        currentMusic = MusicTracks[randomTrack];
+        
         //Set our Music Manager
         foreach (Fighter fighter in Services.Fighters)
         {
             MusicEffector effector = fighter.GetComponent<MusicEffector>();
             if (effector != null) effector.MusicManager = this;
         }
-        
+
         increaseIntensityAfterChorus = increaseIntensityDuringChorus;
         //Start music 
         AkSoundEngine.SetRTPCValue("Intensity", Intensity); //Set Intensity
         AkSoundEngine.SetSwitch("MusicState", "Verse", gameObject); //Set which section to play
         //playingIDGlobal =  //Start Music
-        playingIDGlobal = MusicTrack.Post(gameObject, (uint)(AkCallbackType.AK_MusicSyncAll | AkCallbackType.AK_EnableGetMusicPlayPosition), MusicCallbackFunction);
+        playingIDGlobal = currentMusic.Post(gameObject, (uint)(AkCallbackType.AK_MusicSyncAll | AkCallbackType.AK_EnableGetMusicPlayPosition), MusicCallbackFunction);
         CrowdLoop.Post(gameObject);
         
         // set timer
         _timer = hitEffectiveTime;
         
         //subscribe to reload event
-        // if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload += StopMusic;
+        if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload += StopMusic;
     }
 
     private void OnDestroy()
     {
-        // if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload -= StopMusic;
+        StopMusic();
+        if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload -= StopMusic;
     }
 
     // Update is called once per frame
@@ -106,7 +120,9 @@ public class MusicManager : MonoBehaviour
 
     public void StopMusic()
     {
-        MusicStop.Post(gameObject);
+        foreach (var stop in MusicStops)
+            stop.Post(gameObject);
+        currentMusic = MusicTracks[UnityEngine.Random.Range(0, MusicTracks.Length)];
     }
 
     public static void StartChorus(MusicManager musicManager)
