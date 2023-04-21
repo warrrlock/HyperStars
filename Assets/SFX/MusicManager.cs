@@ -63,6 +63,7 @@ public class MusicManager : MonoBehaviour
     void Start()
     {
         // pick random track
+        UnityEngine.Random.InitState(DateTime.Now.Millisecond);
         int randomTrack = UnityEngine.Random.value < .5f ? 0 : 1;
         Debug.Log(randomTrack);
         currentMusic = MusicTracks[randomTrack];

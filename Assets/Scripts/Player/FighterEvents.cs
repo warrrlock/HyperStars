@@ -14,6 +14,9 @@ public class FighterEvents
     public Action onLandedNeutral;
     public Action onLandedHurt;
 
+    public Action onHardKnockdown;
+    public Action exitHardKnockdown;
+    
     [Tooltip("[Fighter] attacker, [Fighter] attacked, [Vector3] hit point, [string] attacker input, " +
              "[AttackInfo] attack info, [AttackInfo.AttackType] attack type")]
     public Action<Dictionary<string, object>> onAttackHit;

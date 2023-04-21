@@ -208,7 +208,7 @@ public class Player: MonoBehaviour
         }
         else if (scene.buildIndex == _indices.gameScene || scene.buildIndex == _indices.trainingScene)
         {
-            Debug.Log("in game scene, readying game");
+            // Debug.Log("in game scene, readying game");
             PlayerInput.SwitchCurrentActionMap(PlayerInput.defaultActionMap);
             ReadyStartingGame();
         }

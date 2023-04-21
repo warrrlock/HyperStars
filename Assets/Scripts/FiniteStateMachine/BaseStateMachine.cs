@@ -454,6 +454,7 @@ namespace FiniteStateMachine {
                     {
                         PassHurtState(newHurtState, duration);
                     }
+                    _allowRecover = !hardKnockdown;
                     yield break;
                 }
                 // Debug.Log($"re-executing current state of type {hurtState.HurtType}");
@@ -547,7 +548,8 @@ namespace FiniteStateMachine {
             if (CurrentState is HurtState)
             {
                 Fighter.Events.onLandedHurt?.Invoke();
-                // Debug.Log("exited in air, will try to enable");
+                // Debug.Log($"exited in air, hard knockdown is {!_allowRecover}");
+                if (!_allowRecover) Fighter.Events.onHardKnockdown?.Invoke();
                 TryEnableRecovery();
             }
             else
@@ -579,7 +581,7 @@ namespace FiniteStateMachine {
             // Debug.Log("handle animate, wait to move");
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
             yield return new WaitUntil(condition ?? (() => !_isDisabled && Fighter.MovementController.IsGrounded));
-
+            if (!_allowRecover) Fighter.Events.exitHardKnockdown.Invoke();
             _waitToAnimateRoutine = null;
             HandleAnimationExit();
         }
