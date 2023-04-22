@@ -101,16 +101,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBot: 0
-  _characterManager: {fileID: 11400000, guid: 445e8aa9bec2c4cffba417a312106efa, type: 2}
-  _selectionManager: {fileID: 0}
   _playerId: 0
   _characterSelectionImage: {fileID: 0}
   _characterVisuals:
   - character: 1
     animStateName: Lisa_Display
+    palette: {fileID: 11400000, guid: 948c02293ac922d4d919f20538668fda, type: 2}
   - character: 2
     animStateName: Bluk_Display
+    palette: {fileID: 11400000, guid: 115319a39d5032b43bf6b8649eab75aa, type: 2}
   _readyVisual: {fileID: 0}
+  _palettePicker: {fileID: 0}
+  _characterManager: {fileID: 11400000, guid: 445e8aa9bec2c4cffba417a312106efa, type: 2}
+  _selectionManager: {fileID: 0}
 --- !u!114 &7466035045463532974
 MonoBehaviour:
   m_ObjectHideFlags: 0
