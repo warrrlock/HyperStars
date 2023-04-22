@@ -38,7 +38,7 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private BaseState[] _parryStates;
     
     //
-    private VisualEffect dizzy;
+    private VisualEffect[] activeDizzies = new VisualEffect[2];
     
     
     void Awake()
@@ -117,13 +117,21 @@ public class CharacterVFXManager : MonoBehaviour
 
     void Dizzy()
     {
-        dizzy = Instantiate(vfxConfig.VFXSet[(int)VFXGraphsCharacter.KnockDown_Dizzy], transform.position, Quaternion.identity).GetComponent<VisualEffect>();
+        activeDizzies[0] = Instantiate(_vfxSpawnManager.visualEffectPrefabsNeutral[(int)VFXGraphsNeutral.DIZZY], transform.position, Quaternion.identity).GetComponent<VisualEffect>();
+        activeDizzies[1] = Instantiate(vfxConfig.VFXSet[(int)VFXGraphsCharacter.KnockDown_Dizzy], transform.position, Quaternion.identity).GetComponent<VisualEffect>();
+        foreach (var dizzy in activeDizzies)
+        {
+            dizzy.GetComponent<VFXCleanUp>().f = _fighter;
+        }
     }
 
     void StopDizzy()
     {
-        dizzy.SendEvent("OnStop");
-        Destroy(dizzy.gameObject, 1f);
+        foreach (var dizzy in activeDizzies)
+        {
+            dizzy.SendEvent("OnStop");
+            Destroy(dizzy.gameObject, 1f);
+        }
     }
     
     /// <summary>
