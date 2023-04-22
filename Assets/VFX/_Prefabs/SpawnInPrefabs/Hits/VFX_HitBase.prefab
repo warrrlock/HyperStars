@@ -54,9 +54,12 @@ VisualEffect:
       - m_Value: 3
         m_Name: Frame Rate
         m_Overridden: 1
+      - m_Value: 3.2
+        m_Name: Size
+        m_Overridden: 1
     m_Vector2f:
       m_Array:
-      - m_Value: {x: 3, y: 3}
+      - m_Value: {x: 9, y: 1}
         m_Name: FlipbookSize
         m_Overridden: 1
     m_Vector3f:
@@ -107,7 +110,7 @@ VisualEffect:
       - m_Value:
           serializedVersion: 2
           key0: {r: 0.4087125, g: 0.7736869, b: 3.7672622, a: 1}
-          key1: {r: 7.999999, g: 7.329842, b: 1.2565444, a: 1}
+          key1: {r: 5.5908804, g: 3.2663674, b: 0.8781488, a: 1}
           key2: {r: 0, g: 0, b: 0, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
@@ -137,7 +140,7 @@ VisualEffect:
         m_Overridden: 1
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: 448a1ea06356d484eacd9781fd897453, type: 3}
+      - m_Value: {fileID: 2800000, guid: e70472edecb4913408f2c0f44fc3f0a7, type: 3}
         m_Name: MainTex2D
         m_Overridden: 1
     m_Bool:
@@ -198,6 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f: {fileID: 0}
+  isUnscaledTime: 0
+  doNoSelfDestroy: 0
   VFXType: 0
   isMoveBased: 0
   canUseUnscaledTime: 1

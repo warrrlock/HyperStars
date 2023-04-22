@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9197529569700219492}
   - component: {fileID: 9197529569700219499}
   m_Layer: 12
-  m_Name: VFX_HitBluk_Temp
+  m_Name: VFX_HitBluk_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,10 +51,10 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 1
+      - m_Value: 0.4
         m_Name: Life
         m_Overridden: 1
-      - m_Value: 10
+      - m_Value: 7
         m_Name: Size
         m_Overridden: 1
       - m_Value: 3
@@ -62,7 +62,7 @@ VisualEffect:
         m_Overridden: 1
     m_Vector2f:
       m_Array:
-      - m_Value: {x: 5, y: 1}
+      - m_Value: {x: 9, y: 1}
         m_Name: FlipbookSize
         m_Overridden: 1
     m_Vector3f:
@@ -143,7 +143,7 @@ VisualEffect:
         m_Overridden: 1
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: a75445bb16444f14f96fdf9c734945cc, type: 3}
+      - m_Value: {fileID: 2800000, guid: c09bbbca26d0759499b59241924cfcf1, type: 3}
         m_Name: MainTex2D
         m_Overridden: 1
     m_Bool:
@@ -204,6 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f: {fileID: 0}
+  isUnscaledTime: 0
+  doNoSelfDestroy: 0
   VFXType: 1
   isMoveBased: 0
   canUseUnscaledTime: 1
