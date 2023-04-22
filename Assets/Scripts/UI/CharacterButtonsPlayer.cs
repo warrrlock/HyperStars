@@ -11,25 +11,31 @@ class SelectionAssets
 {
     public CharacterManager.CharacterSelection character;
     public string animStateName;
+    public CharacterColorScriptable palette;
 }
 
 public class CharacterButtonsPlayer: MonoBehaviour
 {
+    [Header("meta")]
     [SerializeField] private bool _isBot;
-    [SerializeField] private CharacterManager _characterManager;
-    [SerializeField] private CharacterSelectManager _selectionManager;
     [SerializeField] private int _playerId;
+    
+    [Header("visuals")]
     [SerializeField] private Image _characterSelectionImage;
-    [SerializeField] private PalettePicker _palettePicker;
-    private Animator _charVisualAnimator;
-    [FormerlySerializedAs("_images")] [SerializeField] private List<SelectionAssets> _characterVisuals;
+    [SerializeField] private List<SelectionAssets> _characterVisuals;
     [SerializeField] private GameObject _readyVisual;
     
+    [Header("managers")]
+    [SerializeField] private PalettePicker _palettePicker;
+    [SerializeField] private CharacterManager _characterManager;
+    [SerializeField] private CharacterSelectManager _selectionManager;
+
     public Player Player { get; private set; }
     public bool IsBot => _isBot;
     public int PlayerId => _playerId;
 
     private Player _originPlayer;
+    private Animator _charVisualAnimator;
 
     private void Awake()
     {
@@ -76,8 +82,9 @@ public class CharacterButtonsPlayer: MonoBehaviour
     {
         SelectionAssets selectionAssets = _characterVisuals.Find(pair => 
             pair.character.ToString().Equals(character, StringComparison.OrdinalIgnoreCase));
-        if (_characterSelectionImage) _charVisualAnimator.Play(selectionAssets.animStateName);
-        if (_selectionManager) _selectionManager.UpdateSelection(character, selectionAssets.character, _playerId);
+        _charVisualAnimator.Play(selectionAssets.animStateName);
+        _selectionManager.UpdateSelection(character, selectionAssets.character, _playerId);
+        _palettePicker.SetMaterialColours(0, selectionAssets.palette);
     }
 
     private void UpdateReadyVisuals()

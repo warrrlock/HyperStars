@@ -88,6 +88,7 @@ namespace UI
         public void UnsetVisuals()
         {
             _paletteAnimation.Play("hide_palette");
+            SetMaterialColours(0);
             foreach (Transform child in _paletteParent)
             {
                 child.GetChild(2).GetComponent<Image>().sprite = _hasColourBorder;
@@ -121,6 +122,17 @@ namespace UI
             _characterImage.material.SetColor(Color5, _characterPalette.Palette[index].Color5);
             _characterImage.material.SetColor(Color6, _characterPalette.Palette[index].Color6);
             _characterImage.material.SetColor(Color7, _characterPalette.Palette[index].Color7);
+        }
+        
+        public void SetMaterialColours(int index, CharacterColorScriptable palette)
+        {
+            _characterImage.material.SetColor(Color1, palette.Palette[index].Color1);
+            _characterImage.material.SetColor(Color2, palette.Palette[index].Color2);
+            _characterImage.material.SetColor(Color3, palette.Palette[index].Color3);
+            _characterImage.material.SetColor(Color4, palette.Palette[index].Color4);
+            _characterImage.material.SetColor(Color5, palette.Palette[index].Color5);
+            _characterImage.material.SetColor(Color6, palette.Palette[index].Color6);
+            _characterImage.material.SetColor(Color7, palette.Palette[index].Color7);
         }
     }
 }

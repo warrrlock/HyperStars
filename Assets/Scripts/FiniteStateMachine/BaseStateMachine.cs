@@ -581,7 +581,7 @@ namespace FiniteStateMachine {
             // Debug.Log("handle animate, wait to move");
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
             yield return new WaitUntil(condition ?? (() => !_isDisabled && Fighter.MovementController.IsGrounded));
-            if (!_allowRecover) Fighter.Events.exitHardKnockdown.Invoke();
+            if (!_allowRecover) Fighter.Events.exitHardKnockdown?.Invoke();
             _waitToAnimateRoutine = null;
             HandleAnimationExit();
         }

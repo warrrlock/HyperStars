@@ -84,28 +84,28 @@ public class Player: MonoBehaviour
     
     public void SelectBot(Character character)
     {
-        Debug.Log($"{PlayerInput.playerIndex} select bot");
+        // Debug.Log($"{PlayerInput.playerIndex} select bot");
         Services.Characters[PlayerInput.playerIndex^1] = character;
         //choose bot colours
         Services.Players[PlayerInput.playerIndex ^ 1].CharacterSelected = true;
         OpenPalettePicker(PlayerInput.playerIndex^1);
     }
 
-    public void CloseColourPicker(bool isBot = false)
+    public void CloseColourPicker(bool isBot)
     {
-        //TODO: move input to character selection
-        CharacterSelected = false;
         if (!isBot) SetSelectionUI();
+        PaletteIndex = 0;
+        CharacterSelected = false;
+        Services.Characters[PlayerInput.playerIndex] = null;
         _palettePickerManager.PalettePickers[PlayerInput.playerIndex].UnsetVisuals();
     }
 
-    private void OpenPalettePicker(int player)
+    private void OpenPalettePicker(int player, bool firstColour = true)
     {
-        //TODO: move input to character colours
-        // Debug.Log($"Open palette picker for player {player}, palette picker: {_palettePickerManager.PalettePickers[player]}");
+        // Debug.Log($"Open palette picker for player {player}, first colour {firstColour}");
         UnsetSelectionUI();
         _palettePickerManager.PalettePickers[player].SetupVisuals(Services.Characters[player].CharacterPalettes);
-        _palettePickerManager.SetColour(player, 0, 1, Services.Characters[player].CharacterPalettes.Palette.Count);
+        _palettePickerManager.SetColour(player, firstColour ? 0 : PaletteIndex, 1, Services.Characters[player].CharacterPalettes.Palette.Count);
     }
     
     public void ConfirmColour()
@@ -126,7 +126,7 @@ public class Player: MonoBehaviour
         // Debug.Log($"Un readying {PlayerInput.playerIndex}");
         _ready = false;
         unReady?.Invoke();
-        OpenPalettePicker(PlayerInput.playerIndex);
+        OpenPalettePicker(PlayerInput.playerIndex, firstColour: false);
     }
 
     private void ReadyStartingGame()
