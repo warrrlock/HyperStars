@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6332865324298418506}
   - component: {fileID: 6332865324298418505}
   m_Layer: 0
-  m_Name: VFX_KnockDown
+  m_Name: VFX_KnockDown_Neutral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ VisualEffect:
       - m_Value: 0
         m_Name: UnscaledTime
         m_Overridden: 1
-      - m_Value: 42
+      - m_Value: 14
         m_Name: FrameRate
         m_Overridden: 1
       - m_Value: 0.6
@@ -63,13 +63,16 @@ VisualEffect:
       - m_Value: 15
         m_Name: Playback Rate
         m_Overridden: 1
-      - m_Value: 3
+      - m_Value: 2.6
         m_Name: Size
         m_Overridden: 1
     m_Vector2f:
       m_Array:
-      - m_Value: {x: 24, y: 1}
+      - m_Value: {x: 5, y: 1}
         m_Name: FlipbookSize
+        m_Overridden: 1
+      - m_Value: {x: 2, y: 2}
+        m_Name: Offsets
         m_Overridden: 1
     m_Vector3f:
       m_Array: []
@@ -118,12 +121,12 @@ VisualEffect:
         m_Overridden: 1
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: 52aece4d689d2f941827b38cddd7d92a, type: 3}
+      - m_Value: {fileID: 2800000, guid: 6687ce34094ea8a4fa3e01f76da4220d, type: 3}
         m_Name: MainTex2D
         m_Overridden: 1
     m_Bool:
       m_Array:
-      - m_Value: 1
+      - m_Value: 0
         m_Name: FaceLeft
         m_Overridden: 1
       - m_Value: 1
