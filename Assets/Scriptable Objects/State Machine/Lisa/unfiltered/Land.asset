@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Land
   m_EditorClassIdentifier: 
   characterSelection: 1
-  _bypassQueueAtEnd: 1
   _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 0
@@ -30,4 +29,6 @@ MonoBehaviour:
   _filters: []
   _endOnFinish: 0
   _actions: []
-  _transitions: []
+  _transitions:
+  - {fileID: 11400000, guid: 5e5aaab99ccb54444b0c0dba82c8e8f5, type: 2}
+  - {fileID: 11400000, guid: c5192975e58b04fbbb396d8c7abf8288, type: 2}

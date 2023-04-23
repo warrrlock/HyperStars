@@ -15,7 +15,7 @@ public enum VFXGraphsNeutral
 
 public enum VFXGraphsCharacter
 {
-    Hit_V1, Hit_V2, Hit_Special, TakeDamage_Random
+    Hit_V1, Hit_V2, Hit_Special, TakeDamage_Random, KnockDown_Dizzy
 }
 
 public enum VFXTypes
@@ -39,6 +39,7 @@ public class VFXSpawnManager : MonoBehaviour
     {
         foreach (Fighter f in Services.Fighters)
         {
+            if (!f) continue;
             f.Events.onAttackHit += PlayHitVFX;
             f.Events.onBlockHit += PlayBlockVFX;
         }
@@ -119,10 +120,14 @@ public class VFXSpawnManager : MonoBehaviour
             CameraManager cam = Services.CameraManager;
             VFXConfig senderConfig = sender.GetComponent<CharacterVFXManager>().vfxConfig;
             
+            // base vfx
             InitializeHitVFX(VFXTypes.Hit_Base, hitPos, sender);
-            // InitializeVFX(VFXGraphsNeutral.HIT_BASE, hitPos, sender);
             InitializeHitVFX(VFXTypes.Hit_TakeDamage, receiver.transform.position, receiver);
-            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
+            
+            // character shakes
+            if (!senderConfig.LightHit.characterShakeOverride)
+                StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 98f, 1f, .8f));
+            
             // camera based on hits
             switch (attackInfo.attackType)
             {
@@ -179,8 +184,14 @@ public class VFXSpawnManager : MonoBehaviour
             };
             cam.SilhouetteToggle(true, mats, configData.silhouette.Value.silhouetteColor, configData.silhouette.Value.silhouetteDuration);
         }
+        if (configData.characterShakeOverride)
+        {
+            CharacterShakeSettings shake = configData.characterShakeOverride.Value;
+            StartCoroutine(receiver.GetComponent<CharacterVFXManager>().Shake(receiver, 
+                98f, shake.magnitude, shake.duration));
+        }
     }
-    
+
     void PlayBlockVFX(Dictionary<string, object> message)
     {
         try

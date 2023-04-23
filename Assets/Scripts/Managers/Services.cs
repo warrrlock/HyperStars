@@ -15,4 +15,6 @@ public static class Services
     public static RoundTimer RoundTimer;
     public static CollisionsManager CollisionsManager;
     public static AttackInfoManager AttackInfoManager;
+    
+    public static MusicManager MusicManager;
 }
