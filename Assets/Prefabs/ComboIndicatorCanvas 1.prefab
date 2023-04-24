@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: -105}
+  m_AnchoredPosition: {x: -250, y: -80}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1524329866769578384
@@ -122,8 +122,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: x10 COMBO!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0841f8a80117a0045acde2bd21e4e056, type: 2}
-  m_sharedMaterial: {fileID: -3527381202318578863, guid: 0841f8a80117a0045acde2bd21e4e056, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
+  m_sharedMaterial: {fileID: 7752550765022321395, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -147,13 +147,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 85
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 2
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -203,9 +203,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboTexts:
   - {fileID: 1524329866860352517}
-  TextBeforeComboNum: x
-  TextAfterComboNum: ' Combo!'
+  TextBeforeComboNum: 
+  TextAfterComboNum: ' Hit!'
   shaker: {fileID: 1524329866769578384}
+  text: {fileID: 1524329866860352517}
+  fadeSpeed: 1
+  secsToWait: 1
 --- !u!1 &1524329867564586048
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +348,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -318, y: 292}
+  m_AnchoredPosition: {x: -340, y: 292}
   m_SizeDelta: {x: 347.744, y: 91.389}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2076688247858436014
@@ -373,6 +376,9 @@ MonoBehaviour:
   TextBeforeComboNum: x
   TextAfterComboNum: ' Combo!'
   shaker: {fileID: 2076688247957211182}
+  text: {fileID: 0}
+  fadeSpeed: 5
+  secsToWait: 5
 --- !u!114 &2076688247858436015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,9 +393,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboTexts:
   - {fileID: 2076688247858436001}
-  TextBeforeComboNum: x
-  TextAfterComboNum: ' Combo!'
+  TextBeforeComboNum: 
+  TextAfterComboNum: ' Hit!'
   shaker: {fileID: 2076688247957211182}
+  text: {fileID: 2076688247858436001}
+  fadeSpeed: 1
+  secsToWait: 1
 --- !u!114 &2076688247858436001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,17 +421,17 @@ MonoBehaviour:
       m_Calls: []
   m_text: x10 COMBO!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0841f8a80117a0045acde2bd21e4e056, type: 2}
-  m_sharedMaterial: {fileID: -3527381202318578863, guid: 0841f8a80117a0045acde2bd21e4e056, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
+  m_sharedMaterial: {fileID: 7752550765022321395, guid: 334cde3cda7a14e8c91a08e86c4fa8d7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4282449407
-  m_fontColor: {r: 1, g: 0.99215686, b: 0.2509804, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
+  m_fontColor: {r: 1, g: 0.9935506, b: 0.645283, a: 1}
+  m_enableVertexGradient: 1
+  m_colorMode: 1
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
@@ -437,13 +446,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 85
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 2
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -514,7 +523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 901, y: -105}
+  m_AnchoredPosition: {x: 1120, y: -80}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2076688247957211182
