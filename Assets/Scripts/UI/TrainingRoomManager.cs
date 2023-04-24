@@ -62,8 +62,13 @@ namespace UI
 
         public void SetSwitchValues()
         {
+            _inputsAnim.Play(_showInputs ? "On" : "Off");
             _inputsAnim.SetBool(On, _showInputs);
+            
+            _colliderAnim.Play(_showColliders ? "On" : "Off");
             _colliderAnim.SetBool(On, _showColliders);
+            
+            _infiniteExAnim.Play(_infiniteEx ? "On" : "Off");
             _infiniteExAnim.SetBool(On, _infiniteEx);
         }
 
