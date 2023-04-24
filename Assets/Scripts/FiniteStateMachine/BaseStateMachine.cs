@@ -582,7 +582,7 @@ namespace FiniteStateMachine {
             if (nextAnimation != -1) PlayAnimation(nextAnimation);
             yield return new WaitUntil(condition ?? (() => !_isDisabled && Fighter.MovementController.IsGrounded));
             if (!_allowRecover) Fighter.Events.exitHardKnockdown?.Invoke();
-            Fighter.Events.onEndHitstun.Invoke();
+            Fighter.Events.onEndHitstun?.Invoke();
             _waitToAnimateRoutine = null;
             HandleAnimationExit();
         }
