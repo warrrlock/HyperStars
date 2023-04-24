@@ -19,6 +19,15 @@ public class ComboIndicator : MonoBehaviour
 
     private static float dmgMultiplier = 0.2f;
     private bool _p1Comboing;
+
+    public TextMeshProUGUI text;
+    private Color newColor;
+    private Color normalColor;
+    public float fadeSpeed = 0.1f;
+    private bool fadeTime = false;
+    private bool fadeBool = false;
+    private float fadeTimer = 1f;
+    public float secsToWait = 1f; //number of seconds you want to wait before fading
     
 
     void Awake() {
@@ -27,18 +36,45 @@ public class ComboIndicator : MonoBehaviour
         //playerActions = new List<PlayerAction>(FindObjectsOfType<PlayerAction>());
         
         SetCombo(0);
+
+        //var trans = 0.01f;
+        //var col = gameObject.GetComponent<Renderer> ().material.color;
+        newColor.a = 0;
+        
     }
 
 
     void Start()
     {
         Subscribe();
+
+        normalColor = text.color;
+        
     }
 
     private void OnDestroy() {
         UnSubscribe();
     }
 
+
+    void FixedUpdate(){
+        //var trans = 0.01f;
+        //var col = gameObject.GetComponent<Renderer> ().material.color;
+        //text.a -= trans;
+        if (fadeTime == true){
+            if (fadeTimer < secsToWait){
+                fadeTimer += Time.deltaTime; //adds the time between two frames to the timer
+            } else {
+                FadeOut();
+            }
+        }
+        
+    }
+
+    private void FadeOut()
+    {
+        text.color = Color.Lerp(text.color, newColor, fadeSpeed * Time.deltaTime);
+    }
 
     private void Subscribe()
         {
@@ -47,12 +83,12 @@ public class ComboIndicator : MonoBehaviour
             Services.Fighters[1].Events.onAttackHit += IncrementPlayer2Combo; //note that block is a separate event
         }
         
-        private void UnSubscribe() //remember to unsubscribe when object is destroyed (OnDestroy)
-        {
-            //_fighter is a reference to fighter object
-            Services.Fighters[0].Events.onAttackHit -= IncrementPlayer1Combo; //note that block is a separate event
-            Services.Fighters[1].Events.onAttackHit -= IncrementPlayer2Combo; //note that block is a separate event
-        }
+    private void UnSubscribe() //remember to unsubscribe when object is destroyed (OnDestroy)
+    {
+        //_fighter is a reference to fighter object
+        Services.Fighters[0].Events.onAttackHit -= IncrementPlayer1Combo; //note that block is a separate event
+        Services.Fighters[1].Events.onAttackHit -= IncrementPlayer2Combo; //note that block is a separate event
+    }
 
 
     public int GetCombo() {
@@ -65,8 +101,16 @@ public class ComboIndicator : MonoBehaviour
         {
             _p1Comboing = true;
             SetCombo(0);
+            fadeTime = false;
+            fadeTimer = 0;
         }
         IncrementCombo();
+        fadeTime = true;
+        fadeTimer = 0;
+
+        text.color = normalColor;
+        //var col = gameObject.GetComponent<Renderer> ().material.color;
+        //col.a = 1;
     }
     
     private void IncrementPlayer2Combo(Dictionary<string, object> msg){
@@ -75,6 +119,8 @@ public class ComboIndicator : MonoBehaviour
         {
             _p1Comboing = false;
             SetCombo(0);
+            fadeTime = false;
+            fadeTimer = 0;
         }
         //IncrementCombo();
     }
