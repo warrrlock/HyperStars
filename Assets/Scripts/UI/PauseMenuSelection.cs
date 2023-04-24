@@ -81,11 +81,16 @@ namespace UI
             
             if (_menu.activeSelf)
             {
+                if (!_opener) return;
                 _opener.PlayerInput.uiInputModule = null;
                 _opener = null;
                 foreach (Fighter fighter in Services.Fighters)
+                {
+                    fighter.PlayerInput.ActivateInput();
                     fighter.PlayerInput.SwitchCurrentActionMap(fighter.PlayerInput.defaultActionMap);
+                }
 
+                ResetValues();
                 _menu.SetActive(false);
                 Time.timeScale = 1;
             }
@@ -94,11 +99,22 @@ namespace UI
                 _opener = f;
                 Time.timeScale = 0;
                 foreach (Fighter fighter in Services.Fighters)
+                {
                     fighter.PlayerInput.SwitchCurrentActionMap("UI");
+                    if (fighter.PlayerInput.playerIndex != _opener.PlayerId) fighter.PlayerInput.DeactivateInput();
+                }
 
                 _menu.SetActive(true);
                 _opener.PlayerInput.uiInputModule = _menu.GetComponent<InputSystemUIInputModule>();
                 SetToTab(0);
+            }
+        }
+
+        private void ResetValues()
+        {
+            foreach (TabAssets assets in _tabAssets)
+            {
+                assets.page.SetActive(false);
             }
         }
 
