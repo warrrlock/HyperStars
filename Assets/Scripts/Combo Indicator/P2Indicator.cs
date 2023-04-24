@@ -80,7 +80,7 @@ public class P2Indicator : MonoBehaviour
             Services.Fighters[0].Events.onAttackHit += IncrementPlayer1Combo; //note that block is a separate event
             Services.Fighters[1].Events.onAttackHit += IncrementPlayer2Combo; //note that block is a separate event
 
-            Services.Fighters[0].Events.onEndHitstun += ResetCombo;
+            Services.Fighters[1].Events.onEndHitstun += ResetCombo;
         }
         
         private void UnSubscribe() //remember to unsubscribe when object is destroyed (OnDestroy)
@@ -89,7 +89,7 @@ public class P2Indicator : MonoBehaviour
             Services.Fighters[0].Events.onAttackHit -= IncrementPlayer1Combo; //note that block is a separate event
             Services.Fighters[1].Events.onAttackHit -= IncrementPlayer2Combo; //note that block is a separate event
 
-            Services.Fighters[0].Events.onEndHitstun -= ResetCombo;
+            Services.Fighters[1].Events.onEndHitstun -= ResetCombo;
         }
 
 

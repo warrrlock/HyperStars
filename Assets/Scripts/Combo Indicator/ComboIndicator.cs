@@ -92,6 +92,8 @@ public class ComboIndicator : MonoBehaviour
         //_fighter is a reference to fighter object
         Services.Fighters[0].Events.onAttackHit -= IncrementPlayer1Combo; //note that block is a separate event
         Services.Fighters[1].Events.onAttackHit -= IncrementPlayer2Combo; //note that block is a separate event
+
+        Services.Fighters[0].Events.onEndHitstun -= ResetCombo;
     }
 
 
