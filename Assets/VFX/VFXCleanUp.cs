@@ -16,6 +16,7 @@ public class VFXCleanUp : MonoBehaviour
     [SerializeField] private VFXTypes VFXType;
     [SerializeField] private bool isMoveBased;
     [SerializeField] private bool canUseUnscaledTime;
+    [SerializeField] private bool followCharacter;
 
     void Start()
     {
@@ -45,6 +46,10 @@ public class VFXCleanUp : MonoBehaviour
         if (canUseUnscaledTime)
         {
             _vfx.SetFloat("UnscaledTime", _lifeTime);
+        }
+        if (followCharacter)
+        {
+            transform.position = f.transform.position;
         }
     }
 
