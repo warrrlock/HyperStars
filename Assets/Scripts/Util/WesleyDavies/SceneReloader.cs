@@ -16,12 +16,13 @@ public class SceneReloader : MonoBehaviour
 
     private void Awake()
     {
-        OnSceneLoaded?.Invoke();
         CreateSingleton();
+        //OnSceneLoaded?.Invoke();
     }
 
     private void Start()
     {
+        OnSceneLoaded?.Invoke();
         SubscribeActions();
         Juice.UnfreezeTime();
     }
@@ -41,7 +42,10 @@ public class SceneReloader : MonoBehaviour
     public void ReloadScene(InputManager.Action action = default)
     {
         // onSceneReload?.Invoke();
-        FindObjectOfType<MusicManager>().StopMusic();
+        if (FindObjectOfType<MusicManager>())
+        {
+            FindObjectOfType<MusicManager>().StopMusic();
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
