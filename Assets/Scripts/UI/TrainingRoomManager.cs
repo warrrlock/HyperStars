@@ -23,11 +23,16 @@ namespace UI
         [SerializeField] private GameObject _inputParent;
         [SerializeField] private GameObject _inputContainer;
         [SerializeField] private GameObject _inputImage;
-        
+
+        [SerializeField] private Animator _infiniteExAnim;
+        [SerializeField] private Animator _colliderAnim;
+        [SerializeField] private Animator _inputsAnim;
         private bool _infiniteEx;
         private bool _showInputs;
+        private bool _showColliders;
         private Dictionary<string, Sprite> _inputSprites;
         private Queue<GameObject> _inputQueue = new Queue<GameObject>();
+        private static readonly int On = Animator.StringToHash("On");
 
         [Serializable]
         private class ActionSpritePair
@@ -53,6 +58,13 @@ namespace UI
         private void OnDestroy()
         {
             UnsubscribeToInputs();
+        }
+
+        public void SetSwitchValues()
+        {
+            _inputsAnim.SetBool(On, _showInputs);
+            _colliderAnim.SetBool(On, _showColliders);
+            _infiniteExAnim.SetBool(On, _infiniteEx);
         }
 
         public void ToggleInfiniteEx()
