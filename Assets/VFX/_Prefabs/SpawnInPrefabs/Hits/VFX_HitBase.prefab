@@ -57,6 +57,12 @@ VisualEffect:
       - m_Value: 3.2
         m_Name: Size
         m_Overridden: 1
+      - m_Value: 0.4
+        m_Name: Life
+        m_Overridden: 1
+      - m_Value: 2
+        m_Name: Playback Rate
+        m_Overridden: 1
     m_Vector2f:
       m_Array:
       - m_Value: {x: 9, y: 1}
@@ -109,9 +115,9 @@ VisualEffect:
         m_Overridden: 1
       - m_Value:
           serializedVersion: 2
-          key0: {r: 0.4087125, g: 0.7736869, b: 3.7672622, a: 1}
-          key1: {r: 5.5908804, g: 3.2663674, b: 0.8781488, a: 1}
-          key2: {r: 0, g: 0, b: 0, a: 0}
+          key0: {r: 4.380236, g: 3.0802639, b: 0.43389133, a: 1}
+          key1: {r: 7.4642644, g: 3.865705, b: 0.17604394, a: 1}
+          key2: {r: 7.4642644, g: 3.865705, b: 0.17604394, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
           key5: {r: 0, g: 0, b: 0, a: 0}
@@ -119,7 +125,7 @@ VisualEffect:
           key7: {r: 0, g: 0, b: 0, a: 0}
           ctime0: 0
           ctime1: 65535
-          ctime2: 0
+          ctime2: 65535
           ctime3: 0
           ctime4: 0
           ctime5: 0
@@ -133,14 +139,14 @@ VisualEffect:
           atime5: 0
           atime6: 0
           atime7: 0
-          m_Mode: 1
+          m_Mode: 0
           m_NumColorKeys: 2
           m_NumAlphaKeys: 2
         m_Name: ParticleGradient
         m_Overridden: 1
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: e70472edecb4913408f2c0f44fc3f0a7, type: 3}
+      - m_Value: {fileID: 2800000, guid: c09bbbca26d0759499b59241924cfcf1, type: 3}
         m_Name: MainTex2D
         m_Overridden: 1
     m_Bool:
@@ -206,3 +212,4 @@ MonoBehaviour:
   VFXType: 0
   isMoveBased: 0
   canUseUnscaledTime: 1
+  followCharacter: 0

@@ -106,7 +106,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     void GroundWave()
     {
-        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
+        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .5f, 0));
     }
 
     void WallWave()
