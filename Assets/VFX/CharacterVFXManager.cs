@@ -3,10 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FiniteStateMachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.ProBuilder;
 using UnityEngine.VFX;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(InputManager))]
 public class CharacterVFXManager : MonoBehaviour
@@ -17,8 +14,8 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private VisualEffect visualEffect;
     private Fighter _fighter;
     private VFXSpawnManager _vfxSpawnManager;
-    [SerializeField] private float dashSmokeGroundOffset;
-    [SerializeField] private float jumpSmokeGroundOffset;
+    [SerializeField] private float actionSmokeGroundOffset;
+    [SerializeField] private float airDashSmokeOffset;
 
     //
     private SpriteRenderer _spriteRenderer;
@@ -38,6 +35,10 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private List<BaseState> _afterImageStates;
     [Tooltip("For spawning camera blur.")]
     [SerializeField] private BaseState[] _blurStates;
+    [SerializeField] private BaseState[] _parryStates;
+    
+    //
+    private VisualEffect[] activeDizzies = new VisualEffect[2];
     
     
     void Awake()
@@ -68,79 +69,69 @@ public class CharacterVFXManager : MonoBehaviour
     void VFXSubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute += DashSmoke;
         _inputManager.Actions["Jump"].perform += JumpSmoke;
-        _inputManager.Actions["Parry"].perform += BlockGlow;
-        _fighter.Events.onBlockHit += BlockGlow;
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
         _fighter.Events.wallBounce += WallWave;
+        _fighter.Events.onHardKnockdown += Dizzy;
+        _fighter.Events.exitHardKnockdown += StopDizzy;
     }
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
         _inputManager.Actions["Jump"].perform -= JumpSmoke;
-        _inputManager.Actions["Parry"].perform -= BlockGlow;
-        _fighter.Events.onBlockHit -= BlockGlow;
         _fighter.Events.onStateChange -= SpawnOnStateChange;
         _fighter.Events.onLandedHurt -= GroundWave;
         _fighter.Events.wallBounce -= WallWave;
+        _fighter.Events.onHardKnockdown -= Dizzy;
+        _fighter.Events.exitHardKnockdown -= StopDizzy;
     }
 
     void DashSmoke() {
         if (_fighter.MovementController.IsGrounded)
         {
             _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_DASH, transform.localPosition + new Vector3(0f, 
-                        dashSmokeGroundOffset, 0f), GetComponent<Fighter>());
+                actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
+        }
+        else
+        {
+            _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_AIRDASH, transform.localPosition + new Vector3(
+                _fighter.MovingDirection == Fighter.Direction.Right ? airDashSmokeOffset : -airDashSmokeOffset, 
+                actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
         }
     }
     
     void JumpSmoke(InputManager.Action action) {
         _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.SMOKE_JUMP, transform.localPosition + new Vector3(0f, 
-            jumpSmokeGroundOffset, 0f), GetComponent<Fighter>());
-    }
-    
-    void BlockGlow(Dictionary<string, object> d)
-    {
-        try
-        {
-            Fighter attacked = d["attacked"] as Fighter;
-            Fighter attacker = d["attacker"] as Fighter;
-            if (!attacker || !attacked) return;
-            TriggerParry(attacked);
-        }
-        catch (KeyNotFoundException)
-        {
-            Debug.Log("blocker not found");
-        }
-    }
-    
-    void BlockGlow(InputManager.Action action)
-    {
-        TriggerParry(_fighter);
-    }
-
-    private Coroutine parryRoutine;
-    void TriggerParry(Fighter f)
-    {
-        if (parryRoutine != null) StopCoroutine(parryRoutine);
-        parryRoutine = StartCoroutine(ParryGlow(f));
-    }
-
-    IEnumerator ParryGlow(Fighter f)
-    {
-        SpriteRenderer sr = f.GetComponent<SpriteRenderer>();
-        sr.material.SetFloat("_Parry_Trigger", 1f);
-        yield return new WaitForSeconds(.35f);
-        sr.material.SetFloat("_Parry_Trigger", 0f);
+            actionSmokeGroundOffset, 0f), GetComponent<Fighter>());
     }
 
     void GroundWave()
     {
-        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
+        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .5f, 0));
     }
 
     void WallWave()
     {
         _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphsNeutral.WAVE_WALL_RIGHT : VFXGraphsNeutral.WAVE_WALL_LEFT,
             transform.localPosition + new Vector3(0, 0f, 0));
+    }
+
+    void Dizzy()
+    {
+        activeDizzies[0] = Instantiate(_vfxSpawnManager.visualEffectPrefabsNeutral[(int)VFXGraphsNeutral.DIZZY], transform.position, Quaternion.identity).GetComponent<VisualEffect>();
+        activeDizzies[1] = Instantiate(vfxConfig.VFXSet[(int)VFXGraphsCharacter.KnockDown_Dizzy], transform.position, Quaternion.identity).GetComponent<VisualEffect>();
+        foreach (var dizzy in activeDizzies)
+        {
+            dizzy.GetComponent<VFXCleanUp>().f = _fighter;
+        }
+    }
+
+    void StopDizzy()
+    {
+        foreach (var dizzy in activeDizzies)
+        {
+            dizzy.SendEvent("OnStop");
+            Destroy(dizzy.gameObject, 1f);
+        }
     }
     
     /// <summary>
@@ -218,5 +209,26 @@ public class CharacterVFXManager : MonoBehaviour
                 break;
             }
         }
+        
+        // spawn parry flash
+        _spriteRenderer.material.SetFloat("_Parry_Trigger", 0f);
+        foreach (BaseState wantedState in _parryStates)
+        {
+            if (s == wantedState)
+            {
+                _spriteRenderer.material.SetFloat("_Parry_Trigger", 1f);
+                break;
+            }
+        }
+    }
+
+    public void TurnOnParryFlash()
+    {
+        _spriteRenderer.material.SetFloat("_Parry_Trigger", 1f);
+    }
+
+    public void TurnOffParryFlash()
+    {
+        _spriteRenderer.material.SetFloat("_Parry_Trigger", 0f);
     }
 }

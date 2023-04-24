@@ -36,35 +36,37 @@ MonoBehaviour:
   _attackInfo:
     idSO: 9
     idManager: 0
-    attackType: 2
+    attackType: 3
+    specialType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
-    knockbackDuration: 0.3
-    knockbackDistance: 1
-    knockbackDirection: {x: 1, y: 0, z: 0}
+    hardKnockdown: 0
+    knockbackDuration: 0.5
+    knockbackDistance: 8
+    knockbackDirection: {x: 1, y: 2, z: 0}
     reverseKnockbackDuration: 0.3
-    reverseKnockbackDistance: 3
+    reverseKnockbackDistance: 2
     reverseKnockbackDirection: {x: -1, y: 0, z: 0}
-    hitStunDuration: 0.25
+    hitStunDuration: 0.5
     causesWallBounce: 0
-    hitStopDuration: 0
+    hitStopDuration: 0.1
     wallBounceDuration: 0
     wallBounceDistance: 0
     wallBounceDirection: {x: 0, y: 0, z: 0}
     wallBounceHitStopDuration: 0
     causesGroundBounce: 0
-    groundBounceDuration: 0
-    groundBounceDistance: 0
-    groundBounceDirection: {x: 0, y: 0, z: 0}
+    groundBounceDuration: 1
+    groundBounceDistance: 50
+    groundBounceDirection: {x: 0, y: 1, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
-    gravityAugmentFactor: 1
-    gravityAugmentDuration: 0
+    gravityAugmentFactor: 0.558
+    gravityAugmentDuration: 0.4
     favorReward: 2
-    knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0.2
+    knockbackForce: {x: 47.531414, y: 100}
+    incrementBarAmount: 0.1
     multiHitCount: 0
     multiHitInterval: 0
   _projectilePrefab: {fileID: 5765926104683114581, guid: ba91f1d23b10a3b4ebdcc1b0bf81be9c, type: 3}

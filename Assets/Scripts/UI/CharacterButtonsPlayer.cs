@@ -3,39 +3,60 @@ using System.Collections.Generic;
 using Managers;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [Serializable]
-class SelectionSpritePair
+class SelectionAssets
 {
     public CharacterManager.CharacterSelection character;
-    public Sprite image;
+    public string animStateName;
+    public CharacterColorScriptable palette;
 }
 
 public class CharacterButtonsPlayer: MonoBehaviour
 {
+    [Header("meta")]
     [SerializeField] private bool _isBot;
-    [SerializeField] private CharacterManager _characterManager;
-    [SerializeField] private CharacterSelectManager _selectionManager;
     [SerializeField] private int _playerId;
+    
+    [Header("visuals")]
     [SerializeField] private Image _characterSelectionImage;
-    [SerializeField] private List<SelectionSpritePair> _images;
+    [SerializeField] private List<SelectionAssets> _characterVisuals;
     [SerializeField] private GameObject _readyVisual;
     
+    [Header("managers")]
+    [SerializeField] private PalettePicker _palettePicker;
+    [SerializeField] private CharacterManager _characterManager;
+    [SerializeField] private CharacterSelectManager _selectionManager;
+
     public Player Player { get; private set; }
     public bool IsBot => _isBot;
     public int PlayerId => _playerId;
 
+    private Player _originPlayer;
+    private Animator _charVisualAnimator;
+
+    private void Awake()
+    {
+        _charVisualAnimator = _characterSelectionImage.GetComponent<Animator>();
+    }
+
     private void OnDestroy()
     {
-        Player.onReady -= UpdateReadyVisuals;
+        _originPlayer.onReady -= UpdateReadyVisuals;
+        _originPlayer.unReady -= UpdateReadyVisuals;
     }
 
     public void SetPlayer(Player p)
     {
-        if (Player) Player.onReady -= UpdateReadyVisuals;
+        if (!Player)
+        {
+            _originPlayer = p;
+            _originPlayer.onReady += UpdateReadyVisuals;
+            _originPlayer.unReady += UpdateReadyVisuals;
+        }
         Player = p;
-        Player.onReady += UpdateReadyVisuals;
     }
     
     public void SelectLisa()
@@ -59,20 +80,22 @@ public class CharacterButtonsPlayer: MonoBehaviour
     
     public void UpdateCharacterSelect(string character)
     {
-        SelectionSpritePair selectionSpritePair = _images.Find(pair => 
+        SelectionAssets selectionAssets = _characterVisuals.Find(pair => 
             pair.character.ToString().Equals(character, StringComparison.OrdinalIgnoreCase));
-        if (_characterSelectionImage) _characterSelectionImage.sprite = selectionSpritePair.image;
-        if (_selectionManager) _selectionManager.UpdateSelection(character, selectionSpritePair.character, _playerId);
+        _charVisualAnimator.Play(selectionAssets.animStateName);
+        _selectionManager.UpdateSelection(character, selectionAssets.character, _playerId);
+        _palettePicker.SetMaterialColours(0, selectionAssets.palette);
     }
 
     private void UpdateReadyVisuals()
     {
         if (_readyVisual)
-            _readyVisual.SetActive(Player.Ready ? true : false); //TODO: replace with animations/ui input module change}
+            _readyVisual.SetActive(_originPlayer.Ready); //TODO: replace with animations/ui input module change}
     }
     
     public void GetReady()
     {
+        // Debug.Log("get ready");
         StartCoroutine(Player.GetReady());
     }
 }

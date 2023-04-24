@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{A0C86BDE-98AE-4AF9-AAF4-6766F3F9D1CE}" SchemaVersion="103" RootDocumentID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}" ParentDocumentID="{7B5DC76A-8EB7-4FF7-80AC-76E088EC1C0A}">
+	<Busses>
+		<WorkUnit Name="BlukSpecials" ID="{A0C86BDE-98AE-4AF9-AAF4-6766F3F9D1CE}" OwnerID="{7B5DC76A-8EB7-4FF7-80AC-76E088EC1C0A}" PersistMode="Nested">
+			<ChildrenList>
+				<Bus Name="BlukSpecialsBus" ID="{194567CC-55BA-4758-B26F-B5C72B0FE56B}">
+					<PropertyList>
+						<Property Name="BusVolume" Type="Real64">
+							<RTPCList>
+								<RTPC Name="" ID="{2311F9FB-8722-46F4-ACEE-E96738AB4D9C}" ShortID="536427435">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="SFXVolume" ID="{ADF4518D-99B4-431A-B813-B9B20ED8BA4D}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{367C0594-1BB4-4B23-A015-267BD2357F71}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>1</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
+					</PropertyList>
+					<ObjectLists/>
+				</Bus>
+			</ChildrenList>
+		</WorkUnit>
+	</Busses>
+</WwiseDocument>

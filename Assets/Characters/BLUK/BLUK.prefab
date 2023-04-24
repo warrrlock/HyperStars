@@ -874,8 +874,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.706833, y: 12.502292, z: 6.3329177}
-  m_Center: {x: -1.3435178, y: 6.251146, z: 0}
+  m_Size: {x: 10.88, y: 14.31083, z: 6.3329177}
+  m_Center: {x: -0.7723987, y: 7.155413, z: 0}
 --- !u!114 &5093239530658643927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,8 +908,8 @@ MonoBehaviour:
   _jumpDistance: {x: 36, y: 80}
   _jumpDuration: 1.8
   _gravity: 130.6122
-  _dashDistance: 7
-  _dashDuration: 0.3
+  _dashDistance: 6
+  _dashDuration: 0.25
   _shortDashDistance: 5
   _shortDashDuration: 0.25
   _dashHangTime: 0.28
@@ -941,7 +941,7 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
-  _flipDelayTime: 0.05
+  _flipDelayTime: 0.5
   _move: {fileID: 11400000, guid: e91327a451f98794f8b895020734fd45, type: 2}
   _dashes:
   - {fileID: 11400000, guid: f2ea8141c9b535541a3a45800fe8656a, type: 2}
@@ -1009,6 +1009,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 7e8b92b44fa86e34bb3979808c871b5d, type: 2}
   - {fileID: 7400000, guid: 94330622cea2bf54dba7b74b94ab636d, type: 2}
   - {fileID: 7400000, guid: a6626a8e686c4124a8af4d949bbd39cb, type: 2}
+  - {fileID: 7400000, guid: 75fcb443d7245324bb7b0f9433ca28f0, type: 2}
   _hurtStatePairs:
   - key: 1
     value: {fileID: 11400000, guid: 5ff41f2c97c86c542aa3499ac6960bab, type: 2}
@@ -1045,8 +1046,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfxConfig: {fileID: 11400000, guid: dc3ad613f39753f4fa18e5e9de7a7e8f, type: 2}
   visualEffect: {fileID: 822637850931560098}
-  dashSmokeGroundOffset: 2.5
-  jumpSmokeGroundOffset: 1.95
+  actionSmokeGroundOffset: 2.5
+  airDashSmokeOffset: 0
   _hasDelay: 0
   delayTime: 0.001
   _dashStates:
@@ -1057,6 +1058,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
   _blurStates:
   - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
+  _parryStates:
+  - {fileID: 11400000, guid: c1a554cf6dec92e4c9df07dda450973d, type: 2}
+  - {fileID: 11400000, guid: aea48d41f887b1843a80f70b14807bdb, type: 2}
 --- !u!114 &2355027661028822561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1078,10 +1082,10 @@ MonoBehaviour:
   specialSwings:
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 583f452192956d34a8f2bdd20cde5b58, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 5f7cece6599fb1848b75115a3fbc1cb4, type: 2}
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: e84b549f098de134caed36d66c5d54f2, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 5f7cece6599fb1848b75115a3fbc1cb4, type: 2}
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: eb69ffabb7fb29a409e871e16f287db1, type: 2}
@@ -1091,16 +1095,16 @@ MonoBehaviour:
     WwiseObjectReference: {fileID: 11400000, guid: 5249f756f2bc83e4eb3e1becb99c829a, type: 2}
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7bb8d388140c4994f868fb55755d00c8, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 10695b94f2c7d064991d5f22460054b7, type: 2}
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: c1b4891ddd9e3ae44bfe4448f9c4ce0c, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: e53261dba7f87b4468f1b24cf207ec2d, type: 2}
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: c1b4891ddd9e3ae44bfe4448f9c4ce0c, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 78b802fe5ee8a944c849d44e6ba12da3, type: 2}
   - idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: afbc0153e493e2d4483875fe46675ea9, type: 2}
+    WwiseObjectReference: {fileID: 11400000, guid: 9180b62cbcfc8604483b162b2886eb72, type: 2}
   - idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 3be3b6b60f1025046939451ec7a74963, type: 2}
@@ -1171,15 +1175,15 @@ MonoBehaviour:
   characterColors: {fileID: 11400000, guid: 115319a39d5032b43bf6b8649eab75aa, type: 2}
   currentColorIndex: 0
   newColor:
-    <SelectMenuBaseColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <SelectMenuHighlightColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color1>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color2>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color3>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color4>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color5>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color6>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-    <Color7>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <SelectMenuBaseColor>k__BackingField: {r: 0.97647065, g: 0.86666673, b: 0.48235297, a: 0}
+    <SelectMenuHighlightColor>k__BackingField: {r: 0.9176471, g: 0.31764707, b: 0.17254902, a: 0}
+    <Color1>k__BackingField: {r: 0.043137256, g: 0.098039225, b: 0.21568629, a: 1}
+    <Color2>k__BackingField: {r: 0.16862746, g: 0.21568629, b: 0.34117648, a: 1}
+    <Color3>k__BackingField: {r: 0.9176471, g: 0.31764707, b: 0.17254902, a: 1}
+    <Color4>k__BackingField: {r: 0.97647065, g: 0.86666673, b: 0.48235297, a: 1}
+    <Color5>k__BackingField: {r: 0.9176471, g: 0.29411766, b: 0.24313727, a: 1}
+    <Color6>k__BackingField: {r: 0.80392164, g: 0.6039216, b: 0.33333334, a: 1}
+    <Color7>k__BackingField: {r: 0.97647065, g: 0.86666673, b: 0.48235297, a: 1}
     <EffectColor>k__BackingField:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}

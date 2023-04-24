@@ -8,7 +8,7 @@ public class CollisionsManager : MonoBehaviour
     [SerializeField] private float _overlapResolutionSpeed;
     public LayerMask fightersMask;
     [SerializeField] private LayerMask _terrainMask;
-    public OverlapDetector[] fighterDetectors = new OverlapDetector[2];
+    [NonSerialized] public OverlapDetector[] fighterDetectors = new OverlapDetector[2];
     //[SerializeField] private OverlapDetector[] _fighterDetectors;
     [SerializeField] private OverlapDetector[] _terrainDetecors;
     [SerializeField] private OverlapDetector _groundDetector;
@@ -21,6 +21,7 @@ public class CollisionsManager : MonoBehaviour
     private void Awake()
     {
         Services.CollisionsManager = this;
+        fighterDetectors = new OverlapDetector[2];
     }
 
     void Start()

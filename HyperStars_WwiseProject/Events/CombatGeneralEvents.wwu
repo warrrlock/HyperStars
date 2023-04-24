@@ -7,39 +7,6 @@
 				<Property Name="OverrideColor" Type="bool" Value="True"/>
 			</PropertyList>
 			<ChildrenList>
-				<Event Name="Play_PARRY_HIT" ID="{D4578FA6-81DA-4E39-8D2D-B8C4EFC35B5D}">
-					<ChildrenList>
-						<Action Name="" ID="{8F62005F-FBE7-44EB-ABFB-6463DFA368A0}" ShortID="496311205">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="PARRY_HIT" ID="{1421CC84-15E7-4163-9B3B-D637A972CB09}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_WALL_HIT" ID="{07B1DEC1-E8FE-45DE-A44B-F41CF40396A9}">
-					<ChildrenList>
-						<Action Name="" ID="{A271EC16-E25F-4B54-B262-BDAA3432E495}" ShortID="199755161">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="WALL_HIT" ID="{F1F1E13B-1F0D-4496-8A2B-55E08CFE3913}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_GROUND_HIT" ID="{3F03D32D-F581-40C0-AB5B-621A8555D2DE}">
-					<ChildrenList>
-						<Action Name="" ID="{726A7325-5DDB-4618-BCE1-C5FAF6D03D53}" ShortID="41730022">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="GROUND_HIT" ID="{89BAF1B8-8141-497F-B8F7-4C095F3E4745}" WorkUnitID="{7430D796-46D7-4F09-9AC2-1BB246BD1755}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
 				<Folder Name="GeneralCombatFolder" ID="{EBED39A1-2B74-4B0A-A093-90DDB822825C}" ShortID="876788420">
 					<ChildrenList>
 						<WorkUnit Name="CombatSwings" ID="{CA87FE2A-CA98-4636-B83A-2B896886353F}" PersistMode="Reference"/>

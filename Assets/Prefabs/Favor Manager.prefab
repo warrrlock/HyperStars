@@ -121,8 +121,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxFavorInitial: 100
   _favorMultiplierDelta: 0.1
-  _decayValue: 0.25
-  _decayResetDuration: 0.7
+  _favorDecayValue: 0.25
+  _hitstunDecayValue: 0.25
+  _knockbackDecayValue: 2
+  _decayResetDuration: 2
   _favorMeter: {fileID: 6641305619317541153}
   _favorMeterIndicator: {fileID: 6255363492091622988}
   _favorMeterIndicatorGlow: {fileID: 709499032836859958}
@@ -144,6 +146,7 @@ MonoBehaviour:
   _p1ChipRect: {fileID: 6476991668130573193}
   _p2ChipMask: {fileID: 4412031492366865740}
   _p2ChipRect: {fileID: 5453732583615417544}
+  _indicatorFlipDuration: 0.25
 --- !u!114 &7482730245944352026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1757,7 +1760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1940,7 +1943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

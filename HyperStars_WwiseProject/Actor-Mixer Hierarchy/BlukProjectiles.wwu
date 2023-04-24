@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{EA8AE84D-1018-4F87-981E-B0BEDD316341}" SchemaVersion="103" RootDocumentID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}" ParentDocumentID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}">
+	<AudioObjects>
+		<WorkUnit Name="BlukProjectiles" ID="{EA8AE84D-1018-4F87-981E-B0BEDD316341}" OwnerID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}" PersistMode="Nested">
+			<ChildrenList>
+				<Sound Name="Bluk Girder" ID="{0C5CAACE-2697-4AF1-BCCE-3527B866D3E3}" ShortID="19594320">
+					<PropertyList>
+						<Property Name="Highpass" Type="int16">
+							<ValueList>
+								<Value>5</Value>
+							</ValueList>
+						</Property>
+						<Property Name="Lowpass" Type="int16">
+							<ValueList>
+								<Value>20</Value>
+							</ValueList>
+						</Property>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>-4</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="BlukSpecialsBus" ID="{194567CC-55BA-4758-B26F-B5C72B0FE56B}" WorkUnitID="{A0C86BDE-98AE-4AF9-AAF4-6766F3F9D1CE}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="Bluk Girder" ID="{1E399015-F547-4B6D-B612-07BDDC308EB3}">
+							<Language>SFX</Language>
+							<AudioFile>Bluk Girder.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="272035671"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="Bluk Girder" ID="{1E399015-F547-4B6D-B612-07BDDC308EB3}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

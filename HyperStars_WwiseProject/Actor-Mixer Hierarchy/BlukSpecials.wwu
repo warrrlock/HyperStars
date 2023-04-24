@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{4F02A21E-BF86-47C9-BCCC-86D98078EE78}" SchemaVersion="103" RootDocumentID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}" ParentDocumentID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}">
+	<AudioObjects>
+		<WorkUnit Name="BlukSpecials" ID="{4F02A21E-BF86-47C9-BCCC-86D98078EE78}" OwnerID="{97DF9F23-544F-481F-A4C3-CA52FC6F5254}" PersistMode="Nested">
+			<ChildrenList>
+				<ActorMixer Name="GroundTriple" ID="{C045CFFD-D895-489A-B9AC-6493B3222006}" ShortID="842947890">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="BlukSpecialsBus" ID="{194567CC-55BA-4758-B26F-B5C72B0FE56B}" WorkUnitID="{A0C86BDE-98AE-4AF9-AAF4-6766F3F9D1CE}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="Triple Girder Swing" ID="{026A9367-71F7-4112-B3FF-D8F73D49F902}" ShortID="766274608">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>5</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Triple Girder Swing" ID="{DB33D9E6-5D0C-466A-AEF2-497804974BEF}">
+									<Language>SFX</Language>
+									<AudioFile>Triple Girder Swing.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="65315070"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="Triple Girder Swing" ID="{DB33D9E6-5D0C-466A-AEF2-497804974BEF}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

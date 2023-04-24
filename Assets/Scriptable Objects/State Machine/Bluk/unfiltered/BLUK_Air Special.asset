@@ -32,18 +32,20 @@ MonoBehaviour:
   _attackInfo:
     idSO: 3
     idManager: 0
-    attackType: 2
+    attackType: 4
+    specialType: 3
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
+    hardKnockdown: 1
     knockbackDuration: 1
     knockbackDistance: 17
-    knockbackDirection: {x: 0.1, y: 1, z: 0}
+    knockbackDirection: {x: 0.3, y: 1, z: 0}
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 1
+    hitStunDuration: 1.5
     causesWallBounce: 0
     hitStopDuration: 0.3
     wallBounceDuration: 0
@@ -55,9 +57,9 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.4
+    hangTime: 0.3
     gravityAugmentFactor: 1
-    gravityAugmentDuration: 0
+    gravityAugmentDuration: 0.5
     favorReward: 8
     knockbackForce: {x: 90, y: 100}
     incrementBarAmount: 0

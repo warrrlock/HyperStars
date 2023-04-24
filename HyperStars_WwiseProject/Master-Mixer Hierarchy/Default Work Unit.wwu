@@ -5,6 +5,34 @@
 			<ChildrenList>
 				<Bus Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}">
 					<PropertyList>
+						<Property Name="BusVolume" Type="Real64">
+							<RTPCList>
+								<RTPC Name="" ID="{10E884B0-29D8-49BD-90F0-37B696E00C94}" ShortID="855912311">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="MasterVolume" ID="{47F0773E-58DA-4B55-88C1-81BB8241A3C1}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{D748421D-DD5B-40AA-8DF1-990DE39BBCF0}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>1</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
 						<Property Name="Color" Type="int16" Value="1"/>
 						<Property Name="OverrideColor" Type="bool" Value="True"/>
 					</PropertyList>
@@ -68,6 +96,32 @@
 									<ValueList>
 										<Value>-15</Value>
 									</ValueList>
+									<RTPCList>
+										<RTPC Name="" ID="{B34AFCD0-1D9F-4F50-8C2E-96A99EF58BD8}" ShortID="88688284">
+											<ReferenceList>
+												<Reference Name="ControlInput">
+													<ObjectRef Name="CrowdIntensity" ID="{04B3DAB2-D061-49E3-8826-E8CCC8FC0C52}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+												</Reference>
+											</ReferenceList>
+											<Curve Name="" ID="{0C301D4B-0B86-4EDC-84D4-A2772B67B71D}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="3"/>
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-200</YPos>
+														<Flags>5</Flags>
+													</Point>
+													<Point>
+														<XPos>1</XPos>
+														<YPos>0</YPos>
+														<Flags>37</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
 								</Property>
 								<Property Name="OutputBusVolume" Type="Real64">
 									<RTPCList>

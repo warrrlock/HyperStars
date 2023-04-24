@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{08980130-F760-440E-832D-3C464C122350}" SchemaVersion="103" RootDocumentID="{AD7D226C-8D82-4D13-8B9F-A9A900D35240}" ParentDocumentID="{AD7D226C-8D82-4D13-8B9F-A9A900D35240}">
+	<Events>
+		<WorkUnit Name="BlukMovements" ID="{08980130-F760-440E-832D-3C464C122350}" OwnerID="{AD7D226C-8D82-4D13-8B9F-A9A900D35240}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="Play_Bluk_Jump" ID="{CBCAF406-6556-41CF-871F-D1333BAA17AA}">
+					<ChildrenList>
+						<Action Name="" ID="{3C362A32-804E-4EF8-A14A-F3BDA9B12566}" ShortID="291038994">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Bluk Jump" ID="{834B4DB7-467C-4171-B549-C5268FEA5F9D}" WorkUnitID="{C735EF04-B0A3-4339-B5A7-5A2AE764E241}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{D819A759-CFE8-40E2-9DBA-E56DCEC7CDA8}" ShortID="905870699">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_JumpVO" ID="{7B3A3F61-9621-4DEB-AE48-F61A9707688D}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Bluk_Land" ID="{0DC3AF36-8F70-422B-A3FC-CB61C3102CB7}">
+					<ChildrenList>
+						<Action Name="" ID="{9255098F-938B-4EF6-9880-72BDE31FC0A0}" ShortID="131767921">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Bluk Land" ID="{466686A6-DD26-4857-A0F7-4535C7116BEB}" WorkUnitID="{C735EF04-B0A3-4339-B5A7-5A2AE764E241}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Bluk_Dash" ID="{59F818FE-22C7-47D0-9252-A049B8A2102E}">
+					<ChildrenList>
+						<Action Name="" ID="{946B7468-C142-459E-8E45-95E0B71A8963}" ShortID="60603989">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Bluk Dash" ID="{CAF08A41-95C7-4141-B762-283A16830A0E}" WorkUnitID="{0BFBA0F6-074B-40E1-BF3A-36AD8CC36EA1}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Bluk_Super_Dash" ID="{C5C59D8C-F505-4F97-8EA3-F9292BF2A999}">
+					<ChildrenList>
+						<Action Name="" ID="{70092D0B-886A-4B53-9DD8-1B5B98BF2812}" ShortID="765505095">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Bluk Super Dash" ID="{3C2E509A-7EF4-4BCF-B467-E60C7B9CE905}" WorkUnitID="{0BFBA0F6-074B-40E1-BF3A-36AD8CC36EA1}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Side Special
   m_EditorClassIdentifier: 
   characterSelection: 1
+  _bypassHitConfirm: 0
   _isCrouchState: 0
   _isSpecial: 1
   _specialBarCost: 100
@@ -39,12 +40,21 @@ MonoBehaviour:
   _transitions: []
   _defaultCombo: 0
   _attackInfo:
-    attackType: 2
+    idSO: 21
+    idManager: 0
+    attackType: 4
+    specialType: 1
+    hitSfxEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
-    damage: 0
     causesWallBounce: 0
     hitStopDuration: 0
     wallBounceDuration: 0
@@ -57,7 +67,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 4
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.25
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 0}

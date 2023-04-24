@@ -19,11 +19,17 @@ namespace UI
 
     public class CharacterSelectManager: MonoBehaviour
     {
+        [Header("Visuals")]
         [SerializeField] private TextMeshProUGUI[] _playerCharacterNames;
-        [SerializeField] private CharacterButtonsPlayer[] _playerButtons = new CharacterButtonsPlayer[2];
         [SerializeField] private Sprite[] _singleSelectSprites = new Sprite[2];
         [SerializeField] private Sprite _doubleSelectSprite;
+        
+
+        [Header("References")]
+        [SerializeField] private UIInputManager[] _playerInputManagers;
+        [SerializeField] private CharacterButtonsPlayer[] _playerButtons = new CharacterButtonsPlayer[2];
         [SerializeField] private List<CharacterButtonPair> _characterButtons;
+        
         private CharacterButtonAssets[] _currentSelectedButton = new CharacterButtonAssets[2];
         [SerializeField] private BuildSettingIndices _indices;
         private bool _isTraining;
@@ -62,6 +68,18 @@ namespace UI
             UpdateButtonVisual(_currentSelectedButton[player], player);
         }
         
+        public void SetBotSelection()
+        {
+            // Debug.Log("set bot selection");
+            _playerInputManagers[0].SetBotSelection();
+            CharacterButtonsPlayer selection = _playerButtons[1];
+            
+            selection.SetPlayer(Services.Players[0]);
+            InputSystemUIInputModule input = selection.GetComponent<InputSystemUIInputModule>();
+            input.AssignDefaultActions();
+            Services.Players[0].PlayerInput.uiInputModule = input;
+        }
+        
         private void UpdateButtonVisual(CharacterButtonAssets button, int player)
         {
             // Debug.Log($"player 0: {button.players[0]} player 1: {button.players[1]}");
@@ -72,14 +90,6 @@ namespace UI
             }
             
             button.border.sprite = (button.players[0] && button.players[1]) ? _doubleSelectSprite : _singleSelectSprites[player];
-        }
-
-        private void SetBotSelection()
-        {
-            Debug.Log("set bot selection");
-            CharacterButtonsPlayer selection = _playerButtons[1];
-            selection.SetPlayer(Services.Players[0]);
-            Services.Players[0].PlayerInput.uiInputModule = selection.GetComponent<InputSystemUIInputModule>();
         }
     }
 }
