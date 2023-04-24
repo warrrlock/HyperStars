@@ -11,11 +11,12 @@ public enum VFXGraphsNeutral
     PARRY, PARRY_TWT,
     SMOKE_DASH, SMOKE_AIRDASH, SMOKE_JUMP, 
     WAVE_GROUND, WAVE_WALL_RIGHT, WAVE_WALL_LEFT,
+    DIZZY
 }
 
 public enum VFXGraphsCharacter
 {
-    Hit_V1, Hit_V2, Hit_Special, TakeDamage_Random
+    Hit_V1, Hit_V2, Hit_Special, TakeDamage_Random, KnockDown_Dizzy
 }
 
 public enum VFXTypes

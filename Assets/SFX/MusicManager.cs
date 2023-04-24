@@ -21,17 +21,23 @@ public class MusicManager : MonoBehaviour
     
     [Range(1, 3)]
     public int Intensity;
-    [Range(0, 1)]
-    public float musicVolume;
-    [Range(0, 1)]
-    public float crowdVolume;
-    
+
+    [Header("Volumes")]
+    [Range(0, 1)] public float masterVolume;
+    [Range(0, 1)] public float musicVolume;
+    [Range(0, 1)] public float crowdVolume;
+    private float crowdIntensity;
+    private float currentCrowdVolume;
+    [Range(0, 1)] public float sfxVolume;
+    [Range(0, 1)] public float voVolume;
+
     //id of the wwise event - using this to get the playback position
     private uint playingIDGlobal;
     
     private bool inVerse;
     private bool inChorus;
     private static bool lockedOut;
+    [Header("Impressed")]
     public bool Impressed;
     private bool impressionCalled;
 
@@ -99,10 +105,15 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Update our volume 
-        AkSoundEngine.SetRTPCValue("MusicVolume", musicVolume);
-        AkSoundEngine.SetRTPCValue("CrowdVolume", crowdVolume); 
+        //Update our volume
+        currentCrowdVolume = crowdIntensity * crowdVolume;
         AkSoundEngine.SetRTPCValue("Intensity", Intensity); //Set Intensity
+        
+        AkSoundEngine.SetRTPCValue("MasterVolume", masterVolume);
+        AkSoundEngine.SetRTPCValue("MusicVolume", musicVolume);
+        AkSoundEngine.SetRTPCValue("CrowdVolume", currentCrowdVolume); 
+        AkSoundEngine.SetRTPCValue("SFXVolume", sfxVolume);
+        AkSoundEngine.SetRTPCValue("VoiceVolume", voVolume); 
 
         if (Impressed && !impressionCalled)
         {
@@ -253,15 +264,15 @@ public class MusicManager : MonoBehaviour
         {
             case var hitCountTotal when hitCountTotal < intensityTierTwoCountRequirement:
                 Intensity = 1;
-                crowdVolume = .25f;
+                crowdIntensity = .25f;
                 break;
             case var hitCountTotal when hitCountTotal < intensityTierThreeCountRequirement:
                 Intensity = 2;
-                crowdVolume = .6f;
+                crowdIntensity = .6f;
                 break;
             default:
                 Intensity = 3;
-                crowdVolume = 1f;
+                crowdIntensity = 1f;
                 break;
         }
     }

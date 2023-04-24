@@ -106,7 +106,7 @@ VisualEffect:
         m_Overridden: 1
       - m_Value:
           serializedVersion: 2
-          key0: {r: 0.4087125, g: 0.7736869, b: 3.7672622, a: 1}
+          key0: {r: 5.0295906, g: 5.0295906, b: 5.0295906, a: 1}
           key1: {r: 7.999999, g: 7.329842, b: 1.2565444, a: 1}
           key2: {r: 0, g: 0, b: 0, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
@@ -130,7 +130,7 @@ VisualEffect:
           atime5: 0
           atime6: 0
           atime7: 0
-          m_Mode: 1
+          m_Mode: 0
           m_NumColorKeys: 2
           m_NumAlphaKeys: 2
         m_Name: ParticleGradient
@@ -198,6 +198,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f: {fileID: 0}
+  isUnscaledTime: 0
+  doNoSelfDestroy: 0
   VFXType: 1
   isMoveBased: 0
   canUseUnscaledTime: 1
+  followCharacter: 0

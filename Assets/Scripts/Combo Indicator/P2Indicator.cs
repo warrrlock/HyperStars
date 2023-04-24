@@ -19,6 +19,15 @@ public class P2Indicator : MonoBehaviour
 
     private static float dmgMultiplier = 0.2f;
     private bool _p1Comboing;
+
+    public TextMeshProUGUI text;
+    private Color newColor;
+    private Color normalColor;
+    public float fadeSpeed = 0.1f;
+    private bool fadeTime = false;
+    private bool fadeBool = false;
+    private float fadeTimer = 1f;
+    public float secsToWait = 1f; //number of seconds you want to wait before fading
     
 
     void Awake() {
@@ -27,18 +36,43 @@ public class P2Indicator : MonoBehaviour
         //playerActions = new List<PlayerAction>(FindObjectsOfType<PlayerAction>());
         
         SetCombo(0);
+
+        //var trans = 0.01f;
+        //var col = gameObject.GetComponent<Renderer> ().material.color;
+        newColor.a = 0;
     }
 
 
     void Start()
     {
         Subscribe();
+
+        normalColor = text.color;
     }
 
     private void OnDestroy() {
         UnSubscribe();
     }
 
+
+    void FixedUpdate(){
+        //var trans = 0.01f;
+        //var col = gameObject.GetComponent<Renderer> ().material.color;
+        //text.a -= trans;
+        if (fadeTime == true){
+            if (fadeTimer < secsToWait){
+                fadeTimer += Time.deltaTime; //adds the time between two frames to the timer
+            } else {
+                FadeOut();
+            }
+        }
+        
+    }
+
+    private void FadeOut()
+    {
+        text.color = Color.Lerp(text.color, newColor, fadeSpeed * Time.deltaTime);
+    }
 
     private void Subscribe()
         {
@@ -65,6 +99,8 @@ public class P2Indicator : MonoBehaviour
         {
             _p1Comboing = true;
             SetCombo(0);
+            fadeTime = false;
+            fadeTimer = 0;
         }
         //IncrementCombo();
     }
@@ -74,9 +110,19 @@ public class P2Indicator : MonoBehaviour
         if (_p1Comboing)
         {
             _p1Comboing = false;
-            //SetCombo(0);
+            SetCombo(0);
+            fadeTime = false;
+            fadeTimer = 0;
+            
         }
         IncrementCombo();
+
+        fadeTime = true;
+        fadeTimer = 0;
+
+        text.color = normalColor;
+        //var col = gameObject.GetComponent<Renderer> ().material.color;
+        //col.a = 1;
     }
 
     public void IncrementCombo(int numChangeBy = 1) { //Global.ComboIndicator.IncrementCombo();

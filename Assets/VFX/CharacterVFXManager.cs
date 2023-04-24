@@ -37,6 +37,9 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private BaseState[] _blurStates;
     [SerializeField] private BaseState[] _parryStates;
     
+    //
+    private VisualEffect[] activeDizzies = new VisualEffect[2];
+    
     
     void Awake()
     {
@@ -69,6 +72,8 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.onStateChange += SpawnOnStateChange;
         _fighter.Events.onLandedHurt += GroundWave;
         _fighter.Events.wallBounce += WallWave;
+        _fighter.Events.onHardKnockdown += Dizzy;
+        _fighter.Events.exitHardKnockdown += StopDizzy;
     }
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
@@ -76,6 +81,8 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.onStateChange -= SpawnOnStateChange;
         _fighter.Events.onLandedHurt -= GroundWave;
         _fighter.Events.wallBounce -= WallWave;
+        _fighter.Events.onHardKnockdown -= Dizzy;
+        _fighter.Events.exitHardKnockdown -= StopDizzy;
     }
 
     void DashSmoke() {
@@ -99,13 +106,32 @@ public class CharacterVFXManager : MonoBehaviour
 
     void GroundWave()
     {
-        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .3f, 0));
+        _vfxSpawnManager.InitializeVFX(VFXGraphsNeutral.WAVE_GROUND, transform.localPosition + new Vector3(0, .5f, 0));
     }
 
     void WallWave()
     {
         _vfxSpawnManager.InitializeVFX(_fighter.FacingDirection == Fighter.Direction.Right ? VFXGraphsNeutral.WAVE_WALL_RIGHT : VFXGraphsNeutral.WAVE_WALL_LEFT,
             transform.localPosition + new Vector3(0, 0f, 0));
+    }
+
+    void Dizzy()
+    {
+        activeDizzies[0] = Instantiate(_vfxSpawnManager.visualEffectPrefabsNeutral[(int)VFXGraphsNeutral.DIZZY], transform.position, Quaternion.identity).GetComponent<VisualEffect>();
+        activeDizzies[1] = Instantiate(vfxConfig.VFXSet[(int)VFXGraphsCharacter.KnockDown_Dizzy], transform.position, Quaternion.identity).GetComponent<VisualEffect>();
+        foreach (var dizzy in activeDizzies)
+        {
+            dizzy.GetComponent<VFXCleanUp>().f = _fighter;
+        }
+    }
+
+    void StopDizzy()
+    {
+        foreach (var dizzy in activeDizzies)
+        {
+            dizzy.SendEvent("OnStop");
+            Destroy(dizzy.gameObject, 1f);
+        }
     }
     
     /// <summary>

@@ -4,6 +4,36 @@
 		<WorkUnit Name="GeneralUI" ID="{69F9A60E-6BD0-4512-8F3B-8A3659D334A2}" OwnerID="{977E1689-5148-413E-9DBD-5C3E0BFADD72}" PersistMode="Nested">
 			<ChildrenList>
 				<Bus Name="GeneralUIBus" ID="{9A458A4B-452E-4647-A20D-C9D068C49057}">
+					<PropertyList>
+						<Property Name="BusVolume" Type="Real64">
+							<RTPCList>
+								<RTPC Name="" ID="{2A050B19-5E5B-4557-953D-825336A6EDDC}" ShortID="67048511">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="SFXVolume" ID="{ADF4518D-99B4-431A-B813-B9B20ED8BA4D}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{52F3A6EE-E549-485D-AF99-48ADDE03DAB1}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>1</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
+					</PropertyList>
 					<ObjectLists/>
 				</Bus>
 			</ChildrenList>
