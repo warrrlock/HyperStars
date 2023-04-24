@@ -21,6 +21,7 @@ public class CollisionsManager : MonoBehaviour
     private void Awake()
     {
         Services.CollisionsManager = this;
+        fighterDetectors = new OverlapDetector[2];
     }
 
     void Start()
