@@ -28,6 +28,8 @@ public class Projectile : MonoBehaviour
     public void Spawn(Fighter origin, Bounds bounds)
     {
         _owner = origin;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer) spriteRenderer.material = _owner.GetComponent<SpriteRenderer>().material;
         _input = _owner.BaseStateMachine.LastExecutedInput;
         _xDirection = _owner.FacingDirection == Fighter.Direction.Left ? -1 : 1;
         
