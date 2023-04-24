@@ -16,6 +16,8 @@ public class FighterEvents
 
     public Action onHardKnockdown;
     public Action exitHardKnockdown;
+
+    public Action onEndHitstun;
     
     [Tooltip("[Fighter] attacker, [Fighter] attacked, [Vector3] hit point, [string] attacker input, " +
              "[AttackInfo] attack info, [AttackInfo.AttackType] attack type")]
