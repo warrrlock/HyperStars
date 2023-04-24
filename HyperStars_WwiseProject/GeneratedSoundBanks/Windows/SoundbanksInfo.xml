@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="374987273" Language="SFX" Hash="2972488742">
+		<SoundBank Id="374987273" Language="SFX" Hash="3524711754">
 			<ObjectPath>\SoundBanks\MusicSoundBanks\MusicMain</ObjectPath>
 			<ShortName>MusicMain</ShortName>
 			<Path>MusicMain.bnk</Path>
@@ -164,7 +164,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Language="SFX" Hash="1356726619">
+		<SoundBank Id="1355168291" Language="SFX" Hash="1935018109">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
@@ -173,11 +173,15 @@
 				<AuxBus Id="952035307" Name="CrowdVerb" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\CrowdBus\CrowdVerb"/>
 			</IncludedAuxBusses>
 			<GameParameters>
+				<GameParameter Id="414646191" Name="VoiceVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\VoiceVolume"/>
+				<GameParameter Id="988953028" Name="SFXVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\SFXVolume"/>
 				<GameParameter Id="1427673546" Name="CrowdVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\CrowdVolume"/>
 				<GameParameter Id="2346531308" Name="MusicVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MusicVolume"/>
+				<GameParameter Id="2918011349" Name="MasterVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MasterVolume"/>
+				<GameParameter Id="3231715135" Name="CrowdIntensity" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\CrowdIntensity"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="929197322">
+		<SoundBank Id="3161908922" Language="SFX" Hash="4218068972">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
