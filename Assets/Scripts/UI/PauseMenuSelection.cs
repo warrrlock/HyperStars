@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
@@ -57,25 +58,42 @@ namespace UI
 
         private void SubscribeEvents()
         {
-            foreach (Fighter fighter in Services.Fighters)
+            for (int i = 0; i < 2; i++)
             {
-                fighter.InputManager.Actions["Esc"].perform += (a) => DisplayMenuSelection(fighter);
-                fighter.InputManager.Actions["Cancel"].perform += (a) => DisplayMenuSelection(fighter);
+                Services.Fighters[i].PlayerInput.actions["Esc"].performed += (i == 0 ? DisplayP1 : DisplayP2);
+                Services.Fighters[i].PlayerInput.actions["Cancel"].performed += (i == 0 ? DisplayP1 : DisplayP2);
             }
         }
 
         private void UnsubscribeEvents()
         {
-            foreach (Fighter fighter in Services.Fighters)
+            for (int i = 0; i < 2; i++)
             {
-                fighter.InputManager.Actions["Esc"].perform -= (a) => DisplayMenuSelection(fighter);
-                fighter.InputManager.Actions["Cancel"].perform -= (a) => DisplayMenuSelection(fighter);
+                Services.Fighters[i].PlayerInput.actions["Esc"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
+                Services.Fighters[i].PlayerInput.actions["Cancel"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
             }
+        }
+
+        private void DisplayP1(InputAction.CallbackContext callbackContext)
+        {
+            if (!callbackContext.action.WasPerformedThisFrame()) return;
+            Fighter fighter = Services.Fighters[0];
+            Debug.Log($"fighter {fighter.PlayerInput.currentActionMap}");
+            
+            DisplayMenuSelection(fighter);
+        }
+        
+        private void DisplayP2(InputAction.CallbackContext callbackContext)
+        {
+            if (!callbackContext.action.WasPerformedThisFrame()) return;
+            Fighter fighter = Services.Fighters[1];
+            Debug.Log($"fighter {fighter.PlayerInput.currentActionMap}");
+            DisplayMenuSelection(fighter);
         }
 
         private void DisplayMenuSelection(Fighter f)
         {
-            // Debug.Log("opening pause menu");
+            Debug.Log($"{f.name} opening pause menu");
             if (!_menu) return;
             if (_opener && f != _opener) return;
             
@@ -86,6 +104,7 @@ namespace UI
                 _opener = null;
                 foreach (Fighter fighter in Services.Fighters)
                 {
+                    fighter.PlayerInput.currentActionMap.Disable();
                     fighter.PlayerInput.ActivateInput();
                     fighter.PlayerInput.SwitchCurrentActionMap(fighter.PlayerInput.defaultActionMap);
                 }
@@ -101,6 +120,7 @@ namespace UI
                 foreach (Fighter fighter in Services.Fighters)
                 {
                     fighter.PlayerInput.SwitchCurrentActionMap("UI");
+                    fighter.PlayerInput.currentActionMap.Enable();
                     if (fighter.PlayerInput.playerIndex != _opener.PlayerId) fighter.PlayerInput.DeactivateInput();
                 }
 
