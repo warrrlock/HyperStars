@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{8000C809-7EF2-4FA5-82F1-8CDC735851D2}" SchemaVersion="103" RootDocumentID="{92BAA515-96E1-46F0-BB5F-D3596ED83136}" ParentDocumentID="{92BAA515-96E1-46F0-BB5F-D3596ED83136}">
 	<AudioObjects>
-		<WorkUnit Name="GeneralUI" ID="{8000C809-7EF2-4FA5-82F1-8CDC735851D2}" OwnerID="{92BAA515-96E1-46F0-BB5F-D3596ED83136}" PersistMode="Nested"/>
+		<WorkUnit Name="GeneralUI" ID="{8000C809-7EF2-4FA5-82F1-8CDC735851D2}" OwnerID="{92BAA515-96E1-46F0-BB5F-D3596ED83136}" PersistMode="Nested">
+			<ChildrenList>
+				<WorkUnit Name="MenuUI" ID="{8908F36A-3E12-469A-9486-DAD0B689BAC0}" PersistMode="Reference"/>
+			</ChildrenList>
+		</WorkUnit>
 	</AudioObjects>
 </WwiseDocument>

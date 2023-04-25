@@ -2,6 +2,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	10510631	Play_Lisa_Jump_Beta			\LisaEvents\LisaBeta\LisaBetaFolder\LisaMovements\Play_Lisa_Jump_Beta	
 	28555886	Play_LISA_JUMP			\LisaEvents\LisaAlpha\LISA\Play_LISA_JUMP	
 	50577568	Play_Light_Hit			\CombatGeneralEvents\GeneralCombatFolder\CombatHits\Play_Light_Hit	
+	365326775	Play_UI_Lockin			\UIWorkUnit\GeneralUI\Play_UI_Lockin	
 	431785379	Play_LISA_FOOTSTEPS			\LisaEvents\LisaAlpha\LISA\Play_LISA_FOOTSTEPS	
 	519494373	Play_LISA_LOW_LIGHT			\LisaEvents\LisaAlpha\LISA\Play_LISA_LOW_LIGHT	
 	550992759	Play_LISA_AIR_LIGHT			\LisaEvents\LisaAlpha\LISA\Play_LISA_AIR_LIGHT	
@@ -9,14 +10,18 @@ Event	ID	Name			Wwise Object Path	Notes
 	790653515	Play_Bluk_Special_Triple			\BlukEvents\BlukSpecials\Play_Bluk_Special_Triple	
 	936983702	Play_LISA_DASH			\LisaEvents\LisaAlpha\LISA\Play_LISA_DASH	
 	1098933211	Play_LISA_SPECIAL_SIDE			\LisaEvents\LisaAlpha\LISA\Play_LISA_SPECIAL_SIDE	
+	1102378326	Stop_FavorGoldenGoal			\UIWorkUnit\CombatUI\Stop_FavorGoldenGoal	
 	1227494039	Play_CROWD_HYPE_SHORT			\Ambiance\CrowdAmbiance\Play_CROWD_HYPE_SHORT	
 	1242285672	Play_Bluk_Land			\BlukEvents\BlukMovements\Play_Bluk_Land	
+	1339559671	Play_UI_Hover			\UIWorkUnit\GeneralUI\Play_UI_Hover	
 	1385366132	Play_Area_Blast_Hit			\LisaEvents\LisaBeta\LisaBetaFolder\LisaSpecials\Play_Area_Blast_Hit	
 	1501759178	Play_MediumSwingVO			\VOWorkUnit\Play_MediumSwingVO	
 	1597314465	Play_LISA_COMBO_1_INITIAL			\LisaEvents\LisaAlpha\LISA\Play_LISA_COMBO_1_INITIAL	
 	1597764638	Play_Bluk_Projectile_Girder			\BlukEvents\BlukProjectiles\Play_Bluk_Projectile_Girder	
 	1673194572	Play_Air_Special_Launch			\LisaEvents\LisaBeta\LisaBetaFolder\LisaSpecials\Play_Air_Special_Launch	
 	1683057335	Play_JumpVO			\VOWorkUnit\Play_JumpVO	
+	1741140776	Play_FavorGoldenGoal			\UIWorkUnit\CombatUI\Play_FavorGoldenGoal	
+	1749424733	Play_UI_Click			\UIWorkUnit\GeneralUI\Play_UI_Click	
 	1808428040	Play_LISA_CROUCH			\LisaEvents\LisaAlpha\LISA\Play_LISA_CROUCH	
 	1845776394	Play_HeavySwingVO			\VOWorkUnit\Play_HeavySwingVO	
 	1854249638	Play_LISA_AIR_SPECIAL			\LisaEvents\LisaAlpha\LISA\Play_LISA_AIR_SPECIAL	
@@ -30,6 +35,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	2526553012	Play_Light_Attack_Variation_2			\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Light_Attack_Variation_2	
 	2526553015	Play_Light_Attack_Variation_1			\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Light_Attack_Variation_1	
 	2540994183	Play_DashVO			\VOWorkUnit\Play_DashVO	
+	2609688239	Play_UI_Toggle			\UIWorkUnit\GeneralUI\Play_UI_Toggle	
 	2753477471	Play_LightPainVO			\VOWorkUnit\Play_LightPainVO	
 	2769098130	Play_Wall_Bounce_Foley_Mat			\CombatGeneralEvents\GeneralCombatFolder\CombatFoley\Play_Wall_Bounce_Foley_Mat	
 	2809825743	Play_Lisa_Dash_Beta			\LisaEvents\LisaBeta\LisaBetaFolder\LisaMovements\Play_Lisa_Dash_Beta	
@@ -54,6 +60,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	3734986080	Play_LISA_LOW_SPECIAL			\LisaEvents\LisaAlpha\LISA\Play_LISA_LOW_SPECIAL	
 	3760087320	Play_Medium_Attacks_Variation_2			\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Medium_Attacks_Variation_2	
 	3858634255	Play_LISA_SPECIAL_NEUTRAL			\LisaEvents\LisaAlpha\LISA\Play_LISA_SPECIAL_NEUTRAL	
+	3889212317	Play_SelectionVO			\VOWorkUnit\Play_SelectionVO	
 
 Switch Group	ID	Name			Wwise Object Path	Notes
 	361373645	CharacterHit			\CharacterSwitch\CharacterHit	
@@ -71,10 +78,11 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	4812804	CROWD_HYPE_SHORT	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\CROWD_HYPE_SHORT_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Environment\Crowd\CROWD_HYPE_SHORT		202166
 	17996906	BlukPainHeavy1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukPainHeavy1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\HeavyPainVO\BlukPainHeavyVO\BlukPainHeavy1		49274
 	32308844	BlukSwingLight4	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingLight4_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightSwingVO\BlukSwingLightVO\BlukSwingLight4		45712
+	32355345	UI Click	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\UI Click_10C4C929.wem		\Actor-Mixer Hierarchy\UIWorkUnit\GeneralUI\MenuUI\MenuUI Mixer\UI Click		20306
 	37913193	Parry Hit	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Parry Hit_10C4C929.wem		\Actor-Mixer Hierarchy\CombatGeneralWorkUnit\Parry Hit\Parry Hit Mixer\Parry Hit		152924
 	42732967	BlukSwingHeavy1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingHeavy1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\HeavySwingVO\BlukSwingHeavyVO\BlukSwingHeavy1		49670
 	44234917	LisaDash1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaDash1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\DashVO\LisaDashVO\LisaDash1		23872
-	54730189	BlukSwingLight2	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingLight2_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\JumpVO\BlukJumpVO\BlukSwingLight2		30848
+	54730189	BlukSwingLight2	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingLight2_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightSwingVO\BlukSwingLightVO\BlukSwingLight2		30848
 	65315070	Triple Girder Swing	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Triple Girder Swing_10C4C929.wem		\Actor-Mixer Hierarchy\BlukWorkUnit\BlukSpecials\GroundTriple\Triple Girder Swing		63364
 	71251293	LisaSwingMedium2	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSwingMedium2_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\MediumSwingVO\LisaSwingMediumVO\LisaSwingMedium2		20046
 	75974794	Dragon Punch Swing	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSpecial-002_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaBeta\LisaSpecialsBeta\Dragon Punch Swing\DragonPunchSwing\Dragon Punch Swing		356780
@@ -88,15 +96,18 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	140762579	Lisa Dash	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Lisa Dash_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaBeta\LisaMovementsBeta\Lisa Dashes\LisaDashes\Lisa Dash		56066
 	141663241	LISA_FOOTSTEP_1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_FOOTSTEP_1_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaAlpha\Lisa\LisaMovement\Footsteps\LISA_FOOTSTEP_1		13294
 	158946141	LisaPainHeavy4	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaPainHeavy4_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\HeavyPainVO\LisaPainHeavyVO\LisaPainHeavy4		52540
+	181281461	Bluk Select VO1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Bluk Select VO1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\SelectionVO\BlukSelectionVO\Bluk Select VO1		340976
 	226639286	Area Blast Swing	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSpecial-004_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaBeta\LisaSpecialsBeta\Area Blast Swing\AreaBlastSwing\Area Blast Swing		195844
 	229990855	BlukSwingHeavy2	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingHeavy2_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\HeavySwingVO\BlukSwingHeavyVO\BlukSwingHeavy2		48590
 	231317726	LisaSwingLight2	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSwingLight2_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightSwingVO\LisaSwingLightVO\LisaSwingLight2		16902
 	232818191	LisaPainLight5	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaPainLight5_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightPainVO\LisaPainLightVO\LisaPainLight5		29938
+	237361374	Bluk Select VO3	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Bluk Select VO3_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\SelectionVO\BlukSelectionVO\Bluk Select VO3		417012
 	245253941	BlukPainLight4	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukPainLight4_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightPainVO\BlukPainLightVO\BlukPainLight4		43710
-	253180751	BlukSwingLight1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingLight1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\JumpVO\BlukJumpVO\BlukSwingLight1		39162
+	253180751	BlukSwingLight1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingLight1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightSwingVO\BlukSwingLightVO\BlukSwingLight1		39162
 	272035671	Bluk Girder	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Bluk Girder_10C4C929.wem		\Actor-Mixer Hierarchy\BlukWorkUnit\BlukProjectiles\Bluk Girder		68374
 	278112163	LISA_COMBO_4	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_COMBO_4_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaAlpha\Lisa\Lisa Normals\LISA_COMBO_4		65452
 	285774774	LisaSwingHeavy3	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSwingHeavy3_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\HeavySwingVO\LisaSwingHeavyVO\LisaSwingHeavy3		28292
+	314075279	FavorGoldenGoal	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\FavorGoldenGoal_D79FB2B7.wem		\Actor-Mixer Hierarchy\UIWorkUnit\CombatUI\Combat UI Mixer\FavorBar\FavorGoldenGoal		218178
 	343974448	LISA_COMBO_3	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_COMBO_3_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaAlpha\Lisa\Lisa Normals\LISA_COMBO_3		70094
 	347892328	LisaPainHeavy5	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaPainHeavy5_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\HeavyPainVO\LisaPainHeavyVO\LisaPainHeavy5		38464
 	357315264	LisaDash2	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaDash2_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\DashVO\LisaDashVO\LisaDash2		25680
@@ -112,13 +123,16 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	449960712	LisaDash3	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaDash3_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\DashVO\LisaDashVO\LisaDash3		22064
 	452909908	LisaSwingMedium5	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSwingMedium5_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\MediumSwingVO\LisaSwingMediumVO\LisaSwingMedium5		24390
 	458752533	Wall Bounce Foley - Mat	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Wall Bounce Foley - Mat_10C4C929.wem		\Actor-Mixer Hierarchy\CombatGeneralWorkUnit\Wall Bounce Foley - Mat\Wall Bounce Foley - Mat Mixer\Wall Bounce Foley - Mat		97168
-	469448747	FavorLockBreak	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\FavorLockBreak_10C4C929.wem		\Actor-Mixer Hierarchy\UIWorkUnit\CombatUI\FavorBar\FavorLockBreak		95330
+	467368318	Bluk Select VO2	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Bluk Select VO2_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\SelectionVO\BlukSelectionVO\Bluk Select VO2		384426
+	469448747	FavorLockBreak	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\FavorLockBreak_10C4C929.wem		\Actor-Mixer Hierarchy\UIWorkUnit\CombatUI\Combat UI Mixer\FavorBar\FavorLockBreak		95330
 	480422843	LisaSwingLight6	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSwingLight6_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightSwingVO\LisaSwingLightVO\LisaSwingLight6		24390
+	484233543	UI Toggle	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\UI Toggle_10C4C929.wem		\Actor-Mixer Hierarchy\UIWorkUnit\GeneralUI\MenuUI\MenuUI Mixer\UI Toggle		36762
 	502478946	LisaPainLight1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaPainLight1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightPainVO\LisaPainLightVO\LisaPainLight1		26234
 	509751271	LisaSwingMedium1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSwingMedium1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\MediumSwingVO\LisaSwingMediumVO\LisaSwingMedium1		22320
 	522968682	Ground Splat Foley - Mat	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\CombatGeneralSound-008_10C4C929.wem		\Actor-Mixer Hierarchy\CombatGeneralWorkUnit\Ground Splat Foley - Mat\Ground Splat Foley - Mat Mixer\Ground Splat Foley - Mat		194272
 	537607641	LisaSwingLight3	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSwingLight3_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightSwingVO\LisaSwingLightVO\LisaSwingLight3		16316
 	552569431	Lisa Super Dash	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Lisa Super Dash_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaBeta\LisaMovementsBeta\Lisa Dashes\LisaDashes\Lisa Super Dash		69274
+	566029008	UI Lockin	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\UI Lockin_10C4C929.wem		\Actor-Mixer Hierarchy\UIWorkUnit\GeneralUI\MenuUI\MenuUI Mixer\UI Lockin		106650
 	580589807	Lisa Jump	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Lisa Jump_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaBeta\LisaMovementsBeta\Lisa Jumps\LisaJumps\Lisa Jump		41398
 	585174335	BlukPainLight1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukPainLight1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightPainVO\BlukPainLightVO\BlukPainLight1		22984
 	595486195	BlukPainLight5	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukPainLight5_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightPainVO\BlukPainLightVO\BlukPainLight5		37982
@@ -156,6 +170,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	888474877	LISA_LOW_LIGHT	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_LOW_LIGHT_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaAlpha\Lisa\Lisa Normals\LISA_LOW_LIGHT		48822
 	890370448	Dragon Punch Hit	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaSpecial-001_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaBeta\LisaSpecialsBeta\Dragon Punch Hit\DragonPunchHit\Dragon Punch Hit		387224
 	892670490	LisaPainLight3	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaPainLight3_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightPainVO\LisaPainLightVO\LisaPainLight3		24506
+	913893635	UI Hover	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\UI Hover_10C4C929.wem		\Actor-Mixer Hierarchy\UIWorkUnit\GeneralUI\MenuUI\MenuUI Mixer\UI Hover		28872
 	924215492	LISA_FOOTSTEP_3	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_FOOTSTEP_3_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaAlpha\Lisa\LisaMovement\Footsteps\LISA_FOOTSTEP_3		16024
 	927813273	BlukPainMedium1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukPainMedium1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\HeavyPainVO\BlukPainHeavyVO\BlukPainMedium1		47650
 	933610410	LisaPainHeavy1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LisaPainHeavy1_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\HeavyPainVO\LisaPainHeavyVO\LisaPainHeavy1		64514
@@ -169,7 +184,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	1011263189	BlukSwingMedium2	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingMedium2_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\MediumSwingVO\BlukSwingMediumVO\BlukSwingMedium2		35488
 	1016642982	LISA_COMBO_1_INITIAL	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_COMBO_1_INITIAL_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaAlpha\Lisa\Lisa Normals\LISA_COMBO_1_INITIAL		75094
 	1029433576	Medium Attack - Variation 1	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\CombatGeneralSound-003_10C4C929.wem		\Actor-Mixer Hierarchy\CombatGeneralWorkUnit\Medium Attack - Variation 1\Medium Attack - Varation 1 Mixer\Medium Attack - Variation 1		106828
-	1031417621	BlukSwingLight3	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingLight3_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\JumpVO\BlukJumpVO\BlukSwingLight3		25680
+	1031417621	BlukSwingLight3	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\BlukSwingLight3_10C4C929.wem		\Actor-Mixer Hierarchy\CharacterVO\LightSwingVO\BlukSwingLightVO\BlukSwingLight3		25680
 	1031804776	Bluk Super Dash	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Bluk Super Dash_10C4C929.wem		\Actor-Mixer Hierarchy\BlukWorkUnit\BlukMovements\Bluk Dashes\BlukDashes\Bluk Super Dash		63650
 	1052478723	Parry Action	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\Parry Action_10C4C929.wem		\Actor-Mixer Hierarchy\CombatGeneralWorkUnit\Parry Swing\Parry Swing Mixer\Parry Action		66344
 	1060207978	LISA_SPECIAL_NEUTRAL	C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Windows\SFX\LISA_SPECIAL_NEUTRAL_10C4C929.wem		\Actor-Mixer Hierarchy\LisaWorkUnit\LisaAlpha\Lisa\LisaSpecials\LISA_SPECIAL_NEUTRAL		118920

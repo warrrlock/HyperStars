@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 2443990841397703822}
   - component: {fileID: 4061608100637805781}
   - component: {fileID: 7009647857603647263}
+  - component: {fileID: 6429917582249066863}
   m_Layer: 5
   m_Name: settings menu tab button
   m_TagString: Untagged
@@ -335,7 +336,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6407229357640295134}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI.TrainingRoomManager, Assembly-CSharp
+        m_MethodName: SetSwitchValues
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6429917582249066863}
+        m_TargetAssemblyTypeName: SFX.PostWwiseUIEvent, Assembly-CSharp
+        m_MethodName: PostSubmit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &4061608100637805781
 Animator:
   serializedVersion: 4
@@ -348,7 +373,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8f92dc32ffdf1414ba848cdab250fafe, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -374,14 +399,50 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
+          m_TargetAssemblyTypeName: UI.PauseMenuSelection, Assembly-CSharp
+          m_MethodName: SetToTab
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 6429917582249066863}
+          m_TargetAssemblyTypeName: SFX.PostWwiseUIEvent, Assembly-CSharp
+          m_MethodName: PostSubmit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &6429917582249066863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093213126424354496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a311a72f4414aeda1344856c7798262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hover:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 74a2de5e2880c0049bde58702b24f325, type: 2}
+  submit:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 7e9a7696e73b5fb4aa65713faf055af6, type: 2}
+  lockIn:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9354ea28ce85795498e5653b2fae76ac, type: 2}

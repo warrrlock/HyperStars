@@ -16,7 +16,7 @@ namespace UI
 
         public void Toggle()
         {
-            Debug.Log($"{name} toggling");
+            // Debug.Log($"{name} toggling");
             _on = !_on;
             SetSwitch();
         }
