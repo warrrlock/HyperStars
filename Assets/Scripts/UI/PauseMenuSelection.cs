@@ -74,6 +74,7 @@ namespace UI
         {
             for (int i = 0; i < 2; i++)
             {
+                if (!Services.Fighters[i]) continue;
                 Services.Fighters[i].PlayerInput.actions["Esc"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
                 Services.Fighters[i].PlayerInput.actions["Cancel"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
             }
@@ -126,7 +127,7 @@ namespace UI
 
         private void ToggleMenuSelection(Fighter f)
         {
-            Debug.Log($"{f.name} opening pause menu");
+            // Debug.Log($"{f.name} opening pause menu");
             if (!_menu) return;
             if (_opener && f != _opener) return;
             
