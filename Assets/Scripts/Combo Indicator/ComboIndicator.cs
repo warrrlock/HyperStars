@@ -66,6 +66,7 @@ public class ComboIndicator : MonoBehaviour
                 fadeTimer += Time.deltaTime; //adds the time between two frames to the timer
             } else {
                 FadeOut();
+                //SetCombo(0);
             }
         }
 
@@ -76,6 +77,7 @@ public class ComboIndicator : MonoBehaviour
     private void FadeOut()
     {
         text.color = Color.Lerp(text.color, newColor, fadeSpeed * Time.deltaTime);
+        //SetCombo(0);
     }
 
     private void Subscribe()
@@ -84,7 +86,7 @@ public class ComboIndicator : MonoBehaviour
             Services.Fighters[0].Events.onAttackHit += IncrementPlayer1Combo; //note that block is a separate event
             Services.Fighters[1].Events.onAttackHit += IncrementPlayer2Combo; //note that block is a separate event
 
-            Services.Fighters[0].Events.onEndHitstun += ResetCombo;
+            Services.Fighters[1].Events.onEndHitstun += ResetCombo;
         }
         
     private void UnSubscribe() //remember to unsubscribe when object is destroyed (OnDestroy)
@@ -93,7 +95,7 @@ public class ComboIndicator : MonoBehaviour
         Services.Fighters[0].Events.onAttackHit -= IncrementPlayer1Combo; //note that block is a separate event
         Services.Fighters[1].Events.onAttackHit -= IncrementPlayer2Combo; //note that block is a separate event
 
-        Services.Fighters[0].Events.onEndHitstun -= ResetCombo;
+        Services.Fighters[1].Events.onEndHitstun -= ResetCombo;
     }
 
 
