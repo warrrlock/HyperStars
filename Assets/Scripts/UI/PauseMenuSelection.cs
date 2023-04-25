@@ -28,10 +28,12 @@ namespace UI
         private int _currentTab;
         private MenuManager _menuManager;
         private int _maxTabs;
+        private MultiplayerEventSystem _multiplayerEventSystem;
 
         private void Awake()
         {
             _menuManager = GetComponent<MenuManager>();
+            _multiplayerEventSystem = GetComponentInChildren<MultiplayerEventSystem>();
         }
 
         private void Start()
@@ -101,8 +103,8 @@ namespace UI
             _currentTab = tab;
             _tabAssets[_currentTab].page.SetActive(true);
             _tabAssets[_currentTab].tabButton.animator.Play("Selected");
-            
-            EventSystem.current.SetSelectedGameObject(_tabAssets[_currentTab].firstSelected.gameObject);
+            _tabAssets[_currentTab].tabButton.onClick.Invoke();
+            _multiplayerEventSystem.SetSelectedGameObject(_tabAssets[_currentTab].firstSelected.gameObject);
         }
 
         private void DisplayP1(InputAction.CallbackContext callbackContext)
