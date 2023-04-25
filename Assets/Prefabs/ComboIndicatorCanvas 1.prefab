@@ -321,7 +321,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2076688247858436003}
   - component: {fileID: 2076688247858436014}
-  - component: {fileID: 2076688247858436000}
   - component: {fileID: 2076688247858436015}
   - component: {fileID: 2076688247858436001}
   m_Layer: 5
@@ -359,26 +358,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076688247858436002}
   m_CullTransparentMesh: 1
---- !u!114 &2076688247858436000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076688247858436002}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc80ae019a731146be944b48acfe9e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboTexts:
-  - {fileID: 2076688247858436001}
-  TextBeforeComboNum: x
-  TextAfterComboNum: ' Combo!'
-  shaker: {fileID: 2076688247957211182}
-  text: {fileID: 0}
-  fadeSpeed: 5
-  secsToWait: 5
 --- !u!114 &2076688247858436015
 MonoBehaviour:
   m_ObjectHideFlags: 0
