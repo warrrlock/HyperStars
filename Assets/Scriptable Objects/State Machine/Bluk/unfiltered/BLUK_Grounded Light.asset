@@ -32,6 +32,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 11400000, guid: ac905329f1f5b71408030c5349c58b4d, type: 2}
   - {fileID: 11400000, guid: c4bfccb8f6eb436458f2bf3a3bf86dc2, type: 2}
+  - {fileID: 11400000, guid: e727b62ca81b0154ea07754e32adcf21, type: 2}
   - {fileID: 11400000, guid: 28def05a8539a2f42bddb2ecc2f80f15, type: 2}
   - {fileID: 11400000, guid: 9dddc7743abaa4a4b9ed28ecf6d3b5ab, type: 2}
   - {fileID: 11400000, guid: 9542575c4d3f46544890eaca0dbbb39a, type: 2}
@@ -41,10 +42,12 @@ MonoBehaviour:
     idSO: 11
     idManager: 0
     attackType: 1
+    specialType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
+    hardKnockdown: 0
     knockbackDuration: 0.2
     knockbackDistance: 0.5
     knockbackDirection: {x: 1, y: 0, z: 0}
@@ -63,9 +66,9 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.2
-    gravityAugmentFactor: 1
-    gravityAugmentDuration: 0
+    hangTime: 0
+    gravityAugmentFactor: 0.682
+    gravityAugmentDuration: 0.2
     favorReward: 2
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0.1

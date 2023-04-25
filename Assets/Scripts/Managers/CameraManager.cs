@@ -304,16 +304,17 @@ public class CameraManager : MonoBehaviour
     }
 
     private Material[] bothMats;
-    public void SilhouetteToggle(bool isOn, Material[] materials)
+    public void SilhouetteToggle(bool isOn, Material[] materials, Color silhouetteColor, float silhouetteDuration)
     {
         LayerCullingShow(silhouetteCamera, "Player");
         bothMats = materials;
+        silhouetteMaterial.SetColor("_SilhouetteColor", silhouetteColor);
         foreach (var mat in materials)
         {
             mat.SetFloat("_SilhouetteStrength", isOn ? 1 : 0);
         }
         silhouetteMaterial.SetFloat("_SilhouetteAlpha", isOn ? 1 : 0);
-        if (isOn) StartCoroutine(SilhouetteTurnOff());
+        if (isOn) StartCoroutine(SilhouetteTurnOff(silhouetteDuration));
     }
     
     private void LayerCullingShow(Camera cam, string layer) {
@@ -323,10 +324,10 @@ public class CameraManager : MonoBehaviour
         cam.cullingMask &= ~1 << LayerMask.NameToLayer(layer);
     }
 
-    private IEnumerator SilhouetteTurnOff()
+    private IEnumerator SilhouetteTurnOff(float duration)
     {
-        yield return new WaitForSeconds(.1f);
-        SilhouetteToggle(false, bothMats);
+        yield return new WaitForSeconds(duration);
+        SilhouetteToggle(false, bothMats, Color.white, 0f);
         LayerCullingHide(silhouetteCamera, "Player");
     }
 

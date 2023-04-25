@@ -41,6 +41,16 @@ public class SpecialMeterManager : MonoBehaviour
         StartPassiveIncrement();
     }
 
+    public void FillBars()
+    {
+        IncrementBar(_numberOfBars);
+    }
+
+    public void ClearBars()
+    {
+        DecrementBar(_numberOfBars);
+    }
+
     public void IncrementBar(float bars)
     {
         float amount = bars;
@@ -60,7 +70,9 @@ public class SpecialMeterManager : MonoBehaviour
 
     public void DecrementBar(int bars)
     {
+        if (_fighter.BaseStateMachine.InfiniteEx) return;
         float amount = bars;
+        if (_bars == null) return;
         if (_barIndex >= _bars.Length) _barIndex = _bars.Length-1;
         while (amount > 0)
         {
@@ -90,6 +102,30 @@ public class SpecialMeterManager : MonoBehaviour
         {
             _bars[i] = Instantiate(_meterBarPrefab, _fillMeter.transform).GetComponent<Image>();
             _bars[i].GetComponent<RectTransform>().localRotation = _fillMeter.transform.localRotation;
+        }
+    }
+
+    private void Subscribe()
+    {
+        //_fighter is a reference to fighter object
+        _fighter.Events.onAttackHit += Example;
+    }
+    
+    private void Example(Dictionary<string, object> message)
+    {
+        try
+        {
+            //what you can get out of message:
+            //[Fighter] attacker, [Fighter] attacked,
+            //[Vector3] hit point, [string] attacker input,
+            //[AttackInfo] attack info, [AttackInfo.AttackType] attack type
+            Fighter opponent = message["attacker"] as Fighter;
+            //or
+            Vector3 hitP = (Vector3)message["hit point"];
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.LogError("wanted key was not found");
         }
     }
 

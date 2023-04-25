@@ -103,7 +103,7 @@ public class PostWwiseEvent : MonoBehaviour
             case AttackInfo.AttackType.Medium:
                 SoundManagerCombat.Instance.hitEvents[(int)Wwise_CombatHits.Medium].Post(receiver.gameObject);
                 break;
-            case AttackInfo.AttackType.Heavy:
+            case AttackInfo.AttackType.Heavy or AttackInfo.AttackType.Special:
                 SoundManagerCombat.Instance.hitEvents[(int)Wwise_CombatHits.Heavy].Post(receiver.gameObject);
                 break;
         }

@@ -300,17 +300,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: abe31b6413ef4fd4c9ad4e77aa05bba4, type: 3}
+      value: {fileID: 21300000, guid: 0a60c6aba27174c4596ecafc4405675f, type: 3}
     - time: 0.016666668
-      value: {fileID: 21300000, guid: 72ba7db829bc3894980e987f78455c17, type: 3}
+      value: {fileID: 21300000, guid: 5e252c8fa59e41249944c17dba27eb0f, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 656db1443eaf79546a8b6710ecaaf5a9, type: 3}
+      value: {fileID: 21300000, guid: b685caa197d42c843ac08dd4f78d4ef9, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: ceccdb361d5ee7b459c631d3c82173b7, type: 3}
+      value: {fileID: 21300000, guid: 4a50be03bce53eb4aa1848c2d8cb3ef7, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: ceccdb361d5ee7b459c631d3c82173b7, type: 3}
+      value: {fileID: 21300000, guid: 4a50be03bce53eb4aa1848c2d8cb3ef7, type: 3}
     - time: 0.38333333
-      value: {fileID: 21300000, guid: abe31b6413ef4fd4c9ad4e77aa05bba4, type: 3}
+      value: {fileID: 21300000, guid: 0a60c6aba27174c4596ecafc4405675f, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -400,12 +400,12 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: abe31b6413ef4fd4c9ad4e77aa05bba4, type: 3}
-    - {fileID: 21300000, guid: 72ba7db829bc3894980e987f78455c17, type: 3}
-    - {fileID: 21300000, guid: 656db1443eaf79546a8b6710ecaaf5a9, type: 3}
-    - {fileID: 21300000, guid: ceccdb361d5ee7b459c631d3c82173b7, type: 3}
-    - {fileID: 21300000, guid: ceccdb361d5ee7b459c631d3c82173b7, type: 3}
-    - {fileID: 21300000, guid: abe31b6413ef4fd4c9ad4e77aa05bba4, type: 3}
+    - {fileID: 21300000, guid: 0a60c6aba27174c4596ecafc4405675f, type: 3}
+    - {fileID: 21300000, guid: 5e252c8fa59e41249944c17dba27eb0f, type: 3}
+    - {fileID: 21300000, guid: b685caa197d42c843ac08dd4f78d4ef9, type: 3}
+    - {fileID: 21300000, guid: 4a50be03bce53eb4aa1848c2d8cb3ef7, type: 3}
+    - {fileID: 21300000, guid: 4a50be03bce53eb4aa1848c2d8cb3ef7, type: 3}
+    - {fileID: 21300000, guid: 0a60c6aba27174c4596ecafc4405675f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -1072,6 +1072,27 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: Wwise_PlayAttackSwing
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 4
+    messageOptions: 0
+  - time: 0.016666668
+    functionName: TurnOnParryFlash
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.16666667
+    functionName: ExecuteQueuedState
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.16666667
     functionName: DisableCombo
     data: 
@@ -1080,7 +1101,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.16666667
-    functionName: ExecuteQueuedState
+    functionName: TurnOffParryFlash
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

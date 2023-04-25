@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Crouch Down
   m_EditorClassIdentifier: 
   characterSelection: 1
+  _bypassHitConfirm: 0
   _isCrouchState: 1
   _isSpecial: 0
   _specialBarCost: 0
@@ -43,9 +44,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a2f8569491af4b9fb618f0ad1302f5b, type: 2}
   - {fileID: 11400000, guid: 935cfa0097e7c473a89d61b7f7b4df60, type: 2}
   _defaultCombo: 1
-  _alwaysHitConfirm: 0
   _attackInfo:
+    idSO: 4
+    idManager: 0
     attackType: 0
+    specialType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
@@ -53,6 +56,9 @@ MonoBehaviour:
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -66,7 +72,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 0}

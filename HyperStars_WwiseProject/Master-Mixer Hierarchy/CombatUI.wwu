@@ -4,6 +4,36 @@
 		<WorkUnit Name="CombatUI" ID="{A8BE204D-0A1F-480A-8BB1-8650FDE6EE5A}" OwnerID="{977E1689-5148-413E-9DBD-5C3E0BFADD72}" PersistMode="Nested">
 			<ChildrenList>
 				<Bus Name="CombatUIBus" ID="{EFAFB5E6-1AB8-4080-8311-ADA401493177}">
+					<PropertyList>
+						<Property Name="BusVolume" Type="Real64">
+							<RTPCList>
+								<RTPC Name="" ID="{3862D3AF-B308-4B9B-A70E-1DBCF3469BE3}" ShortID="958861524">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="SFXVolume" ID="{ADF4518D-99B4-431A-B813-B9B20ED8BA4D}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{A2F939A6-C769-4DCC-B133-8A0E205494F1}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>1</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
+					</PropertyList>
 					<ObjectLists/>
 				</Bus>
 			</ChildrenList>

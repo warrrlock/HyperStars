@@ -1,29 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = System.Random;
+
+public enum ThemeLists
+{
+    Lisa, Bluk
+}
 
 public class MusicManager : MonoBehaviour
 {
-    public AK.Wwise.Event MusicTrack;
-    public AK.Wwise.Event MusicStop;
+    public AK.Wwise.Event[] MusicTracks;
+    public AK.Wwise.Event[] MusicStops;
     public AK.Wwise.Event CrowdLoop;
     public AK.Wwise.Event CrowdHype;
     
-    [HideInInspector] public static MusicManager ourMusicManager;
+    private AK.Wwise.Event currentMusic;
+    
     [Range(1, 3)]
     public int Intensity;
-    [Range(0, 1)]
-    public float musicVolume;
-    [Range(0, 1)]
-    public float crowdVolume;
-    
+
+    [Header("Volumes")]
+    [Range(0, 1)] public float masterVolume;
+    [Range(0, 1)] public float musicVolume;
+    [Range(0, 1)] public float crowdVolume;
+    private float crowdIntensity;
+    private float currentCrowdVolume;
+    [Range(0, 1)] public float sfxVolume;
+    [Range(0, 1)] public float voVolume;
+
     //id of the wwise event - using this to get the playback position
     private uint playingIDGlobal;
     
     private bool inVerse;
     private bool inChorus;
     private static bool lockedOut;
+    [Header("Impressed")]
     public bool Impressed;
     private bool impressionCalled;
 
@@ -46,44 +60,60 @@ public class MusicManager : MonoBehaviour
     private int lastHit;
     private int lastSamePlayerCombo;
     private int currentSamePlayerCombo;
-    
+
+    private void Awake()
+    {
+        Services.MusicManager = this;
+    }
+
     void Start()
     {
+        // pick random track
+        UnityEngine.Random.InitState(DateTime.Now.Millisecond);
+        int randomTrack = UnityEngine.Random.value < .5f ? 0 : 1;
+        Debug.Log(randomTrack);
+        currentMusic = MusicTracks[randomTrack];
+        
         //Set our Music Manager
-        ourMusicManager = this;
         foreach (Fighter fighter in Services.Fighters)
         {
             MusicEffector effector = fighter.GetComponent<MusicEffector>();
             if (effector != null) effector.MusicManager = this;
         }
-        
+
         increaseIntensityAfterChorus = increaseIntensityDuringChorus;
         //Start music 
         AkSoundEngine.SetRTPCValue("Intensity", Intensity); //Set Intensity
         AkSoundEngine.SetSwitch("MusicState", "Verse", gameObject); //Set which section to play
         //playingIDGlobal =  //Start Music
-        playingIDGlobal = MusicTrack.Post(gameObject, (uint)(AkCallbackType.AK_MusicSyncAll | AkCallbackType.AK_EnableGetMusicPlayPosition), MusicCallbackFunction);
+        playingIDGlobal = currentMusic.Post(gameObject, (uint)(AkCallbackType.AK_MusicSyncAll | AkCallbackType.AK_EnableGetMusicPlayPosition), MusicCallbackFunction);
         CrowdLoop.Post(gameObject);
         
         // set timer
         _timer = hitEffectiveTime;
         
         //subscribe to reload event
-        // if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload += StopMusic;
+        if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload += StopMusic;
     }
 
     private void OnDestroy()
     {
-        // if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload -= StopMusic;
+        StopMusic();
+        if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload -= StopMusic;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Update our volume 
-        AkSoundEngine.SetRTPCValue("MusicVolume", musicVolume);
-        AkSoundEngine.SetRTPCValue("CrowdVolume", crowdVolume); 
+        //Update our volume
+        currentCrowdVolume = crowdIntensity * crowdVolume;
         AkSoundEngine.SetRTPCValue("Intensity", Intensity); //Set Intensity
+        
+        AkSoundEngine.SetRTPCValue("MasterVolume", masterVolume);
+        AkSoundEngine.SetRTPCValue("MusicVolume", musicVolume);
+        AkSoundEngine.SetRTPCValue("CrowdVolume", currentCrowdVolume); 
+        AkSoundEngine.SetRTPCValue("SFXVolume", sfxVolume);
+        AkSoundEngine.SetRTPCValue("VoiceVolume", voVolume); 
 
         if (Impressed && !impressionCalled)
         {
@@ -102,7 +132,9 @@ public class MusicManager : MonoBehaviour
 
     public void StopMusic()
     {
-        MusicStop.Post(gameObject);
+        foreach (var stop in MusicStops)
+            stop.Post(gameObject);
+        currentMusic = MusicTracks[UnityEngine.Random.Range(0, MusicTracks.Length)];
     }
 
     public static void StartChorus(MusicManager musicManager)
@@ -165,7 +197,7 @@ public class MusicManager : MonoBehaviour
     {
         if (Input.GetKeyDown("o"))
         {
-            StartChorus(ourMusicManager);
+            StartChorus(Services.MusicManager);
         }
         
         if (Input.GetKeyDown("p"))
@@ -232,15 +264,15 @@ public class MusicManager : MonoBehaviour
         {
             case var hitCountTotal when hitCountTotal < intensityTierTwoCountRequirement:
                 Intensity = 1;
-                crowdVolume = .25f;
+                crowdIntensity = .25f;
                 break;
             case var hitCountTotal when hitCountTotal < intensityTierThreeCountRequirement:
                 Intensity = 2;
-                crowdVolume = .6f;
+                crowdIntensity = .6f;
                 break;
             default:
                 Intensity = 3;
-                crowdVolume = 1f;
+                crowdIntensity = 1f;
                 break;
         }
     }
@@ -269,5 +301,10 @@ public class MusicManager : MonoBehaviour
         }
 
         lastHit = thisHit;
+    }
+
+    private void OnDisable()
+    {
+        StopMusic();
     }
 }

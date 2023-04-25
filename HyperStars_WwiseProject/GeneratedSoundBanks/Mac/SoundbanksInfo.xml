@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Mac\</SourceFilesRoot>
-		<SoundBanksRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
+		<ProjectRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Mac\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="374987273" Language="SFX" Hash="3391988937">
+		<SoundBank Id="374987273" Language="SFX" Hash="3524711754">
 			<ObjectPath>\SoundBanks\MusicSoundBanks\MusicMain</ObjectPath>
 			<ShortName>MusicMain</ShortName>
 			<Path>MusicMain.bnk</Path>
 			<IncludedEvents>
+				<Event Id="4083361059" Name="Play_BlukTheme" ObjectPath="\Events\MusicEventsWorkUnit\MusicPlayEvents\Bluk's Theme\Play_BlukTheme" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="1054261844" Language="SFX">
+							<ShortName>Look_At_Me_Now_BlukTheme_DonovanRobinson.wav</ShortName>
+							<Path>SFX\Look_At_Me_Now_BlukTheme_DonovanRobinson_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2345669066" Name="Play_LisaTheme" ObjectPath="\Events\MusicEventsWorkUnit\MusicPlayEvents\Lisa'sTheme\Play_LisaTheme" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="25882073" Language="SFX">
@@ -138,6 +146,7 @@
 						<ActionSetSwitchEntry Id="3840766212" Name="Verse" ObjectPath="\Switches\Default Work Unit\MusicWorkUnit\MusicState\Verse"/>
 					</ActionSetSwitch>
 				</Event>
+				<Event Id="3753011029" Name="Stop_BlukTheme" ObjectPath="\Events\MusicEventsWorkUnit\MusicPlayEvents\Bluk's Theme\Stop_BlukTheme" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
 				<Event Id="564764656" Name="Stop_LisaTheme" ObjectPath="\Events\MusicEventsWorkUnit\MusicPlayEvents\Lisa'sTheme\Stop_LisaTheme" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
 			</IncludedEvents>
 			<GameParameters>
@@ -155,7 +164,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Language="SFX" Hash="156583333">
+		<SoundBank Id="1355168291" Language="SFX" Hash="3610998763">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
@@ -164,11 +173,92 @@
 				<AuxBus Id="952035307" Name="CrowdVerb" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\CrowdBus\CrowdVerb"/>
 			</IncludedAuxBusses>
 			<GameParameters>
+				<GameParameter Id="414646191" Name="VoiceVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\VoiceVolume"/>
+				<GameParameter Id="988953028" Name="SFXVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\SFXVolume"/>
 				<GameParameter Id="1427673546" Name="CrowdVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\CrowdVolume"/>
 				<GameParameter Id="2346531308" Name="MusicVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MusicVolume"/>
+				<GameParameter Id="2918011349" Name="MasterVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MasterVolume"/>
+				<GameParameter Id="3231715135" Name="CrowdIntensity" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\CrowdIntensity"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="215953616">
+		<SoundBank Id="1551306167" Language="SFX" Hash="2941670986">
+			<ObjectPath>\SoundBanks\Default Work Unit\UI</ObjectPath>
+			<ShortName>UI</ShortName>
+			<Path>UI.bnk</Path>
+			<IncludedEvents>
+				<Event Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO" DurationType="OneShot" DurationMin="3.865215" DurationMax="4.727302">
+					<IncludedMemoryFiles>
+						<File Id="181281461" Language="SFX">
+							<ShortName>Bluk Select VO1.wav</ShortName>
+							<Path>SFX\Bluk Select VO1_10C4C929.wem</Path>
+						</File>
+						<File Id="237361374" Language="SFX">
+							<ShortName>Bluk Select VO3.wav</ShortName>
+							<Path>SFX\Bluk Select VO3_10C4C929.wem</Path>
+						</File>
+						<File Id="467368318" Language="SFX">
+							<ShortName>Bluk Select VO2.wav</ShortName>
+							<Path>SFX\Bluk Select VO2_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}">
+							<Media>
+								<File Id="181281461"/>
+								<File Id="237361374"/>
+								<File Id="467368318"/>
+							</Media>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="1749424733" Name="Play_UI_Click" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Click" DurationType="OneShot" DurationMin="0.229501" DurationMax="0.229501">
+					<IncludedMemoryFiles>
+						<File Id="32355345" Language="SFX">
+							<ShortName>UI Click.wav</ShortName>
+							<Path>SFX\UI Click_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1339559671" Name="Play_UI_Hover" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Hover" DurationType="OneShot" DurationMin="0.326621" DurationMax="0.326621">
+					<IncludedMemoryFiles>
+						<File Id="913893635" Language="SFX">
+							<ShortName>UI Hover.wav</ShortName>
+							<Path>SFX\UI Hover_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="365326775" Name="Play_UI_Lockin" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Lockin" DurationType="OneShot" DurationMin="1.208458" DurationMax="1.208458">
+					<IncludedMemoryFiles>
+						<File Id="566029008" Language="SFX">
+							<ShortName>UI Lockin.wav</ShortName>
+							<Path>SFX\UI Lockin_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO"/>
+					</ActionPostEvent>
+				</Event>
+				<Event Id="2609688239" Name="Play_UI_Toggle" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Toggle" DurationType="OneShot" DurationMin="0.416077" DurationMax="0.416077">
+					<IncludedMemoryFiles>
+						<File Id="484233543" Language="SFX">
+							<ShortName>UI Toggle.wav</ShortName>
+							<Path>SFX\UI Toggle_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+			</IncludedEvents>
+			<SwitchGroups>
+				<SwitchGroup Id="361373645" Name="CharacterHit" ObjectPath="\Switches\CharacterSwitch\CharacterHit" GUID="{4A4722CB-937B-47E2-AC4E-DB72A8CD93B3}">
+					<Switches>
+						<Switch Id="1325827431" Name="Bluk" ObjectPath="\Switches\CharacterSwitch\CharacterHit\Bluk" GUID="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}"/>
+						<Switch Id="220246984" Name="Lisa" ObjectPath="\Switches\CharacterSwitch\CharacterHit\Lisa" GUID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
+						<Switch Id="3354297748" Name="Empty" ObjectPath="\Switches\CharacterSwitch\CharacterHit\Empty" GUID="{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="3161908922" Language="SFX" Hash="135114754">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -316,6 +406,14 @@
 					<ActionPostEvent>
 						<ActionPostEventEntry Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO"/>
 					</ActionPostEvent>
+				</Event>
+				<Event Id="1741140776" Name="Play_FavorGoldenGoal" ObjectPath="\Events\UIWorkUnit\CombatUI\Play_FavorGoldenGoal" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="314075279" Language="SFX">
+							<ShortName>FavorGoldenGoal.wav</ShortName>
+							<Path>SFX\FavorGoldenGoal_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="3727876332" Name="Play_FavorLockBreak" ObjectPath="\Events\UIWorkUnit\CombatUI\Play_FavorLockBreak" DurationType="OneShot" DurationMin="0.992354" DurationMax="0.992354">
 					<IncludedMemoryFiles>
@@ -981,6 +1079,14 @@
 						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
+				<Event Id="3723422301" Name="Play_Parry_Action" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatSwings\Play_Parry_Action" DurationType="OneShot" DurationMin="0.660764" DurationMax="0.764739">
+					<IncludedMemoryFiles>
+						<File Id="1052478723" Language="SFX">
+							<ShortName>Parry Action.wav</ShortName>
+							<Path>SFX\Parry Action_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="3662377158" Name="Play_Parry_Hit" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatHits\Play_Parry_Hit" DurationType="OneShot" DurationMin="1.574003" DurationMax="1.610793">
 					<IncludedMemoryFiles>
 						<File Id="37913193" Language="SFX">
@@ -988,6 +1094,32 @@
 							<Path>SFX\Parry Hit_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO" DurationType="OneShot" DurationMin="3.865215" DurationMax="4.727302">
+					<IncludedMemoryFiles>
+						<File Id="181281461" Language="SFX">
+							<ShortName>Bluk Select VO1.wav</ShortName>
+							<Path>SFX\Bluk Select VO1_10C4C929.wem</Path>
+						</File>
+						<File Id="237361374" Language="SFX">
+							<ShortName>Bluk Select VO3.wav</ShortName>
+							<Path>SFX\Bluk Select VO3_10C4C929.wem</Path>
+						</File>
+						<File Id="467368318" Language="SFX">
+							<ShortName>Bluk Select VO2.wav</ShortName>
+							<Path>SFX\Bluk Select VO2_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}">
+							<Media>
+								<File Id="181281461"/>
+								<File Id="237361374"/>
+								<File Id="467368318"/>
+							</Media>
+						</SwitchContainer>
+					</SwitchContainers>
 				</Event>
 				<Event Id="2955565060" Name="Play_Side_Launch_Swing" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaSpecials\Play_Side_Launch_Swing" DurationType="OneShot" DurationMin="1.323563" DurationMax="1.323563">
 					<IncludedMemoryFiles>
@@ -1000,6 +1132,41 @@
 						<ActionPostEventEntry Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO"/>
 					</ActionPostEvent>
 				</Event>
+				<Event Id="1749424733" Name="Play_UI_Click" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Click" DurationType="OneShot" DurationMin="0.229501" DurationMax="0.229501">
+					<IncludedMemoryFiles>
+						<File Id="32355345" Language="SFX">
+							<ShortName>UI Click.wav</ShortName>
+							<Path>SFX\UI Click_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1339559671" Name="Play_UI_Hover" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Hover" DurationType="OneShot" DurationMin="0.326621" DurationMax="0.326621">
+					<IncludedMemoryFiles>
+						<File Id="913893635" Language="SFX">
+							<ShortName>UI Hover.wav</ShortName>
+							<Path>SFX\UI Hover_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="365326775" Name="Play_UI_Lockin" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Lockin" DurationType="OneShot" DurationMin="1.208458" DurationMax="1.208458">
+					<IncludedMemoryFiles>
+						<File Id="566029008" Language="SFX">
+							<ShortName>UI Lockin.wav</ShortName>
+							<Path>SFX\UI Lockin_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO"/>
+					</ActionPostEvent>
+				</Event>
+				<Event Id="2609688239" Name="Play_UI_Toggle" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Toggle" DurationType="OneShot" DurationMin="0.416077" DurationMax="0.416077">
+					<IncludedMemoryFiles>
+						<File Id="484233543" Language="SFX">
+							<ShortName>UI Toggle.wav</ShortName>
+							<Path>SFX\UI Toggle_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2769098130" Name="Play_Wall_Bounce_Foley_Mat" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatFoley\Play_Wall_Bounce_Foley_Mat" DurationType="OneShot" DurationMin="1.0115" DurationMax="1.0115">
 					<IncludedMemoryFiles>
 						<File Id="458752533" Language="SFX">
@@ -1011,6 +1178,7 @@
 						<ActionPostEventEntry Id="50577568" Name="Play_Light_Hit" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatHits\Play_Light_Hit"/>
 					</ActionPostEvent>
 				</Event>
+				<Event Id="1102378326" Name="Stop_FavorGoldenGoal" ObjectPath="\Events\UIWorkUnit\CombatUI\Stop_FavorGoldenGoal" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
 				<Event Id="3063666669" Name="Stop_Swings" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\Stop_Swings" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
 			</IncludedEvents>
 			<SwitchGroups>

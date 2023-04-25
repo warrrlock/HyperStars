@@ -33,10 +33,10 @@ namespace FiniteStateMachine
         }
 
 #if UNITY_EDITOR
-        private void OnEnable()
-        {
-            if(_inputActionName == "") Debug.LogWarning($"input action is empty for transition {name} at path {AssetDatabase.GetAssetPath(this)}");
-        }
+        // private void OnEnable()
+        // {
+        //     if(_inputActionName == "") Debug.LogWarning($"input action is empty for transition {name} at path {AssetDatabase.GetAssetPath(this)}");
+        // }
 #endif
 
         /// <summary>
@@ -110,7 +110,8 @@ namespace FiniteStateMachine
         private bool CheckSpecial(BaseStateMachine stateMachine)
         {
             BaseState state = _trueState;
-            return !state ||
+            return stateMachine.InfiniteEx ||
+                    !state ||
                     state.SpecialBarCost <= 0 ||
                     !stateMachine.Fighter.SpecialMeterManager || 
                     stateMachine.Fighter.SpecialMeterManager.CheckBar(state.SpecialBarCost);

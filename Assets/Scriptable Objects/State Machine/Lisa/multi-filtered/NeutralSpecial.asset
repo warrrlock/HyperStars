@@ -44,13 +44,15 @@ MonoBehaviour:
   _attackInfo:
     idSO: 18
     idManager: 0
-    attackType: 3
+    attackType: 4
+    specialType: 2
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 11400000, guid: a5266318d6d8afc41b962b29e7d960c9, type: 2}
+    hardKnockdown: 0
     knockbackDuration: 1
-    knockbackDistance: 5
+    knockbackDistance: 7
     knockbackDirection: {x: 0.2, y: 1, z: 0}
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
@@ -73,6 +75,6 @@ MonoBehaviour:
     favorReward: 8
     knockbackForce: {x: 30.8089, y: 100}
     incrementBarAmount: 0
-    multiHitCount: 10
-    multiHitInterval: 0.1
+    multiHitCount: 3
+    multiHitInterval: 0.01
   _projectilePrefab: {fileID: 0}

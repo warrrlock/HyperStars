@@ -62,7 +62,7 @@ public class DolphinAnimation : MonoBehaviour
             }
             else
             {
-                int chanceIncrease = MusicManager.ourMusicManager.Impressed ? _chanceIncreaseDelta + 5 : _chanceIncreaseDelta;
+                int chanceIncrease = Services.MusicManager.Impressed ? _chanceIncreaseDelta + 5 : _chanceIncreaseDelta;
                 _spawnChance = Mathf.Clamp(_spawnChance + chanceIncrease, 0, 100);
             }
         }

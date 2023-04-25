@@ -28,6 +28,8 @@ public class Projectile : MonoBehaviour
     public void Spawn(Fighter origin, Bounds bounds)
     {
         _owner = origin;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer) spriteRenderer.material = _owner.GetComponent<SpriteRenderer>().material;
         _input = _owner.BaseStateMachine.LastExecutedInput;
         _xDirection = _owner.FacingDirection == Fighter.Direction.Left ? -1 : 1;
         
@@ -148,7 +150,8 @@ public class Projectile : MonoBehaviour
                 : (_attackInfo.knockbackForce.x is > 0f and < 180f 
                     ? KeyHurtStatePair.HurtStateName.KnockBack 
                     : KeyHurtStatePair.HurtStateName.HitStun)
-            , _attackInfo.hitStunDuration
+            , _attackInfo.hitStunDuration,
+            _attackInfo.hardKnockdown
         ));
 
         hitFighter.MovementController.ResetVelocityY();

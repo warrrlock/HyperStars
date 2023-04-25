@@ -79,35 +79,33 @@ public class Player: MonoBehaviour
         
         //Select colours before ready
         CharacterSelected = true;
-        _uiInputManager.IgnoreNextInput = true;
         OpenPalettePicker(PlayerInput.playerIndex);
     }
     
     public void SelectBot(Character character)
     {
+        // Debug.Log($"{PlayerInput.playerIndex} select bot");
         Services.Characters[PlayerInput.playerIndex^1] = character;
         //choose bot colours
         Services.Players[PlayerInput.playerIndex ^ 1].CharacterSelected = true;
         OpenPalettePicker(PlayerInput.playerIndex^1);
-        
-        // Services.Players[PlayerInput.playerIndex ^ 1]._ready = true;
-        // Services.Players[PlayerInput.playerIndex ^ 1].onReady?.Invoke();
     }
 
-    public void CloseColourPicker()
+    public void CloseColourPicker(bool isBot)
     {
-        //TODO: move input to character selection
+        if (!isBot) SetSelectionUI();
+        PaletteIndex = 0;
         CharacterSelected = false;
-        SetSelectionUI();
+        Services.Characters[PlayerInput.playerIndex] = null;
         _palettePickerManager.PalettePickers[PlayerInput.playerIndex].UnsetVisuals();
     }
 
-    private void OpenPalettePicker(int player)
+    private void OpenPalettePicker(int player, bool firstColour = true)
     {
-        //TODO: move input to character colours
+        // Debug.Log($"Open palette picker for player {player}, first colour {firstColour}");
         UnsetSelectionUI();
         _palettePickerManager.PalettePickers[player].SetupVisuals(Services.Characters[player].CharacterPalettes);
-        _palettePickerManager.SetColour(player, 0, 1, _character.CharacterPalettes.Palette.Count);
+        _palettePickerManager.SetColour(player, firstColour ? 0 : PaletteIndex, 1, Services.Characters[player].CharacterPalettes.Palette.Count);
     }
     
     public void ConfirmColour()
@@ -125,11 +123,10 @@ public class Player: MonoBehaviour
     
     public void UnReady()
     {
+        // Debug.Log($"Un readying {PlayerInput.playerIndex}");
         _ready = false;
-        CharacterSelected = false;
-        Services.Characters[PlayerInput.playerIndex] = null;
         unReady?.Invoke();
-        CloseColourPicker();
+        OpenPalettePicker(PlayerInput.playerIndex, firstColour: false);
     }
 
     private void ReadyStartingGame()
@@ -138,6 +135,9 @@ public class Player: MonoBehaviour
         if (!FighterObject) FighterObject = Instantiate(Services.Characters[PlayerInput.playerIndex].CharacterPrefab, transform);
         FighterObject.GetComponent<ColorPicker>()?.SetMaterialColors(PaletteIndex);
         UnsetSelectionUI();
+        PlayerInput.SwitchCurrentActionMap("UI");
+        PlayerInput.currentActionMap.Disable();
+        PlayerInput.SwitchCurrentActionMap(PlayerInput.defaultActionMap);
     }
 
     private void ResetPlayer()
@@ -158,15 +158,17 @@ public class Player: MonoBehaviour
             if (selection.PlayerId == PlayerInput.playerIndex)
             {
                 selection.SetPlayer(this);
-                PlayerInput.uiInputModule = selection.GetComponent<InputSystemUIInputModule>();
+                InputSystemUIInputModule uiModule = selection.GetComponent<InputSystemUIInputModule>();
+                uiModule.AssignDefaultActions();
+                PlayerInput.uiInputModule = uiModule;
                 break;
             }
         }
-        PlayerInput.ActivateInput();
     }
 
     private void UnsetSelectionUI()
     {
+        if (PlayerInput.uiInputModule) PlayerInput.uiInputModule.UnassignActions();
         PlayerInput.uiInputModule = null;
         PlayerInput.ActivateInput();
     }
@@ -209,8 +211,7 @@ public class Player: MonoBehaviour
         }
         else if (scene.buildIndex == _indices.gameScene || scene.buildIndex == _indices.trainingScene)
         {
-            Debug.Log("in game scene, readying game");
-            PlayerInput.SwitchCurrentActionMap(PlayerInput.defaultActionMap);
+            // Debug.Log("in game scene, readying game");
             ReadyStartingGame();
         }
     }

@@ -9,11 +9,18 @@
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
 						</Reference>
 						<Reference Name="OutputBus">
-							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+							<ObjectRef Name="BlukSpecialsBus" ID="{194567CC-55BA-4758-B26F-B5C72B0FE56B}" WorkUnitID="{A0C86BDE-98AE-4AF9-AAF4-6766F3F9D1CE}"/>
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
 						<Sound Name="Bluk Dash" ID="{CAF08A41-95C7-4141-B762-283A16830A0E}" ShortID="393007843">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>3</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -37,6 +44,13 @@
 							</ActiveSourceList>
 						</Sound>
 						<Sound Name="Bluk Super Dash" ID="{3C2E509A-7EF4-4BCF-B467-E60C7B9CE905}" ShortID="449438743">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>6</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>

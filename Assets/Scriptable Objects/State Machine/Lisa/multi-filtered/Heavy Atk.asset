@@ -40,27 +40,30 @@ MonoBehaviour:
   _transitions:
   - {fileID: 11400000, guid: 3e6066ca134a35744beef0062506bcde, type: 2}
   - {fileID: 11400000, guid: dbfe97194214a3a438f80802003b9896, type: 2}
+  - {fileID: 11400000, guid: 935cfa0097e7c473a89d61b7f7b4df60, type: 2}
   _defaultCombo: 0
   _attackInfo:
     idSO: 12
     idManager: 0
     attackType: 3
+    specialType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
+    hardKnockdown: 1
     knockbackDuration: 0.5
     knockbackDistance: 10
     knockbackDirection: {x: 1, y: 1, z: 0}
     reverseKnockbackDuration: 0
     reverseKnockbackDistance: 0
     reverseKnockbackDirection: {x: 0, y: 0, z: 0}
-    hitStunDuration: 1.8
+    hitStunDuration: 1.25
     causesWallBounce: 1
     hitStopDuration: 0.28
     wallBounceDuration: 2
-    wallBounceDistance: 30
-    wallBounceDirection: {x: -1, y: 2, z: 0}
+    wallBounceDistance: 32
+    wallBounceDirection: {x: -0.5, y: 2.5, z: 0}
     wallBounceHitStopDuration: 0.28
     causesGroundBounce: 0
     groundBounceDuration: 0

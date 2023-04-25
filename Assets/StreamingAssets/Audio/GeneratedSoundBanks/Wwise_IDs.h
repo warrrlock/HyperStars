@@ -22,11 +22,13 @@ namespace AK
         static const AkUniqueID PLAY_BLUK_PROJECTILE_GIRDER = 1597764638U;
         static const AkUniqueID PLAY_BLUK_SPECIAL_TRIPLE = 790653515U;
         static const AkUniqueID PLAY_BLUK_SUPER_DASH = 2859284271U;
+        static const AkUniqueID PLAY_BLUKTHEME = 4083361059U;
         static const AkUniqueID PLAY_CROWD_CHEERS = 3617758906U;
         static const AkUniqueID PLAY_CROWD_HYPE_SHORT = 1227494039U;
         static const AkUniqueID PLAY_DASHVO = 2540994183U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_HIT = 2124280636U;
         static const AkUniqueID PLAY_DRAGON_PUNCH_SWING = 2525681113U;
+        static const AkUniqueID PLAY_FAVORGOLDENGOAL = 1741140776U;
         static const AkUniqueID PLAY_FAVORLOCKBREAK = 3727876332U;
         static const AkUniqueID PLAY_GROUND_SPLAT_FOLEY_MAT = 2109586569U;
         static const AkUniqueID PLAY_HEAVY_HIT = 2944971053U;
@@ -64,9 +66,17 @@ namespace AK
         static const AkUniqueID PLAY_MEDIUM_ATTACKS_VARIATION_2 = 3760087320U;
         static const AkUniqueID PLAY_MEDIUM_HIT = 3674753261U;
         static const AkUniqueID PLAY_MEDIUMSWINGVO = 1501759178U;
+        static const AkUniqueID PLAY_PARRY_ACTION = 3723422301U;
         static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;
+        static const AkUniqueID PLAY_SELECTIONVO = 3889212317U;
         static const AkUniqueID PLAY_SIDE_LAUNCH_SWING = 2955565060U;
+        static const AkUniqueID PLAY_UI_CLICK = 1749424733U;
+        static const AkUniqueID PLAY_UI_HOVER = 1339559671U;
+        static const AkUniqueID PLAY_UI_LOCKIN = 365326775U;
+        static const AkUniqueID PLAY_UI_TOGGLE = 2609688239U;
         static const AkUniqueID PLAY_WALL_BOUNCE_FOLEY_MAT = 2769098130U;
+        static const AkUniqueID STOP_BLUKTHEME = 3753011029U;
+        static const AkUniqueID STOP_FAVORGOLDENGOAL = 1102378326U;
         static const AkUniqueID STOP_LISATHEME = 564764656U;
         static const AkUniqueID STOP_SWINGS = 3063666669U;
     } // namespace EVENTS
@@ -100,9 +110,13 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
+        static const AkUniqueID CROWDINTENSITY = 3231715135U;
         static const AkUniqueID CROWDVOLUME = 1427673546U;
         static const AkUniqueID INTENSITY = 2470328564U;
+        static const AkUniqueID MASTERVOLUME = 2918011349U;
         static const AkUniqueID MUSICVOLUME = 2346531308U;
+        static const AkUniqueID SFXVOLUME = 988953028U;
+        static const AkUniqueID VOICEVOLUME = 414646191U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS
@@ -110,6 +124,7 @@ namespace AK
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID MAIN = 3161908922U;
         static const AkUniqueID MUSICMAIN = 374987273U;
+        static const AkUniqueID UI = 1551306167U;
     } // namespace BANKS
 
     namespace BUSSES

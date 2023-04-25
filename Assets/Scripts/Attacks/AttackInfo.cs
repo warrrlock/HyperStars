@@ -9,10 +9,14 @@ public class AttackInfo
     public int idManager;
 
     public enum AttackType {None, Light, Medium, Heavy, Special}
+    public enum SpecialType {None, Side, Neutral, Air, Crouch}
     public AttackType attackType = AttackType.None;
+    public SpecialType specialType = SpecialType.None;
 
     public AK.Wwise.Event hitSfxEvent;
 
+    [Header("Knockback/Knockdown")] 
+    public bool hardKnockdown;
     public float knockbackDuration;
     public float knockbackDistance;
     public Vector3 knockbackDirection;

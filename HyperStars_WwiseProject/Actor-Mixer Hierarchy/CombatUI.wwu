@@ -3,7 +3,20 @@
 	<AudioObjects>
 		<WorkUnit Name="CombatUI" ID="{EF835AE9-2089-4C62-8782-3BA47051110C}" OwnerID="{92BAA515-96E1-46F0-BB5F-D3596ED83136}" PersistMode="Nested">
 			<ChildrenList>
-				<WorkUnit Name="FavorBar" ID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}" PersistMode="Reference"/>
+				<ActorMixer Name="Combat UI Mixer" ID="{7198EEB8-1EDB-4746-81CE-3BFC0752BC04}" ShortID="1001346047">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="CombatUIBus" ID="{EFAFB5E6-1AB8-4080-8311-ADA401493177}" WorkUnitID="{A8BE204D-0A1F-480A-8BB1-8650FDE6EE5A}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<WorkUnit Name="FavorBar" ID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}" PersistMode="Reference"/>
+					</ChildrenList>
+					<ObjectLists/>
+				</ActorMixer>
 			</ChildrenList>
 		</WorkUnit>
 	</AudioObjects>

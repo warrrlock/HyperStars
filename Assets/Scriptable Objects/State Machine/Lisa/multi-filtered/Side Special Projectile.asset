@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Side Special Projectile
   m_EditorClassIdentifier: 
   characterSelection: 1
-  _bypassHitConfirm: 0
+  _bypassHitConfirm: 1
   _isCrouchState: 0
   _isSpecial: 1
   _specialBarCost: 1
@@ -43,11 +43,13 @@ MonoBehaviour:
   _attackInfo:
     idSO: 20
     idManager: 0
-    attackType: 2
+    attackType: 4
+    specialType: 1
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
+    hardKnockdown: 0
     knockbackDuration: 0.1
     knockbackDistance: 0.1
     knockbackDirection: {x: 0, y: 0, z: 0}

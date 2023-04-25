@@ -9,6 +9,34 @@
 			<ChildrenList>
 				<Bus Name="AttackHitBus" ID="{D669BD02-7F47-4457-A2AE-03EE59ECA99E}">
 					<PropertyList>
+						<Property Name="BusVolume" Type="Real64">
+							<RTPCList>
+								<RTPC Name="" ID="{EACB5516-EADF-4F5F-A2A4-125558F5853F}" ShortID="295965829">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="SFXVolume" ID="{ADF4518D-99B4-431A-B813-B9B20ED8BA4D}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{7AA50AE4-6CD9-4721-83BF-F27CB629752C}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>1</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
 						<Property Name="Color" Type="int16" Value="3"/>
 						<Property Name="OverrideColor" Type="bool" Value="True"/>
 					</PropertyList>

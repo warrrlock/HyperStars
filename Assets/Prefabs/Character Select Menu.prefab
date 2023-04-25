@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4458743744635198075}
   - component: {fileID: 4458743744635198073}
   - component: {fileID: 7466035045463532974}
+  - component: {fileID: 7952386164085023082}
   m_Layer: 5
   m_Name: Character Select Menu
   m_TagString: Untagged
@@ -101,16 +102,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isBot: 0
-  _characterManager: {fileID: 11400000, guid: 445e8aa9bec2c4cffba417a312106efa, type: 2}
-  _selectionManager: {fileID: 0}
   _playerId: 0
   _characterSelectionImage: {fileID: 0}
-  _images:
+  _characterVisuals:
   - character: 1
-    image: {fileID: 21300000, guid: d4310b584e11f454abea9e2944fc1ced, type: 3}
+    animStateName: Lisa_Display
+    palette: {fileID: 11400000, guid: 948c02293ac922d4d919f20538668fda, type: 2}
   - character: 2
-    image: {fileID: 21300000, guid: b28baa1cde546844188800f195077f09, type: 3}
+    animStateName: Bluk_Display
+    palette: {fileID: 11400000, guid: 115319a39d5032b43bf6b8649eab75aa, type: 2}
   _readyVisual: {fileID: 0}
+  _palettePicker: {fileID: 0}
+  _characterManager: {fileID: 11400000, guid: 445e8aa9bec2c4cffba417a312106efa, type: 2}
+  _selectionManager: {fileID: 0}
+  characterSwitches:
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 705965e74d9b8d240a9e878e96137911, type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: fe891148d38282441805526eeeaddd9e, type: 2}
 --- !u!114 &7466035045463532974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +152,36 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &7952386164085023082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458743744635198077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a311a72f4414aeda1344856c7798262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hover:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 74a2de5e2880c0049bde58702b24f325, type: 2}
+  submit:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 7e9a7696e73b5fb4aa65713faf055af6, type: 2}
+  lockIn:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9354ea28ce85795498e5653b2fae76ac, type: 2}
+  characterSwitch:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!1001 &7715627129077593169
 PrefabInstance:
   m_ObjectHideFlags: 0
