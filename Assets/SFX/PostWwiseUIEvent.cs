@@ -7,6 +7,7 @@ namespace SFX
         public AK.Wwise.Event hover;
         public AK.Wwise.Event submit;
         public AK.Wwise.Event lockIn;
+        public AK.Wwise.Event exit;
         [HideInInspector] public AK.Wwise.Switch characterSwitch;
 
         public void PostHover()
@@ -23,6 +24,11 @@ namespace SFX
         {
             characterSwitch.SetValue(gameObject);
             lockIn?.Post(gameObject);
+        }
+        
+        public void PostExit()
+        {
+            exit?.Post(gameObject);
         }
     }
 }
