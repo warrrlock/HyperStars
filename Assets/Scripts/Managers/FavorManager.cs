@@ -58,11 +58,12 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private RectTransform _favorMeter;
     [SerializeField] private Image _favorMeterIndicator;
     [SerializeField] private Image _favorMeterIndicatorGlow;
+    [SerializeField] private Material _favorMeterIndicatorOutlineMaterial; // TODO: outline material
     [SerializeField] private TextMeshProUGUI _multiplierText;
     [SerializeField] private Canvas _multiplierTextCanvas;
     [SerializeField] private GameEvent _winConditionEvent;
 
-
+    
     private Canvas _canvas;
     [SerializeField] private Image _p1Bar;
     [SerializeField] private Image _p2Bar;
@@ -272,6 +273,7 @@ public class FavorManager : MonoBehaviour
             _favorMeterIndicator.sprite = Services.Characters[0].IndicatorSprite;
             _favorMeterIndicatorGlow.sprite = Services.Characters[0].IndicatorGlowSprite;
             _favorMeterIndicatorGlow.color = _glowColors[0];
+            _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[0]);
         }
 
         if (shouldChip)
@@ -388,6 +390,7 @@ public class FavorManager : MonoBehaviour
                 _favorMeterIndicator.sprite = Services.Characters[newPlayerId].IndicatorSprite;
                 _favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
                 _favorMeterIndicatorGlow.color = _glowColors[newPlayerId];
+                _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[newPlayerId]);
                 hasIconChanged = true;
             }
         }
