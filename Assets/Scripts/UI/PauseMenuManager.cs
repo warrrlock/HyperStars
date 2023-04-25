@@ -9,7 +9,7 @@ using Util;
 namespace UI
 {
     [RequireComponent(typeof(MenuManager))]
-    public class PauseMenuSelection: MonoBehaviour
+    public class PauseMenuManager: MonoBehaviour
     {
         [Serializable]
         private class TabAssets
