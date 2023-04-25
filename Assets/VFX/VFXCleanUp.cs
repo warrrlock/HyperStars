@@ -16,13 +16,14 @@ public class VFXCleanUp : MonoBehaviour
     [SerializeField] private VFXTypes VFXType;
     [SerializeField] private bool isMoveBased;
     [SerializeField] private bool canUseUnscaledTime;
+    [SerializeField] private bool followCharacter;
 
     void Start()
     {
         _vfx = GetComponent<VisualEffect>();
         _lifeTime = 0;
         // all vfx destroy after one second
-        if (!doNoSelfDestroy) Destroy(gameObject, 1);
+        if (!doNoSelfDestroy) StartCoroutine(SelfDestroy());
         if (f)
         {
             _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
@@ -46,11 +47,21 @@ public class VFXCleanUp : MonoBehaviour
         {
             _vfx.SetFloat("UnscaledTime", _lifeTime);
         }
+        if (followCharacter)
+        {
+            transform.position = f.transform.position;
+        }
     }
 
     void ChangeColor()
     {
         ColorPicker picker = f.GetComponent<ColorPicker>();
         _vfx.SetGradient("ParticleGradient", picker.characterColors.Palette[picker.currentColorIndex].EffectColor);
+    }
+
+    IEnumerator SelfDestroy()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        Destroy(gameObject);
     }
 }
