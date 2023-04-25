@@ -101,8 +101,9 @@ public class FavorManager : MonoBehaviour
     private bool _isP2Chipping = false;
 
     [SerializeField] private float _indicatorFlipDuration;
-    private float _indicatorFlipSpeed;
-    private float _indicatorScaleDefault;
+    [SerializeField] private float _flipMaxSizeY;
+    private Vector2 _indicatorFlipSpeed;
+    private Vector2 _indicatorScaleDefault;
     private bool _isIndicatorFlipping = false;
     private IEnumerator _indicatorFlip;
 
@@ -142,8 +143,9 @@ public class FavorManager : MonoBehaviour
         _maxChipX = _initialWidth / 2f;
         _indicatorWidthOffsetLeft = _favorMeterIndicatorGlow.rectTransform.rect.width / 2f - 2f;
         _indicatorWidthOffsetRight = _favorMeterIndicatorGlow.rectTransform.rect.width / 2f - 7f;
-        _indicatorScaleDefault = _favorMeterIndicatorGlow.rectTransform.localScale.x;
-        _indicatorFlipSpeed = _indicatorScaleDefault * 2f / _indicatorFlipDuration;
+        _indicatorScaleDefault = _favorMeterIndicatorGlow.rectTransform.localScale;
+        _indicatorFlipSpeed.x = _indicatorScaleDefault.x * 2f / _indicatorFlipDuration;
+        _indicatorFlipSpeed.y = (_flipMaxSizeY - _indicatorScaleDefault.y) * 2f / _indicatorFlipDuration;
         UpdateFavorMeter();
     }
 
@@ -254,18 +256,6 @@ public class FavorManager : MonoBehaviour
         float indicatorX = Mathf.Lerp(_minIndicatorX, _maxIndicatorX, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f));
         indicatorX = Mathf.Clamp(indicatorX, _minIndicatorX * (MaxFavor / _maxFavorInitial), _maxIndicatorX * (MaxFavor / _maxFavorInitial));
         _favorMeterIndicatorGlow.rectTransform.anchoredPosition = new Vector3(indicatorX, _favorMeterIndicatorGlow.rectTransform.anchoredPosition.y, 0f);
-        //if (_favoredPlayer > -1)
-        //{
-        //    _favorMeterIndicator.sprite = Services.Characters[_favoredPlayer].IndicatorSprite;
-        //    _favorMeterIndicatorGlow.sprite = Services.Characters[_favoredPlayer].IndicatorGlowSprite;
-        //    _favorMeterIndicatorGlow.color = _glowColors[_favoredPlayer];
-        //}
-        //else
-        //{
-        //    _favorMeterIndicator.sprite = Services.Characters[0].IndicatorSprite;
-        //    _favorMeterIndicatorGlow.sprite = Services.Characters[0].IndicatorGlowSprite;
-        //    _favorMeterIndicatorGlow.color = _glowColors[0];
-        //}
 
         if (_favoredPlayer < 0)
         {
@@ -370,20 +360,29 @@ public class FavorManager : MonoBehaviour
     {
         _isIndicatorFlipping = true;
         int playerIdMultiplier = newPlayerId == 0 ? 1 : -1;
-        float indicatorScaleCurrent = _favorMeterIndicatorGlow.rectTransform.localScale.x;
+        //float indicatorScaleCurrent = _favorMeterIndicatorGlow.rectTransform.localScale.x;
+        Vector2 indicatorScaleCurrent = _favorMeterIndicatorGlow.rectTransform.localScale;
         bool hasIconChanged = false;
-        while (indicatorScaleCurrent * playerIdMultiplier < _indicatorScaleDefault)
+        while (indicatorScaleCurrent.x * playerIdMultiplier < _indicatorScaleDefault.x)
         {
             yield return new WaitForFixedUpdate();
             Vector3 newScale = _favorMeterIndicatorGlow.rectTransform.localScale;
-            indicatorScaleCurrent += _indicatorFlipSpeed * playerIdMultiplier * Time.fixedDeltaTime;
-            newScale.x = indicatorScaleCurrent;
+            indicatorScaleCurrent.x += _indicatorFlipSpeed.x * playerIdMultiplier * Time.fixedDeltaTime;
+            if (!hasIconChanged)
+            {
+                indicatorScaleCurrent.y += _indicatorFlipSpeed.y * Time.fixedDeltaTime;
+            }
+            else
+            {
+                indicatorScaleCurrent.y -= _indicatorFlipSpeed.y * Time.fixedDeltaTime;
+            }
+            newScale = indicatorScaleCurrent;
             _favorMeterIndicatorGlow.rectTransform.localScale = newScale;
             if (hasIconChanged)
             {
                 continue;
             }
-            if (indicatorScaleCurrent * playerIdMultiplier > 0f)
+            if (indicatorScaleCurrent.x * playerIdMultiplier > 0f)
             {
                 _favorMeterIndicator.sprite = Services.Characters[newPlayerId].IndicatorSprite;
                 _favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
@@ -392,7 +391,8 @@ public class FavorManager : MonoBehaviour
             }
         }
         Vector3 endScale = _favorMeterIndicatorGlow.rectTransform.localScale;
-        endScale.x = _indicatorScaleDefault * playerIdMultiplier;
+        endScale.x = _indicatorScaleDefault.x * playerIdMultiplier;
+        endScale.y = _indicatorScaleDefault.y;
         _favorMeterIndicatorGlow.rectTransform.localScale = endScale;
         _isIndicatorFlipping = false;
         yield break;
