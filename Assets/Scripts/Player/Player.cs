@@ -135,6 +135,9 @@ public class Player: MonoBehaviour
         if (!FighterObject) FighterObject = Instantiate(Services.Characters[PlayerInput.playerIndex].CharacterPrefab, transform);
         FighterObject.GetComponent<ColorPicker>()?.SetMaterialColors(PaletteIndex);
         UnsetSelectionUI();
+        PlayerInput.SwitchCurrentActionMap("UI");
+        PlayerInput.currentActionMap.Disable();
+        PlayerInput.SwitchCurrentActionMap(PlayerInput.defaultActionMap);
     }
 
     private void ResetPlayer()
@@ -209,7 +212,6 @@ public class Player: MonoBehaviour
         else if (scene.buildIndex == _indices.gameScene || scene.buildIndex == _indices.trainingScene)
         {
             // Debug.Log("in game scene, readying game");
-            PlayerInput.SwitchCurrentActionMap(PlayerInput.defaultActionMap);
             ReadyStartingGame();
         }
     }

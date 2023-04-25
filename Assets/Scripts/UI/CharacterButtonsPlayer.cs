@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Managers;
+using SFX;
 using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -36,10 +37,12 @@ public class CharacterButtonsPlayer: MonoBehaviour
 
     private Player _originPlayer;
     private Animator _charVisualAnimator;
+    private PostWwiseUIEvent _wwiseUIEvent;
 
     private void Awake()
     {
         _charVisualAnimator = _characterSelectionImage.GetComponent<Animator>();
+        _wwiseUIEvent = GetComponent<PostWwiseUIEvent>();
     }
 
     private void OnDestroy()
@@ -76,6 +79,7 @@ public class CharacterButtonsPlayer: MonoBehaviour
         if (!character) return;
         if (_isBot) Player.SelectBot(character);
         else Player.SelectCharacter(character);
+        _wwiseUIEvent.PostSubmit();
     }
     
     public void UpdateCharacterSelect(string character)
@@ -85,10 +89,12 @@ public class CharacterButtonsPlayer: MonoBehaviour
         _charVisualAnimator.Play(selectionAssets.animStateName);
         _selectionManager.UpdateSelection(character, selectionAssets.character, _playerId);
         _palettePicker.SetMaterialColours(0, selectionAssets.palette);
+        _wwiseUIEvent.PostHover();
     }
 
     private void UpdateReadyVisuals()
     {
+        if (_originPlayer.Ready) _wwiseUIEvent.PostLockIn();
         if (_readyVisual)
             _readyVisual.SetActive(_originPlayer.Ready); //TODO: replace with animations/ui input module change}
     }

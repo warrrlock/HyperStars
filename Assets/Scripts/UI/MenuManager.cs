@@ -12,11 +12,15 @@ public class MenuManager: MonoBehaviour
     [SerializeField] private GameObject _playersReadyVisual;
     private bool _allowStart;
     [SerializeField] private BuildSettingIndices _indices;
+    public bool IsTrainingSelection { get; private set; }
     public bool IsTraining { get; private set; }
+    
 
     private void Awake()
     {
-        IsTraining = SceneManager.GetActiveScene().buildIndex == _indices.trainingSelectionScene;
+        int index = SceneManager.GetActiveScene().buildIndex;
+        IsTrainingSelection =  index == _indices.trainingSelectionScene;
+        IsTraining = index == _indices.trainingScene;
     }
 
     private void OnDestroy()
