@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Managers;
+using SFX;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +18,7 @@ namespace UI
         public CharacterButtonAssets button;
     }
 
+    [RequireComponent(typeof(PostWwiseUIEvent))]
     public class CharacterSelectManager: MonoBehaviour
     {
         [Header("Visuals")]
@@ -24,7 +26,6 @@ namespace UI
         [SerializeField] private Sprite[] _singleSelectSprites = new Sprite[2];
         [SerializeField] private Sprite _doubleSelectSprite;
         
-
         [Header("References")]
         [SerializeField] private UIInputManager[] _playerInputManagers;
         [SerializeField] private CharacterButtonsPlayer[] _playerButtons = new CharacterButtonsPlayer[2];
@@ -33,9 +34,12 @@ namespace UI
         private CharacterButtonAssets[] _currentSelectedButton = new CharacterButtonAssets[2];
         [SerializeField] private BuildSettingIndices _indices;
         private bool _isTraining;
+        private PostWwiseUIEvent _wwiseUIEvent;
+        public PostWwiseUIEvent WwiseUIEvents => _wwiseUIEvent;
 
         private void Start()
         {
+            _wwiseUIEvent = GetComponent<PostWwiseUIEvent>();
             if (SceneManager.GetActiveScene().buildIndex == _indices.trainingSelectionScene)
             {
                 _isTraining = true;

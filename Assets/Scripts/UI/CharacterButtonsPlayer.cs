@@ -31,16 +31,19 @@ public class CharacterButtonsPlayer: MonoBehaviour
     [SerializeField] private CharacterManager _characterManager;
     [SerializeField] private CharacterSelectManager _selectionManager;
 
+    [Header("Character VO Switches")]
+    [SerializeField] private AK.Wwise.Switch[] characterSwitches;
+    private AK.Wwise.Switch selectedCharacterSwitch;
+    
     public Player Player { get; private set; }
     public bool IsBot => _isBot;
     public int PlayerId => _playerId;
+    public PostWwiseUIEvent WwiseUIEvent => _wwiseUIEvent;
 
     private Player _originPlayer;
     private Animator _charVisualAnimator;
     private PostWwiseUIEvent _wwiseUIEvent;
-    [Header("Character VO Switches")]
-    [SerializeField] private AK.Wwise.Switch[] characterSwitches;
-    private AK.Wwise.Switch selectedCharacterSwitch;
+    
 
     private void Awake()
     {

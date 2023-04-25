@@ -19,6 +19,8 @@ namespace UI
             public GameObject page;
         }
 
+        [SerializeField] private AK.Wwise.Event pauseSfx;
+        [SerializeField] private AK.Wwise.Event exitSfx;
         [Tooltip("Keep training tab at the end")]
         [SerializeField] private TabAssets[] _tabAssets;
         [SerializeField] private GameObject _menu;
@@ -145,6 +147,7 @@ namespace UI
 
                 ResetValues();
                 _menu.SetActive(false);
+                exitSfx?.Post(gameObject);
                 Time.timeScale = 1;
             }
             else //open menu
@@ -159,6 +162,7 @@ namespace UI
                 }
 
                 _menu.SetActive(true);
+                pauseSfx?.Post(gameObject);
                 _opener.PlayerInput.uiInputModule = _menu.GetComponent<InputSystemUIInputModule>();
                 SetToTab(0);
             }
