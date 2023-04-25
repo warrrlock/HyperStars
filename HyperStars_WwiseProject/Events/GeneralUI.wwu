@@ -23,6 +23,17 @@
 								</Reference>
 							</ReferenceList>
 						</Action>
+						<Action Name="" ID="{204FD284-7D48-4D66-88B9-4D9FC80A4A46}" ShortID="557201439">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.5"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_SelectionVO" ID="{5E1A09B1-C877-42E5-B221-0BFA4C4B2C08}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
 					</ChildrenList>
 				</Event>
 				<Event Name="Play_UI_Click" ID="{F6B00CE8-C280-4590-BA43-C898347365CF}">
