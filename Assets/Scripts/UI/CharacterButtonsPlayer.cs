@@ -38,6 +38,9 @@ public class CharacterButtonsPlayer: MonoBehaviour
     private Player _originPlayer;
     private Animator _charVisualAnimator;
     private PostWwiseUIEvent _wwiseUIEvent;
+    [Header("Character VO Switches")]
+    [SerializeField] private AK.Wwise.Switch[] characterSwitches;
+    private AK.Wwise.Switch selectedCharacterSwitch;
 
     private void Awake()
     {
@@ -65,12 +68,14 @@ public class CharacterButtonsPlayer: MonoBehaviour
     public void SelectLisa()
     {
         _characterManager.Characters.TryGetValue(CharacterManager.CharacterSelection.Lisa, out Character character);
+        selectedCharacterSwitch = characterSwitches[0];
         SelectCharacter(character);
     }
 
     public void SelectBluk()
     {
         _characterManager.Characters.TryGetValue(CharacterManager.CharacterSelection.Bluk, out Character character);
+        selectedCharacterSwitch = characterSwitches[1];
         SelectCharacter(character);
     }
 
@@ -94,7 +99,11 @@ public class CharacterButtonsPlayer: MonoBehaviour
 
     private void UpdateReadyVisuals()
     {
-        if (_originPlayer.Ready) _wwiseUIEvent.PostLockIn();
+        if (_originPlayer.Ready)
+        { 
+            _wwiseUIEvent.characterSwitch = selectedCharacterSwitch;
+            _wwiseUIEvent.PostLockIn();
+        }
         if (_readyVisual)
             _readyVisual.SetActive(_originPlayer.Ready); //TODO: replace with animations/ui input module change}
     }
