@@ -9,6 +9,34 @@
 			<ChildrenList>
 				<Bus Name="LisaSpecialsBus" ID="{E3CFB8C3-D5D6-4A31-BFCA-74969544FC91}">
 					<PropertyList>
+						<Property Name="BusVolume" Type="Real64">
+							<RTPCList>
+								<RTPC Name="" ID="{E8821B73-005E-4009-AE02-82204ED02AD8}" ShortID="956201171">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="SFXVolume" ID="{ADF4518D-99B4-431A-B813-B9B20ED8BA4D}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{6F717F3E-C8D3-4EBA-97D9-636BBD11B82D}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>1</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
 						<Property Name="Color" Type="int16" Value="23"/>
 						<Property Name="OverrideColor" Type="bool" Value="True"/>
 					</PropertyList>

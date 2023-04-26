@@ -9,6 +9,34 @@
 			<ChildrenList>
 				<Bus Name="GeneralFoleyBus" ID="{A87D0FCA-459C-4C44-92E2-0E8DCFCB04F6}">
 					<PropertyList>
+						<Property Name="BusVolume" Type="Real64">
+							<RTPCList>
+								<RTPC Name="" ID="{5FEEC009-34E4-45EB-9932-5EF963C5BD79}" ShortID="991176050">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="SFXVolume" ID="{ADF4518D-99B4-431A-B813-B9B20ED8BA4D}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{FFB6A799-8EC9-414C-8B9C-AC8EC1A232AE}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>1</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
 						<Property Name="Color" Type="int16" Value="3"/>
 						<Property Name="OverrideColor" Type="bool" Value="True"/>
 					</PropertyList>

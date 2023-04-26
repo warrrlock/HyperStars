@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" SchemaVersion="103" RootDocumentID="{4AB837CB-8D08-4833-9B57-5ACAAE808409}" ParentDocumentID="{4AB837CB-8D08-4833-9B57-5ACAAE808409}">
 	<Events>
-		<WorkUnit Name="GeneralUI" ID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" OwnerID="{4AB837CB-8D08-4833-9B57-5ACAAE808409}" PersistMode="Nested"/>
+		<WorkUnit Name="GeneralUI" ID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" OwnerID="{4AB837CB-8D08-4833-9B57-5ACAAE808409}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="Play_UI_Toggle" ID="{92B34AA5-1946-4B11-83E8-09A6A1D1CD5A}">
+					<ChildrenList>
+						<Action Name="" ID="{87CDA663-1EA5-4C4A-911A-A955D7B2884E}" ShortID="792666995">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="UI Toggle" ID="{32C22245-79F9-4191-9BB3-ABF42FD85260}" WorkUnitID="{8908F36A-3E12-469A-9486-DAD0B689BAC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_UI_Lockin" ID="{3CB66C05-11D8-439A-9989-F08AF090CAD4}">
+					<ChildrenList>
+						<Action Name="" ID="{F7BE19F5-CD74-4F9E-8320-04AEBFEE5117}" ShortID="532885856">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="UI Lockin" ID="{4674AD1D-CE99-47F5-823E-4EA8AB56A0E6}" WorkUnitID="{8908F36A-3E12-469A-9486-DAD0B689BAC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{204FD284-7D48-4D66-88B9-4D9FC80A4A46}" ShortID="557201439">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+								<Property Name="Delay" Type="Real64" Value="0.5"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Play_SelectionVO" ID="{5E1A09B1-C877-42E5-B221-0BFA4C4B2C08}" WorkUnitID="{54350438-78CD-4A27-934F-2468F63E91CE}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_UI_Click" ID="{F6B00CE8-C280-4590-BA43-C898347365CF}">
+					<ChildrenList>
+						<Action Name="" ID="{A53FE3EC-7AFF-4E9E-B5BD-3152481FECE9}" ShortID="994628011">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="UI Click" ID="{4AAE5596-1029-49A3-9C51-55161115EDE7}" WorkUnitID="{8908F36A-3E12-469A-9486-DAD0B689BAC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_UI_Hover" ID="{DA613329-029D-4509-9AA5-9E7C63A2B29F}">
+					<ChildrenList>
+						<Action Name="" ID="{B73C2EA5-FF4C-457A-9FBA-BF0EEBFB4D5E}" ShortID="439453203">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="UI Hover" ID="{E9100FD3-BD14-4AAA-A65B-C632F3C9F323}" WorkUnitID="{8908F36A-3E12-469A-9486-DAD0B689BAC0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>

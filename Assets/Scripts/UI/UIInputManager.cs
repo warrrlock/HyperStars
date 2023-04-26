@@ -64,12 +64,13 @@ namespace UI
                 switch (context.action.name)
                 {
                     case "Submit":
-                        if (_menu.IsTraining) _menu.StartTraining();
+                        if (_menu.IsTrainingSelection) _menu.StartTraining();
                         else _menu.StartGame();
                         break;
 
                     case "Cancel":
                         player.UnReady();
+                        _selectManager.WwiseUIEvents.PostExit();
                         break;
                 }
                 return;
@@ -96,6 +97,7 @@ namespace UI
                         if (_selectingForBot)
                             _selectManager.SetBotSelection();
                         player.CloseColourPicker(_selectingForBot);
+                        _selectManager.WwiseUIEvents.PostExit();
                         break;
                 }
                 return;
@@ -111,6 +113,7 @@ namespace UI
                         _player.UnReady();
                     }
                     else _menu.StartMainMenu();
+                    _selectManager.WwiseUIEvents.PostExit();
                     break;
             }
         }

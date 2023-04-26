@@ -2,14 +2,16 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Sky_Anime_11_morning_a
   m_Shader: {fileID: 108, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _MAPPING_LATITUDE_LONGITUDE_LAYOUT
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _MAPPING_LATITUDE_LONGITUDE_LAYOUT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -51,6 +53,7 @@ Material:
         m_Texture: {fileID: 8900000, guid: c1473a09822798a41a9cfa11f2721db6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlphaClip: 0
     - _Blend: 0
@@ -71,7 +74,7 @@ Material:
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Rotation: 0
+    - _Rotation: 184
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -84,7 +87,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tint: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 0.54901963}
+    - _Tint: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
+  m_BuildTextureStacks: []
 --- !u!114 &7408070079070313205
 MonoBehaviour:
   m_ObjectHideFlags: 11

@@ -38,31 +38,29 @@ public class FavorManager : MonoBehaviour
     }
     [Tooltip("What percentage of an attack's knockback gets decayed after use.")]
     [SerializeField][Range(1f, 2f)] private float _knockbackDecayValue;
-    //hitstun, favor, knockback
-    public float DecayResetDuration
+    public float FavorDecayResetDuration
     {
-        get => _decayResetDuration;
+        get => _favorDecayResetDuration;
     }
-    [Tooltip("How long it takes for an attack to fully recover from decay.")]
-    [SerializeField] private float _decayResetDuration;
+    [Tooltip("How long it takes for an attack' favor to fully recover from decay.")]
+    [SerializeField] private float _favorDecayResetDuration;
 
     public float MaxFavor { get; private set; }
 
-    /// <summary>
-    /// If favor is < 0, player 1 is favored. If favor is > 0, player 0 is favored.
-    /// </summary>
+    /// <summary> If favor is < 0, player 1 is favored. If favor is > 0, player 0 is favored. </summary>
     private float _favor;
     private float _favorMultiplier = 1f;
     private int _favoredPlayer = -1;
 
     [SerializeField] private RectTransform _favorMeter;
     [SerializeField] private Image _favorMeterIndicator;
-    [SerializeField] private Image _favorMeterIndicatorGlow;
+    //[SerializeField] private Image _favorMeterIndicatorGlow;
+    [SerializeField] private Material _favorMeterIndicatorOutlineMaterial; // TODO: outline material
     [SerializeField] private TextMeshProUGUI _multiplierText;
     [SerializeField] private Canvas _multiplierTextCanvas;
     [SerializeField] private GameEvent _winConditionEvent;
 
-
+    
     private Canvas _canvas;
     [SerializeField] private Image _p1Bar;
     [SerializeField] private Image _p2Bar;
@@ -101,8 +99,9 @@ public class FavorManager : MonoBehaviour
     private bool _isP2Chipping = false;
 
     [SerializeField] private float _indicatorFlipDuration;
-    private float _indicatorFlipSpeed;
-    private float _indicatorScaleDefault;
+    [SerializeField] private float _flipMaxSizeY;
+    private Vector2 _indicatorFlipSpeed;
+    private Vector2 _indicatorScaleDefault;
     private bool _isIndicatorFlipping = false;
     private IEnumerator _indicatorFlip;
 
@@ -140,10 +139,11 @@ public class FavorManager : MonoBehaviour
         _maxIndicatorX = _initialWidth * _multiplier;
         _minChipX = -_initialWidth / 2f;
         _maxChipX = _initialWidth / 2f;
-        _indicatorWidthOffsetLeft = _favorMeterIndicatorGlow.rectTransform.rect.width / 2f - 2f;
-        _indicatorWidthOffsetRight = _favorMeterIndicatorGlow.rectTransform.rect.width / 2f - 7f;
-        _indicatorScaleDefault = _favorMeterIndicatorGlow.rectTransform.localScale.x;
-        _indicatorFlipSpeed = _indicatorScaleDefault * 2f / _indicatorFlipDuration;
+        _indicatorWidthOffsetLeft = _favorMeterIndicator.rectTransform.rect.width / 2f - 2f;
+        _indicatorWidthOffsetRight = _favorMeterIndicator.rectTransform.rect.width / 2f - 7f;
+        _indicatorScaleDefault = _favorMeterIndicator.rectTransform.localScale;
+        _indicatorFlipSpeed.x = _indicatorScaleDefault.x * 2f / _indicatorFlipDuration;
+        _indicatorFlipSpeed.y = (_flipMaxSizeY - _indicatorScaleDefault.y) * 2f / _indicatorFlipDuration;
         UpdateFavorMeter();
     }
 
@@ -240,51 +240,29 @@ public class FavorManager : MonoBehaviour
         _p1ChipShrinkMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _outlineMaximum);
         _p2ChipShrinkMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (MaxFavor / _maxFavorInitial) * _outlineMaximum);
 
-        //_p1Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f)));
-        //_p2Bar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Lerp(_barMinimum, _barMaximum, Mathf.Abs(_favor + _maxFavorInitial) / (_maxFavorInitial * 2f)));
         _p1Bar.fillAmount = Mathf.Lerp(0f, 1f, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f));
         _p2Bar.fillAmount = Mathf.Lerp(0f, 1f, Mathf.Abs(_favor + _maxFavorInitial) / (_maxFavorInitial * 2f));
 
         float previousIndicatorX = 0f;
         if (shouldChip)
         {
-            previousIndicatorX = _favorMeterIndicatorGlow.rectTransform.anchoredPosition.x;
+            previousIndicatorX = _favorMeterIndicator.rectTransform.anchoredPosition.x;
         }
 
         float indicatorX = Mathf.Lerp(_minIndicatorX, _maxIndicatorX, Mathf.Abs(_favor - _maxFavorInitial) / (_maxFavorInitial * 2f));
         indicatorX = Mathf.Clamp(indicatorX, _minIndicatorX * (MaxFavor / _maxFavorInitial), _maxIndicatorX * (MaxFavor / _maxFavorInitial));
-        _favorMeterIndicatorGlow.rectTransform.anchoredPosition = new Vector3(indicatorX, _favorMeterIndicatorGlow.rectTransform.anchoredPosition.y, 0f);
-        //if (_favoredPlayer > -1)
-        //{
-        //    _favorMeterIndicator.sprite = Services.Characters[_favoredPlayer].IndicatorSprite;
-        //    _favorMeterIndicatorGlow.sprite = Services.Characters[_favoredPlayer].IndicatorGlowSprite;
-        //    _favorMeterIndicatorGlow.color = _glowColors[_favoredPlayer];
-        //}
-        //else
-        //{
-        //    _favorMeterIndicator.sprite = Services.Characters[0].IndicatorSprite;
-        //    _favorMeterIndicatorGlow.sprite = Services.Characters[0].IndicatorGlowSprite;
-        //    _favorMeterIndicatorGlow.color = _glowColors[0];
-        //}
+        _favorMeterIndicator.rectTransform.anchoredPosition = new Vector3(indicatorX, _favorMeterIndicator.rectTransform.anchoredPosition.y, 0f);
 
         if (_favoredPlayer < 0)
         {
             _favorMeterIndicator.sprite = Services.Characters[0].IndicatorSprite;
-            _favorMeterIndicatorGlow.sprite = Services.Characters[0].IndicatorGlowSprite;
-            _favorMeterIndicatorGlow.color = _glowColors[0];
+            //_favorMeterIndicatorGlow.sprite = Services.Characters[0].IndicatorGlowSprite;
+            //_favorMeterIndicatorGlow.color = _glowColors[0];
+            _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[0]);
         }
 
         if (shouldChip)
         {
-            //float chipX = Mathw.Average(previousIndicatorX, indicatorX);
-            //chipX -= _favorMeterIndicatorGlow.rectTransform.rect.width / 1.5f;
-            //chipX = ConvertFromWorldRectToLocal(chipX);
-            //Debug.Log(chipX);
-            //Image chipRect = _favoredPlayer == 0 ? _p1ChipRect : _p2ChipRect;
-            //Image chipMask = _favoredPlayer == 0 ? _p1ChipMask : _p2ChipMask;
-            //Vector2 chipPosition = chipRect.rectTransform.InverseTransformPoint(_favorMeterIndicatorGlow.rectTransform.TransformPoint(new Vector2(chipX, 0f)));
-            //float chipWidth = Mathf.Abs(indicatorX - previousIndicatorX); //TODO: /2 is most accurate, but looks too small
-            //_chipEffect = ChipEffect(chipX, chipWidth);
             Side originSide;
             float previousFill;
             float previousIndicatorXOffset;
@@ -370,30 +348,40 @@ public class FavorManager : MonoBehaviour
     {
         _isIndicatorFlipping = true;
         int playerIdMultiplier = newPlayerId == 0 ? 1 : -1;
-        float indicatorScaleCurrent = _favorMeterIndicatorGlow.rectTransform.localScale.x;
+        Vector2 indicatorScaleCurrent = _favorMeterIndicator.rectTransform.localScale;
         bool hasIconChanged = false;
-        while (indicatorScaleCurrent * playerIdMultiplier < _indicatorScaleDefault)
+        while (indicatorScaleCurrent.x * playerIdMultiplier < _indicatorScaleDefault.x)
         {
             yield return new WaitForFixedUpdate();
-            Vector3 newScale = _favorMeterIndicatorGlow.rectTransform.localScale;
-            indicatorScaleCurrent += _indicatorFlipSpeed * playerIdMultiplier * Time.fixedDeltaTime;
-            newScale.x = indicatorScaleCurrent;
-            _favorMeterIndicatorGlow.rectTransform.localScale = newScale;
+            Vector3 newScale = _favorMeterIndicator.rectTransform.localScale;
+            indicatorScaleCurrent.x += _indicatorFlipSpeed.x * playerIdMultiplier * Time.fixedDeltaTime;
+            if (!hasIconChanged)
+            {
+                indicatorScaleCurrent.y += _indicatorFlipSpeed.y * Time.fixedDeltaTime;
+            }
+            else
+            {
+                indicatorScaleCurrent.y -= _indicatorFlipSpeed.y * Time.fixedDeltaTime;
+            }
+            newScale = indicatorScaleCurrent;
+            _favorMeterIndicator.rectTransform.localScale = newScale;
             if (hasIconChanged)
             {
                 continue;
             }
-            if (indicatorScaleCurrent * playerIdMultiplier > 0f)
+            if (indicatorScaleCurrent.x * playerIdMultiplier > 0f)
             {
                 _favorMeterIndicator.sprite = Services.Characters[newPlayerId].IndicatorSprite;
-                _favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
-                _favorMeterIndicatorGlow.color = _glowColors[newPlayerId];
+                //_favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
+                //_favorMeterIndicatorGlow.color = _glowColors[newPlayerId];
+                _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[newPlayerId]);
                 hasIconChanged = true;
             }
         }
-        Vector3 endScale = _favorMeterIndicatorGlow.rectTransform.localScale;
-        endScale.x = _indicatorScaleDefault * playerIdMultiplier;
-        _favorMeterIndicatorGlow.rectTransform.localScale = endScale;
+        Vector3 endScale = _favorMeterIndicator.rectTransform.localScale;
+        endScale.x = _indicatorScaleDefault.x * playerIdMultiplier;
+        endScale.y = _indicatorScaleDefault.y;
+        _favorMeterIndicator.rectTransform.localScale = endScale;
         _isIndicatorFlipping = false;
         yield break;
     }

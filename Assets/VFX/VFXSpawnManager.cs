@@ -66,6 +66,7 @@ public class VFXSpawnManager : MonoBehaviour
     {
         foreach (Fighter f in Services.Fighters)
         {
+            if (!f) continue;
             f.Events.onAttackHit -= PlayHitVFX;
             f.Events.onBlockHit -= PlayBlockVFX;
         }
