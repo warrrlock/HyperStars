@@ -159,23 +159,29 @@ public class Fighter : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        Events.onGoldenGoalEnabled += EnableGoldenGoal;
-        Events.onGoldenGoalDisabled += DisableGoldenGoal;
+        Services.FavorManager.onGoldenGoalEnabled += EnableGoldenGoal;
+        Services.FavorManager.onGoldenGoalDisabled += DisableGoldenGoal;
     }
 
     private void UnsubscribeEvents()
     {
-        Events.onGoldenGoalEnabled -= EnableGoldenGoal;
-        Events.onGoldenGoalDisabled -= DisableGoldenGoal;
+        Services.FavorManager.onGoldenGoalEnabled -= EnableGoldenGoal;
+        Services.FavorManager.onGoldenGoalDisabled -= DisableGoldenGoal;
     }
 
     private void EnableGoldenGoal(int player)
     {
-        HasGoldenGoal = true;
+        if (player == PlayerId)
+        {
+            HasGoldenGoal = true;
+        }
     }
 
     private void DisableGoldenGoal(int player)
     {
-        HasGoldenGoal = false;
+        if (player == PlayerId)
+        {
+            HasGoldenGoal = false;
+        }
     }
 }

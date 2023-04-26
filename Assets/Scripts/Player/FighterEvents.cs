@@ -10,10 +10,6 @@ public class FighterEvents
     public WallBounce wallBounce;
     public delegate void GroundBounce();
     public GroundBounce groundBounce;
-    public delegate void GoldenGoal(int player);
-    public GoldenGoal onGoldenGoalEnabled;
-    public delegate void GoldenGoalDisable(int player);
-    public GoldenGoalDisable onGoldenGoalDisabled;
 
     public Action onLandedNeutral;
     public Action onLandedHurt;

@@ -125,6 +125,11 @@ public class FavorManager : MonoBehaviour
     private bool _isPortraitScaling = false;
     private IEnumerator _portraitResize;
 
+    public delegate void GoldenGoal(int player);
+    public GoldenGoal onGoldenGoalEnabled;
+    public delegate void GoldenGoalDisable(int player);
+    public GoldenGoalDisable onGoldenGoalDisabled;
+
     private void Awake()
     {
         Services.FavorManager = this;
@@ -262,14 +267,14 @@ public class FavorManager : MonoBehaviour
                 {
                     if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
                     {
-                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                        onGoldenGoalEnabled?.Invoke(_favoredPlayer);
                     }
                 }
                 else
                 {
                     if (Services.Fighters[_favoredPlayer].HasGoldenGoal)
                     {
-                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalDisabled?.Invoke(_favoredPlayer);
+                        onGoldenGoalDisabled?.Invoke(_favoredPlayer);
                     }
                 }
                 break;
@@ -278,14 +283,14 @@ public class FavorManager : MonoBehaviour
                 {
                     if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
                     {
-                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                        onGoldenGoalEnabled?.Invoke(_favoredPlayer);
                     }
                 }
                 else
                 {
                     if (Services.Fighters[_favoredPlayer].HasGoldenGoal)
                     {
-                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalDisabled?.Invoke(_favoredPlayer);
+                        onGoldenGoalDisabled?.Invoke(_favoredPlayer);
                     }
                 }
                 break;
@@ -307,7 +312,7 @@ public class FavorManager : MonoBehaviour
                 {
                     if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
                     {
-                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                        onGoldenGoalEnabled?.Invoke(_favoredPlayer);
                     }
                 }
                 break;
@@ -316,7 +321,7 @@ public class FavorManager : MonoBehaviour
                 {
                     if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
                     {
-                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                        onGoldenGoalEnabled?.Invoke(_favoredPlayer);
                     }
                 }
                 break;
@@ -611,19 +616,13 @@ public class FavorManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        for (int i = 0; i < 2; i++)
-        {
-            Services.Fighters[i].Events.onGoldenGoalEnabled += GoldenGoalGet;
-            Services.Fighters[i].Events.onGoldenGoalDisabled += GoldenGoalLose;
-        }
+        onGoldenGoalEnabled += GoldenGoalGet;
+        onGoldenGoalDisabled += GoldenGoalLose;
     }
 
     private void UnsubscribeEvents()
     {
-        for (int i = 0; i < 2; i++)
-        {
-            Services.Fighters[i].Events.onGoldenGoalEnabled -= GoldenGoalGet;
-            Services.Fighters[i].Events.onGoldenGoalDisabled -= GoldenGoalLose;
-        }
+        onGoldenGoalEnabled -= GoldenGoalGet;
+        onGoldenGoalDisabled -= GoldenGoalLose;
     }
 }
