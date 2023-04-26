@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text;
 
-public class P2Indicator : MonoBehaviour
+public class P2HitIndicator : MonoBehaviour
 {
     
     [SerializeField] TextMeshProUGUI [] comboTexts;
@@ -147,7 +147,7 @@ public class P2Indicator : MonoBehaviour
 
         StringBuilder builder = new StringBuilder();
         builder.Append(TextBeforeComboNum);
-        builder.Append(comboCounter);
+        //builder.Append(comboCounter);
         builder.Append(TextAfterComboNum);
         if(comboCounter > 1) {
             //builder.Append('!', comboCounter - 1);
