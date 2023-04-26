@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text;
 
-public class ComboIndicator : MonoBehaviour
+public class HitIndicator : MonoBehaviour
 {
     
     [SerializeField] TextMeshProUGUI [] comboTexts;
@@ -31,7 +31,7 @@ public class ComboIndicator : MonoBehaviour
     
 
     void Awake() {
-        Global.comboIndicator = this;
+        Global.hitIndicator = this;
 
         //playerActions = new List<PlayerAction>(FindObjectsOfType<PlayerAction>());
         
@@ -150,8 +150,8 @@ public class ComboIndicator : MonoBehaviour
         comboCounter = numSetTo;
 
         StringBuilder builder = new StringBuilder();
-        builder.Append(TextBeforeComboNum);
-        builder.Append(comboCounter);
+        //builder.Append(TextBeforeComboNum);
+        //builder.Append(comboCounter);
         builder.Append(TextAfterComboNum);
         if(comboCounter > 0) {
             //builder.Append('!', comboCounter - 1);
