@@ -14,5 +14,10 @@ public class SoundManagerUI : MonoBehaviour
     {
         // Instance = this;
         Services.RoundTimer.onStartShrink += () => { lockBreakSound.Post(gameObject); };
+        foreach (var f in Services.Fighters)
+        {
+            f.Events.onGoldenGoalEnabled += ctx => { playGoldenGoal.Post(gameObject); };
+            f.Events.onGoldenGoalDisabled += ctx => { stopGoldenGoal.Post(gameObject); };
+        }
     }
 }
