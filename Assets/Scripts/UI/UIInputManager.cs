@@ -70,6 +70,7 @@ namespace UI
 
                     case "Cancel":
                         player.UnReady();
+                        _selectManager.WwiseUIEvents.PostExit();
                         break;
                 }
                 return;
@@ -96,6 +97,7 @@ namespace UI
                         if (_selectingForBot)
                             _selectManager.SetBotSelection();
                         player.CloseColourPicker(_selectingForBot);
+                        _selectManager.WwiseUIEvents.PostExit();
                         break;
                 }
                 return;
@@ -111,6 +113,7 @@ namespace UI
                         _player.UnReady();
                     }
                     else _menu.StartMainMenu();
+                    _selectManager.WwiseUIEvents.PostExit();
                     break;
             }
         }

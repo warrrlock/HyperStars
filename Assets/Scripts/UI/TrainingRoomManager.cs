@@ -11,7 +11,7 @@ namespace UI
         [Header("info")]
         [SerializeField] private FightersManager _fightersManager;
         [SerializeField] private float _xDistanceBetweenPlayers;
-        [SerializeField] private List<ActionSpritePair> _actionSpritePairs;
+        [SerializeField] private CmmdListReference _cmmdListReference;
         
         [Header("Room Positions")]
         [SerializeField] private Transform _leftRoomPosition;
@@ -34,24 +34,18 @@ namespace UI
         private Queue<GameObject> _inputQueue = new Queue<GameObject>();
         private static readonly int On = Animator.StringToHash("On");
 
-        [Serializable]
-        private class ActionSpritePair
+        private void Awake()
         {
-            public string action;
-            public Sprite sprite;
+            _inputSprites = new Dictionary<string, Sprite>();
+            foreach (var pair in _cmmdListReference.actionSpritePairs)
+            {
+                _inputSprites.TryAdd(pair.action, pair.sprite);
+            }
         }
 
         private void Start()
         {
             HandleInfiniteEx();
-            // _xDistanceBetweenPlayers =
-            //     _fightersManager.player1StartPosition.x + _fightersManager.player2StartPosition.x;
-            _inputSprites = new Dictionary<string, Sprite>();
-            foreach (var pair in _actionSpritePairs)
-            {
-                _inputSprites.TryAdd(pair.action, pair.sprite);
-            }
-
             SubscribeToInputs();
         }
 
