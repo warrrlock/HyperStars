@@ -11,7 +11,7 @@ namespace WesleyDavies
     /// Easing functions based on: https://gist.github.com/cjddmut/d789b9eb78216998e95c
     public abstract class Easing
     {
-        public enum Funcs { Linear, Quadratic, QuadraticIn, QuadraticOut, Cubic, CubicIn, CubicOut, Quartic, QuarticIn, QuarticOut }
+        public enum Funcs { Linear, Quadratic, QuadraticIn, QuadraticOut, Cubic, CubicIn, CubicOut, Quartic, QuarticIn, QuarticOut, OutBack }
 
         public abstract float Ease(float start, float end, float value);
 
@@ -34,6 +34,7 @@ namespace WesleyDavies
                 Funcs.Cubic => new Cubic(),
                 Funcs.CubicIn => new CubicIn(),
                 Funcs.CubicOut => new CubicOut(),
+                Funcs.OutBack => new OutBack(),
                 _ => throw new Exception("Easing function does not exist.")
             };
         }
@@ -339,6 +340,51 @@ namespace WesleyDavies
             value--;
             end -= start;
             return (value * value * value + 1) * end + start;
+        }
+    }
+
+    public class OutBack : Easing
+    {
+        public override float Ease(float start, float end, float value)
+        {
+            float s = 1.70158f;
+            end -= start;
+            value = (value) - 1;
+            return end * ((value) * value * ((s + 1) * value + s) + 1) + start;
+        }
+
+        public override Vector2 Ease(Vector2 start, Vector2 end, float value)
+        {
+            float s = 1.70158f;
+            end -= start;
+            value = (value) - 1;
+            return end * ((value) * value * ((s + 1) * value + s) + 1) + start;
+        }
+
+        public override Vector3 Ease(Vector3 start, Vector3 end, float value)
+        {
+            float s = 1.70158f;
+            end -= start;
+            value = (value) - 1;
+            return end * ((value) * value * ((s + 1) * value + s) + 1) + start;
+        }
+
+        public override Quaternion Ease(Quaternion start, Quaternion end, float value)
+        {
+            Vector4 startVector = start.ToVector4();
+            Vector4 endVector = end.ToVector4();
+            float s = 1.70158f;
+            endVector -= startVector;
+            value = (value) - 1;
+            return (endVector * ((value) * value * ((s + 1) * value + s) + 1) + startVector).ToQuaternion();
+        }
+
+        public override Color Ease(Color start, Color end, float value)
+        {
+            float s = 1.70158f;
+            end -= start;
+            value = (value) - 1;
+            return end * ((value) * value * ((s + 1) * value + s) + 1) + start;
         }
     }
 }

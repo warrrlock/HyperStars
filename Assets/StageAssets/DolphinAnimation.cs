@@ -8,13 +8,13 @@ public class DolphinAnimation : MonoBehaviour
     public Animator anim;
     //public int ranNumb;
     private int _spawnChance;
-    private int _chanceIncreaseDelta = 15;
+    private int _chanceIncreaseDelta = 12;
 
     void Start()
     {
         if (RoundInformation.round < 3)
         {
-            _spawnChance = 15;
+            _spawnChance = 10;
         }
         else
         {
