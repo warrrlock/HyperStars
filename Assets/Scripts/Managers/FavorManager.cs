@@ -120,7 +120,7 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private Vector2 _portraitScaleBounds;
     [SerializeField] private float _portraitEnlargeDuration;
     [SerializeField] private float _portraitShrinkDuration;
-    [SerializeField] private Image[] _portraits;
+    [SerializeField] private Image[] _portraitOutlines;
     private float[] _portraitScales = new float[2];
     private bool _isPortraitScaling = false;
     private IEnumerator _portraitResize;
@@ -163,7 +163,8 @@ public class FavorManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             _portraitScales[i] = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, 0.5f);
-            _portraits[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
+            _portraitOutlines[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
+            _portraitOutlines[i].color = _glowColors[i];
         }
         UpdateFavorMeter();
     }
@@ -185,7 +186,6 @@ public class FavorManager : MonoBehaviour
 
     public void IncreaseFavor(int playerId, float value)
     {
-        Debug.Log("thing");
         if (_isRoundOver)
         {
             return;
@@ -196,13 +196,17 @@ public class FavorManager : MonoBehaviour
         {
             if (Mathf.Abs(_favor + value) > MaxFavor)
             {
-                //player wins
-                //Debug.Log("Player " + playerId + " wins.");
-                Dictionary<string, object> result = new Dictionary<string, object>()
+                if (Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                {
+                    //TODO: dont let a player win who isn't golden because the favor meter shrunk on the other person being favored
+                    //player wins
+                    //Debug.Log("Player " + playerId + " wins.");
+                    Dictionary<string, object> result = new Dictionary<string, object>()
                 {
                     {"winnerId", playerId}
                 };
-                if (_winConditionEvent) _winConditionEvent.Raise(result);
+                    if (_winConditionEvent) _winConditionEvent.Raise(result);
+                }
             }
         }
         switch (_favoredPlayer)
@@ -265,33 +269,27 @@ public class FavorManager : MonoBehaviour
             case 0:
                 if (_favor <= -MaxFavor)
                 {
-                    if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    if (!Services.Fighters[0].HasGoldenGoal)
                     {
-                        onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                        onGoldenGoalEnabled?.Invoke(0);
                     }
                 }
-                else
+                if (Services.Fighters[1].HasGoldenGoal)
                 {
-                    if (Services.Fighters[_favoredPlayer].HasGoldenGoal)
-                    {
-                        onGoldenGoalDisabled?.Invoke(_favoredPlayer);
-                    }
+                    onGoldenGoalDisabled?.Invoke(1);
                 }
                 break;
             case 1:
                 if (_favor >= MaxFavor)
                 {
-                    if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    if (!Services.Fighters[1].HasGoldenGoal)
                     {
-                        onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                        onGoldenGoalEnabled?.Invoke(1);
                     }
                 }
-                else
+                if (Services.Fighters[0].HasGoldenGoal)
                 {
-                    if (Services.Fighters[_favoredPlayer].HasGoldenGoal)
-                    {
-                        onGoldenGoalDisabled?.Invoke(_favoredPlayer);
-                    }
+                    onGoldenGoalDisabled?.Invoke(0);
                 }
                 break;
         }
@@ -471,7 +469,14 @@ public class FavorManager : MonoBehaviour
                 _favorMeterIndicator.sprite = Services.Characters[newPlayerId].IndicatorSprite;
                 //_favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
                 //_favorMeterIndicatorGlow.color = _glowColors[newPlayerId];
-                _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[newPlayerId]);
+                if (Services.Fighters[newPlayerId].HasGoldenGoal)
+                {
+                    _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[2]);
+                }
+                else
+                {
+                    _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[newPlayerId]);
+                }
                 hasIconChanged = true;
             }
         }
@@ -527,11 +532,11 @@ public class FavorManager : MonoBehaviour
             }
             for (int i = 0; i < 2; i++)
             {
-                _portraits[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
+                _portraitOutlines[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
             }
         }
-        _portraits[enlargingPlayer].rectTransform.localScale = new Vector3(enlargingEndScale, enlargingEndScale, enlargingEndScale);
-        _portraits[shrinkingPlayer].rectTransform.localScale = new Vector3(shrinkingEndScale, shrinkingEndScale, shrinkingEndScale);
+        _portraitOutlines[enlargingPlayer].rectTransform.localScale = new Vector3(enlargingEndScale, enlargingEndScale, enlargingEndScale);
+        _portraitOutlines[shrinkingPlayer].rectTransform.localScale = new Vector3(shrinkingEndScale, shrinkingEndScale, shrinkingEndScale);
         _isPortraitScaling = false;
         yield break;
     }
@@ -607,11 +612,16 @@ public class FavorManager : MonoBehaviour
     private void GoldenGoalGet(int player)
     {
         _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[2]);
+        _portraitOutlines[player].color = _glowColors[2];
     }
 
     private void GoldenGoalLose(int player)
     {
         _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[_favoredPlayer]);
+        for (int i = 0; i < 2; i++)
+        {
+            _portraitOutlines[i].color = _glowColors[i];
+        }
     }
 
     private void SubscribeEvents()

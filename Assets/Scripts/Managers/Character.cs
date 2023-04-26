@@ -35,6 +35,8 @@ namespace Managers
 
         public Sprite[] CharacterPortrait => _characterPortrait;
         [SerializeField] private Sprite[] _characterPortrait;
+        public Sprite[] NamePlates => _namePlates;
+        [SerializeField] private Sprite[] _namePlates;
         [field: SerializeField] public CharacterColorScriptable CharacterPalettes { get; private set; }
 
         public HurtState LoseState => _loseState;
