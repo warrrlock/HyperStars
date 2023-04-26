@@ -133,6 +133,7 @@ public class FavorManager : MonoBehaviour
     private void Start()
     {
         AssignComponents();
+        SubscribeEvents();
         MaxFavor = _maxFavorInitial;
 
         _initialWidth = _favorMeter.rect.width;
@@ -162,6 +163,11 @@ public class FavorManager : MonoBehaviour
         UpdateFavorMeter();
     }
 
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
+
     private void AssignComponents()
     {
         _canvas = GetComponentInChildren<Canvas>();
@@ -174,6 +180,7 @@ public class FavorManager : MonoBehaviour
 
     public void IncreaseFavor(int playerId, float value)
     {
+        Debug.Log("thing");
         if (_isRoundOver)
         {
             return;
@@ -199,8 +206,6 @@ public class FavorManager : MonoBehaviour
                 _favoredPlayer = playerId;
                 _indicatorFlip = FlipIndicator(_favoredPlayer);
                 StartCoroutine(_indicatorFlip);
-                //_portraitResize = ResizeCharacterPortraits(_favoredPlayer, _favor, _favor + value);
-                //StartCoroutine(_portraitResize);
                 break;
             case 0:
                 if (_favor + value > _favor)
@@ -246,17 +251,76 @@ public class FavorManager : MonoBehaviour
         StartCoroutine(_portraitResize);
         _favor += value;
         _favor = Mathf.Clamp(_favor, -MaxFavor, MaxFavor);
+
+        UpdateFavorMeter(true);
+
+        //golden goal
+        switch (_favoredPlayer)
+        {
+            case 0:
+                if (_favor <= -MaxFavor)
+                {
+                    if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    {
+                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                    }
+                }
+                else
+                {
+                    if (Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    {
+                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalDisabled?.Invoke(_favoredPlayer);
+                    }
+                }
+                break;
+            case 1:
+                if (_favor >= MaxFavor)
+                {
+                    if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    {
+                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                    }
+                }
+                else
+                {
+                    if (Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    {
+                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalDisabled?.Invoke(_favoredPlayer);
+                    }
+                }
+                break;
+        }
         //if (_favor > _peakFavors[playerId])
         //{
         //    _peakFavors[playerId] = _favor;
         //}
-        UpdateFavorMeter(true);
     }
 
     public void ResizeFavorMeter(float factor)
     {
         MaxFavor += factor;
         _favor = Mathf.Clamp(_favor, -MaxFavor, MaxFavor);
+        switch (_favoredPlayer)
+        {
+            case 0:
+                if (_favor <= -MaxFavor)
+                {
+                    if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    {
+                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                    }
+                }
+                break;
+            case 1:
+                if (_favor >= MaxFavor)
+                {
+                    if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    {
+                        Services.Fighters[_favoredPlayer].Events.onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                    }
+                }
+                break;
+        }
         UpdateFavorMeter();
     }
 
@@ -535,8 +599,31 @@ public class FavorManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FlipIndicator()
+    private void GoldenGoalGet(int player)
     {
-        yield break;
+        _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[2]);
+    }
+
+    private void GoldenGoalLose(int player)
+    {
+        _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[_favoredPlayer]);
+    }
+
+    private void SubscribeEvents()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            Services.Fighters[i].Events.onGoldenGoalEnabled += GoldenGoalGet;
+            Services.Fighters[i].Events.onGoldenGoalDisabled += GoldenGoalLose;
+        }
+    }
+
+    private void UnsubscribeEvents()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            Services.Fighters[i].Events.onGoldenGoalEnabled -= GoldenGoalGet;
+            Services.Fighters[i].Events.onGoldenGoalDisabled -= GoldenGoalLose;
+        }
     }
 }
