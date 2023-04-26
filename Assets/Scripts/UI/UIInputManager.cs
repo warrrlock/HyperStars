@@ -110,10 +110,10 @@ namespace UI
                     if (_selectingForBot)
                     {
                         _selectingForBot = false;
-                        _selectManager.WwiseUIEvents.PostExit();
                         _player.UnReady();
                     }
                     else _menu.StartMainMenu();
+                    _selectManager.WwiseUIEvents.PostExit();
                     break;
             }
         }
