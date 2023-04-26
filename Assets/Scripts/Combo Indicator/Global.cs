@@ -15,7 +15,8 @@ public static class Global
     //public static ParticleMaker ParticleMaker;
     //public static GameObject FailScreen;
     //public static GameObject PauseScreen;
-    public static ComboIndicator ComboIndicator;
+    public static ComboIndicator comboIndicator;
+    public static HitIndicator hitIndicator;
     //public static CenterEffectManager CenterEffectManager;
 
     //public static bool Tutorial;//Whether the tutorial is currently running

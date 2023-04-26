@@ -79,6 +79,8 @@ public class P2Indicator : MonoBehaviour
             //_fighter is a reference to fighter object
             Services.Fighters[0].Events.onAttackHit += IncrementPlayer1Combo; //note that block is a separate event
             Services.Fighters[1].Events.onAttackHit += IncrementPlayer2Combo; //note that block is a separate event
+
+            Services.Fighters[0].Events.onEndHitstun += ResetCombo;
         }
         
         private void UnSubscribe() //remember to unsubscribe when object is destroyed (OnDestroy)
@@ -86,6 +88,8 @@ public class P2Indicator : MonoBehaviour
             //_fighter is a reference to fighter object
             Services.Fighters[0].Events.onAttackHit -= IncrementPlayer1Combo; //note that block is a separate event
             Services.Fighters[1].Events.onAttackHit -= IncrementPlayer2Combo; //note that block is a separate event
+
+            Services.Fighters[0].Events.onEndHitstun -= ResetCombo;
         }
 
 
@@ -125,6 +129,14 @@ public class P2Indicator : MonoBehaviour
         //col.a = 1;
     }
 
+    private void ResetCombo(){
+        // Debug.Log("subscribed combo, incrementing for player 2");
+        //IncrementCombo();
+
+        SetCombo(0);
+    }
+
+
     public void IncrementCombo(int numChangeBy = 1) { //Global.ComboIndicator.IncrementCombo();
         SetCombo(comboCounter + numChangeBy);
     }
@@ -145,7 +157,7 @@ public class P2Indicator : MonoBehaviour
             
             comboText.text = builder.ToString();
 
-            if(comboCounter >= 2){
+            if(comboCounter >= 1){
                 comboText.enabled = true;
                 shaker.ShakeIt();
             } else{
