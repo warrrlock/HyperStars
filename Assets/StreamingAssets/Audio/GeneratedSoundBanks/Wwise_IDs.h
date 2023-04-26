@@ -70,10 +70,13 @@ namespace AK
         static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;
         static const AkUniqueID PLAY_SELECTIONVO = 3889212317U;
         static const AkUniqueID PLAY_SIDE_LAUNCH_SWING = 2955565060U;
+        static const AkUniqueID PLAY_UI_CANCEL = 2244506081U;
         static const AkUniqueID PLAY_UI_CLICK = 1749424733U;
         static const AkUniqueID PLAY_UI_HOVER = 1339559671U;
         static const AkUniqueID PLAY_UI_LOCKIN = 365326775U;
+        static const AkUniqueID PLAY_UI_PAUSED = 2953310417U;
         static const AkUniqueID PLAY_UI_TOGGLE = 2609688239U;
+        static const AkUniqueID PLAY_UI_TOGGLE_SHORT = 596834416U;
         static const AkUniqueID PLAY_WALL_BOUNCE_FOLEY_MAT = 2769098130U;
         static const AkUniqueID STOP_BLUKTHEME = 3753011029U;
         static const AkUniqueID STOP_FAVORGOLDENGOAL = 1102378326U;

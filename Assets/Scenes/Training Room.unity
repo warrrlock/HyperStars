@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.64387035, g: 0.8269824, b: 0.9363838, a: 1}
+  m_IndirectSpecularColor: {r: 0.6438162, g: 0.82695705, b: 0.93637806, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -879,6 +879,7 @@ GameObject:
   - component: {fileID: 505762755}
   - component: {fileID: 505762754}
   - component: {fileID: 505762756}
+  - component: {fileID: 505762757}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -944,6 +945,30 @@ MonoBehaviour:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 32a0f99a9c5892446afe4ae2a6f4fffd, type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
+--- !u!114 &505762757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505762753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8f58ebfa947fa49ad55ae46e917b01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: e584f742eb890e84f8c571c5042d1147, type: 2}
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
