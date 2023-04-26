@@ -137,8 +137,9 @@ MonoBehaviour:
   _p2Mask: {fileID: 709499031046502114}
   _outline: {fileID: 3685680929334421192}
   _glowColors:
-  - {r: 0.41960785, g: 0.7058824, b: 0.94509804, a: 1}
   - {r: 0.96862745, g: 0.34509805, b: 0.5921569, a: 1}
+  - {r: 0.41960785, g: 0.7058824, b: 0.94509804, a: 1}
+  - {r: 0.9882353, g: 0.85882354, b: 0.03137255, a: 1}
   _chipDuration: 2
   _p1ChipShrinkMask: {fileID: 6421221591427516615}
   _p2ChipShrinkMask: {fileID: 7800875783787145786}
@@ -147,11 +148,13 @@ MonoBehaviour:
   _p2ChipMask: {fileID: 4412031492366865740}
   _p2ChipRect: {fileID: 5453732583615417544}
   _indicatorFlipDuration: 0.25
-  _flipMaxSizeY: 0
-  _portraitScaleBounds: {x: 0, y: 0}
-  _portraitEnlargeDuration: 0
-  _portraitShrinkDuration: 0
-  _portraits: []
+  _flipMaxSizeY: 2
+  _portraitScaleBounds: {x: 0.3, y: 0.5}
+  _portraitEnlargeDuration: 0.25
+  _portraitShrinkDuration: 0.25
+  _portraits:
+  - {fileID: 7639433847736148030}
+  - {fileID: 4751933064921383107}
 --- !u!114 &7482730245944352026
 MonoBehaviour:
   m_ObjectHideFlags: 0
