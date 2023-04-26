@@ -13,7 +13,7 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<Sound Name="UI Click" ID="{4AAE5596-1029-49A3-9C51-55161115EDE7}" ShortID="692194351">
+						<Sound Name="UI Cancel" ID="{98EF2C97-579E-464E-89F4-605C443AAD01}" ShortID="406034435">
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -23,7 +23,30 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="UI Click" ID="{0B1C4566-E481-4CE9-927D-13B704A6DE04}">
+								<AudioFileSource Name="UI Cancel" ID="{2A0040D6-0FB0-48E0-8B23-666BD0A148EE}">
+									<Language>SFX</Language>
+									<AudioFile>UI Cancel.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="499357413"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="UI Cancel" ID="{2A0040D6-0FB0-48E0-8B23-666BD0A148EE}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="UI Click" ID="{6297A202-7449-4CFF-8806-5D98AE97805E}" ShortID="281879018">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="UI Click" ID="{155D8B90-AC03-4AB5-8B51-AA3727EC0C73}">
 									<Language>SFX</Language>
 									<AudioFile>UI Click.wav</AudioFile>
 									<MediaIDList>
@@ -33,10 +56,10 @@
 							</ChildrenList>
 							<ObjectLists/>
 							<ActiveSourceList>
-								<ActiveSource Name="UI Click" ID="{0B1C4566-E481-4CE9-927D-13B704A6DE04}" Platform="Linked"/>
+								<ActiveSource Name="UI Click" ID="{155D8B90-AC03-4AB5-8B51-AA3727EC0C73}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<Sound Name="UI Lockin" ID="{4674AD1D-CE99-47F5-823E-4EA8AB56A0E6}" ShortID="275513477">
+						<Sound Name="UI Hover" ID="{340D136A-FAE0-470D-B5B3-7EA041CC8790}" ShortID="349624223">
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
@@ -46,53 +69,7 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="UI Lockin" ID="{563FF712-E829-46CB-AE2B-C01741CF1C41}">
-									<Language>SFX</Language>
-									<AudioFile>UI Lockin.wav</AudioFile>
-									<MediaIDList>
-										<MediaID ID="566029008"/>
-									</MediaIDList>
-								</AudioFileSource>
-							</ChildrenList>
-							<ObjectLists/>
-							<ActiveSourceList>
-								<ActiveSource Name="UI Lockin" ID="{563FF712-E829-46CB-AE2B-C01741CF1C41}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
-						<Sound Name="UI Toggle" ID="{32C22245-79F9-4191-9BB3-ABF42FD85260}" ShortID="166586491">
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="UI Toggle" ID="{8D2BA01E-BC62-41B5-A9FE-4DC66ECCAA12}">
-									<Language>SFX</Language>
-									<AudioFile>UI Toggle.wav</AudioFile>
-									<MediaIDList>
-										<MediaID ID="484233543"/>
-									</MediaIDList>
-								</AudioFileSource>
-							</ChildrenList>
-							<ObjectLists/>
-							<ActiveSourceList>
-								<ActiveSource Name="UI Toggle" ID="{8D2BA01E-BC62-41B5-A9FE-4DC66ECCAA12}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
-						<Sound Name="UI Hover" ID="{E9100FD3-BD14-4AAA-A65B-C632F3C9F323}" ShortID="428811742">
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="UI Hover" ID="{50E9CC2E-118E-4471-ADF8-D935CDC80DC9}">
+								<AudioFileSource Name="UI Hover" ID="{EA99871D-690B-47B9-A0A9-6D8113FD0B82}">
 									<Language>SFX</Language>
 									<AudioFile>UI Hover.wav</AudioFile>
 									<MediaIDList>
@@ -102,7 +79,120 @@
 							</ChildrenList>
 							<ObjectLists/>
 							<ActiveSourceList>
-								<ActiveSource Name="UI Hover" ID="{50E9CC2E-118E-4471-ADF8-D935CDC80DC9}" Platform="Linked"/>
+								<ActiveSource Name="UI Hover" ID="{EA99871D-690B-47B9-A0A9-6D8113FD0B82}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="UI Lockin" ID="{2EA21402-ADA8-4A4E-9D41-FB15D3F2943F}" ShortID="735830421">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="UI Lockin" ID="{00F6B77D-D038-4F1E-A4F8-065D7DFFBCD6}">
+									<Language>SFX</Language>
+									<AudioFile>UI Lockin.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="566029008"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="UI Lockin" ID="{00F6B77D-D038-4F1E-A4F8-065D7DFFBCD6}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="UI Toggle" ID="{F8A5ED8F-405E-4EAE-9D9F-3AC64809A289}" ShortID="401601785">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>8</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="UI Toggle" ID="{A4C01710-5A3B-4D6F-AF6B-A5850F29E01E}">
+									<Language>SFX</Language>
+									<AudioFile>UI Toggle.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="484233543"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="UI Toggle" ID="{A4C01710-5A3B-4D6F-AF6B-A5850F29E01E}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="UI Paused" ID="{9FE53190-EF75-4252-81EC-C38EB3F5E551}" ShortID="534847590">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>2</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="UI Paused" ID="{31245524-B910-48A2-89B8-F485D193FE5A}">
+									<Language>SFX</Language>
+									<AudioFile>UI Paused.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="599363849"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="UI Paused" ID="{31245524-B910-48A2-89B8-F485D193FE5A}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="UI Toggle Short" ID="{E8340858-2AAA-464B-9F74-026398AE815A}" ShortID="508615879">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>3</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="UI Toggle Short" ID="{E4906A63-AEDA-4474-9175-CBAF56B96756}">
+									<Language>SFX</Language>
+									<AudioFile>UI Toggle Short.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="849421495"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ObjectLists/>
+							<ActiveSourceList>
+								<ActiveSource Name="UI Toggle Short" ID="{E4906A63-AEDA-4474-9175-CBAF56B96756}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>

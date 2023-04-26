@@ -15,13 +15,10 @@
 						<ObjectRef Name="Play_Air_Special_Launch" ID="{27D9535C-1704-42D0-8978-4D7D288E8AEF}" WorkUnitID="{FF29DD82-14E1-4748-A688-8F48262099CE}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Light_Attack_Variation_1" ID="{1A7271E5-B167-42D2-9D65-D542595581BD}" WorkUnitID="{CA87FE2A-CA98-4636-B83A-2B896886353F}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Area_Blast_Hit" ID="{76E5E08C-B679-42E9-B76D-BF2563E3F4BF}" WorkUnitID="{FF29DD82-14E1-4748-A688-8F48262099CE}" Origin="Manual" Filter="7"/>
-						<ObjectRef Name="Play_UI_Lockin" ID="{3CB66C05-11D8-439A-9989-F08AF090CAD4}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_LISA_COMBO_1_INITIAL" ID="{09FF066C-C2AE-43FF-B5B0-E7656927E7F2}" WorkUnitID="{C270D5FB-52DA-47F3-A75F-75D704D40E2F}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Dragon_Punch_Swing" ID="{1AD87628-BEA0-443A-81FF-593F6D020217}" WorkUnitID="{FF29DD82-14E1-4748-A688-8F48262099CE}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Lisa_Jump_Beta" ID="{CCA50007-9D2C-4495-814C-B9AC3D30A68C}" WorkUnitID="{3198F645-0857-45BE-A27F-6E0108C6D59F}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Wall_Bounce_Foley_Mat" ID="{96CE644A-A672-4496-9043-4E98708609F4}" WorkUnitID="{31FD17E8-441E-44E5-856D-61DE984AA9B2}" Origin="Manual" Filter="7"/>
-						<ObjectRef Name="Play_UI_Hover" ID="{DA613329-029D-4509-9AA5-9E7C63A2B29F}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
-						<ObjectRef Name="Play_UI_Click" ID="{F6B00CE8-C280-4590-BA43-C898347365CF}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_LISA_AIR_LIGHT" ID="{68928CD2-1093-45D1-89CB-4F8C9023A3B2}" WorkUnitID="{C270D5FB-52DA-47F3-A75F-75D704D40E2F}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Stop_FavorGoldenGoal" ID="{09060941-AFA2-4636-A5D1-8CF630A9C02B}" WorkUnitID="{43EB3E46-242A-4274-B0C3-36E23D793DF4}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Medium_Attack_Variation_1" ID="{9599981A-B497-4660-AA7E-81DC9B97CD61}" WorkUnitID="{CA87FE2A-CA98-4636-B83A-2B896886353F}" Origin="Manual" Filter="7"/>
@@ -42,7 +39,6 @@
 						<ObjectRef Name="Play_Bluk_Projectile_Girder" ID="{F41EC74C-5FD6-499D-A058-407FF2828575}" WorkUnitID="{D99456F2-64CF-4879-BA98-A90E29408F95}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_FavorGoldenGoal" ID="{AEF75D48-0D85-49FC-BE8F-5F727380E065}" WorkUnitID="{43EB3E46-242A-4274-B0C3-36E23D793DF4}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="GeneralCombatFolder" ID="{EBED39A1-2B74-4B0A-A093-90DDB822825C}" WorkUnitID="{808E866F-BB47-4665-81E6-85AA171CBD22}" Origin="Manual" Filter="7"/>
-						<ObjectRef Name="Play_UI_Toggle" ID="{92B34AA5-1946-4B11-83E8-09A6A1D1CD5A}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_LISA_JUMP" ID="{20CD1013-76B6-4B5A-A87D-04B7BD7E8D41}" WorkUnitID="{C270D5FB-52DA-47F3-A75F-75D704D40E2F}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Medium_Attacks_Variation_2" ID="{B30DD4F5-8BF1-4B6B-863B-BF5174529DC1}" WorkUnitID="{CA87FE2A-CA98-4636-B83A-2B896886353F}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_LISA_COMBO_5" ID="{EC992839-7579-4B85-9C6F-CA7AF88ABA62}" WorkUnitID="{C270D5FB-52DA-47F3-A75F-75D704D40E2F}" Origin="Manual" Filter="7"/>
@@ -67,8 +63,11 @@
 				<SoundBank Name="UI" ID="{0C0836FF-19DD-48F2-83C6-422E273591A2}">
 					<ObjectInclusionList>
 						<ObjectRef Name="Play_UI_Lockin" ID="{3CB66C05-11D8-439A-9989-F08AF090CAD4}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_UI_Toggle_Short" ID="{ED09CFDC-7AAB-43B3-9DA6-E2ED174A1E8D}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_UI_Hover" ID="{DA613329-029D-4509-9AA5-9E7C63A2B29F}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_UI_Cancel" ID="{A0365D5C-CA92-4543-8B61-DC2DB52643F6}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_UI_Click" ID="{F6B00CE8-C280-4590-BA43-C898347365CF}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_UI_Paused" ID="{B8B63251-A7EB-4996-B1EC-F6CB3C6F3A9C}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_UI_Toggle" ID="{92B34AA5-1946-4B11-83E8-09A6A1D1CD5A}" WorkUnitID="{2D1122F9-C5C3-473B-BE5D-33D15277DFB6}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>

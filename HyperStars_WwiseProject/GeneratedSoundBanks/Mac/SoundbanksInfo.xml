@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Mac\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
+		<ProjectRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Mac\</SourceFilesRoot>
+		<SoundBanksRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="374987273" Language="SFX" Hash="3524711754">
+		<SoundBank Id="374987273" Language="SFX" Hash="2972488742">
 			<ObjectPath>\SoundBanks\MusicSoundBanks\MusicMain</ObjectPath>
 			<ShortName>MusicMain</ShortName>
 			<Path>MusicMain.bnk</Path>
@@ -181,12 +181,12 @@
 				<GameParameter Id="3231715135" Name="CrowdIntensity" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\CrowdIntensity"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="1551306167" Language="SFX" Hash="2941670986">
+		<SoundBank Id="1551306167" Language="SFX" Hash="449329022">
 			<ObjectPath>\SoundBanks\Default Work Unit\UI</ObjectPath>
 			<ShortName>UI</ShortName>
 			<Path>UI.bnk</Path>
 			<IncludedEvents>
-				<Event Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO" DurationType="OneShot" DurationMin="3.865215" DurationMax="4.727302">
+				<Event Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO" DurationType="OneShot" DurationMin="1.885238" DurationMax="3.779955">
 					<IncludedMemoryFiles>
 						<File Id="181281461" Language="SFX">
 							<ShortName>Bluk Select VO1.wav</ShortName>
@@ -211,6 +211,14 @@
 							</Media>
 						</SwitchContainer>
 					</SwitchContainers>
+				</Event>
+				<Event Id="2244506081" Name="Play_UI_Cancel" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Cancel" DurationType="OneShot" DurationMin="0.250249" DurationMax="0.250249">
+					<IncludedMemoryFiles>
+						<File Id="499357413" Language="SFX">
+							<ShortName>UI Cancel.wav</ShortName>
+							<Path>SFX\UI Cancel_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="1749424733" Name="Play_UI_Click" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Click" DurationType="OneShot" DurationMin="0.229501" DurationMax="0.229501">
 					<IncludedMemoryFiles>
@@ -239,11 +247,27 @@
 						<ActionPostEventEntry Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO"/>
 					</ActionPostEvent>
 				</Event>
+				<Event Id="2953310417" Name="Play_UI_Paused" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Paused" DurationType="OneShot" DurationMin="0.727619" DurationMax="0.727619">
+					<IncludedMemoryFiles>
+						<File Id="599363849" Language="SFX">
+							<ShortName>UI Paused.wav</ShortName>
+							<Path>SFX\UI Paused_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2609688239" Name="Play_UI_Toggle" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Toggle" DurationType="OneShot" DurationMin="0.416077" DurationMax="0.416077">
 					<IncludedMemoryFiles>
 						<File Id="484233543" Language="SFX">
 							<ShortName>UI Toggle.wav</ShortName>
 							<Path>SFX\UI Toggle_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="596834416" Name="Play_UI_Toggle_Short" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Toggle_Short" DurationType="OneShot" DurationMin="0.198027" DurationMax="0.198027">
+					<IncludedMemoryFiles>
+						<File Id="849421495" Language="SFX">
+							<ShortName>UI Toggle Short.wav</ShortName>
+							<Path>SFX\UI Toggle Short_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -258,7 +282,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="135114754">
+		<SoundBank Id="3161908922" Language="SFX" Hash="750848867">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -1095,32 +1119,6 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO" DurationType="OneShot" DurationMin="3.865215" DurationMax="4.727302">
-					<IncludedMemoryFiles>
-						<File Id="181281461" Language="SFX">
-							<ShortName>Bluk Select VO1.wav</ShortName>
-							<Path>SFX\Bluk Select VO1_10C4C929.wem</Path>
-						</File>
-						<File Id="237361374" Language="SFX">
-							<ShortName>Bluk Select VO3.wav</ShortName>
-							<Path>SFX\Bluk Select VO3_10C4C929.wem</Path>
-						</File>
-						<File Id="467368318" Language="SFX">
-							<ShortName>Bluk Select VO2.wav</ShortName>
-							<Path>SFX\Bluk Select VO2_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
-					<SwitchContainers>
-						<SwitchContainer SwitchValue="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}">
-							<Media>
-								<File Id="181281461"/>
-								<File Id="237361374"/>
-								<File Id="467368318"/>
-							</Media>
-						</SwitchContainer>
-					</SwitchContainers>
-				</Event>
 				<Event Id="2955565060" Name="Play_Side_Launch_Swing" ObjectPath="\Events\LisaEvents\LisaBeta\LisaBetaFolder\LisaSpecials\Play_Side_Launch_Swing" DurationType="OneShot" DurationMin="1.323563" DurationMax="1.323563">
 					<IncludedMemoryFiles>
 						<File Id="713930790" Language="SFX">
@@ -1131,41 +1129,6 @@
 					<ActionPostEvent>
 						<ActionPostEventEntry Id="1845776394" Name="Play_HeavySwingVO" ObjectPath="\Events\VOWorkUnit\Play_HeavySwingVO"/>
 					</ActionPostEvent>
-				</Event>
-				<Event Id="1749424733" Name="Play_UI_Click" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Click" DurationType="OneShot" DurationMin="0.229501" DurationMax="0.229501">
-					<IncludedMemoryFiles>
-						<File Id="32355345" Language="SFX">
-							<ShortName>UI Click.wav</ShortName>
-							<Path>SFX\UI Click_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="1339559671" Name="Play_UI_Hover" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Hover" DurationType="OneShot" DurationMin="0.326621" DurationMax="0.326621">
-					<IncludedMemoryFiles>
-						<File Id="913893635" Language="SFX">
-							<ShortName>UI Hover.wav</ShortName>
-							<Path>SFX\UI Hover_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="365326775" Name="Play_UI_Lockin" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Lockin" DurationType="OneShot" DurationMin="1.208458" DurationMax="1.208458">
-					<IncludedMemoryFiles>
-						<File Id="566029008" Language="SFX">
-							<ShortName>UI Lockin.wav</ShortName>
-							<Path>SFX\UI Lockin_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-					<ActionPostEvent>
-						<ActionPostEventEntry Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO"/>
-					</ActionPostEvent>
-				</Event>
-				<Event Id="2609688239" Name="Play_UI_Toggle" ObjectPath="\Events\UIWorkUnit\GeneralUI\Play_UI_Toggle" DurationType="OneShot" DurationMin="0.416077" DurationMax="0.416077">
-					<IncludedMemoryFiles>
-						<File Id="484233543" Language="SFX">
-							<ShortName>UI Toggle.wav</ShortName>
-							<Path>SFX\UI Toggle_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="2769098130" Name="Play_Wall_Bounce_Foley_Mat" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\CombatFoley\Play_Wall_Bounce_Foley_Mat" DurationType="OneShot" DurationMin="1.0115" DurationMax="1.0115">
 					<IncludedMemoryFiles>
