@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FiniteStateMachine;
+using UI;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -39,6 +40,9 @@ namespace Managers
 
         public HurtState LoseState => _loseState;
         [SerializeField] private HurtState _loseState;
+
+        public CharacterCmmdList CommandList => _commandList;
+        [SerializeField] private CharacterCmmdList _commandList;
 
 #if UNITY_EDITOR
         public void OnEnable()
