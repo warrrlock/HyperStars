@@ -100,7 +100,7 @@ public class FavorManager : MonoBehaviour
 
     [SerializeField] private float _indicatorFlipDuration;
     [SerializeField] private float _flipMaxSizeY;
-    private Vector2 _indicatorFlipSpeed;
+    private Vector2 _indicatorFlipSpeed = new();
     private Vector2 _indicatorScaleDefault;
     private bool _isIndicatorFlipping = false;
     private IEnumerator _indicatorFlip;

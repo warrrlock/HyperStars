@@ -32,11 +32,10 @@ namespace Managers
         [Header("UI")]
         [SerializeField] private Sprite _indicatorSprite;
         [SerializeField] private Sprite _indicatorGlowSprite;
+        public Sprite[] CharacterPortrait => _characterPortrait;
         [SerializeField] private Sprite[] _characterPortrait;
         public Sprite IndicatorSprite => _indicatorSprite;
         public Sprite IndicatorGlowSprite => _indicatorGlowSprite;
-        public Sprite[] CharacterPortrait => _characterPortrait;
-        [SerializeField] private Sprite[] _characterPortrait;
         public Sprite[] NamePlates => _namePlates;
         [SerializeField] private Sprite[] _namePlates;
         [field: SerializeField] public CharacterColorScriptable CharacterPalettes { get; private set; }
