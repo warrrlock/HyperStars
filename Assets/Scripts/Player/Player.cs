@@ -75,8 +75,13 @@ public class Player: MonoBehaviour
     {
         _ready = false;
         _character = character;
-        Services.Characters[PlayerInput.playerIndex] = _character;
-        
+        Services.Characters[PlayerInput.playerIndex] = _character; 
+        Tinylytics.AnalyticsManager.LogCustomMetric("Player_Character_"+PlayerInput.name, Services.Characters[PlayerInput.playerIndex].ToString());
+        Tinylytics.AnalyticsManager.LogCustomMetric("Player_Character_" + PlayerInput.name, DateTime.Now.ToString());
+
+
+
+
         //Select colours before ready
         CharacterSelected = true;
         OpenPalettePicker(PlayerInput.playerIndex);

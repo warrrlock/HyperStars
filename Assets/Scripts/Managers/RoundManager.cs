@@ -274,6 +274,7 @@ public class RoundManager : MonoBehaviour
         _roundText.gameObject.SetActive(true);
         
         _roundText.text = $"Player {winner+1} is victorious!";
+        Tinylytics.AnalyticsManager.LogCustomMetric("End_Winner", (winner+1).ToString());
         EnableRestartGame(); //TODO: remove after we have win/lose animations
     }
 }

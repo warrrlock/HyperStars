@@ -240,6 +240,14 @@ namespace FiniteStateMachine {
         
         private void Invoke(InputManager.Action action)
         {
+            /*if (Fighter.PlayerId == 1) {
+                Tinylytics.AnalyticsManager.LogCustomMetric("Player_1_Landed", "");
+            } else {
+                Tinylytics.AnalyticsManager.LogCustomMetric("Player_2_Landed", "");
+            }
+            */
+           
+
             if (_rejectInput || CurrentState is HurtState) return;
             LastInvokedInput = action;
 

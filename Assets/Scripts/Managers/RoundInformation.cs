@@ -15,9 +15,14 @@ public class RoundInformation : MonoBehaviour
     public static bool[] MatchPointPlayers { get; private set;}
 
     // Start is called before the first frame update
+    private void Start() {
+        Tinylytics.AnalyticsManager.LogCustomMetric("New_Started", DateTime.Now.ToString());
+    }
+
     private void Awake()
     {
         CreateSingleton();
+        
     }
     
     private void CreateSingleton()
@@ -42,6 +47,7 @@ public class RoundInformation : MonoBehaviour
     private void CheckDestroy(Scene scene, LoadSceneMode loadSceneMode)
     {
         if (scene.buildIndex != _indices.gameScene) Destroy(gameObject);
+        
     }
 
     public static void AddWinTo(int player)
@@ -49,6 +55,8 @@ public class RoundInformation : MonoBehaviour
         if (player != -1)
         {
             Wins[player]++;
+
+            Tinylytics.AnalyticsManager.LogCustomMetric("New_Round_Ended", DateTime.Now.ToString());
         }
     }
 
@@ -68,6 +76,7 @@ public class RoundInformation : MonoBehaviour
 
     public static int GetWinner()
     {
+        
         return Wins[0] > Wins[1] ? 0 : 1;
     }
 

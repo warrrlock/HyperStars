@@ -161,6 +161,8 @@ public class InputManager : MonoBehaviour
                     if (action.disabledCount == 0)
                     {
                         action.perform?.Invoke(action);
+                        Tinylytics.AnalyticsManager.LogCustomMetric("Move_Input_"+_playerInput.name, action.name.ToString());
+                        Tinylytics.AnalyticsManager.LogCustomMetric(action.name.ToString()+"_Input_Time_by_" + _playerInput.name, DateTime.Now.ToString());
                     }
                     else if (action == Actions["Roll"])
                     {
