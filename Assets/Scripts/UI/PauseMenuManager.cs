@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -19,8 +20,19 @@ namespace UI
             public GameObject page;
         }
 
+        [Header("Sound")]
         [SerializeField] private AK.Wwise.Event pauseSfx;
         [SerializeField] private AK.Wwise.Event exitSfx;
+        
+        [Header("GameObjects")]
+        [SerializeField] private Slider _sliderMaster;
+        [SerializeField] private Slider _sliderMusic;
+        [SerializeField] private Slider _sliderCrowd;
+        [SerializeField] private Slider _sliderVoice;
+        [SerializeField] private Slider _sliderSfx;
+        [SerializeField] private TMP_Dropdown _resDropdown;
+
+        [Header("References")]
         [Tooltip("Keep training tab at the end")]
         [SerializeField] private TabAssets[] _tabAssets;
         [SerializeField] private GameObject _menu;
@@ -31,11 +43,24 @@ namespace UI
         private MenuManager _menuManager;
         private int _maxTabs;
         private MultiplayerEventSystem _multiplayerEventSystem;
+        private Slider[] _sliders = new Slider[5];
+        private FullScreenMode[] _fullScreenModes = new FullScreenMode[4];
 
         private void Awake()
         {
             _menuManager = GetComponent<MenuManager>();
             _multiplayerEventSystem = GetComponentInChildren<MultiplayerEventSystem>();
+
+            _sliders[0] = _sliderMaster;
+            _sliders[1] = _sliderMusic;
+            _sliders[2] = _sliderCrowd;
+            _sliders[3] = _sliderVoice;
+            _sliders[4] = _sliderSfx;
+
+            _fullScreenModes[0] = FullScreenMode.ExclusiveFullScreen;
+            _fullScreenModes[1] = FullScreenMode.FullScreenWindow;
+            _fullScreenModes[2] = FullScreenMode.MaximizedWindow;
+            _fullScreenModes[3] = FullScreenMode.Windowed;
         }
 
         private void Start()
@@ -80,6 +105,58 @@ namespace UI
                 Services.Fighters[i].PlayerInput.actions["Esc"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
                 Services.Fighters[i].PlayerInput.actions["Cancel"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
             }
+        }
+
+        public void SetSettingValues()
+        {
+            _sliderMaster.value = Services.MusicManager.masterVolume;
+            _sliderMusic.value = Services.MusicManager.musicVolume;
+            _sliderCrowd.value = Services.MusicManager.crowdVolume;
+            _sliderVoice.value = Services.MusicManager.voVolume;
+            _sliderSfx.value = Services.MusicManager.sfxVolume;
+            _resDropdown.value = Array.IndexOf(_fullScreenModes, Screen.fullScreenMode);
+        }
+
+        [SerializeField] private GameObject _commandListPrefab;
+        [SerializeField] private GameObject _commandListParent;
+        private GameObject _commandListObjects;
+        public void SetControlListValues()
+        {
+            foreach (CharacterCmmdList.CommandList list in Services.Characters[_opener.PlayerInput.playerIndex].CommandList.commandList)
+            {
+                //instantiate prefab of command
+                foreach (var VARIABLE in list.commands)
+                {
+                    
+                }
+            }
+        }
+
+        public void SetMasterVolume(float newValue)
+        {
+            Services.MusicManager.masterVolume = newValue;
+        }
+        public void SetMusicVolume(float newValue)
+        {
+            Services.MusicManager.musicVolume = newValue;
+        }
+        public void SetCrowdVolume(float newValue)
+        {
+            Services.MusicManager.crowdVolume = newValue;
+        }
+        public void SetVoiceVolume(float newValue)
+        {
+            Services.MusicManager.voVolume = newValue;
+        }
+        public void SetSfxVolume(float newValue)
+        {
+            Services.MusicManager.sfxVolume = newValue;
+        }
+
+        public void SetScreen(int mode)
+        {
+            Debug.Log($"would set fullscreen mode to {_fullScreenModes[mode]}");
+            Screen.fullScreenMode = _fullScreenModes[mode];
         }
 
         private void NavigateTabController(InputAction.CallbackContext callbackContext)

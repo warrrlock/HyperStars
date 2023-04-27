@@ -550,6 +550,7 @@ namespace FiniteStateMachine {
                 Fighter.Events.onLandedHurt?.Invoke();
                 // Debug.Log($"exited in air, hard knockdown is {!_allowRecover}");
                 if (!_allowRecover) Fighter.Events.onHardKnockdown?.Invoke();
+                SetKnockdownDisableTime();
                 TryEnableRecovery();
             }
             else
@@ -632,6 +633,12 @@ namespace FiniteStateMachine {
             if (_disableCoroutine != null) StopCoroutine(_disableCoroutine);
             _isDisabled = false;
             _disableCoroutine = null;
+        }
+
+        private void SetKnockdownDisableTime()
+        {
+            DisableTime = Services.Characters[Fighter.PlayerInput.playerIndex].KnockdownDisableTime;
+            ExecuteDisableTime();
         }
 
         private void TryEnableRecovery()

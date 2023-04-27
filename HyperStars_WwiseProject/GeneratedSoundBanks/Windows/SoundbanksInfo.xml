@@ -282,7 +282,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="750848867">
+		<SoundBank Id="3161908922" Language="SFX" Hash="749175892">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -439,11 +439,19 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3727876332" Name="Play_FavorLockBreak" ObjectPath="\Events\UIWorkUnit\CombatUI\Play_FavorLockBreak" DurationType="OneShot" DurationMin="0.992354" DurationMax="0.992354">
+				<Event Id="3727876332" Name="Play_FavorLockBreak" ObjectPath="\Events\UIWorkUnit\CombatUI\Play_FavorLockBreak" DurationType="OneShot" DurationMin="2.721417" DurationMax="2.721417">
 					<IncludedMemoryFiles>
 						<File Id="469448747" Language="SFX">
 							<ShortName>FavorLockBreak.wav</ShortName>
 							<Path>SFX\FavorLockBreak_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="10051555" Name="Play_FavorLockPreBreak" ObjectPath="\Events\UIWorkUnit\CombatUI\Play_FavorLockPreBreak" DurationType="OneShot" DurationMin="2.501646" DurationMax="2.501646">
+					<IncludedMemoryFiles>
+						<File Id="655170635" Language="SFX">
+							<ShortName>FavorLockPreBreak.wav</ShortName>
+							<Path>SFX\FavorLockPreBreak_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -1142,6 +1150,7 @@
 					</ActionPostEvent>
 				</Event>
 				<Event Id="1102378326" Name="Stop_FavorGoldenGoal" ObjectPath="\Events\UIWorkUnit\CombatUI\Stop_FavorGoldenGoal" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
+				<Event Id="1091820081" Name="Stop_FavorLockPreBreak" ObjectPath="\Events\UIWorkUnit\CombatUI\Stop_FavorLockPreBreak" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
 				<Event Id="3063666669" Name="Stop_Swings" ObjectPath="\Events\CombatGeneralEvents\GeneralCombatFolder\Stop_Swings" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
 			</IncludedEvents>
 			<SwitchGroups>

@@ -69,7 +69,7 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private RectTransform _outline;
     private float _initialWidth;
     [Tooltip("Index 0 is p1, index 1 is p2.")]
-    [SerializeField] private Color[] _glowColors = new Color[2];
+    [SerializeField] public Color[] _glowColors = new Color[2];
 
     private float _barMinimum = 0f;
 

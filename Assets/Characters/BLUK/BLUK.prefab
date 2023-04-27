@@ -762,6 +762,7 @@ GameObject:
   - component: {fileID: 8044416736526442607}
   - component: {fileID: 9090122732639109947}
   - component: {fileID: 7742598783956326620}
+  - component: {fileID: 1940730560566771157}
   m_Layer: 9
   m_Name: BLUK
   m_TagString: Untagged
@@ -1045,6 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfxConfig: {fileID: 11400000, guid: dc3ad613f39753f4fa18e5e9de7a7e8f, type: 2}
+  parryOutlineColor: {r: 0, g: 5.5480037, b: 8.439691, a: 0}
   visualEffect: {fileID: 822637850931560098}
   actionSmokeGroundOffset: 2.5
   airDashSmokeOffset: 0
@@ -1058,9 +1060,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
   _blurStates:
   - {fileID: 11400000, guid: 232b7083c6efa8841b6fb5dc696b837a, type: 2}
-  _parryStates:
-  - {fileID: 11400000, guid: c1a554cf6dec92e4c9df07dda450973d, type: 2}
-  - {fileID: 11400000, guid: aea48d41f887b1843a80f70b14807bdb, type: 2}
 --- !u!114 &2355027661028822561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,6 +1212,34 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
+--- !u!114 &1940730560566771157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093239530658642988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df87a74dd3f84c3bb2ee057ebeebcf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 58d9c2a4bf47c4927bcab8a59ec48fb9, type: 2}
+  _responses:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4758508397103709927}
+        m_TargetAssemblyTypeName: CharacterVFXManager, Assembly-CSharp
+        m_MethodName: TurnOffSelfGoldenGoal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5093239531031058998
 GameObject:
   m_ObjectHideFlags: 0
