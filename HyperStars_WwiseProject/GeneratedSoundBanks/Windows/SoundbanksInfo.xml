@@ -181,24 +181,56 @@
 				<GameParameter Id="3231715135" Name="CrowdIntensity" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\CrowdIntensity"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="1551306167" Language="SFX" Hash="449329022">
+		<SoundBank Id="1551306167" Language="SFX" Hash="4191911960">
 			<ObjectPath>\SoundBanks\Default Work Unit\UI</ObjectPath>
 			<ShortName>UI</ShortName>
 			<Path>UI.bnk</Path>
 			<IncludedEvents>
-				<Event Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO" DurationType="OneShot" DurationMin="1.885238" DurationMax="3.779955">
+				<Event Id="3889212317" Name="Play_SelectionVO" ObjectPath="\Events\VOWorkUnit\Play_SelectionVO" DurationType="OneShot" DurationMin="0.409955" DurationMax="3.779955">
 					<IncludedMemoryFiles>
 						<File Id="181281461" Language="SFX">
 							<ShortName>Bluk Select VO1.wav</ShortName>
 							<Path>SFX\Bluk Select VO1_10C4C929.wem</Path>
 						</File>
+						<File Id="234729005" Language="SFX">
+							<ShortName>Lisa Select VO6.wav</ShortName>
+							<Path>SFX\Lisa Select VO6_10C4C929.wem</Path>
+						</File>
 						<File Id="237361374" Language="SFX">
 							<ShortName>Bluk Select VO3.wav</ShortName>
 							<Path>SFX\Bluk Select VO3_10C4C929.wem</Path>
 						</File>
+						<File Id="394679704" Language="SFX">
+							<ShortName>Lisa Select VO3.wav</ShortName>
+							<Path>SFX\Lisa Select VO3_10C4C929.wem</Path>
+						</File>
 						<File Id="467368318" Language="SFX">
 							<ShortName>Bluk Select VO2.wav</ShortName>
 							<Path>SFX\Bluk Select VO2_10C4C929.wem</Path>
+						</File>
+						<File Id="478582651" Language="SFX">
+							<ShortName>Lisa Select VO1.wav</ShortName>
+							<Path>SFX\Lisa Select VO1_10C4C929.wem</Path>
+						</File>
+						<File Id="761087889" Language="SFX">
+							<ShortName>Lisa Select VO7.wav</ShortName>
+							<Path>SFX\Lisa Select VO7_10C4C929.wem</Path>
+						</File>
+						<File Id="778133964" Language="SFX">
+							<ShortName>Lisa Select VO2.wav</ShortName>
+							<Path>SFX\Lisa Select VO2_10C4C929.wem</Path>
+						</File>
+						<File Id="837162225" Language="SFX">
+							<ShortName>Lisa Select VO8.wav</ShortName>
+							<Path>SFX\Lisa Select VO8_10C4C929.wem</Path>
+						</File>
+						<File Id="838098548" Language="SFX">
+							<ShortName>Lisa Select VO5.wav</ShortName>
+							<Path>SFX\Lisa Select VO5_10C4C929.wem</Path>
+						</File>
+						<File Id="900132688" Language="SFX">
+							<ShortName>Lisa Select VO4.wav</ShortName>
+							<Path>SFX\Lisa Select VO4_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 					<DefaultSwitchValue>{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}</DefaultSwitchValue>
@@ -208,6 +240,18 @@
 								<File Id="181281461"/>
 								<File Id="237361374"/>
 								<File Id="467368318"/>
+							</Media>
+						</SwitchContainer>
+						<SwitchContainer SwitchValue="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}">
+							<Media>
+								<File Id="234729005"/>
+								<File Id="394679704"/>
+								<File Id="478582651"/>
+								<File Id="761087889"/>
+								<File Id="778133964"/>
+								<File Id="837162225"/>
+								<File Id="838098548"/>
+								<File Id="900132688"/>
 							</Media>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -282,7 +326,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="749175892">
+		<SoundBank Id="3161908922" Language="SFX" Hash="4009253912">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
