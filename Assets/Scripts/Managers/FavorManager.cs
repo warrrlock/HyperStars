@@ -116,6 +116,15 @@ public class FavorManager : MonoBehaviour
     private float _p1ChipFillDestination;
     private float _p2ChipFillDestination;
 
+    [Tooltip("x is min. y is max.")]
+    [SerializeField] private Vector2 _portraitScaleBounds;
+    [SerializeField] private float _portraitEnlargeDuration;
+    [SerializeField] private float _portraitShrinkDuration;
+    [SerializeField] private Image[] _portraits;
+    private float[] _portraitScales = new float[2];
+    private bool _isPortraitScaling = false;
+    private IEnumerator _portraitResize;
+
     private void Awake()
     {
         Services.FavorManager = this;
@@ -144,6 +153,12 @@ public class FavorManager : MonoBehaviour
         _indicatorScaleDefault = _favorMeterIndicator.rectTransform.localScale;
         _indicatorFlipSpeed.x = _indicatorScaleDefault.x * 2f / _indicatorFlipDuration;
         _indicatorFlipSpeed.y = (_flipMaxSizeY - _indicatorScaleDefault.y) * 2f / _indicatorFlipDuration;
+
+        for (int i = 0; i < 2; i++)
+        {
+            _portraitScales[i] = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, 0.5f);
+            _portraits[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
+        }
         UpdateFavorMeter();
     }
 
@@ -184,6 +199,8 @@ public class FavorManager : MonoBehaviour
                 _favoredPlayer = playerId;
                 _indicatorFlip = FlipIndicator(_favoredPlayer);
                 StartCoroutine(_indicatorFlip);
+                //_portraitResize = ResizeCharacterPortraits(_favoredPlayer, _favor, _favor + value);
+                //StartCoroutine(_portraitResize);
                 break;
             case 0:
                 if (_favor + value > _favor)
@@ -216,6 +233,17 @@ public class FavorManager : MonoBehaviour
                 }
                 break;
         }
+
+        if (_isPortraitScaling)
+        {
+            StopCoroutine(_portraitResize);
+            _isPortraitScaling = false;
+        }
+        _portraitResize = ResizeCharacterPortraits(_favoredPlayer, _favor, _favor + value);
+        StartCoroutine(_portraitResize);
+
+        _portraitResize = ResizeCharacterPortraits(_favoredPlayer, _favor, _favor + value);
+        StartCoroutine(_portraitResize);
         _favor += value;
         _favor = Mathf.Clamp(_favor, -MaxFavor, MaxFavor);
         //if (_favor > _peakFavors[playerId])
@@ -383,6 +411,59 @@ public class FavorManager : MonoBehaviour
         endScale.y = _indicatorScaleDefault.y;
         _favorMeterIndicator.rectTransform.localScale = endScale;
         _isIndicatorFlipping = false;
+        yield break;
+    }
+
+    private IEnumerator ResizeCharacterPortraits(int enlargingPlayer, float startFavor, float endFavor)
+    {
+        _isPortraitScaling = true;
+        int shrinkingPlayer = enlargingPlayer == 0 ? 1 : 0;
+        int playerIdMultiplier = enlargingPlayer == 0 ? 1 : -1;
+
+        float enlargingStartScale;
+        float enlargingEndScale;
+        float shrinkingStartScale;
+        float shrinkingEndScale;
+        if (enlargingPlayer == 0)
+        {
+            enlargingStartScale = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, Mathf.Abs(startFavor - MaxFavor) / (MaxFavor * 2f));
+            enlargingEndScale = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, Mathf.Abs(endFavor - MaxFavor) / (MaxFavor * 2f));
+            shrinkingStartScale = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, Mathf.Abs(startFavor + MaxFavor) / (MaxFavor * 2f));
+            shrinkingEndScale = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, Mathf.Abs(endFavor + MaxFavor) / (MaxFavor * 2f));
+        }
+        else
+        {
+            enlargingStartScale = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, Mathf.Abs(startFavor + MaxFavor) / (MaxFavor * 2f));
+            enlargingEndScale = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, Mathf.Abs(endFavor + MaxFavor) / (MaxFavor * 2f));
+            shrinkingStartScale = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, Mathf.Abs(startFavor - MaxFavor) / (MaxFavor * 2f));
+            shrinkingEndScale = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, Mathf.Abs(endFavor - MaxFavor) / (MaxFavor * 2f));
+        }
+        enlargingStartScale = _portraitScales[enlargingPlayer] > enlargingStartScale ? _portraitScales[enlargingPlayer] : enlargingStartScale;
+
+        float timer = 0f;
+        float duration = _portraitEnlargeDuration > _portraitShrinkDuration ? _portraitEnlargeDuration : _portraitShrinkDuration;
+        Easing enlargeFunction = Easing.CreateEasingFunc(Easing.Funcs.OutBack);
+        Easing shrinkFunction = Easing.CreateEasingFunc(Easing.Funcs.CubicOut);
+        while (timer <= duration)
+        {
+            yield return new WaitForFixedUpdate();
+            timer += Time.fixedDeltaTime;
+            if (timer <= _portraitEnlargeDuration)
+            {
+                _portraitScales[enlargingPlayer] = enlargeFunction.Ease(enlargingStartScale, enlargingEndScale, timer / _portraitEnlargeDuration);
+            }
+            if (timer <= _portraitShrinkDuration)
+            {
+                _portraitScales[shrinkingPlayer] = shrinkFunction.Ease(shrinkingStartScale, shrinkingEndScale, timer / _portraitShrinkDuration);
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                _portraits[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
+            }
+        }
+        _portraits[enlargingPlayer].rectTransform.localScale = new Vector3(enlargingEndScale, enlargingEndScale, enlargingEndScale);
+        _portraits[shrinkingPlayer].rectTransform.localScale = new Vector3(shrinkingEndScale, shrinkingEndScale, shrinkingEndScale);
+        _isPortraitScaling = false;
         yield break;
     }
 
