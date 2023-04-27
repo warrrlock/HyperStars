@@ -10,6 +10,7 @@ public class RoundTimer : MonoBehaviour
     private float _roundTime;
     [Tooltip("The amount of time until the favor meter starts shrinking.")]
     [SerializeField] private float _secondsBeforeShrink;
+    [SerializeField] private float _preLockSoundDuration;
     [Tooltip("How quickly the favor meter shrinks in units/sec.")]
     [SerializeField] private float _shrinkSpeed;
     [Tooltip("The minimum size of the favor meter in favor units.")]
@@ -35,6 +36,8 @@ public class RoundTimer : MonoBehaviour
     [SerializeField] private float _lockDisappearTime;
     [SerializeField] private float _lockFallSpeed;
 
+    public delegate void StartFuse();
+    public StartShrink onStartFuse;
     public delegate void StartShrink();
     public StartShrink onStartShrink;
 
@@ -62,7 +65,10 @@ public class RoundTimer : MonoBehaviour
     public IEnumerator Timer()
     {
         StartCoroutine(BorderTimer());
-        yield return new WaitForSeconds(_secondsBeforeShrink);
+        yield return new WaitForSeconds(_secondsBeforeShrink - _preLockSoundDuration);
+        onStartFuse?.Invoke();
+
+        yield return new WaitForSeconds(_preLockSoundDuration);
 
         onStartShrink?.Invoke();
         while (Services.FavorManager.MaxFavor > _minFavorMeter)

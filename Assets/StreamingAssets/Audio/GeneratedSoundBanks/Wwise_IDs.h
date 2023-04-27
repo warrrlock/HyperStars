@@ -30,6 +30,7 @@ namespace AK
         static const AkUniqueID PLAY_DRAGON_PUNCH_SWING = 2525681113U;
         static const AkUniqueID PLAY_FAVORGOLDENGOAL = 1741140776U;
         static const AkUniqueID PLAY_FAVORLOCKBREAK = 3727876332U;
+        static const AkUniqueID PLAY_FAVORLOCKPREBREAK = 10051555U;
         static const AkUniqueID PLAY_GROUND_SPLAT_FOLEY_MAT = 2109586569U;
         static const AkUniqueID PLAY_HEAVY_HIT = 2944971053U;
         static const AkUniqueID PLAY_HEAVYPAINVO = 2810545614U;
@@ -80,6 +81,7 @@ namespace AK
         static const AkUniqueID PLAY_WALL_BOUNCE_FOLEY_MAT = 2769098130U;
         static const AkUniqueID STOP_BLUKTHEME = 3753011029U;
         static const AkUniqueID STOP_FAVORGOLDENGOAL = 1102378326U;
+        static const AkUniqueID STOP_FAVORLOCKPREBREAK = 1091820081U;
         static const AkUniqueID STOP_LISATHEME = 564764656U;
         static const AkUniqueID STOP_SWINGS = 3063666669U;
     } // namespace EVENTS
