@@ -33,10 +33,10 @@ namespace FiniteStateMachine
         }
 
 #if UNITY_EDITOR
-        private void OnEnable()
-        {
-            if(_inputActionName == "") Debug.LogWarning($"input action is empty for transition {name} at path {AssetDatabase.GetAssetPath(this)}");
-        }
+        // private void OnEnable()
+        // {
+        //     if(_inputActionName == "") Debug.LogWarning($"input action is empty for transition {name} at path {AssetDatabase.GetAssetPath(this)}");
+        // }
 #endif
 
         /// <summary>

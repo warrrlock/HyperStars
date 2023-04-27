@@ -72,6 +72,7 @@ public class SpecialMeterManager : MonoBehaviour
     {
         if (_fighter.BaseStateMachine.InfiniteEx) return;
         float amount = bars;
+        if (_bars == null) return;
         if (_barIndex >= _bars.Length) _barIndex = _bars.Length-1;
         while (amount > 0)
         {

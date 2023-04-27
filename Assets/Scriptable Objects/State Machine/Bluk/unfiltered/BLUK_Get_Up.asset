@@ -31,22 +31,32 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 117469612b99345c5b0662222386fe8b, type: 2}
   _onInputInvokeActions: []
   _transitions:
-  - {fileID: 11400000, guid: 9690695ac1dacc04e84a55803bafe8c9, type: 2}
-  - {fileID: 11400000, guid: c4bfccb8f6eb436458f2bf3a3bf86dc2, type: 2}
-  - {fileID: 11400000, guid: 2b8005c2e094a7d48960ba002c86cc40, type: 2}
-  - {fileID: 11400000, guid: 01ee684d6e23db74fbfeeaa4200ce1b7, type: 2}
-  - {fileID: 11400000, guid: 9542575c4d3f46544890eaca0dbbb39a, type: 2}
-  - {fileID: 11400000, guid: 167c34ec0b492bc4eb9d761a1d0d3628, type: 2}
+  - {fileID: 11400000, guid: 8dac8e13eb91ef54ab6a5e3d974b07db, type: 2}
+  - {fileID: 11400000, guid: c2661d9dc127fe249adb7079dc09d3b8, type: 2}
+  - {fileID: 11400000, guid: b5a7f69c3c1bb654b971c42a50d4a74f, type: 2}
+  - {fileID: 11400000, guid: 53347b2f96d761a4a92c03f878e23a93, type: 2}
+  - {fileID: 11400000, guid: e76150346e489cd4ab7b5ada3a8687f6, type: 2}
+  - {fileID: 11400000, guid: a7676ebe81d467a4c823a3147f3c6e90, type: 2}
+  - {fileID: 11400000, guid: 6391f78fddcef0e428ce91e5a4866a70, type: 2}
+  - {fileID: 11400000, guid: 55807961580502b42a3544c8c56431ad, type: 2}
+  - {fileID: 11400000, guid: 3ca37221083de874e931d4eb399c3b51, type: 2}
   _defaultCombo: 1
   _attackInfo:
+    idSO: 8
+    idManager: 0
     attackType: 0
+    specialType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
+    hardKnockdown: 0
     knockbackDuration: 0
     knockbackDistance: 0
     knockbackDirection: {x: 0, y: 0, z: 0}
+    reverseKnockbackDuration: 0
+    reverseKnockbackDistance: 0
+    reverseKnockbackDirection: {x: 0, y: 0, z: 0}
     hitStunDuration: 0
     causesWallBounce: 0
     hitStopDuration: 0
@@ -60,7 +70,11 @@ MonoBehaviour:
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
     hangTime: 0
+    gravityAugmentFactor: 1
+    gravityAugmentDuration: 0
     favorReward: 0
     knockbackForce: {x: 0, y: 0}
     incrementBarAmount: 0
+    multiHitCount: 0
+    multiHitInterval: 0
   _projectilePrefab: {fileID: 0}

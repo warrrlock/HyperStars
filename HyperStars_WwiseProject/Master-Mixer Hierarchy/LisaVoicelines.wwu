@@ -13,6 +13,32 @@
 							<ValueList>
 								<Value>-3</Value>
 							</ValueList>
+							<RTPCList>
+								<RTPC Name="" ID="{D2CB9D51-23FF-4EA2-9CF3-C87A0C1E696B}" ShortID="157427151">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="VoiceVolume" ID="{1312792A-61FD-47C0-A6D1-1FBEBC059363}" WorkUnitID="{7D17FBD4-39D6-4559-B10C-090AE61ACE8F}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{9F3FBD8F-7D82-44DD-A79E-0E463BF413A1}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="3"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>-200</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>1</XPos>
+												<YPos>0</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
 						</Property>
 						<Property Name="Color" Type="int16" Value="23"/>
 						<Property Name="OverrideColor" Type="bool" Value="True"/>

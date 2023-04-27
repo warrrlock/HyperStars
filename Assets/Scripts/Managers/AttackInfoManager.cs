@@ -177,7 +177,7 @@ public class AttackInfoManager : MonoBehaviour
         //Debug.Log("postdecay:" + values[id].outputReward);
         //debugText.text = "infostun: "+attackInfo.hitStunDuration + "decay: "+Services.FavorManager.DecayValue+ "outstun: " + values[id].outputHitStunDuration.ToString();
         //float timer = 0f;
-        float timerDelta = Time.fixedDeltaTime / Services.FavorManager.DecayResetDuration;
+        float timerDelta = Time.fixedDeltaTime / Services.FavorManager.FavorDecayResetDuration;
         //while (values[id].outputReward < preDecayReward && timer < Services.FavorManager.DecayResetDuration)
         //{
         //    values[id].outputReward += attackInfo.favorReward * Services.FavorManager.DecayValue * timerDelta;
