@@ -29,13 +29,13 @@ namespace Managers
         [HideInInspector] [SerializeField] List<BaseState> _states;
         [HideInInspector] [SerializeField] List<AttackInfo> _attackInfo;
 
-        public Sprite IndicatorSprite => _indicatorSprite;
+        [Header("UI")]
         [SerializeField] private Sprite _indicatorSprite;
-        public Sprite IndicatorGlowSprite => _indicatorGlowSprite;
         [SerializeField] private Sprite _indicatorGlowSprite;
-
-        public Sprite[] CharacterPortrait => _characterPortrait;
         [SerializeField] private Sprite[] _characterPortrait;
+        public Sprite IndicatorSprite => _indicatorSprite;
+        public Sprite IndicatorGlowSprite => _indicatorGlowSprite;
+        public Sprite[] CharacterPortrait => _characterPortrait;
         [field: SerializeField] public CharacterColorScriptable CharacterPalettes { get; private set; }
 
         public HurtState LoseState => _loseState;
@@ -43,6 +43,8 @@ namespace Managers
 
         public CharacterCmmdList CommandList => _commandList;
         [SerializeField] private CharacterCmmdList _commandList;
+
+        [field: SerializeField] public float KnockdownDisableTime {get; private set; }
 
 #if UNITY_EDITOR
         public void OnEnable()
