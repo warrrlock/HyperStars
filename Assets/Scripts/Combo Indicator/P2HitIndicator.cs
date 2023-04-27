@@ -157,7 +157,7 @@ public class P2HitIndicator : MonoBehaviour
             
             comboText.text = builder.ToString();
 
-            if(comboCounter >= 2){
+            if(comboCounter >= 1){
                 comboText.enabled = true;
                 shaker.ShakeIt();
             } else{
