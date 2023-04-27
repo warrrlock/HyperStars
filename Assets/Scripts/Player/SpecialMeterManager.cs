@@ -12,6 +12,9 @@ public class SpecialMeterManager : MonoBehaviour
     [SerializeField] private GameObject _meterBarPrefab;
     [SerializeField] private int _numberOfBars;
     [SerializeField] private float _passiveIncrementAmount;
+
+    [SerializeField] private Color _unfilledColor;
+    [SerializeField] private Color _filledColor;
     
     private GameObject _fillMeter;
     private Image[] _bars;
@@ -64,7 +67,11 @@ public class SpecialMeterManager : MonoBehaviour
             
             amount -= toAdd;
             _bars[_barIndex].fillAmount += toAdd;
-            if (_bars[_barIndex].fillAmount >= 1) _barIndex++;
+            if (_bars[_barIndex].fillAmount >= 1)
+            {
+                _bars[_barIndex].color = _filledColor;
+                _barIndex++;
+            }
         }
     }
 
@@ -82,7 +89,9 @@ public class SpecialMeterManager : MonoBehaviour
             
             amount -= toSub;
             _bars[_barIndex].fillAmount -= toSub;
-            if (_bars[_barIndex].fillAmount <= 0) _barIndex--;
+            _bars[_barIndex].color = _unfilledColor;
+            if (_bars[_barIndex].fillAmount <= 0)
+                _barIndex--;
         }
     }
 
@@ -102,6 +111,7 @@ public class SpecialMeterManager : MonoBehaviour
         {
             _bars[i] = Instantiate(_meterBarPrefab, _fillMeter.transform).GetComponent<Image>();
             _bars[i].GetComponent<RectTransform>().localRotation = _fillMeter.transform.localRotation;
+            _bars[i].color = _unfilledColor;
         }
     }
 
