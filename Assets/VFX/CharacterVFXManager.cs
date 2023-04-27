@@ -214,6 +214,9 @@ public class CharacterVFXManager : MonoBehaviour
                 break;
             }
         }
+        
+        // reset parry
+        TurnOffParryFlash();
     }
 
     private void TurnOnGoldenGoal(int goldenGoalId)
