@@ -403,10 +403,10 @@ public class MovementController : MonoBehaviour
         transform.position = new Vector3(x, transform.position.y, transform.position.z);
     }
 
-    public void ResetValues()
+    public void ResetValues(bool resetMove = true)
     {
         KillAllForces();
-        StopMoving();
+        if (resetMove) StopMoving();
         ResetVelocityY();
         ResetAllVelocities();
         //RestoreOpponentGravity();

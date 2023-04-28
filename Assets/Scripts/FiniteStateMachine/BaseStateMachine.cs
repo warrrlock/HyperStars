@@ -85,6 +85,7 @@ namespace FiniteStateMachine {
         private int _currentAnimation;
         private bool _isAttacking;
         private bool _holdingCrouch;
+        private bool _returnMeter;
 
         public bool HitOpponent { get; private set; }
 
@@ -405,6 +406,14 @@ namespace FiniteStateMachine {
         }
 
         //ANIMATION USE
+        public void DisableReturnSpecial()
+        {
+            _returnMeter = false;
+        }
+        public void EnableReturnSpecial()
+        {
+            _returnMeter = true;
+        }
         public void DisableCombo()
         {
             _canCombo = false;
@@ -556,6 +565,10 @@ namespace FiniteStateMachine {
             else
             {
                 Fighter.Events.onLandedNeutral?.Invoke();
+                Fighter.MovementController.ResetValues(false);
+                if (_returnMeter) 
+                    Fighter.SpecialMeterManager.IncrementBar(CurrentState.SpecialBarCost);
+                DisableReturnSpecial();
                 TryQueueState(_jumpLandState);
             }
 
