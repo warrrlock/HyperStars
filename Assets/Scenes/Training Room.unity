@@ -1473,6 +1473,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _BOOLEAN: 0
+    - _Golden_Goal_Noise_Speed: 2
+    - _Golden_Goal_Trigger: 0
     - _Noise_Speed: 30.25
     - _OutlineThickness: 0
     - _PARRY: 0
@@ -1603,8 +1605,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _BOOLEAN: 0
+    - _Golden_Goal_Noise_Speed: 2
+    - _Golden_Goal_Trigger: 0
     - _Noise_Speed: 30.25
-    - _OutlineThickness: 0
+    - _OutlineThickness: 10
     - _PARRY: 0
     - _Parry: 0
     - _Parry_Trigger: 0
@@ -1625,7 +1629,7 @@ Material:
     - _Color7: {r: 0.97647065, g: 0.86666673, b: 0.48235297, a: 1}
     - _Hair_Color: {r: 0.9237344, g: 0.93333334, b: 0.21568623, a: 0}
     - _Main_Color: {r: 0.383277, g: 0.5839238, b: 0.9339623, a: 0}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 137.187, g: 91.99599, b: 0, a: 0}
     - _Pants_Color: {r: 0, g: 0, b: 0, a: 0}
     - _Skin_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 0}
   m_BuildTextureStacks: []
@@ -2087,6 +2091,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _BOOLEAN: 0
+    - _Golden_Goal_Noise_Speed: 2
+    - _Golden_Goal_Trigger: 0
     - _Noise_Speed: 30.25
     - _OutlineThickness: 10
     - _PARRY: 0
@@ -2916,7 +2922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2629318996151862450, guid: 15edebde50638465db196d72001d54a1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2893871242414200472, guid: 15edebde50638465db196d72001d54a1, type: 3}
       propertyPath: m_Name

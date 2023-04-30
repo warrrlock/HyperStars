@@ -3,29 +3,6 @@
 	<AudioObjects>
 		<WorkUnit Name="FavorBar" ID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}" OwnerID="{7198EEB8-1EDB-4746-81CE-3BFC0752BC04}" PersistMode="Nested">
 			<ChildrenList>
-				<Sound Name="FavorLockBreak" ID="{E54C05A2-33BE-452D-AF0B-04F7653D61DB}" ShortID="110480083">
-					<ReferenceList>
-						<Reference Name="Conversion">
-							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
-						</Reference>
-						<Reference Name="OutputBus">
-							<ObjectRef Name="CombatUIBus" ID="{EFAFB5E6-1AB8-4080-8311-ADA401493177}" WorkUnitID="{A8BE204D-0A1F-480A-8BB1-8650FDE6EE5A}"/>
-						</Reference>
-					</ReferenceList>
-					<ChildrenList>
-						<AudioFileSource Name="FavorLockBreak" ID="{5A177CC8-9B2D-4A77-B3F7-453D8F391FFC}">
-							<Language>SFX</Language>
-							<AudioFile>FavorLockBreak.wav</AudioFile>
-							<MediaIDList>
-								<MediaID ID="469448747"/>
-							</MediaIDList>
-						</AudioFileSource>
-					</ChildrenList>
-					<ObjectLists/>
-					<ActiveSourceList>
-						<ActiveSource Name="FavorLockBreak" ID="{5A177CC8-9B2D-4A77-B3F7-453D8F391FFC}" Platform="Linked"/>
-					</ActiveSourceList>
-				</Sound>
 				<Sound Name="FavorGoldenGoal" ID="{A3C5E3F6-F421-4464-AAEC-CC44AB86C460}" ShortID="830395446">
 					<PropertyList>
 						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
@@ -50,6 +27,52 @@
 					<ObjectLists/>
 					<ActiveSourceList>
 						<ActiveSource Name="FavorGoldenGoal" ID="{34D49793-0FCF-4867-A4FF-557588EBE9B3}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="FavorLockBreak" ID="{7EBA11A7-A7D8-467F-BFB1-304C059E380B}" ShortID="71106768">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="FavorLockBreak" ID="{32309420-2849-44B6-89E2-AADE1D0351D3}">
+							<Language>SFX</Language>
+							<AudioFile>FavorLockBreak.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="469448747"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="FavorLockBreak" ID="{32309420-2849-44B6-89E2-AADE1D0351D3}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="FavorLockPreBreak" ID="{8FB185AF-4DA6-445E-9D16-7E30093BDDFE}" ShortID="414172031">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="FavorLockPreBreak" ID="{0EEEA0F7-A20A-47AA-8456-0B1A096F50A1}">
+							<Language>SFX</Language>
+							<AudioFile>FavorLockPreBreak.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="655170635"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ObjectLists/>
+					<ActiveSourceList>
+						<ActiveSource Name="FavorLockPreBreak" ID="{0EEEA0F7-A20A-47AA-8456-0B1A096F50A1}" Platform="Linked"/>
 					</ActiveSourceList>
 				</Sound>
 			</ChildrenList>
