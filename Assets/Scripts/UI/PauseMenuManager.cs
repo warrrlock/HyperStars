@@ -75,7 +75,7 @@ namespace UI
             if (_menuManager.IsTraining)
             {
                 _tabAssets[^1].tabButton.gameObject.SetActive(true);
-                GetComponentInChildren<TrainingRoomManager>(true).gameObject.SetActive(true);
+                GetComponentInChildren<TrainingRoomManager>(true)?.gameObject.SetActive(true);
             }
             _maxTabs = Math.Max(0, _tabAssets.Length - (_menuManager.IsTraining ? 1 : 2));
             SubscribeEvents();
@@ -191,7 +191,7 @@ namespace UI
         {
             if (!callbackContext.action.WasPerformedThisFrame()) return;
             Fighter fighter = Services.Fighters[0];
-            Debug.Log($"fighter {fighter.PlayerInput.currentActionMap}");
+            // Debug.Log($"fighter {fighter.PlayerInput.currentActionMap}");
             
             ToggleMenuSelection(fighter);
         }
@@ -200,7 +200,7 @@ namespace UI
         {
             if (!callbackContext.action.WasPerformedThisFrame()) return;
             Fighter fighter = Services.Fighters[1];
-            Debug.Log($"fighter {fighter.PlayerInput.currentActionMap}");
+            // Debug.Log($"fighter {fighter.PlayerInput.currentActionMap}");
             ToggleMenuSelection(fighter);
         }
 

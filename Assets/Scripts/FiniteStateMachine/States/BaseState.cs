@@ -36,6 +36,8 @@ namespace FiniteStateMachine
         [SerializeField] protected string _animationName;
         [HideInInspector] [SerializeField] protected int _animationHash;
 
+        public bool IsAttackState => (GetAttackInfo()?.attackType ?? AttackInfo.AttackType.None) != AttackInfo.AttackType.None;
+
         
         protected virtual void OnValidate()
         {
