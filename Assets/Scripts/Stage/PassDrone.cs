@@ -5,7 +5,7 @@ using WesleyDavies;
 
 public class PassDrone : MonoBehaviour
 {
-    [SerializeField] private Animator _passAnimator;
+    private Animator _passAnimator;
     [SerializeField] private string[] _dronePasses;
     public bool IsPlaying
     {
@@ -15,6 +15,11 @@ public class PassDrone : MonoBehaviour
     private int _chanceIncreaseDelta = 5;
 
     [SerializeField] private DolphinAnimation _dolphinAnimation;
+
+    private void Awake()
+    {
+        _passAnimator = GetComponent<Animator>();
+    }
 
     void Start()
     {

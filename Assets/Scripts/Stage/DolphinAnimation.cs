@@ -5,12 +5,17 @@ using WesleyDavies;
 
 public class DolphinAnimation : MonoBehaviour
 {
-    public Animator anim;
+    private Animator anim;
     //public int ranNumb;
     private int _spawnChance;
     private int _chanceIncreaseDelta = 12;
     public bool IsPlaying { get => anim.GetCurrentAnimatorStateInfo(0).IsName("Move"); }
     [SerializeField] private PassDrone _droneManager;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     void Start()
     {

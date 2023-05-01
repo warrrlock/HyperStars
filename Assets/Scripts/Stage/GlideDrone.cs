@@ -5,10 +5,14 @@ using WesleyDavies;
 
 public class GlideDrone : MonoBehaviour
 {
-    [SerializeField] private Animator _glideAnimator;
-    [SerializeField] private string[] _dronePasses;
+    private Animator _glideAnimator;
     [SerializeField] private string[] _droneGlides;
     private int _lastGlideIndex = -1;
+
+    private void Awake()
+    {
+        _glideAnimator = GetComponent<Animator>();
+    }
 
     void Start()
     {
