@@ -17,12 +17,12 @@ public class SceneReloader : MonoBehaviour
     private void Awake()
     {
         CreateSingleton();
-        OnSceneLoaded?.Invoke();
+        //OnSceneLoaded?.Invoke();
     }
 
     private void Start()
     {
-        // OnSceneLoaded?.Invoke();
+        OnSceneLoaded?.Invoke();
         SubscribeActions();
         Juice.UnfreezeTime();
     }
