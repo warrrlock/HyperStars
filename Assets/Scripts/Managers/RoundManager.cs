@@ -31,6 +31,9 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private FightersManager _fightersManager;
     [SerializeField] private RectTransform[] _roundUIParents;
     [SerializeField] private GameObject _roundUIPrefab;
+    [SerializeField] private AK.Wwise.Switch[] _roundSwitches;
+    private AK.Wwise.Switch _currentRoundSwitch;
+    [SerializeField] private AK.Wwise.Event[] _roundAnnouncerSFXEvents;
     private List<Image[]> _roundUI;
     private Image[] _p0RoundUI;
     private Image[] _p1RoundUI;
@@ -166,6 +169,8 @@ public class RoundManager : MonoBehaviour
 
         //begin count down
         _countdownText.text = $"Round {_round}";
+        _currentRoundSwitch = _roundSwitches[_round];
+        _roundAnnouncerSFXEvents[0].Post(gameObject);
         yield return new WaitForSeconds(1.0f);
         if (RoundInformation.MatchPoint)
         {
@@ -188,6 +193,7 @@ public class RoundManager : MonoBehaviour
         
         //start time/movement
         _countdownText.text = _startText;
+        _roundAnnouncerSFXEvents[1].Post(gameObject);
 
         yield return new WaitForSeconds(1.0f);
         _countdownText.gameObject.SetActive(false);
