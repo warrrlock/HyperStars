@@ -217,6 +217,7 @@ public class CharacterVFXManager : MonoBehaviour
         
         // reset parry
         TurnOffParryFlash();
+        _spriteRenderer.material.SetColor("_OutlineColor", goldenGoalOutlineColor);
     }
 
     private void TurnOnGoldenGoal(int goldenGoalId)
