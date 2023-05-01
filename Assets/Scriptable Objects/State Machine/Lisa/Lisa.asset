@@ -46,6 +46,10 @@ MonoBehaviour:
     color: {r: 0.21698113, g: 0.8014701, b: 0.8679245, a: 1}
     focus: 0
     edit: 0
+  - filterName: getup-transition
+    color: {r: 1, g: 1, b: 1, a: 1}
+    focus: 0
+    edit: 0
   _characterPath: Assets/Scriptable Objects/State Machine/Lisa
   _states:
   - {fileID: 11400000, guid: acb861e23a3edf342a185fdaa0b50877, type: 2}
@@ -119,7 +123,7 @@ MonoBehaviour:
     gravityAugmentDuration: 0
     favorReward: 6
     knockbackForce: {x: 90.45471, y: 100}
-    incrementBarAmount: 0.4
+    incrementBarAmount: 0.15
     multiHitCount: 0
     multiHitInterval: 0
   - idSO: 1
@@ -154,7 +158,7 @@ MonoBehaviour:
     gravityAugmentDuration: 0.2
     favorReward: 2
     knockbackForce: {x: 0, y: 56.063454}
-    incrementBarAmount: 0.1
+    incrementBarAmount: 0.05
     multiHitCount: 0
     multiHitInterval: 0
   - idSO: 2
@@ -189,7 +193,7 @@ MonoBehaviour:
     gravityAugmentDuration: 0.5
     favorReward: 4
     knockbackForce: {x: 0, y: 100}
-    incrementBarAmount: 0.1
+    incrementBarAmount: 0.05
     multiHitCount: 0
     multiHitInterval: 0
   - idSO: 3
@@ -294,7 +298,7 @@ MonoBehaviour:
     gravityAugmentDuration: 1
     favorReward: 6
     knockbackForce: {x: 30.8089, y: 100}
-    incrementBarAmount: 0.215
+    incrementBarAmount: 0.15
     multiHitCount: 0
     multiHitInterval: 0
   - idSO: 6
@@ -404,7 +408,7 @@ MonoBehaviour:
     multiHitInterval: 0.01
   - idSO: 9
     idManager: 0
-    attackType: 0
+    attackType: 5
     specialType: 0
     hitSfxEvent:
       idInternal: 0
@@ -639,12 +643,12 @@ MonoBehaviour:
     groundBounceDistance: 0
     groundBounceDirection: {x: 0, y: 0, z: 0}
     groundBounceHitStopDuration: 0
-    hangTime: 0.2
-    gravityAugmentFactor: 1
-    gravityAugmentDuration: 0
+    hangTime: 0
+    gravityAugmentFactor: 0.64
+    gravityAugmentDuration: 0.5
     favorReward: 2
     knockbackForce: {x: 0, y: 0}
-    incrementBarAmount: 0.1
+    incrementBarAmount: 0.05
     multiHitCount: 0
     multiHitInterval: 0
   - idSO: 16
@@ -934,5 +938,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 545b7e91e953844aa9e292119b39f0e5, type: 3}
   <CharacterPalettes>k__BackingField: {fileID: 11400000, guid: 948c02293ac922d4d919f20538668fda, type: 2}
   _loseState: {fileID: 11400000, guid: 96e613e3f0a8b480289846778927ba33, type: 2}
-  _commandList: {fileID: 0}
+  _commandList: {fileID: 11400000, guid: b73af48326c10468ab19ebd148c080eb, type: 2}
   <KnockdownDisableTime>k__BackingField: 0.25

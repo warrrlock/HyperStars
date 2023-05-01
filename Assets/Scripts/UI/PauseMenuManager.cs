@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,6 +39,13 @@ namespace UI
         [SerializeField] private TabAssets[] _tabAssets;
         [SerializeField] private GameObject _menu;
         
+        [Header("Command List")]
+        [SerializeField] private CmmdListReference _commandRef;
+        [SerializeField] private TextMeshProUGUI _characterName; 
+        [SerializeField] private GameObject _commandListParent;
+        [SerializeField] private GameObject _commandContainerPrefab;
+        [SerializeField] private GameObject _actionPrefab;
+        
         private Fighter _opener;
         private InputSystemUIInputModule _inputModule;
         private int _currentTab;
@@ -45,6 +54,8 @@ namespace UI
         private MultiplayerEventSystem _multiplayerEventSystem;
         private Slider[] _sliders = new Slider[5];
         private FullScreenMode[] _fullScreenModes = new FullScreenMode[4];
+        private List<GameObject> _commandObjects;
+        private Dictionary<string, Sprite> _commandDictionary;
 
         private void Awake()
         {
@@ -61,6 +72,13 @@ namespace UI
             _fullScreenModes[1] = FullScreenMode.FullScreenWindow;
             _fullScreenModes[2] = FullScreenMode.MaximizedWindow;
             _fullScreenModes[3] = FullScreenMode.Windowed;
+
+            _commandObjects = new List<GameObject>();
+            _commandDictionary = new Dictionary<string, Sprite>();
+            foreach (ActionSpritePair pair in _commandRef.actionSpritePairs)
+            {
+                _commandDictionary.TryAdd(pair.action, pair.sprite);
+            }
         }
 
         private void Start()
@@ -117,17 +135,59 @@ namespace UI
             _resDropdown.value = Array.IndexOf(_fullScreenModes, Screen.fullScreenMode);
         }
 
-        [SerializeField] private GameObject _commandListPrefab;
-        [SerializeField] private GameObject _commandListParent;
-        private GameObject _commandListObjects;
         public void SetControlListValues()
         {
-            foreach (CharacterCmmdList.CommandList list in Services.Characters[_opener.PlayerInput.playerIndex].CommandList.commandList)
+            CharacterCmmdList characterCombos = Services.Characters[_opener.PlayerInput.playerIndex].CommandList;
+            _characterName.text = Services.Characters[_opener.PlayerInput.playerIndex].name;
+            //create missing gameobjects
+            if (characterCombos.commandList.Count > _commandObjects.Count)
             {
-                //instantiate prefab of command
-                foreach (var VARIABLE in list.commands)
+                for (int i = _commandObjects.Count; i < characterCombos.commandList.Count; i++)
                 {
-                    
+                    _commandObjects.Add(Instantiate(_commandContainerPrefab, _commandListParent.transform));
+                }
+            }
+            else
+            {
+                for (int i = characterCombos.commandList.Count; i < _commandObjects.Count; i++)
+                {
+                    _commandObjects[i].SetActive(false);
+                }
+            }
+
+            for (int i = 0; i < characterCombos.commandList.Count; i++)
+            {
+                CharacterCmmdList.CommandList list = characterCombos.commandList[i];
+                //create missing or disable extra
+                GameObject container = _commandObjects[i];
+                container.SetActive(true);
+                container.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = list.name;
+                Transform actionContainer = container.transform.GetChild(1);
+                
+                if (actionContainer.childCount < list.commands.Count)
+                {
+                    for (int j = actionContainer.childCount; j < list.commands.Count; j++)
+                    {
+                        Instantiate(_actionPrefab, actionContainer);
+                    }
+                }
+                else if (actionContainer.childCount > list.commands.Count)
+                {
+                    for (int j = list.commands.Count; j < actionContainer.childCount; j++)
+                    {
+                        actionContainer.GetChild(j).gameObject.SetActive(false);
+                    }
+                }
+
+                int index = 0;
+                foreach (var command in list.commands)
+                {
+                    _commandDictionary.TryGetValue(command, out Sprite sprite);
+                    if (!sprite) continue;
+                    GameObject actionObj = actionContainer.GetChild(index).gameObject;
+                    actionObj.SetActive(true);
+                    actionObj.GetComponent<Image>().sprite = sprite;
+                    index++;
                 }
             }
         }
