@@ -7,21 +7,22 @@ public class CollisionsManager : MonoBehaviour
 {
     [SerializeField] private float _overlapResolutionSpeed;
     public LayerMask fightersMask;
-    [SerializeField] private LayerMask _terrainMask;
+    public LayerMask terrainMask;
     [NonSerialized] public OverlapDetector[] fighterDetectors = new OverlapDetector[2];
     //[SerializeField] private OverlapDetector[] _fighterDetectors;
-    [SerializeField] private OverlapDetector[] _terrainDetecors;
-    [SerializeField] private OverlapDetector _groundDetector;
+    //[SerializeField] private OverlapDetector[] _terrainDetecors;
+    //[SerializeField] private OverlapDetector _groundDetector;
     public bool DrawDebugRays { get => _drawDebugRays; }
     [SerializeField] private bool _drawDebugRays;
     private List<OverlapInfo> _overlapInfos = new();
-    private List<OverlapDetector> _nonOverlappedDetectors = new();
-    //private OverlapDetector[] _allOverlapDetectors;
+    private List<OverlapDetector> _nonOverlappedDetectors;
+    private OverlapDetector[] _allOverlapDetectors;
 
     private void Awake()
     {
         Services.CollisionsManager = this;
-        fighterDetectors = new OverlapDetector[2];
+        //fighterDetectors = new OverlapDetector[2];
+        //DontDestroyOnLoad(this);
     }
 
     void Start()
@@ -30,29 +31,37 @@ public class CollisionsManager : MonoBehaviour
         //{
         //    fighterDetectors[i].Initialize(this);
         //}
-        for (int i = 0; i < _terrainDetecors.Length; i++)
-        {
-            _terrainDetecors[i].Initialize(this);
-        }
-        _groundDetector.Initialize(this);
-        //_allOverlapDetectors = FindObjectsOfType<OverlapDetector>();
+        //for (int i = 0; i < _terrainDetecors.Length; i++)
+        //{
+        //    _terrainDetecors[i].Initialize(this);
+        //}
+        //_groundDetector.Initialize(this);
+        _allOverlapDetectors = FindObjectsOfType<OverlapDetector>();
+        //for (int i = 0; i < _allOverlapDetectors.Length; i++)
+        //{
+        //    _allOverlapDetectors[i].Initialize(this);
+        //}
     }
 
     private void FixedUpdate()
     {
         _nonOverlappedDetectors = new(fighterDetectors);
-        for (int i = 0; i < fighterDetectors.Length; i++)
+        for (int i = 0; i < _allOverlapDetectors.Length; i++)
         {
-            fighterDetectors[i].CheckOverlaps(fightersMask);
+            _allOverlapDetectors[i].CheckOverlaps();
         }
-        for (int i = 0; i < _terrainDetecors.Length; i++)
-        {
-            _terrainDetecors[i].CheckOverlaps(_terrainMask);
-        }
-        _groundDetector.CheckOverlaps(_terrainMask);
+        //for (int i = 0; i < fighterDetectors.Length; i++)
+        //{
+        //    fighterDetectors[i].CheckOverlaps(fightersMask);
+        //}
+        //for (int i = 0; i < _terrainDetecors.Length; i++)
+        //{
+        //    _terrainDetecors[i].CheckOverlaps(terrainMask);
+        //}
+        //_groundDetector.CheckOverlaps(terrainMask);
         //RemoveDoubleOverlapInfos();
-        OverlapInfo[] overlapInfos = new List<OverlapInfo>(_overlapInfos).ToArray();
-        _overlapInfos.Clear(); //to prevent the list from being changed while we iterate through it
+        OverlapInfo[] overlapInfos = new List<OverlapInfo>(_overlapInfos).ToArray(); //to prevent the list from being changed while we iterate through it
+        _overlapInfos.Clear();
         foreach (OverlapInfo overlapInfo in overlapInfos)
         {
             if (overlapInfo.detector.TerrainType == OverlapDetector.Terrain.Ground && overlapInfo.other.TerrainType != OverlapDetector.Terrain.Wall)
@@ -105,13 +114,23 @@ public class CollisionsManager : MonoBehaviour
             overlapResolutionVelocity *= _overlapResolutionSpeed;
             overlapInfo.other.MovementController.overlapResolutionVelocity = overlapResolutionVelocity;
         }
-        for (int i = 0; i < _nonOverlappedDetectors.Count; i++)
+        int count = _nonOverlappedDetectors.Count;
+        for (int i = 0; i < count; i++)
         {
+            if (_nonOverlappedDetectors[i] == null)
+            {
+                continue;
+            }
+            //Debug.Log(_nonOverlappedDetectors.Count);
+            //Debug.Log(Time.time);
+            //Debug.Log(i);
+            //Debug.Log(_nonOverlappedDetectors[i]);
             if (_nonOverlappedDetectors[i].MovementController.overlapResolutionVelocity != Vector3.zero)
             {
                 _nonOverlappedDetectors[i].MovementController.overlapResolutionVelocity = Vector3.zero;
             }
         }
+        //_nonOverlappedDetectors.Clear();
     }
 
     public void AddOverlapInfo(OverlapInfo overlapInfo)
