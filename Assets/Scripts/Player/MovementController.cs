@@ -1213,6 +1213,7 @@ public class MovementController : MonoBehaviour
             {
                 Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
                 dashDirection = new Vector3(inputVector.x, 0f, 0f);
+                MovingDirection = dashDirection.x < 0 ? Fighter.Direction.Left : Fighter.Direction.Right;
                 if (_dashToZero)
                 {
                     _unforcedVelocity.x = 0f;
