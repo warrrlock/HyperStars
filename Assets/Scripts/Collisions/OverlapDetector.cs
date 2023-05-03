@@ -48,6 +48,7 @@ public class OverlapDetector : MonoBehaviour
     public float HalfWidth { get => _halfWidth; }
     private float _halfWidth;
     private LayerMask _layerMask;
+    private bool _isFighter = false;
 
     private struct RaycastOrigins
     {
@@ -63,6 +64,7 @@ public class OverlapDetector : MonoBehaviour
             Initialize(Services.CollisionsManager);
             this.MovementController = fighter.MovementController;
             Services.CollisionsManager.fighterDetectors[fighter.PlayerId] = this;
+            _isFighter = true;
             _layerMask = _collisionsManager.fightersMask;
         }
         else
@@ -99,6 +101,11 @@ public class OverlapDetector : MonoBehaviour
     {
         UpdateRaycastOrigins();
         SpaceRays();
+
+        if (_isFighter)
+        {
+            _layerMask = _collisionsManager.fightersMask;
+        }
 
         float rayLength = _pushAxisLength; //don't add the skin width or else it will return a hit when an object is touching this collider even without overlap
 
@@ -185,6 +192,7 @@ public class OverlapDetector : MonoBehaviour
                             pushDirection = OverlapInfo.Direction.Up;
                             break;
                     }
+                    //Debug.Log("overlap");
                     OverlapInfo overlapInfo = new(this, other, pushDirection);
                     _collisionsManager.AddOverlapInfo(overlapInfo);
                     return;
