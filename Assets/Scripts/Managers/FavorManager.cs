@@ -460,7 +460,7 @@ public class FavorManager : MonoBehaviour
             {
                 continue;
             }
-            if (indicatorScaleCurrent.x * playerIdMultiplier > 0f)
+            if (indicatorScaleCurrent.x * playerIdMultiplier >= 0f)
             {
                 _favorMeterIndicator.sprite = Services.Characters[newPlayerId].IndicatorSprite;
                 //_favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
