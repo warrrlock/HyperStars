@@ -429,11 +429,11 @@ public class FavorManager : MonoBehaviour
         return xPercent;
     }
 
-    private float ConvertFromWorldRectToLocal(float worldX)
-    {
-        float xPercent = Mathf.Lerp(0f, 1f, (worldX - _minIndicatorX) / (_maxIndicatorX - _minIndicatorX)); //TODO: maybe mathf.abs(min) looks better than -min?
-        return Mathf.Lerp(_minChipX, _maxChipX, xPercent);
-    }
+    //private float ConvertFromWorldRectToLocal(float worldX)
+    //{
+    //    float xPercent = Mathf.Lerp(0f, 1f, (worldX - _minIndicatorX) / (_maxIndicatorX - _minIndicatorX)); //TODO: maybe mathf.abs(min) looks better than -min?
+    //    return Mathf.Lerp(_minChipX, _maxChipX, xPercent);
+    //}
 
     private IEnumerator FlipIndicator(int newPlayerId)
     {
@@ -460,7 +460,7 @@ public class FavorManager : MonoBehaviour
             {
                 continue;
             }
-            if (indicatorScaleCurrent.x * playerIdMultiplier > 0f)
+            if (indicatorScaleCurrent.x * playerIdMultiplier >= 0f)
             {
                 _favorMeterIndicator.sprite = Services.Characters[newPlayerId].IndicatorSprite;
                 //_favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
