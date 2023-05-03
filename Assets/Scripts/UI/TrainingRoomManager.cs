@@ -144,6 +144,8 @@ namespace UI
         public void ResetFavor()
         {
             _favorManager.ResetFavorMeter();
+            Services.FavorManager.onGoldenGoalDisabled?.Invoke(0);
+            Services.FavorManager.onGoldenGoalDisabled?.Invoke(1);
         }
 
         public void ToggleDebugCollision()
