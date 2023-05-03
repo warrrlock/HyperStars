@@ -10,8 +10,8 @@ public class CharacterVFXManager : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] public VFXConfig vfxConfig;
-    [SerializeField, ColorUsage(true, true)] private Color parryOutlineColor;
-    [SerializeField, ColorUsage(true, true)] private Color goldenGoalOutlineColor;
+    [SerializeField, ColorUsage(false, true)] private Color parryOutlineColor;
+    [SerializeField, ColorUsage(false, true)] private Color goldenGoalOutlineColor;
     [Header("Character Based VFX")]
     [SerializeField] private VisualEffect visualEffect;
     private Fighter _fighter;
@@ -40,6 +40,7 @@ public class CharacterVFXManager : MonoBehaviour
 
     //
     private VisualEffect[] activeDizzies = new VisualEffect[2];
+    private bool isInAfterimageState;
     
     
     void Awake()
@@ -173,6 +174,7 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void AfterImageUpdate() {
+        if (!isInAfterimageState) return;
         if (_hasDelay)
         {
             if (_delayTimer > 0)
@@ -196,11 +198,13 @@ public class CharacterVFXManager : MonoBehaviour
     private void SpawnOnStateChange(BaseState s)
     {
         // spawn afterimage
+        isInAfterimageState = false;
         visualEffect.SendEvent("OnStop");
         foreach (BaseState wantedState in _afterImageStates)
         {
             if (s != wantedState) continue;
             visualEffect.SendEvent("OnDash");
+            isInAfterimageState = true;
             break;
         }
 
@@ -217,6 +221,7 @@ public class CharacterVFXManager : MonoBehaviour
         
         // reset parry
         TurnOffParryFlash();
+        _spriteRenderer.material.SetColor("_OutlineColor", goldenGoalOutlineColor);
     }
 
     private void TurnOnGoldenGoal(int goldenGoalId)
