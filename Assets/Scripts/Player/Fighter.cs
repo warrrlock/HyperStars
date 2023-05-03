@@ -91,7 +91,8 @@ public class Fighter : MonoBehaviour
         MovementController.ResetValues();
         OverlapDetector.ReassignFighter();
         ResetFighterHurtboxes();
-        HasGoldenGoal = false;
+        Services.FavorManager.onGoldenGoalDisabled?.Invoke(0);
+        Services.FavorManager.onGoldenGoalDisabled?.Invoke(1);
     }
 
     private void OnDestroy()

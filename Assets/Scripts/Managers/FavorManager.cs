@@ -613,7 +613,14 @@ public class FavorManager : MonoBehaviour
 
     private void GoldenGoalLose(int player)
     {
-        _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[_favoredPlayer]);
+        if (_favoredPlayer >= 0)
+        {
+            _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[_favoredPlayer]);
+        }
+        else
+        {
+            _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[0]);
+        }
         for (int i = 0; i < 2; i++)
         {
             _portraitOutlines[i].color = _glowColors[i];
