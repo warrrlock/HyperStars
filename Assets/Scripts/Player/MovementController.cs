@@ -1332,7 +1332,7 @@ public class MovementController : MonoBehaviour
             {
                 ApplyForce(_sideJumpInputVector, _horizontalJumpForce, _jumpDuration * 2f, false);
                 StartCoroutine(DisableXCollisionLayers(_jumpDuration, 9));
-                StartCoroutine(DisableOverlapXLayers(_jumpDuration / 2, 9));
+                StartCoroutine(DisableOverlapXLayers(_jumpDuration / 4, 9));
                 yield break;
             }
             timer += Time.fixedDeltaTime;
@@ -1418,6 +1418,7 @@ public class MovementController : MonoBehaviour
         RemoveCollisionLayer(ref Services.CollisionsManager.fightersMask, layer);
         yield return new WaitForSeconds(duration);
 
+        //Debug.Log("layers reset");
         AddCollisionLayer(ref Services.CollisionsManager.fightersMask, layer);
         yield break;
     }
