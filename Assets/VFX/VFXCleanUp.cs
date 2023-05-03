@@ -43,14 +43,8 @@ public class VFXCleanUp : MonoBehaviour
         //     _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
         // }
         _lifeTime += isUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
-        if (canUseUnscaledTime)
-        {
-            _vfx.SetFloat("UnscaledTime", _lifeTime);
-        }
-        if (followCharacter)
-        {
-            transform.position = f.transform.position;
-        }
+        if (canUseUnscaledTime) _vfx.SetFloat("UnscaledTime", _lifeTime);
+        if (followCharacter) transform.position = f.transform.position;
     }
 
     void ChangeColor()
