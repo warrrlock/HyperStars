@@ -8,7 +8,7 @@ public class AttackInfo
     public int idSO;
     public int idManager;
 
-    public enum AttackType {None, Light, Medium, Heavy, Special}
+    public enum AttackType {None, Light, Medium, Heavy, Special, Parry}
     public enum SpecialType {None, Side, Neutral, Air, Crouch}
     public AttackType attackType = AttackType.None;
     public SpecialType specialType = SpecialType.None;

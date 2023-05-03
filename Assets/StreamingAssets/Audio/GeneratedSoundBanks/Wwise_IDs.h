@@ -14,6 +14,8 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID PLAY_AIR_SPECIAL_LAUNCH = 1673194572U;
+        static const AkUniqueID PLAY_ANNOUNCER_ROUNDS = 1356837045U;
+        static const AkUniqueID PLAY_ANNOUNCER_SHOWTIME = 3164011966U;
         static const AkUniqueID PLAY_AREA_BLAST_HIT = 1385366132U;
         static const AkUniqueID PLAY_AREA_BLAST_SWING = 748205809U;
         static const AkUniqueID PLAY_BLUK_DASH = 3047339195U;
@@ -110,6 +112,18 @@ namespace AK
                 static const AkUniqueID VERSE = 3840766212U;
             } // namespace SWITCH
         } // namespace MUSICSTATE
+
+        namespace ROUNDSWITCH
+        {
+            static const AkUniqueID GROUP = 2962526803U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID ROUND1 = 2851108012U;
+                static const AkUniqueID ROUND2 = 2851108015U;
+                static const AkUniqueID ROUND3 = 2851108014U;
+            } // namespace SWITCH
+        } // namespace ROUNDSWITCH
 
     } // namespace SWITCHES
 

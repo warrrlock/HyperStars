@@ -179,6 +179,26 @@ public class FavorManager : MonoBehaviour
         _canvas = GetComponentInChildren<Canvas>();
     }
 
+    public void ResetFavorMeter()
+    {
+        Debug.Log("resetting favor meter");
+        _favor = 0;
+        //also reset the chip effect
+        if (_p1ChipEffect != null)
+        {
+            StopCoroutine(_p1ChipEffect);
+            _p1ChipRect.fillAmount = 0;
+            _p1ChipFill = 0;
+        }
+        if (_p2ChipEffect != null)
+        {
+            StopCoroutine(_p2ChipEffect);
+            _p2ChipRect.fillAmount = 0;
+            _p2ChipFill = 0;
+        }
+        UpdateFavorMeter();
+    }
+
     public void StopIncrementing(Dictionary<string, object> data)
     {
         _isRoundOver = true;

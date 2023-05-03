@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
-		<SourceFilesRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Mac\</SourceFilesRoot>
-		<SoundBanksRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
+		<ProjectRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\.cache\Mac\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>Z:\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>C:\Users\Mungs\Desktop\_Projects\Unity\NYU Capstone 2022\HyperStars\HyperStars_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="374987273" Language="SFX" Hash="2972488742">
+		<SoundBank Id="374987273" Language="SFX" Hash="3524711754">
 			<ObjectPath>\SoundBanks\MusicSoundBanks\MusicMain</ObjectPath>
 			<ShortName>MusicMain</ShortName>
 			<Path>MusicMain.bnk</Path>
@@ -173,15 +173,15 @@
 				<AuxBus Id="952035307" Name="CrowdVerb" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\CrowdBus\CrowdVerb"/>
 			</IncludedAuxBusses>
 			<GameParameters>
-				<GameParameter Id="414646191" Name="VoiceVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\VoiceVolume"/>
-				<GameParameter Id="988953028" Name="SFXVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\SFXVolume"/>
-				<GameParameter Id="1427673546" Name="CrowdVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\CrowdVolume"/>
-				<GameParameter Id="2346531308" Name="MusicVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MusicVolume"/>
-				<GameParameter Id="2918011349" Name="MasterVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\MasterVolume"/>
+				<GameParameter Id="414646191" Name="VoiceVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\Volumes\VoiceVolume"/>
+				<GameParameter Id="988953028" Name="SFXVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\Volumes\SFXVolume"/>
+				<GameParameter Id="1427673546" Name="CrowdVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\Volumes\CrowdVolume"/>
+				<GameParameter Id="2346531308" Name="MusicVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\Volumes\MusicVolume"/>
+				<GameParameter Id="2918011349" Name="MasterVolume" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\Volumes\MasterVolume"/>
 				<GameParameter Id="3231715135" Name="CrowdIntensity" ObjectPath="\Game Parameters\Default Work Unit\GameParameters\CrowdIntensity"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="1551306167" Language="SFX" Hash="4191911960">
+		<SoundBank Id="1551306167" Language="SFX" Hash="2009141125">
 			<ObjectPath>\SoundBanks\Default Work Unit\UI</ObjectPath>
 			<ShortName>UI</ShortName>
 			<Path>UI.bnk</Path>
@@ -326,7 +326,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX" Hash="4009253912">
+		<SoundBank Id="3161908922" Language="SFX" Hash="2898121035">
 			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
@@ -336,6 +336,48 @@
 						<File Id="108753294" Language="SFX">
 							<ShortName>LisaSpecial-005.wav</ShortName>
 							<Path>SFX\LisaSpecial-005_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1356837045" Name="Play_Announcer_Rounds" ObjectPath="\Events\UIWorkUnit\CombatUI\Play_Announcer_Rounds" DurationType="OneShot" DurationMin="2.003469" DurationMax="2.024785">
+					<IncludedMemoryFiles>
+						<File Id="122743853" Language="SFX">
+							<ShortName>Announcer Round 3.wav</ShortName>
+							<Path>SFX\Announcer Round 3_10C4C929.wem</Path>
+						</File>
+						<File Id="751424474" Language="SFX">
+							<ShortName>Announcer Round 1.wav</ShortName>
+							<Path>SFX\Announcer Round 1_10C4C929.wem</Path>
+						</File>
+						<File Id="786286245" Language="SFX">
+							<ShortName>Announcer Round 2.wav</ShortName>
+							<Path>SFX\Announcer Round 2_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<DefaultSwitchValue>{E676D4DA-50AA-4A30-A3B8-CF4E3A1C51BF}</DefaultSwitchValue>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{786CF46B-D42C-4767-9FE7-13796777A43A}">
+							<Media>
+								<File Id="122743853"/>
+							</Media>
+						</SwitchContainer>
+						<SwitchContainer SwitchValue="{3D787DD3-6143-4AD9-9242-0A7973A10AF3}">
+							<Media>
+								<File Id="786286245"/>
+							</Media>
+						</SwitchContainer>
+						<SwitchContainer SwitchValue="{E676D4DA-50AA-4A30-A3B8-CF4E3A1C51BF}">
+							<Media>
+								<File Id="751424474"/>
+							</Media>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="3164011966" Name="Play_Announcer_Showtime" ObjectPath="\Events\UIWorkUnit\CombatUI\Play_Announcer_Showtime" DurationType="OneShot" DurationMin="3.383538" DurationMax="3.383538">
+					<IncludedMemoryFiles>
+						<File Id="858027844" Language="SFX">
+							<ShortName>Announcer Showtime.wav</ShortName>
+							<Path>SFX\Announcer Showtime_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -1203,6 +1245,13 @@
 						<Switch Id="1325827431" Name="Bluk" ObjectPath="\Switches\CharacterSwitch\CharacterHit\Bluk" GUID="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}"/>
 						<Switch Id="220246984" Name="Lisa" ObjectPath="\Switches\CharacterSwitch\CharacterHit\Lisa" GUID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
 						<Switch Id="3354297748" Name="Empty" ObjectPath="\Switches\CharacterSwitch\CharacterHit\Empty" GUID="{EC70D5B4-3B21-48D1-8E83-8978C771C4F4}"/>
+					</Switches>
+				</SwitchGroup>
+				<SwitchGroup Id="2962526803" Name="RoundSwitch" ObjectPath="\Switches\Default Work Unit\RoundSwitch" GUID="{DBE84A77-0CA5-4635-A75B-139DF241EF88}">
+					<Switches>
+						<Switch Id="2851108012" Name="Round1" ObjectPath="\Switches\Default Work Unit\RoundSwitch\Round1" GUID="{E676D4DA-50AA-4A30-A3B8-CF4E3A1C51BF}"/>
+						<Switch Id="2851108015" Name="Round2" ObjectPath="\Switches\Default Work Unit\RoundSwitch\Round2" GUID="{3D787DD3-6143-4AD9-9242-0A7973A10AF3}"/>
+						<Switch Id="2851108014" Name="Round3" ObjectPath="\Switches\Default Work Unit\RoundSwitch\Round3" GUID="{786CF46B-D42C-4767-9FE7-13796777A43A}"/>
 					</Switches>
 				</SwitchGroup>
 			</SwitchGroups>
