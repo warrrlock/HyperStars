@@ -20,30 +20,6 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private float _favorMultiplierDelta;
     //[Tooltip("The percentage of total favor that a fighter needs to win in order to increase the favor multiplier.")]
     //[SerializeField][Range(0f, 1f)] private float _favorSwitchPercentage;
-    public float FavorDecayValue
-    {
-        get => _favorDecayValue;
-    }
-    [Tooltip("What percentage of an attack gets decayed after use.")]
-    [SerializeField][Range(0f, 1f)] private float _favorDecayValue;
-    public float HitstunDecayValue
-    {
-        get => _hitstunDecayValue;
-    }
-    [Tooltip("What percentage of an attack's hitstun gets decayed after use.")]
-    [SerializeField][Range(0f, 1f)] private float _hitstunDecayValue;
-    public float KnockbackDecayValue
-    {
-        get => _knockbackDecayValue;
-    }
-    [Tooltip("What percentage of an attack's knockback gets decayed after use.")]
-    [SerializeField][Range(1f, 2f)] private float _knockbackDecayValue;
-    public float FavorDecayResetDuration
-    {
-        get => _favorDecayResetDuration;
-    }
-    [Tooltip("How long it takes for an attack' favor to fully recover from decay.")]
-    [SerializeField] private float _favorDecayResetDuration;
 
     public float MaxFavor { get; private set; }
 
@@ -69,7 +45,7 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private RectTransform _outline;
     private float _initialWidth;
     [Tooltip("Index 0 is p1, index 1 is p2.")]
-    [SerializeField] private Color[] _glowColors = new Color[2];
+    [SerializeField] public Color[] _glowColors = new Color[2];
 
     private float _barMinimum = 0f;
 
@@ -100,7 +76,7 @@ public class FavorManager : MonoBehaviour
 
     [SerializeField] private float _indicatorFlipDuration;
     [SerializeField] private float _flipMaxSizeY;
-    private Vector2 _indicatorFlipSpeed;
+    private Vector2 _indicatorFlipSpeed = new();
     private Vector2 _indicatorScaleDefault;
     private bool _isIndicatorFlipping = false;
     private IEnumerator _indicatorFlip;
@@ -120,10 +96,15 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private Vector2 _portraitScaleBounds;
     [SerializeField] private float _portraitEnlargeDuration;
     [SerializeField] private float _portraitShrinkDuration;
-    [SerializeField] private Image[] _portraits;
+    [SerializeField] private Image[] _portraitOutlines;
     private float[] _portraitScales = new float[2];
     private bool _isPortraitScaling = false;
     private IEnumerator _portraitResize;
+
+    public delegate void GoldenGoal(int player);
+    public GoldenGoal onGoldenGoalEnabled;
+    public delegate void GoldenGoalDisable(int player);
+    public GoldenGoalDisable onGoldenGoalDisabled;
 
     private void Awake()
     {
@@ -133,6 +114,7 @@ public class FavorManager : MonoBehaviour
     private void Start()
     {
         AssignComponents();
+        SubscribeEvents();
         MaxFavor = _maxFavorInitial;
 
         _initialWidth = _favorMeter.rect.width;
@@ -157,9 +139,15 @@ public class FavorManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             _portraitScales[i] = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, 0.5f);
-            _portraits[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
+            _portraitOutlines[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
+            _portraitOutlines[i].color = _glowColors[i];
         }
         UpdateFavorMeter();
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
     }
 
     private void AssignComponents()
@@ -204,13 +192,17 @@ public class FavorManager : MonoBehaviour
         {
             if (Mathf.Abs(_favor + value) > MaxFavor)
             {
-                //player wins
-                //Debug.Log("Player " + playerId + " wins.");
-                Dictionary<string, object> result = new Dictionary<string, object>()
+                if (Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                {
+                    //TODO: dont let a player win who isn't golden because the favor meter shrunk on the other person being favored
+                    //player wins
+                    //Debug.Log("Player " + playerId + " wins.");
+                    Dictionary<string, object> result = new Dictionary<string, object>()
                 {
                     {"winnerId", playerId}
                 };
-                if (_winConditionEvent) _winConditionEvent.Raise(result);
+                    if (_winConditionEvent) _winConditionEvent.Raise(result);
+                }
             }
         }
         switch (_favoredPlayer)
@@ -219,8 +211,6 @@ public class FavorManager : MonoBehaviour
                 _favoredPlayer = playerId;
                 _indicatorFlip = FlipIndicator(_favoredPlayer);
                 StartCoroutine(_indicatorFlip);
-                //_portraitResize = ResizeCharacterPortraits(_favoredPlayer, _favor, _favor + value);
-                //StartCoroutine(_portraitResize);
                 break;
             case 0:
                 if (_favor + value > _favor)
@@ -266,17 +256,70 @@ public class FavorManager : MonoBehaviour
         StartCoroutine(_portraitResize);
         _favor += value;
         _favor = Mathf.Clamp(_favor, -MaxFavor, MaxFavor);
+
+        UpdateFavorMeter(true);
+
+        //golden goal
+        switch (_favoredPlayer)
+        {
+            case 0:
+                if (_favor <= -MaxFavor)
+                {
+                    if (!Services.Fighters[0].HasGoldenGoal)
+                    {
+                        onGoldenGoalEnabled?.Invoke(0);
+                    }
+                }
+                if (Services.Fighters[1].HasGoldenGoal)
+                {
+                    onGoldenGoalDisabled?.Invoke(1);
+                }
+                break;
+            case 1:
+                if (_favor >= MaxFavor)
+                {
+                    if (!Services.Fighters[1].HasGoldenGoal)
+                    {
+                        onGoldenGoalEnabled?.Invoke(1);
+                    }
+                }
+                if (Services.Fighters[0].HasGoldenGoal)
+                {
+                    onGoldenGoalDisabled?.Invoke(0);
+                }
+                break;
+        }
         //if (_favor > _peakFavors[playerId])
         //{
         //    _peakFavors[playerId] = _favor;
         //}
-        UpdateFavorMeter(true);
     }
 
     public void ResizeFavorMeter(float factor)
     {
         MaxFavor += factor;
         _favor = Mathf.Clamp(_favor, -MaxFavor, MaxFavor);
+        switch (_favoredPlayer)
+        {
+            case 0:
+                if (_favor <= -MaxFavor)
+                {
+                    if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    {
+                        onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                    }
+                }
+                break;
+            case 1:
+                if (_favor >= MaxFavor)
+                {
+                    if (!Services.Fighters[_favoredPlayer].HasGoldenGoal)
+                    {
+                        onGoldenGoalEnabled?.Invoke(_favoredPlayer);
+                    }
+                }
+                break;
+        }
         UpdateFavorMeter();
     }
 
@@ -422,7 +465,14 @@ public class FavorManager : MonoBehaviour
                 _favorMeterIndicator.sprite = Services.Characters[newPlayerId].IndicatorSprite;
                 //_favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
                 //_favorMeterIndicatorGlow.color = _glowColors[newPlayerId];
-                _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[newPlayerId]);
+                if (Services.Fighters[newPlayerId].HasGoldenGoal)
+                {
+                    _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[2]);
+                }
+                else
+                {
+                    _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[newPlayerId]);
+                }
                 hasIconChanged = true;
             }
         }
@@ -478,11 +528,11 @@ public class FavorManager : MonoBehaviour
             }
             for (int i = 0; i < 2; i++)
             {
-                _portraits[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
+                _portraitOutlines[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
             }
         }
-        _portraits[enlargingPlayer].rectTransform.localScale = new Vector3(enlargingEndScale, enlargingEndScale, enlargingEndScale);
-        _portraits[shrinkingPlayer].rectTransform.localScale = new Vector3(shrinkingEndScale, shrinkingEndScale, shrinkingEndScale);
+        _portraitOutlines[enlargingPlayer].rectTransform.localScale = new Vector3(enlargingEndScale, enlargingEndScale, enlargingEndScale);
+        _portraitOutlines[shrinkingPlayer].rectTransform.localScale = new Vector3(shrinkingEndScale, shrinkingEndScale, shrinkingEndScale);
         _isPortraitScaling = false;
         yield break;
     }
@@ -555,8 +605,30 @@ public class FavorManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FlipIndicator()
+    private void GoldenGoalGet(int player)
     {
-        yield break;
+        _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[2]);
+        _portraitOutlines[player].color = _glowColors[2];
+    }
+
+    private void GoldenGoalLose(int player)
+    {
+        _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[_favoredPlayer]);
+        for (int i = 0; i < 2; i++)
+        {
+            _portraitOutlines[i].color = _glowColors[i];
+        }
+    }
+
+    private void SubscribeEvents()
+    {
+        onGoldenGoalEnabled += GoldenGoalGet;
+        onGoldenGoalDisabled += GoldenGoalLose;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        onGoldenGoalEnabled -= GoldenGoalGet;
+        onGoldenGoalDisabled -= GoldenGoalLose;
     }
 }

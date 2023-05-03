@@ -10,6 +10,8 @@ public class CharacterVFXManager : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] public VFXConfig vfxConfig;
+    [SerializeField, ColorUsage(false, true)] private Color parryOutlineColor;
+    [SerializeField, ColorUsage(false, true)] private Color goldenGoalOutlineColor;
     [Header("Character Based VFX")]
     [SerializeField] private VisualEffect visualEffect;
     private Fighter _fighter;
@@ -35,10 +37,10 @@ public class CharacterVFXManager : MonoBehaviour
     [SerializeField] private List<BaseState> _afterImageStates;
     [Tooltip("For spawning camera blur.")]
     [SerializeField] private BaseState[] _blurStates;
-    [SerializeField] private BaseState[] _parryStates;
-    
+
     //
     private VisualEffect[] activeDizzies = new VisualEffect[2];
+    private bool isInAfterimageState;
     
     
     void Awake()
@@ -74,6 +76,8 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.wallBounce += WallWave;
         _fighter.Events.onHardKnockdown += Dizzy;
         _fighter.Events.exitHardKnockdown += StopDizzy;
+        Services.FavorManager.onGoldenGoalEnabled += ctx => TurnOnGoldenGoal(ctx);
+        Services.FavorManager.onGoldenGoalDisabled += ctx => TurnOffGoldenGoal(ctx);
     }
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
@@ -83,6 +87,8 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.wallBounce -= WallWave;
         _fighter.Events.onHardKnockdown -= Dizzy;
         _fighter.Events.exitHardKnockdown -= StopDizzy;
+        Services.FavorManager.onGoldenGoalEnabled -= ctx => TurnOnGoldenGoal(ctx);
+        Services.FavorManager.onGoldenGoalDisabled -= ctx => TurnOffGoldenGoal(ctx);
     }
 
     void DashSmoke() {
@@ -168,6 +174,7 @@ public class CharacterVFXManager : MonoBehaviour
     }
 
     void AfterImageUpdate() {
+        if (!isInAfterimageState) return;
         if (_hasDelay)
         {
             if (_delayTimer > 0)
@@ -191,11 +198,13 @@ public class CharacterVFXManager : MonoBehaviour
     private void SpawnOnStateChange(BaseState s)
     {
         // spawn afterimage
+        isInAfterimageState = false;
         visualEffect.SendEvent("OnStop");
         foreach (BaseState wantedState in _afterImageStates)
         {
             if (s != wantedState) continue;
             visualEffect.SendEvent("OnDash");
+            isInAfterimageState = true;
             break;
         }
 
@@ -210,25 +219,41 @@ public class CharacterVFXManager : MonoBehaviour
             }
         }
         
-        // spawn parry flash
-        _spriteRenderer.material.SetFloat("_Parry_Trigger", 0f);
-        foreach (BaseState wantedState in _parryStates)
-        {
-            if (s == wantedState)
-            {
-                _spriteRenderer.material.SetFloat("_Parry_Trigger", 1f);
-                break;
-            }
-        }
+        // reset parry
+        TurnOffParryFlash();
+        _spriteRenderer.material.SetColor("_OutlineColor", goldenGoalOutlineColor);
     }
 
+    private void TurnOnGoldenGoal(int goldenGoalId)
+    {
+        if (goldenGoalId != _fighter.PlayerId) return;
+        _spriteRenderer.material.SetColor("_OutlineColor", goldenGoalOutlineColor);
+        _spriteRenderer.material.SetFloat("_Golden_Goal_Trigger", 1f);
+    }
+
+    private void TurnOffGoldenGoal(int goldenGoalId)
+    {
+        if (goldenGoalId != _fighter.PlayerId) return;
+        _spriteRenderer.material.SetFloat("_Golden_Goal_Trigger", 0f);
+    }
+
+    public void TurnOffSelfGoldenGoal()
+    {
+        _spriteRenderer.material.SetFloat("_Golden_Goal_Trigger", 0f);
+    }
+
+    private Color lastOutlineColor;
+    
     public void TurnOnParryFlash()
     {
+        lastOutlineColor = _spriteRenderer.material.GetColor("_OutlineColor");
+        _spriteRenderer.material.SetColor("_OutlineColor", parryOutlineColor);
         _spriteRenderer.material.SetFloat("_Parry_Trigger", 1f);
     }
 
     public void TurnOffParryFlash()
     {
+        _spriteRenderer.material.SetColor("_OutlineColor", lastOutlineColor);
         _spriteRenderer.material.SetFloat("_Parry_Trigger", 0f);
     }
 }

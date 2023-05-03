@@ -2208,6 +2208,237 @@
 							</ChildrenList>
 							<ObjectLists/>
 						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="LisaSelectionVO" ID="{8006D4C1-4FFF-4FC8-A81E-E0C875AF820A}" ShortID="12751534">
+							<PropertyList>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>20</Value>
+									</ValueList>
+								</Property>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>8</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="LisaVoicelinesBus" ID="{2E113485-57BA-48CA-9341-46C8EB2CA4D6}" WorkUnitID="{6E49AAB5-413B-46DC-A072-E2095F01C3DD}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="Lisa Select VO1" ID="{46C1D2AC-11FD-4D92-AF88-7D54DEDAB9A8}" ShortID="572794064">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-8</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Lisa Select VO1" ID="{0634E4FC-DDE7-44A0-A040-2E588850C1A9}">
+											<Language>SFX</Language>
+											<AudioFile>Lisa Select VO1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="478582651"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="Lisa Select VO1" ID="{0634E4FC-DDE7-44A0-A040-2E588850C1A9}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Lisa Select VO2" ID="{632FCCEA-F89B-41D1-8BD3-BB9D1C35234C}" ShortID="36173317">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Lisa Select VO2" ID="{AB572547-7587-48CE-BDE0-2DFB9EDED413}">
+											<Language>SFX</Language>
+											<AudioFile>Lisa Select VO2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="778133964"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="Lisa Select VO2" ID="{AB572547-7587-48CE-BDE0-2DFB9EDED413}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Lisa Select VO3" ID="{8707A7C3-42D8-4449-AF26-24F22708F4B3}" ShortID="351782030">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Lisa Select VO3" ID="{E6345BFB-66A3-442F-9F2E-2DB6BD8E724E}">
+											<Language>SFX</Language>
+											<AudioFile>Lisa Select VO3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="394679704"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="Lisa Select VO3" ID="{E6345BFB-66A3-442F-9F2E-2DB6BD8E724E}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Lisa Select VO4" ID="{C6657F5C-D70A-4578-B4A7-FBDF961B2846}" ShortID="591043992">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-2</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Lisa Select VO4" ID="{9DD9DBE9-D64C-4D1B-B647-23AB1A5F396C}">
+											<Language>SFX</Language>
+											<AudioFile>Lisa Select VO4.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="900132688"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="Lisa Select VO4" ID="{9DD9DBE9-D64C-4D1B-B647-23AB1A5F396C}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Lisa Select VO5" ID="{257A931C-2A64-4F71-9D06-CC888EA17A1F}" ShortID="1033989049">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Lisa Select VO5" ID="{BD588A54-1456-4FEF-9892-245283B96862}">
+											<Language>SFX</Language>
+											<AudioFile>Lisa Select VO5.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="838098548"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="Lisa Select VO5" ID="{BD588A54-1456-4FEF-9892-245283B96862}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Lisa Select VO6" ID="{9360F23D-32F3-4F76-A8B1-28FF3FE554D1}" ShortID="1061311915">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Lisa Select VO6" ID="{A3E49B52-4442-4738-9117-8FEAEC6F2A8A}">
+											<Language>SFX</Language>
+											<AudioFile>Lisa Select VO6.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="234729005"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="Lisa Select VO6" ID="{A3E49B52-4442-4738-9117-8FEAEC6F2A8A}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Lisa Select VO7" ID="{55A65D5A-756F-4172-9810-3EC7EDC8CC41}" ShortID="125536379">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Lisa Select VO7" ID="{FC8CAFBD-8731-4120-AF72-758CF761D680}">
+											<Language>SFX</Language>
+											<AudioFile>Lisa Select VO7.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="761087889"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="Lisa Select VO7" ID="{FC8CAFBD-8731-4120-AF72-758CF761D680}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Lisa Select VO8" ID="{05E22572-F789-468B-B56D-A4C326C7E3E8}" ShortID="613487594">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-2</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Lisa Select VO8" ID="{24DA39A6-A1B3-4A60-ABBB-06E18354A070}">
+											<Language>SFX</Language>
+											<AudioFile>Lisa Select VO8.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="837162225"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ObjectLists/>
+									<ActiveSourceList>
+										<ActiveSource Name="Lisa Select VO8" ID="{24DA39A6-A1B3-4A60-ABBB-06E18354A070}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+							<ObjectLists/>
+						</RandomSequenceContainer>
 					</ChildrenList>
 					<ObjectLists/>
 					<GroupingInfo>
@@ -2215,12 +2446,21 @@
 							<GroupingBehavior>
 								<ItemRef Name="BlukSelectionVO" ID="{D54CD642-89C9-4276-AE0F-4E104FCAC6D8}"/>
 							</GroupingBehavior>
+							<GroupingBehavior>
+								<ItemRef Name="LisaSelectionVO" ID="{8006D4C1-4FFF-4FC8-A81E-E0C875AF820A}"/>
+							</GroupingBehavior>
 						</GroupingBehaviorList>
 						<GroupingList>
 							<Grouping>
 								<SwitchRef Name="Bluk" ID="{1B6CFE5A-C75F-4D7F-8501-6AD945523FFF}"/>
 								<ItemList>
 									<ItemRef Name="BlukSelectionVO" ID="{D54CD642-89C9-4276-AE0F-4E104FCAC6D8}"/>
+								</ItemList>
+							</Grouping>
+							<Grouping>
+								<SwitchRef Name="Lisa" ID="{52DF365F-9F84-443A-8C3E-CD4C4B55F643}"/>
+								<ItemList>
+									<ItemRef Name="LisaSelectionVO" ID="{8006D4C1-4FFF-4FC8-A81E-E0C875AF820A}"/>
 								</ItemList>
 							</Grouping>
 						</GroupingList>

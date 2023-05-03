@@ -4,6 +4,13 @@
 		<WorkUnit Name="Default Work Unit" ID="{48A631B0-AFD9-4F12-9E85-B7757FDB545B}" PersistMode="Standalone">
 			<ChildrenList>
 				<WorkUnit Name="MusicWorkUnit" ID="{EB70ADD6-DA3B-4D15-A582-1B00ED14EED7}" PersistMode="Reference"/>
+				<SwitchGroup Name="RoundSwitch" ID="{DBE84A77-0CA5-4635-A75B-139DF241EF88}">
+					<ChildrenList>
+						<Switch Name="Round1" ID="{E676D4DA-50AA-4A30-A3B8-CF4E3A1C51BF}"/>
+						<Switch Name="Round2" ID="{3D787DD3-6143-4AD9-9242-0A7973A10AF3}"/>
+						<Switch Name="Round3" ID="{786CF46B-D42C-4767-9FE7-13796777A43A}"/>
+					</ChildrenList>
+				</SwitchGroup>
 			</ChildrenList>
 		</WorkUnit>
 	</Switches>
