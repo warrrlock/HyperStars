@@ -218,10 +218,12 @@ MonoBehaviour:
     idSO: 0
     idManager: 0
     attackType: 2
+    specialType: 0
     hitSfxEvent:
       idInternal: 0
       valueGuidInternal: 
       WwiseObjectReference: {fileID: 0}
+    hardKnockdown: 0
     knockbackDuration: 0.5
     knockbackDistance: 8
     knockbackDirection: {x: 1, y: 2, z: 0}
@@ -246,8 +248,8 @@ MonoBehaviour:
     favorReward: 4
     knockbackForce: {x: 88.673386, y: 100}
     incrementBarAmount: 0.2
-    multiHitCount: 0
-    multiHitInterval: 0
+    multiHitCount: 2
+    multiHitInterval: 0.015
   _spawnDirection: 0
   _onSpawnActions: []
   _onTriggerEnterActions:
