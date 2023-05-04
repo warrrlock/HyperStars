@@ -44,6 +44,8 @@ public class Projectile : MonoBehaviour
         
         foreach (ProjectileAction action in _onSpawnActions)
             action.Execute(this);
+        if (transform.position.x < origin.transform.position.x) transform.localScale = new Vector3(
+            transform.localScale.x * -1f, transform.localScale.y, transform.localScale.z);
     }
 
     public void DestroyIn(float time)

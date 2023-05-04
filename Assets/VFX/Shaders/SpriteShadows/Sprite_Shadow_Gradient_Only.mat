@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sprite_UI_P1
-  m_Shader: {fileID: -6465566751694194690, guid: 63cbe7604cb07674fb6d8bcf4f07e802, type: 3}
+  m_Name: Sprite_Shadow_Gradient_Only
+  m_Shader: {fileID: -6465566751694194690, guid: 6cbb3ee8a4622e243adacc35e8256357, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: fc76b2de8d93c264a9b966fb6c5fc392, type: 3}
+        m_Texture: {fileID: 2800000, guid: 26e092a54dcd1334a9fb6c841610529f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -37,13 +37,25 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
-    - _Color1: {r: 0.043137256, g: 0.098039225, b: 0.21568629, a: 1}
-    - _Color2: {r: 0.16862746, g: 0.21568629, b: 0.34117648, a: 1}
-    - _Color3: {r: 0.9176471, g: 0.31764707, b: 0.17254902, a: 1}
-    - _Color4: {r: 0.97647065, g: 0.86666673, b: 0.48235297, a: 1}
-    - _Color5: {r: 0.9176471, g: 0.29411766, b: 0.24313727, a: 1}
-    - _Color6: {r: 0.80392164, g: 0.6039216, b: 0.33333334, a: 1}
-    - _Color7: {r: 0.97647065, g: 0.86666673, b: 0.48235297, a: 1}
+    - _Color1: {r: 0.5707547, g: 0.9816924, b: 1, a: 1}
+    - _Color2: {r: 0.9568628, g: 0.7411765, b: 0.7960785, a: 1}
+    - _Color3: {r: 0.8745099, g: 0.2509804, b: 0.4980392, a: 1}
+    - _GlowColor: {r: 5.894497, g: 10.680627, b: 8.839152, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &811694574224119655
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
