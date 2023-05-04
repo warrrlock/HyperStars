@@ -24,6 +24,10 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _cameraCatchUpSpeedDown; //how quickly the camera to catch up to its target while going down
     [SerializeField] private float _cameraCatchUpSpeedZ; //how quickly the camera to catch up to its target forward
 
+    [Header("Cutscene")]
+    private Vector3 _statueCameraPosition = new Vector3(0f, 20f, 300f);
+    [SerializeField] private float _initialZoomOutDuration;
+
     private Camera _camera;
     private CameraController _controller;
     private Transform[] _targets = new Transform[2];
@@ -46,11 +50,24 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Camera silhouetteCamera;
     [SerializeField] private Material shockwaveMaterial;
 
+    private bool _hasGameStarted = false;
+
+    public delegate void CameraSwitch();
+    public CameraSwitch onCameraSwitch;
+    public delegate void CameraFinalized();
+    public CameraFinalized onCameraFinalized;
+
+    [SerializeField] private GameObject _favorCanvas;
+    [SerializeField] private GameObject _roundsCanvas;
+    [SerializeField] private GameObject _specialMeterCanvas;
+
     private void Awake()
     {
         Services.CameraManager = this;
         AssignComponents();
         defaultDistortion = ieMaterial.GetFloat("_distortion");
+
+        SubscribeEvents();
     }
 
     private void Start()
@@ -68,9 +85,107 @@ public class CameraManager : MonoBehaviour
         _defaultRotation = transform.eulerAngles;
         // default ratio
         shockwaveMaterial.SetFloat("_SizeRatio", Camera.main.aspect);
+
+        //SubscribeEvents();
+
+        if (RoundInformation.round == 1)
+        {
+            DeactivateUi();
+        }
+
+        onCameraSwitch?.Invoke();
+    }
+
+    private void DeactivateUi()
+    {
+        _favorCanvas.SetActive(false);
+        _roundsCanvas.SetActive(false);
+        _specialMeterCanvas.SetActive(false);
+    }
+
+    private void ActivateUi()
+    {
+        _favorCanvas.SetActive(true);
+        _roundsCanvas.SetActive(true);
+        _specialMeterCanvas.SetActive(true);
     }
 
     private void FixedUpdate()
+    {
+        if(_hasGameStarted)
+        {
+            _targetsMidPointX = (_targets[0].position.x + _targets[1].position.x) / 2f;
+            _targetsMidPointY = ((_targets[0].position.y + _targets[1].position.y) / 2f) - _defaultTargetY;
+            //_destination = new Vector3(_targetsMidPointX, _camera.transform.position.y, _camera.transform.position.z);
+            if (_targetsMidPointY < _minFightersDistanceY)
+            {
+                _targetsMidPointY = 0f;
+            }
+            _targetsMidPointX += _defaultX;
+            _targetsMidPointY += _defaultY;
+            _destination = new Vector3(_targetsMidPointX, _targetsMidPointY, _camera.transform.position.z);
+            float fightersDistanceX = Mathf.Abs(_targets[1].position.x - _targets[0].position.x);
+            //if (fightersDistanceX < _maxFightersDistanceX)
+            //{
+            //    _destination.z = -fightersDistanceX * 1.5f;
+            //}
+            //_destination.z = -fightersDistanceX * 1.5f;
+            float xZdest = -fightersDistanceX * 1.5f;
+            float fightersDistanceY = Mathf.Abs(_targets[1].position.y - _targets[0].position.y);
+            if (_lastDistanceY <= -Mathf.Infinity)
+            {
+                _lastDistanceY = fightersDistanceY;
+            }
+            float multiplier = Mathf.Lerp(3f, 0f, fightersDistanceX / 20f);
+            //float multiplier = 10f / fightersDistanceX;
+            //if (fightersDistanceY > _minFightersDistanceY && fightersDistanceY < _maxFightersDistanceY)
+            //{
+            //    _destination.z += fightersDistanceY * multiplier;
+            //}
+            //else
+            //{
+            //    _destination.z -= fightersDistanceY * multiplier;
+            //}
+            //float zDelta = fightersDistanceY - _lastDistanceY;
+            float yZdest = 0f;
+            if (fightersDistanceY > _lastDistanceY)
+            {
+                //Debug.Log("zdelta: " + zDelta);
+                //_destination.z -= zDelta * 100f;
+                yZdest = -fightersDistanceY * multiplier;
+            }
+            else if (fightersDistanceY < _lastDistanceY)
+            {
+                //_destination.z -= zDelta * 100f;
+                yZdest = fightersDistanceY * multiplier;
+            }
+            _lastDistanceY = fightersDistanceY;
+            _destination.z = xZdest + yZdest;
+            _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _maxCameraZ);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (_hasGameStarted)
+        {
+            //_destination = _camera.transform.InverseTransformPoint(_destination);
+            //_camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, _destination, _cameraCatchUpSpeedX * Time.deltaTime);
+            Vector3 newCameraPosition = new();
+            newCameraPosition.x = Mathf.Lerp(_camera.transform.localPosition.x, _destination.x, _cameraCatchUpSpeedX * Time.deltaTime);
+            float cameraCatchUpY = _destination.y > _camera.transform.localPosition.y ? _cameraCatchUpSpeedUp : _cameraCatchUpSpeedDown;
+            newCameraPosition.y = Mathf.Lerp(_camera.transform.localPosition.y, _destination.y, cameraCatchUpY * Time.deltaTime);
+            newCameraPosition.z = Mathf.Lerp(_camera.transform.localPosition.z, _destination.z, _cameraCatchUpSpeedZ * Time.deltaTime);
+            _camera.transform.localPosition = newCameraPosition;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
+
+    private void FindStartCameraPosition()
     {
         _targetsMidPointX = (_targets[0].position.x + _targets[1].position.x) / 2f;
         _targetsMidPointY = ((_targets[0].position.y + _targets[1].position.y) / 2f) - _defaultTargetY;
@@ -122,27 +237,57 @@ public class CameraManager : MonoBehaviour
         _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _maxCameraZ);
     }
 
-    private void LateUpdate()
-    {
-        //_destination = _camera.transform.InverseTransformPoint(_destination);
-        //_camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, _destination, _cameraCatchUpSpeedX * Time.deltaTime);
-        Vector3 newCameraPosition = new();
-        newCameraPosition.x = Mathf.Lerp(_camera.transform.localPosition.x, _destination.x, _cameraCatchUpSpeedX * Time.deltaTime);
-        float cameraCatchUpY = _destination.y > _camera.transform.localPosition.y ? _cameraCatchUpSpeedUp : _cameraCatchUpSpeedDown;
-        newCameraPosition.y = Mathf.Lerp(_camera.transform.localPosition.y, _destination.y, cameraCatchUpY * Time.deltaTime);
-        newCameraPosition.z = Mathf.Lerp(_camera.transform.localPosition.z, _destination.z, _cameraCatchUpSpeedZ * Time.deltaTime);
-        _camera.transform.localPosition = newCameraPosition;
-    }
-
-    public void RotateCamera(Vector3 rotation)
-    {
-        _controller.Rotate(rotation);
-    }
-
     private void AssignComponents()
     {
         _camera = GetComponent<Camera>();
         _controller = GetComponent<CameraController>();
+    }
+
+    private void SubscribeEvents()
+    {
+        onCameraSwitch += SwitchCamera;
+        onCameraFinalized += FinalizeCamera;
+        onCameraFinalized += ActivateUi;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        onCameraSwitch -= SwitchCamera;
+        onCameraFinalized -= FinalizeCamera;
+        onCameraFinalized -= ActivateUi;
+    }
+
+    private void SwitchCamera()
+    {
+        StartCoroutine(InitialZoomOut());
+    }
+
+    private void FinalizeCamera()
+    {
+        _hasGameStarted = true;
+    }
+
+    private IEnumerator InitialZoomOut()
+    {
+        yield return new WaitForFixedUpdate();
+        if (RoundInformation.round != 1)
+        {
+            onCameraFinalized?.Invoke();
+            yield break;
+        }
+        FindStartCameraPosition();
+        _statueCameraPosition.x = _destination.x;
+        _camera.transform.localPosition = _statueCameraPosition;
+        float timer = 0f;
+        while (timer < _initialZoomOutDuration)
+        {
+            yield return new WaitForFixedUpdate();
+            timer += Time.fixedDeltaTime;
+            _camera.transform.localPosition = Vector3.Lerp(_statueCameraPosition, _destination, timer / _initialZoomOutDuration);
+        }
+        _camera.transform.localPosition = _destination;
+        onCameraFinalized?.Invoke();
+        yield break;
     }
 
     /// <summary>

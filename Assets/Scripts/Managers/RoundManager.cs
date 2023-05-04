@@ -54,12 +54,34 @@ public class RoundManager : MonoBehaviour
 
     private void Start()
     {
+        _countdownText.gameObject.SetActive(false);
+
+        //StartCoroutine(StartRound());
+        SubscribeEvents();
+
+        //stop time/movement
+        DisableAllInput();
+    }
+
+    private void SubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized += Begin;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized -= Begin;
+    }
+
+    private void Begin()
+    {
         StartCoroutine(StartRound());
     }
 
     private void OnDestroy()
     {
         EnableAllInput();
+        UnsubscribeEvents();
     }
     
     //used in event (inspector)
@@ -163,8 +185,8 @@ public class RoundManager : MonoBehaviour
         if (!_countdownText) yield break;
         _countdownText.gameObject.SetActive(true);
        
-        //stop time/movement
-        DisableAllInput();
+        ////stop time/movement
+        //DisableAllInput();
 
         //begin count down
         _countdownText.text = $"Round {_round}";
