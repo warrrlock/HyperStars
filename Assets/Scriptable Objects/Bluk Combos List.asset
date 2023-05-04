@@ -13,27 +13,41 @@ MonoBehaviour:
   m_Name: Bluk Combos List
   m_EditorClassIdentifier: 
   commandList:
-  - name: ground attack
+  - name: Standard Ground
     commands:
     - Light
+    - Down Light
+    - Down Heavy
+  - name: Far-Pillar Combo
+    commands:
     - Medium
-  - name: ground attack 2
+    - Heavy
+    - Light
+    - Light
+    - Medium
+  - name: Air-Elbow Entry
     commands:
     - Super Dash
     - Side Special
     - Down Light
-  - name: ground attack 2
+  - name: Air-Special Combo
     commands:
-    - Super Dash
-    - Side Special
-    - Down Light
-  - name: ground attack 2
+    - Heavy
+    - Air Light
+    - Air Special
+    - Special
+  - name: Super-Dash Cancel Extension
     commands:
+    - Down Heavy
     - Super Dash
-    - Side Special
-    - Down Light
-  - name: ground attack 2
+    - Light
+    - Medium
+    - Heavy
+  - name: 
     commands:
-    - Super Dash
-    - Side Special
-    - Down Light
+    - Heavy
+    - Medium
+    - Heavy
+    - Air Light
+    - Air Special
+    - Heavy
