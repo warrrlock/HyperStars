@@ -30,7 +30,6 @@ public class ObjectJumpy : MonoBehaviour
     {
         crowdManager = GameObject.Find("CrowdManager").GetComponent<CrowdManager>();
         musicMan = crowdManager.musicManager;
-        RandomizeColor();
 
         if (onPlat)
         {
@@ -63,25 +62,5 @@ public class ObjectJumpy : MonoBehaviour
         }
         else
             transform.position = new Vector3(transform.position.x, initHeight+jumpHeight, transform.position.z);
-    }
-    void RandomizeColor()
-    {
-        SpriteRenderer sprRend = gameObject.GetComponent<SpriteRenderer>();
-        int sprIndex = Random.Range(0, crowdManager.sprListLength - 1);
-        sprRend.sprite = crowdManager.sprList[sprIndex];
-        float H, S, V;
-        Color col = sprRend.color;
-        Color.RGBToHSV(col, out H, out S, out V);
-        float tempcol;
-        if (Random.Range(0.0f, 1.0f) <= 0.3f)
-            tempcol = Random.Range(0f, 0.14f);
-        else tempcol = Random.Range(0.0f, 1.0f);
-        //else
-        //{
-        //    tempcol = Random.Range(0.0f, 1.0f);
-        //    if (tempcol > 0.18f && tempcol < 0.45f)
-        //        tempcol += Random.Range(-0.1f, 0.35f); // extra should go to red?
-        //}
-        sprRend.color = Color.HSVToRGB(tempcol,S,V);
     }
 }
