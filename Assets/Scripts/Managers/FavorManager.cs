@@ -20,30 +20,6 @@ public class FavorManager : MonoBehaviour
     [SerializeField] private float _favorMultiplierDelta;
     //[Tooltip("The percentage of total favor that a fighter needs to win in order to increase the favor multiplier.")]
     //[SerializeField][Range(0f, 1f)] private float _favorSwitchPercentage;
-    public float FavorDecayValue
-    {
-        get => _favorDecayValue;
-    }
-    [Tooltip("What percentage of an attack gets decayed after use.")]
-    [SerializeField][Range(0f, 1f)] private float _favorDecayValue;
-    public float HitstunDecayValue
-    {
-        get => _hitstunDecayValue;
-    }
-    [Tooltip("What percentage of an attack's hitstun gets decayed after use.")]
-    [SerializeField][Range(0f, 1f)] private float _hitstunDecayValue;
-    public float KnockbackDecayValue
-    {
-        get => _knockbackDecayValue;
-    }
-    [Tooltip("What percentage of an attack's knockback gets decayed after use.")]
-    [SerializeField][Range(1f, 2f)] private float _knockbackDecayValue;
-    public float FavorDecayResetDuration
-    {
-        get => _favorDecayResetDuration;
-    }
-    [Tooltip("How long it takes for an attack' favor to fully recover from decay.")]
-    [SerializeField] private float _favorDecayResetDuration;
 
     public float MaxFavor { get; private set; }
 
@@ -453,11 +429,11 @@ public class FavorManager : MonoBehaviour
         return xPercent;
     }
 
-    private float ConvertFromWorldRectToLocal(float worldX)
-    {
-        float xPercent = Mathf.Lerp(0f, 1f, (worldX - _minIndicatorX) / (_maxIndicatorX - _minIndicatorX)); //TODO: maybe mathf.abs(min) looks better than -min?
-        return Mathf.Lerp(_minChipX, _maxChipX, xPercent);
-    }
+    //private float ConvertFromWorldRectToLocal(float worldX)
+    //{
+    //    float xPercent = Mathf.Lerp(0f, 1f, (worldX - _minIndicatorX) / (_maxIndicatorX - _minIndicatorX)); //TODO: maybe mathf.abs(min) looks better than -min?
+    //    return Mathf.Lerp(_minChipX, _maxChipX, xPercent);
+    //}
 
     private IEnumerator FlipIndicator(int newPlayerId)
     {
@@ -484,7 +460,7 @@ public class FavorManager : MonoBehaviour
             {
                 continue;
             }
-            if (indicatorScaleCurrent.x * playerIdMultiplier > 0f)
+            if (indicatorScaleCurrent.x * playerIdMultiplier >= 0f)
             {
                 _favorMeterIndicator.sprite = Services.Characters[newPlayerId].IndicatorSprite;
                 //_favorMeterIndicatorGlow.sprite = Services.Characters[newPlayerId].IndicatorGlowSprite;
@@ -637,7 +613,14 @@ public class FavorManager : MonoBehaviour
 
     private void GoldenGoalLose(int player)
     {
-        _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[_favoredPlayer]);
+        if (_favoredPlayer >= 0)
+        {
+            _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[_favoredPlayer]);
+        }
+        else
+        {
+            _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[0]);
+        }
         for (int i = 0; i < 2; i++)
         {
             _portraitOutlines[i].color = _glowColors[i];

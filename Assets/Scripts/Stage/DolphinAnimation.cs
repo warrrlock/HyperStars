@@ -5,10 +5,17 @@ using WesleyDavies;
 
 public class DolphinAnimation : MonoBehaviour
 {
-    public Animator anim;
+    private Animator anim;
     //public int ranNumb;
     private int _spawnChance;
     private int _chanceIncreaseDelta = 12;
+    public bool IsPlaying { get => anim.GetCurrentAnimatorStateInfo(0).IsName("Move"); }
+    [SerializeField] private PassDrone _droneManager;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     void Start()
     {
@@ -28,19 +35,6 @@ public class DolphinAnimation : MonoBehaviour
         StopAllCoroutines();
     }
 
-    //IEnumerator checkDolphin()
-    //{
-    //    yield return new WaitForSeconds(30f);
-    //    ranNumb = Random.Range(0, 4);
-    //    //Debug.Log(ranNumb);
-    //    if (ranNumb > 2)
-    //    {
-    //        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Move"))
-    //            anim.Play("Move", 0);
-    //    }
-    //    StartCoroutine(checkDolphin());
-    //}
-
     private void OnDolphinExited()
     {
         _spawnChance = Mathf.Clamp(_spawnChance - 40, 5, 100);
@@ -52,13 +46,18 @@ public class DolphinAnimation : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(11f);
+            if (_droneManager.IsPlaying)
+            {
+                continue;
+            }
+            if (IsPlaying)
+            {
+                continue;
+            }
             if (Wrandom.RollPercentChance(_spawnChance))
             {
-                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Move"))
-                {
-                    anim.Play("Move", 0);
-                    yield break;
-                }
+                anim.Play("Move", 0);
+                yield break;
             }
             else
             {

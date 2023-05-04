@@ -840,7 +840,7 @@ public class MovementController : MonoBehaviour
             // _fighter.BaseStateMachine.States[_jump].execute += Jump;
             // _fighter.BaseStateMachine.States[_jump].stop += StopJumping;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             Debug.LogError($"movement states missing from controller {name}");
         }
@@ -1075,28 +1075,6 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
-    //TODO: this is deprecated
-    //public IEnumerator ResolveOverlap()
-    //{
-    //    _isResolvingOverlap = true;
-    //    //bool opponentIsRight = false;
-    //    if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
-    //    {
-    //        //opponentIsRight = true;
-    //        _overlapResolutionVelocity.x = -_overlapResolutionSpeed;
-    //    }
-    //    else
-    //    {
-    //        _overlapResolutionVelocity.x = _overlapResolutionSpeed;
-    //    }
-    //    //yield return new WaitUntil(opponentIsRight ? () => _collisionData.x.isPositiveHit : () => _collisionData.x.isNegativeHit);
-    //    yield return new WaitForSeconds(0.1f);
-
-    //    _overlapResolutionVelocity = Vector3.zero;
-    //    _isResolvingOverlap = false;
-    //    yield break;
-    //}
-
     private void StartMoving()
     {
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
@@ -1119,32 +1097,8 @@ public class MovementController : MonoBehaviour
         ApplyForce(direction, magnitude, duration, true);
     }
 
-    //public void AugmentOpponentGravity(float factor)
-    //{
-    //    _awaitHitOpponent = AwaitHitOpponent(factor);
-    //    StartCoroutine(_awaitHitOpponent);
-    //}
-
     private bool _isAwaitingHit = false;
     private IEnumerator _awaitHitOpponent;
-
-    //private IEnumerator AwaitHitOpponent(float factor) //TODO: needs a better name
-    //{
-    //    _isAwaitingHit = true;
-    //    yield return new WaitUntil(() => _fighter.BaseStateMachine.HitOpponent);
-    //    _fighter.OpposingFighter.MovementController._gravityModifier = factor;
-    //    _isAwaitingHit = false;
-    //    yield break;
-    //}
-
-    //public void RestoreOpponentGravity()
-    //{
-    //    if (_isAwaitingHit)
-    //    {
-    //        StopCoroutine(_awaitHitOpponent);
-    //    }
-    //    _fighter.OpposingFighter.MovementController._gravityModifier = 1f;
-    //}
 
     private IEnumerator _gravityAugmenter;
 
@@ -1213,6 +1167,7 @@ public class MovementController : MonoBehaviour
             {
                 Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
                 dashDirection = new Vector3(inputVector.x, 0f, 0f);
+                MovingDirection = dashDirection.x < 0 ? Fighter.Direction.Left : Fighter.Direction.Right;
                 if (_dashToZero)
                 {
                     _unforcedVelocity.x = 0f;
@@ -1377,7 +1332,7 @@ public class MovementController : MonoBehaviour
             {
                 ApplyForce(_sideJumpInputVector, _horizontalJumpForce, _jumpDuration * 2f, false);
                 StartCoroutine(DisableXCollisionLayers(_jumpDuration, 9));
-                StartCoroutine(DisableOverlapXLayers(_jumpDuration / 2, 9));
+                StartCoroutine(DisableOverlapXLayers(_jumpDuration / 4, 9));
                 yield break;
             }
             timer += Time.fixedDeltaTime;
@@ -1463,6 +1418,7 @@ public class MovementController : MonoBehaviour
         RemoveCollisionLayer(ref Services.CollisionsManager.fightersMask, layer);
         yield return new WaitForSeconds(duration);
 
+        //Debug.Log("layers reset");
         AddCollisionLayer(ref Services.CollisionsManager.fightersMask, layer);
         yield break;
     }
