@@ -13,18 +13,33 @@ MonoBehaviour:
   m_Name: Lisa Combos List
   m_EditorClassIdentifier: 
   commandList:
-  - name: ground attack
+  - name: Standard Ground Combo
     commands:
     - Light
     - Medium
     - Heavy
-  - name: ground attack 2
+  - name: Normal Light String
     commands:
-    - Super Dash
-    - Side Special
-    - Down Light
-  - name: ground attack 3
+    - Light
+    - Light
+    - Light
+  - name: Air-Kick Entry
     commands:
-    - Command Light
-    - Air Light
+    - Air Medium
+    - Down Medium
     - Down Heavy
+  - name: Dragon-Punch Special Combo
+    commands:
+    - Down Light
+    - Down Medium
+    - Down Special
+    - Air Light
+    - Air Heavy
+  - name: Ground Dash-Cancel Combo
+    commands:
+    - Medium
+    - Heavy
+    - Super Dash
+    - Light
+    - Light
+    - Light
