@@ -202,7 +202,7 @@ public class HitBox : MonoBehaviour
         //TODO: multi-hit attacks should only decay after the entire attack has finished
         if (attackInfoSO.multiHitCount <= 1)
         {
-            StartCoroutine(Services.AttackInfoManager.DecayValues(attackInfo));
+            Services.AttackInfoManager.DecayValues(attackInfo);
         }
         else if (!_isMultiHitting)
         {
@@ -378,7 +378,7 @@ public class HitBox : MonoBehaviour
         //TODO: multi-hit attacks should only decay after the entire attack has finished
         if (attackInfoSO.multiHitCount <= 1)
         {
-            StartCoroutine(Services.AttackInfoManager.DecayValues(attackInfo));
+            Services.AttackInfoManager.DecayValues(attackInfo);
         }
 
         StartCoroutine(Juice.FreezeTime(attackInfoSO.hitStopDuration));

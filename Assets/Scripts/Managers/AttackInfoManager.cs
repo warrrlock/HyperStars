@@ -6,13 +6,26 @@ using TMPro;
 
 public class AttackInfoManager : MonoBehaviour
 {
+    [Tooltip("What percentage of an attack gets decayed after use.")]
+    [SerializeField][Range(0f, 1f)] private float _favorDecayValue;
+    [Tooltip("What percentage of an attack's hitstun gets decayed after use.")]
+    [SerializeField][Range(0f, 1f)] private float _hitstunDecayValue;
+    [Tooltip("What percentage of an attack's knockback gets decayed after use.")]
+    [SerializeField][Range(1f, 5f)] private float _knockbackDecayValue;
+    [Tooltip("How long it takes for an attack' favor to fully recover from decay.")]
+    [SerializeField] private float _favorDecayResetDuration;
+    [Tooltip("How long it takes for an attack' hitstun to fully recover from decay.")]
+    [SerializeField] private float _hitstunDecayResetDuration;
+    [Tooltip("How long it takes for an attack' knockback to fully recover from decay.")]
+    [SerializeField] private float _knockbackDecayResetDuration;
+
     public Values[] values;
     //public TextMeshProUGUI debugText;
 
     private int _nextInfoId = 0;
 
-    public List<AttackInfo> attackInfos0;
-    public List<AttackInfo> attackInfos1;
+    [NonSerialized] public List<AttackInfo> attackInfos0;
+    [NonSerialized] public List<AttackInfo> attackInfos1;
 
     public struct Values
     {
@@ -160,45 +173,97 @@ public class AttackInfoManager : MonoBehaviour
         StopAllCoroutines();
     }
 
-    public IEnumerator DecayValues(AttackInfo attackInfo)
+    //public IEnumerator DecayValues(AttackInfo attackInfo)
+    //{
+    //    int id = attackInfo.idManager;
+    //    //debugText.text = "id:"+id+ "info:"+attackInfo.hitStunDuration + "values:"+ values[id].outputHitStunDuration;
+
+    //    float preDecayReward = Mathf.Clamp(values[id].outputReward, 0f, attackInfo.favorReward);
+    //    float preOutputHitStun = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
+    //    float preKnockbackDistance = Mathf.Clamp(values[id].outputKnockbackDistance, 0f, attackInfo.knockbackDistance);
+
+    //    values[id].outputReward = Mathf.Clamp(preDecayReward - (attackInfo.favorReward * _favorDecayValue), 0f, attackInfo.favorReward);
+    //    values[id].outputHitStunDuration = Mathf.Clamp(preOutputHitStun - (attackInfo.hitStunDuration * _hitstunDecayValue), 0f, attackInfo.hitStunDuration);
+    //    values[id].outputKnockbackDistance = Mathf.Clamp(preKnockbackDistance + (attackInfo.knockbackDistance * _knockbackDecayValue - attackInfo.knockbackDistance), attackInfo.knockbackDistance, attackInfo.knockbackDistance * _knockbackDecayValue);
+
+    //    //debugText.text = attackInfo.hitStunDuration.ToString();
+    //    //Debug.Log("postdecay:" + values[id].outputReward);
+    //    //debugText.text = "infostun: "+attackInfo.hitStunDuration + "decay: "+Services.FavorManager.DecayValue+ "outstun: " + values[id].outputHitStunDuration.ToString();
+    //    //float timer = 0f;
+    //    float timerDelta = Time.fixedDeltaTime / _favorDecayResetDuration;
+    //    //while (values[id].outputReward < preDecayReward && timer < Services.FavorManager.DecayResetDuration)
+    //    //{
+    //    //    values[id].outputReward += attackInfo.favorReward * Services.FavorManager.DecayValue * timerDelta;
+    //    //    values[id].outputHitStunDuration += attackInfo.hitStunDuration * Services.FavorManager.DecayValue * timerDelta;
+    //    //    timer += Time.fixedDeltaTime;
+    //    //    yield return new WaitForFixedUpdate();
+    //    //}
+    //    while (values[id].outputReward < preDecayReward)
+    //    {
+    //        values[id].outputReward += attackInfo.favorReward * _favorDecayValue * timerDelta;
+    //        values[id].outputHitStunDuration += attackInfo.hitStunDuration * _hitstunDecayValue * timerDelta;
+    //        values[id].outputKnockbackDistance -= (attackInfo.knockbackDistance * _knockbackDecayValue - attackInfo.knockbackDistance) * timerDelta;
+    //        yield return new WaitForFixedUpdate();
+    //    }
+    //    //values[id].outputReward = preDecayReward;
+    //    //values[id].outputHitStunDuration = preOutputHitStun;
+
+    //    values[id].outputReward = Mathf.Clamp(values[id].outputReward, 0f, attackInfo.favorReward);
+    //    values[id].outputHitStunDuration = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
+    //    values[id].outputKnockbackDistance = Mathf.Clamp(values[id].outputKnockbackDistance, attackInfo.knockbackDistance, attackInfo.knockbackDistance * _knockbackDecayValue);
+
+    //    yield break;
+    //}
+
+    public void DecayValues(AttackInfo attackInfo)
+    {
+        StartCoroutine(DecayFavor(attackInfo));
+        StartCoroutine(DecayHitstun(attackInfo));
+        StartCoroutine(DecayKnockback(attackInfo));
+    }
+
+    public IEnumerator DecayFavor(AttackInfo attackInfo)
     {
         int id = attackInfo.idManager;
-        //debugText.text = "id:"+id+ "info:"+attackInfo.hitStunDuration + "values:"+ values[id].outputHitStunDuration;
-
         float preDecayReward = Mathf.Clamp(values[id].outputReward, 0f, attackInfo.favorReward);
-        float preOutputHitStun = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
-        float preKnockbackDistance = Mathf.Clamp(values[id].outputKnockbackDistance, 0f, attackInfo.knockbackDistance);
-
-        values[id].outputReward = Mathf.Clamp(preDecayReward - (attackInfo.favorReward * Services.FavorManager.FavorDecayValue), 0f, attackInfo.favorReward);
-        values[id].outputHitStunDuration = Mathf.Clamp(preOutputHitStun - (attackInfo.hitStunDuration * Services.FavorManager.HitstunDecayValue), 0f, attackInfo.hitStunDuration);
-        values[id].outputKnockbackDistance = Mathf.Clamp(preKnockbackDistance + (attackInfo.knockbackDistance * Services.FavorManager.KnockbackDecayValue - attackInfo.knockbackDistance), attackInfo.knockbackDistance, attackInfo.knockbackDistance * Services.FavorManager.KnockbackDecayValue);
-
-        //debugText.text = attackInfo.hitStunDuration.ToString();
-        //Debug.Log("postdecay:" + values[id].outputReward);
-        //debugText.text = "infostun: "+attackInfo.hitStunDuration + "decay: "+Services.FavorManager.DecayValue+ "outstun: " + values[id].outputHitStunDuration.ToString();
-        //float timer = 0f;
-        float timerDelta = Time.fixedDeltaTime / Services.FavorManager.FavorDecayResetDuration;
-        //while (values[id].outputReward < preDecayReward && timer < Services.FavorManager.DecayResetDuration)
-        //{
-        //    values[id].outputReward += attackInfo.favorReward * Services.FavorManager.DecayValue * timerDelta;
-        //    values[id].outputHitStunDuration += attackInfo.hitStunDuration * Services.FavorManager.DecayValue * timerDelta;
-        //    timer += Time.fixedDeltaTime;
-        //    yield return new WaitForFixedUpdate();
-        //}
+        values[id].outputReward = Mathf.Clamp(preDecayReward - (attackInfo.favorReward * _favorDecayValue), 0f, attackInfo.favorReward);
+        float timerDelta = Time.fixedDeltaTime / _favorDecayResetDuration;
         while (values[id].outputReward < preDecayReward)
         {
-            values[id].outputReward += attackInfo.favorReward * Services.FavorManager.FavorDecayValue * timerDelta;
-            values[id].outputHitStunDuration += attackInfo.hitStunDuration * Services.FavorManager.HitstunDecayValue * timerDelta;
-            values[id].outputKnockbackDistance -= (attackInfo.knockbackDistance * Services.FavorManager.KnockbackDecayValue - attackInfo.knockbackDistance) * timerDelta;
+            values[id].outputReward += attackInfo.favorReward * _favorDecayValue * timerDelta;
             yield return new WaitForFixedUpdate();
         }
-        //values[id].outputReward = preDecayReward;
-        //values[id].outputHitStunDuration = preOutputHitStun;
-
         values[id].outputReward = Mathf.Clamp(values[id].outputReward, 0f, attackInfo.favorReward);
-        values[id].outputHitStunDuration = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
-        values[id].outputKnockbackDistance = Mathf.Clamp(values[id].outputKnockbackDistance, attackInfo.knockbackDistance, attackInfo.knockbackDistance * Services.FavorManager.KnockbackDecayValue);
+        yield break;
+    }
 
+    public IEnumerator DecayHitstun(AttackInfo attackInfo)
+    {
+        int id = attackInfo.idManager;
+        float preOutputHitStun = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
+        values[id].outputHitStunDuration = Mathf.Clamp(preOutputHitStun - (attackInfo.hitStunDuration * _hitstunDecayValue), 0f, attackInfo.hitStunDuration);
+        float timerDelta = Time.fixedDeltaTime / _hitstunDecayResetDuration;
+        while (values[id].outputHitStunDuration < preOutputHitStun)
+        {
+            values[id].outputHitStunDuration += attackInfo.hitStunDuration * _hitstunDecayValue * timerDelta;
+            yield return new WaitForFixedUpdate();
+        }
+        values[id].outputHitStunDuration = Mathf.Clamp(values[id].outputHitStunDuration, 0f, attackInfo.hitStunDuration);
+        yield break;
+    }
+
+    public IEnumerator DecayKnockback(AttackInfo attackInfo)
+    {
+        int id = attackInfo.idManager;
+        float preKnockbackDistance = Mathf.Clamp(values[id].outputKnockbackDistance, 0f, attackInfo.knockbackDistance);
+        values[id].outputKnockbackDistance = Mathf.Clamp(preKnockbackDistance + (attackInfo.knockbackDistance * _knockbackDecayValue - attackInfo.knockbackDistance), attackInfo.knockbackDistance, attackInfo.knockbackDistance * _knockbackDecayValue);
+        float timerDelta = Time.fixedDeltaTime / _knockbackDecayResetDuration;
+        while (values[id].outputKnockbackDistance > preKnockbackDistance)
+        {
+            values[id].outputKnockbackDistance -= (attackInfo.knockbackDistance * _knockbackDecayValue - attackInfo.knockbackDistance) * timerDelta;
+            yield return new WaitForFixedUpdate();
+        }
+        values[id].outputKnockbackDistance = Mathf.Clamp(values[id].outputKnockbackDistance, attackInfo.knockbackDistance, attackInfo.knockbackDistance * _knockbackDecayValue);
         yield break;
     }
 }

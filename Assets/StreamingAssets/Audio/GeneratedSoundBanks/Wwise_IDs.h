@@ -14,6 +14,8 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID PLAY_AIR_SPECIAL_LAUNCH = 1673194572U;
+        static const AkUniqueID PLAY_ANNOUNCER_ROUNDS = 1356837045U;
+        static const AkUniqueID PLAY_ANNOUNCER_SHOWTIME = 3164011966U;
         static const AkUniqueID PLAY_AREA_BLAST_HIT = 1385366132U;
         static const AkUniqueID PLAY_AREA_BLAST_SWING = 748205809U;
         static const AkUniqueID PLAY_BLUK_DASH = 3047339195U;
@@ -30,6 +32,7 @@ namespace AK
         static const AkUniqueID PLAY_DRAGON_PUNCH_SWING = 2525681113U;
         static const AkUniqueID PLAY_FAVORGOLDENGOAL = 1741140776U;
         static const AkUniqueID PLAY_FAVORLOCKBREAK = 3727876332U;
+        static const AkUniqueID PLAY_FAVORLOCKPREBREAK = 10051555U;
         static const AkUniqueID PLAY_GROUND_SPLAT_FOLEY_MAT = 2109586569U;
         static const AkUniqueID PLAY_HEAVY_HIT = 2944971053U;
         static const AkUniqueID PLAY_HEAVYPAINVO = 2810545614U;
@@ -40,26 +43,11 @@ namespace AK
         static const AkUniqueID PLAY_LIGHT_HIT = 50577568U;
         static const AkUniqueID PLAY_LIGHTPAINVO = 2753477471U;
         static const AkUniqueID PLAY_LIGHTSWINGVO = 2258955033U;
-        static const AkUniqueID PLAY_LISA_AIR_LIGHT = 550992759U;
-        static const AkUniqueID PLAY_LISA_AIR_MEDIUM = 2424377084U;
-        static const AkUniqueID PLAY_LISA_AIR_SPECIAL = 1854249638U;
-        static const AkUniqueID PLAY_LISA_COMBO_1_INITIAL = 1597314465U;
-        static const AkUniqueID PLAY_LISA_COMBO_2 = 3376269179U;
-        static const AkUniqueID PLAY_LISA_COMBO_3 = 3376269178U;
-        static const AkUniqueID PLAY_LISA_COMBO_4 = 3376269181U;
-        static const AkUniqueID PLAY_LISA_COMBO_5 = 3376269180U;
         static const AkUniqueID PLAY_LISA_CROUCH = 1808428040U;
-        static const AkUniqueID PLAY_LISA_DASH = 936983702U;
         static const AkUniqueID PLAY_LISA_DASH_BETA = 2809825743U;
         static const AkUniqueID PLAY_LISA_FOOTSTEPS = 431785379U;
-        static const AkUniqueID PLAY_LISA_JUMP = 28555886U;
         static const AkUniqueID PLAY_LISA_JUMP_BETA = 10510631U;
         static const AkUniqueID PLAY_LISA_LAND = 2349820377U;
-        static const AkUniqueID PLAY_LISA_LOW_LIGHT = 519494373U;
-        static const AkUniqueID PLAY_LISA_LOW_MEDIUM = 3727786178U;
-        static const AkUniqueID PLAY_LISA_LOW_SPECIAL = 3734986080U;
-        static const AkUniqueID PLAY_LISA_SPECIAL_NEUTRAL = 3858634255U;
-        static const AkUniqueID PLAY_LISA_SPECIAL_SIDE = 1098933211U;
         static const AkUniqueID PLAY_LISA_SUPER_DASH = 3484893070U;
         static const AkUniqueID PLAY_LISATHEME = 2345669066U;
         static const AkUniqueID PLAY_MEDIUM_ATTACK_VARIATION_1 = 3237039600U;
@@ -70,13 +58,17 @@ namespace AK
         static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;
         static const AkUniqueID PLAY_SELECTIONVO = 3889212317U;
         static const AkUniqueID PLAY_SIDE_LAUNCH_SWING = 2955565060U;
+        static const AkUniqueID PLAY_UI_CANCEL = 2244506081U;
         static const AkUniqueID PLAY_UI_CLICK = 1749424733U;
         static const AkUniqueID PLAY_UI_HOVER = 1339559671U;
         static const AkUniqueID PLAY_UI_LOCKIN = 365326775U;
+        static const AkUniqueID PLAY_UI_PAUSED = 2953310417U;
         static const AkUniqueID PLAY_UI_TOGGLE = 2609688239U;
+        static const AkUniqueID PLAY_UI_TOGGLE_SHORT = 596834416U;
         static const AkUniqueID PLAY_WALL_BOUNCE_FOLEY_MAT = 2769098130U;
         static const AkUniqueID STOP_BLUKTHEME = 3753011029U;
         static const AkUniqueID STOP_FAVORGOLDENGOAL = 1102378326U;
+        static const AkUniqueID STOP_FAVORLOCKPREBREAK = 1091820081U;
         static const AkUniqueID STOP_LISATHEME = 564764656U;
         static const AkUniqueID STOP_SWINGS = 3063666669U;
     } // namespace EVENTS
@@ -105,6 +97,18 @@ namespace AK
                 static const AkUniqueID VERSE = 3840766212U;
             } // namespace SWITCH
         } // namespace MUSICSTATE
+
+        namespace ROUNDSWITCH
+        {
+            static const AkUniqueID GROUP = 2962526803U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID ROUND1 = 2851108012U;
+                static const AkUniqueID ROUND2 = 2851108015U;
+                static const AkUniqueID ROUND3 = 2851108014U;
+            } // namespace SWITCH
+        } // namespace ROUNDSWITCH
 
     } // namespace SWITCHES
 

@@ -51,13 +51,13 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 7
+      - m_Value: 5
         m_Name: Size
         m_Overridden: 1
       - m_Value: 2.5
         m_Name: Frame Rate
         m_Overridden: 1
-      - m_Value: 1.8
+      - m_Value: 2.2
         m_Name: Playback Rate
         m_Overridden: 1
     m_Vector2f:
@@ -151,7 +151,7 @@ VisualEffect:
       - m_Value: 1
         m_Name: FaceLeft
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 0
         m_Name: Flip Particle
         m_Overridden: 1
 --- !u!73398921 &3628714835826469584
@@ -207,6 +207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f: {fileID: 0}
+  isUnscaledTime: 0
+  doNoSelfDestroy: 0
   VFXType: 3
   isMoveBased: 0
   canUseUnscaledTime: 1
+  followCharacter: 0

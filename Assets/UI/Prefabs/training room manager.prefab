@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5632652265677647415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3743747909987298001}
+  m_Layer: 0
+  m_Name: colliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3743747909987298001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5632652265677647415}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8587697709015931181}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8587697708883624051
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,6 +94,7 @@ Transform:
   - {fileID: 8587697708883624050}
   - {fileID: 8587697709777749056}
   - {fileID: 8587697709094557851}
+  - {fileID: 3743747909987298001}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fightersManager: {fileID: 11400000, guid: bd70be347e6fe423ab7ecdf3f9028b1c, type: 2}
   _xDistanceBetweenPlayers: 5
-  _actionSpritePairs: []
+  _cmmdListReference: {fileID: 11400000, guid: a13722a7407ee4b62bf35cf645dd3c70, type: 2}
   _leftRoomPosition: {fileID: 8587697709777749056}
   _middleRoomPosition: {fileID: 8587697708883624050}
   _rightRoomPosition: {fileID: 8587697709094557851}
@@ -88,6 +120,16 @@ MonoBehaviour:
   _inputParent: {fileID: 0}
   _inputContainer: {fileID: 0}
   _inputImage: {fileID: 0}
+  _spritePrefab: {fileID: 4012302928419741300, guid: abd2670effefd47d1902a2f95d38a20d, type: 3}
+  _linePrefab: {fileID: 4012302928419741300, guid: d001f5846c8db4bc99506d41ead2a66a, type: 3}
+  _collidersParent: {fileID: 5632652265677647415}
+  _hurtColor: {r: 0.22278582, g: 0.9056604, b: 0.21787111, a: 1}
+  _hitColor: {r: 1, g: 0, b: 0, a: 0.7019608}
+  _parryColor: {r: 0.13794944, g: 0.582206, b: 0.9433962, a: 0.7019608}
+  _lrWidth: 0.05
+  _infiniteExAnim: {fileID: 0}
+  _colliderAnim: {fileID: 0}
+  _inputsAnim: {fileID: 0}
 --- !u!1 &8587697709094557848
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6909241950251051033}
   - component: {fileID: 6909241950251051038}
   - component: {fileID: 5784467349135926489}
+  - component: {fileID: 2957983583452940951}
   m_Layer: 0
   m_Name: Sound Manager
   m_TagString: Untagged
@@ -94,7 +95,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e5be5167fe7ea4b87ef7b3a44cc401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playPreLockBreakSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: e436d3d1998c8cf4fa9cc387e6b4f2f9, type: 2}
+  stopPreLockBreakSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 43a0d9eb6acf7de4c951eda7d7b343e3, type: 2}
   lockBreakSound:
     idInternal: 0
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 08eb4714b6298d84b83cacb04465bdd1, type: 2}
+  playGoldenGoal:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: e8e7847b6cd261540a864c493eefc8fe, type: 2}
+  stopGoldenGoal:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: df2033b2d7530d7458ec57c6397c7335, type: 2}
+--- !u!114 &2957983583452940951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6909241950251051039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df87a74dd3f84c3bb2ee057ebeebcf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 58d9c2a4bf47c4927bcab8a59ec48fb9, type: 2}
+  _responses:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5784467349135926489}
+        m_TargetAssemblyTypeName: SoundManagerUI, Assembly-CSharp
+        m_MethodName: StopUISoundsOnEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

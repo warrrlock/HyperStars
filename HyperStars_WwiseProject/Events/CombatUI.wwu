@@ -8,7 +8,7 @@
 						<Action Name="" ID="{6139C0C1-CFD4-4CAB-9BBD-665DA866A852}" ShortID="10169031">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="FavorLockBreak" ID="{E54C05A2-33BE-452D-AF0B-04F7653D61DB}" WorkUnitID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}"/>
+									<ObjectRef Name="FavorLockBreak" ID="{1CF0D63D-485B-4E6A-9259-13F8B55F41C3}" WorkUnitID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
@@ -22,7 +22,7 @@
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="FavorGoldenGoal" ID="{A3C5E3F6-F421-4464-AAEC-CC44AB86C460}" WorkUnitID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}"/>
+									<ObjectRef Name="FavorGoldenGoal" ID="{A287AEA2-4A2D-4992-8652-14936BA36201}" WorkUnitID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
@@ -33,7 +33,54 @@
 						<Action Name="" ID="{17E32138-EE98-4321-8D94-C248364FAA0B}" ShortID="286374441">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="FavorGoldenGoal" ID="{A3C5E3F6-F421-4464-AAEC-CC44AB86C460}" WorkUnitID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}"/>
+									<ObjectRef Name="FavorGoldenGoal" ID="{A287AEA2-4A2D-4992-8652-14936BA36201}" WorkUnitID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_FavorLockPreBreak" ID="{D1350035-A6AF-4FE6-BB64-7FAB25C43FB1}">
+					<ChildrenList>
+						<Action Name="" ID="{80A6AEDF-C390-4CE7-9113-173421425871}" ShortID="811927168">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="FavorLockPreBreak" ID="{58D69B1B-F4D5-411D-94E7-85A91DA574BD}" WorkUnitID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_FavorLockPreBreak" ID="{941814BE-CF41-4E6E-B40D-7007199FE1D3}">
+					<ChildrenList>
+						<Action Name="" ID="{D689474A-BD78-401D-AC9D-70FD040FB82E}" ShortID="569246">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="FavorLockPreBreak" ID="{58D69B1B-F4D5-411D-94E7-85A91DA574BD}" WorkUnitID="{3025EBF0-6BB7-4CEA-BDB5-67D33452AD44}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Announcer_Showtime" ID="{610BE9CD-29C5-49C3-8A7A-B29EAF81D5C0}">
+					<ChildrenList>
+						<Action Name="" ID="{F5E0DEBF-9B35-44E2-8445-5948B9786E06}" ShortID="1048754326">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Announcer Showtime" ID="{13F26724-E61E-42D1-85A6-A6D33457B231}" WorkUnitID="{C6F5F39A-AFD5-4701-999C-04B6CBC20A03}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Announcer_Rounds" ID="{5628B1BC-D025-4E0E-A7A3-4AA30B64825F}">
+					<ChildrenList>
+						<Action Name="" ID="{6DD14726-D78C-45BC-91DB-FAD97E99A9BE}" ShortID="143987095">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Announcer Rounds" ID="{94B87C20-ED83-49FB-BBDE-9114866EBCEE}" WorkUnitID="{C6F5F39A-AFD5-4701-999C-04B6CBC20A03}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

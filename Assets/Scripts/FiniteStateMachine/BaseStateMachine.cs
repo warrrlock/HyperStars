@@ -85,6 +85,7 @@ namespace FiniteStateMachine {
         private int _currentAnimation;
         private bool _isAttacking;
         private bool _holdingCrouch;
+        private bool _returnMeter;
 
         public bool HitOpponent { get; private set; }
 
@@ -405,6 +406,14 @@ namespace FiniteStateMachine {
         }
 
         //ANIMATION USE
+        public void DisableReturnSpecial()
+        {
+            _returnMeter = false;
+        }
+        public void EnableReturnSpecial()
+        {
+            _returnMeter = true;
+        }
         public void DisableCombo()
         {
             _canCombo = false;
@@ -550,11 +559,16 @@ namespace FiniteStateMachine {
                 Fighter.Events.onLandedHurt?.Invoke();
                 // Debug.Log($"exited in air, hard knockdown is {!_allowRecover}");
                 if (!_allowRecover) Fighter.Events.onHardKnockdown?.Invoke();
+                SetKnockdownDisableTime();
                 TryEnableRecovery();
             }
             else
             {
                 Fighter.Events.onLandedNeutral?.Invoke();
+                Fighter.MovementController.ResetValues(false);
+                if (_returnMeter) 
+                    Fighter.SpecialMeterManager.IncrementBar(CurrentState.SpecialBarCost);
+                DisableReturnSpecial();
                 TryQueueState(_jumpLandState);
             }
 
@@ -632,6 +646,12 @@ namespace FiniteStateMachine {
             if (_disableCoroutine != null) StopCoroutine(_disableCoroutine);
             _isDisabled = false;
             _disableCoroutine = null;
+        }
+
+        private void SetKnockdownDisableTime()
+        {
+            DisableTime = Services.Characters[Fighter.PlayerInput.playerIndex].KnockdownDisableTime;
+            ExecuteDisableTime();
         }
 
         private void TryEnableRecovery()

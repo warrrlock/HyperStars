@@ -55,8 +55,6 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _superDashCooldownDuration;
     [SerializeField] private ForceEasing _dashEasing;
     [SerializeField] private float _dashMinimumOverlap;
-    //private int _airShortDashChargeCount = 1;
-    //private int _airSuperDashChargeCount = 1;
     private float _shortDashForce = 0f;
     private bool _isShortDashing = false; //TODO: these variables are stupidd
     [SerializeField] private int _maxDashCharges;
@@ -76,8 +74,6 @@ public class MovementController : MonoBehaviour
     [SerializeField] private LayerMask _playerMask;
     [Tooltip("How many rays should be shot out horizontally?")]
     private int _xAxisRayCount = 3;
-    //[Tooltip("How many rays should be shot out forward?")]
-    //private int _zAxisRayCount = 3;
     [Tooltip("How many rays should be shot out vertically?")]
     private int _yAxisRayCount = 3;
     [Tooltip("Should debug rays be drawn?")]
@@ -94,10 +90,7 @@ public class MovementController : MonoBehaviour
     private float _minJumpVelocity;
     private Vector2 _xAxisRaySpacing;
     private Vector2 _yAxisRaySpacing;
-    //private Vector2 _zAxisRaySpacing;
     private Vector3 _forceVelocity;
-
-    //private float _sidestepForce = 10f;
 
     private bool _isWallBounceable = false;
     private float _wallBounceDistance;
@@ -116,12 +109,11 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _overlapResolutionSpeed;
     private bool _isResolvingOverlap = false;
     public Vector3 overlapResolutionVelocity = Vector3.zero;
-    private Vector3 _overlapResolutionVelocity = Vector3.zero;
     public Fighter.Direction MovingDirection { get; private set; }
 
-    [SerializeField] private float _mass = 1f;
+    private bool _canFlip = true;
 
-    //private float _sidestepDuration;
+    [SerializeField] private float _mass = 1f;
 
     private RaycastOrigins _raycastOrigins;
     public CollisionInfo CollisionData
@@ -133,8 +125,6 @@ public class MovementController : MonoBehaviour
 
     private readonly float _skinWidth = 0.1f;
 
-    //private float _accelerationTimeAirborne = .2f;
-    //private float _accelerationTimeGrounded = .1f;
     private Vector2 _horizontalVelocitySmoothing;
     private Vector2 _horizontalTargetVelocity;
     private Vector3 _cachedVelocity;
@@ -158,9 +148,7 @@ public class MovementController : MonoBehaviour
     private bool _isFlipQueued = false;
     private Fighter.Direction _nextFlipDirection;
 
-    /// <summary>
-    /// Returns true if Opponent is behind this Fighter.
-    /// </summary>
+    /// <summary> Returns true if Opponent is behind this Fighter. </summary>
     private bool _isOpponentBehind = false;
 
     [Header("Base States Subscription")]
@@ -175,7 +163,6 @@ public class MovementController : MonoBehaviour
     private struct RaycastOrigins
     {
         public Axis x;
-        //public Axis z;
         public Axis y;
 
         public struct Axis
@@ -188,7 +175,6 @@ public class MovementController : MonoBehaviour
     public struct CollisionInfo
     {
         public Axis x;
-        //public Axis z;
         public Axis y;
         public bool isAnyHit
         {
@@ -206,6 +192,38 @@ public class MovementController : MonoBehaviour
         public void Reset()
         {
             x.isNegativeHit = x.isPositiveHit = y.isNegativeHit = y.isPositiveHit = false;
+        }
+    }
+
+    private List<Force> _forces = new();
+
+    private class Force
+    {
+        public readonly Vector3 Direction;
+        public readonly float Magnitude;
+        public readonly float Duration;
+
+        public float time = 0f;
+
+        public Force(Vector3 direction, float magnitude, float duration)
+        {
+            Direction = direction;
+            Magnitude = magnitude;
+            Duration = duration;
+        }
+
+        public float SimulateHorizontalForce(int stepCount)
+        {
+            float timer = time;
+            float totalMagnitude = 0f;
+            for (int i = 0; i < stepCount; i++)
+            {
+                timer += Time.fixedDeltaTime;
+                totalMagnitude += Mathf.Lerp(Magnitude, 0f, timer / Duration);
+            }
+            //Debug.Log(totalMagnitude);
+            Vector3 force = Direction * totalMagnitude;
+            return force.x;
         }
     }
 
@@ -329,7 +347,7 @@ public class MovementController : MonoBehaviour
                 }
             }
         }
-        Vector3 preGravityVelocity = _unforcedVelocity + _forceVelocity + _overlapResolutionVelocity;
+        Vector3 preGravityVelocity = _unforcedVelocity + _forceVelocity + overlapResolutionVelocity;
         if (_isGravityApplied)
         {
             _unforcedVelocity.y -= _gravity * _gravityModifier * Time.fixedDeltaTime;
@@ -403,10 +421,10 @@ public class MovementController : MonoBehaviour
         transform.position = new Vector3(x, transform.position.y, transform.position.z);
     }
 
-    public void ResetValues()
+    public void ResetValues(bool resetMove = true)
     {
         KillAllForces();
-        StopMoving();
+        if (resetMove) StopMoving();
         ResetVelocityY();
         ResetAllVelocities();
         //RestoreOpponentGravity();
@@ -428,30 +446,31 @@ public class MovementController : MonoBehaviour
             StopCoroutine(_forceCoroutines[i]);
         }
         _forceCoroutines.Clear();
+        _forces.Clear();
         _forceVelocity = Vector3.zero;
     }
 
     private void StateChange(BaseState state)
     {
+        if (state.GetType().IsSameOrSubclassOf(typeof(ComboState)))
+        {
+            CheckIfOpponentWillBeFlipped(10);
+        }
         if (_gravityAugmentType == AugmentType.Self)
         {
             RestoreGravity();
         }
-        if (_canFlip)
+        if (!_canFlip)
         {
-            _canFlip = false;
+            _canFlip = true;
         }
     }
 
-    private bool _canFlip = false;
-
-    //TODO: use fixed update instead of waitforseconds?
     private IEnumerator QueueFlip(Fighter.Direction newDirection)
     {
         _isFlipQueued = true;
-        _canFlip = true;
-        //yield return new WaitUntil(() => _fighter.BaseStateMachine.IsIdle || _fighter.BaseStateMachine.IsCrouch);
-        yield return new WaitUntil(() => !_canFlip);
+        _canFlip = false;
+        yield return new WaitUntil(() => _canFlip);
 
         _isFlipQueued = false;
         if (_isOpponentBehind)
@@ -460,14 +479,6 @@ public class MovementController : MonoBehaviour
             _isOpponentBehind = false;
         }
         yield break;
-
-        //_isFlipQueued = true;
-        //_nextFlipDirection = newDirection;
-        //yield return new WaitForSeconds(_flipDelayTime);
-
-        //_fighter.FlipCharacter(_nextFlipDirection);
-        //_isFlipQueued = false;
-        //yield break;
     }
 
     public IEnumerator EnableWallBounce(float distance, float duration, Vector3 direction, float hitStopDuration)
@@ -507,7 +518,6 @@ public class MovementController : MonoBehaviour
 
     public IEnumerator DisableGravity(Func<bool> enableCondition)
     {
-        Debug.Log("Func");
         _isGravityApplied = false;
         yield return new WaitUntil(enableCondition);
 
@@ -537,6 +547,41 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
+    private void CheckIfOpponentWillBeFlipped(int time)
+    {
+        float opponentSimulatedPositionX = _fighter.OpposingFighter.MovementController.SimulateHorizontalForces(time);
+        switch (_fighter.FacingDirection)
+        {
+            case Fighter.Direction.Left:
+                if (_fighter.OpposingFighter.transform.position.x + opponentSimulatedPositionX > transform.position.x)
+                {
+                    _isOpponentBehind = false;
+                    _fighter.FlipCharacter(Fighter.Direction.Right);
+                    Debug.Log("special flip");
+                }
+                break;
+            case Fighter.Direction.Right:
+                if (_fighter.OpposingFighter.transform.position.x + opponentSimulatedPositionX < transform.position.x)
+                {
+                    _isOpponentBehind = false;
+                    _fighter.FlipCharacter(Fighter.Direction.Left);
+                    Debug.Log("special flip");
+                }
+                break;
+        }
+    }
+
+    private float SimulateHorizontalForces(int duration)
+    {
+        //int stepCount = (int)(duration / Time.fixedDeltaTime);
+        float[] forceDestinationsX = new float[_forces.Count];
+        for (int i = 0; i < _forces.Count; i++)
+        {
+            forceDestinationsX[i] = _forces[i].SimulateHorizontalForce(duration);
+        }
+        return forceDestinationsX.Sum();
+    }
+
     public void ApplyForce(Vector3 direction, float magnitude, float duration, bool isMomentumReset = false, float collideDecay = 0f, ForceEasing easingFunction = ForceEasing.Linear)
     {
         //collide decay is how much the force decays when it collides into something
@@ -545,11 +590,13 @@ public class MovementController : MonoBehaviour
         {
             KillAllForces();
         }
-        IEnumerator forceCoroutine = Force(direction, magnitude, duration, easingFunction);
+        Force newForce = new(direction, magnitude, duration);
+        _forces.Add(newForce);
+        IEnumerator forceCoroutine = ForceCoroutine(direction, magnitude, duration, newForce, easingFunction);
         _forceCoroutines.Add(forceCoroutine);
         StartCoroutine(forceCoroutine);
 
-        IEnumerator Force(Vector3 direction, float magnitude, float duration, ForceEasing easingFunction = ForceEasing.Linear)
+        IEnumerator ForceCoroutine(Vector3 direction, float magnitude, float duration, Force newForce, ForceEasing easingFunction = ForceEasing.Linear)
         {
             direction.Normalize();
             float timer = 0f;
@@ -584,18 +631,6 @@ public class MovementController : MonoBehaviour
                         }
                         direction.x *= -1f;
                     }
-                    //if (_collisionData.z.isNegativeHit || _collisionData.z.isPositiveHit)
-                    //{
-                    //    ResetVelocityY();
-                    //    if (_wallBounceDistance != 0f)
-                    //    {
-                    //        Vector3 bounceDirection = Mathf.Sign(direction.z) == 1f ? _wallBounceDirection : new Vector3(_wallBounceDirection.x, _wallBounceDirection.y, -_wallBounceDirection.z);
-                    //        float bounceMagnitude = (_wallBounceDistance * 2f) / (_wallBounceDuration + Time.fixedDeltaTime);
-                    //        StartCoroutine(WallBounce(bounceDirection, bounceMagnitude, _wallBounceDuration));
-                    //        yield break;
-                    //    }
-                    //    direction.z *= -1f;
-                    //}
                 }
                 if (_isGroundBounceable)
                 {
@@ -619,6 +654,8 @@ public class MovementController : MonoBehaviour
 
                 _forceVelocity -= force;
                 timer += Time.fixedDeltaTime;
+                newForce.time = timer;
+                //Debug.Log(newForce.time);
             }
             //TODO: move somewhere else?
             _inputManager.Actions["Roll"].finish.Invoke(_inputManager.Actions["Roll"]);
@@ -634,6 +671,8 @@ public class MovementController : MonoBehaviour
                 _unforcedVelocity.x = inputVector.x;
                 //_unforcedVelocity.z = inputVector.y;
             }
+            //_forceCoroutines.Remove(forceCoroutine);
+            _forces.Remove(newForce);
             yield break;
         }
     }
@@ -677,14 +716,14 @@ public class MovementController : MonoBehaviour
     //    return distance;
     //}
 
-    struct Force
-    {
-        public float magnitude;
-        public float distance;
-        public float duration;
-        public float deceleration;
-        public Vector3 direction;
-    }
+    //struct Force
+    //{
+    //    public float magnitude;
+    //    public float distance;
+    //    public float duration;
+    //    public float deceleration;
+    //    public Vector3 direction;
+    //}
 
     private float CalculateForceFromDistance(float distance, float deceleration)
     {
@@ -801,7 +840,7 @@ public class MovementController : MonoBehaviour
             // _fighter.BaseStateMachine.States[_jump].execute += Jump;
             // _fighter.BaseStateMachine.States[_jump].stop += StopJumping;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             Debug.LogError($"movement states missing from controller {name}");
         }
@@ -1036,28 +1075,6 @@ public class MovementController : MonoBehaviour
         yield break;
     }
 
-    //TODO: this is deprecated
-    public IEnumerator ResolveOverlap()
-    {
-        _isResolvingOverlap = true;
-        //bool opponentIsRight = false;
-        if (_fighter.OpposingFighter.transform.position.x > transform.position.x)
-        {
-            //opponentIsRight = true;
-            _overlapResolutionVelocity.x = -_overlapResolutionSpeed;
-        }
-        else
-        {
-            _overlapResolutionVelocity.x = _overlapResolutionSpeed;
-        }
-        //yield return new WaitUntil(opponentIsRight ? () => _collisionData.x.isPositiveHit : () => _collisionData.x.isNegativeHit);
-        yield return new WaitForSeconds(0.1f);
-
-        _overlapResolutionVelocity = Vector3.zero;
-        _isResolvingOverlap = false;
-        yield break;
-    }
-
     private void StartMoving()
     {
         Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
@@ -1080,32 +1097,8 @@ public class MovementController : MonoBehaviour
         ApplyForce(direction, magnitude, duration, true);
     }
 
-    //public void AugmentOpponentGravity(float factor)
-    //{
-    //    _awaitHitOpponent = AwaitHitOpponent(factor);
-    //    StartCoroutine(_awaitHitOpponent);
-    //}
-
     private bool _isAwaitingHit = false;
     private IEnumerator _awaitHitOpponent;
-
-    //private IEnumerator AwaitHitOpponent(float factor) //TODO: needs a better name
-    //{
-    //    _isAwaitingHit = true;
-    //    yield return new WaitUntil(() => _fighter.BaseStateMachine.HitOpponent);
-    //    _fighter.OpposingFighter.MovementController._gravityModifier = factor;
-    //    _isAwaitingHit = false;
-    //    yield break;
-    //}
-
-    //public void RestoreOpponentGravity()
-    //{
-    //    if (_isAwaitingHit)
-    //    {
-    //        StopCoroutine(_awaitHitOpponent);
-    //    }
-    //    _fighter.OpposingFighter.MovementController._gravityModifier = 1f;
-    //}
 
     private IEnumerator _gravityAugmenter;
 
@@ -1174,6 +1167,7 @@ public class MovementController : MonoBehaviour
             {
                 Vector2 inputVector = _inputManager.Actions["Move"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
                 dashDirection = new Vector3(inputVector.x, 0f, 0f);
+                MovingDirection = dashDirection.x < 0 ? Fighter.Direction.Left : Fighter.Direction.Right;
                 if (_dashToZero)
                 {
                     _unforcedVelocity.x = 0f;

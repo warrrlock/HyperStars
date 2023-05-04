@@ -21,8 +21,8 @@ public struct OverlapInfo
 [RequireComponent(typeof(BoxCollider))]
 public class OverlapDetector : MonoBehaviour
 {
-    public MovementController MovementController { get => _movementController; }
-    [SerializeField] private MovementController _movementController;
+    public MovementController MovementController { get; private set; }
+    //[SerializeField] private MovementController _movementController;
     public Vector2 ColliderSize { get; private set; }
 
     private enum Axis { Horizontal, Vertical }
@@ -47,6 +47,8 @@ public class OverlapDetector : MonoBehaviour
     private float _edgeX;
     public float HalfWidth { get => _halfWidth; }
     private float _halfWidth;
+    private LayerMask _layerMask;
+    private bool _isFighter = false;
 
     private struct RaycastOrigins
     {
@@ -56,10 +58,19 @@ public class OverlapDetector : MonoBehaviour
 
     private void Start()
     {
+        AssignComponents();
         if (TryGetComponent<Fighter>(out Fighter fighter))
         {
-            Services.CollisionsManager.fighterDetectors[fighter.PlayerId] = this;
             Initialize(Services.CollisionsManager);
+            this.MovementController = fighter.MovementController;
+            Services.CollisionsManager.fighterDetectors[fighter.PlayerId] = this;
+            _isFighter = true;
+            _layerMask = _collisionsManager.fightersMask;
+        }
+        else
+        {
+            Initialize(Services.CollisionsManager);
+            _layerMask = _collisionsManager.terrainMask;
         }
     }
 
@@ -67,14 +78,18 @@ public class OverlapDetector : MonoBehaviour
     {
         if (TryGetComponent<Fighter>(out Fighter fighter))
         {
+            Initialize(Services.CollisionsManager);
             Services.CollisionsManager.fighterDetectors[fighter.PlayerId] = this;
+        }
+        else
+        {
             Initialize(Services.CollisionsManager);
         }
     }
 
     public void Initialize(CollisionsManager collisionsManager)
     {
-        AssignComponents();
+        //AssignComponents();
         _collisionsManager = collisionsManager;
         if (TerrainType == Terrain.Wall)
         {
@@ -82,10 +97,15 @@ public class OverlapDetector : MonoBehaviour
         }
     }
 
-    public void CheckOverlaps(LayerMask collisionMask)
+    public void CheckOverlaps()
     {
         UpdateRaycastOrigins();
         SpaceRays();
+
+        if (_isFighter)
+        {
+            _layerMask = _collisionsManager.fightersMask;
+        }
 
         float rayLength = _pushAxisLength; //don't add the skin width or else it will return a hit when an object is touching this collider even without overlap
 
@@ -113,7 +133,7 @@ public class OverlapDetector : MonoBehaviour
                     Debug.DrawRay(rayOrigin, rayDirection * rayLength, Color.blue);
                 }
 
-                RaycastHit[] hits = Physics.RaycastAll(rayOrigin, rayDirection, rayLength, collisionMask);
+                RaycastHit[] hits = Physics.RaycastAll(rayOrigin, rayDirection, rayLength, _layerMask);
                 foreach(RaycastHit hit in hits)
                 {
                     if (hit.collider.gameObject == gameObject)
@@ -172,6 +192,7 @@ public class OverlapDetector : MonoBehaviour
                             pushDirection = OverlapInfo.Direction.Up;
                             break;
                     }
+                    //Debug.Log("overlap");
                     OverlapInfo overlapInfo = new(this, other, pushDirection);
                     _collisionsManager.AddOverlapInfo(overlapInfo);
                     return;

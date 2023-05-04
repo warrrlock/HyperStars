@@ -31,7 +31,7 @@ public class ComboIndicator : MonoBehaviour
     
 
     void Awake() {
-        Global.ComboIndicator = this;
+        Global.comboIndicator = this;
 
         //playerActions = new List<PlayerAction>(FindObjectsOfType<PlayerAction>());
         
@@ -66,14 +66,18 @@ public class ComboIndicator : MonoBehaviour
                 fadeTimer += Time.deltaTime; //adds the time between two frames to the timer
             } else {
                 FadeOut();
+                //SetCombo(0);
             }
         }
+
+
         
     }
 
     private void FadeOut()
     {
         text.color = Color.Lerp(text.color, newColor, fadeSpeed * Time.deltaTime);
+        //SetCombo(0);
     }
 
     private void Subscribe()
@@ -81,6 +85,8 @@ public class ComboIndicator : MonoBehaviour
             //_fighter is a reference to fighter object
             Services.Fighters[0].Events.onAttackHit += IncrementPlayer1Combo; //note that block is a separate event
             Services.Fighters[1].Events.onAttackHit += IncrementPlayer2Combo; //note that block is a separate event
+
+            Services.Fighters[1].Events.onEndHitstun += ResetCombo;
         }
         
     private void UnSubscribe() //remember to unsubscribe when object is destroyed (OnDestroy)
@@ -88,6 +94,8 @@ public class ComboIndicator : MonoBehaviour
         //_fighter is a reference to fighter object
         Services.Fighters[0].Events.onAttackHit -= IncrementPlayer1Combo; //note that block is a separate event
         Services.Fighters[1].Events.onAttackHit -= IncrementPlayer2Combo; //note that block is a separate event
+
+        Services.Fighters[1].Events.onEndHitstun -= ResetCombo;
     }
 
 
@@ -125,6 +133,14 @@ public class ComboIndicator : MonoBehaviour
         //IncrementCombo();
     }
 
+    private void ResetCombo(){
+        // Debug.Log("subscribed combo, incrementing for player 2");
+        //IncrementCombo();
+
+        SetCombo(0);
+    }
+
+
     public void IncrementCombo(int numChangeBy = 1) { //Global.ComboIndicator.IncrementCombo();
         SetCombo(comboCounter + numChangeBy);
     }
@@ -137,7 +153,7 @@ public class ComboIndicator : MonoBehaviour
         builder.Append(TextBeforeComboNum);
         builder.Append(comboCounter);
         builder.Append(TextAfterComboNum);
-        if(comboCounter > 1) {
+        if(comboCounter > 0) {
             //builder.Append('!', comboCounter - 1);
         }
 
@@ -145,7 +161,7 @@ public class ComboIndicator : MonoBehaviour
             
             comboText.text = builder.ToString();
 
-            if(comboCounter >= 2){
+            if(comboCounter >= 1){
                 comboText.enabled = true;
                 shaker.ShakeIt();
             } else{

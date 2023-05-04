@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace UI
         [Header("info")]
         [SerializeField] private FightersManager _fightersManager;
         [SerializeField] private float _xDistanceBetweenPlayers;
-        [SerializeField] private List<ActionSpritePair> _actionSpritePairs;
+        [SerializeField] private CmmdListReference _cmmdListReference;
         
         [Header("Room Positions")]
         [SerializeField] private Transform _leftRoomPosition;
@@ -24,35 +25,77 @@ namespace UI
         [SerializeField] private GameObject _inputContainer;
         [SerializeField] private GameObject _inputImage;
 
+        [Header("Collision")]
+        [SerializeField] private GameObject _spritePrefab;
+        [SerializeField] private GameObject _linePrefab;
+        [SerializeField] private GameObject _collidersParent;
+        [SerializeField] private Color _hurtColor;
+        [SerializeField] private Color _hitColor;
+        [SerializeField] private Color _parryColor;
+        [SerializeField] private float _lrWidth;
+        
+        [Header("Animators")]
         [SerializeField] private Animator _infiniteExAnim;
         [SerializeField] private Animator _colliderAnim;
         [SerializeField] private Animator _inputsAnim;
+        
         private bool _infiniteEx;
         private bool _showInputs;
         private bool _showColliders;
+
+        private FavorManager _favorManager;
+        private Dictionary<Collider, SpriteRenderer> _fillPair;
+        private Dictionary<Collider, LineRenderer> _wiredPair;
+        
         private Dictionary<string, Sprite> _inputSprites;
         private Queue<GameObject> _inputQueue = new Queue<GameObject>();
         private static readonly int On = Animator.StringToHash("On");
 
-        [Serializable]
-        private class ActionSpritePair
+        private void Awake()
         {
-            public string action;
-            public Sprite sprite;
+            _inputSprites = new Dictionary<string, Sprite>();
+            _favorManager = FindObjectOfType<FavorManager>();
+            
+            // foreach (var pair in _cmmdListReference.actionSpritePairs)
+            // {
+            //     _inputSprites.TryAdd(pair.action, pair.sprite);
+            // }
+            //
+            _fillPair = new Dictionary<Collider, SpriteRenderer>();
+            _wiredPair = new Dictionary<Collider, LineRenderer>();
         }
 
         private void Start()
         {
             HandleInfiniteEx();
-            // _xDistanceBetweenPlayers =
-            //     _fightersManager.player1StartPosition.x + _fightersManager.player2StartPosition.x;
-            _inputSprites = new Dictionary<string, Sprite>();
-            foreach (var pair in _actionSpritePairs)
+            SubscribeToInputs();
+            CreateColliders();
+        }
+
+        private void Update()
+        {
+            if (!_showColliders) return;
+            foreach (var pair in _fillPair)
             {
-                _inputSprites.TryAdd(pair.action, pair.sprite);
+                Vector3 size = pair.Key.gameObject.transform.lossyScale;
+                pair.Value.enabled = pair.Key.enabled;
+                pair.Value.transform.localScale = size;
+                pair.Value.transform.position = pair.Key.transform.position;
             }
 
-            SubscribeToInputs();
+            foreach (var pair in _wiredPair)
+            {
+                Bounds bounds = pair.Key.bounds;
+                Vector3 bl = new Vector3(bounds.center.x - bounds.extents.x, bounds.center.y - bounds.extents.y, bounds.center.z);
+                Vector3 br = new Vector3(bounds.center.x + bounds.extents.x, bounds.center.y - bounds.extents.y, bounds.center.z);
+                Vector3 tl = new Vector3(bounds.center.x - bounds.extents.x, bounds.center.y + bounds.extents.y, bounds.center.z);
+                Vector3 tr = new Vector3(bounds.center.x + bounds.extents.x, bounds.center.y + bounds.extents.y, bounds.center.z);
+                pair.Value.SetPosition(0, bl);
+                pair.Value.SetPosition(1, br);
+                pair.Value.SetPosition(2, tr);
+                pair.Value.SetPosition(3, tl);
+                pair.Value.SetPosition(4, bl);
+            }
         }
 
         private void OnDestroy()
@@ -96,6 +139,23 @@ namespace UI
         public void ToggleShowInputs()
         {
             _showInputs = !_showInputs;
+        }
+
+        public void ResetFavor()
+        {
+            _favorManager.ResetFavorMeter();
+            Services.FavorManager.onGoldenGoalDisabled?.Invoke(0);
+            Services.FavorManager.onGoldenGoalDisabled?.Invoke(1);
+        }
+
+        public void ToggleDebugCollision()
+        {
+            _showColliders = !_showColliders;
+            foreach (var lr in _wiredPair.Values)
+            {
+                lr.enabled = _showColliders;
+            }
+            
         }
         
         private void HandleInfiniteEx()
@@ -197,6 +257,42 @@ namespace UI
         {
             if (dir == Fighter.Direction.Left) return _inputSprites["Move Left"];
             return _inputSprites["Move Right"];
+        }
+
+        private void CreateColliders()
+        {
+            foreach (Fighter fighter in Services.Fighters)
+            {
+                //for each hurt, instantiate a new gameobject and set its colour
+                Collider[] colliders = fighter.GetComponentsInChildren<Collider>();
+                foreach (Collider box in colliders)
+                {
+                    int layer = box.gameObject.layer;
+                    switch (layer)
+                    {
+                        case 7:
+                        {
+                            LineRenderer r = Instantiate(_linePrefab, _collidersParent.transform).GetComponent<LineRenderer>();
+                            r.startColor = _hurtColor;
+                            r.endColor = _hurtColor;
+                            r.startWidth = _lrWidth;
+                            r.endWidth = _lrWidth;
+                            r.positionCount = 5;
+                            r.enabled = false;
+                            _wiredPair.TryAdd(box, r);
+                            break;
+                        }
+                        case 6 or 13:
+                        {
+                            SpriteRenderer spriteRenderer = Instantiate(_spritePrefab, _collidersParent.transform).GetComponent<SpriteRenderer>();
+                            spriteRenderer.color = layer == 6 ? _hitColor : _parryColor;
+                            spriteRenderer.enabled = false;
+                            _fillPair.TryAdd(box, spriteRenderer);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
