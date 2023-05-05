@@ -14,14 +14,14 @@ public class GlideDrone : MonoBehaviour
         _glideAnimator = GetComponent<Animator>();
     }
 
-    void Start()
-    {
-        StartCoroutine(CheckGlide());
-    }
-
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    public void StartCheck()
+    {
+        StartCoroutine(CheckGlide());
     }
 
     private IEnumerator CheckGlide()

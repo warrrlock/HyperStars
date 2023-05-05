@@ -33,11 +33,15 @@ namespace UI
         [SerializeField] private Slider _sliderVoice;
         [SerializeField] private Slider _sliderSfx;
         [SerializeField] private TMP_Dropdown _resDropdown;
+        [SerializeField] private Button _settingsButton;
+        [SerializeField] private TextMeshProUGUI _lbText;
+        [SerializeField] private TextMeshProUGUI _rbText;
 
         [Header("References")]
         [Tooltip("Keep training tab at the end")]
         [SerializeField] private TabAssets[] _tabAssets;
         [SerializeField] private GameObject _menu;
+        [SerializeField] private GameObject _mainMenuSelectablesParent;
         
         [Header("Command List")]
         [SerializeField] private CmmdListReference _commandRef;
@@ -46,16 +50,19 @@ namespace UI
         [SerializeField] private GameObject _commandContainerPrefab;
         [SerializeField] private GameObject _actionPrefab;
         
-        private Fighter _opener;
+        private Player _opener;
         private InputSystemUIInputModule _inputModule;
         private int _currentTab;
         private MenuManager _menuManager;
         private int _maxTabs;
-        private MultiplayerEventSystem _multiplayerEventSystem;
+        private EventSystem _multiplayerEventSystem;
         private Slider[] _sliders = new Slider[5];
         private FullScreenMode[] _fullScreenModes = new FullScreenMode[4];
         private List<GameObject> _commandObjects;
         private Dictionary<string, Sprite> _commandDictionary;
+
+        private Selectable[] _mainMenuSelectables;
+        private GameObject _menuSelected;
 
         private void Awake()
         {
@@ -88,6 +95,11 @@ namespace UI
                 _menu.SetActive(false);
                 _inputModule = _menu.GetComponent<InputSystemUIInputModule>();
             }
+
+            if (_menuManager.IsMainMenu)
+            {
+                _mainMenuSelectables = _mainMenuSelectablesParent.GetComponentsInChildren<Selectable>();
+            }
             
             //if not in training room, turn on training room manager and training tab
             if (_menuManager.IsTraining)
@@ -108,7 +120,9 @@ namespace UI
         {
             for (int i = 0; i < 2; i++)
             {
-                PlayerInput input = Services.Fighters[i].PlayerInput;
+                if (!Services.Players[i]) continue;
+                PlayerInput input = Services.Players[i].PlayerInput;
+                input.actions["Submit"].performed += (i == 0 ? DisplayP1 : DisplayP2);
                 input.actions["Esc"].performed += (i == 0 ? DisplayP1 : DisplayP2);
                 input.actions["Cancel"].performed += (i == 0 ? DisplayP1 : DisplayP2);
                 input.actions["LBRB"].performed += NavigateTabController;
@@ -119,14 +133,18 @@ namespace UI
         {
             for (int i = 0; i < 2; i++)
             {
-                if (!Services.Fighters[i]) continue;
-                Services.Fighters[i].PlayerInput.actions["Esc"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
-                Services.Fighters[i].PlayerInput.actions["Cancel"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
+                if (!Services.Players[i]) continue;
+                PlayerInput input = Services.Players[i].PlayerInput;
+                input.actions["Submit"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
+                input.actions["Esc"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
+                input.actions["Cancel"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
+                input.actions["LBRB"].performed -= NavigateTabController;
             }
         }
 
         public void SetSettingValues()
         {
+            if(!Services.MusicManager) return;
             _sliderMaster.value = Services.MusicManager.masterVolume;
             _sliderMusic.value = Services.MusicManager.musicVolume;
             _sliderCrowd.value = Services.MusicManager.crowdVolume;
@@ -215,7 +233,7 @@ namespace UI
 
         public void SetScreen(int mode)
         {
-            Debug.Log($"would set fullscreen mode to {_fullScreenModes[mode]}");
+            // Debug.Log($"would set fullscreen mode to {_fullScreenModes[mode]}");
             Screen.fullScreenMode = _fullScreenModes[mode];
         }
 
@@ -250,54 +268,89 @@ namespace UI
         private void DisplayP1(InputAction.CallbackContext callbackContext)
         {
             if (!callbackContext.action.WasPerformedThisFrame()) return;
-            Fighter fighter = Services.Fighters[0];
-            // Debug.Log($"fighter {fighter.PlayerInput.currentActionMap}");
-            
-            ToggleMenuSelection(fighter);
+            if (!CheckOpenSettings(callbackContext)) return;
+            Player player = Services.Players[0];
+            ToggleMenuSelection(player);
         }
         
         private void DisplayP2(InputAction.CallbackContext callbackContext)
         {
             if (!callbackContext.action.WasPerformedThisFrame()) return;
-            Fighter fighter = Services.Fighters[1];
-            // Debug.Log($"fighter {fighter.PlayerInput.currentActionMap}");
-            ToggleMenuSelection(fighter);
+            if (!CheckOpenSettings(callbackContext)) return;
+            Player player = Services.Players[1];
+            ToggleMenuSelection(player);
         }
 
-        private void ToggleMenuSelection(Fighter f)
+        private bool CheckOpenSettings(InputAction.CallbackContext callbackContext)
+        {
+            if (callbackContext.action.name == "Submit")
+            {
+                if (_menuManager.IsMainMenu)
+                {
+                    // Debug.Log($"{_menu.activeSelf} {EventSystem.current.currentSelectedGameObject != _settingsButton.gameObject}");
+                    if (_menu.activeSelf) return false;
+                    if (EventSystem.current.currentSelectedGameObject != _settingsButton.gameObject) return false;
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+
+        private void ToggleMenuSelection(Player p)
         {
             // Debug.Log($"{f.name} opening pause menu");
             if (!_menu) return;
-            if (_opener && f != _opener) return;
+            if (_opener && p != _opener) return;
             
             if (_menu.activeSelf) //close menu
             {
                 if (!_opener) return;
                 _opener.PlayerInput.uiInputModule = null;
                 _opener = null;
-                foreach (Fighter fighter in Services.Fighters)
+                foreach (Player player in Services.Players)
                 {
-                    fighter.PlayerInput.currentActionMap.Disable();
-                    fighter.PlayerInput.ActivateInput();
-                    fighter.PlayerInput.SwitchCurrentActionMap(fighter.PlayerInput.defaultActionMap);
+                    if (!player) continue;
+                    player.PlayerInput.currentActionMap.Disable();
+                    player.PlayerInput.ActivateInput();
+                    if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
                 }
 
                 ResetValues();
                 _menu.SetActive(false);
                 exitSfx?.Post(gameObject);
                 Time.timeScale = 1;
+                if (_menuManager.IsMainMenu)
+                {
+                    foreach (var selectable in _mainMenuSelectables)
+                        selectable.interactable = true;
+                    EventSystem.current.SetSelectedGameObject(_menuSelected);
+                }
             }
             else //open menu
             {
-                _opener = f;
-                Time.timeScale = 0;
-                foreach (Fighter fighter in Services.Fighters)
+                if (_menuManager.IsMainMenu)
                 {
-                    fighter.PlayerInput.SwitchCurrentActionMap("UI");
-                    fighter.PlayerInput.currentActionMap.Enable();
-                    if (fighter.PlayerInput.playerIndex != _opener.PlayerId) fighter.PlayerInput.DeactivateInput();
+                    _menuSelected = EventSystem.current.currentSelectedGameObject;
+                    EventSystem.current.SetSelectedGameObject(null);
+                    foreach (var selectable in _mainMenuSelectables)
+                        selectable.interactable = false;
+                }
+                _opener = p;
+                Time.timeScale = 0;
+                
+                foreach (Player player in Services.Players)
+                {
+                    if (!player) continue;
+                    if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap("UI");
+                    player.PlayerInput.currentActionMap.Enable();
+                    if (player.PlayerInput.playerIndex != _opener.PlayerInput.playerIndex) player.PlayerInput.DeactivateInput();
                 }
 
+                bool keyboard = p.PlayerInput.currentControlScheme.Contains("Keyboard");
+                _lbText.text = keyboard ? "q" : "lb";
+                _rbText.text = keyboard ? "e" : "rb";
+                
                 _menu.SetActive(true);
                 pauseSfx?.Post(gameObject);
                 _opener.PlayerInput.uiInputModule = _menu.GetComponent<InputSystemUIInputModule>();

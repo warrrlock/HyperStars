@@ -21,7 +21,7 @@ public class PassDrone : MonoBehaviour
         _passAnimator = GetComponent<Animator>();
     }
 
-    void Start()
+    public void StartCheck()
     {
         StartCoroutine(CheckPass());
     }
