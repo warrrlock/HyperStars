@@ -37,6 +37,9 @@ public class RoundManager : MonoBehaviour
     private Image[] _p0RoundUI;
     private Image[] _p1RoundUI;
 
+
+    Animator m_Animator;
+
     // [SerializeField] List<Sprite> _backgrounds; //TODO: add when we have changing backgrounds
     
     private int _round;
@@ -50,6 +53,8 @@ public class RoundManager : MonoBehaviour
         _round = RoundInformation.round;
         
         SetupInitialVisuals();
+
+        m_Animator = gameObject.GetComponent<Animator>();
     }
 
     private void Start()
@@ -214,6 +219,8 @@ public class RoundManager : MonoBehaviour
         
         //start time/movement
         _countdownText.gameObject.SetActive(false);   //_countdownText.text = _startText;
+        m_Animator.SetTrigger("Begin");
+
         _roundAnnouncerSFXEvents[1].Post(gameObject);
 
         yield return new WaitForSeconds(1.0f);
