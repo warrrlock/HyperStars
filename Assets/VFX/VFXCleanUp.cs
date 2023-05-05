@@ -29,7 +29,7 @@ public class VFXCleanUp : MonoBehaviour
             _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
             switch (VFXType)
             {
-                case VFXTypes.Hit_Character or VFXTypes.Hit_Special:
+                case VFXTypes.Hit_Character or VFXTypes.Hit_Special or VFXTypes.Hit_TakeDamage:
                     ChangeColor();
                     break;
             }
@@ -43,14 +43,8 @@ public class VFXCleanUp : MonoBehaviour
         //     _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
         // }
         _lifeTime += isUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
-        if (canUseUnscaledTime)
-        {
-            _vfx.SetFloat("UnscaledTime", _lifeTime);
-        }
-        if (followCharacter)
-        {
-            transform.position = f.transform.position;
-        }
+        if (canUseUnscaledTime) _vfx.SetFloat("UnscaledTime", _lifeTime);
+        if (followCharacter) transform.position = f.transform.position;
     }
 
     void ChangeColor()
@@ -61,7 +55,7 @@ public class VFXCleanUp : MonoBehaviour
 
     IEnumerator SelfDestroy()
     {
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(_vfx.GetFloat("Life") + .1f);
         Destroy(gameObject);
     }
 }
