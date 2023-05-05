@@ -55,7 +55,7 @@ public class VFXCleanUp : MonoBehaviour
 
     IEnumerator SelfDestroy()
     {
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(_vfx.GetFloat("Life") + .1f);
         Destroy(gameObject);
     }
 }

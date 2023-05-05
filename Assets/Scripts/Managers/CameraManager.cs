@@ -93,9 +93,13 @@ public class CameraManager : MonoBehaviour
         {
             DeactivateUi();
         }
+        else
+        {
+            onCameraSwitch?.Invoke();
+        }
 
         _camera.enabled = false;
-        onCameraSwitch?.Invoke();
+        //onCameraSwitch?.Invoke();
     }
 
     private void DeactivateUi()
@@ -261,7 +265,7 @@ public class CameraManager : MonoBehaviour
 
     private void SwitchCamera()
     {
-        _cinemachineCamera.enabled = false;
+        if(_cinemachineCamera) _cinemachineCamera.enabled = false;
         _camera.enabled = true;
         StartCoroutine(InitialZoomOut());
     }

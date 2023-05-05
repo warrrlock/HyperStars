@@ -106,6 +106,9 @@ public class FavorManager : MonoBehaviour
     public delegate void GoldenGoalDisable(int player);
     public GoldenGoalDisable onGoldenGoalDisabled;
 
+    [SerializeField] private Image[] _sadges;
+    private bool[] _isSadge = new bool[2] { false, false };
+
     private void Awake()
     {
         Services.FavorManager = this;
@@ -141,6 +144,7 @@ public class FavorManager : MonoBehaviour
             _portraitScales[i] = Mathf.Lerp(_portraitScaleBounds.x, _portraitScaleBounds.y, 0.5f);
             _portraitOutlines[i].rectTransform.localScale = new Vector3(_portraitScales[i], _portraitScales[i], _portraitScales[i]);
             _portraitOutlines[i].color = _glowColors[i];
+            MakeSadge(i, false);
         }
         UpdateFavorMeter();
     }
@@ -172,6 +176,10 @@ public class FavorManager : MonoBehaviour
             _p2ChipRect.fillAmount = 0;
             _p2ChipFill = 0;
         }
+        for (int i = 0; i < 2; i++)
+        {
+            MakeSadge(i, false);
+        }
         UpdateFavorMeter();
     }
 
@@ -202,6 +210,7 @@ public class FavorManager : MonoBehaviour
                     {"winnerId", playerId}
                 };
                     if (_winConditionEvent) _winConditionEvent.Raise(result);
+                    return;
                 }
             }
         }
@@ -274,6 +283,16 @@ public class FavorManager : MonoBehaviour
                 {
                     onGoldenGoalDisabled?.Invoke(1);
                 }
+
+                //sadge
+                if (_favor < -MaxFavor / 3f)
+                {
+                    if (!_isSadge[1])
+                    {
+                        MakeSadge(1);
+                        Debug.Log("coo");
+                    }
+                }
                 break;
             case 1:
                 if (_favor >= MaxFavor)
@@ -287,8 +306,27 @@ public class FavorManager : MonoBehaviour
                 {
                     onGoldenGoalDisabled?.Invoke(0);
                 }
+
+                //sadge
+                if (_favor > MaxFavor / 3f)
+                {
+                    if (!_isSadge[0])
+                    {
+                        MakeSadge(0);
+                        Debug.Log("coo");
+                    }
+                }
+                else
+                {
+
+                }
                 break;
         }
+        if (_isSadge[_favoredPlayer])
+        {
+            MakeSadge(_favoredPlayer, false);
+        }
+
         //if (_favor > _peakFavors[playerId])
         //{
         //    _peakFavors[playerId] = _favor;
@@ -321,6 +359,12 @@ public class FavorManager : MonoBehaviour
                 break;
         }
         UpdateFavorMeter();
+    }
+
+    private void MakeSadge(int playerId, bool yes = true)
+    {
+        _sadges[playerId].enabled = yes;
+        _isSadge[playerId] = yes;
     }
 
     private void UpdateFavorMeter(bool shouldChip = false)
