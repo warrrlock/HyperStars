@@ -29,7 +29,7 @@ public class VFXCleanUp : MonoBehaviour
             _vfx.SetBool("FaceLeft", isMoveBased ? f.MovingDirection == Fighter.Direction.Left : f.FacingDirection == Fighter.Direction.Left);
             switch (VFXType)
             {
-                case VFXTypes.Hit_Character or VFXTypes.Hit_Special:
+                case VFXTypes.Hit_Character or VFXTypes.Hit_Special or VFXTypes.Hit_TakeDamage:
                     ChangeColor();
                     break;
             }

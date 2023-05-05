@@ -55,7 +55,10 @@ VisualEffect:
         m_Name: Life
         m_Overridden: 1
     m_Vector2f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 9, y: 1}
+        m_Name: FlipbookSize
+        m_Overridden: 1
     m_Vector3f:
       m_Array: []
     m_Vector4f:
@@ -134,9 +137,9 @@ VisualEffect:
         m_Overridden: 1
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: 804b9764088ee7e4a8d7949ad8bee6ff, type: 3}
+      - m_Value: {fileID: 2800000, guid: 2e5892f42d4d08e4fb804202e0fc20ac, type: 3}
         m_Name: MainTex2D
-        m_Overridden: 0
+        m_Overridden: 1
     m_Bool:
       m_Array:
       - m_Value: 1
@@ -198,6 +201,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   f: {fileID: 0}
+  isUnscaledTime: 0
+  doNoSelfDestroy: 0
   VFXType: 3
   isMoveBased: 1
   canUseUnscaledTime: 0
+  followCharacter: 0
