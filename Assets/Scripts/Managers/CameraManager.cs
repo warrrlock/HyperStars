@@ -261,7 +261,7 @@ public class CameraManager : MonoBehaviour
 
     private void SwitchCamera()
     {
-        _cinemachineCamera.enabled = false;
+        if(_cinemachineCamera) _cinemachineCamera.enabled = false;
         _camera.enabled = true;
         StartCoroutine(InitialZoomOut());
     }
