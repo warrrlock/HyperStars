@@ -228,7 +228,7 @@ public class RoundManager : MonoBehaviour
         
 
         yield return new WaitForSeconds(0.5f);
-        _countdownText.gameObject.SetActive(false);
+        //_countdownText.gameObject.SetActive(false);
 
         _roundAnnouncerSFXEvents[1].Post(gameObject);
 

@@ -92,13 +92,14 @@ public class CameraManager : MonoBehaviour
         if (RoundInformation.round == 1)
         {
             DeactivateUi();
+            _camera.enabled = false;
         }
         else
         {
             onCameraSwitch?.Invoke();
         }
 
-        _camera.enabled = false;
+        //_camera.enabled = false;
         //onCameraSwitch?.Invoke();
     }
 
@@ -251,16 +252,24 @@ public class CameraManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
+        if (RoundInformation.round == 1)
+        {
+            onCameraFinalized += ActivateUi;
+        }
         onCameraSwitch += SwitchCamera;
         onCameraFinalized += FinalizeCamera;
-        onCameraFinalized += ActivateUi;
+        //onCameraFinalized += ActivateUi;
     }
 
     private void UnsubscribeEvents()
     {
+        if (RoundInformation.round == 1)
+        {
+            onCameraFinalized -= ActivateUi;
+        }
         onCameraSwitch -= SwitchCamera;
         onCameraFinalized -= FinalizeCamera;
-        onCameraFinalized -= ActivateUi;
+        //onCameraFinalized -= ActivateUi;
     }
 
     private void SwitchCamera()
