@@ -26,7 +26,6 @@ public class triggerAnimation : MonoBehaviour
     {
         if(begin == 1){
             m_Animator.SetTrigger("Begin");
-            begin = 0;
         }
     }
 }
