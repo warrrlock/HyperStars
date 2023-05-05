@@ -34,6 +34,8 @@ namespace UI
         [SerializeField] private Slider _sliderSfx;
         [SerializeField] private TMP_Dropdown _resDropdown;
         [SerializeField] private Button _settingsButton;
+        [SerializeField] private TextMeshProUGUI _lbText;
+        [SerializeField] private TextMeshProUGUI _rbText;
 
         [Header("References")]
         [Tooltip("Keep training tab at the end")]
@@ -304,15 +306,12 @@ namespace UI
                 if (!_opener) return;
                 _opener.PlayerInput.uiInputModule = null;
                 _opener = null;
-                if (p)
+                foreach (Player player in Services.Players)
                 {
-                    foreach (Player player in Services.Players)
-                    {
-                        if (!player) continue;
-                        player.PlayerInput.currentActionMap.Disable();
-                        player.PlayerInput.ActivateInput();
-                        if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
-                    }
+                    if (!player) continue;
+                    player.PlayerInput.currentActionMap.Disable();
+                    player.PlayerInput.ActivateInput();
+                    if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
                 }
 
                 ResetValues();
@@ -337,17 +336,19 @@ namespace UI
                 }
                 _opener = p;
                 Time.timeScale = 0;
-                if (p)
+                
+                foreach (Player player in Services.Players)
                 {
-                    foreach (Player player in Services.Players)
-                    {
-                        if (!player) continue;
-                        if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap("UI");
-                        player.PlayerInput.currentActionMap.Enable();
-                        if (player.PlayerInput.playerIndex != _opener.PlayerInput.playerIndex) player.PlayerInput.DeactivateInput();
-                    }
+                    if (!player) continue;
+                    if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap("UI");
+                    player.PlayerInput.currentActionMap.Enable();
+                    if (player.PlayerInput.playerIndex != _opener.PlayerInput.playerIndex) player.PlayerInput.DeactivateInput();
                 }
 
+                bool keyboard = p.PlayerInput.currentControlScheme.Contains("Keyboard");
+                _lbText.text = keyboard ? "q" : "lb";
+                _rbText.text = keyboard ? "e" : "rb";
+                
                 _menu.SetActive(true);
                 pauseSfx?.Post(gameObject);
                 _opener.PlayerInput.uiInputModule = _menu.GetComponent<InputSystemUIInputModule>();
