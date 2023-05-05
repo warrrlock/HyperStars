@@ -452,6 +452,8 @@ namespace FiniteStateMachine {
             yield return new WaitForFixedUpdate();
             _hurtStates.TryGetValue(stateName, out HurtState newHurtState);
             if (!newHurtState) yield break;
+            
+            if (_allowRecover) DisableRecovery();
 
             // Debug.LogWarning($"setting hurtstate to {stateName}");
             SetReturnState();
@@ -463,7 +465,7 @@ namespace FiniteStateMachine {
                     {
                         PassHurtState(newHurtState, duration);
                     }
-                    _allowRecover = !hardKnockdown;
+                    _allowRecover = true;
                     yield break;
                 }
                 // Debug.Log($"re-executing current state of type {hurtState.HurtType}");
@@ -472,7 +474,7 @@ namespace FiniteStateMachine {
             else
                 PassHurtState(newHurtState, duration);
             // Debug.Log($"{name} got hit, hardKnockdown is {hardKnockdown}");
-            _allowRecover = !hardKnockdown;
+            _allowRecover = true;
         }
 
         private void UpdateHurtState(KeyHurtStatePair.HurtStateName stateName)
@@ -663,9 +665,8 @@ namespace FiniteStateMachine {
 
         private void EnableRecovery()
         {
-            if (_allowRecover) return;
+            if (!_allowRecover) return;
             // Debug.Log("enable recovery");
-            _allowRecover = true;
             Fighter.InputManager.EnableOneShot(Fighter.InputManager.Actions["Roll"]);
         }
         

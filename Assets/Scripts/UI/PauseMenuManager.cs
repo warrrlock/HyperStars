@@ -283,14 +283,16 @@ namespace UI
 
         private bool CheckOpenSettings(InputAction.CallbackContext callbackContext)
         {
-            if (_menuManager.IsMainMenu)
+            if (callbackContext.action.name == "Submit")
             {
-                if (callbackContext.action.name == "Submit")
+                if (_menuManager.IsMainMenu)
                 {
-                    // Debug.Log($"{_menu.activeSelf} {EventSystem.current.currentSelectedGameObject != _settingsButton.gameObject}");
+                    Debug.Log($"{_menu.activeSelf} {EventSystem.current.currentSelectedGameObject != _settingsButton.gameObject}");
                     if (_menu.activeSelf) return false;
                     if (EventSystem.current.currentSelectedGameObject != _settingsButton.gameObject) return false;
+                    return true;
                 }
+                return false;
             }
             return true;
         }
