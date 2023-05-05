@@ -287,7 +287,7 @@ namespace UI
             {
                 if (_menuManager.IsMainMenu)
                 {
-                    Debug.Log($"{_menu.activeSelf} {EventSystem.current.currentSelectedGameObject != _settingsButton.gameObject}");
+                    // Debug.Log($"{_menu.activeSelf} {EventSystem.current.currentSelectedGameObject != _settingsButton.gameObject}");
                     if (_menu.activeSelf) return false;
                     if (EventSystem.current.currentSelectedGameObject != _settingsButton.gameObject) return false;
                     return true;
