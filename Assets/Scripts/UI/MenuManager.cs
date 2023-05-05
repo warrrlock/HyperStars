@@ -14,6 +14,7 @@ public class MenuManager: MonoBehaviour
     [SerializeField] private BuildSettingIndices _indices;
     public bool IsTrainingSelection { get; private set; }
     public bool IsTraining { get; private set; }
+    public bool IsMainMenu { get; private set; }
     
 
     private void Awake()
@@ -21,6 +22,7 @@ public class MenuManager: MonoBehaviour
         int index = SceneManager.GetActiveScene().buildIndex;
         IsTrainingSelection =  index == _indices.trainingSelectionScene;
         IsTraining = index == _indices.trainingScene;
+        IsMainMenu = index == _indices.mainMenuScene;
     }
 
     private void OnDestroy()
