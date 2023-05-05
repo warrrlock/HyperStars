@@ -93,9 +93,13 @@ public class CameraManager : MonoBehaviour
         {
             DeactivateUi();
         }
+        else
+        {
+            onCameraSwitch?.Invoke();
+        }
 
         _camera.enabled = false;
-        onCameraSwitch?.Invoke();
+        //onCameraSwitch?.Invoke();
     }
 
     private void DeactivateUi()
