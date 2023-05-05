@@ -112,12 +112,14 @@ public class FavorManager : MonoBehaviour
     private void Awake()
     {
         Services.FavorManager = this;
+        AssignComponents();
+        SubscribeEvents();
     }
 
     private void Start()
     {
-        AssignComponents();
-        SubscribeEvents();
+        //AssignComponents();
+        //SubscribeEvents();
         MaxFavor = _maxFavorInitial;
 
         _initialWidth = _favorMeter.rect.width;
@@ -290,7 +292,6 @@ public class FavorManager : MonoBehaviour
                     if (!_isSadge[1])
                     {
                         MakeSadge(1);
-                        Debug.Log("coo");
                     }
                 }
                 break;
@@ -313,7 +314,6 @@ public class FavorManager : MonoBehaviour
                     if (!_isSadge[0])
                     {
                         MakeSadge(0);
-                        Debug.Log("coo");
                     }
                 }
                 else
@@ -651,6 +651,7 @@ public class FavorManager : MonoBehaviour
 
     private void GoldenGoalGet(int player)
     {
+        Debug.Log("golden goal");
         _favorMeterIndicatorOutlineMaterial.SetColor("_OutlineColor", _glowColors[2]);
         _portraitOutlines[player].color = _glowColors[2];
     }
