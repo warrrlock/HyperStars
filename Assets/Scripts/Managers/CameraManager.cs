@@ -12,6 +12,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(CameraController))]
 public class CameraManager : MonoBehaviour
 {
+    [SerializeField] private Camera _cinemachineCamera;
     //[SerializeField] private float _minCameraSize;
     //[SerializeField] private float _maxCameraSize;
     [SerializeField] private Transform _cameraDefaultTransform;
@@ -93,6 +94,7 @@ public class CameraManager : MonoBehaviour
             DeactivateUi();
         }
 
+        _camera.enabled = false;
         onCameraSwitch?.Invoke();
     }
 
@@ -259,6 +261,8 @@ public class CameraManager : MonoBehaviour
 
     private void SwitchCamera()
     {
+        _cinemachineCamera.enabled = false;
+        _camera.enabled = true;
         StartCoroutine(InitialZoomOut());
     }
 
