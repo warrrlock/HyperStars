@@ -218,8 +218,10 @@ public class RoundManager : MonoBehaviour
         //TODO: any necessary UI
         
         //start time/movement
-        _countdownText.gameObject.SetActive(false);   //_countdownText.text = _startText;
+        //m_Animator.Play("Begin", 0, 0);
         m_Animator.SetTrigger("Begin");
+        _countdownText.gameObject.SetActive(false);   //_countdownText.text = _startText;
+        
 
         _roundAnnouncerSFXEvents[1].Post(gameObject);
 
