@@ -66,7 +66,7 @@ public class Fighter : MonoBehaviour
         FacingDirection = Direction.Right;
         // invulnerabilityCount = 0;
         SubscribeActions();
-        SubscribeEvents();
+        //SubscribeEvents();
         //transform.position = PlayerId == 0 ? FightersManager.player1StartPosition : FightersManager.player2StartPosition;
         //GetComponent<SpriteRenderer>().color = PlayerId == 0 ? FightersManager.player1Color : FightersManager.player2Color;
         //FacingDirection = OpposingFighter.transform.position.x > transform.position.x ? Direction.Right : Direction.Left;
@@ -91,8 +91,8 @@ public class Fighter : MonoBehaviour
         MovementController.ResetValues();
         OverlapDetector.ReassignFighter();
         ResetFighterHurtboxes();
-        Services.FavorManager.onGoldenGoalDisabled?.Invoke(0);
-        Services.FavorManager.onGoldenGoalDisabled?.Invoke(1);
+        SubscribeEvents();
+        Services.FavorManager.onGoldenGoalDisabled?.Invoke(PlayerId);
     }
 
     private void OnDestroy()
