@@ -6,6 +6,8 @@ using Cyan;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using Util;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Camera))]
@@ -28,6 +30,8 @@ public class CameraManager : MonoBehaviour
     [Header("Cutscene")]
     private Vector3 _statueCameraPosition = new Vector3(0f, 20f, 300f);
     [SerializeField] private float _initialZoomOutDuration;
+    [Tooltip("How long between the game camera reaching its destination and the UI elements appearing.")]
+    [SerializeField] private float _preUiDuration;
 
     private Camera _camera;
     private CameraController _controller;
@@ -89,6 +93,12 @@ public class CameraManager : MonoBehaviour
 
         //SubscribeEvents();
 
+        if (SceneInfo.IsTraining)
+        {
+            onCameraSwitch?.Invoke();
+            return;
+        }
+
         if (RoundInformation.round == 1)
         {
             DeactivateUi();
@@ -98,9 +108,6 @@ public class CameraManager : MonoBehaviour
         {
             onCameraSwitch?.Invoke();
         }
-
-        //_camera.enabled = false;
-        //onCameraSwitch?.Invoke();
     }
 
     private void DeactivateUi()
@@ -274,8 +281,20 @@ public class CameraManager : MonoBehaviour
 
     private void SwitchCamera()
     {
-        if(_cinemachineCamera) _cinemachineCamera.enabled = false;
+        if (SceneInfo.IsTraining)
+        {
+            onCameraFinalized?.Invoke();
+            return;
+        }
+
+        if (_cinemachineCamera) _cinemachineCamera.enabled = false;
         _camera.enabled = true;
+        if (RoundInformation.round != 1)
+        {
+            onCameraFinalized?.Invoke();
+            return;
+        }
+
         StartCoroutine(InitialZoomOut());
     }
 
@@ -286,12 +305,12 @@ public class CameraManager : MonoBehaviour
 
     private IEnumerator InitialZoomOut()
     {
-        yield return new WaitForFixedUpdate();
-        if (RoundInformation.round != 1)
-        {
-            onCameraFinalized?.Invoke();
-            yield break;
-        }
+        //yield return new WaitForFixedUpdate();
+        //if (RoundInformation.round != 1)
+        //{
+        //    onCameraFinalized?.Invoke();
+        //    yield break;
+        //}
         FindStartCameraPosition();
         _statueCameraPosition.x = _destination.x;
         _camera.transform.localPosition = _statueCameraPosition;
@@ -303,6 +322,8 @@ public class CameraManager : MonoBehaviour
             _camera.transform.localPosition = Vector3.Lerp(_statueCameraPosition, _destination, timer / _initialZoomOutDuration);
         }
         _camera.transform.localPosition = _destination;
+        yield return new WaitForSeconds(_preUiDuration);
+
         onCameraFinalized?.Invoke();
         yield break;
     }
