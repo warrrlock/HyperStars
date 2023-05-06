@@ -147,7 +147,7 @@ public class Player: MonoBehaviour
         _ready = false;
         CharacterSelected = false;
         Services.Characters[PlayerInput.playerIndex] = null;
-        // Services.Fighters[PlayerInput.playerIndex] = null;
+        Services.Fighters[PlayerInput.playerIndex] = null;
     }
 
     private void SetSelectionUI()
@@ -202,7 +202,10 @@ public class Player: MonoBehaviour
     {
         if (scene.buildIndex == _indices.mainMenuScene)
         {
-            Destroy(gameObject);
+            ResetPlayer();
+            PlayerInput.SwitchCurrentActionMap("UI");
+            // Services.Players[PlayerInput.playerIndex] = null;
+            // Destroy(gameObject);
         }
         else if (scene.buildIndex == _indices.selectionScene || scene.buildIndex == _indices.trainingSelectionScene)
         {
