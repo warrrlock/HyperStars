@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Projectile : MonoBehaviour
 {
@@ -25,6 +28,8 @@ public class Projectile : MonoBehaviour
     private int _xDirection;
     private bool _hit; //TODO: change if there are projectiles that don't get destroyed on hit
 
+    private Collider _collider;
+
     public void Spawn(Fighter origin, Bounds bounds)
     {
         _owner = origin;
@@ -46,6 +51,19 @@ public class Projectile : MonoBehaviour
             action.Execute(this);
         if (transform.position.x < origin.transform.position.x) transform.localScale = new Vector3(
             transform.localScale.x * -1f, transform.localScale.y, transform.localScale.z);
+
+        _collider = gameObject.GetComponent<Collider>();
+        if (!_collider) _collider = transform.GetChild(0).GetComponent<Collider>();
+        //in training create collider
+        if (Services.TrainingRoomManager)
+        {
+            Services.TrainingRoomManager.CreateFillCollider(_collider, gameObject.layer);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Services.TrainingRoomManager) Services.TrainingRoomManager.RemoveFillCollider(_collider);
     }
 
     public void DestroyIn(float time)
@@ -55,7 +73,7 @@ public class Projectile : MonoBehaviour
 
     public void MakeInvisible()
     {
-        gameObject.GetComponent<Collider>().enabled = false;
+        _collider.enabled = false;
         SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
         if (!renderer) renderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         renderer.enabled = false;
