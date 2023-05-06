@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Managers;
+using UI;
 using UnityEngine;
 
 public static class Services
@@ -17,4 +18,5 @@ public static class Services
     public static AttackInfoManager AttackInfoManager;
     
     public static MusicManager MusicManager;
+    public static TrainingRoomManager TrainingRoomManager;
 }

@@ -53,6 +53,7 @@ namespace UI
 
         private void Awake()
         {
+            Services.TrainingRoomManager = this;
             _inputSprites = new Dictionary<string, Sprite>();
             _favorManager = FindObjectOfType<FavorManager>();
             
@@ -77,10 +78,9 @@ namespace UI
             if (!_showColliders) return;
             foreach (var pair in _fillPair)
             {
-                Vector3 size = pair.Key.gameObject.transform.lossyScale;
                 pair.Value.enabled = pair.Key.enabled;
-                pair.Value.transform.localScale = size;
-                pair.Value.transform.position = pair.Key.transform.position;
+                pair.Value.transform.localScale = pair.Key.bounds.size;
+                pair.Value.transform.position = pair.Key.bounds.center;
             }
 
             foreach (var pair in _wiredPair)
@@ -101,6 +101,7 @@ namespace UI
         private void OnDestroy()
         {
             UnsubscribeToInputs();
+            Services.TrainingRoomManager = null;
         }
 
         public void SetSwitchValues()
@@ -284,15 +285,25 @@ namespace UI
                         }
                         case 6 or 13:
                         {
-                            SpriteRenderer spriteRenderer = Instantiate(_spritePrefab, _collidersParent.transform).GetComponent<SpriteRenderer>();
-                            spriteRenderer.color = layer == 6 ? _hitColor : _parryColor;
-                            spriteRenderer.enabled = false;
-                            _fillPair.TryAdd(box, spriteRenderer);
+                            CreateFillCollider(box, layer);
                             break;
                         }
                     }
                 }
             }
+        }
+
+        public void CreateFillCollider(Collider box, int layer)
+        {
+            SpriteRenderer spriteRenderer = Instantiate(_spritePrefab, _collidersParent.transform).GetComponent<SpriteRenderer>();
+            spriteRenderer.color = layer == 6 ? _hitColor : _parryColor;
+            spriteRenderer.enabled = false;
+            _fillPair.TryAdd(box, spriteRenderer);
+        }
+
+        public void RemoveFillCollider(Collider box)
+        {
+            _fillPair.Remove(box);
         }
     }
 }

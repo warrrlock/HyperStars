@@ -26,6 +26,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private string _startText;
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] int _countdown;
+    [SerializeField] private string _knockoutText;
     
     [Header("Round UI")]
     [SerializeField] private FightersManager _fightersManager;
@@ -262,7 +263,7 @@ public class RoundManager : MonoBehaviour
         if (_roundText)
         {
             _roundText.gameObject.SetActive(true);
-            _roundText.text = winner == -1 ? "Tie!" : $"Player{winner+1} won the round!";
+            _roundText.text = winner == -1 ? "Tie!" : _knockoutText == "" ? $"Player{winner+1} won the round!" : _knockoutText;
         }
         
         StartCoroutine(HandleStartNextRound());
