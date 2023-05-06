@@ -128,54 +128,7 @@ public class CameraManager : MonoBehaviour
     {
         if(_hasGameStarted)
         {
-            _targetsMidPointX = (_targets[0].position.x + _targets[1].position.x) / 2f;
-            _targetsMidPointY = ((_targets[0].position.y + _targets[1].position.y) / 2f) - _defaultTargetY;
-            //_destination = new Vector3(_targetsMidPointX, _camera.transform.position.y, _camera.transform.position.z);
-            if (_targetsMidPointY < _minFightersDistanceY)
-            {
-                _targetsMidPointY = 0f;
-            }
-            _targetsMidPointX += _defaultX;
-            _targetsMidPointY += _defaultY;
-            _destination = new Vector3(_targetsMidPointX, _targetsMidPointY, _camera.transform.position.z);
-            float fightersDistanceX = Mathf.Abs(_targets[1].position.x - _targets[0].position.x);
-            //if (fightersDistanceX < _maxFightersDistanceX)
-            //{
-            //    _destination.z = -fightersDistanceX * 1.5f;
-            //}
-            //_destination.z = -fightersDistanceX * 1.5f;
-            float xZdest = -fightersDistanceX * 1.5f;
-            float fightersDistanceY = Mathf.Abs(_targets[1].position.y - _targets[0].position.y);
-            if (_lastDistanceY <= -Mathf.Infinity)
-            {
-                _lastDistanceY = fightersDistanceY;
-            }
-            float multiplier = Mathf.Lerp(3f, 0f, fightersDistanceX / 20f);
-            //float multiplier = 10f / fightersDistanceX;
-            //if (fightersDistanceY > _minFightersDistanceY && fightersDistanceY < _maxFightersDistanceY)
-            //{
-            //    _destination.z += fightersDistanceY * multiplier;
-            //}
-            //else
-            //{
-            //    _destination.z -= fightersDistanceY * multiplier;
-            //}
-            //float zDelta = fightersDistanceY - _lastDistanceY;
-            float yZdest = 0f;
-            if (fightersDistanceY > _lastDistanceY)
-            {
-                //Debug.Log("zdelta: " + zDelta);
-                //_destination.z -= zDelta * 100f;
-                yZdest = -fightersDistanceY * multiplier;
-            }
-            else if (fightersDistanceY < _lastDistanceY)
-            {
-                //_destination.z -= zDelta * 100f;
-                yZdest = fightersDistanceY * multiplier;
-            }
-            _lastDistanceY = fightersDistanceY;
-            _destination.z = xZdest + yZdest;
-            _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _maxCameraZ);
+            SetCameraDestination();
         }
     }
 
@@ -199,7 +152,7 @@ public class CameraManager : MonoBehaviour
         UnsubscribeEvents();
     }
 
-    private void FindStartCameraPosition()
+    private void SetCameraDestination()
     {
         _targetsMidPointX = (_targets[0].position.x + _targets[1].position.x) / 2f;
         _targetsMidPointY = ((_targets[0].position.y + _targets[1].position.y) / 2f) - _defaultTargetY;
@@ -265,7 +218,6 @@ public class CameraManager : MonoBehaviour
         }
         onCameraSwitch += SwitchCamera;
         onCameraFinalized += FinalizeCamera;
-        //onCameraFinalized += ActivateUi;
     }
 
     private void UnsubscribeEvents()
@@ -276,7 +228,6 @@ public class CameraManager : MonoBehaviour
         }
         onCameraSwitch -= SwitchCamera;
         onCameraFinalized -= FinalizeCamera;
-        //onCameraFinalized -= ActivateUi;
     }
 
     private void SwitchCamera()
@@ -311,7 +262,7 @@ public class CameraManager : MonoBehaviour
         //    onCameraFinalized?.Invoke();
         //    yield break;
         //}
-        FindStartCameraPosition();
+        SetCameraDestination();
         _statueCameraPosition.x = _destination.x;
         _camera.transform.localPosition = _statueCameraPosition;
         float timer = 0f;
