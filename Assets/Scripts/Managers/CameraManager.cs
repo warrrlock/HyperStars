@@ -259,7 +259,7 @@ public class CameraManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        if (RoundInformation.round == 1)
+        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
         {
             onCameraFinalized += ActivateUi;
         }
@@ -270,7 +270,7 @@ public class CameraManager : MonoBehaviour
 
     private void UnsubscribeEvents()
     {
-        if (RoundInformation.round == 1)
+        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
         {
             onCameraFinalized -= ActivateUi;
         }
