@@ -76,8 +76,10 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.wallBounce += WallWave;
         _fighter.Events.onHardKnockdown += Dizzy;
         _fighter.Events.exitHardKnockdown += StopDizzy;
-        Services.FavorManager.onGoldenGoalEnabled += ctx => TurnOnGoldenGoal(ctx);
-        Services.FavorManager.onGoldenGoalDisabled += ctx => TurnOffGoldenGoal(ctx);
+        SceneReloader.OnSceneLoaded += () => {
+            Services.FavorManager.onGoldenGoalEnabled += ctx => TurnOnGoldenGoal(ctx);
+            Services.FavorManager.onGoldenGoalDisabled += ctx => TurnOffGoldenGoal(ctx);
+        };
     }
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
