@@ -38,6 +38,11 @@ public class RoundManager : MonoBehaviour
     private Image[] _p0RoundUI;
     private Image[] _p1RoundUI;
 
+
+    //Animator m_Animator;
+    public GameObject showtimeObject;
+    private triggerAnimation _showtimeScript;
+
     // [SerializeField] List<Sprite> _backgrounds; //TODO: add when we have changing backgrounds
     
     private int _round;
@@ -51,9 +56,35 @@ public class RoundManager : MonoBehaviour
         _round = RoundInformation.round;
         
         SetupInitialVisuals();
+
+        //m_Animator = gameObject.GetComponent<Animator>();
     }
 
     private void Start()
+    {
+        _countdownText.gameObject.SetActive(false);
+
+        //StartCoroutine(StartRound());
+        SubscribeEvents();
+
+        //stop time/movement
+        DisableAllInput();
+
+        _showtimeScript = showtimeObject.GetComponent<triggerAnimation>();
+
+    }
+
+    private void SubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized += Begin;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized -= Begin;
+    }
+
+    private void Begin()
     {
         StartCoroutine(StartRound());
     }
@@ -61,6 +92,7 @@ public class RoundManager : MonoBehaviour
     private void OnDestroy()
     {
         EnableAllInput();
+        UnsubscribeEvents();
     }
     
     //used in event (inspector)
@@ -164,8 +196,8 @@ public class RoundManager : MonoBehaviour
         if (!_countdownText) yield break;
         _countdownText.gameObject.SetActive(true);
        
-        //stop time/movement
-        DisableAllInput();
+        ////stop time/movement
+        //DisableAllInput();
 
         //begin count down
         _countdownText.text = $"Round {_round}";
@@ -192,11 +224,17 @@ public class RoundManager : MonoBehaviour
         //TODO: any necessary UI
         
         //start time/movement
-        _countdownText.text = _startText;
+        _showtimeScript.begin = 1;
+        _countdownText.gameObject.SetActive(false);   //_countdownText.text = _startText;
+        
+
+        yield return new WaitForSeconds(0.5f);
+        //_countdownText.gameObject.SetActive(false);
+
         _roundAnnouncerSFXEvents[1].Post(gameObject);
 
-        yield return new WaitForSeconds(1.0f);
-        _countdownText.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(2.0f);
         
         EnableAllInput();
         StartCoroutine(HandleRoundStart());

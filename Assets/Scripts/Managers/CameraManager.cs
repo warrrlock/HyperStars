@@ -6,12 +6,15 @@ using Cyan;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using Util;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(CameraController))]
 public class CameraManager : MonoBehaviour
 {
+    [SerializeField] private Camera _cinemachineCamera;
     //[SerializeField] private float _minCameraSize;
     //[SerializeField] private float _maxCameraSize;
     [SerializeField] private Transform _cameraDefaultTransform;
@@ -23,6 +26,12 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _cameraCatchUpSpeedUp; //how quickly the camera to catch up to its target while going up
     [SerializeField] private float _cameraCatchUpSpeedDown; //how quickly the camera to catch up to its target while going down
     [SerializeField] private float _cameraCatchUpSpeedZ; //how quickly the camera to catch up to its target forward
+
+    [Header("Cutscene")]
+    private Vector3 _statueCameraPosition = new Vector3(0f, 20f, 300f);
+    [SerializeField] private float _initialZoomOutDuration;
+    [Tooltip("How long between the game camera reaching its destination and the UI elements appearing.")]
+    [SerializeField] private float _preUiDuration;
 
     private Camera _camera;
     private CameraController _controller;
@@ -46,11 +55,24 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Camera silhouetteCamera;
     [SerializeField] private Material shockwaveMaterial;
 
+    private bool _hasGameStarted = false;
+
+    public delegate void CameraSwitch();
+    public CameraSwitch onCameraSwitch;
+    public delegate void CameraFinalized();
+    public CameraFinalized onCameraFinalized;
+
+    [SerializeField] private GameObject _favorCanvas;
+    [SerializeField] private GameObject _roundsCanvas;
+    [SerializeField] private GameObject _specialMeterCanvas;
+
     private void Awake()
     {
         Services.CameraManager = this;
         AssignComponents();
         defaultDistortion = ieMaterial.GetFloat("_distortion");
+
+        SubscribeEvents();
     }
 
     private void Start()
@@ -68,9 +90,69 @@ public class CameraManager : MonoBehaviour
         _defaultRotation = transform.eulerAngles;
         // default ratio
         shockwaveMaterial.SetFloat("_SizeRatio", Camera.main.aspect);
+
+        //SubscribeEvents();
+
+        if (SceneInfo.IsTraining)
+        {
+            onCameraSwitch?.Invoke();
+            return;
+        }
+
+        if (RoundInformation.round == 1)
+        {
+            DeactivateUi();
+            _camera.enabled = false;
+        }
+        else
+        {
+            onCameraSwitch?.Invoke();
+        }
+    }
+
+    private void DeactivateUi()
+    {
+        _favorCanvas.SetActive(false);
+        _roundsCanvas.SetActive(false);
+        _specialMeterCanvas.SetActive(false);
+    }
+
+    private void ActivateUi()
+    {
+        _favorCanvas.SetActive(true);
+        _roundsCanvas.SetActive(true);
+        _specialMeterCanvas.SetActive(true);
     }
 
     private void FixedUpdate()
+    {
+        if(_hasGameStarted)
+        {
+            SetCameraDestination();
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (_hasGameStarted)
+        {
+            //_destination = _camera.transform.InverseTransformPoint(_destination);
+            //_camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, _destination, _cameraCatchUpSpeedX * Time.deltaTime);
+            Vector3 newCameraPosition = new();
+            newCameraPosition.x = Mathf.Lerp(_camera.transform.localPosition.x, _destination.x, _cameraCatchUpSpeedX * Time.deltaTime);
+            float cameraCatchUpY = _destination.y > _camera.transform.localPosition.y ? _cameraCatchUpSpeedUp : _cameraCatchUpSpeedDown;
+            newCameraPosition.y = Mathf.Lerp(_camera.transform.localPosition.y, _destination.y, cameraCatchUpY * Time.deltaTime);
+            newCameraPosition.z = Mathf.Lerp(_camera.transform.localPosition.z, _destination.z, _cameraCatchUpSpeedZ * Time.deltaTime);
+            _camera.transform.localPosition = newCameraPosition;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
+
+    private void SetCameraDestination()
     {
         _targetsMidPointX = (_targets[0].position.x + _targets[1].position.x) / 2f;
         _targetsMidPointY = ((_targets[0].position.y + _targets[1].position.y) / 2f) - _defaultTargetY;
@@ -122,27 +204,79 @@ public class CameraManager : MonoBehaviour
         _destination.z = Mathf.Clamp(_destination.z, -Mathf.Infinity, _maxCameraZ);
     }
 
-    private void LateUpdate()
-    {
-        //_destination = _camera.transform.InverseTransformPoint(_destination);
-        //_camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, _destination, _cameraCatchUpSpeedX * Time.deltaTime);
-        Vector3 newCameraPosition = new();
-        newCameraPosition.x = Mathf.Lerp(_camera.transform.localPosition.x, _destination.x, _cameraCatchUpSpeedX * Time.deltaTime);
-        float cameraCatchUpY = _destination.y > _camera.transform.localPosition.y ? _cameraCatchUpSpeedUp : _cameraCatchUpSpeedDown;
-        newCameraPosition.y = Mathf.Lerp(_camera.transform.localPosition.y, _destination.y, cameraCatchUpY * Time.deltaTime);
-        newCameraPosition.z = Mathf.Lerp(_camera.transform.localPosition.z, _destination.z, _cameraCatchUpSpeedZ * Time.deltaTime);
-        _camera.transform.localPosition = newCameraPosition;
-    }
-
-    public void RotateCamera(Vector3 rotation)
-    {
-        _controller.Rotate(rotation);
-    }
-
     private void AssignComponents()
     {
         _camera = GetComponent<Camera>();
         _controller = GetComponent<CameraController>();
+    }
+
+    private void SubscribeEvents()
+    {
+        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        {
+            onCameraFinalized += ActivateUi;
+        }
+        onCameraSwitch += SwitchCamera;
+        onCameraFinalized += FinalizeCamera;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        {
+            onCameraFinalized -= ActivateUi;
+        }
+        onCameraSwitch -= SwitchCamera;
+        onCameraFinalized -= FinalizeCamera;
+    }
+
+    private void SwitchCamera()
+    {
+        if (SceneInfo.IsTraining)
+        {
+            onCameraFinalized?.Invoke();
+            return;
+        }
+
+        if (_cinemachineCamera) _cinemachineCamera.enabled = false;
+        _camera.enabled = true;
+        if (RoundInformation.round != 1)
+        {
+            onCameraFinalized?.Invoke();
+            return;
+        }
+
+        StartCoroutine(InitialZoomOut());
+    }
+
+    private void FinalizeCamera()
+    {
+        _hasGameStarted = true;
+    }
+
+    private IEnumerator InitialZoomOut()
+    {
+        //yield return new WaitForFixedUpdate();
+        //if (RoundInformation.round != 1)
+        //{
+        //    onCameraFinalized?.Invoke();
+        //    yield break;
+        //}
+        SetCameraDestination();
+        _statueCameraPosition.x = _destination.x;
+        _camera.transform.localPosition = _statueCameraPosition;
+        float timer = 0f;
+        while (timer < _initialZoomOutDuration)
+        {
+            yield return new WaitForFixedUpdate();
+            timer += Time.fixedDeltaTime;
+            _camera.transform.localPosition = Vector3.Lerp(_statueCameraPosition, _destination, timer / _initialZoomOutDuration);
+        }
+        _camera.transform.localPosition = _destination;
+        yield return new WaitForSeconds(_preUiDuration);
+
+        onCameraFinalized?.Invoke();
+        yield break;
     }
 
     /// <summary>

@@ -10,7 +10,7 @@ public class DolphinAnimation : MonoBehaviour
     private int _spawnChance;
     private int _chanceIncreaseDelta = 12;
     public bool IsPlaying { get => anim.GetCurrentAnimatorStateInfo(0).IsName("Move"); }
-    [SerializeField] private PassDrone _droneManager;
+    [SerializeField] private PassDrone _dronePass;
 
     private void Awake()
     {
@@ -27,6 +27,10 @@ public class DolphinAnimation : MonoBehaviour
         {
             _spawnChance = 25;
         }
+    }
+
+    public void StartCheck()
+    {
         StartCoroutine(CheckDolphin());
     }
 
@@ -46,7 +50,7 @@ public class DolphinAnimation : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(11f);
-            if (_droneManager.IsPlaying)
+            if (_dronePass.IsPlaying)
             {
                 continue;
             }
