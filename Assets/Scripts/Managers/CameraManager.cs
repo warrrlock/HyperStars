@@ -240,11 +240,6 @@ public class CameraManager : MonoBehaviour
 
         if (_cinemachineCamera) _cinemachineCamera.enabled = false;
         _camera.enabled = true;
-        if (RoundInformation.round != 1)
-        {
-            onCameraFinalized?.Invoke();
-            return;
-        }
 
         StartCoroutine(InitialZoomOut());
     }
@@ -256,12 +251,12 @@ public class CameraManager : MonoBehaviour
 
     private IEnumerator InitialZoomOut()
     {
-        //yield return new WaitForFixedUpdate();
-        //if (RoundInformation.round != 1)
-        //{
-        //    onCameraFinalized?.Invoke();
-        //    yield break;
-        //}
+        if (RoundInformation.round != 1)
+        {
+            yield return new WaitForFixedUpdate();
+            onCameraFinalized?.Invoke();
+            yield break;
+        }
         SetCameraDestination();
         _statueCameraPosition.x = _destination.x;
         _camera.transform.localPosition = _statueCameraPosition;
