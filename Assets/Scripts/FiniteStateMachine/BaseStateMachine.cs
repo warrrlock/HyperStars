@@ -86,6 +86,7 @@ namespace FiniteStateMachine {
         private bool _isAttacking;
         private bool _holdingCrouch;
         private bool _returnMeter;
+        private bool _endOfGame;
 
         public bool HitOpponent { get; private set; }
 
@@ -162,11 +163,17 @@ namespace FiniteStateMachine {
                 States.Add(state, new StateEvent());
             }
         }
+
+        public void SetEndOfGame()
+        {
+            _endOfGame = true;
+        }
         
         public void ResetStateMachine()
         {
             InfiniteEx = false;
-            
+            _rejectInput = false;
+            _endOfGame = false;
             IgnoreExecuteState = false;
             _airCoroutine = null;
             _waitToAnimateRoutine = null;
@@ -241,7 +248,7 @@ namespace FiniteStateMachine {
         
         private void Invoke(InputManager.Action action)
         {
-            if (_rejectInput || CurrentState is HurtState) return;
+            if (_endOfGame || _rejectInput || CurrentState is HurtState) return;
             LastInvokedInput = action;
 
             // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
