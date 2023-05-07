@@ -36,12 +36,16 @@ namespace UI
         [SerializeField] private Button _settingsButton;
         [SerializeField] private TextMeshProUGUI _lbText;
         [SerializeField] private TextMeshProUGUI _rbText;
+        [SerializeField] private TextMeshProUGUI _schemeText;
+        [SerializeField] private Image _schemeImage;
 
         [Header("References")]
         [Tooltip("Keep training tab at the end")]
         [SerializeField] private TabAssets[] _tabAssets;
         [SerializeField] private GameObject _menu;
         [SerializeField] private GameObject _mainMenuSelectablesParent;
+        [SerializeField] private Sprite _keyboardSprite;
+        [SerializeField] private Sprite _gamepadSprite;
         
         [Header("Command List")]
         [SerializeField] private CmmdListReference _commandRef;
@@ -63,6 +67,7 @@ namespace UI
 
         private Selectable[] _mainMenuSelectables;
         private GameObject _menuSelected;
+        private bool _onKeyboard;
 
         private void Awake()
         {
@@ -210,6 +215,20 @@ namespace UI
             }
         }
 
+        public void SetControlSchemeValues()
+        {
+            if (_onKeyboard)
+            {
+                _schemeText.text = "keyboard";
+                _schemeImage.sprite = _keyboardSprite;
+            }
+            else
+            {
+                _schemeText.text = "gamepad";
+                _schemeImage.sprite = _gamepadSprite;
+            }
+        }
+
         public void SetMasterVolume(float newValue)
         {
             Services.MusicManager.masterVolume = newValue;
@@ -347,9 +366,9 @@ namespace UI
                     if (player.PlayerInput.playerIndex != _opener.PlayerInput.playerIndex) player.PlayerInput.DeactivateInput();
                 }
 
-                bool keyboard = p.PlayerInput.currentControlScheme.Contains("Keyboard");
-                _lbText.text = keyboard ? "q" : "lb";
-                _rbText.text = keyboard ? "e" : "rb";
+                _onKeyboard = p.PlayerInput.currentControlScheme.Contains("Keyboard");
+                _lbText.text = _onKeyboard ? "q" : "lb";
+                _rbText.text = _onKeyboard ? "e" : "rb";
                 
                 _menu.SetActive(true);
                 pauseSfx?.Post(gameObject);
