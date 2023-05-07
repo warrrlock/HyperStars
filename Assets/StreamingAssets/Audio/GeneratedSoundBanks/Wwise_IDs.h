@@ -54,6 +54,7 @@ namespace AK
         static const AkUniqueID PLAY_MEDIUM_ATTACKS_VARIATION_2 = 3760087320U;
         static const AkUniqueID PLAY_MEDIUM_HIT = 3674753261U;
         static const AkUniqueID PLAY_MEDIUMSWINGVO = 1501759178U;
+        static const AkUniqueID PLAY_MENUTHEMEMAIN = 461094909U;
         static const AkUniqueID PLAY_PARRY_ACTION = 3723422301U;
         static const AkUniqueID PLAY_PARRY_HIT = 3662377158U;
         static const AkUniqueID PLAY_SELECTIONVO = 3889212317U;

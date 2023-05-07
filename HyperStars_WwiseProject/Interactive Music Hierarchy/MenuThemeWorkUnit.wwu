@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{1E4B6E4B-3CE9-4A04-AFA7-301312CB612B}" SchemaVersion="103">
+	<InteractiveMusic>
+		<WorkUnit Name="MenuThemeWorkUnit" ID="{1E4B6E4B-3CE9-4A04-AFA7-301312CB612B}" PersistMode="Standalone">
+			<ChildrenList>
+				<MusicPlaylistContainer Name="MenuThemeMain" ID="{7D8EBC90-69C1-4521-83C4-9F603C3AD238}" ShortID="756608122">
+					<PropertyList>
+						<Property Name="Tempo" Type="Real64" Value="98"/>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<MusicSegment Name="MenuThemeTrack" ID="{C88FEC9C-39AC-492D-8EA3-3BF89DB0C32D}" ShortID="611087310">
+							<PropertyList>
+								<Property Name="EndPosition" Type="Real64" Value="119341.677747586"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{D79DFE42-B35E-47DA-87B9-5EB62CE4C01C}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<MusicTrack Name="Monarch Square Garden" ID="{3658FA20-92F5-4DD9-94F5-2D51C4699C30}" ShortID="618509985">
+									<ReferenceList>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A3588526-50EC-4B60-9FD4-1D9B22B5E6D6}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Monarch Square Garden" ID="{A30DDE1D-FA59-43F2-8B52-D9FF1436C461}">
+											<Language>SFX</Language>
+											<AudioFile>Monarch Square Garden.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="225514421"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<TransitionList>
+										<MusicTransition Name="Root" ID="{3ABA1C9C-38AF-435F-802F-7C4D0DC01A3B}">
+											<PropertyList>
+												<Property Name="IsFolder" Type="bool" Value="True"/>
+											</PropertyList>
+											<TransitionInfo/>
+										</MusicTransition>
+									</TransitionList>
+									<ObjectLists>
+										<ObjectList Name="Sequences">
+											<Reference>
+												<Local>
+													<MusicTrackSequence Name="" ID="{25C321ED-C1FA-4212-82C3-0FE7D0FD025D}">
+														<ObjectLists>
+															<ObjectList Name="Clips">
+																<Reference>
+																	<Local>
+																		<MusicClip Name="Monarch Square Garden" ID="{1D3A0D9E-A64B-4205-B576-7E5468EF5DED}">
+																			<PropertyList>
+																				<Property Name="EndTrimOffset" Type="Real64" Value="107755.102040816"/>
+																				<Property Name="FadeInMode" Type="int16" Value="0"/>
+																				<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																			</PropertyList>
+																			<AudioSourceRef Name="Monarch Square Garden" ID="{A30DDE1D-FA59-43F2-8B52-D9FF1436C461}"/>
+																		</MusicClip>
+																	</Local>
+																</Reference>
+															</ObjectList>
+														</ObjectLists>
+													</MusicTrackSequence>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</MusicTrack>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="Cues">
+									<Reference>
+										<Local>
+											<MusicCue Name="Entry Cue" ID="{70E1E8D2-C5DE-4569-A1FD-853480BAE393}"/>
+										</Local>
+									</Reference>
+									<Reference>
+										<Local>
+											<MusicCue Name="Exit Cue" ID="{9445D29D-3706-46DE-981A-87BD0B409984}">
+												<PropertyList>
+													<Property Name="CueType" Type="int16" Value="1"/>
+													<Property Name="TimeMs" Type="Real64" Value="107741.978377753"/>
+												</PropertyList>
+											</MusicCue>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+						</MusicSegment>
+					</ChildrenList>
+					<TransitionList>
+						<MusicTransition Name="Root" ID="{778151BB-01B5-4B49-9241-BB7EA8353F91}">
+							<PropertyList>
+								<Property Name="IsFolder" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<MusicTransition Name="Transition" ID="{D08FF5E6-7297-48A1-9000-1A41662A5E2F}">
+									<TransitionInfo/>
+								</MusicTransition>
+							</ChildrenList>
+							<TransitionInfo/>
+						</MusicTransition>
+					</TransitionList>
+					<ObjectLists/>
+					<Playlist>
+						<MusicPlaylistItem Name="" ID="{451D56DC-60DC-49F8-A4B5-578406D930AC}" ShortID="263345037">
+							<ChildrenList>
+								<MusicPlaylistItem Name="" ID="{E71452D9-786F-4447-AACD-02778AFD5A2D}" ShortID="28939189">
+									<PropertyList>
+										<Property Name="LoopCount" Type="int16" Value="0"/>
+										<Property Name="PlaylistItemType" Type="int16" Value="1"/>
+									</PropertyList>
+									<SegmentRef Name="MenuThemeTrack" ID="{C88FEC9C-39AC-492D-8EA3-3BF89DB0C32D}"/>
+								</MusicPlaylistItem>
+							</ChildrenList>
+						</MusicPlaylistItem>
+					</Playlist>
+				</MusicPlaylistContainer>
+			</ChildrenList>
+		</WorkUnit>
+	</InteractiveMusic>
+</WwiseDocument>

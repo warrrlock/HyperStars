@@ -11,7 +11,7 @@
 	<StreamedFiles/>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="374987273" Language="SFX" Hash="2972488742">
+		<SoundBank Id="374987273" Language="SFX" Hash="642479103">
 			<ObjectPath>\SoundBanks\MusicSoundBanks\MusicMain</ObjectPath>
 			<ShortName>MusicMain</ShortName>
 			<Path>MusicMain.bnk</Path>
@@ -140,6 +140,14 @@
 							</Media>
 						</SwitchContainer>
 					</SwitchContainers>
+				</Event>
+				<Event Id="461094909" Name="Play_MenuThemeMain" ObjectPath="\Events\MusicEventsWorkUnit\MusicPlayEvents\Play_MenuThemeMain" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="225514421" Language="SFX">
+							<ShortName>Monarch Square Garden.wav</ShortName>
+							<Path>SFX\Monarch Square Garden_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="464042616" Name="Set_Switch_Verse" ObjectPath="\Events\MusicEventsWorkUnit\RTPCValues\Set_Switch_Verse" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0.">
 					<ActionSetSwitch>
