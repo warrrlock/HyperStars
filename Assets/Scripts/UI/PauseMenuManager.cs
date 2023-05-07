@@ -68,6 +68,7 @@ namespace UI
         private Selectable[] _mainMenuSelectables;
         private GameObject _menuSelected;
         private bool _onKeyboard;
+        private EventSystem _prevEventSystem;
 
         private void Awake()
         {
@@ -335,6 +336,7 @@ namespace UI
                     if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
                 }
 
+                EventSystem.current = _prevEventSystem;
                 ResetValues();
                 _menu.SetActive(false);
                 exitSfx?.Post(gameObject);
@@ -371,6 +373,8 @@ namespace UI
                 _rbText.text = _onKeyboard ? "e" : "rb";
                 
                 _menu.SetActive(true);
+                _prevEventSystem = EventSystem.current;
+                EventSystem.current = _multiplayerEventSystem;
                 pauseSfx?.Post(gameObject);
                 _opener.PlayerInput.uiInputModule = _menu.GetComponent<InputSystemUIInputModule>();
                 SetToTab(0);
