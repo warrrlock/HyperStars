@@ -5,6 +5,17 @@
 			<ChildrenList>
 				<WorkUnit Name="Lisa'sTheme" ID="{CFA6C504-04B5-4EDA-8516-E58BAC511F7D}" PersistMode="Reference"/>
 				<WorkUnit Name="Bluk's Theme" ID="{B20BAE24-4592-4D21-A88F-8F00F9C9B024}" PersistMode="Reference"/>
+				<Event Name="Play_MenuThemeMain" ID="{A7CF8ACC-363D-434D-ACF2-2CE9F0EFD1AD}">
+					<ChildrenList>
+						<Action Name="" ID="{2BF494C2-AA95-4327-8BA7-DEBA56EE51E2}" ShortID="547162342">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MenuThemeMain" ID="{7D8EBC90-69C1-4521-83C4-9F603C3AD238}" WorkUnitID="{1E4B6E4B-3CE9-4A04-AFA7-301312CB612B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
