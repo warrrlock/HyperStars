@@ -139,6 +139,7 @@ public class MovementController : MonoBehaviour
 
     [SerializeField] private LayerMask _yMask;
     [SerializeField] private LayerMask _xMask;
+    [SerializeField] private LayerMask _wallMask;
 
     private List<IEnumerator> _forceCoroutines = new();
 
@@ -172,6 +173,29 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    //public struct CollisionInfo
+    //{
+    //    public Axis x;
+    //    public Axis y;
+    //    public bool isAnyHit
+    //    {
+    //        get => x.isNegativeHit || x.isPositiveHit || y.isNegativeHit || y.isPositiveHit;
+    //    }
+
+    //    public struct Axis
+    //    {
+    //        [Tooltip("Is there a collision in the axis's negative direction?")]
+    //        public bool isNegativeHit;
+    //        [Tooltip("Is there a collision in the axis's positive direction?")]
+    //        public bool isPositiveHit;
+    //    }
+
+    //    public void Reset()
+    //    {
+    //        x.isNegativeHit = x.isPositiveHit = y.isNegativeHit = y.isPositiveHit = false;
+    //    }
+    //}
+
     public struct CollisionInfo
     {
         public Axis x;
@@ -183,15 +207,18 @@ public class MovementController : MonoBehaviour
 
         public struct Axis
         {
-            [Tooltip("Is there a collision in the axis's negative direction?")]
+            public enum Layer { None, Player, Wall }
+            public Layer negativeHitLayer;
+            public Layer positiveHitLayer;
+
             public bool isNegativeHit;
-            [Tooltip("Is there a collision in the axis's positive direction?")]
             public bool isPositiveHit;
         }
 
         public void Reset()
         {
             x.isNegativeHit = x.isPositiveHit = y.isNegativeHit = y.isPositiveHit = false;
+            x.negativeHitLayer = x.positiveHitLayer = y.negativeHitLayer = y.positiveHitLayer = Axis.Layer.None;
         }
     }
 
@@ -619,7 +646,7 @@ public class MovementController : MonoBehaviour
             {
                 if (_isWallBounceable)
                 {
-                    if (_collisionData.x.isNegativeHit || _collisionData.x.isPositiveHit)
+                    if (_collisionData.x.negativeHitLayer == CollisionInfo.Axis.Layer.Wall || _collisionData.x.positiveHitLayer == CollisionInfo.Axis.Layer.Wall)
                     {
                         ResetVelocityY();
                         if (_wallBounceDistance != 0f)
@@ -1052,8 +1079,41 @@ public class MovementController : MonoBehaviour
                     }
                     rayLength = hit.distance;
 
-                    collisionAxis.isNegativeHit = axisDirection == -1f;
-                    collisionAxis.isPositiveHit = axisDirection == 1f;
+                    collisionAxis.isNegativeHit = axisDirection == -1;
+                    collisionAxis.isPositiveHit = axisDirection == 1;
+                }
+
+                if (axis == Axis.x)
+                {
+                    if (Physics.Raycast(rayOrigin, rayDirection * axisDirection, out RaycastHit wallHit, rayLength, _wallMask))
+                    {
+                        switch (axis)
+                        {
+                            case Axis.x:
+                                velocity.x = (wallHit.distance - _skinWidth) * axisDirection;
+                                break;
+                            case Axis.z:
+                                velocity.z = (wallHit.distance - _skinWidth) * axisDirection;
+                                break;
+                            case Axis.y:
+                                velocity.y = (wallHit.distance - _skinWidth) * axisDirection;
+                                break;
+                        }
+                        rayLength = wallHit.distance;
+
+                        //collisionAxis.IsNegativeHit = axisDirection == -1;
+                        //collisionAxis.IsPositiveHit = axisDirection == 1;
+
+                        switch (axisDirection)
+                        {
+                            case 1:
+                                collisionAxis.positiveHitLayer = CollisionInfo.Axis.Layer.Wall;
+                                break;
+                            case -1:
+                                collisionAxis.negativeHitLayer = CollisionInfo.Axis.Layer.Wall;
+                                break;
+                        }
+                    }
                 }
 
                 if (_drawDebugRays)
