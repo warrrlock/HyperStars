@@ -112,7 +112,7 @@ namespace UI
                 _tabAssets[^1].tabButton.gameObject.SetActive(true);
                 GetComponentInChildren<TrainingRoomManager>(true)?.gameObject.SetActive(true);
             }
-            _maxTabs = Math.Max(0, _tabAssets.Length - (_menuManager.IsTraining ? 1 : 2));
+            _maxTabs = Math.Max(0, _tabAssets.Length - (_menuManager.IsTraining || _menuManager.IsMainMenu ? 1 : 2));
             SubscribeEvents();
         }
 
