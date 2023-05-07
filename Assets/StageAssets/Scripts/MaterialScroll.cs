@@ -6,6 +6,7 @@ public class MaterialScroll : MonoBehaviour
 {
     public float spdX;
     public float spdY;
+    public bool OnlyY;
     MeshRenderer meshRend;
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,9 @@ public class MaterialScroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        meshRend.material.mainTextureOffset = new Vector2(Time.realtimeSinceStartup * spdX, Time.realtimeSinceStartup * spdY);
+        if(OnlyY)
+            meshRend.material.mainTextureOffset = new Vector2(meshRend.material.mainTextureOffset.x, Time.realtimeSinceStartup * spdY);
+        else
+            meshRend.material.mainTextureOffset = new Vector2(Time.realtimeSinceStartup * spdX, Time.realtimeSinceStartup * spdY);
     }
 }
