@@ -10,8 +10,10 @@ public class MenuManager: MonoBehaviour
 {
     private Player[] _players = new Player[2];
     [SerializeField] private GameObject _playersReadyVisual;
+    [SerializeField] private Animator _loadingVisual;
     private bool _allowStart;
     [SerializeField] private BuildSettingIndices _indices;
+    private static readonly int Enter = Animator.StringToHash("enter");
     public bool IsTrainingSelection { get; private set; }
     public bool IsTraining { get; private set; }
     public bool IsMainMenu { get; private set; }
@@ -54,7 +56,7 @@ public class MenuManager: MonoBehaviour
     public void StartCharacterSelection()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(_indices.selectionScene);
+        TryLoading(_indices.selectionScene);
     }
     
     public void StartMainMenu()
@@ -71,13 +73,14 @@ public class MenuManager: MonoBehaviour
             return;
         }
         Time.timeScale = 1;
-        SceneManager.LoadScene(_indices.gameScene);
+        //display loading screen
+        TryLoading(_indices.gameScene);
     }
 
     public void StartTrainingSelection()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(_indices.trainingSelectionScene);
+        TryLoading(_indices.trainingSelectionScene);
     }
     
     public void StartTraining()
@@ -88,7 +91,30 @@ public class MenuManager: MonoBehaviour
             return;
         }
         Time.timeScale = 1;
-        SceneManager.LoadScene(_indices.trainingScene);
+        TryLoading(_indices.trainingScene);
+    }
+
+    private void TryLoading(int scene)
+    {
+        if (_loadingVisual != null)
+        {
+            _loadingVisual.SetTrigger(Enter);
+            StartCoroutine(LoadSceneAsync(scene));
+        }
+        else SceneManager.LoadScene(scene);
+    }
+    
+    private IEnumerator LoadSceneAsync(int scene)
+    {
+        Debug.Log("loading scene async");
+        AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
+        // operation.allowSceneActivation = false;
+        
+        while (!operation.isDone)
+        {
+            //in case we need a progress bar...
+            yield return null;
+        }
     }
 
     public void ReturnToCharacterSelect()
