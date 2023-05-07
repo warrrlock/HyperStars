@@ -9,7 +9,7 @@ namespace SFX
     {
         public static MenuMusicSingleton Instance;
         [SerializeField] private BuildSettingIndices _indices;
-        private AK.Wwise.Event _menuMusic;
+        [SerializeField] private AK.Wwise.Event _menuMusic;
 
         // Start is called before the first frame update
         private void Awake()
