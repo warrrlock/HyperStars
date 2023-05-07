@@ -11,6 +11,6 @@ public class SpecialMeter : MonoBehaviour
     private void Start()
     {
         Services.Fighters[_player].SpecialMeterManager.FillMeter = gameObject;
-        Services.Fighters[_player].SpecialMeterManager.ResetValues();
+        if (SceneInfo.IsTraining) Services.Fighters[_player].SpecialMeterManager.ResetValues();
     }
 }

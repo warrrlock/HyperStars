@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 4603343857262717194}
   - component: {fileID: 7610872585217686218}
   - component: {fileID: 8226434614235657660}
+  - component: {fileID: 1905964499691099587}
   m_Layer: 5
   m_Name: settings switch
   m_TagString: Untagged
@@ -517,6 +518,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1905964499691099587}
+          m_TargetAssemblyTypeName: UI.EventSystemSelector, Assembly-CSharp
+          m_MethodName: SelectGameObject
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 7252930780479136163}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &8226434614235657660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,3 +568,15 @@ MonoBehaviour:
     groupIdInternal: 0
     groupGuidInternal: 
     WwiseObjectReference: {fileID: 0}
+--- !u!114 &1905964499691099587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252930780479136163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf008f375dfa41d282c03aba969369b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
