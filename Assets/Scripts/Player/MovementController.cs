@@ -479,9 +479,10 @@ public class MovementController : MonoBehaviour
 
     private void StateChange(BaseState state)
     {
-        if (state.GetType().IsSameOrSubclassOf(typeof(ComboState)))
+        if (state.IsAttackState)
         {
-            CheckIfOpponentWillBeFlipped(10);
+            AttackInfo info = state.GetAttackInfo();
+            CheckIfOpponentWillBeFlipped(info.framesTilHit);
         }
         if (_gravityAugmentType == AugmentType.Self)
         {
