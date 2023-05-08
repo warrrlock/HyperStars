@@ -150,12 +150,12 @@ namespace UI
 
         public void SetSettingValues()
         {
-            if(!Services.MusicManager) return;
-            _sliderMaster.value = Services.MusicManager.masterVolume;
-            _sliderMusic.value = Services.MusicManager.musicVolume;
-            _sliderCrowd.value = Services.MusicManager.crowdVolume;
-            _sliderVoice.value = Services.MusicManager.voVolume;
-            _sliderSfx.value = Services.MusicManager.sfxVolume;
+            if(!Services.SoundVolumeManager) return;
+            _sliderMaster.value = Services.SoundVolumeManager.masterVolume;
+            _sliderMusic.value = Services.SoundVolumeManager.musicVolume;
+            _sliderCrowd.value = Services.SoundVolumeManager.crowdVolume;
+            _sliderVoice.value = Services.SoundVolumeManager.voVolume;
+            _sliderSfx.value = Services.SoundVolumeManager.sfxVolume;
             _resDropdown.value = Array.IndexOf(_fullScreenModes, Screen.fullScreenMode);
         }
 
@@ -232,23 +232,23 @@ namespace UI
 
         public void SetMasterVolume(float newValue)
         {
-            Services.MusicManager.masterVolume = newValue;
+            Services.SoundVolumeManager.masterVolume = newValue;
         }
         public void SetMusicVolume(float newValue)
         {
-            Services.MusicManager.musicVolume = newValue;
+            Services.SoundVolumeManager.musicVolume = newValue;
         }
         public void SetCrowdVolume(float newValue)
         {
-            Services.MusicManager.crowdVolume = newValue;
+            Services.SoundVolumeManager.crowdVolume = newValue;
         }
         public void SetVoiceVolume(float newValue)
         {
-            Services.MusicManager.voVolume = newValue;
+            Services.SoundVolumeManager.voVolume = newValue;
         }
         public void SetSfxVolume(float newValue)
         {
-            Services.MusicManager.sfxVolume = newValue;
+            Services.SoundVolumeManager.sfxVolume = newValue;
         }
 
         public void SetScreen(int mode)
