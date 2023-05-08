@@ -77,24 +77,16 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.wallBounce += WallWave;
         _fighter.Events.onHardKnockdown += Dizzy;
         _fighter.Events.exitHardKnockdown += StopDizzy;
-        SceneReloader.OnSceneLoaded += () => SubscribeGoldenGoal();
     }
-    void SubscribeGoldenGoal()
+    public void SubscribeGoldenGoal()
     {
-        if (SceneManager.GetActiveScene().name != "Game Scene") return;
-        StartCoroutine(SubscribeGoldenGoalRoutine());
+        Services.FavorManager.onGoldenGoalEnabled += ctx => TurnOnGoldenGoal(ctx);
+        Services.FavorManager.onGoldenGoalDisabled += ctx => TurnOffGoldenGoal(ctx);
     }
-
     public void UnsubsribeGoldenGoal()
     {
         Services.FavorManager.onGoldenGoalEnabled -= ctx => TurnOnGoldenGoal(ctx);
         Services.FavorManager.onGoldenGoalDisabled -= ctx => TurnOffGoldenGoal(ctx);
-    }
-    IEnumerator SubscribeGoldenGoalRoutine()
-    {
-        yield return new WaitForSeconds(1f);
-        Services.FavorManager.onGoldenGoalEnabled += ctx => TurnOnGoldenGoal(ctx);
-        Services.FavorManager.onGoldenGoalDisabled += ctx => TurnOffGoldenGoal(ctx);
     }
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
@@ -104,7 +96,6 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.wallBounce -= WallWave;
         _fighter.Events.onHardKnockdown -= Dizzy;
         _fighter.Events.exitHardKnockdown -= StopDizzy;
-        SceneReloader.OnSceneLoaded -= () => SubscribeGoldenGoal();
     }
 
     void DashSmoke() {
