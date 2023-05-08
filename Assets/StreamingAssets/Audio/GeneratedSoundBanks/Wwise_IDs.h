@@ -71,6 +71,7 @@ namespace AK
         static const AkUniqueID STOP_FAVORGOLDENGOAL = 1102378326U;
         static const AkUniqueID STOP_FAVORLOCKPREBREAK = 1091820081U;
         static const AkUniqueID STOP_LISATHEME = 564764656U;
+        static const AkUniqueID STOP_MENUTHEMEMAIN = 2387143135U;
         static const AkUniqueID STOP_SWINGS = 3063666669U;
     } // namespace EVENTS
 

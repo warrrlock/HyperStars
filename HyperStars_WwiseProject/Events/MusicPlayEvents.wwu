@@ -16,6 +16,21 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Stop_MenuThemeMain" ID="{672A692C-727C-437A-8B4A-7D36E59524B8}">
+					<ChildrenList>
+						<Action Name="" ID="{698E5793-ACB7-4C9D-973B-87F38AC7EF96}" ShortID="12921409">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeTime" Type="Real64" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="MenuThemeMain" ID="{7D8EBC90-69C1-4521-83C4-9F603C3AD238}" WorkUnitID="{1E4B6E4B-3CE9-4A04-AFA7-301312CB612B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

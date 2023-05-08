@@ -19,4 +19,6 @@ public static class Services
     
     public static MusicManager MusicManager;
     public static TrainingRoomManager TrainingRoomManager;
+
+    public static SoundVolumeManager SoundVolumeManager;
 }
