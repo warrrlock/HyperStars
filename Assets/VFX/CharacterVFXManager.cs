@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FiniteStateMachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.VFX;
 
 [RequireComponent(typeof(InputManager))]
@@ -76,10 +77,20 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.wallBounce += WallWave;
         _fighter.Events.onHardKnockdown += Dizzy;
         _fighter.Events.exitHardKnockdown += StopDizzy;
-        SceneReloader.OnSceneLoaded += () => {
-            Services.FavorManager.onGoldenGoalEnabled += ctx => TurnOnGoldenGoal(ctx);
-            Services.FavorManager.onGoldenGoalDisabled += ctx => TurnOffGoldenGoal(ctx);
-        };
+        SceneReloader.OnSceneLoaded += () => SubscribeGoldenGoal();
+    }
+    void SubscribeGoldenGoal()
+    {
+        if (SceneManager.GetActiveScene().name != "Game Scene") return;
+        StartCoroutine(SubscribeGoldenGoalRoutine());
+    }
+    IEnumerator SubscribeGoldenGoalRoutine()
+    {
+        Services.FavorManager.onGoldenGoalEnabled -= ctx => TurnOnGoldenGoal(ctx);
+        Services.FavorManager.onGoldenGoalDisabled -= ctx => TurnOffGoldenGoal(ctx);
+        yield return new WaitForSeconds(1f);
+        Services.FavorManager.onGoldenGoalEnabled += ctx => TurnOnGoldenGoal(ctx);
+        Services.FavorManager.onGoldenGoalDisabled += ctx => TurnOffGoldenGoal(ctx);
     }
     void VFXUnsubscribeEvents() {
         foreach (BaseState dashState in _dashStates) _fighter.BaseStateMachine.States[dashState].execute -= DashSmoke;
@@ -91,6 +102,7 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.exitHardKnockdown -= StopDizzy;
         Services.FavorManager.onGoldenGoalEnabled -= ctx => TurnOnGoldenGoal(ctx);
         Services.FavorManager.onGoldenGoalDisabled -= ctx => TurnOffGoldenGoal(ctx);
+        SceneReloader.OnSceneLoaded -= () => SubscribeGoldenGoal();
     }
 
     void DashSmoke() {
