@@ -36,12 +36,16 @@ namespace UI
         [SerializeField] private Button _settingsButton;
         [SerializeField] private TextMeshProUGUI _lbText;
         [SerializeField] private TextMeshProUGUI _rbText;
+        [SerializeField] private TextMeshProUGUI _schemeText;
+        [SerializeField] private Image _schemeImage;
 
         [Header("References")]
         [Tooltip("Keep training tab at the end")]
         [SerializeField] private TabAssets[] _tabAssets;
         [SerializeField] private GameObject _menu;
         [SerializeField] private GameObject _mainMenuSelectablesParent;
+        [SerializeField] private Sprite _keyboardSprite;
+        [SerializeField] private Sprite _gamepadSprite;
         
         [Header("Command List")]
         [SerializeField] private CmmdListReference _commandRef;
@@ -63,6 +67,8 @@ namespace UI
 
         private Selectable[] _mainMenuSelectables;
         private GameObject _menuSelected;
+        private bool _onKeyboard;
+        private EventSystem _prevEventSystem;
 
         private void Awake()
         {
@@ -107,7 +113,7 @@ namespace UI
                 _tabAssets[^1].tabButton.gameObject.SetActive(true);
                 GetComponentInChildren<TrainingRoomManager>(true)?.gameObject.SetActive(true);
             }
-            _maxTabs = Math.Max(0, _tabAssets.Length - (_menuManager.IsTraining ? 1 : 2));
+            _maxTabs = Math.Max(0, _tabAssets.Length - (_menuManager.IsTraining || _menuManager.IsMainMenu ? 1 : 2));
             SubscribeEvents();
         }
 
@@ -207,6 +213,20 @@ namespace UI
                     actionObj.GetComponent<Image>().sprite = sprite;
                     index++;
                 }
+            }
+        }
+
+        public void SetControlSchemeValues()
+        {
+            if (_onKeyboard)
+            {
+                _schemeText.text = "keyboard";
+                _schemeImage.sprite = _keyboardSprite;
+            }
+            else
+            {
+                _schemeText.text = "gamepad";
+                _schemeImage.sprite = _gamepadSprite;
             }
         }
 
@@ -316,6 +336,7 @@ namespace UI
                     if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
                 }
 
+                EventSystem.current = _prevEventSystem;
                 ResetValues();
                 _menu.SetActive(false);
                 exitSfx?.Post(gameObject);
@@ -347,11 +368,13 @@ namespace UI
                     if (player.PlayerInput.playerIndex != _opener.PlayerInput.playerIndex) player.PlayerInput.DeactivateInput();
                 }
 
-                bool keyboard = p.PlayerInput.currentControlScheme.Contains("Keyboard");
-                _lbText.text = keyboard ? "q" : "lb";
-                _rbText.text = keyboard ? "e" : "rb";
+                _onKeyboard = p.PlayerInput.currentControlScheme.Contains("Keyboard");
+                _lbText.text = _onKeyboard ? "q" : "lb";
+                _rbText.text = _onKeyboard ? "e" : "rb";
                 
                 _menu.SetActive(true);
+                _prevEventSystem = EventSystem.current;
+                EventSystem.current = _multiplayerEventSystem;
                 pauseSfx?.Post(gameObject);
                 _opener.PlayerInput.uiInputModule = _menu.GetComponent<InputSystemUIInputModule>();
                 SetToTab(0);

@@ -33,14 +33,14 @@ namespace UI
         
         private CharacterButtonAssets[] _currentSelectedButton = new CharacterButtonAssets[2];
         [SerializeField] private BuildSettingIndices _indices;
-        private bool _isTraining;
+        [SerializeField] private bool _isTraining;
         private PostWwiseUIEvent _wwiseUIEvent;
         public PostWwiseUIEvent WwiseUIEvents => _wwiseUIEvent;
 
         private void Start()
         {
             _wwiseUIEvent = GetComponent<PostWwiseUIEvent>();
-            if (SceneManager.GetActiveScene().buildIndex == _indices.trainingSelectionScene)
+            if (SceneManager.GetActiveScene().buildIndex == _indices.trainingSelectionScene || _isTraining)
             {
                 _isTraining = true;
                 Services.Players[0].onReady += SetBotSelection;

@@ -40,6 +40,7 @@ namespace UI
 
         private void UnSubscribe()
         {
+            if (!_player) return;
             _player.PlayerInput.actions["Cancel"].performed -= ResolveActions;
             _player.PlayerInput.actions["Submit"].performed -= ResolveActions;
             _player.PlayerInput.actions["Navigate"].performed -= ResolveActions;

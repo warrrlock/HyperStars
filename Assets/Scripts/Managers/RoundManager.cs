@@ -26,6 +26,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private string _startText;
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] int _countdown;
+    [SerializeField] private string _knockoutText;
     
     [Header("Round UI")]
     [SerializeField] private FightersManager _fightersManager;
@@ -113,11 +114,13 @@ public class RoundManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         //if a player has queued another attack, it doesn't play
+        Services.Fighters[winner].BaseStateMachine.SetEndOfGame();
+        Services.Fighters[winner].MovementController.ResetValues();
         foreach (Fighter fighter in Services.Fighters)
         {
             fighter.BaseStateMachine.ClearQueues();
         }
-        
+
         HandleAddWinTo(winner);
         HandleLoseAnimation(winner^1);
         StartCoroutine(HandleSlomoSequence(winner));
@@ -194,9 +197,6 @@ public class RoundManager : MonoBehaviour
     {
         if (!_countdownText) yield break;
         _countdownText.gameObject.SetActive(true);
-       
-        ////stop time/movement
-        //DisableAllInput();
 
         //begin count down
         _countdownText.text = $"Round {_round}";
@@ -207,11 +207,6 @@ public class RoundManager : MonoBehaviour
         {
             _countdownText.text = "Match point!";
             yield return new WaitForSeconds(0.8f);
-            
-            // _countdownText.text = $@"{(RoundInformation.MatchPointPlayers[0] ? 
-            //     (RoundInformation.MatchPointPlayers[1] ? "Scores Tied!" : "Player 1 in the lead.")
-            //     : "Player2 in the lead")}";
-            // yield return new WaitForSeconds(0.8f);
         }
 
         for (int i = _countdown; i > 0; i--)
@@ -228,7 +223,6 @@ public class RoundManager : MonoBehaviour
         
 
         yield return new WaitForSeconds(0.5f);
-        //_countdownText.gameObject.SetActive(false);
 
         _roundAnnouncerSFXEvents[1].Post(gameObject);
 
@@ -262,7 +256,7 @@ public class RoundManager : MonoBehaviour
         if (_roundText)
         {
             _roundText.gameObject.SetActive(true);
-            _roundText.text = winner == -1 ? "Tie!" : $"Player{winner+1} won the round!";
+            _roundText.text = winner == -1 ? "Tie!" : _knockoutText == "" ? $"Player{winner+1} won the round!" : _knockoutText;
         }
         
         StartCoroutine(HandleStartNextRound());
@@ -270,6 +264,10 @@ public class RoundManager : MonoBehaviour
 
     private IEnumerator HandleRoundStart()
     {
+        foreach (Fighter fighter in Services.Fighters)
+        {
+            fighter.SpecialMeterManager.ResetValues();
+        }
         _roundStartEvent.Raise(new Dictionary<string, object>());
         yield return new WaitForFixedUpdate();
         foreach (Fighter fighter in Services.Fighters)
@@ -279,18 +277,21 @@ public class RoundManager : MonoBehaviour
     private void DisableAllInput()
     {
         _disabledInput = true;
-        foreach (Fighter fighter in Services.Fighters)
+        foreach (Player player in Services.Players)
         {
-            fighter.InputManager.IgnoreQueuePerform = true;
-            StartCoroutine(fighter.DisableAllInput(
-                () => _disabledInput == false, 
-                () => { fighter.InputManager.IgnoreQueuePerform = false; }
-                ));
+            player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
+            player.PlayerInput.currentActionMap.Disable();
+            player.PlayerInput.SwitchCurrentActionMap("UI");
         }
     }
 
     private void EnableAllInput()
     {
+        foreach (Player player in Services.Players)
+        {
+            player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
+            player.PlayerInput.currentActionMap.Enable();
+        }
         _disabledInput = false;
     }
 
@@ -316,7 +317,7 @@ public class RoundManager : MonoBehaviour
         
         _roundText.gameObject.SetActive(true);
         
-        _roundText.text = $"Player {winner+1} is victorious!";
+        _roundText.text = $"Player {winner+1} wins!";
         EnableRestartGame(); //TODO: remove after we have win/lose animations
     }
 }
