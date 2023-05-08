@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 public enum ThemeLists
@@ -21,15 +22,8 @@ public class MusicManager : MonoBehaviour
     
     [Range(1, 3)]
     public int Intensity;
-
-    [Header("Volumes")]
-    [Range(0, 1)] public float masterVolume;
-    [Range(0, 1)] public float musicVolume;
-    [Range(0, 1)] public float crowdVolume;
+    
     private float crowdIntensity;
-    private float currentCrowdVolume;
-    [Range(0, 1)] public float sfxVolume;
-    [Range(0, 1)] public float voVolume;
 
     //id of the wwise event - using this to get the playback position
     private uint playingIDGlobal;
@@ -100,20 +94,15 @@ public class MusicManager : MonoBehaviour
     {
         StopMusic();
         if (SceneReloader.Instance != null) SceneReloader.Instance.onSceneReload -= StopMusic;
+        SoundVolumeManager.currentCrowdVolume = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Update our volume
-        currentCrowdVolume = crowdIntensity * crowdVolume;
+        SoundVolumeManager.currentCrowdVolume = crowdIntensity * Services.SoundVolumeManager.crowdVolume;
         AkSoundEngine.SetRTPCValue("Intensity", Intensity); //Set Intensity
-        
-        AkSoundEngine.SetRTPCValue("MasterVolume", masterVolume);
-        AkSoundEngine.SetRTPCValue("MusicVolume", musicVolume);
-        AkSoundEngine.SetRTPCValue("CrowdVolume", currentCrowdVolume); 
-        AkSoundEngine.SetRTPCValue("SFXVolume", sfxVolume);
-        AkSoundEngine.SetRTPCValue("VoiceVolume", voVolume); 
 
         if (Impressed && !impressionCalled)
         {

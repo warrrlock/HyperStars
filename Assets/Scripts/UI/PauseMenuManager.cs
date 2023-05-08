@@ -56,10 +56,14 @@ namespace UI
         
         private Player _opener;
         private InputSystemUIInputModule _inputModule;
-        private int _currentTab;
-        private MenuManager _menuManager;
-        private int _maxTabs;
         private EventSystem _multiplayerEventSystem;
+        private EventSystem _prevEventSystem;
+        private MenuManager _menuManager;
+        private bool _onKeyboard;
+        
+        private int _currentTab;
+        private int _maxTabs;
+        
         private Slider[] _sliders = new Slider[5];
         private FullScreenMode[] _fullScreenModes = new FullScreenMode[4];
         private List<GameObject> _commandObjects;
@@ -67,8 +71,6 @@ namespace UI
 
         private Selectable[] _mainMenuSelectables;
         private GameObject _menuSelected;
-        private bool _onKeyboard;
-        private EventSystem _prevEventSystem;
 
         private void Awake()
         {
@@ -150,12 +152,12 @@ namespace UI
 
         public void SetSettingValues()
         {
-            if(!Services.MusicManager) return;
-            _sliderMaster.value = Services.MusicManager.masterVolume;
-            _sliderMusic.value = Services.MusicManager.musicVolume;
-            _sliderCrowd.value = Services.MusicManager.crowdVolume;
-            _sliderVoice.value = Services.MusicManager.voVolume;
-            _sliderSfx.value = Services.MusicManager.sfxVolume;
+            if(!Services.SoundVolumeManager) return;
+            _sliderMaster.value = Services.SoundVolumeManager.masterVolume;
+            _sliderMusic.value = Services.SoundVolumeManager.musicVolume;
+            _sliderCrowd.value = Services.SoundVolumeManager.crowdVolume;
+            _sliderVoice.value = Services.SoundVolumeManager.voVolume;
+            _sliderSfx.value = Services.SoundVolumeManager.sfxVolume;
             _resDropdown.value = Array.IndexOf(_fullScreenModes, Screen.fullScreenMode);
         }
 
@@ -232,23 +234,23 @@ namespace UI
 
         public void SetMasterVolume(float newValue)
         {
-            Services.MusicManager.masterVolume = newValue;
+            Services.SoundVolumeManager.masterVolume = newValue;
         }
         public void SetMusicVolume(float newValue)
         {
-            Services.MusicManager.musicVolume = newValue;
+            Services.SoundVolumeManager.musicVolume = newValue;
         }
         public void SetCrowdVolume(float newValue)
         {
-            Services.MusicManager.crowdVolume = newValue;
+            Services.SoundVolumeManager.crowdVolume = newValue;
         }
         public void SetVoiceVolume(float newValue)
         {
-            Services.MusicManager.voVolume = newValue;
+            Services.SoundVolumeManager.voVolume = newValue;
         }
         public void SetSfxVolume(float newValue)
         {
-            Services.MusicManager.sfxVolume = newValue;
+            Services.SoundVolumeManager.sfxVolume = newValue;
         }
 
         public void SetScreen(int mode)
@@ -322,6 +324,7 @@ namespace UI
             // Debug.Log($"{f.name} opening pause menu");
             if (!_menu) return;
             if (_opener && p != _opener) return;
+            if (Services.RoundManager && Services.RoundManager.RoundEnded) return;
             
             if (_menu.activeSelf) //close menu
             {
@@ -333,7 +336,9 @@ namespace UI
                     if (!player) continue;
                     player.PlayerInput.currentActionMap.Disable();
                     player.PlayerInput.ActivateInput();
-                    if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
+                    if (!_menuManager.IsMainMenu && (!Services.RoundManager ||
+                                                     (Services.RoundManager && Services.RoundManager.InGame))) 
+                        player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
                 }
 
                 EventSystem.current = _prevEventSystem;

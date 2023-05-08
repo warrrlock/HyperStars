@@ -10,6 +10,7 @@ namespace SFX
         public static MenuMusicSingleton Instance;
         [SerializeField] private BuildSettingIndices _indices;
         [SerializeField] private AK.Wwise.Event _menuMusic;
+        [SerializeField] private AK.Wwise.Event _stopMenuMusic;
 
         // Start is called before the first frame update
         private void Awake()
@@ -43,6 +44,11 @@ namespace SFX
                 SceneManager.sceneLoaded -= CheckDestroy;
                 Destroy(gameObject);
             }
+        }
+
+        private void OnDestroy()
+        {
+            _stopMenuMusic.Post(gameObject);
         }
     }
 }
