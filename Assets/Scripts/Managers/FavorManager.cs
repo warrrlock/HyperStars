@@ -274,17 +274,31 @@ public class FavorManager : MonoBehaviour
         switch (_favoredPlayer)
         {
             case 0:
-                if (_favor <= -MaxFavor)
+                if (!SceneInfo.IsTraining)
                 {
-                    if (!Services.Fighters[0].HasGoldenGoal)
+                    if (_favor <= -MaxFavor)
                     {
-                        onGoldenGoalEnabled?.Invoke(0);
+                        if (!Services.Fighters[0].HasGoldenGoal)
+                        {
+                            onGoldenGoalEnabled?.Invoke(0);
+                        }
+                    }
+                    if (Services.Fighters[1].HasGoldenGoal)
+                    {
+                        onGoldenGoalDisabled?.Invoke(1);
                     }
                 }
-                if (Services.Fighters[1].HasGoldenGoal)
-                {
-                    onGoldenGoalDisabled?.Invoke(1);
-                }
+                //if (_favor <= -MaxFavor)
+                //{
+                //    if (!Services.Fighters[0].HasGoldenGoal)
+                //    {
+                //        onGoldenGoalEnabled?.Invoke(0);
+                //    }
+                //}
+                //if (Services.Fighters[1].HasGoldenGoal)
+                //{
+                //    onGoldenGoalDisabled?.Invoke(1);
+                //}
 
                 //sadge
                 if (_favor < -MaxFavor / 3f)
@@ -296,17 +310,31 @@ public class FavorManager : MonoBehaviour
                 }
                 break;
             case 1:
-                if (_favor >= MaxFavor)
+                if (!SceneInfo.IsTraining)
                 {
-                    if (!Services.Fighters[1].HasGoldenGoal)
+                    if (_favor >= MaxFavor)
                     {
-                        onGoldenGoalEnabled?.Invoke(1);
+                        if (!Services.Fighters[1].HasGoldenGoal)
+                        {
+                            onGoldenGoalEnabled?.Invoke(1);
+                        }
+                    }
+                    if (Services.Fighters[0].HasGoldenGoal)
+                    {
+                        onGoldenGoalDisabled?.Invoke(0);
                     }
                 }
-                if (Services.Fighters[0].HasGoldenGoal)
-                {
-                    onGoldenGoalDisabled?.Invoke(0);
-                }
+                //if (_favor >= MaxFavor)
+                //{
+                //    if (!Services.Fighters[1].HasGoldenGoal)
+                //    {
+                //        onGoldenGoalEnabled?.Invoke(1);
+                //    }
+                //}
+                //if (Services.Fighters[0].HasGoldenGoal)
+                //{
+                //    onGoldenGoalDisabled?.Invoke(0);
+                //}
 
                 //sadge
                 if (_favor > MaxFavor / 3f)
