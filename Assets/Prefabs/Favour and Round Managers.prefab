@@ -162,6 +162,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
+--- !u!224 &2320505643903067805 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8222238958817390753, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
+  m_PrefabInstance: {fileID: 5922045852713588284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &4079022576049156798 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7688995006843249794, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
+  m_PrefabInstance: {fileID: 5922045852713588284}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6143699051460668079 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 535252083858095251, guid: faf2539d74f9148fb887a314f2e97242, type: 3}
@@ -282,6 +292,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8241631294174416404, guid: f55fe3825d28440c994b25509b07ac44, type: 3}
+      propertyPath: _roundUIParents.Array.data[0]
+      value: 
+      objectReference: {fileID: 2320505643903067805}
+    - target: {fileID: 8241631294174416404, guid: f55fe3825d28440c994b25509b07ac44, type: 3}
+      propertyPath: _roundUIParents.Array.data[1]
+      value: 
+      objectReference: {fileID: 4079022576049156798}
     - target: {fileID: 8241631294174416405, guid: f55fe3825d28440c994b25509b07ac44, type: 3}
       propertyPath: m_Name
       value: Round Manager

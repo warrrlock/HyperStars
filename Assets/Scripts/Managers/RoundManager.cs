@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class RoundManager : MonoBehaviour
 {
     public bool InGame => !_disabledInput;
+    public bool RoundEnded => _roundEnded;
 
     [Header("Rounds meta")] 
     [SerializeField] private GameEvent _roundStartEvent;
@@ -56,7 +57,7 @@ public class RoundManager : MonoBehaviour
         _round = RoundInformation.round;
         
         SetupInitialVisuals();
-
+        Services.RoundManager = this;
         //m_Animator = gameObject.GetComponent<Animator>();
     }
 
@@ -93,6 +94,7 @@ public class RoundManager : MonoBehaviour
     {
         EnableAllInput();
         UnsubscribeEvents();
+        Services.RoundManager = null;
     }
     
     //used in event (inspector)
@@ -289,6 +291,7 @@ public class RoundManager : MonoBehaviour
     {
         foreach (Player player in Services.Players)
         {
+            player.PlayerInput.ActivateInput();
             player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
             player.PlayerInput.currentActionMap.Enable();
         }
