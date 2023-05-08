@@ -84,10 +84,14 @@ public class CharacterVFXManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "Game Scene") return;
         StartCoroutine(SubscribeGoldenGoalRoutine());
     }
-    IEnumerator SubscribeGoldenGoalRoutine()
+
+    public void UnsubsribeGoldenGoal()
     {
         Services.FavorManager.onGoldenGoalEnabled -= ctx => TurnOnGoldenGoal(ctx);
         Services.FavorManager.onGoldenGoalDisabled -= ctx => TurnOffGoldenGoal(ctx);
+    }
+    IEnumerator SubscribeGoldenGoalRoutine()
+    {
         yield return new WaitForSeconds(1f);
         Services.FavorManager.onGoldenGoalEnabled += ctx => TurnOnGoldenGoal(ctx);
         Services.FavorManager.onGoldenGoalDisabled += ctx => TurnOffGoldenGoal(ctx);
@@ -100,8 +104,6 @@ public class CharacterVFXManager : MonoBehaviour
         _fighter.Events.wallBounce -= WallWave;
         _fighter.Events.onHardKnockdown -= Dizzy;
         _fighter.Events.exitHardKnockdown -= StopDizzy;
-        Services.FavorManager.onGoldenGoalEnabled -= ctx => TurnOnGoldenGoal(ctx);
-        Services.FavorManager.onGoldenGoalDisabled -= ctx => TurnOffGoldenGoal(ctx);
         SceneReloader.OnSceneLoaded -= () => SubscribeGoldenGoal();
     }
 
