@@ -336,7 +336,8 @@ namespace UI
                     if (!player) continue;
                     player.PlayerInput.currentActionMap.Disable();
                     player.PlayerInput.ActivateInput();
-                    if (!_menuManager.IsMainMenu && (Services.RoundManager && Services.RoundManager.InGame)) 
+                    if (!_menuManager.IsMainMenu && (!Services.RoundManager ||
+                                                     (Services.RoundManager && Services.RoundManager.InGame))) 
                         player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
                 }
 
