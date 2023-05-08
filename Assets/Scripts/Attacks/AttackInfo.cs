@@ -73,6 +73,8 @@ public class AttackInfo
     [Tooltip("The duration between multi-hits.")]
     public float multiHitInterval;
 
+    public int framesTilHit;
+
     //public void Initialize(AttackInfoManager manager, int id)
     //{
     //    idSO = id;
