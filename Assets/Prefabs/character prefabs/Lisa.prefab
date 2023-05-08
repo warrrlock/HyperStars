@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 3013315635892402694}
   - component: {fileID: 4663626311462973836}
   - component: {fileID: 7411884658590553160}
+  - component: {fileID: 1167637606503559226}
   m_Layer: 9
   m_Name: Lisa
   m_TagString: Untagged
@@ -419,17 +420,26 @@ MonoBehaviour:
   pushDistance: 0
   pushDirection: {x: 0, y: 0, z: 0}
   _moveSpeed: 7
-  _maxJumpHeight: 7.5
-  _minJumpHeight: 7.5
-  _timeToJumpApex: 0.4
-  _dashForce: 25
+  _opponentPushSpeed: 0
+  _jumpDistance: {x: 0, y: 0}
+  _jumpDuration: 0
+  _gravity: 0
   _dashDistance: 6
   _dashDuration: 0.35
+  _shortDashDistance: 0
+  _shortDashDuration: 0
   _dashHangTime: 0.1
   _dashToZero: 1
-  _dashCooldownDuration: 0.2
+  _shortDashCooldownDuration: 0
+  _superDashCooldownDuration: 0
   _dashEasing: 0
   _dashMinimumOverlap: 2
+  _maxDashCharges: 0
+  _dashChargeCount: 0
+  _dashRechargeTime: 0
+  _rollDistance: 0
+  _rollDuration: 0
+  _secondaryForcePercentage: 0
   _collisionMask:
     serializedVersion: 2
     m_Bits: 2560
@@ -438,8 +448,8 @@ MonoBehaviour:
     m_Bits: 512
   _drawDebugRays: 1
   _overlapResolutionSpeed: 10
+  overlapResolutionVelocity: {x: 0, y: 0, z: 0}
   _mass: 1
-  _sidestepDuration: 0
   _physicsManager: {fileID: 11400000, guid: 53146b4e9c170482a8f7468c0c4907aa, type: 2}
   _yMask:
     serializedVersion: 2
@@ -447,6 +457,13 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
+  _wallMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  _flipDelayTime: 0
+  _move: {fileID: 0}
+  _dashes: []
+  _jump: {fileID: 0}
 --- !u!114 &5751411094791523318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,8 +490,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c17dfe1d76844155bf2fbe301b58ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fillMeter: {fileID: 0}
+  _meterBarPrefab: {fileID: 0}
   _numberOfBars: 3
+  _passiveIncrementAmount: 0
+  _unfilledColor: {r: 0, g: 0, b: 0, a: 0}
+  _filledColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &5751411094791523313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,9 +507,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2acacd9414cc545ecbb21276537cf7c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  States:
+    _keys: []
+    _values: []
+  _framesBeforeEnd: 5
   _stateInfoText: {fileID: 0}
   _initialState: {fileID: 11400000, guid: 5efa9bd8c2ae42349b3fc55b8881b214, type: 2}
   _jumpState: {fileID: 11400000, guid: b851dd0afb657ed438d80bb461ea18c0, type: 2}
+  _jumpLandState: {fileID: 0}
+  _crouchState: {fileID: 0}
+  _crouchUpState: {fileID: 0}
+  _hurtRollState: {fileID: 0}
+  _getUpState: {fileID: 0}
   _noEndEventClips:
   - {fileID: 7400000, guid: 238dbacff5646c64ca7becf136e5bd33, type: 2}
   - {fileID: 7400000, guid: 93a6df2a673403d42ae43d2dc197c325, type: 2}
@@ -530,16 +559,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98fadf1de1d3914caed4988ca46638a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxConfig: {fileID: 0}
+  parryOutlineColor: {r: 0, g: 0, b: 0, a: 0}
+  goldenGoalOutlineColor: {r: 0, g: 0, b: 0, a: 0}
   visualEffect: {fileID: 150122307463432837}
-  vfxGraphs:
-  - {fileID: 8926484042661614526, guid: 6ad3078fc940771408fb14f36c14c8ee, type: 3}
-  dashSmokeGroundOffset: 2.5
-  jumpSmokeGroundOffset: 1.95
+  actionSmokeGroundOffset: 0
+  airDashSmokeOffset: 0
+  _hasDelay: 0
   delayTime: 0.05
+  _dashStates: []
   _afterImageStates:
   - {fileID: 11400000, guid: acb861e23a3edf342a185fdaa0b50877, type: 2}
   - {fileID: 11400000, guid: 40b8f4fc95f6c4406897ca32c17058b3, type: 2}
   - {fileID: 11400000, guid: 324dd2a310326ec44ab4367f3168cfeb, type: 2}
+  _blurStates: []
 --- !u!114 &3013315635892402694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,78 +585,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb628fc536ffd14c977e1017273a695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackEvents:
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: abfd5dd450ef810498a7b31ab949dcf9, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: c51bb14a0291e9348b25d8fc0ead0af5, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 94e1c0acc540f8f4286f0831f209314c, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 45d168dc771bb764d83db932c56dede1, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: f336feb7a787b934bbb31870404082b3, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 8a0b1c4cde039044aa3c94cb362e406f, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 1af085a82ef15864dbe8bdf0b6ca95e8, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 0fbe3378fb5c32548b8c3d7f8253253e, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 2e68900ddab10a743878815c78baaf76, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 2a523dabba29f1a408c86b08e89d4b98, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 4f915540d52453e4fab45f8280aea06f, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3bbb5625c30e8a843a3aa3354f679184, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 85f50b9591b334a4a9378ca0d1f7bb38, type: 2}
-  movementEvents:
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 5249f756f2bc83e4eb3e1becb99c829a, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7bb8d388140c4994f868fb55755d00c8, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: c1b4891ddd9e3ae44bfe4448f9c4ce0c, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: afbc0153e493e2d4483875fe46675ea9, type: 2}
-  - idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3be3b6b60f1025046939451ec7a74963, type: 2}
-  wallBounceEvent:
+  CharacterSwitch:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: b4da54b9192c6254aa91093177c3c796, type: 2}
-  hurtLandEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: c59de4e7a91395b42b73d2f243a0251e, type: 2}
-  hitEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 31b72b73755c36b4eb46a338e72efb5c, type: 2}
-  blockEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 22de4c90f76bbbf45a40337a11ebd0ad, type: 2}
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  specialSwings: []
+  movements: []
+  normalDashes: []
+  superDashes: []
 --- !u!114 &4663626311462973836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,6 +623,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6cfa16c53b469448c01efef33fd715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1167637606503559226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5751411094791522315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5243a32046e4a249abf5500aa16c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pushAxis: 0
+  _pushType: 0
+  _skinWidth: 0
+  _isMoveable: 0
+  _rayCount: 3
+  _terrainType: 0
 --- !u!1 &5751411094795848295
 GameObject:
   m_ObjectHideFlags: 0

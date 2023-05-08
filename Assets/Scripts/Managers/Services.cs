@@ -20,4 +20,6 @@ public static class Services
     public static MusicManager MusicManager;
     public static TrainingRoomManager TrainingRoomManager;
     public static RoundManager RoundManager;
+
+    public static SoundVolumeManager SoundVolumeManager;
 }

@@ -825,6 +825,9 @@ MonoBehaviour:
   _xMask:
     serializedVersion: 2
     m_Bits: 2560
+  _wallMask:
+    serializedVersion: 2
+    m_Bits: 2048
   _flipDelayTime: 0.5
   _move: {fileID: 11400000, guid: e91327a451f98794f8b895020734fd45, type: 2}
   _dashes:
@@ -1116,6 +1119,18 @@ MonoBehaviour:
       - m_Target: {fileID: 4758508397103709927}
         m_TargetAssemblyTypeName: CharacterVFXManager, Assembly-CSharp
         m_MethodName: TurnOffSelfGoldenGoal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4758508397103709927}
+        m_TargetAssemblyTypeName: CharacterVFXManager, Assembly-CSharp
+        m_MethodName: UnsubsribeGoldenGoal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
