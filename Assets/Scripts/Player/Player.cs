@@ -135,9 +135,9 @@ public class Player: MonoBehaviour
         if (!FighterObject) FighterObject = Instantiate(Services.Characters[PlayerInput.playerIndex].CharacterPrefab, transform);
         FighterObject.GetComponent<ColorPicker>()?.SetMaterialColors(PaletteIndex);
         UnsetSelectionUI();
-        // PlayerInput.SwitchCurrentActionMap("UI");
-        // PlayerInput.currentActionMap.Disable();
-        // PlayerInput.SwitchCurrentActionMap(PlayerInput.defaultActionMap);
+        PlayerInput.SwitchCurrentActionMap("UI");
+        PlayerInput.currentActionMap.Disable();
+        PlayerInput.SwitchCurrentActionMap(PlayerInput.defaultActionMap);
     }
 
     private void ResetPlayer()

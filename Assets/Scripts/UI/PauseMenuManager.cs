@@ -56,10 +56,14 @@ namespace UI
         
         private Player _opener;
         private InputSystemUIInputModule _inputModule;
-        private int _currentTab;
-        private MenuManager _menuManager;
-        private int _maxTabs;
         private EventSystem _multiplayerEventSystem;
+        private EventSystem _prevEventSystem;
+        private MenuManager _menuManager;
+        private bool _onKeyboard;
+        
+        private int _currentTab;
+        private int _maxTabs;
+        
         private Slider[] _sliders = new Slider[5];
         private FullScreenMode[] _fullScreenModes = new FullScreenMode[4];
         private List<GameObject> _commandObjects;
@@ -67,8 +71,6 @@ namespace UI
 
         private Selectable[] _mainMenuSelectables;
         private GameObject _menuSelected;
-        private bool _onKeyboard;
-        private EventSystem _prevEventSystem;
 
         private void Awake()
         {
@@ -322,6 +324,7 @@ namespace UI
             // Debug.Log($"{f.name} opening pause menu");
             if (!_menu) return;
             if (_opener && p != _opener) return;
+            if (Services.RoundManager && Services.RoundManager.RoundEnded) return;
             
             if (_menu.activeSelf) //close menu
             {
@@ -333,7 +336,9 @@ namespace UI
                     if (!player) continue;
                     player.PlayerInput.currentActionMap.Disable();
                     player.PlayerInput.ActivateInput();
-                    if (!_menuManager.IsMainMenu) player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
+                    if (!_menuManager.IsMainMenu && (!Services.RoundManager ||
+                                                     (Services.RoundManager && Services.RoundManager.InGame))) 
+                        player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
                 }
 
                 EventSystem.current = _prevEventSystem;
