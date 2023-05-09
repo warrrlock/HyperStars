@@ -131,8 +131,8 @@ namespace UI
                 if (!Services.Players[i]) continue;
                 PlayerInput input = Services.Players[i].PlayerInput;
                 input.actions["Submit"].performed += (i == 0 ? DisplayP1 : DisplayP2);
-                input.actions["Esc"].performed += (i == 0 ? DisplayP1 : DisplayP2);
-                input.actions["Cancel"].performed += (i == 0 ? DisplayP1 : DisplayP2);
+                input.actions["Esc"].performed += (i == 0 ? DisplayP1 : DisplayP2); //player map
+                input.actions["Pause"].performed += (i == 0 ? DisplayP1 : DisplayP2); //ui map
                 input.actions["LBRB"].performed += NavigateTabController;
             }
         }
@@ -145,7 +145,7 @@ namespace UI
                 PlayerInput input = Services.Players[i].PlayerInput;
                 input.actions["Submit"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
                 input.actions["Esc"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
-                input.actions["Cancel"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
+                input.actions["Pause"].performed -= (i == 0 ? DisplayP1 : DisplayP2);
                 input.actions["LBRB"].performed -= NavigateTabController;
             }
         }
