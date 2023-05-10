@@ -685,8 +685,6 @@ public class MovementController : MonoBehaviour
                 newForce.time = timer;
                 //Debug.Log(newForce.time);
             }
-            //TODO: move somewhere else?
-            _inputManager.Actions["Roll"].finish.Invoke(_inputManager.Actions["Roll"]);
             if (!_inputManager.Actions["Move"].isBeingPerformed)
             {
                 _unforcedVelocity.x = 0f;
@@ -1369,6 +1367,13 @@ public class MovementController : MonoBehaviour
         //Debug.Log("roll");
         Vector2 rollDirection = _inputManager.Actions["Roll"].inputAction.ReadValue<float>() < 0f ? Vector2.left : Vector2.right;
         ApplyForce(rollDirection, _rollForce, _rollDuration, true);
+        StartCoroutine(Roll(_rollDuration));
+    }
+
+    private IEnumerator Roll(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        _inputManager.Actions["Roll"].finish.Invoke(_inputManager.Actions["Roll"]);
     }
 
     private Vector3 _sideJumpInputVector = Vector3.zero;
