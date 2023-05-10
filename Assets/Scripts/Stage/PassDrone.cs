@@ -21,6 +21,11 @@ public class PassDrone : MonoBehaviour
         _passAnimator = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        SubscribeEvents();
+    }
+
     public void StartCheck()
     {
         StartCoroutine(CheckPass());
@@ -29,6 +34,17 @@ public class PassDrone : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+        UnsubscribeEvents();
+    }
+
+    private void SubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized += StartCheck;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized -= StartCheck;
     }
 
     private void OnPassExited()
