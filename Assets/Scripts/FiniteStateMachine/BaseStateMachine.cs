@@ -307,7 +307,9 @@ namespace FiniteStateMachine {
 
         private void ExecuteRoll(InputManager.Action action)
         {
+            // Debug.Log("execute roll");
             CancelWaitToMove();
+            CancelAirRoutine();
             ForceSetState(_hurtRollState);
             CancelDisableTime();
         }
@@ -542,6 +544,15 @@ namespace FiniteStateMachine {
             _isAttacking = false;
             Fighter.MovementController.DisableAttackStop();
         }
+
+        private void CancelAirRoutine()
+        {
+            if (_airCoroutine != null)
+            {
+                StopCoroutine(_airCoroutine);
+                _airCoroutine = null;
+            }
+        }
         
         public void StartInAir(Action onGroundAction = null, bool setJumpReturnState = true)
         {
@@ -670,13 +681,6 @@ namespace FiniteStateMachine {
             Fighter.InputManager.EnableOneShot(Fighter.InputManager.Actions["Roll"]);
         }
 
-        private void EnableRecovery()
-        {
-            if (!_allowRecover) return;
-            // Debug.Log("enable recovery");
-            Fighter.InputManager.EnableOneShot(Fighter.InputManager.Actions["Roll"]);
-        }
-        
         private void DisableRecovery()
         {
             // Debug.Log($"disabling recovery for {Fighter.name}");
