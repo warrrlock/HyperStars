@@ -11,6 +11,8 @@ public class SunsetTransition : MonoBehaviour
     [Range(0, 1)] [SerializeField] private float skyboxBlend = 0;
     [Header("Values")]
     private Color _defaultFogColor;
+    private float _defaultSkyboxRotationSpeed;
+    [SerializeField] private float transitionSkyboxRotationSpeed = 32;
     [SerializeField, ColorUsage(false)] private Color sunsetFogColor;
 
     [Header("References")]
@@ -20,6 +22,7 @@ public class SunsetTransition : MonoBehaviour
     void Awake()
     {
         _defaultFogColor = RenderSettings.fogColor;
+        _defaultSkyboxRotationSpeed = VFXSpawnManager.skyboxRotationSpeed;
     }
     
     void Update()
@@ -27,17 +30,24 @@ public class SunsetTransition : MonoBehaviour
         RenderSettings.skybox.SetFloat("_TextureBlend", skyboxBlend);
         RenderSettings.fogColor = Color.Lerp(_defaultFogColor, sunsetFogColor, skyboxBlend);
         sunsetVolume.weight = skyboxBlend;
+        if (skyboxBlend > 0 && skyboxBlend < 1) VFXSpawnManager.skyboxRotationSpeed = transitionSkyboxRotationSpeed;
 
         // debug
-        if (Keyboard.current.pKey.wasPressedThisFrame)
-        {
-            GetComponent<Animator>().Play("SunsetLightTransition");
-        }
+        // if (Keyboard.current.pKey.wasPressedThisFrame)
+        // {
+        //     PlaySunset();
+        // }
     }
 
     public void PlaySunset()
     {
+        GetComponent<Animator>().Play("SunsetLightTransition");
         sunAnimator.Play("SunsetTransition");
+    }
+
+    public void ResetSkyboxRotationSpeed()
+    {
+        VFXSpawnManager.skyboxRotationSpeed = _defaultSkyboxRotationSpeed;
     }
 
     private void OnDisable()

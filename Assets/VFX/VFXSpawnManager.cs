@@ -32,8 +32,8 @@ public class VFXSpawnManager : MonoBehaviour
     [Header("Hit VFX Settings")]
     [SerializeField] private bool hitVFXUseUnscaledTime;
 
-    [Header("Skybox")]
-    [SerializeField] private float skyboxRotationSpeed;
+    // [Header("Skybox")]
+    [SerializeField] public static float skyboxRotationSpeed = 1;
     private float currentRotation;
 
     void Start()
