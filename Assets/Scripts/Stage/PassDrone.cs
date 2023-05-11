@@ -12,7 +12,7 @@ public class PassDrone : MonoBehaviour
         get => _passAnimator.GetCurrentAnimatorStateInfo(0).IsName(_dronePasses[0]) || _passAnimator.GetCurrentAnimatorStateInfo(0).IsName(_dronePasses[1]) || _passAnimator.GetCurrentAnimatorStateInfo(0).IsName(_dronePasses[2]);
     }
     private int _spawnChance = 20;
-    private int _chanceIncreaseDelta = 5;
+    private int _chanceIncreaseDelta = 7;
 
     [SerializeField] private DolphinAnimation _dolphinAnimation;
 
@@ -57,7 +57,7 @@ public class PassDrone : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(8f);
+            yield return new WaitForSeconds(6f);
             if (_dolphinAnimation.IsPlaying)
             {
                 continue;
@@ -69,7 +69,7 @@ public class PassDrone : MonoBehaviour
             if (Wrandom.RollPercentChance(_spawnChance))
             {
                 string passAnimation = _dronePasses.PickRandom();
-                _passAnimator.Play(passAnimation);
+                _passAnimator.Play(passAnimation,0);
                 yield break;
             }
             else
