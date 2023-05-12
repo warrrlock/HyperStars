@@ -349,12 +349,20 @@ public class MovementController : MonoBehaviour
                     _isOpponentBehind = true;
                     _nextFlipDirection = Fighter.Direction.Right;
                 }
+                else
+                {
+                    _isOpponentBehind = false;
+                }
                 break;
             case Fighter.Direction.Right:
                 if (_fighter.OpposingFighter.transform.position.x < transform.position.x)
                 {
                     _isOpponentBehind = true;
                     _nextFlipDirection = Fighter.Direction.Left;
+                }
+                else
+                {
+                    _isOpponentBehind = false;
                 }
                 break;
         }
