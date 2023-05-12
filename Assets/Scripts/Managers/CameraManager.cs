@@ -152,6 +152,53 @@ public class CameraManager : MonoBehaviour
         UnsubscribeEvents();
     }
 
+    public void FastForwardCutscene()
+    {
+        if (_hasFastForwardStarted)
+        {
+            return;
+        }
+        if (SceneInfo.IsTraining)
+        {
+            return;
+        }
+        if (RoundInformation.round != 1)
+        {
+            return;
+        }
+        if (_hasGameStarted)
+        {
+            return;
+        }
+        if (_hasCameraReachedDestination)
+        {
+            return;
+        }
+        _hasFastForwardStarted = true;
+
+        if (!_camera.enabled)
+        {
+            if (_cinemachineCamera) _cinemachineCamera.enabled = false;
+            _camera.enabled = true;
+            onCameraSwitch -= SwitchCamera;
+        }
+
+        StopAllCoroutines();
+        StartCoroutine(FastForwardedIntro());
+    }
+
+    private bool _hasFastForwardStarted = false;
+
+    private IEnumerator FastForwardedIntro()
+    {
+        SetCameraDestination();
+        _camera.transform.localPosition = _destination;
+        yield return new WaitForSeconds(_preUiDuration);
+
+        onCameraFinalized?.Invoke();
+        yield break;
+    }
+
     private void SetCameraDestination()
     {
         _targetsMidPointX = (_targets[0].position.x + _targets[1].position.x) / 2f;
@@ -268,11 +315,14 @@ public class CameraManager : MonoBehaviour
             _camera.transform.localPosition = Vector3.Lerp(_statueCameraPosition, _destination, timer / _initialZoomOutDuration);
         }
         _camera.transform.localPosition = _destination;
+        _hasCameraReachedDestination = true;
         yield return new WaitForSeconds(_preUiDuration);
 
         onCameraFinalized?.Invoke();
         yield break;
     }
+
+    private bool _hasCameraReachedDestination = false;
 
     /// <summary>
     /// Triggers camera shake
