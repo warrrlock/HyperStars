@@ -27,6 +27,17 @@ public class DolphinAnimation : MonoBehaviour
         {
             _spawnChance = 25;
         }
+        SubscribeEvents();
+    }
+
+    private void SubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized += StartCheck;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized -= StartCheck;
     }
 
     public void StartCheck()
@@ -37,6 +48,7 @@ public class DolphinAnimation : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+        UnsubscribeEvents();
     }
 
     private void OnDolphinExited()
