@@ -87,8 +87,9 @@ public class Fighter : MonoBehaviour
 
     private void ResetComponents()
     {
-        BaseStateMachine.ResetStateMachine();
+        InputManager.ResetValues();
         MovementController.ResetValues();
+        BaseStateMachine.ResetStateMachine();
         OverlapDetector.ReassignFighter();
         ResetFighterHurtboxes();
         SubscribeEvents();

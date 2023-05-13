@@ -39,9 +39,13 @@ public class SpecialMeterManager : MonoBehaviour
 
     public void ResetValues()
     {
-        StopAllCoroutines();
         SetupVisuals();
         StartPassiveIncrement();
+    }
+    
+    public void HandleRoundEnd()
+    {
+        StopAllCoroutines();
     }
 
     public void FillBars()
