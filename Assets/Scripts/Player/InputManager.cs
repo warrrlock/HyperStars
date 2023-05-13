@@ -136,7 +136,7 @@ public class InputManager : MonoBehaviour
 
     private void CreateDictionary()
     {
-        foreach(InputAction action in _playerInput.currentActionMap.actions)
+        foreach(InputAction action in _playerInput.actions)
         {
             Actions.Add(action.name, new Action(action.name));
             //InputState.AddChangeMonitor(action, new());
