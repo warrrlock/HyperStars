@@ -75,6 +75,7 @@ as a workaround for 2D Renderer not supporting features (prior to 2021.2). Uncom
 				// Set Source / Destination
 #if UNITY_2020_2_OR_NEWER // v10+
 				var renderer = renderingData.cameraData.renderer;
+				if (renderingData.cameraData.camera.cameraType == CameraType.Reflection) return;
 #else // v8
 				// For older versions, cameraData.renderer is internal so can't be accessed. Will pass it through from AddRenderPasses instead
 				var renderer = this.renderer;
