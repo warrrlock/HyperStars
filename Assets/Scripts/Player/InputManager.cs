@@ -155,6 +155,11 @@ public class InputManager : MonoBehaviour
             action.inputAction = context.action;
             if (context.action.WasPerformedThisFrame())
             {
+                if (context.action.name == "Submit")
+                {
+                    Services.CameraManager.FastForwardCutscene();
+                }
+
                 action.isBeingInput = true;
                 if (action.enableConditions.Count == 0 || action.enableConditions.TrueForAll(x => x()))
                 {
