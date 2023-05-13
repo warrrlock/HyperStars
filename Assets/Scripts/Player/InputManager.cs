@@ -136,7 +136,7 @@ public class InputManager : MonoBehaviour
 
     private void CreateDictionary()
     {
-        foreach(InputAction action in _playerInput.actions)
+        foreach(InputAction action in _playerInput.currentActionMap.actions)
         {
             Actions.Add(action.name, new Action(action.name));
             //InputState.AddChangeMonitor(action, new());
@@ -405,7 +405,13 @@ public class InputManager : MonoBehaviour
     {
         foreach (KeyValuePair<string, Action> pair in Actions)
         {
-            pair.Value.disabledCount = 0;
+            Action action = pair.Value;
+            if (pair.Value.queuePerform != null)
+            {
+                action.isBeingInput = false;
+                StopCoroutine(action.queuePerform);
+            }
+            action.disabledCount = 0;
         }
     }
 
