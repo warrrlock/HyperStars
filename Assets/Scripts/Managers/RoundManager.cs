@@ -49,6 +49,10 @@ public class RoundManager : MonoBehaviour
     private int _round;
     private bool _disabledInput;
     private bool _roundEnded;
+    
+    // Sunset
+    [Header("Sunset Control")] [SerializeField]
+    private SunsetTransition _sunsetTransition;
 
     private void Awake()
     {
@@ -199,6 +203,9 @@ public class RoundManager : MonoBehaviour
     {
         if (!_countdownText) yield break;
         _countdownText.gameObject.SetActive(true);
+        
+        //sunset
+        if (_round == 3) _sunsetTransition.PlaySunset();
 
         //begin count down
         _countdownText.text = $"Round {_round}";

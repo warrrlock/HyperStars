@@ -14,9 +14,25 @@ public class GlideDrone : MonoBehaviour
         _glideAnimator = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        SubscribeEvents();
+    }
+
     private void OnDestroy()
     {
         StopAllCoroutines();
+        UnsubscribeEvents();
+    }
+
+    private void SubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized += StartCheck;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        Services.CameraManager.onCameraFinalized -= StartCheck;
     }
 
     public void StartCheck()
