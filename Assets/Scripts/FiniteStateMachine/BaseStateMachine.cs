@@ -189,7 +189,7 @@ namespace FiniteStateMachine {
 
         public void BypassQueuing(BaseState state)
         {
-            CurrentState = _initialState;
+            CurrentState = state;
         }
         
         private void SubscribeActions()
@@ -251,7 +251,7 @@ namespace FiniteStateMachine {
             if (_endOfGame || _rejectInput || CurrentState is HurtState) return;
             LastInvokedInput = action;
 
-            // Debug.Log(this.name + " invoked " + action.name + " with current State: " + CurrentState.name);
+            // Debug.Log($"{name}  invoked {action.name} with current State: {CurrentState.name}");
             //TODO: should wait until idle from crouch to begin queuing attacks, or go straight into attack?
             // if (!_holdingCrouch && CurrentState.IsCrouchState) return; //waiting to return to idle. otherwise, go to queue execute
             if (_holdingCrouch && !CurrentState.IsCrouchState)

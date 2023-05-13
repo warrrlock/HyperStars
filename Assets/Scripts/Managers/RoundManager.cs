@@ -120,11 +120,12 @@ public class RoundManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         //if a player has queued another attack, it doesn't play
-        Services.Fighters[winner].BaseStateMachine.SetEndOfGame();
         Services.Fighters[winner].MovementController.ResetValues();
         foreach (Fighter fighter in Services.Fighters)
         {
             fighter.BaseStateMachine.ClearQueues();
+            fighter.BaseStateMachine.SetEndOfGame();
+            fighter.SpecialMeterManager.HandleRoundEnd();
         }
 
         HandleAddWinTo(winner);
@@ -175,7 +176,7 @@ public class RoundManager : MonoBehaviour
         machine.ExecuteDisableTime();
         machine.IgnoreExecuteState = true;
         
-        if (machine.CurrentState is HurtState { HurtType: KeyHurtStatePair.HurtStateName.HitStun })
+        if (machine.CurrentState is HurtState { HurtType: KeyHurtStatePair.HurtStateName.HitStun } or not HurtState)
         {
             machine.BypassQueuing(Services.Characters[player].LoseState);
             Services.Fighters[player].MovementController.ApplyForce(Vector3.up, 30f, 1f, true);
@@ -279,8 +280,6 @@ public class RoundManager : MonoBehaviour
         }
         _roundStartEvent.Raise(new Dictionary<string, object>());
         yield return new WaitForFixedUpdate();
-        foreach (Fighter fighter in Services.Fighters)
-            fighter.InputManager.ResetValues();
     }
 
     private void DisableAllInput()
@@ -298,6 +297,7 @@ public class RoundManager : MonoBehaviour
     {
         foreach (Player player in Services.Players)
         {
+            if (!player) continue;
             player.PlayerInput.ActivateInput();
             player.PlayerInput.SwitchCurrentActionMap(player.PlayerInput.defaultActionMap);
             player.PlayerInput.currentActionMap.Enable();
