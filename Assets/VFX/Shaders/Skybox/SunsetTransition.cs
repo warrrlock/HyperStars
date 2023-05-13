@@ -8,21 +8,23 @@ using UnityEngine.Rendering.Universal;
 
 public class SunsetTransition : MonoBehaviour
 {
+    [SerializeField] private bool isDebugging;
     [Range(0, 1)] [SerializeField] private float skyboxBlend = 0;
     [Header("Values")]
     private Color _defaultFogColor;
-    private float _defaultSkyboxRotationSpeed;
+    [SerializeField] private float defaultSkyboxRotationSpeed;
     [SerializeField] private float transitionSkyboxRotationSpeed = 32;
     [SerializeField, ColorUsage(false)] private Color sunsetFogColor;
 
     [Header("References")]
     [SerializeField] private Animator sunAnimator;
     [SerializeField] private Volume sunsetVolume;
+    [SerializeField] private ReflectionProbe[] reflectionProbes;
 
     void Awake()
     {
         _defaultFogColor = RenderSettings.fogColor;
-        _defaultSkyboxRotationSpeed = VFXSpawnManager.skyboxRotationSpeed;
+        VFXSpawnManager.skyboxRotationSpeed = defaultSkyboxRotationSpeed;
     }
     
     void Update()
@@ -33,21 +35,33 @@ public class SunsetTransition : MonoBehaviour
         if (skyboxBlend > 0 && skyboxBlend < 1) VFXSpawnManager.skyboxRotationSpeed = transitionSkyboxRotationSpeed;
 
         // debug
-        // if (Keyboard.current.pKey.wasPressedThisFrame)
-        // {
-        //     PlaySunset();
-        // }
+        if (!isDebugging) return;
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            PlaySunset();
+        }
     }
 
     public void PlaySunset()
     {
+        // handle reflections
+        foreach (var probe in reflectionProbes)
+        {
+            probe.mode = ReflectionProbeMode.Realtime;
+            probe.refreshMode = ReflectionProbeRefreshMode.EveryFrame;
+        }
         GetComponent<Animator>().Play("SunsetLightTransition");
         sunAnimator.Play("SunsetTransition");
     }
 
-    public void ResetSkyboxRotationSpeed()
+    public void SunsetFinished()
     {
-        VFXSpawnManager.skyboxRotationSpeed = _defaultSkyboxRotationSpeed;
+        // handle reflections
+        foreach (var probe in reflectionProbes)
+        {
+            probe.refreshMode = ReflectionProbeRefreshMode.OnAwake;
+        }
+        VFXSpawnManager.skyboxRotationSpeed = defaultSkyboxRotationSpeed;
     }
 
     private void OnDisable()
