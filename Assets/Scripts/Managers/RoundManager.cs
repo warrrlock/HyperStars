@@ -125,6 +125,7 @@ public class RoundManager : MonoBehaviour
         {
             fighter.BaseStateMachine.ClearQueues();
             fighter.BaseStateMachine.SetEndOfGame();
+            fighter.SpecialMeterManager.HandleRoundEnd();
         }
 
         HandleAddWinTo(winner);
