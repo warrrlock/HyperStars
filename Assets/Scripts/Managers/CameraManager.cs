@@ -32,6 +32,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _initialZoomOutDuration;
     [Tooltip("How long between the game camera reaching its destination and the UI elements appearing.")]
     [SerializeField] private float _preUiDuration;
+    [SerializeField] private float _uiActivationDelay;
 
     private Camera _camera;
     private CameraController _controller;
@@ -196,6 +197,13 @@ public class CameraManager : MonoBehaviour
         yield return new WaitForSeconds(_preUiDuration);
 
         onCameraFinalized?.Invoke();
+        yield return new WaitForSeconds(_uiActivationDelay);
+
+        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        {
+            ActivateUi();
+        }
+        
         yield break;
     }
 
@@ -259,20 +267,20 @@ public class CameraManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
-        {
-            onCameraFinalized += ActivateUi;
-        }
+        // if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        // {
+        //     onCameraFinalized += ActivateUi;
+        // }
         onCameraSwitch += SwitchCamera;
         onCameraFinalized += FinalizeCamera;
     }
 
     private void UnsubscribeEvents()
     {
-        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
-        {
-            onCameraFinalized -= ActivateUi;
-        }
+        // if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        // {
+        //     onCameraFinalized -= ActivateUi;
+        // }
         onCameraSwitch -= SwitchCamera;
         onCameraFinalized -= FinalizeCamera;
     }
@@ -319,6 +327,12 @@ public class CameraManager : MonoBehaviour
         yield return new WaitForSeconds(_preUiDuration);
 
         onCameraFinalized?.Invoke();
+        yield return new WaitForSeconds(_uiActivationDelay);
+
+        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        {
+            ActivateUi();
+        }
         yield break;
     }
 

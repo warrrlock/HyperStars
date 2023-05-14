@@ -23,6 +23,6 @@ public class Live2DEffects : MonoBehaviour
             Services.Fighters[0].GetComponent<SpriteRenderer>().material, 
             Services.Fighters[1].GetComponent<SpriteRenderer>().material
         };
-        Services.CameraManager.SilhouetteToggle(true, mats, new Color(0, 0, 0), .5f, .35f);
+        Services.CameraManager.SilhouetteToggle(true, mats, new Color(0, 0, 0), .5f, .3f);
     }
 }
