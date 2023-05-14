@@ -15,7 +15,7 @@ public class Grass : MonoBehaviour
     public int meshResolution = 3;
     public int randomSeed = 12345;
 
-    public GameObject displacer;
+    // public GameObject displacer;
 
     [ContextMenu("Update Mesh")]
     void UpdateMesh()
@@ -32,8 +32,8 @@ public class Grass : MonoBehaviour
 
     void Update()
     {
-        Renderer r = GetComponent<Renderer>();
-        r.material.SetVector("_PushOrigin", displacer.transform.position);
+        // Renderer r = GetComponent<Renderer>();
+        // r.material.SetVector("_PushOrigin", displacer.transform.position);
     }
 
     void OnValidate()

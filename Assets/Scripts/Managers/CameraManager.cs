@@ -490,9 +490,24 @@ public class CameraManager : MonoBehaviour
         silhouetteMaterial.SetColor("_SilhouetteColor", silhouetteColor);
         foreach (var mat in materials)
         {
-            mat.SetFloat("_SilhouetteStrength", isOn ? 1 : 0);
+            if (mat.HasFloat("_SilhouetteStrength"))
+                mat.SetFloat("_SilhouetteStrength", isOn ? 1 : 0);
         }
         silhouetteMaterial.SetFloat("_SilhouetteAlpha", isOn ? 1 : 0);
+        if (isOn) StartCoroutine(SilhouetteTurnOff(silhouetteDuration));
+    }
+    
+    public void SilhouetteToggle(bool isOn, Material[] materials, Color silhouetteColor, float silhouetteDuration, float silhouetteAlpha)
+    {
+        LayerCullingShow(silhouetteCamera, "Player");
+        bothMats = materials;
+        silhouetteMaterial.SetColor("_SilhouetteColor", silhouetteColor);
+        foreach (var mat in materials)
+        {
+            if (mat.HasFloat("_SilhouetteStrength"))
+                mat.SetFloat("_SilhouetteStrength", isOn ? 1 : 0);
+        }
+        silhouetteMaterial.SetFloat("_SilhouetteAlpha", isOn ? silhouetteAlpha : 0);
         if (isOn) StartCoroutine(SilhouetteTurnOff(silhouetteDuration));
     }
     
