@@ -22,14 +22,19 @@ public class ObjectJumpy : MonoBehaviour
     private float platInitHeight;
 
     private MusicManager musicMan;
+    public bool menuMode;
+
     private void Awake()
     {
         
     }
     void Start()
     {
-        crowdManager = GameObject.Find("CrowdManager").GetComponent<CrowdManager>();
-        musicMan = crowdManager.musicManager;
+        if (!menuMode)
+        {
+            crowdManager = GameObject.Find("CrowdManager").GetComponent<CrowdManager>();
+            musicMan = crowdManager.musicManager;
+        }
 
         if (onPlat)
         {
@@ -50,7 +55,7 @@ public class ObjectJumpy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (musicMan.Impressed)
+        if (!menuMode&&musicMan.Impressed)
             jumpHeight = Mathf.Abs(height * 1.8f * Mathf.Sin(speed * 1.8f * Time.realtimeSinceStartup));
         else
             jumpHeight = Mathf.Abs(height * Mathf.Sin(speed * Time.realtimeSinceStartup));
