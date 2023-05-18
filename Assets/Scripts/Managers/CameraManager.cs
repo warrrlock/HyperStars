@@ -32,6 +32,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _initialZoomOutDuration;
     [Tooltip("How long between the game camera reaching its destination and the UI elements appearing.")]
     [SerializeField] private float _preUiDuration;
+    [SerializeField] private float _uiActivationDelay;
 
     private Camera _camera;
     private CameraController _controller;
@@ -196,6 +197,13 @@ public class CameraManager : MonoBehaviour
         yield return new WaitForSeconds(_preUiDuration);
 
         onCameraFinalized?.Invoke();
+        yield return new WaitForSeconds(_uiActivationDelay);
+
+        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        {
+            ActivateUi();
+        }
+        
         yield break;
     }
 
@@ -259,20 +267,20 @@ public class CameraManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
-        {
-            onCameraFinalized += ActivateUi;
-        }
+        // if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        // {
+        //     onCameraFinalized += ActivateUi;
+        // }
         onCameraSwitch += SwitchCamera;
         onCameraFinalized += FinalizeCamera;
     }
 
     private void UnsubscribeEvents()
     {
-        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
-        {
-            onCameraFinalized -= ActivateUi;
-        }
+        // if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        // {
+        //     onCameraFinalized -= ActivateUi;
+        // }
         onCameraSwitch -= SwitchCamera;
         onCameraFinalized -= FinalizeCamera;
     }
@@ -319,6 +327,12 @@ public class CameraManager : MonoBehaviour
         yield return new WaitForSeconds(_preUiDuration);
 
         onCameraFinalized?.Invoke();
+        yield return new WaitForSeconds(_uiActivationDelay);
+
+        if (RoundInformation.round == 1 && !SceneInfo.IsTraining)
+        {
+            ActivateUi();
+        }
         yield break;
     }
 
@@ -490,9 +504,24 @@ public class CameraManager : MonoBehaviour
         silhouetteMaterial.SetColor("_SilhouetteColor", silhouetteColor);
         foreach (var mat in materials)
         {
-            mat.SetFloat("_SilhouetteStrength", isOn ? 1 : 0);
+            if (mat.HasFloat("_SilhouetteStrength"))
+                mat.SetFloat("_SilhouetteStrength", isOn ? 1 : 0);
         }
         silhouetteMaterial.SetFloat("_SilhouetteAlpha", isOn ? 1 : 0);
+        if (isOn) StartCoroutine(SilhouetteTurnOff(silhouetteDuration));
+    }
+    
+    public void SilhouetteToggle(bool isOn, Material[] materials, Color silhouetteColor, float silhouetteDuration, float silhouetteAlpha)
+    {
+        LayerCullingShow(silhouetteCamera, "Player");
+        bothMats = materials;
+        silhouetteMaterial.SetColor("_SilhouetteColor", silhouetteColor);
+        foreach (var mat in materials)
+        {
+            if (mat.HasFloat("_SilhouetteStrength"))
+                mat.SetFloat("_SilhouetteStrength", isOn ? 1 : 0);
+        }
+        silhouetteMaterial.SetFloat("_SilhouetteAlpha", isOn ? silhouetteAlpha : 0);
         if (isOn) StartCoroutine(SilhouetteTurnOff(silhouetteDuration));
     }
     

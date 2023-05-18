@@ -35,6 +35,9 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private GameObject _roundUIPrefab;
     [SerializeField] private AK.Wwise.Switch[] _roundSwitches;
     [SerializeField] private AK.Wwise.Event[] _roundAnnouncerSFXEvents;
+    [SerializeField] private Animator _roundLive2D;
+    [SerializeField] private string[] _roundAnimTriggers;
+    [SerializeField] private Image _koImage;
     private List<Image[]> _roundUI;
     private Image[] _p0RoundUI;
     private Image[] _p1RoundUI;
@@ -58,6 +61,8 @@ public class RoundManager : MonoBehaviour
     {
         if (_buttons) _buttons.SetActive(false);
         if (_roundText) _roundText.gameObject.SetActive(false);
+        if (_koImage) _koImage.gameObject.SetActive(false);
+        if (_roundLive2D) _roundLive2D.gameObject.SetActive(false);
         _round = RoundInformation.round;
         
         SetupInitialVisuals();
@@ -203,34 +208,29 @@ public class RoundManager : MonoBehaviour
     private IEnumerator StartRound()
     {
         if (!_countdownText) yield break;
-        _countdownText.gameObject.SetActive(true);
         
         //sunset
         if (_round == 3) _sunsetTransition.PlaySunset();
 
         //begin count down
-        _countdownText.text = $"Round {_round}";
+        _roundLive2D.gameObject.SetActive(true);
+        _roundLive2D.SetTrigger(_roundAnimTriggers[_round-1]);
         _roundSwitches[Mathf.Clamp(_round - 1, 0, 2)].SetValue(gameObject);
         _roundAnnouncerSFXEvents[0].Post(gameObject);
-        yield return new WaitForSeconds(1.0f);
-        if (RoundInformation.MatchPoint)
-        {
-            _countdownText.text = "Match point!";
-            yield return new WaitForSeconds(0.8f);
-        }
-
+        
+        yield return new WaitForSeconds(1.5f);
+        _roundLive2D.gameObject.SetActive(false);
+        
+        if (_countdown > 0) _countdownText.gameObject.SetActive(true);
         for (int i = _countdown; i > 0; i--)
         {
             HandleCountDown(i);
             yield return new WaitForSeconds(1.0f);
         }
-        
-        //TODO: any necessary UI
-        
+
         //start time/movement
         _showtimeScript.begin = 1;
-        _countdownText.gameObject.SetActive(false);   //_countdownText.text = _startText;
-        
+        _countdownText.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -262,8 +262,12 @@ public class RoundManager : MonoBehaviour
             EndGame();
             yield break;
         }
-        
-        if (_roundText)
+
+        if (_koImage)
+        {
+            _koImage.gameObject.SetActive(true);
+        }
+        else if (_roundText)
         {
             _roundText.gameObject.SetActive(true);
             _roundText.text = winner == -1 ? "Tie!" : _knockoutText == "" ? $"Player{winner+1} won the round!" : _knockoutText;
