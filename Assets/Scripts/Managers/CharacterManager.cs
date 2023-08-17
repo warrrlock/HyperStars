@@ -15,7 +15,7 @@ namespace Managers
     [CreateAssetMenu(menuName = "ScriptableObjects/Character Manager")]
     public class CharacterManager: ScriptableObject
     {
-        public enum CharacterSelection {None, Lisa, Bluk}
+        public enum CharacterSelection {None, Lisa, Bluk, Byeol}
         [SerializeField] private List<KeyCharacterPair> _characterObjects;
 
         public Dictionary<CharacterSelection, Character> Characters => _characterObjects.ToDictionary(
