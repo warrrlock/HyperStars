@@ -10,7 +10,7 @@ using UnityEngine.UI;
 [Serializable]
 class SelectionAssets
 {
-    public CharacterManager.CharacterSelection character;
+    public CharacterManager.CharacterName character;
     public string animStateName;
     public CharacterColorScriptable palette;
 }
@@ -70,14 +70,14 @@ public class CharacterButtonsPlayer: MonoBehaviour
     
     public void SelectLisa()
     {
-        _characterManager.Characters.TryGetValue(CharacterManager.CharacterSelection.Lisa, out Character character);
+        _characterManager.Characters.TryGetValue(CharacterManager.CharacterName.Lisa, out Character character);
         selectedCharacterSwitch = characterSwitches[0];
         SelectCharacter(character);
     }
 
     public void SelectBluk()
     {
-        _characterManager.Characters.TryGetValue(CharacterManager.CharacterSelection.Bluk, out Character character);
+        _characterManager.Characters.TryGetValue(CharacterManager.CharacterName.Bluk, out Character character);
         selectedCharacterSwitch = characterSwitches[1];
         SelectCharacter(character);
     }
