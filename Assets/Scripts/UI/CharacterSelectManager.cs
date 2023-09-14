@@ -14,7 +14,7 @@ namespace UI
     [Serializable]
     class CharacterButtonPair
     {
-        public CharacterManager.CharacterSelection character;
+        public CharacterManager.CharacterName character;
         public CharacterButtonAssets button;
     }
 
@@ -55,7 +55,7 @@ namespace UI
             }
         }
 
-        public void UpdateSelection(string character, CharacterManager.CharacterSelection button, int player)
+        public void UpdateSelection(string character, CharacterManager.CharacterName button, int player)
         {
             _playerCharacterNames[player].text = character;
             CharacterButtonPair buttonPair = _characterButtons.Find(c => c.character == button);

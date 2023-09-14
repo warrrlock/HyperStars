@@ -34,10 +34,10 @@ public class StateMachineEditor : EditorWindow
     private static readonly Vector2 PopupSize = new Vector2(200, 150);
 
     private Character _character;
-    private CharacterManager.CharacterSelection _characterSelection;
+    private CharacterManager.CharacterName _characterSelection;
     private CharacterManager _characterManager;
     private int _selectedCharacterIndex = 0;
-    private readonly string[] _characterOptions = Enum.GetNames(typeof(CharacterManager.CharacterSelection))
+    private readonly string[] _characterOptions = Enum.GetNames(typeof(CharacterManager.CharacterName))
         .Where(o => !o.Equals("None", StringComparison.OrdinalIgnoreCase)).ToArray();
 
     private List<StateNode> _filteredStateNodes;
@@ -87,7 +87,7 @@ public class StateMachineEditor : EditorWindow
         try
         {
             LoadCharacterManager();
-            SetCharacter(CharacterManager.CharacterSelection.None);
+            SetCharacter(CharacterManager.CharacterName.None);
         }
         catch (Exception e)
         {
@@ -729,21 +729,21 @@ public class StateMachineEditor : EditorWindow
 
     private void SetCharacter(string characterString)
     {
-        foreach (CharacterManager.CharacterSelection enumObj in Enum.GetValues(typeof(CharacterManager.CharacterSelection)))
+        foreach (CharacterManager.CharacterName enumObj in Enum.GetValues(typeof(CharacterManager.CharacterName)))
         {
             if (!characterString.Equals(enumObj.ToString())) continue;
             SetCharacter(enumObj);
         }
     }
 
-    private void SetCharacter(CharacterManager.CharacterSelection selection)
+    private void SetCharacter(CharacterManager.CharacterName selection)
     {
         if (_characterManager.Characters.Count <= 0)
             throw new Exception("no characters exist in the character manager." +
                                 "Please ensure there is at least one character in existence.");
         
-        CharacterManager.CharacterSelection temp = selection;
-        selection = selection == CharacterManager.CharacterSelection.None
+        CharacterManager.CharacterName temp = selection;
+        selection = selection == CharacterManager.CharacterName.None
             ? _characterManager.Characters.First().Key
             : selection;
         
@@ -753,7 +753,7 @@ public class StateMachineEditor : EditorWindow
         
         _characterSelection = selection;
         SetCharacterPath(_character.name);
-        if (temp == CharacterManager.CharacterSelection.None)
+        if (temp == CharacterManager.CharacterName.None)
             SetCharacterTab(selection.ToString());
         CreateNodesForExistingAssets();
         _selectedFilters = new List<FSMFilter>();

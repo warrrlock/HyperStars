@@ -71,7 +71,7 @@ public class FsmListDrawer: PropertyDrawer
             path, _attribute.type, action);
     }
 
-    private void LoadCharacter(CharacterManager.CharacterSelection selection)
+    private void LoadCharacter(CharacterManager.CharacterName selection)
     {
         if (!_characterManager) LoadCharacterManager();
         _characterManager.Characters.TryGetValue(selection, out _character);

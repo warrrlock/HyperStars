@@ -20,7 +20,7 @@ namespace FiniteStateMachine
     public abstract class BaseState : ScriptableObject
     {
         [Header("Meta")]
-        [FormerlySerializedAs("character")] public CharacterManager.CharacterSelection characterSelection = CharacterManager.CharacterSelection.None;
+        [FormerlySerializedAs("character")] public CharacterManager.CharacterName characterSelection = CharacterManager.CharacterName.None;
         [Tooltip("allow this state to ignore hit confirming, and always animation cancel when possible.")]
         [SerializeField] protected bool _bypassHitConfirm;
         [SerializeField] private bool _isCrouchState;
